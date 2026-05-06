@@ -69,23 +69,37 @@ class SectorClassifier:
         """
         Build embeddings for sector descriptions.
 
+        Each sector vector is the average of:
+          1. The name + description embedding
+          2. The seed-keywords-only embedding (all seeds, not just 10)
+
+        Averaging the two gives more discriminative power to narrow sectors
+        (e.g. dental within Health-Q) whose seeds are very specific.
+
         Returns:
             Dictionary mapping sector codes to embeddings
         """
         sector_embeddings = {}
 
         for code, sector_info in self.sectors_info.items():
-            # Combine sector name, description, and seed keywords
             name = sector_info.get('name', '')
             description = sector_info.get('description', '')
             seed_keywords = sector_info.get('seed_keywords', [])
 
-            # Create comprehensive sector text
-            sector_text = f"{name}. {description}. Key terms: {', '.join(seed_keywords[:10])}"
+            # --- Embedding 1: name + description ---
+            desc_text = f"{name}. {description}"
+            desc_emb = self.embedding_service.embed_text(desc_text)
 
-            # Generate embedding
-            embedding = self.embedding_service.embed_text(sector_text)
-            sector_embeddings[code] = embedding
+            if seed_keywords:
+                # --- Embedding 2: all seeds joined as a sentence ---
+                seed_text = ", ".join(seed_keywords)
+                seed_emb = self.embedding_service.embed_text(seed_text)
+                # Average the two for a balanced sector vector
+                combined = np.mean(np.vstack([desc_emb, seed_emb]), axis=0)
+            else:
+                combined = desc_emb
+
+            sector_embeddings[code] = combined
 
         return sector_embeddings
 

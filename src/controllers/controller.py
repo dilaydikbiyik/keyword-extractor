@@ -11,7 +11,11 @@ Orchestrates the complete keyword extraction pipeline:
 
 from typing import List, Dict, Optional, Tuple
 import logging
+import json
+import os
+import time
 from datetime import datetime
+from pathlib import Path
 
 
 class ExtractionController:
@@ -172,7 +176,9 @@ class ExtractionController:
         texts: List[str],
         top_n_keywords: int = 10,
         use_validation: bool = False,
-        show_progress: bool = True
+        show_progress: bool = True,
+        save_report: bool = False,
+        report_dir: str = "output",
     ) -> List[Dict]:
         """
         Extract keywords from multiple texts.
@@ -182,11 +188,14 @@ class ExtractionController:
             top_n_keywords: Number of keywords per text
             use_validation: Whether to use LLM validation
             show_progress: Whether to show progress
+            save_report: If True, persist a JSON summary to *report_dir*
+            report_dir: Directory to write the report file
 
         Returns:
             List of extraction results
         """
         self.logger.info(f"Starting batch extraction for {len(texts)} texts...")
+        batch_start = time.time()
 
         results = []
 
@@ -194,15 +203,23 @@ class ExtractionController:
             if show_progress:
                 print(f"Processing {i + 1}/{len(texts)}...")
 
+            t0 = time.time()
             result = self.extract(
                 text,
                 top_n_keywords=top_n_keywords,
                 use_validation=use_validation
             )
-
+            result["processing_time_ms"] = round((time.time() - t0) * 1000, 1)
             results.append(result)
 
-        self.logger.info(f"Batch extraction completed. Processed {len(texts)} texts.")
+        batch_elapsed = round(time.time() - batch_start, 2)
+        self.logger.info(
+            f"Batch extraction completed. Processed {len(texts)} texts "
+            f"in {batch_elapsed}s."
+        )
+
+        if save_report:
+            self.save_batch_report(results, output_dir=report_dir)
 
         return results
 
@@ -281,6 +298,62 @@ class ExtractionController:
             'avg_confidence': avg_confidence,
             'sector_distribution': sector_counts
         }
+
+    def save_batch_report(
+        self,
+        results: List[Dict],
+        output_dir: str = "output",
+    ) -> str:
+        """
+        Save a full batch summary report to *output_dir* as a JSON file.
+
+        The report contains:
+          - Run metadata (timestamp, total documents, success rate)
+          - Aggregate statistics from get_extraction_stats()
+          - Per-document results (sector, language, keywords, timing)
+
+        Args:
+            results: List of extraction results from extract_batch()
+            output_dir: Directory to write the report file
+
+        Returns:
+            Absolute path of the written report file
+        """
+        Path(output_dir).mkdir(parents=True, exist_ok=True)
+        stats = self.get_extraction_stats(results)
+
+        # Build per-document summary (keep it compact)
+        docs_summary = []
+        for r in results:
+            doc = {
+                "status": r.get("status"),
+                "language": r.get("language"),
+                "sector": r.get("sector_classification", {}).get("top_sector"),
+                "confidence": (
+                    r.get("sector_classification", {}
+                         ).get("classifications", [{}])[0].get("confidence") or 0.0
+                    if r.get("sector_classification", {}).get("classifications")
+                    else 0.0
+                ),
+                "keywords": [kw.get("keyword") for kw in r.get("keywords", [])],
+                "processing_time_ms": r.get("processing_time_ms"),
+                "error": r.get("error"),
+            }
+            docs_summary.append(doc)
+
+        report = {
+            "run_timestamp": datetime.now().isoformat(),
+            "statistics": stats,
+            "documents": docs_summary,
+        }
+
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        out_path = os.path.join(output_dir, f"batch_report_{timestamp}.json")
+        with open(out_path, "w", encoding="utf-8") as f:
+            json.dump(report, f, ensure_ascii=False, indent=2)
+
+        self.logger.info(f"Batch report saved to {out_path}")
+        return out_path
 
     def configure(self, config: Dict):
         """

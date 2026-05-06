@@ -5,12 +5,24 @@
       "nace_code": "A",
       "description": "Tarım, ormancılık ve balıkçılık",
       "seed_keywords": [
-        "Landwirtschaft", "Ackerbau", "Viehzucht", "Forstwirtschaft", "Fischerei",
-        "landwirtschaftliche Produktion", "Pflanzenbau", "Tierhaltung", "Forstbetrieb",
-        "Fischzucht", "Agrarprodukte", "Ernte", "Bewässerung"
+        "Landwirtschaft",
+        "Ackerbau",
+        "Viehzucht",
+        "Forstwirtschaft",
+        "Fischerei",
+        "landwirtschaftliche Produktion",
+        "Pflanzenbau",
+        "Tierhaltung",
+        "Forstbetrieb",
+        "Fischzucht",
+        "Agrarprodukte",
+        "Ernte",
+        "Bewässerung"
       ],
       "negative_keywords": [
-        "Maschinenbau", "Lebensmittelverarbeitung", "Agrartechnik"
+        "Maschinenbau",
+        "Lebensmittelverarbeitung",
+        "Agrartechnik"
       ]
     },
     "B": {
@@ -18,26 +30,56 @@
       "nace_code": "B",
       "description": "Madencilik ve taş ocakları",
       "seed_keywords": [
-        "Bergbau", "Tagebau", "Steinkohle", "Erz", "Mineralien",
-        "Steinbruch", "Sand", "Kies", "Ton", "Gips",
-        "Öl", "Gas", "Erdgasförderung", "Rohstoffgewinnung"
+        "Bergbau",
+        "Tagebau",
+        "Steinkohle",
+        "Erz",
+        "Mineralien",
+        "Steinbruch",
+        "Sand",
+        "Kies",
+        "Ton",
+        "Gips",
+        "Öl",
+        "Gas",
+        "Erdgasförderung",
+        "Rohstoffgewinnung"
       ],
       "negative_keywords": [
-        "Energieerzeugung", "Raffinerie", "Metallverarbeitung"
+        "Energieerzeugung",
+        "Raffinerie",
+        "Metallverarbeitung"
       ]
     },
     "C": {
       "name": "Manufacturing",
       "nace_code": "C",
-      "description": "İmalat",
+      "description": "Herstellung und Produktion von Waren: Maschinenbau, Automobilbau, Lebensmittelverarbeitung, Textilherstellung, Chemie, Pharmaindustrie, Metallverarbeitung, Holzverarbeitung, Elektronikfertigung. İmalat, üretim.",
       "seed_keywords": [
-        "Herstellung", "Produktion", "Fertigung", "Verarbeitung", "Montage",
-        "Maschinenbau", "Automobilbau", "Elektronik", "Chemie", "Pharma",
-        "Textil", "Bekleidung", "Lebensmittel", "Getränke", "Holzverarbeitung",
-        "Metallverarbeitung", "Kunststoff", "Glas", "Keramik"
+        "Herstellung",
+        "Produktion",
+        "Fertigung",
+        "Verarbeitung",
+        "Montage",
+        "Maschinenbau",
+        "Automobilbau",
+        "Elektronik",
+        "Chemie",
+        "Pharma",
+        "Textil",
+        "Bekleidung",
+        "Lebensmittel",
+        "Getränke",
+        "Holzverarbeitung",
+        "Metallverarbeitung",
+        "Kunststoff",
+        "Glas",
+        "Keramik"
       ],
       "negative_keywords": [
-        "Handel", "Dienstleistung", "Beratung"
+        "Handel",
+        "Dienstleistung",
+        "Beratung"
       ]
     },
     "D": {
@@ -45,12 +87,22 @@
       "nace_code": "D",
       "description": "Elektrik, gaz, buhar ve iklimlendirme",
       "seed_keywords": [
-        "Stromversorgung", "Elektrizität", "Gasversorgung", "Erdgas",
-        "Dampf", "Heizung", "Klimaanlage", "Energieversorgung",
-        "Kraftwerk", "Netzbetreiber", "Versorgungsnetz"
+        "Stromversorgung",
+        "Elektrizität",
+        "Gasversorgung",
+        "Erdgas",
+        "Dampf",
+        "Heizung",
+        "Klimaanlage",
+        "Energieversorgung",
+        "Kraftwerk",
+        "Netzbetreiber",
+        "Versorgungsnetz"
       ],
       "negative_keywords": [
-        "Elektronik", "Elektrotechnik", "Installation"
+        "Elektronik",
+        "Elektrotechnik",
+        "Installation"
       ]
     },
     "E": {
@@ -58,25 +110,46 @@
       "nace_code": "E",
       "description": "Su temini, kanalizasyon, atık yönetimi",
       "seed_keywords": [
-        "Wasserversorgung", "Abwasser", "Kanalisation", "Abfall", "Müll",
-        "Entsorgung", "Recycling", "Wasseraufbereitung", "Kläranlage",
-        "Abfallwirtschaft", "Umwelt", "Sanitation"
+        "Wasserversorgung",
+        "Abwasser",
+        "Kanalisation",
+        "Abfall",
+        "Müll",
+        "Entsorgung",
+        "Recycling",
+        "Wasseraufbereitung",
+        "Kläranlage",
+        "Abfallwirtschaft",
+        "Umwelt",
+        "Sanitation"
       ],
       "negative_keywords": [
-        "Wasserbau", "Bauwesen"
+        "Wasserbau",
+        "Bauwesen"
       ]
     },
     "F": {
       "name": "Construction",
       "nace_code": "F",
-      "description": "İnşaat",
+      "description": "Bauwesen, Hochbau, Tiefbau, Schlüsselfertigbau, Renovierung, Sanierung, Wohnungsbau, Gewerbebau, Infrastrukturbau, Bauplanung, Bauausführung. İnşaat, yapı, bina, tadilat.",
       "seed_keywords": [
-        "Bauwesen", "Hochbau", "Tiefbau", "Bauunternehmen", "Architektur",
-        "Immobilien", "Gebäude", "Konstruktion", "Renovierung", "Sanierung",
-        "Baumaterialien", "Bauplanung", "Projektentwicklung"
+        "Bauwesen",
+        "Hochbau",
+        "Tiefbau",
+        "Bauunternehmen",
+        "Architektur",
+        "Immobilien",
+        "Gebäude",
+        "Konstruktion",
+        "Renovierung",
+        "Sanierung",
+        "Baumaterialien",
+        "Bauplanung",
+        "Projektentwicklung"
       ],
       "negative_keywords": [
-        "Maschinenbau", "Elektrotechnik"
+        "Maschinenbau",
+        "Elektrotechnik"
       ]
     },
     "G": {
@@ -84,12 +157,25 @@
       "nace_code": "G",
       "description": "Toptan ve perakende ticaret",
       "seed_keywords": [
-        "Handel", "Verkauf", "Einzelhandel", "Großhandel", "Vertrieb",
-        "Import", "Export", "Waren", "Produkte", "Artikel",
-        "Einkauf", "Verkaufsstelle", "Markt", "Laden"
+        "Handel",
+        "Verkauf",
+        "Einzelhandel",
+        "Großhandel",
+        "Vertrieb",
+        "Import",
+        "Export",
+        "Waren",
+        "Produkte",
+        "Artikel",
+        "Einkauf",
+        "Verkaufsstelle",
+        "Markt",
+        "Laden"
       ],
       "negative_keywords": [
-        "Herstellung", "Produktion", "Dienstleistung"
+        "Herstellung",
+        "Produktion",
+        "Dienstleistung"
       ]
     },
     "H": {
@@ -97,12 +183,25 @@
       "nace_code": "H",
       "description": "Ulaşım ve depolama",
       "seed_keywords": [
-        "Transport", "Logistik", "Spedition", "Fracht", "Versand",
-        "Lager", "Lagerung", "Spediteur", "Verkehr", "Beförderung",
-        "Schiffahrt", "Luftfahrt", "Eisenbahn", "LKW", "Fuhrpark"
+        "Transport",
+        "Logistik",
+        "Spedition",
+        "Fracht",
+        "Versand",
+        "Lager",
+        "Lagerung",
+        "Spediteur",
+        "Verkehr",
+        "Beförderung",
+        "Schiffahrt",
+        "Luftfahrt",
+        "Eisenbahn",
+        "LKW",
+        "Fuhrpark"
       ],
       "negative_keywords": [
-        "Handel", "Tourismus"
+        "Handel",
+        "Tourismus"
       ]
     },
     "I": {
@@ -110,26 +209,69 @@
       "nace_code": "I",
       "description": "Konaklama ve yiyecek hizmetleri",
       "seed_keywords": [
-        "Hotel", "Gaststätte", "Restaurant", "Unterkunft", "Tourismus",
-        "Gastronomie", "Catering", "Verpflegung", "Beherbergung",
-        "Fremdenverkehr", "Reise", "Urlaub"
+        "Hotel",
+        "Gaststätte",
+        "Restaurant",
+        "Unterkunft",
+        "Tourismus",
+        "Gastronomie",
+        "Catering",
+        "Verpflegung",
+        "Beherbergung",
+        "Fremdenverkehr",
+        "Reise",
+        "Urlaub"
       ],
       "negative_keywords": [
-        "Transport", "Handel"
+        "Transport",
+        "Handel"
       ]
     },
     "J": {
       "name": "Information and Communication",
       "nace_code": "J",
-      "description": "Bilgi ve iletişim",
+      "description": "Informationstechnologie, Softwareentwicklung, Webentwicklung, App-Entwicklung, Cloud-Computing, API, Programmierung, Netzwerk, Telekommunikation, Datenverarbeitung. Yazılım geliştirme, mobil uygulama, bulut bilişim, entegrasyon.",
       "seed_keywords": [
-        "Informationstechnologie", "Software", "IT", "Telekommunikation",
-        "Internet", "Medien", "Verlag", "Rundfunk", "Fernsehen",
-        "Programmierung", "Datenverarbeitung", "Netzwerk", "Cloud",
-        "Digital", "Kommunikation"
+        "Informationstechnologie",
+        "Software",
+        "IT",
+        "Telekommunikation",
+        "Internet",
+        "Medien",
+        "Verlag",
+        "Rundfunk",
+        "Fernsehen",
+        "Programmierung",
+        "Datenverarbeitung",
+        "Netzwerk",
+        "Cloud",
+        "Digital",
+        "Kommunikation",
+        "Softwareentwicklung",
+        "Webentwicklung",
+        "App-Entwicklung",
+        "Mobilanwendung",
+        "API",
+        "SaaS",
+        "DevOps",
+        "Cybersicherheit",
+        "Datenbank",
+        "Künstliche Intelligenz",
+        "Machine Learning",
+        "E-Commerce-Plattform",
+        "Cloud-Lösung",
+        "Integration",
+        "yazılım",
+        "uygulama",
+        "bulut",
+        "mobil uygulama",
+        "entegrasyon",
+        "siber güvenlik",
+        "veri tabanı"
       ],
       "negative_keywords": [
-        "Hardware", "Maschinenbau"
+        "Hardware",
+        "Maschinenbau"
       ]
     },
     "K": {
@@ -137,12 +279,23 @@
       "nace_code": "K",
       "description": "Finans ve sigorta faaliyetleri",
       "seed_keywords": [
-        "Bank", "Versicherung", "Finanzdienstleistung", "Investment",
-        "Kredit", "Anlage", "Vermögensverwaltung", "Kapital", "Geld",
-        "Währung", "Börse", "Fond", "Asset Management"
+        "Bank",
+        "Versicherung",
+        "Finanzdienstleistung",
+        "Investment",
+        "Kredit",
+        "Anlage",
+        "Vermögensverwaltung",
+        "Kapital",
+        "Geld",
+        "Währung",
+        "Börse",
+        "Fond",
+        "Asset Management"
       ],
       "negative_keywords": [
-        "Buchhaltung", "Steuerberatung"
+        "Buchhaltung",
+        "Steuerberatung"
       ]
     },
     "L": {
@@ -150,25 +303,55 @@
       "nace_code": "L",
       "description": "Emlak faaliyetleri",
       "seed_keywords": [
-        "Immobilien", "Grundstück", "Wohnung", "Haus", "Büro",
-        "Vermietung", "Verpachtung", "Makler", "Estate", "Property",
-        "Liegenschaft", "Bauland", "Gewerbeimmobilien"
+        "Immobilien",
+        "Grundstück",
+        "Wohnung",
+        "Haus",
+        "Büro",
+        "Vermietung",
+        "Verpachtung",
+        "Makler",
+        "Estate",
+        "Property",
+        "Liegenschaft",
+        "Bauland",
+        "Gewerbeimmobilien"
       ],
       "negative_keywords": [
-        "Bauwesen", "Architektur"
+        "Bauwesen",
+        "Architektur"
       ]
     },
     "M": {
       "name": "Professional, Scientific and Technical Activities",
       "nace_code": "M",
-      "description": "Profesyonel, bilimsel ve teknik faaliyetler",
+      "description": "Unternehmensberatung, Steuerberatung, Rechtsberatung, Wirtschaftsprüfung, Buchhaltung, Ingenieurdienstleistungen, Architektur, Marktforschung. Danışmanlık, muhasebe, hukuk, mühendislik, mimarlık.",
       "seed_keywords": [
-        "Beratung", "Consulting", "Ingenieur", "Architekt", "Planung",
-        "Forschung", "Entwicklung", "Labor", "Analyse", "Gutachten",
-        "Prüfung", "Zertifizierung", "Technik", "Wissenschaft"
+        "Beratung",
+        "Consulting",
+        "Unternehmensberatung",
+        "Rechtsberatung",
+        "Steuerberatung",
+        "Wirtschaftsprüfung",
+        "Buchhaltung",
+        "Buchführung",
+        "Forschung",
+        "Entwicklung",
+        "Ingenieur",
+        "Architektur",
+        "Technologieberatung",
+        "Marketingberatung",
+        "danışmanlık",
+        "muhasebe",
+        "hukuk",
+        "mühendislik",
+        "mimarlık",
+        "araştırma",
+        "geliştirme"
       ],
       "negative_keywords": [
-        "Handel", "Produktion"
+        "Handel",
+        "Produktion"
       ]
     },
     "N": {
@@ -176,12 +359,24 @@
       "nace_code": "N",
       "description": "İdari ve destek hizmet faaliyetleri",
       "seed_keywords": [
-        "Dienstleistung", "Service", "Verwaltung", "Management", "Buchhaltung",
-        "Personal", "HR", "Recruiting", "Facility", "Sicherheit",
-        "Reinigung", "Wartung", "Unterstützung", "Administration"
+        "Dienstleistung",
+        "Service",
+        "Verwaltung",
+        "Management",
+        "Buchhaltung",
+        "Personal",
+        "HR",
+        "Recruiting",
+        "Facility",
+        "Sicherheit",
+        "Reinigung",
+        "Wartung",
+        "Unterstützung",
+        "Administration"
       ],
       "negative_keywords": [
-        "Beratung", "Consulting"
+        "Beratung",
+        "Consulting"
       ]
     },
     "O": {
@@ -189,12 +384,25 @@
       "nace_code": "O",
       "description": "Kamu yönetimi ve savunma",
       "seed_keywords": [
-        "Verwaltung", "Behörde", "Amt", "Staat", "Kommunal", "Öffentlich",
-        "Regierung", "Verteidigung", "Militär", "Polizei", "Feuerwehr",
-        "Justiz", "Gericht", "Sozial", "Bildung"
+        "Verwaltung",
+        "Behörde",
+        "Amt",
+        "Staat",
+        "Kommunal",
+        "Öffentlich",
+        "Regierung",
+        "Verteidigung",
+        "Militär",
+        "Polizei",
+        "Feuerwehr",
+        "Justiz",
+        "Gericht",
+        "Sozial",
+        "Bildung"
       ],
       "negative_keywords": [
-        "Privat", "Unternehmen"
+        "Privat",
+        "Unternehmen"
       ]
     },
     "P": {
@@ -202,25 +410,80 @@
       "nace_code": "P",
       "description": "Eğitim",
       "seed_keywords": [
-        "Bildung", "Schule", "Universität", "Ausbildung", "Lehre",
-        "Unterricht", "Training", "Kurs", "Seminar", "Weiterbildung",
-        "Erziehung", "Pädagogik", "Lernen", "Studium"
+        "Bildung",
+        "Schule",
+        "Universität",
+        "Ausbildung",
+        "Lehre",
+        "Unterricht",
+        "Training",
+        "Kurs",
+        "Seminar",
+        "Weiterbildung",
+        "Erziehung",
+        "Pädagogik",
+        "Lernen",
+        "Studium"
       ],
       "negative_keywords": [
-        "Beratung", "Consulting"
+        "Beratung",
+        "Consulting"
       ]
     },
     "Q": {
       "name": "Human Health and Social Work Activities",
       "nace_code": "Q",
-      "description": "İnsan sağlığı ve sosyal hizmet faaliyetleri",
+      "description": "Gesundheitswesen, Humanmedizin, Zahnmedizin, Zahnarztpraxis, Zahnklinik, Krankenhaus, Arztpraxis, Pflege, Therapie, Rehabilitation. İnsan sağlığı, diş hekimliği, hastane, klinik, tedavi, hemşirelik.",
       "seed_keywords": [
-        "Gesundheit", "Medizin", "Krankenhaus", "Arzt", "Pflege",
-        "Therapie", "Sozial", "Hilfe", "Betreuung", "Rehabilitation",
-        "Psychologie", "Klinik", "Apotheke", "Heilmittel"
+        "Gesundheit",
+        "Medizin",
+        "Krankenhaus",
+        "Arzt",
+        "Pflege",
+        "Therapie",
+        "Sozial",
+        "Hilfe",
+        "Betreuung",
+        "Rehabilitation",
+        "Psychologie",
+        "Klinik",
+        "Apotheke",
+        "Heilmittel",
+        "Zahnarzt",
+        "Zahnklinik",
+        "Zahnmedizin",
+        "Zahnimplantat",
+        "Zahnimplantate",
+        "Zahnbleaching",
+        "Prophylaxe",
+        "Kieferorthopädie",
+        "Praxis",
+        "Zahnarztpraxis",
+        "Zahnersatz",
+        "Kronen",
+        "Brücken",
+        "Wurzelbehandlung",
+        "Parodontologie",
+        "Facharzt",
+        "Allgemeinmedizin",
+        "Internist",
+        "Chirurg",
+        "Orthopädie",
+        "Dermatologie",
+        "Gynäkologie",
+        "Pädiatrie",
+        "diş kliniği",
+        "diş hekimi",
+        "implant",
+        "diş tedavisi",
+        "sağlık",
+        "hastane",
+        "klinik",
+        "tedavi"
       ],
       "negative_keywords": [
-        "Sport", "Fitness"
+        "Sport",
+        "Fitness"
       ]
     },
     "R": {
@@ -228,12 +491,24 @@
       "nace_code": "R",
       "description": "Sanat, eğlence ve rekreasyon",
       "seed_keywords": [
-        "Kunst", "Kultur", "Unterhaltung", "Sport", "Freizeit",
-        "Museum", "Theater", "Musik", "Film", "Veranstaltung",
-        "Event", "Tourismus", "Reise", "Erholung"
+        "Kunst",
+        "Kultur",
+        "Unterhaltung",
+        "Sport",
+        "Freizeit",
+        "Museum",
+        "Theater",
+        "Musik",
+        "Film",
+        "Veranstaltung",
+        "Event",
+        "Tourismus",
+        "Reise",
+        "Erholung"
       ],
       "negative_keywords": [
-        "Bildung", "Schule"
+        "Bildung",
+        "Schule"
       ]
     },
     "S": {
@@ -241,12 +516,24 @@
       "nace_code": "S",
       "description": "Diğer hizmet faaliyetleri",
       "seed_keywords": [
-        "Dienstleistung", "Service", "Reparatur", "Wartung", "Pflege",
-        "Schönheit", "Kosmetik", "Friseur", "Tier", "Haustier",
-        "Garten", "Landschaft", "Bestattung", "Friedhof"
+        "Dienstleistung",
+        "Service",
+        "Reparatur",
+        "Wartung",
+        "Pflege",
+        "Schönheit",
+        "Kosmetik",
+        "Friseur",
+        "Tier",
+        "Haustier",
+        "Garten",
+        "Landschaft",
+        "Bestattung",
+        "Friedhof"
       ],
       "negative_keywords": [
-        "Handel", "Produktion"
+        "Handel",
+        "Produktion"
       ]
     },
     "T": {
@@ -254,11 +541,19 @@
       "nace_code": "T",
       "description": "Hane halklarının işveren olarak faaliyetleri",
       "seed_keywords": [
-        "Haushalt", "Familie", "Privat", "Hauswirtschaft", "Domestik",
-        "Hausarbeit", "Betreuung", "Pflege", "Erziehung"
+        "Haushalt",
+        "Familie",
+        "Privat",
+        "Hauswirtschaft",
+        "Domestik",
+        "Hausarbeit",
+        "Betreuung",
+        "Pflege",
+        "Erziehung"
       ],
       "negative_keywords": [
-        "Unternehmen", "Firma"
+        "Unternehmen",
+        "Firma"
       ]
     },
     "U": {
@@ -266,11 +561,19 @@
       "nace_code": "U",
       "description": "Uluslararası örgütlerin faaliyetleri",
       "seed_keywords": [
-        "International", "Organisation", "Vereinte Nationen", "EU",
-        "Diplomatisch", "Konsulat", "Botschaft", "Weltbank", "IMF"
+        "International",
+        "Organisation",
+        "Vereinte Nationen",
+        "EU",
+        "Diplomatisch",
+        "Konsulat",
+        "Botschaft",
+        "Weltbank",
+        "IMF"
       ],
       "negative_keywords": [
-        "Privat", "Unternehmen"
+        "Privat",
+        "Unternehmen"
       ]
     }
   },

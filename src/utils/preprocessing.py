@@ -251,18 +251,22 @@ class TextPreprocessor:
             return []
 
         candidates = []
+        seen = set()
 
         min_n, max_n = n_range
 
         for n in range(min_n, max_n + 1):
             for i in range(len(filtered_tokens) - n + 1):
                 ngram = ' '.join(filtered_tokens[i:i + n])
+                ngram_lower = ngram.lower()
 
-                # Apply filters
-                if self._is_valid_ngram(ngram, n):
+                # Apply filters + deduplication
+                if self._is_valid_ngram(ngram, n) and ngram_lower not in seen:
                     candidates.append(ngram)
+                    seen.add(ngram_lower)
 
         return candidates
+
 
     def _is_valid_ngram(self, ngram: str, n: int) -> bool:
         """

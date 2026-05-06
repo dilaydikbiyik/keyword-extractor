@@ -281,3 +281,89 @@ class KeywordExtractor:
             List of sector codes
         """
         return sorted(list(self.sector_keywords.keys()))
+
+    def iterative_expand(
+        self,
+        texts: List[str],
+        sector_code: str,
+        n_iterations: int = 3,
+        expand_top_n: int = 3,
+        quality_threshold: float = 0.4,
+        max_seed_size: int = 50,
+    ) -> List[str]:
+        """
+        Iteratively expand seed keywords for a sector using a corpus of texts.
+
+        Runs guided extraction for n_iterations, each time adding newly
+        discovered high-quality keywords back into the seed list.  This lets
+        the pipeline discover domain terms that were absent from the original
+        seed list (e.g. "Prophylaxe" from a dental corpus).
+
+        Args:
+            texts: Corpus of business descriptions for this sector
+            sector_code: Target sector code (e.g. 'Q')
+            n_iterations: Number of expansion rounds
+            expand_top_n: Max new seeds to add per text per iteration
+            quality_threshold: Minimum keyword score to be added as seed
+            max_seed_size: Hard cap on seed list size (prevents unbounded growth)
+
+        Returns:
+            Expanded seed keyword list
+        """
+        import logging
+        logger = logging.getLogger(__name__)
+
+        # Start from current seeds for this sector
+        current_seeds: List[str] = list(self.sector_keywords.get(sector_code, []))
+        logger.info(
+            f"[iterative_expand] sector={sector_code} "
+            f"initial_seeds={len(current_seeds)} texts={len(texts)}"
+        )
+
+        for iteration in range(1, n_iterations + 1):
+            new_seed_candidates: List[str] = []
+
+            for text in texts:
+                # Extract with current seeds
+                keywords = self.extract_keywords(
+                    text,
+                    top_n=expand_top_n * 2,
+                    seed_keywords=current_seeds if current_seeds else None,
+                    diversity=0.6,
+                )
+
+                # Collect high-quality terms not yet in seeds
+                for kw, score in keywords:
+                    if (
+                        score >= quality_threshold
+                        and kw not in current_seeds
+                        and kw not in new_seed_candidates
+                    ):
+                        new_seed_candidates.append(kw)
+
+            # Limit candidates to expand_top_n per iteration (best first)
+            new_seed_candidates = new_seed_candidates[:expand_top_n * len(texts)]
+
+            # Merge, respecting max_seed_size cap
+            slots_available = max_seed_size - len(current_seeds)
+            added = new_seed_candidates[:max(0, slots_available)]
+            current_seeds.extend(added)
+
+            logger.info(
+                f"  Iteration {iteration}/{n_iterations}: "
+                f"+{len(added)} seeds "
+                f"(candidates={len(new_seed_candidates)}, "
+                f"total={len(current_seeds)})"
+            )
+
+            if not added:
+                logger.info("  No new seeds — stopping early.")
+                break
+
+        # Persist the expanded seeds back into the in-memory store
+        self.sector_keywords[sector_code] = current_seeds
+        logger.info(
+            f"[iterative_expand] Done. "
+            f"Final seed count for {sector_code}: {len(current_seeds)}"
+        )
+        return current_seeds

@@ -78,6 +78,56 @@ class EmbeddingService:
 
         return embedding
 
+    def embed_document(
+        self,
+        text: str,
+        chunk_size: int = 256,
+        overlap: int = 32,
+        max_length: int = 512,
+        use_cache: bool = True,
+    ) -> np.ndarray:
+        """
+        Embed a (potentially long) document using overlapping chunking.
+
+        Texts that fit within *max_length* tokens are encoded directly
+        (fast path).  Longer texts are split into overlapping word-based
+        chunks; each chunk is encoded and the results are averaged
+        (average pooling), preventing silent truncation.
+
+        Args:
+            text: Document text to embed
+            chunk_size: Target chunk size in words
+            overlap: Overlap between consecutive chunks in words
+            max_length: Token threshold below which chunking is skipped
+            use_cache: Whether to use the embedding cache
+
+        Returns:
+            Averaged embedding vector (ndarray)
+        """
+        # Rough token estimate: words ≈ tokens (safe upper bound)
+        words = text.split()
+        if len(words) <= max_length:
+            # Fast path — text fits in one encode call
+            return self.embed_text(text, use_cache=use_cache)
+
+        # Build overlapping chunks
+        step = max(1, chunk_size - overlap)
+        chunks: List[str] = []
+        for start in range(0, len(words), step):
+            end = start + chunk_size
+            chunk = " ".join(words[start:end])
+            chunks.append(chunk)
+            if end >= len(words):
+                break
+
+        # Encode all chunks and average-pool
+        chunk_embeddings = [
+            self.embed_text(chunk, use_cache=use_cache) for chunk in chunks
+        ]
+        averaged = np.mean(np.vstack(chunk_embeddings), axis=0)
+        return averaged
+
+
     def embed_texts(
         self,
         texts: List[str],
