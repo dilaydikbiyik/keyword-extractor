@@ -1,0 +1,285 @@
+{
+  "sectors": {
+    "A": {
+      "name": "Agriculture, Forestry and Fishing",
+      "nace_code": "A",
+      "description": "Tarım, ormancılık ve balıkçılık",
+      "seed_keywords": [
+        "Landwirtschaft", "Ackerbau", "Viehzucht", "Forstwirtschaft", "Fischerei",
+        "landwirtschaftliche Produktion", "Pflanzenbau", "Tierhaltung", "Forstbetrieb",
+        "Fischzucht", "Agrarprodukte", "Ernte", "Bewässerung"
+      ],
+      "negative_keywords": [
+        "Maschinenbau", "Lebensmittelverarbeitung", "Agrartechnik"
+      ]
+    },
+    "B": {
+      "name": "Mining and Quarrying",
+      "nace_code": "B",
+      "description": "Madencilik ve taş ocakları",
+      "seed_keywords": [
+        "Bergbau", "Tagebau", "Steinkohle", "Erz", "Mineralien",
+        "Steinbruch", "Sand", "Kies", "Ton", "Gips",
+        "Öl", "Gas", "Erdgasförderung", "Rohstoffgewinnung"
+      ],
+      "negative_keywords": [
+        "Energieerzeugung", "Raffinerie", "Metallverarbeitung"
+      ]
+    },
+    "C": {
+      "name": "Manufacturing",
+      "nace_code": "C",
+      "description": "İmalat",
+      "seed_keywords": [
+        "Herstellung", "Produktion", "Fertigung", "Verarbeitung", "Montage",
+        "Maschinenbau", "Automobilbau", "Elektronik", "Chemie", "Pharma",
+        "Textil", "Bekleidung", "Lebensmittel", "Getränke", "Holzverarbeitung",
+        "Metallverarbeitung", "Kunststoff", "Glas", "Keramik"
+      ],
+      "negative_keywords": [
+        "Handel", "Dienstleistung", "Beratung"
+      ]
+    },
+    "D": {
+      "name": "Electricity, Gas, Steam and Air Conditioning Supply",
+      "nace_code": "D",
+      "description": "Elektrik, gaz, buhar ve iklimlendirme",
+      "seed_keywords": [
+        "Stromversorgung", "Elektrizität", "Gasversorgung", "Erdgas",
+        "Dampf", "Heizung", "Klimaanlage", "Energieversorgung",
+        "Kraftwerk", "Netzbetreiber", "Versorgungsnetz"
+      ],
+      "negative_keywords": [
+        "Elektronik", "Elektrotechnik", "Installation"
+      ]
+    },
+    "E": {
+      "name": "Water Supply, Sewerage, Waste Management",
+      "nace_code": "E",
+      "description": "Su temini, kanalizasyon, atık yönetimi",
+      "seed_keywords": [
+        "Wasserversorgung", "Abwasser", "Kanalisation", "Abfall", "Müll",
+        "Entsorgung", "Recycling", "Wasseraufbereitung", "Kläranlage",
+        "Abfallwirtschaft", "Umwelt", "Sanitation"
+      ],
+      "negative_keywords": [
+        "Wasserbau", "Bauwesen"
+      ]
+    },
+    "F": {
+      "name": "Construction",
+      "nace_code": "F",
+      "description": "İnşaat",
+      "seed_keywords": [
+        "Bauwesen", "Hochbau", "Tiefbau", "Bauunternehmen", "Architektur",
+        "Immobilien", "Gebäude", "Konstruktion", "Renovierung", "Sanierung",
+        "Baumaterialien", "Bauplanung", "Projektentwicklung"
+      ],
+      "negative_keywords": [
+        "Maschinenbau", "Elektrotechnik"
+      ]
+    },
+    "G": {
+      "name": "Wholesale and Retail Trade",
+      "nace_code": "G",
+      "description": "Toptan ve perakende ticaret",
+      "seed_keywords": [
+        "Handel", "Verkauf", "Einzelhandel", "Großhandel", "Vertrieb",
+        "Import", "Export", "Waren", "Produkte", "Artikel",
+        "Einkauf", "Verkaufsstelle", "Markt", "Laden"
+      ],
+      "negative_keywords": [
+        "Herstellung", "Produktion", "Dienstleistung"
+      ]
+    },
+    "H": {
+      "name": "Transportation and Storage",
+      "nace_code": "H",
+      "description": "Ulaşım ve depolama",
+      "seed_keywords": [
+        "Transport", "Logistik", "Spedition", "Fracht", "Versand",
+        "Lager", "Lagerung", "Spediteur", "Verkehr", "Beförderung",
+        "Schiffahrt", "Luftfahrt", "Eisenbahn", "LKW", "Fuhrpark"
+      ],
+      "negative_keywords": [
+        "Handel", "Tourismus"
+      ]
+    },
+    "I": {
+      "name": "Accommodation and Food Service Activities",
+      "nace_code": "I",
+      "description": "Konaklama ve yiyecek hizmetleri",
+      "seed_keywords": [
+        "Hotel", "Gaststätte", "Restaurant", "Unterkunft", "Tourismus",
+        "Gastronomie", "Catering", "Verpflegung", "Beherbergung",
+        "Fremdenverkehr", "Reise", "Urlaub"
+      ],
+      "negative_keywords": [
+        "Transport", "Handel"
+      ]
+    },
+    "J": {
+      "name": "Information and Communication",
+      "nace_code": "J",
+      "description": "Bilgi ve iletişim",
+      "seed_keywords": [
+        "Informationstechnologie", "Software", "IT", "Telekommunikation",
+        "Internet", "Medien", "Verlag", "Rundfunk", "Fernsehen",
+        "Programmierung", "Datenverarbeitung", "Netzwerk", "Cloud",
+        "Digital", "Kommunikation"
+      ],
+      "negative_keywords": [
+        "Hardware", "Maschinenbau"
+      ]
+    },
+    "K": {
+      "name": "Financial and Insurance Activities",
+      "nace_code": "K",
+      "description": "Finans ve sigorta faaliyetleri",
+      "seed_keywords": [
+        "Bank", "Versicherung", "Finanzdienstleistung", "Investment",
+        "Kredit", "Anlage", "Vermögensverwaltung", "Kapital", "Geld",
+        "Währung", "Börse", "Fond", "Asset Management"
+      ],
+      "negative_keywords": [
+        "Buchhaltung", "Steuerberatung"
+      ]
+    },
+    "L": {
+      "name": "Real Estate Activities",
+      "nace_code": "L",
+      "description": "Emlak faaliyetleri",
+      "seed_keywords": [
+        "Immobilien", "Grundstück", "Wohnung", "Haus", "Büro",
+        "Vermietung", "Verpachtung", "Makler", "Estate", "Property",
+        "Liegenschaft", "Bauland", "Gewerbeimmobilien"
+      ],
+      "negative_keywords": [
+        "Bauwesen", "Architektur"
+      ]
+    },
+    "M": {
+      "name": "Professional, Scientific and Technical Activities",
+      "nace_code": "M",
+      "description": "Profesyonel, bilimsel ve teknik faaliyetler",
+      "seed_keywords": [
+        "Beratung", "Consulting", "Ingenieur", "Architekt", "Planung",
+        "Forschung", "Entwicklung", "Labor", "Analyse", "Gutachten",
+        "Prüfung", "Zertifizierung", "Technik", "Wissenschaft"
+      ],
+      "negative_keywords": [
+        "Handel", "Produktion"
+      ]
+    },
+    "N": {
+      "name": "Administrative and Support Service Activities",
+      "nace_code": "N",
+      "description": "İdari ve destek hizmet faaliyetleri",
+      "seed_keywords": [
+        "Dienstleistung", "Service", "Verwaltung", "Management", "Buchhaltung",
+        "Personal", "HR", "Recruiting", "Facility", "Sicherheit",
+        "Reinigung", "Wartung", "Unterstützung", "Administration"
+      ],
+      "negative_keywords": [
+        "Beratung", "Consulting"
+      ]
+    },
+    "O": {
+      "name": "Public Administration and Defence",
+      "nace_code": "O",
+      "description": "Kamu yönetimi ve savunma",
+      "seed_keywords": [
+        "Verwaltung", "Behörde", "Amt", "Staat", "Kommunal", "Öffentlich",
+        "Regierung", "Verteidigung", "Militär", "Polizei", "Feuerwehr",
+        "Justiz", "Gericht", "Sozial", "Bildung"
+      ],
+      "negative_keywords": [
+        "Privat", "Unternehmen"
+      ]
+    },
+    "P": {
+      "name": "Education",
+      "nace_code": "P",
+      "description": "Eğitim",
+      "seed_keywords": [
+        "Bildung", "Schule", "Universität", "Ausbildung", "Lehre",
+        "Unterricht", "Training", "Kurs", "Seminar", "Weiterbildung",
+        "Erziehung", "Pädagogik", "Lernen", "Studium"
+      ],
+      "negative_keywords": [
+        "Beratung", "Consulting"
+      ]
+    },
+    "Q": {
+      "name": "Human Health and Social Work Activities",
+      "nace_code": "Q",
+      "description": "İnsan sağlığı ve sosyal hizmet faaliyetleri",
+      "seed_keywords": [
+        "Gesundheit", "Medizin", "Krankenhaus", "Arzt", "Pflege",
+        "Therapie", "Sozial", "Hilfe", "Betreuung", "Rehabilitation",
+        "Psychologie", "Klinik", "Apotheke", "Heilmittel"
+      ],
+      "negative_keywords": [
+        "Sport", "Fitness"
+      ]
+    },
+    "R": {
+      "name": "Arts, Entertainment and Recreation",
+      "nace_code": "R",
+      "description": "Sanat, eğlence ve rekreasyon",
+      "seed_keywords": [
+        "Kunst", "Kultur", "Unterhaltung", "Sport", "Freizeit",
+        "Museum", "Theater", "Musik", "Film", "Veranstaltung",
+        "Event", "Tourismus", "Reise", "Erholung"
+      ],
+      "negative_keywords": [
+        "Bildung", "Schule"
+      ]
+    },
+    "S": {
+      "name": "Other Service Activities",
+      "nace_code": "S",
+      "description": "Diğer hizmet faaliyetleri",
+      "seed_keywords": [
+        "Dienstleistung", "Service", "Reparatur", "Wartung", "Pflege",
+        "Schönheit", "Kosmetik", "Friseur", "Tier", "Haustier",
+        "Garten", "Landschaft", "Bestattung", "Friedhof"
+      ],
+      "negative_keywords": [
+        "Handel", "Produktion"
+      ]
+    },
+    "T": {
+      "name": "Activities of Households as Employers",
+      "nace_code": "T",
+      "description": "Hane halklarının işveren olarak faaliyetleri",
+      "seed_keywords": [
+        "Haushalt", "Familie", "Privat", "Hauswirtschaft", "Domestik",
+        "Hausarbeit", "Betreuung", "Pflege", "Erziehung"
+      ],
+      "negative_keywords": [
+        "Unternehmen", "Firma"
+      ]
+    },
+    "U": {
+      "name": "Activities of Extraterritorial Organisations",
+      "nace_code": "U",
+      "description": "Uluslararası örgütlerin faaliyetleri",
+      "seed_keywords": [
+        "International", "Organisation", "Vereinte Nationen", "EU",
+        "Diplomatisch", "Konsulat", "Botschaft", "Weltbank", "IMF"
+      ],
+      "negative_keywords": [
+        "Privat", "Unternehmen"
+      ]
+    }
+  },
+  "metadata": {
+    "version": "1.0",
+    "language": "de",
+    "source": "NACE Rev.2 classification adapted for German business registry",
+    "total_sectors": 21,
+    "created_date": "2024-12-19",
+    "last_updated": "2024-12-19"
+  }
+}

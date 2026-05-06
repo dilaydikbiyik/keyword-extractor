@@ -1,0 +1,65 @@
+# Sektör Açıklamaları - NACE Rev.2 Ana Sektörler
+# Bu dosyadaki açıklamalar sektör sınıflandırma vektörleri için kullanılır
+
+## A - Agriculture, Forestry and Fishing (Tarım, Ormancılık ve Balıkçılık)
+Bu sektör, bitkisel ve hayvansal ürünlerin yetiştirilmesi, ormancılık faaliyetleri ve balıkçılık ile ilgili tüm faaliyetleri kapsar. Tarım makineleri kullanımı, toprak işleme, sulama sistemleri ve hasat işlemleri bu sektöre dahildir. Ormancılık faaliyetleri ağaç kesimi, odun üretimi ve orman yönetimi konularını içerir.
+
+## B - Mining and Quarrying (Madencilik ve Taş Ocakları)
+Yeraltı ve yerüstü madencilik faaliyetleri, petrol ve doğal gaz çıkarımı, metal cevheri madenciliği ve taş ocakları işletmeciliği bu sektöre dahildir. Maden arama, çıkarım, işleme ve ilgili altyapı faaliyetleri bu kategoride yer alır.
+
+## C - Manufacturing (İmalat)
+Endüstriyel üretim faaliyetleri, hammaddelerin işlenmesi ve mamul ürünlerin üretilmesi bu sektörü oluşturur. Makine imalatı, elektronik ürünler, kimya ürünleri, tekstil, gıda işleme ve metal işleme gibi faaliyetler bu sektöre dahildir.
+
+## D - Electricity, Gas, Steam and Air Conditioning Supply (Elektrik, Gaz, Buhar ve İklimlendirme)
+Elektrik üretimi, iletimi ve dağıtımı, doğal gaz dağıtımı, buhar üretimi ve iklimlendirme sistemleri bu sektörü kapsar. Enerji santralleri, elektrik şebekeleri ve ısıtma sistemleri işletmeciliği bu alanda yer alır.
+
+## E - Water Supply, Sewerage, Waste Management (Su Temini, Kanalizasyon, Atık Yönetimi)
+Su temini ve arıtımı, kanalizasyon sistemleri, atık su arıtımı, katı atık toplama ve geri dönüşüm faaliyetleri bu sektöre dahildir. Çevre koruma ve sürdürülebilir atık yönetimi bu alanda önemli rol oynar.
+
+## F - Construction (İnşaat)
+Bina ve altyapı inşaatı, yol yapımı, köprü ve tünel inşaatı, elektrik ve sıhhi tesisat montajı bu sektörü oluşturur. Mimarlık hizmetleri, mühendislik danışmanlığı ve inşaat malzemeleri ticareti de bu sektöre dahildir.
+
+## G - Wholesale and Retail Trade (Toptan ve Perakende Ticaret)
+Toptan ve perakende satış faaliyetleri, ürün dağıtımı, depolama ve lojistik hizmetleri bu sektörü kapsar. Mağaza işletmeciliği, e-ticaret, ithalat-ihracat ve tedarik zinciri yönetimi bu alanda yer alır.
+
+## H - Transportation and Storage (Ulaşım ve Depolama)
+Kara, deniz, hava ve demiryolu taşımacılığı, depolama hizmetleri, lojistik ve taşımacılıkla ilgili faaliyetler bu sektöre dahildir. Kargo taşımacılığı, ambar işletmeciliği ve taşımacılık altyapısı bu alanda önemli.
+
+## I - Accommodation and Food Service Activities (Konaklama ve Yiyecek Hizmetleri)
+Otel işletmeciliği, restoran ve kafe işletmeciliği, catering hizmetleri ve turistik konaklama faaliyetleri bu sektörü oluşturur. Yiyecek-içecek hizmetleri, seyahat acenteleri ve turistik hizmetler bu alanda yer alır.
+
+## J - Information and Communication (Bilgi ve İletişim)
+Yazılım geliştirme, telekomünikasyon, yayıncılık, radyo ve televizyon yayıncılığı, film yapımı ve dijital medya hizmetleri bu sektöre dahildir. İnternet servis sağlayıcılığı ve bilişim teknolojileri bu alanda merkezi rol oynar.
+
+## K - Financial and Insurance Activities (Finans ve Sigorta Faaliyetleri)
+Bankacılık, sigortacılık, yatırım fonları, sermaye piyasası faaliyetleri ve finansal hizmetler bu sektörü kapsar. Kredi verme, varlık yönetimi, borsa işlemleri ve finansal danışmanlık bu alanda yer alır.
+
+## L - Real Estate Activities (Emlak Faaliyetleri)
+Emlak alım-satım, kiralama, mülk yönetimi ve gayrimenkul geliştirme faaliyetleri bu sektöre dahildir. Emlak danışmanlığı, mülk değerleme ve gayrimenkul portföy yönetimi bu alanda önemli.
+
+## M - Professional, Scientific and Technical Activities (Profesyonel, Bilimsel ve Teknik Faaliyetler)
+Mühendislik ve mimarlık hizmetleri, bilimsel araştırma, hukuk danışmanlığı, muhasebe ve denetim hizmetleri bu sektörü oluşturur. Teknik danışmanlık, patent hizmetleri ve uzmanlık gerektiren profesyonel hizmetler bu alanda yer alır.
+
+## N - Administrative and Support Service Activities (İdari ve Destek Hizmet Faaliyetleri)
+Ofis yönetimi, insan kaynakları, güvenlik hizmetleri, temizlik hizmetleri ve genel idari destek faaliyetleri bu sektöre dahildir. İş süreçleri dış kaynak kullanımı ve yardımcı hizmetler bu alanda merkezi.
+
+## O - Public Administration and Defence (Kamu Yönetimi ve Savunma)
+Devlet kurumları, yerel yönetimler, savunma ve güvenlik hizmetleri bu sektörü kapsar. Kamu hizmetleri, yargı, eğitim ve sosyal hizmetler yönetimi bu alanda yer alır.
+
+## P - Education (Eğitim)
+Okul ve üniversite eğitimi, yetişkin eğitimi, mesleki eğitim ve özel ders hizmetleri bu sektörü oluşturur. Eğitim materyalleri geliştirme, sınav hizmetleri ve eğitim danışmanlığı bu alanda önemli.
+
+## Q - Human Health and Social Work Activities (İnsan Sağlığı ve Sosyal Hizmet Faaliyetleri)
+Hastane ve klinik işletmeciliği, doktor ve diş hekimi hizmetleri, eczacılık, sosyal hizmetler ve bakım hizmetleri bu sektöre dahildir. Sağlık sigortası ve rehabilitasyon hizmetleri bu alanda yer alır.
+
+## R - Arts, Entertainment and Recreation (Sanat, Eğlence ve Rekreasyon)
+Sinema, tiyatro, müzik, spor etkinlikleri, müze ve sanat galerileri işletmeciliği bu sektörü kapsar. Eğlence parkları, kütüphaneler ve kültürel etkinlikler düzenleme bu alanda önemli.
+
+## S - Other Service Activities (Diğer Hizmet Faaliyetleri)
+Kuaförlük, güzellik salonları, evcil hayvan bakımı, bahçe bakımı, tamirat ve bakım hizmetleri bu sektörü oluşturur. Kişisel hizmetler ve küçük ölçekli hizmet işletmeleri bu alanda yer alır.
+
+## T - Activities of Households as Employers (Hane Halklarının İşveren Olarak Faaliyetleri)
+Ev içi hizmetler, ev işleri, çocuk bakımı ve yaşlı bakımı gibi hane halkı düzeyindeki hizmet faaliyetleri bu sektörü kapsar. Kişisel ev hizmetleri ve aile içi istihdam bu alanda yer alır.
+
+## U - Activities of Extraterritorial Organisations (Uluslararası Örgütlerin Faaliyetleri)
+Uluslararası örgütler, diplomatik misyonlar ve uluslararası kuruluşların faaliyetleri bu sektörü oluşturur. Küresel işbirliği ve uluslararası temsilcilikler bu alanda önemli.

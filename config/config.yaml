@@ -1,0 +1,94 @@
+# Anahtar Kelime Çıkartma Projesi - Yapılandırma Dosyası
+
+# Embedding Model Ayarları
+embedding:
+  model_name: "paraphrase-multilingual-MiniLM-L12-v2"
+  chunk_size: 256
+  overlap: 32
+  max_length: 512
+
+# Ön İşleme Ayarları
+preprocessing:
+  remove_urls: true
+  remove_emails: true
+  remove_numbers: false  # <NUM> token ile değiştir
+  lowercase: true
+  remove_punctuation: true
+  preserve_hyphens: true  # tire ve kesme işaretlerini koru
+  min_word_length: 3
+  max_ngram_length: 3
+
+# Dil Tespiti
+language:
+  default_lang: "auto"
+  confidence_threshold: 0.8
+  supported_langs: ["tr", "de", "en"]
+
+# Stop Words
+stopwords:
+  use_nltk: true
+  custom_additions:
+    - "hizmet"
+    - "şirket"
+    - "firma"
+    - "limited"
+    - "gmbh"
+    - "ltd"
+
+# Sektör Sınıflandırması
+classification:
+  top_k_sectors: 3
+  confidence_threshold: 0.3
+  sector_vector_cache: "data/taxonomy/sector_vectors.npy"
+
+# Anahtar Kelime Çıkarımı
+extraction:
+  guided_mode: true
+  top_n_candidates: 30
+  top_n_final: 10
+  alpha: 0.6  # document relevance ağırlığı
+  beta: 0.4   # seed similarity ağırlığı
+  ngram_range: [1, 3]
+  use_vib_filter: true
+  vib_threshold: 0.1
+
+# İteratif Genişletme
+iteration:
+  max_iterations: 5
+  new_seeds_per_iteration: 3
+  percentile_threshold: 99
+
+# Değerlendirme
+evaluation:
+  precision_at_k: [5, 10, 15]
+  cosine_similarity_threshold: 0.7
+  human_validation_sample_size: 50
+
+# LLM Doğrulama (OpenAI)
+llm:
+  enabled: false
+  model: "gpt-4o"
+  api_key_env: "OPENAI_API_KEY"
+  temperature: 0.1
+  max_tokens: 100
+  prompt_template: "Bu kelime '{sector}' sektörü için uygun mu? Sadece 'evet' veya 'hayır' cevap ver."
+
+# Veri Yolları
+paths:
+  raw_data: "data/raw/"
+  processed_data: "data/processed/"
+  taxonomy: "data/taxonomy/"
+  results: "output/"
+  logs: "logs/"
+
+# Performans
+performance:
+  use_gpu: false  # GPU varsa true yap
+  batch_size: 32
+  num_workers: 4
+
+# Deney Takibi
+experiment:
+  enable_mlflow: false
+  experiment_name: "keyword-extraction"
+  tracking_uri: "file:./mlruns"
