@@ -149,28 +149,49 @@ class SectorClassifier:
         Returns:
             Dictionary with classification results and details
         """
-        # Get classifications
-        classifications = self.classify(text, top_k=top_k, return_scores=True)
+        # Get all similarities (no threshold filtering) for top_sector selection
+        text_embedding = self.embedding_service.embed_text(text)
+        similarities = []
+        for sector_code, sector_embedding in self.sector_embeddings.items():
+            similarity = self.embedding_service.similarity(
+                text_embedding, sector_embedding, metric="cosine"
+            )
+            similarities.append((sector_code, float(similarity)))
+        similarities.sort(key=lambda x: x[1], reverse=True)
 
-        # Build detailed results
+        # Build detailed results; always populate top_sector with the best match
         results = {
             'text': text[:100] + '...' if len(text) > 100 else text,
             'classifications': [],
-            'top_sector': None
+            'top_sector': similarities[0][0] if similarities else None
         }
 
-        for i, (sector_code, confidence) in enumerate(classifications):
+        # Populate the classifications list (threshold-filtered, limited to top_k)
+        count = 0
+        for i, (sector_code, confidence) in enumerate(similarities):
+            if confidence < self.confidence_threshold:
+                continue
             sector_info = self.sectors_info.get(sector_code, {})
-            classification_detail = {
-                'rank': i + 1,
+            results['classifications'].append({
+                'rank': count + 1,
                 'sector_code': sector_code,
                 'sector_name': sector_info.get('name', 'Unknown'),
                 'confidence': confidence
-            }
-            results['classifications'].append(classification_detail)
+            })
+            count += 1
+            if count >= top_k:
+                break
 
-            if i == 0:
-                results['top_sector'] = sector_code
+        # If no classification passed the threshold, include the best match anyway
+        if not results['classifications'] and similarities:
+            best_code, best_conf = similarities[0]
+            sector_info = self.sectors_info.get(best_code, {})
+            results['classifications'].append({
+                'rank': 1,
+                'sector_code': best_code,
+                'sector_name': sector_info.get('name', 'Unknown'),
+                'confidence': best_conf
+            })
 
         return results
 

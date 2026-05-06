@@ -64,13 +64,22 @@ def main():
         
         if result['status'] == 'success':
             sector_info = result['sector_classification']
+            classifications = sector_info.get('classifications', [])
+            top_confidence = classifications[0]['confidence'] if classifications else 0.0
             print(f"Language:              {result['language']}")
-            print(f"Primary Sector:        {sector_info['top_sector']} (confidence: {sector_info['classifications'][0]['confidence']:.1%})")
+            print(f"Primary Sector:        {sector_info['top_sector']} (confidence: {top_confidence:.1%})")
             print(f"\nExtracted Keywords:")
-            for j, kw in enumerate(result['keywords'][:5], 1):
-                print(f"  {j}. {kw['keyword']:<30} (score: {kw['score']:.3f})")
+            keywords = result.get('keywords', [])
+            for j, kw in enumerate(keywords[:5], 1):
+                score = kw.get('score', 0)
+                keyword = kw.get('keyword', 'N/A')
+                print(f"  {j}. {keyword:<30} (score: {score:.3f})")
         else:
-            print(f"Error: {result['error']}")
+            status = result['status']
+            error_msg = result.get('error', 'n/a')
+            print(f"Status: {status}")
+            if error_msg != 'n/a':
+                print(f"Error:  {error_msg}")
         
         print()
     

@@ -37,7 +37,7 @@ class KeywordExtractor:
 
         # Initialize KeyBERT
         print(f"Initializing KeyBERT with model: {model_name}")
-        self.kw_model = KeyBERT(model=model_name, language="multilingual")
+        self.kw_model = KeyBERT(model=model_name)
 
         # Load sector keywords
         self.sector_keywords = self._load_sector_keywords(sectors_file)
@@ -77,21 +77,15 @@ class KeywordExtractor:
         self,
         text: str,
         top_n: int = 10,
-        min_df: int = 1,
-        max_df: float = 1.0,
-        language: str = "german",
         seed_keywords: Optional[List[str]] = None,
         diversity: float = 0.5
     ) -> List[Tuple[str, float]]:
         """
-        Extract keywords from text.
+        Extract keywords from text using KeyBERT.
 
         Args:
             text: Input text
             top_n: Number of keywords to extract
-            min_df: Minimum document frequency
-            max_df: Maximum document frequency (as ratio)
-            language: Language of the text
             seed_keywords: List of seed keywords for guided extraction
             diversity: Diversity parameter (0-1, higher = more diverse)
 
@@ -105,21 +99,16 @@ class KeywordExtractor:
                     text,
                     seed_keywords=seed_keywords,
                     top_n=top_n,
-                    min_df=min_df,
-                    max_df=max_df,
-                    language=language,
-                    diversity=diversity,
-                    use_mmr=True  # Maximal Marginal Relevance for diversity
+                    use_mmr=True,  # Maximal Marginal Relevance for diversity
+                    diversity=diversity
                 )
             else:
                 # Unguided extraction
                 keywords = self.kw_model.extract_keywords(
                     text,
                     top_n=top_n,
-                    min_df=min_df,
-                    max_df=max_df,
-                    language=language,
-                    use_mmr=True
+                    use_mmr=True,
+                    diversity=diversity
                 )
 
             return keywords
@@ -133,7 +122,7 @@ class KeywordExtractor:
         text: str,
         sector_code: str,
         top_n: int = 10,
-        language: str = "german"
+        language: Optional[str] = None  # accepted for API compatibility; multilingual model handles language automatically
     ) -> List[Tuple[str, float]]:
         """
         Extract keywords with guidance from sector-specific seed keywords.
@@ -142,7 +131,8 @@ class KeywordExtractor:
             text: Input text
             sector_code: Sector code (e.g., 'C' for Manufacturing)
             top_n: Number of keywords to extract
-            language: Language of the text
+            language: Language of the text (informational; the multilingual model
+                      handles all supported languages automatically)
 
         Returns:
             List of (keyword, score) tuples
@@ -152,13 +142,12 @@ class KeywordExtractor:
 
         if not seed_keywords:
             print(f"Warning: No seed keywords found for sector {sector_code}")
-            return self.extract_keywords(text, top_n=top_n, language=language)
+            return self.extract_keywords(text, top_n=top_n)
 
         # Extract with sector guidance
         keywords = self.extract_keywords(
             text,
             top_n=top_n,
-            language=language,
             seed_keywords=seed_keywords,
             diversity=0.7  # Higher diversity for sector-guided extraction
         )
@@ -170,7 +159,7 @@ class KeywordExtractor:
         text: str,
         sector_codes: List[str],
         top_n: int = 10,
-        language: str = "german"
+        language: Optional[str] = None
     ) -> Dict[str, List[Tuple[str, float]]]:
         """
         Extract keywords guided by multiple sectors.
@@ -181,7 +170,7 @@ class KeywordExtractor:
             text: Input text
             sector_codes: List of sector codes
             top_n: Number of keywords to extract per sector
-            language: Language of the text
+            language: Language of the text (informational; handled by multilingual model)
 
         Returns:
             Dictionary mapping sector codes to extracted keywords
@@ -203,8 +192,7 @@ class KeywordExtractor:
         self,
         text: str,
         top_n: int = 5,
-        seed_keywords: Optional[List[str]] = None,
-        language: str = "german"
+        seed_keywords: Optional[List[str]] = None
     ) -> List[Tuple[str, float]]:
         """
         Extract multi-word keyphrases (similar to extract_keywords but optimized for phrases).
@@ -223,7 +211,6 @@ class KeywordExtractor:
             text,
             top_n=top_n * 2,  # Extract more to filter keyphrases
             seed_keywords=seed_keywords,
-            language=language,
             diversity=0.8
         )
 
@@ -236,8 +223,7 @@ class KeywordExtractor:
         self,
         texts: List[str],
         sector_codes: Optional[List[str]] = None,
-        top_n: int = 10,
-        language: str = "german"
+        top_n: int = 10
     ) -> List[Dict]:
         """
         Extract keywords from multiple texts.
@@ -246,7 +232,6 @@ class KeywordExtractor:
             texts: List of texts
             sector_codes: Optional list of sector codes (one per text)
             top_n: Number of keywords per text
-            language: Language of texts
 
         Returns:
             List of dictionaries with extraction results
@@ -260,14 +245,12 @@ class KeywordExtractor:
                 keywords = self.extract_keywords_guided_by_sector(
                     text,
                     sector_code,
-                    top_n=top_n,
-                    language=language
+                    top_n=top_n
                 )
             else:
                 keywords = self.extract_keywords(
                     text,
-                    top_n=top_n,
-                    language=language
+                    top_n=top_n
                 )
 
             results.append({
