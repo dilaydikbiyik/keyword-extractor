@@ -18,16 +18,16 @@ def main():
     print("="*80)
     print("KEYWORD EXTRACTION PIPELINE - QUICK START")
     print("="*80)
-    
+
     # Step 1: Initialize components
     print("\n[1/4] Initializing components...")
-    
+
     preprocessor = TextPreprocessor()
     embedder = EmbeddingService()
     classifier = SectorClassifier(embedder)
     extractor = KeywordExtractor()
     keyword_filter = KeywordFilter()
-    
+
     controller = ExtractionController(
         embedding_service=embedder,
         classifier=classifier,
@@ -36,32 +36,32 @@ def main():
         preprocessor=preprocessor
     )
     print("      ✓ Components initialized")
-    
+
     # Step 2: Sample texts
     print("\n[2/4] Loading sample texts...")
-    
+
     sample_texts = [
         "Softwareentwicklung und Programmierung für Web- und Mobileanwendungen. API-Integrationsdienste und Cloud-Lösungen.",
         "Handel mit Elektronik, Computern und Mobiltelefonen. Großhandel und Einzelhandel. E-Commerce-Plattform.",
         "Zahnklinik mit modernen Behandlungsmethoden. Zahnimplantate, Zahnbleaching und Prophylaxe.",
     ]
-    
+
     for i, text in enumerate(sample_texts, 1):
         print(f"      {i}. {text[:60]}...")
-    
+
     # Step 3: Extract keywords
     print("\n[3/4] Extracting keywords...")
-    
+
     results = controller.extract_batch(sample_texts, top_n_keywords=5)
-    
+
     # Step 4: Display results
     print("\n[4/4] Results:\n")
-    
+
     for i, (text, result) in enumerate(zip(sample_texts, results), 1):
         print(f"{'='*80}")
         print(f"Sample {i}: {text[:70]}...")
         print(f"{'='*80}")
-        
+
         if result['status'] == 'success':
             sector_info = result['sector_classification']
             classifications = sector_info.get('classifications', [])
@@ -80,9 +80,9 @@ def main():
             print(f"Status: {status}")
             if error_msg != 'n/a':
                 print(f"Error:  {error_msg}")
-        
+
         print()
-    
+
     # Step 5: Summary statistics
     print("="*80)
     stats = controller.get_extraction_stats(results)
@@ -97,7 +97,7 @@ def main():
     print(f"\nSector Distribution:")
     for sector, count in sorted(stats['sector_distribution'].items()):
         print(f"  {sector}: {count}")
-    
+
     print("\n" + "="*80)
     print("✓ Quick Start Complete!")
     print("="*80)

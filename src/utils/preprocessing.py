@@ -9,6 +9,7 @@ from nltk.corpus import stopwords
 nlp_de = None
 nlp_tr = None
 
+
 def _load_spacy_models():
     """Lazy load spaCy models only when needed."""
     global nlp_de, nlp_tr
@@ -267,7 +268,6 @@ class TextPreprocessor:
 
         return candidates
 
-
     def _is_valid_ngram(self, ngram: str, n: int) -> bool:
         """
         Check if n-gram is valid for keyword extraction.
@@ -329,8 +329,9 @@ class TextPreprocessor:
             'candidate_count': len(candidates)
         }
 
-
 # Convenience functions for external use
+
+
 def clean_text(text: str, lang: str = "auto") -> str:
     """Clean text using default preprocessor."""
     preprocessor = TextPreprocessor()

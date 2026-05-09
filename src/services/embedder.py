@@ -5,7 +5,7 @@ Provides embeddings for texts and sector descriptions using
 sentence-transformers for multilingual support.
 """
 
-from typing import List, Dict, Tuple, Optional, Union
+from typing import List, Dict, Tuple, Optional
 import numpy as np
 from sentence_transformers import SentenceTransformer
 import json
@@ -16,7 +16,7 @@ from pathlib import Path
 class EmbeddingService:
     """
     Service for generating and managing embeddings using SentenceTransformers.
-    
+
     Supports multilingual embeddings for German, Turkish, and English.
     """
 
@@ -126,7 +126,6 @@ class EmbeddingService:
         ]
         averaged = np.mean(np.vstack(chunk_embeddings), axis=0)
         return averaged
-
 
     def embed_texts(
         self,

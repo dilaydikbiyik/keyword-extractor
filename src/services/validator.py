@@ -13,12 +13,12 @@ import time
 class LLMValidator:
     """
     Validates keywords using LLM (e.g., GPT-3.5).
-    
+
     Useful for:
     - Validating low-confidence predictions
     - Domain-specific keyword verification
     - Final quality assurance
-    
+
     Note: Requires OpenAI API key. Can be expensive for large batches.
     """
 
@@ -44,13 +44,12 @@ class LLMValidator:
 
         # Import OpenAI lazily
         try:
-            import os
             from openai import OpenAI
 
             if api_key:
                 self.client = OpenAI(api_key=api_key)
             else:
-                self.client = OpenAI()  # Uses OPENAI_API_KEY env variable
+                self.client = OpenAI()
 
             self.available = True
         except ImportError:
@@ -150,7 +149,7 @@ Format your response as JSON:
                     timeout=self.timeout_seconds
                 )
                 return response.choices[0].message.content
-            except Exception as e:
+            except Exception:
                 if attempt < self.max_retries - 1:
                     wait_time = 2 ** attempt  # Exponential backoff
                     print(f"API call failed (attempt {attempt + 1}), retrying in {wait_time}s...")
@@ -208,8 +207,8 @@ Format your response as JSON:
 
             return results
 
-        except Exception as e:
-            print(f"Failed to parse validation response: {e}")
+        except Exception:
+            print("Failed to parse validation response. Returning original scores.")
             return self._format_validation_results(original_keywords, validated=False)
 
     def _format_validation_results(

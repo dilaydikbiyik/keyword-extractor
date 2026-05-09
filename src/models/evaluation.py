@@ -8,7 +8,7 @@ Implements:
   - Batch evaluation helpers
 """
 
-from typing import List, Dict, Optional, Tuple
+from typing import List, Dict, Optional
 import numpy as np
 from collections import defaultdict
 

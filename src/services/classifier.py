@@ -4,16 +4,15 @@ Sector Classifier Service
 Classifies business descriptions into sectors using embedding similarity.
 """
 
-from typing import List, Dict, Tuple, Optional
+from typing import List, Dict, Tuple
 import numpy as np
 import json
-from pathlib import Path
 
 
 class SectorClassifier:
     """
     Sector classification service using embedding-based similarity.
-    
+
     Predicts the most likely sector(s) for a business description.
     """
 

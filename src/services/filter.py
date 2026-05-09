@@ -6,16 +6,13 @@ information value, relevance, and sector specificity.
 """
 
 from typing import List, Dict, Tuple, Optional
-import numpy as np
 import json
-from collections import Counter
-import re
 
 
 class KeywordFilter:
     """
     Advanced keyword filtering based on information theory and domain relevance.
-    
+
     Implements filtering based on:
     - Information value (uniqueness/rarity)
     - Sector relevance
@@ -133,7 +130,6 @@ class KeywordFilter:
         for kw, score in keywords:
             # Calculate linguistic specificity (prefer longer, more specific terms)
             word_count = len(kw.split())
-            char_count = len(kw)
 
             # Longer keywords are more specific
             specificity_bonus = min(0.3, (word_count - 1) * 0.1)

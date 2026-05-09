@@ -5,16 +5,14 @@ Provides guided keyword extraction using KeyBERT with sector-specific seed keywo
 """
 
 from typing import List, Dict, Tuple, Optional
-import numpy as np
 from keybert import KeyBERT
 import json
-from pathlib import Path
 
 
 class KeywordExtractor:
     """
     Guided keyword extraction service using KeyBERT.
-    
+
     Uses sector-specific seed keywords to guide extraction toward domain-relevant terms.
     """
 

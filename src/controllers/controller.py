@@ -9,7 +9,7 @@ Orchestrates the complete keyword extraction pipeline:
 5. Optional LLM validation
 """
 
-from typing import List, Dict, Optional, Tuple
+from typing import List, Dict, Optional
 import logging
 import json
 import os
@@ -21,7 +21,7 @@ from pathlib import Path
 class ExtractionController:
     """
     Main controller for the keyword extraction pipeline.
-    
+
     Coordinates all services to extract keywords from business descriptions.
     """
 
