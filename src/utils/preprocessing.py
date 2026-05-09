@@ -1,9 +1,19 @@
 import re
+import os
 import unicodedata
 from typing import List, Tuple, Optional, Dict, Any
 from langdetect import detect, LangDetectException
 import nltk
 from nltk.corpus import stopwords
+
+# Register the project-local nltk_data directory (if present) so the project
+# works without a system-wide NLTK installation.  The folder is intentionally
+# excluded from git (see .gitignore); each developer downloads it once via
+#   python -m nltk.downloader -d nltk_data stopwords punkt
+_LOCAL_NLTK = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(
+    os.path.abspath(__file__)))), "nltk_data")
+if os.path.isdir(_LOCAL_NLTK) and _LOCAL_NLTK not in nltk.data.path:
+    nltk.data.path.insert(0, _LOCAL_NLTK)
 
 # Lazy import for spacy (optional)
 nlp_de = None

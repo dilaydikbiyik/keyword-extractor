@@ -162,3 +162,12 @@ mlartifacts/
 # Cache dosyaları
 .cache/
 *.cache
+
+# NLTK indirilen veriler (proje içine koyulduysa git'e eklenmesin)
+nltk_data/
+
+# Embedding cache
+data/cache/
+
+# Batch çıktıları
+output/
