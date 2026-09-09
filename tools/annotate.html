@@ -67,6 +67,8 @@
 
   .keys { margin-top: 26px; padding-top: 14px; border-top: 1px solid var(--rule); font-family: var(--mono); font-size: 11.5px; color: var(--ink-3); display: flex; flex-wrap: wrap; gap: 6px 20px; }
 
+  .mode { margin: 0 0 18px; padding: 12px 16px; border-radius: 6px; font-size: 14px;
+          background: var(--accent-soft); color: var(--ink); border: 1px solid transparent; }
   .drop { border: 1px dashed var(--rule); border-radius: 6px; padding: 40px 24px; text-align: center; background: var(--surface); }
   .drop p { color: var(--ink-2); max-width: 62ch; margin: 8px auto; }
   [hidden] { display: none !important; }
@@ -84,6 +86,8 @@
 
   <div class="bar"><div id="progress"></div></div>
 
+  <p id="mode" class="mode" hidden></p>
+
   <!-- ── loader ─────────────────────────────────────────── -->
   <section id="loader" class="drop">
     <p><b>Open <code>results/annotation_queue.csv</code></b></p>
@@ -98,10 +102,10 @@
   <!-- ── annotator ──────────────────────────────────────── -->
   <section id="app" hidden>
     <div class="row">
-      <span>queue <b id="qid"></b></span>
-      <span>model says <b id="pred"></b></span>
-      <span>margin <b id="margin"></b></span>
-      <span>stratum <b id="stratum"></b></span>
+      <span>document <b id="qid"></b></span>
+      <span id="predWrap">model says <b id="pred"></b></span>
+      <span id="marginWrap">margin <b id="margin"></b></span>
+      <span id="stratumWrap">stratum <b id="stratum"></b></span>
       <span class="spacer"></span>
       <span id="saved" class="muted"></span>
     </div>
@@ -115,10 +119,12 @@
       </details>
     </div>
 
-    <div class="hint">Model's top three</div>
-    <div class="suggest" id="suggest"></div>
+    <div id="suggestWrap">
+      <div class="hint">Model's top three</div>
+      <div class="suggest" id="suggest"></div>
+    </div>
 
-    <div class="hint" style="margin-top:22px">Everything else</div>
+    <div class="hint" style="margin-top:22px" id="allHint">Everything else</div>
     <div style="max-width:420px"><input type="text" id="search" placeholder="Filter sections — press /"></div>
     <div class="all" id="all"></div>
 
@@ -178,6 +184,10 @@
 
   var STORE = "keyword-extractor.annotation.v1";
   var rows = [], header = [], index = 0, saveTimer = null;
+  // A verification file carries the existing label in `silver_sector`. In that
+  // mode the tool hides both that label and the model's suggestions: the point
+  // is an independent second opinion, and a visible suggestion is an anchor.
+  var verifying = false;
 
   var $ = function (id) { return document.getElementById(id); };
 
@@ -283,10 +293,14 @@
     var r = rows[index];
     if (!r) return;
 
-    $("qid").textContent = r.queue_id;
-    $("pred").textContent = (r.predicted_sector || "?") + " — " + (NAME[r.predicted_sector] || "");
-    $("margin").textContent = r.margin || "—";
-    $("stratum").textContent = r.stratum || "—";
+    $("qid").textContent = (index + 1) + " of " + rows.length;
+    $("pred").textContent = (r.predicted_sector || "") + " — " + (NAME[r.predicted_sector] || "");
+    $("margin").textContent = r.margin || "";
+    $("stratum").textContent = r.stratum || "";
+    // Hide meta the file does not carry, rather than showing empty labels.
+    $("predWrap").hidden = verifying || !r.predicted_sector;
+    $("marginWrap").hidden = !r.margin;
+    $("stratumWrap").hidden = !r.stratum;
     $("legal").textContent = r.legal_name || "(no registered name)";
     var english = (r.purpose_en || "").trim();
     // Show the translation as the primary text; German stays available and is
@@ -296,11 +310,12 @@
     $("originalWrap").hidden = !english;
     $("kw").value = r.keywords_ground_truth || "";
 
-    var top3 = (r.top3 || "").split("|").filter(Boolean);
+    var top3 = verifying ? [] : (r.top3 || "").split("|").filter(Boolean);
     var suggest = $("suggest");
     suggest.textContent = "";
     top3.forEach(function (code, i) { suggest.appendChild(button(code, String(i + 1))); });
-    if (!top3.length) suggest.appendChild(document.createTextNode("—"));
+    $("suggestWrap").hidden = verifying || !top3.length;
+    $("allHint").textContent = verifying ? "Which section is this?" : "Everything else";
 
     paintAll();
     paintProgress();
@@ -377,6 +392,17 @@
         header.forEach(function (h, i) { o[h] = cells[i] == null ? "" : cells[i]; });
         return o;
       });
+      verifying = header.indexOf("silver_sector") !== -1;
+      // Keep the two passes in separate storage: a verification answer must not
+      // overwrite a queue answer for the same document.
+      STORE = verifying ? "keyword-extractor.verification.v1"
+                        : "keyword-extractor.annotation.v1";
+      $("mode").hidden = !verifying;
+      $("mode").textContent =
+        "Verification pass. " + table.length + " documents that already carry a "
+        + "machine-produced label \u2014 hidden here on purpose, along with the "
+        + "model's suggestions, so your answer is independent. Pick the section "
+        + "you think fits; `make verify` compares the two afterwards.";
       var restored = restore();
       // Resume at the first unanswered row.
       index = rows.findIndex(function (r) { return !r.true_sector; });
