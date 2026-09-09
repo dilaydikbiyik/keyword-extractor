@@ -101,7 +101,7 @@ INPUT TEXT (German business description)
     ├─→ [KEYWORD EXTRACTION (Guided)]
     │   ├─ Load sector-specific seed keywords (10-25 per sector)
     │   ├─ KeyBERT extraction with seeds
-    │   │   - Score = α * doc_sim + β * seed_sim
+    │   │   - KeyBERT blends doc and mean-seed embeddings 3:1, then ranks
     │   ├─ MMR reranking (diversity=0.7)
     │   └─ Extract top 20 candidates
     │       Output: [(keyword, score), ...]
@@ -194,7 +194,7 @@ INPUT TEXT (German business description)
 
 | Service | Input | Output | Dependencies | Caching |
 |---------|-------|--------|--------------|---------|
-| TextPreprocessor | Text | {cleaned_text, language, candidates} | NLTK, spaCy, langdetect | No |
+| TextPreprocessor | Text | {cleaned_text, language, candidates} | NLTK, langdetect | No |
 | EmbeddingService | Text / Sectors | 384-dim vectors | SentenceTransformers | Yes (NPZ) |
 | SectorClassifier | Text → Embeddings | [(sector, confidence)] | EmbeddingService | Yes (vectors) |
 | KeywordExtractor | Text + Sector | [(keyword, score)] | KeyBERT | No |

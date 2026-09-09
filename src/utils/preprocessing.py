@@ -15,20 +15,13 @@ _LOCAL_NLTK = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(
 if os.path.isdir(_LOCAL_NLTK) and _LOCAL_NLTK not in nltk.data.path:
     nltk.data.path.insert(0, _LOCAL_NLTK)
 
-# Lazy import for spacy (optional)
-nlp_de = None
-nlp_tr = None
-
-
-def _load_spacy_models():
-    """Lazy load spaCy models only when needed."""
-    global nlp_de, nlp_tr
-    try:
-        import spacy
-        nlp_de = spacy.load('de_core_news_sm')
-        nlp_tr = spacy.load('tr_core_news_sm')
-    except Exception as e:
-        print(f"Warning: spaCy models not available: {e}")
+# Tokenisation is deliberately regex-based rather than spaCy-based. spaCy was
+# an optional dependency whose models silently failed to load on any
+# environment where its compiled extensions disagreed with the installed numpy,
+# so the same text tokenised differently from machine to machine and the
+# fallback below is what actually ran. One tokeniser everywhere is worth more
+# here than linguistic tokenisation on some machines only.
+WORD_PATTERN = re.compile(r'\b\w+\b', re.UNICODE)
 
 # Download required NLTK data
 try:
@@ -52,12 +45,21 @@ class TextPreprocessor:
         """
         self.config = config or {}
 
+        # Behaviour switches, all read from the ``preprocessing`` config section.
+        self.lowercase = self.config.get('lowercase', True)
+        self.remove_urls = self.config.get('remove_urls', True)
+        self.remove_emails = self.config.get('remove_emails', True)
+        self.remove_punctuation = self.config.get('remove_punctuation', True)
+        self.preserve_hyphens = self.config.get('preserve_hyphens', True)
+        self.min_word_length = self.config.get('min_word_length', 3)
+        self.max_ngram_length = self.config.get('max_ngram_length', 3)
+
         # URL and email patterns
         self.url_pattern = re.compile(r'https?://\S+|www\.\S+')
         self.email_pattern = re.compile(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b')
 
-        # Special characters to preserve (hyphen, apostrophe)
-        self.preserve_chars = {'-', "'"}
+        # Special characters to preserve inside tokens
+        self.preserve_chars = {'-', "'"} if self.preserve_hyphens else set()
 
         # Load stopwords for different languages
         self.stopwords = self._load_stopwords()
@@ -138,20 +140,21 @@ class TextPreprocessor:
         if not text or not isinstance(text, str):
             return ""
 
-        # Convert to lowercase
-        text = text.lower()
+        if self.lowercase:
+            text = text.lower()
 
-        # Remove URLs
-        text = self.url_pattern.sub(' ', text)
+        if self.remove_urls:
+            text = self.url_pattern.sub(' ', text)
 
-        # Remove emails
-        text = self.email_pattern.sub(' ', text)
+        if self.remove_emails:
+            text = self.email_pattern.sub(' ', text)
 
         # Normalize unicode characters
         text = unicodedata.normalize('NFKD', text).encode('ascii', 'ignore').decode('ascii')
 
-        # Remove special characters but preserve hyphens and apostrophes
-        text = re.sub(r'[^\w\s' + re.escape(''.join(self.preserve_chars)) + r']', ' ', text)
+        if self.remove_punctuation:
+            preserved = re.escape(''.join(sorted(self.preserve_chars)))
+            text = re.sub(r'[^\w\s' + preserved + r']', ' ', text)
 
         # Normalize whitespace
         text = re.sub(r'\s+', ' ', text).strip()
@@ -211,7 +214,9 @@ class TextPreprocessor:
 
         Args:
             text: Input text
-            lang: Language code
+            lang: Language code; accepted for API compatibility. The regex
+                tokeniser is language-independent, so this does not change
+                the result.
 
         Returns:
             List of tokens
@@ -219,35 +224,25 @@ class TextPreprocessor:
         if lang == "auto":
             lang, _ = self.detect_language(text)
 
-        # Try to use spaCy for tokenization if available
-        try:
-            _load_spacy_models()
-            if lang == 'de' and nlp_de:
-                doc = nlp_de(text)
-                tokens = [token.text for token in doc if token.is_alpha]
-            elif lang == 'tr' and nlp_tr:
-                doc = nlp_tr(text)
-                tokens = [token.text for token in doc if token.is_alpha]
-            else:
-                # Fallback to simple whitespace tokenization
-                tokens = re.findall(r'\b\w+\b', text)
-        except:
-            # Fallback to simple whitespace tokenization
-            tokens = re.findall(r'\b\w+\b', text)
+        return WORD_PATTERN.findall(text)
 
-        return tokens
-
-    def generate_ngram_candidates(self, text: str, n_range: Tuple[int, int] = (1, 3)) -> List[str]:
+    def generate_ngram_candidates(
+        self, text: str, n_range: Optional[Tuple[int, int]] = None
+    ) -> List[str]:
         """
         Generate n-gram candidates from text.
 
         Args:
             text: Input text
-            n_range: Range of n-gram sizes (min_n, max_n)
+            n_range: Range of n-gram sizes (min_n, max_n); defaults to
+                (1, the configured max_ngram_length)
 
         Returns:
             List of n-gram candidates
         """
+        if n_range is None:
+            n_range = (1, self.max_ngram_length)
+
         # Clean the text first
         cleaned_text = self.clean_text(text)
 
@@ -289,9 +284,10 @@ class TextPreprocessor:
         Returns:
             True if valid, False otherwise
         """
-        # Minimum length requirements
-        min_lengths = {1: 3, 2: 5, 3: 7}  # characters
-        if len(ngram) < min_lengths.get(n, 3):
+        # Minimum character length grows with n; the unigram floor is the
+        # configured min_word_length.
+        floor = self.min_word_length
+        if len(ngram) < floor + (n - 1) * 2:
             return False
 
         # Must contain only letters, spaces, hyphens, apostrophes
