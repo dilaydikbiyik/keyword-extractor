@@ -1,6 +1,6 @@
 PYTHON ?= python
 
-.PHONY: help install reproduce test lint annotate demo clean
+.PHONY: help install reproduce test lint annotate paper-tables demo clean
 
 help:
 	@echo "install    Install dependencies into the active environment"
@@ -8,6 +8,7 @@ help:
 	@echo "test       Run the test suite"
 	@echo "lint       Run flake8 over the source and experiment packages"
 	@echo "annotate   Build the stratified annotation queue for new labels"
+	@echo "paper-tables  Regenerate paper/tables/*.tex from results/"
 	@echo "demo       Re-render the README demo GIF from results/"
 	@echo "clean      Remove generated results and caches"
 
@@ -26,6 +27,9 @@ lint:
 
 annotate:
 	$(PYTHON) -m experiments.build_annotation_queue --target 300
+
+paper-tables:
+	$(PYTHON) -m experiments.export_latex
 
 demo:
 	$(PYTHON) tools/make_demo_gif.py
