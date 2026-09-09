@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use this software or its results, please cite it as below."
+title: "Sectoral Keyword Extraction Pipeline"
+abstract: >-
+  A taxonomy-guided, unsupervised pipeline that classifies German trade
+  register business purposes into NACE Rev. 2 sections and extracts
+  sector-aware keywords using multilingual sentence embeddings and guided
+  KeyBERT.
+type: software
+authors:
+  - family-names: "Dikbıyık"
+    given-names: "Dilay"
+keywords:
+  - natural language processing
+  - keyword extraction
+  - multilingual embeddings
+  - NACE Rev. 2
+  - zero-shot classification
+license: MIT
+repository-code: "https://github.com/dilaydikbiyik/keyword-extractor"
