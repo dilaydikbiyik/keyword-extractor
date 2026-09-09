@@ -191,19 +191,24 @@ so every comparison in §3 sits inside the noise.
 
 **The procedure, end to end:**
 
-1. `make annotate` — builds `results/annotation_queue.csv`, 296 documents drawn
-   from the corpus, stratified by predicted section and split between low-margin
-   and representative cases. No gold label is used in the selection.
-2. Open `tools/annotate.html` in a browser and load that file. One document at a
-   time, the model's top three on keys `1` `2` `3`, everything else searchable,
-   progress kept in the browser as you go. Roughly 30 seconds per document —
-   about two and a half hours in total.
-3. Export, then `python -m experiments.merge_annotations --replace`. The
-   `--replace` matters: the original 30 are hand-authored, so appending them to
-   a corpus-sampled set reintroduces exactly the bias §1 describes. Keep the old
-   file as the backup the merge writes.
-4. `make reproduce`. Either the comparison becomes significant or it does not,
-   and either answer is worth having before writing a word.
+1. **`make annotate`** — builds `results/annotation_queue.csv`, 299 documents
+   drawn from the corpus, stratified by predicted section and split between
+   low-margin and representative cases. No gold label is used in the selection.
+   It then opens the labelling tool. Re-running it will not overwrite a queue
+   that already has answers in it.
+2. **Load that CSV in the tool.** One document at a time, the model's top three
+   on keys `1` `2` `3`, everything else searchable, progress kept in the browser
+   as you go. Roughly 30 seconds per document — about two and a half hours in
+   total. Export when done.
+3. **`make merge ARGS=--replace`.** The flag matters: the original 30 are
+   hand-authored, so appending them to a corpus-sampled set reintroduces exactly
+   the bias §1 describes. The merge backs up the old label file first.
+4. **`make reproduce`.** Either the comparison becomes significant or it does
+   not, and either answer is worth having before writing a word.
+
+Every `make` target finds `.venv` on its own, so none of this needs the
+environment activated first. Bare `python -m experiments...` commands do —
+`source .venv/bin/activate`.
 
 This is the highest-value work available on the project by a wide margin.
 

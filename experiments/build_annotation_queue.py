@@ -52,10 +52,27 @@ def main() -> int:
     parser.add_argument(
         "--min-per-sector", type=int, default=5, help="Floor per predicted sector."
     )
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Overwrite an existing queue. Refused by default: the file may "
+             "already hold answers.",
+    )
     args = parser.parse_args()
 
     set_seed()
     ensure_dirs()
+
+    if QUEUE_CSV.exists() and not args.force:
+        answered = 0
+        with open(QUEUE_CSV, newline="", encoding="utf-8") as fh:
+            answered = sum(
+                1 for row in csv.DictReader(fh) if (row.get("true_sector") or "").strip()
+            )
+        print(f"{QUEUE_CSV} already exists ({answered} rows answered).")
+        print("Refusing to overwrite it. Pass --force to rebuild from scratch,")
+        print("or merge what you have first: make merge ARGS=--replace")
+        return 0 if answered == 0 else 1
 
     df = load_corpus_frame()
     already = {s.purpose.strip() for s in load_labeled_samples()}

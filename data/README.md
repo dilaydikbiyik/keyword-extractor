@@ -74,12 +74,12 @@ exists to handle. **Do not read it as corpus accuracy.**
 fixes representativeness and sample size together:
 
 ```bash
-make annotate                    # build the queue (296 documents)
-open tools/annotate.html         # label them — keyboard-driven, offline
-python -m experiments.merge_annotations --replace
+make annotate                    # build the queue and open the labelling tool
+make merge ARGS=--replace        # fold the answers back in
+make reproduce                   # re-measure on the new set
 ```
 
-`--replace` is deliberate: appending a hand-authored set to a corpus-sampled one
+`ARGS=--replace` is deliberate: appending a hand-authored set to a corpus-sampled one
 reintroduces exactly the bias above. The merge backs up the old file first.
 
 Merged rows are recorded as `provenance: corpus_sample`, so the two populations

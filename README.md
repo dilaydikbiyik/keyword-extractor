@@ -86,6 +86,10 @@ python quickstart.py
 
 Three commands, no model downloads to arrange by hand and no optional language
 models: the encoder is fetched on first use and everything else is pinned.
+`make install` does the same and creates `.venv` if it is missing.
+
+Every `make` target uses `.venv` automatically, so they work without activating
+it. Bare `python …` commands need `source .venv/bin/activate` first.
 
 ## Reproduce every number above
 

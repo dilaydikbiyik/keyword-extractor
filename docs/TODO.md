@@ -614,12 +614,12 @@ karşılaştırma anlamlı değil.
 
 Etiketleme kuyruğu doğrudan korpustan örneklendiği için ikisini birden çözüyor.
 
-- [x] Katmanlı etiketleme kuyruğu: `results/annotation_queue.csv` (296 belge hazır)
+- [x] Katmanlı etiketleme kuyruğu: `results/annotation_queue.csv` (299 belge hazır)
 - [x] Etiketleri geri birleştirme aracı: `python -m experiments.merge_annotations`
 - [x] Etiketleme arayüzü: `tools/annotate.html` (çevrimdışı, klavye ile ~30 sn/belge)
 - [x] Belge kökeni (`provenance`) artık etiket dosyasında kayıtlı
-- [ ] **296 belgeyi etiketle** (~2.5 saat) → CI ±4.5 puana iner
-- [ ] `python -m experiments.merge_annotations --replace`
+- [ ] **299 belgeyi etiketle** (~2.5 saat) → CI ±4.5 puana iner
+- [ ] `make merge ARGS=--replace`
       (`--replace` önemli: eski 30 elle yazılmış belge, korpustan örneklenmiş
       bir sete eklenirse aynı yanlılığı geri getirir)
 - [ ] `make reproduce` — karşılaştırma anlamlı çıkıyor mu, çıkmıyor mu?
@@ -667,4 +667,4 @@ Etiketleme kuyruğu doğrudan korpustan örneklendiği için ikisini birden çö
 paper iskeleti) ve İP-4 artefakt standardı tamamlandı. mpnet ve çeviri
 ablation'ları negatif sonuç verdi. En kritik bulgu: değerlendirme kümesi
 korpustan örneklenmemiş (10.4a). Testler geçiyor, lint temiz.
-Kritik yol: `tools/annotate.html` ile 296 belgeyi etiketlemek.*
+Kritik yol: `tools/annotate.html` ile 299 belgeyi etiketlemek.*
