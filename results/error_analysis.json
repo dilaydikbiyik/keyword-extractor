@@ -1,13 +1,13 @@
 {
   "system": "full",
   "n_documents": 299,
-  "n_errors": 191,
-  "error_rate": 0.6387959866220736,
+  "n_errors": 196,
+  "error_rate": 0.6555183946488294,
   "auto_flag_counts": {
-    "low_margin": 117,
-    "outside_top3": 96,
-    "recoverable_in_top3": 95,
-    "crowded_top3": 61,
+    "low_margin": 118,
+    "outside_top3": 99,
+    "recoverable_in_top3": 97,
+    "crowded_top3": 62,
     "boilerplate_shape": 51,
     "short_text": 16
   },
@@ -1392,6 +1392,38 @@
       "manual_note": ""
     },
     {
+      "id": 56,
+      "legal_name": "ALE GmbH",
+      "purpose": "Recycling von Baustoffen durch Dritte, Allgemeine Logistik, Entsorgung für Baubetriebe, der Handel mit und die Vermietung von Baumaschinen, LKW und PKW; die Arbeitnehmerüberlassung (nicht befristet) nach den §§ 1 und 2 des Gesetzes zur Regelung der Arbeitnehmerüberlassung.",
+      "text_length": 273,
+      "true_sector": "N",
+      "predicted_sector": "E",
+      "top3": [
+        "E",
+        "H",
+        "C"
+      ],
+      "score_top1": 0.594924663466045,
+      "margin_top1_top2": 0.03961014021286147,
+      "keywords": [
+        "recycling",
+        "logistik",
+        "arbeitnehmerüberlassung",
+        "vermietung",
+        "baubetriebe",
+        "baustoffen",
+        "gesetzes",
+        "baumaschinen",
+        "regelung",
+        "befristet"
+      ],
+      "auto_flags": [
+        "outside_top3"
+      ],
+      "manual_category": "",
+      "manual_note": ""
+    },
+    {
       "id": 57,
       "legal_name": "REH GmbH Dienstleistungen",
       "purpose": "die Durchführung von Gebäudeinnen- und Außenreinigung, Fenster- und Fassadenreinigung sowie Straßen- und Parkplatzreinigung einschließlich Schneeund Eisbeseitigung von Geh- und Fahrwegen, Handel mit Reinigungsprodukten, ferner die Durchführung von Reinigungs- und Desinfektionsmaßnahmen in Krankenhäusern, Kliniken, Pflege- und Altenheimen und ähnlichen sozialen Einrichtungen sowie die Durchführung von ähnlichen, damit verbundenen Dienstleistungen in diesen Bereichen",
@@ -1454,39 +1486,6 @@
         "low_margin",
         "crowded_top3",
         "outside_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 59,
-      "legal_name": "DEHÖMA Fuhrbetrieb und Containerdienst GmbH",
-      "purpose": "Der Betrieb eines Containerdienstes, die Baumaschinenvermietung, der Güternahverkehr, Erdbau und Abrissarbeiten..",
-      "text_length": 113,
-      "true_sector": "H",
-      "predicted_sector": "E",
-      "top3": [
-        "E",
-        "H",
-        "C"
-      ],
-      "score_top1": 0.6873291850544107,
-      "margin_top1_top2": 0.0064911132319573905,
-      "keywords": [
-        "containerdienstes",
-        "abrissarbeiten",
-        "baumaschinenvermietung",
-        "betrieb",
-        "güternahverkehr",
-        "der",
-        "und",
-        "eines",
-        "die",
-        "erdbau"
-      ],
-      "auto_flags": [
-        "low_margin",
-        "recoverable_in_top3"
       ],
       "manual_category": "",
       "manual_note": ""
@@ -2697,6 +2696,40 @@
       "manual_note": ""
     },
     {
+      "id": 134,
+      "legal_name": "Baila Event GmbH",
+      "purpose": "Betrieb einer Discothek und Eventveranstaltungen sowie aller damit zusammenhängenden Geschäfte",
+      "text_length": 94,
+      "true_sector": "R",
+      "predicted_sector": "I",
+      "top3": [
+        "I",
+        "G",
+        "R"
+      ],
+      "score_top1": 0.5515708915840962,
+      "margin_top1_top2": 0.0073147847978508596,
+      "keywords": [
+        "eventveranstaltungen",
+        "geschäfte",
+        "betrieb",
+        "sowie",
+        "zusammenhängenden",
+        "aller",
+        "und",
+        "einer",
+        "damit",
+        "discothek"
+      ],
+      "auto_flags": [
+        "low_margin",
+        "crowded_top3",
+        "recoverable_in_top3"
+      ],
+      "manual_category": "",
+      "manual_note": ""
+    },
+    {
       "id": 135,
       "legal_name": "LupoTherm Vertrieb UG (haftungsbeschränkt)",
       "purpose": "Vermarktung von Produkten und Dienstleistungen im Bereich Dämmung und thermischer Isolation.",
@@ -2854,39 +2887,6 @@
       "auto_flags": [
         "low_margin",
         "crowded_top3",
-        "outside_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 150,
-      "legal_name": "OBIS Gesellschaft für Online-Buchungs- und -Informationssysteme mbH",
-      "purpose": "Erbringung von Dienstleistungen und Lieferung von Waren, welche zur elektronischen Buchung von Werbezeiten bei Vermarktern von Werbezeiten, Fernsehsendern, Hörfunksendern oder Fernseh- und Hörfunkanstalten erforderlich sind.",
-      "text_length": 224,
-      "true_sector": "M",
-      "predicted_sector": "J",
-      "top3": [
-        "J",
-        "G",
-        "S"
-      ],
-      "score_top1": 0.4756277883164163,
-      "margin_top1_top2": 0.004133968702775548,
-      "keywords": [
-        "fernsehsendern",
-        "dienstleistungen",
-        "elektronischen",
-        "lieferung",
-        "hörfunksendern",
-        "hörfunkanstalten",
-        "erforderlich",
-        "erbringung",
-        "und",
-        "welche"
-      ],
-      "auto_flags": [
-        "low_margin",
         "outside_top3"
       ],
       "manual_category": "",
@@ -3562,6 +3562,39 @@
       "manual_note": ""
     },
     {
+      "id": 191,
+      "legal_name": "Goldman Sachs Realty Management GmbH",
+      "purpose": "Erbringen von Beratungsdienstleistungen über alle wirtschaftlichen und technischen Aspekte der Immobilienanlage, Immobilienentwicklung und Immobilienfinanzierung sowie Entwicklung, Betreuung und Verwaltung von Immobilien sowie deren Vermarktung; alle mit dem Betrieb im Zusammenhang stehenden sonstigen Geschäfte.",
+      "text_length": 313,
+      "true_sector": "M",
+      "predicted_sector": "L",
+      "top3": [
+        "L",
+        "N",
+        "S"
+      ],
+      "score_top1": 0.6385538855827263,
+      "margin_top1_top2": 0.012212483342201153,
+      "keywords": [
+        "immobilienanlage",
+        "immobilienfinanzierung",
+        "immobilienentwicklung",
+        "beratungsdienstleistungen",
+        "verwaltung",
+        "betreuung",
+        "geschäfte",
+        "aspekte",
+        "technischen",
+        "entwicklung"
+      ],
+      "auto_flags": [
+        "low_margin",
+        "outside_top3"
+      ],
+      "manual_category": "",
+      "manual_note": ""
+    },
+    {
       "id": 192,
       "legal_name": "H. M. Grundbesitz Verwaltungsgesellschaft mbH",
       "purpose": "Der Eintritt als persönlich haftende Gesellschafterin in Kommanditgesellschaften. Gegenstand des Unternehmens ist weiterhin die Verwaltung sowie der Erwerb von Immobilien. Die Gesellschaft ist berechtigt, Unternehmen im Zusammenhang mit der Verwaltung sowie dem Erwerb von Immobilien zu beraten. Die Gesellschaft ist befugt, Service-Leistungen für andere Unternehmen zu erbringen.",
@@ -3853,6 +3886,38 @@
       "manual_note": ""
     },
     {
+      "id": 203,
+      "legal_name": "ACPP GmbH",
+      "purpose": "Konzeption und Herstellung von audiovisuellen Präsentationen sowie Beratung, Schulung und Unterstützung von Organisationen und Unternehmen.",
+      "text_length": 139,
+      "true_sector": "J",
+      "predicted_sector": "M",
+      "top3": [
+        "M",
+        "N",
+        "R"
+      ],
+      "score_top1": 0.53448175691603,
+      "margin_top1_top2": 0.11475810040878393,
+      "keywords": [
+        "audiovisuellen",
+        "unterstützung",
+        "beratung",
+        "organisationen",
+        "schulung",
+        "konzeption",
+        "herstellung",
+        "unternehmen",
+        "sowie",
+        "und"
+      ],
+      "auto_flags": [
+        "outside_top3"
+      ],
+      "manual_category": "",
+      "manual_note": ""
+    },
+    {
       "id": 207,
       "legal_name": "IT Consulting Dadkhoo UG (haftungsbeschränkt)",
       "purpose": "IT Beratung und Schulung und IT & Kommunikations-Service.",
@@ -3906,6 +3971,39 @@
         "centers",
         "einführung",
         "unterhaltung"
+      ],
+      "auto_flags": [
+        "low_margin",
+        "recoverable_in_top3"
+      ],
+      "manual_category": "",
+      "manual_note": ""
+    },
+    {
+      "id": 212,
+      "legal_name": "A.F.I. Verwaltung und Portfolio GmbH",
+      "purpose": "Routing, Verwaltung und Portfolio Management für die IT Projekte der AFI Gruppe im Bereich Unternehmensmanagement und Kundenberatung im IT Bereich.",
+      "text_length": 147,
+      "true_sector": "J",
+      "predicted_sector": "M",
+      "top3": [
+        "M",
+        "N",
+        "J"
+      ],
+      "score_top1": 0.4745330550562506,
+      "margin_top1_top2": 0.002135604688469961,
+      "keywords": [
+        "unternehmensmanagement",
+        "management",
+        "kundenberatung",
+        "verwaltung",
+        "projekte",
+        "afi",
+        "portfolio",
+        "routing",
+        "für",
+        "bereich"
       ],
       "auto_flags": [
         "low_margin",
@@ -4054,7 +4152,7 @@
       "legal_name": "fund2seed GmbH",
       "purpose": "Die Erbringung von Beratungsdienstleistungen, schwerpunktmäßig für Non-Profit- Organisationen zur Förderung beziehungsweise Einhaltung ihrer Ziele und Verbindlichkeiten, und die Entwicklung, der Vertrieb und die Administration von vertriebs- und prozessorientierter Software.",
       "text_length": 275,
-      "true_sector": "M",
+      "true_sector": "J",
       "predicted_sector": "N",
       "top3": [
         "N",
@@ -4076,7 +4174,7 @@
         "einhaltung"
       ],
       "auto_flags": [
-        "recoverable_in_top3"
+        "outside_top3"
       ],
       "manual_category": "",
       "manual_note": ""
@@ -4174,6 +4272,38 @@
       "auto_flags": [
         "boilerplate_shape",
         "outside_top3"
+      ],
+      "manual_category": "",
+      "manual_note": ""
+    },
+    {
+      "id": 225,
+      "legal_name": "ExpoTor GmbH",
+      "purpose": "Gegenstand des Unternehmens ist nach der Erteilung dazu erforderlichen behördlichen Genehmigungen und Konzessionen das Betreiben von Internetplattformen für Messen, Events und andere Veranstaltungen, die Durchführung von Internet- und Messedienstleistungen aller Art sowie die beratende Tätigkeit auf den vorgenannten Gebieten. Darüber hinaus ist die Gesellschaft berechtigt, Geschäfte anderer Art zu tätigen, soweit ihr dies zur Erreichung des Gesellschaftszwecks dienlich erscheint und Zweigniederlassungen im In- und Ausland zu errichten.",
+      "text_length": 541,
+      "true_sector": "J",
+      "predicted_sector": "N",
+      "top3": [
+        "N",
+        "S",
+        "J"
+      ],
+      "score_top1": 0.5593896881664804,
+      "margin_top1_top2": 0.03467848196079959,
+      "keywords": [
+        "gesellschaftszwecks",
+        "messedienstleistungen",
+        "geschäfte",
+        "internetplattformen",
+        "genehmigungen",
+        "erforderlichen",
+        "beratende",
+        "betreiben",
+        "konzessionen",
+        "tätigkeit"
+      ],
+      "auto_flags": [
+        "recoverable_in_top3"
       ],
       "manual_category": "",
       "manual_note": ""
@@ -4384,7 +4514,7 @@
       "legal_name": "Kindergarten Bau- und Bewirtschaftungs- GmbH",
       "purpose": "Gegenstand des Unternehmens ist auf dem Gebiet der Stadt Kierspe die Errichtung, der Umbau, die Betreuung, Bewirtschaftung und Verwaltung von Kindergärten.",
       "text_length": 155,
-      "true_sector": "L",
+      "true_sector": "Q",
       "predicted_sector": "N",
       "top3": [
         "N",
@@ -4846,6 +4976,37 @@
         "low_margin",
         "boilerplate_shape",
         "outside_top3"
+      ],
+      "manual_category": "",
+      "manual_note": ""
+    },
+    {
+      "id": 249,
+      "legal_name": "HL-Reitschule im Sauerland UG (haftungsbeschränkt)",
+      "purpose": "Führung einer Pferdepension und Reitschule; Ausbildung von Pferden und Reitern.",
+      "text_length": 79,
+      "true_sector": "R",
+      "predicted_sector": "P",
+      "top3": [
+        "P",
+        "S",
+        "R"
+      ],
+      "score_top1": 0.47980377876718355,
+      "margin_top1_top2": 0.12375484319904928,
+      "keywords": [
+        "pferden",
+        "reitschule",
+        "führung",
+        "ausbildung",
+        "und",
+        "reitern",
+        "von",
+        "einer",
+        "pferdepension"
+      ],
+      "auto_flags": [
+        "recoverable_in_top3"
       ],
       "manual_category": "",
       "manual_note": ""

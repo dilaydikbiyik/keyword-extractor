@@ -28,7 +28,17 @@ REPORT_JSON = RESULTS_DIR / "verification_report.json"
 SAMPLE_SIZE = 50
 
 
-def build(size: int = SAMPLE_SIZE) -> int:
+def previously_sampled() -> set:
+    """Queue ids already used in an earlier verification pass."""
+    used = set()
+    for path in (SAMPLE_CSV, RESULTS_DIR / "verification_sample_pilot.csv"):
+        if path.exists():
+            with open(path, newline="", encoding="utf-8") as fh:
+                used.update(r["queue_id"] for r in csv.DictReader(fh))
+    return used
+
+
+def build(size: int = SAMPLE_SIZE, fresh: bool = False) -> int:
     """Draw a verification sample: random draw plus every low-confidence case.
 
     Both halves matter. A purely random sample under-represents exactly the
@@ -38,6 +48,14 @@ def build(size: int = SAMPLE_SIZE) -> int:
     with open(QUEUE_CSV, newline="", encoding="utf-8") as fh:
         rows = list(csv.DictReader(fh))
     labelled = [r for r in rows if r.get("model_assisted_sector")]
+    if fresh:
+        used = previously_sampled()
+        if used:
+            # Keep the pilot answers; the new pass is scored on its own file.
+            if SAMPLE_CSV.exists():
+                SAMPLE_CSV.replace(RESULTS_DIR / "verification_sample_pilot.csv")
+            labelled = [r for r in labelled if r["queue_id"] not in used]
+            print(f"Excluding {len(used)} documents used in the pilot pass.")
     if not labelled:
         print("The queue has no silver labels yet.", file=sys.stderr)
         return 1
@@ -147,9 +165,18 @@ def score() -> int:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--build", action="store_true", help="Draw the sample.")
+    parser.add_argument(
+        "--fresh",
+        action="store_true",
+        help="Draw a sample that excludes documents already used in a pilot "
+             "pass. Measuring again on documents whose labels were just "
+             "adjudicated would score them on their own training data.",
+    )
     parser.add_argument("--size", type=int, default=SAMPLE_SIZE)
     args = parser.parse_args()
-    return build(args.size) if args.build else score()
+    if args.build or args.fresh:
+        return build(args.size, fresh=args.fresh)
+    return score()
 
 
 if __name__ == "__main__":

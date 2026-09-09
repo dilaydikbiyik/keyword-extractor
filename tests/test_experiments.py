@@ -367,6 +367,24 @@ class TestMergeAnnotations:
         assert payload["samples"][0]["true_sector"] == "F"
         assert payload["samples"][0]["id"] == 0
 
+    def test_replace_does_not_skip_documents_already_in_the_set(self, tmp_path, monkeypatch):
+        """--replace rebuilds the set, so a corrected label must not dedup away."""
+        import json as _json
+
+        labels = self._labels_file(tmp_path)
+        # The queue repeats the document already present, with a different label.
+        queue = self._queue_file(
+            tmp_path,
+            [{"queue_id": 0, "legal_name": "Existing GmbH", "purpose": "Bestehender Eintrag.",
+              "true_sector": "C", "keywords_ground_truth": ""}],
+        )
+        assert self._run(monkeypatch, labels, queue, ["--replace"]) == 0
+
+        payload = _json.loads(labels.read_text(encoding="utf-8"))
+        assert len(payload["samples"]) == 1
+        # The corrected label wins; the stale J is gone.
+        assert payload["samples"][0]["true_sector"] == "C"
+
     def test_silver_labels_are_recorded_as_such(self, tmp_path, monkeypatch):
         import csv as _csv
         import json as _json

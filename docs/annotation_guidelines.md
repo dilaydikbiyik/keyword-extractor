@@ -70,31 +70,98 @@ These cover roughly a third of the corpus. Apply them mechanically.
 | *Religions- und Missionsgesellschaft* | **S** | NACE 94.91 |
 | *Spielautomaten*, *Sportleragentur* | **R** | NACE 92, 93.19 |
 
-## 4. Tie-breaking
+## 4. The three boundaries that actually cause disagreement
 
-- **Two sections equally defensible** → pick the one the *first* clause supports,
-  and record the case as low confidence.
-- **A shell company whose KG has a named business** → label the shell by its own
-  activity (M or K per the table above), not by the KG's business. Statistical
-  offices do the same; the alternative convention exists, and switching to it
-  changes roughly 13% of this sample. Whichever is chosen has to be stated in
-  the paper.
-- **Purpose field carries no activity at all** (pure boilerplate) → still label
-  it by whatever survives, and mark it low confidence. Do not skip it: skipping
-  the hard cases is what makes an evaluation set easy.
+A blind second-annotator pass over 50 documents produced κ = 0.542 — agreement
+was 80% where the first pass was confident and 36% where it was not. Almost
+every disagreement fell into one of three boundaries. These rules resolve them.
+Read this section before annotating; the blind figure measures how intuitive
+the task is, not how reproducible the guideline is.
+
+### 4.1 Holding shells: K or M?
+
+NACE draws the line at whether the unit *manages*:
+
+- **64.20 Activities of holding companies (K)** — "holding assets… the units in
+  this class do not provide any other service to the enterprises in which the
+  equity is held, i.e. they do not administer or manage other units."
+- **70.10 Activities of head offices (M)** — "overseeing and managing other
+  units of the company".
+
+A German Komplementär-GmbH states *Übernahme der persönlichen Haftung **und
+Geschäftsführung***. It manages, by its own stated purpose. → **M**.
+
+Pure *Erwerb und Verwaltung von Beteiligungen* with no management duty → **K**.
+Being a *persönlich haftende Gesellschafterin* counts as managing: under German
+law the Komplementär conducts the business.
+
+This is a convention, not a fact — the other reading is defensible, and about
+13% of the corpus hangs on it. Whichever is chosen must be stated in the paper.
+This guideline chooses M.
+
+### 4.2 IT and media: J or M?
+
+**The deliverable decides, not the subject matter.**
+
+- The thing sold is software, a system, a platform, or a media product → **J**
+- The thing sold is advice, strategy, marketing or organisation — even about
+  digital things → **M**
+
+| Text | Section |
+| --- | --- |
+| *Vermarktung von Software* + sales and marketing services | M — the deliverable is marketing |
+| *Strategieberatung im digitalen Bereich* | M — the deliverable is advice |
+| Consulting **and** *Entwicklung und Vertrieb von Software* | J — software is a named deliverable |
+| *Betrieb von Internetplattformen* | J — operating a platform |
+| *Bewegtbild-/audiovisuelle Produktion* | J — a media product |
+| *Datenschutzberatung*, external DPO | M — a professional service |
+| *Herstellung von Druckerzeugnissen* (a Druckhaus) | C — printing is manufacturing |
+
+### 4.3 Containerdienst: E or H?
+
+- *Containerdienst* named first, or with *Entsorgung* / *Abfall* → **E** (38.11)
+- Named alongside *Spedition*, *Fuhrbetrieb* or *Güterkraftverkehr* → **H**
+- Named after construction work (*Erd- und Abbrucharbeiten*) → **F**
+
+### 4.4 Remaining tie-breaks
+
+- **Two sections equally defensible** → the one the *first* clause supports, and
+  record the case as low confidence. The confidence flag is well calibrated:
+  80% agreement where it says high, 36% where it says low.
+- **Discotheque** → **I** when named with gastronomy (*gastronomische Betriebe*,
+  *Erlebnisgastronomie*); **R** when named with events and entertainment.
+- **Equestrian centre** (*Pferdepension und Reitschule*) → **R** (93.19), not P.
+- **Kindergarten** — *Bau und Verwaltung* of the buildings only → **L**;
+  *Bewirtschaftung* (operating them) → **Q** (88.91, child day-care).
+- **Purpose field carries no activity at all** → still label it by whatever
+  survives, and mark it low confidence. Skipping the hard cases is what makes
+  an evaluation set easy.
 
 ## 5. Before these labels are reported as ground truth
 
-They are model-produced. To use them in a paper:
+They are model-produced. The protocol is the standard two-stage one:
 
-1. **Verify a sample by hand.** `results/verification_sample.csv` holds 50
-   documents — a random draw plus the cases the labeller marked low confidence
-   — with English translations. Correct them in `tools/annotate.html`.
-2. **Measure agreement** between the human pass and the silver labels
-   (`python -m experiments.verify_labels`). Report Cohen's κ.
-3. **Describe the procedure in the paper's data section**, in these terms:
-   *"Section labels were produced by a language model applying a written
-   annotation guideline, and validated on a randomly drawn subset of N
-   documents annotated by the author (κ = X)."* That is an accepted method
-   when it is declared. Presenting silver labels as gold is not.
-4. If κ is low, the guideline is what gets fixed — not the labels.
+1. **Pilot pass (done).** A blind second annotator labelled 50 documents
+   without this guideline. κ = 0.542, raw agreement 58%.
+2. **Adjudication (done).** The disagreements were grouped, the three recurring
+   boundaries above were written down, and 11 labels changed across the whole
+   set — not only inside the pilot sample — so the guideline is applied
+   uniformly. `adjudication_note` in the queue records each change and why.
+3. **Measurement pass (open).** A **fresh** sample, annotated after reading
+   §4, is what produces the number to publish. Measuring again on the pilot
+   sample would score the labels on the documents they were just tuned to.
+
+```bash
+make verify-new    # draw a fresh sample, excluding the pilot documents
+make verify        # score it once filled in
+```
+
+4. **Report both figures in the paper**, in these terms: *"Section labels were
+   produced by a language model applying a written annotation guideline
+   (Appendix X). A blind second annotator agreed on 58% of a 50-document pilot
+   (κ = 0.542); after adjudication and guideline revision, agreement on a fresh
+   50-document sample was N% (κ = …)."* The first number is honest about how
+   hard the task is; the second is the one that describes the released labels.
+
+If the second κ is still below 0.6, the guideline is still wrong somewhere —
+fix it before touching the labels again.

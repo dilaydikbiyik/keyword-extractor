@@ -1,0 +1,145 @@
+{
+  "n_verified": 50,
+  "n_sample": 50,
+  "raw_agreement": 0.58,
+  "cohen_kappa": 0.5422842197035745,
+  "by_labeller_confidence": {
+    "low": {
+      "n": 25,
+      "agreement": 0.36
+    },
+    "high": {
+      "n": 25,
+      "agreement": 0.8
+    }
+  },
+  "disagreements": [
+    {
+      "queue_id": "13",
+      "human": "J",
+      "silver": "C",
+      "note": ""
+    },
+    {
+      "queue_id": "37",
+      "human": "G",
+      "silver": "M",
+      "note": ""
+    },
+    {
+      "queue_id": "40",
+      "human": "K",
+      "silver": "M",
+      "note": ""
+    },
+    {
+      "queue_id": "56",
+      "human": "N",
+      "silver": "E",
+      "note": ""
+    },
+    {
+      "queue_id": "59",
+      "human": "E",
+      "silver": "H",
+      "note": ""
+    },
+    {
+      "queue_id": "105",
+      "human": "K",
+      "silver": "M",
+      "note": ""
+    },
+    {
+      "queue_id": "134",
+      "human": "R",
+      "silver": "I",
+      "note": ""
+    },
+    {
+      "queue_id": "150",
+      "human": "J",
+      "silver": "M",
+      "note": ""
+    },
+    {
+      "queue_id": "166",
+      "human": "K",
+      "silver": "M",
+      "note": ""
+    },
+    {
+      "queue_id": "191",
+      "human": "M",
+      "silver": "L",
+      "note": ""
+    },
+    {
+      "queue_id": "192",
+      "human": "L",
+      "silver": "M",
+      "note": ""
+    },
+    {
+      "queue_id": "203",
+      "human": "J",
+      "silver": "M",
+      "note": ""
+    },
+    {
+      "queue_id": "205",
+      "human": "G",
+      "silver": "M",
+      "note": ""
+    },
+    {
+      "queue_id": "212",
+      "human": "J",
+      "silver": "M",
+      "note": ""
+    },
+    {
+      "queue_id": "220",
+      "human": "J",
+      "silver": "M",
+      "note": ""
+    },
+    {
+      "queue_id": "225",
+      "human": "J",
+      "silver": "N",
+      "note": ""
+    },
+    {
+      "queue_id": "232",
+      "human": "L",
+      "silver": "M",
+      "note": ""
+    },
+    {
+      "queue_id": "233",
+      "human": "Q",
+      "silver": "L",
+      "note": ""
+    },
+    {
+      "queue_id": "249",
+      "human": "R",
+      "silver": "P",
+      "note": ""
+    },
+    {
+      "queue_id": "277",
+      "human": "G",
+      "silver": "M",
+      "note": ""
+    },
+    {
+      "queue_id": "292",
+      "human": "K",
+      "silver": "M",
+      "note": ""
+    }
+  ],
+  "note": "Agreement between a human pass and model-produced silver labels. Quote this alongside any result computed on those labels."
+}

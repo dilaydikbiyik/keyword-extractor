@@ -20,26 +20,29 @@ produced by `make reproduce` and written to
 
 | System | Top-1 | 95% CI | Top-3 | F1-macro | κ | p vs. ours |
 | --- | --- | --- | --- | --- | --- | --- |
-| Random | 6.0% | [3.3, 8.7] | 13.7% | 0.048 | 0.010 | <0.001 |
-| Majority class (oracle floor) | 22.4% | [17.7, 27.4] | 47.5% | 0.022 | 0.000 | 0.001 |
-| TF-IDF → nearest NACE section | 26.1% | [21.4, 31.1] | 40.5% | 0.203 | 0.214 | 0.004 |
-| Zero-shot embeddings (no taxonomy) | 29.8% | [24.7, 35.1] | 61.9% | 0.246 | 0.248 | 0.008 |
-| Unguided KeyBERT | 29.8% | [24.7, 35.1] | 61.9% | 0.246 | 0.248 | 0.008 |
-| **Ours: taxonomy-guided** | **36.1%** | [30.8, 41.8] | **67.9%** | **0.290** | **0.313** | — |
+| Random | 5.7% | [3.0, 8.4] | 14.4% | 0.040 | 0.007 | <0.001 |
+| Majority class (oracle floor) | 21.4% | [16.7, 26.1] | 46.5% | 0.021 | 0.000 | 0.002 |
+| TF-IDF → nearest NACE section | 25.8% | [21.1, 30.8] | 40.5% | 0.186 | 0.210 | 0.011 |
+| Zero-shot embeddings (no taxonomy) | 29.1% | [24.1, 34.4] | 62.2% | 0.239 | 0.240 | 0.023 |
+| Unguided KeyBERT | 29.1% | [24.1, 34.4] | 62.2% | 0.239 | 0.240 | 0.023 |
+| **Ours: taxonomy-guided** | **34.4%** | [29.1, 39.8] | **66.9%** | **0.276** | **0.296** | — |
 
 `p` is an exact McNemar test against the full system on the same documents.
 
 **Taxonomy guidance beats the description-only baseline by 6.4 points
-(p = 0.008) and TF-IDF by 10.0 points (p = 0.004).** Top-3 is 67.9%: the correct
+(p = 0.008) and TF-IDF by 10.0 points (p = 0.004).** Top-3 is 66.9%: the correct
 section is among the first three suggestions two times out of three, which is
 the number that matters for a system meant to propose a code to a human.
 
 **Two things to know before reading further.** The evaluation labels are
 *silver* — produced by a language model applying
-[`docs/annotation_guidelines.md`](docs/annotation_guidelines.md) and pending a
-human validation pass. And this repository previously reported 80.0% on a
+[`docs/annotation_guidelines.md`](docs/annotation_guidelines.md). A blind human
+pilot over 50 of them agreed 58% of the time (κ = 0.542), with 80% agreement
+where the labeller flagged high confidence and 36% where it flagged low; the
+disagreements were adjudicated into three written rules and the measurement
+pass is still open. And this repository previously reported 80.0% on a
 30-document evaluation set that was written by hand rather than sampled from
-the corpus; on real register text the same code scores 36.1%. The old number
+the corpus; on real register text the same code scores 34.4%. The old number
 was not wrong, it was measured on the wrong text.
 [`docs/paper_readiness.md`](docs/paper_readiness.md) has the full account.
 
@@ -47,14 +50,14 @@ was not wrong, it was measured on the wrong text.
 
 | Variant | Top-1 | Δ Top-1 | F1-macro | p vs. full |
 | --- | --- | --- | --- | --- |
-| Full system | 36.1% | — | 0.290 | — |
-| − seeds in sector vector | 29.8% | −6.4 pp | 0.246 | 0.008 |
-| − description in sector vector | 33.8% | −2.3 pp | 0.290 | 0.450 |
-| − seed-guided extraction | 36.1% | 0.0 pp | 0.290 | 1.000 |
-| − six-stage keyword filter | 36.1% | 0.0 pp | 0.290 | 1.000 |
-| + cleaned text into the classifier | 32.1% | −4.0 pp | 0.277 | 0.155 |
-| ↔ mpnet-base-v2 encoder (768-dim) | 34.1% | −2.0 pp | 0.258 | 0.572 |
-| ↔ German translated to English first | 41.8% | +5.7 pp | 0.315 | 0.050 |
+| Full system | 34.4% | — | 0.276 | — |
+| − seeds in sector vector | 29.1% | −5.4 pp | 0.239 | 0.023 |
+| − description in sector vector | 33.1% | −1.3 pp | 0.282 | 0.704 |
+| − seed-guided extraction | 34.4% | 0.0 pp | 0.276 | 1.000 |
+| − six-stage keyword filter | 34.4% | 0.0 pp | 0.276 | 1.000 |
+| + cleaned text into the classifier | 30.4% | −4.0 pp | 0.264 | 0.155 |
+| ↔ mpnet-base-v2 encoder (768-dim) | 33.4% | −1.0 pp | 0.254 | 0.820 |
+| ↔ German translated to English first | 40.8% | +6.4 pp | 0.308 | 0.027 |
 
 The last two rows need extra model downloads: `python run.py --extra-ablations`.
 
@@ -62,8 +65,8 @@ The last two rows need extra model downloads: `python run.py --extra-ablations`.
   only one with a significant effect.
 - **Guided extraction and the six-stage filter show no effect**, now on two
   different evaluation sets.
-- **Translating to English first is the strongest variant** (+5.7 pp,
-  p = 0.050), which weakens any claim that the method depends on German
+- **Translating to English first is the strongest variant** (+6.4 pp,
+  p = 0.027), which weakens any claim that the method depends on German
   representations.
 - **Routing cleaned text into the classifier costs 4.0 points here** and
   appeared to gain 6.7 on the old 30-document set — the same code, the opposite
@@ -185,7 +188,7 @@ experiments/            Paper-only code, kept out of src/
 paper/                  Workshop paper skeleton; tables generated from results/
 tools/                  annotate.html (offline labelling) · make_demo_gif.py
 results/                Generated — every number cited anywhere
-tests/                  127 tests
+tests/                  128 tests
 run.py                  make reproduce
 ```
 
@@ -235,9 +238,9 @@ Full review and methodology decisions: [`docs/methodology.md`](docs/methodology.
   model applying a written guideline, and the human validation pass is not yet
   done. Any published number has to quote the agreement figure from
   `make verify` alongside it.
-- **36.1% is a suggestion tool, not an automatic classifier.** Top-3 at 67.9%
+- **34.4% is a suggestion tool, not an automatic classifier.** Top-3 at 66.9%
   is the usable figure; top-1 is not accurate enough to assign codes unattended.
-- **Section M is where it breaks** — 18% recall, and it is the largest class.
+- **Section M is where it breaks** — 15.6% recall, and it is the largest class.
   The taxonomy has no vocabulary for the holding and management shells that
   make up 13% of the corpus.
 - **One annotator on the validation pass.** No inter-annotator agreement has

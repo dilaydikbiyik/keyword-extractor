@@ -55,7 +55,11 @@ def main() -> int:
     codes = set(load_taxonomy())
     payload = json.loads(LABELS_JSON.read_text(encoding="utf-8"))
     samples = payload["samples"]
-    existing = {s["purpose"].strip() for s in samples}
+    # In --replace mode the current set is being discarded, so "already in the
+    # label set" is not a reason to skip a row: it would drop every document
+    # whose label was corrected since the last merge. Deduplicate only against
+    # rows added in this run.
+    existing = set() if args.replace else {s["purpose"].strip() for s in samples}
     next_id = max((s["id"] for s in samples), default=-1) + 1
 
     added, skipped_blank, skipped_dupe, invalid = [], 0, 0, []
