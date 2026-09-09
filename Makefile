@@ -5,7 +5,7 @@ PYTHON ?= $(shell \
 	elif command -v python3 >/dev/null 2>&1; then command -v python3; \
 	else echo python; fi)
 
-.PHONY: help install reproduce test lint annotate merge paper-tables demo clean
+.PHONY: help install reproduce test lint annotate merge verify paper-tables demo clean
 
 help:
 	@echo "Using PYTHON = $(PYTHON)"
@@ -17,6 +17,7 @@ help:
 	@echo "  annotate      Build the stratified annotation queue, then open the tool"
 	@echo "  merge         Merge the annotated queue back into the evaluation set"
 	@echo "                (use: make merge ARGS=--replace)"
+	@echo "  verify        Score the human check of the model-assisted labels"
 	@echo "  paper-tables  Regenerate paper/tables/*.tex from results/"
 	@echo "  demo          Re-render the README demo GIF from results/"
 	@echo "  clean         Remove generated results and caches"
@@ -48,6 +49,9 @@ annotate:
 
 merge:
 	$(PYTHON) -m experiments.merge_annotations $(ARGS)
+
+verify:
+	$(PYTHON) -m experiments.verify_labels
 
 paper-tables:
 	$(PYTHON) -m experiments.export_latex

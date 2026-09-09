@@ -62,7 +62,14 @@ def main() -> int:
 
     with open(args.queue, newline="", encoding="utf-8") as fh:
         for row in csv.DictReader(fh):
+            # A human answer always wins. Where there is none, fall back to the
+            # model-produced silver label and record it as such, so the two
+            # never become indistinguishable downstream.
             label = (row.get("true_sector") or "").strip().upper()
+            method = "manual"
+            if not label:
+                label = (row.get("model_assisted_sector") or "").strip().upper()
+                method = "model_assisted"
             if not label:
                 skipped_blank += 1
                 continue
@@ -85,15 +92,17 @@ def main() -> int:
                     "purpose": purpose,
                     "true_sector": label,
                     "keywords_ground_truth": keywords,
-                    "annotation_method": "manual",
+                    "annotation_method": method,
                     "provenance": "corpus_sample",
+                    "labeller_confidence": row.get("labeller_confidence", ""),
                     "annotator": args.annotator,
                     "source_queue_id": row.get("queue_id"),
                 }
             )
             existing.add(purpose)
 
-    print(f"Annotated and new:   {len(added)}")
+    methods = Counter(s["annotation_method"] for s in added)
+    print(f"Annotated and new:   {len(added)} ({dict(methods)})")
     print(f"Not yet annotated:   {skipped_blank}")
     print(f"Already in label set:{skipped_dupe}")
     if invalid:
@@ -112,15 +121,23 @@ def main() -> int:
             sample["id"] = new_id
     else:
         samples.extend(added)
+    # Rebind explicitly: in the --replace branch `samples` is a new list, and
+    # only mutating the one already inside `payload` would silently write the
+    # old documents back out under the new metadata.
+    payload["samples"] = samples
     payload["metadata"]["total"] = len(samples)
     payload["metadata"]["sector_distribution"] = dict(
         sorted(Counter(s["true_sector"] for s in samples).items())
     )
     payload["metadata"]["last_merged"] = date.today().isoformat()
     payload["metadata"]["annotation"] = (
-        "corpus-sampled, manually annotated"
+        "corpus-sampled; labels model-assisted per docs/annotation_guidelines.md, "
+        "human-verified on a subset (results/verification_report.json)"
         if args.replace
         else "mixed: hand-authored seed set plus corpus-sampled queue batches"
+    )
+    payload["metadata"]["annotation_method_distribution"] = dict(
+        sorted(Counter(s.get("annotation_method", "unknown") for s in samples).items())
     )
     payload["metadata"]["provenance_distribution"] = dict(
         sorted(Counter(s.get("provenance", "authored") for s in samples).items())

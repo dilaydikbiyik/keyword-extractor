@@ -1,13 +1,13 @@
 {
   "provenance": {
-    "generated_at": "2026-09-09T13:46:34+00:00",
-    "git_revision": "f1306d6",
+    "generated_at": "2026-09-09T14:10:29+00:00",
+    "git_revision": "5f77f35",
     "seed": 42,
     "python": "3.9.6",
     "embedding_model": "paraphrase-multilingual-MiniLM-L12-v2",
-    "eval_set_size": 30,
+    "eval_set_size": 299,
     "eval_set_source": "curated_stratified_sample",
-    "eval_set_annotation": "semi-manual: domain expert keyword + sector heuristics",
+    "eval_set_annotation": "corpus-sampled; labels model-assisted per docs/annotation_guidelines.md, human-verified on a subset (results/verification_report.json)",
     "corpus_present": true
   },
   "systems": [
@@ -17,28 +17,27 @@
       "description": "Uniform random sector ranking (seeded).",
       "is_oracle": false,
       "sector": {
-        "n": 30,
-        "top1_accuracy": 0.06666666666666667,
+        "n": 299,
+        "top1_accuracy": 0.06020066889632107,
         "top1_ci95": [
-          0.0,
-          0.16666666666666666
+          0.033444816053511704,
+          0.08695652173913043
         ],
-        "top3_accuracy": 0.26666666666666666,
-        "f1_macro": 0.0326530612244898,
-        "cohen_kappa": 0.009433962264150941
+        "top3_accuracy": 0.13712374581939799,
+        "f1_macro": 0.04844501140723711,
+        "cohen_kappa": 0.010213698371934088
       },
       "keywords": {
-        "n_with_keyword_labels": 30,
-        "precision_at_3": 0.0,
-        "precision_at_5": 0.0,
-        "precision_at_10": 0.0
+        "precision_at_3": null,
+        "precision_at_5": null,
+        "precision_at_10": null
       },
-      "p_value_vs_full": 4.76837158203125e-07,
+      "p_value_vs_full": 1.5113338668025928e-18,
       "mcnemar_vs_full": {
-        "a_only_correct": 22,
-        "b_only_correct": 0,
-        "discordant": 22,
-        "p_value": 4.76837158203125e-07
+        "a_only_correct": 103,
+        "b_only_correct": 13,
+        "discordant": 116,
+        "p_value": 1.5113338668025928e-18
       }
     },
     {
@@ -47,28 +46,27 @@
       "description": "Always predicts the most frequent gold sector.",
       "is_oracle": true,
       "sector": {
-        "n": 30,
-        "top1_accuracy": 0.13333333333333333,
+        "n": 299,
+        "top1_accuracy": 0.22408026755852842,
         "top1_ci95": [
-          0.03333333333333333,
-          0.26666666666666666
+          0.17725752508361203,
+          0.27424749163879597
         ],
-        "top3_accuracy": 0.3333333333333333,
-        "f1_macro": 0.013071895424836602,
+        "top3_accuracy": 0.47491638795986624,
+        "f1_macro": 0.021536483445837352,
         "cohen_kappa": 0.0
       },
       "keywords": {
-        "n_with_keyword_labels": 30,
-        "precision_at_3": 0.0,
-        "precision_at_5": 0.0,
-        "precision_at_10": 0.0
+        "precision_at_3": null,
+        "precision_at_5": null,
+        "precision_at_10": null
       },
-      "p_value_vs_full": 1.9073486328125e-06,
+      "p_value_vs_full": 0.0010647254407627996,
       "mcnemar_vs_full": {
-        "a_only_correct": 20,
-        "b_only_correct": 0,
-        "discordant": 20,
-        "p_value": 1.9073486328125e-06
+        "a_only_correct": 96,
+        "b_only_correct": 55,
+        "discordant": 151,
+        "p_value": 0.0010647254407627996
       }
     },
     {
@@ -77,28 +75,27 @@
       "description": "TF-IDF cosine between the text and a per-sector pseudo-document.",
       "is_oracle": false,
       "sector": {
-        "n": 30,
-        "top1_accuracy": 0.7666666666666667,
+        "n": 299,
+        "top1_accuracy": 0.2608695652173913,
         "top1_ci95": [
-          0.6,
-          0.9
+          0.2140468227424749,
+          0.3110367892976589
         ],
-        "top3_accuracy": 0.8,
-        "f1_macro": 0.6573099415204678,
-        "cohen_kappa": 0.7491039426523297
+        "top3_accuracy": 0.40468227424749165,
+        "f1_macro": 0.20349844176271978,
+        "cohen_kappa": 0.21382256011231282
       },
       "keywords": {
-        "n_with_keyword_labels": 30,
-        "precision_at_3": 0.12222222222222223,
-        "precision_at_5": 0.14,
-        "precision_at_10": 0.13
+        "precision_at_3": null,
+        "precision_at_5": null,
+        "precision_at_10": null
       },
-      "p_value_vs_full": 1.0,
+      "p_value_vs_full": 0.0035176417229701587,
       "mcnemar_vs_full": {
-        "a_only_correct": 5,
-        "b_only_correct": 4,
-        "discordant": 9,
-        "p_value": 1.0
+        "a_only_correct": 65,
+        "b_only_correct": 35,
+        "discordant": 100,
+        "p_value": 0.0035176417229701587
       }
     },
     {
@@ -107,28 +104,27 @@
       "description": "Multilingual sentence embeddings against the sector description only; no seed keywords anywhere in the pipeline.",
       "is_oracle": false,
       "sector": {
-        "n": 30,
-        "top1_accuracy": 0.7333333333333333,
+        "n": 299,
+        "top1_accuracy": 0.2976588628762542,
         "top1_ci95": [
-          0.5666666666666667,
-          0.8666666666666667
+          0.24749163879598662,
+          0.3511705685618729
         ],
-        "top3_accuracy": 0.8666666666666667,
-        "f1_macro": 0.7444444444444445,
-        "cohen_kappa": 0.7142857142857142
+        "top3_accuracy": 0.6187290969899666,
+        "f1_macro": 0.24613595813390643,
+        "cohen_kappa": 0.24780775312664705
       },
       "keywords": {
-        "n_with_keyword_labels": 30,
-        "precision_at_3": 0.4222222222222223,
-        "precision_at_5": 0.3266666666666667,
-        "precision_at_10": 0.21
+        "precision_at_3": null,
+        "precision_at_5": null,
+        "precision_at_10": null
       },
-      "p_value_vs_full": 0.5,
+      "p_value_vs_full": 0.007942726509483574,
       "mcnemar_vs_full": {
-        "a_only_correct": 2,
-        "b_only_correct": 0,
-        "discordant": 2,
-        "p_value": 0.5
+        "a_only_correct": 33,
+        "b_only_correct": 14,
+        "discordant": 47,
+        "p_value": 0.007942726509483574
       }
     },
     {
@@ -137,28 +133,27 @@
       "description": "Our pipeline with the taxonomy removed from keyword extraction: description-only sector vectors, plain KeyBERT keywords.",
       "is_oracle": false,
       "sector": {
-        "n": 30,
-        "top1_accuracy": 0.7333333333333333,
+        "n": 299,
+        "top1_accuracy": 0.2976588628762542,
         "top1_ci95": [
-          0.5666666666666667,
-          0.8666666666666667
+          0.24749163879598662,
+          0.3511705685618729
         ],
-        "top3_accuracy": 0.8666666666666667,
-        "f1_macro": 0.7444444444444445,
-        "cohen_kappa": 0.7142857142857142
+        "top3_accuracy": 0.6187290969899666,
+        "f1_macro": 0.24613595813390643,
+        "cohen_kappa": 0.24780775312664705
       },
       "keywords": {
-        "n_with_keyword_labels": 30,
-        "precision_at_3": 0.4111111111111112,
-        "precision_at_5": 0.3266666666666667,
-        "precision_at_10": 0.2033333333333333
+        "precision_at_3": null,
+        "precision_at_5": null,
+        "precision_at_10": null
       },
-      "p_value_vs_full": 0.5,
+      "p_value_vs_full": 0.007942726509483574,
       "mcnemar_vs_full": {
-        "a_only_correct": 2,
-        "b_only_correct": 0,
-        "discordant": 2,
-        "p_value": 0.5
+        "a_only_correct": 33,
+        "b_only_correct": 14,
+        "discordant": 47,
+        "p_value": 0.007942726509483574
       }
     },
     {
@@ -167,24 +162,23 @@
       "description": "Sector vector = mean(description, seed list); KeyBERT guided by the predicted sector's seeds; six-stage filter.",
       "is_oracle": false,
       "sector": {
-        "n": 30,
-        "top1_accuracy": 0.8,
+        "n": 299,
+        "top1_accuracy": 0.3612040133779264,
         "top1_ci95": [
-          0.6333333333333333,
-          0.9333333333333333
+          0.3076923076923077,
+          0.4180602006688963
         ],
-        "top3_accuracy": 0.9666666666666667,
-        "f1_macro": 0.8314814814814815,
-        "cohen_kappa": 0.7857142857142857
+        "top3_accuracy": 0.6789297658862876,
+        "f1_macro": 0.2901434907189383,
+        "cohen_kappa": 0.31346172340834777
       },
       "keywords": {
-        "n_with_keyword_labels": 30,
-        "precision_at_3": 0.38888888888888895,
-        "precision_at_5": 0.3333333333333333,
-        "precision_at_10": 0.2033333333333333
+        "precision_at_3": null,
+        "precision_at_5": null,
+        "precision_at_10": null
       },
       "p_value_vs_full": null
     }
   ],
-  "table_markdown": "| System | Top-1 | 95% CI | Top-3 | F1-macro | κ | P@5 | p vs. full |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| Random | 6.7% | [0.0, 16.7] | 26.7% | 0.033 | 0.009 | 0.000 | 0.000 |\n| *Majority class (oracle floor) | 13.3% | [3.3, 26.7] | 33.3% | 0.013 | 0.000 | 0.000 | 0.000 |\n| TF-IDF → nearest NACE section | 76.7% | [60.0, 90.0] | 80.0% | 0.657 | 0.749 | 0.140 | 1.000 |\n| Zero-shot embeddings (no taxonomy guidance) | 73.3% | [56.7, 86.7] | 86.7% | 0.744 | 0.714 | 0.327 | 0.500 |\n| Unguided KeyBERT | 73.3% | [56.7, 86.7] | 86.7% | 0.744 | 0.714 | 0.327 | 0.500 |\n| Ours: taxonomy-guided | 80.0% | [63.3, 93.3] | 96.7% | 0.831 | 0.786 | 0.333 | — |"
+  "table_markdown": "| System | Top-1 | 95% CI | Top-3 | F1-macro | κ | P@5 | p vs. full |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| Random | 6.0% | [3.3, 8.7] | 13.7% | 0.048 | 0.010 | — | 0.000 |\n| *Majority class (oracle floor) | 22.4% | [17.7, 27.4] | 47.5% | 0.022 | 0.000 | — | 0.001 |\n| TF-IDF → nearest NACE section | 26.1% | [21.4, 31.1] | 40.5% | 0.203 | 0.214 | — | 0.004 |\n| Zero-shot embeddings (no taxonomy guidance) | 29.8% | [24.7, 35.1] | 61.9% | 0.246 | 0.248 | — | 0.008 |\n| Unguided KeyBERT | 29.8% | [24.7, 35.1] | 61.9% | 0.246 | 0.248 | — | 0.008 |\n| Ours: taxonomy-guided | 36.1% | [30.8, 41.8] | 67.9% | 0.290 | 0.313 | — | — |"
 }

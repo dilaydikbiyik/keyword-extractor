@@ -349,6 +349,56 @@ class TestMergeAnnotations:
         assert self._run(monkeypatch, labels, queue, ["--dry-run"]) == 0
         assert labels.read_text(encoding="utf-8") == before
 
+    def test_replace_writes_only_the_new_documents(self, tmp_path, monkeypatch):
+        """--replace must swap the sample list, not just the metadata."""
+        import json as _json
+
+        labels = self._labels_file(tmp_path)
+        queue = self._queue_file(
+            tmp_path,
+            [{"queue_id": 0, "legal_name": "Neu GmbH", "purpose": "Bau von Häusern.",
+              "true_sector": "F", "keywords_ground_truth": ""}],
+        )
+        assert self._run(monkeypatch, labels, queue, ["--replace"]) == 0
+
+        payload = _json.loads(labels.read_text(encoding="utf-8"))
+        assert len(payload["samples"]) == 1
+        assert payload["metadata"]["total"] == len(payload["samples"])
+        assert payload["samples"][0]["true_sector"] == "F"
+        assert payload["samples"][0]["id"] == 0
+
+    def test_silver_labels_are_recorded_as_such(self, tmp_path, monkeypatch):
+        import csv as _csv
+        import json as _json
+
+        labels = self._labels_file(tmp_path)
+        path = tmp_path / "silver.csv"
+        with open(path, "w", newline="", encoding="utf-8") as fh:
+            writer = _csv.DictWriter(
+                fh,
+                fieldnames=["queue_id", "legal_name", "purpose", "true_sector",
+                            "model_assisted_sector", "keywords_ground_truth"],
+            )
+            writer.writeheader()
+            writer.writerow({"queue_id": 0, "legal_name": "A", "purpose": "Softwareentwicklung.",
+                             "true_sector": "", "model_assisted_sector": "J",
+                             "keywords_ground_truth": ""})
+            writer.writerow({"queue_id": 1, "legal_name": "B", "purpose": "Bau von Häusern.",
+                             "true_sector": "F", "model_assisted_sector": "C",
+                             "keywords_ground_truth": ""})
+        assert self._run(monkeypatch, labels, path, ["--replace"]) == 0
+
+        payload = _json.loads(labels.read_text(encoding="utf-8"))
+        by_purpose = {s["purpose"]: s for s in payload["samples"]}
+        silver = by_purpose["Softwareentwicklung."]
+        human = by_purpose["Bau von Häusern."]
+        assert silver["true_sector"] == "J"
+        assert silver["annotation_method"] == "model_assisted"
+        # A human answer wins over the silver one.
+        assert human["true_sector"] == "F"
+        assert human["annotation_method"] == "manual"
+
+
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Reproducing without the raw corpus

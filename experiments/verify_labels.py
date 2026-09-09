@@ -1,0 +1,156 @@
+#!/usr/bin/env python3
+"""Build and score the human verification sample for the silver labels.
+
+    python -m experiments.verify_labels --build     # draw the sample
+    python -m experiments.verify_labels             # score it once filled in
+
+The labels in the annotation queue were produced by a language model applying
+``docs/annotation_guidelines.md``. They are silver, not gold. This draws a
+sample for a human pass and reports the agreement between the two, which is
+the figure a paper has to quote when it uses model-assisted annotation.
+"""
+
+from __future__ import annotations
+
+import argparse
+import csv
+import json
+import sys
+
+import numpy as np
+
+from experiments.config import RESULTS_DIR, SEED, ensure_dirs
+
+QUEUE_CSV = RESULTS_DIR / "annotation_queue.csv"
+SAMPLE_CSV = RESULTS_DIR / "verification_sample.csv"
+REPORT_JSON = RESULTS_DIR / "verification_report.json"
+
+SAMPLE_SIZE = 50
+
+
+def build(size: int = SAMPLE_SIZE) -> int:
+    """Draw a verification sample: random draw plus every low-confidence case.
+
+    Both halves matter. A purely random sample under-represents exactly the
+    documents where the labeller was unsure, and a purely low-confidence sample
+    would overstate the disagreement rate.
+    """
+    with open(QUEUE_CSV, newline="", encoding="utf-8") as fh:
+        rows = list(csv.DictReader(fh))
+    labelled = [r for r in rows if r.get("model_assisted_sector")]
+    if not labelled:
+        print("The queue has no silver labels yet.", file=sys.stderr)
+        return 1
+
+    rng = np.random.default_rng(SEED)
+    low = [r for r in labelled if r.get("labeller_confidence") == "low"]
+    high = [r for r in labelled if r.get("labeller_confidence") != "low"]
+
+    n_low = min(len(low), size // 2)
+    n_high = min(len(high), size - n_low)
+    picked = [low[i] for i in rng.choice(len(low), n_low, replace=False)]
+    picked += [high[i] for i in rng.choice(len(high), n_high, replace=False)]
+    picked.sort(key=lambda r: int(r["queue_id"]))
+
+    header = [
+        "queue_id", "legal_name", "purpose_en", "purpose",
+        "silver_sector", "labeller_confidence", "top3",
+        "true_sector", "annotator_note",
+    ]
+    with open(SAMPLE_CSV, "w", newline="", encoding="utf-8") as fh:
+        writer = csv.DictWriter(fh, fieldnames=header)
+        writer.writeheader()
+        for r in picked:
+            writer.writerow({
+                "queue_id": r["queue_id"],
+                "legal_name": r["legal_name"],
+                "purpose_en": r.get("purpose_en", ""),
+                "purpose": r["purpose"],
+                "silver_sector": r["model_assisted_sector"],
+                "labeller_confidence": r.get("labeller_confidence", ""),
+                "top3": r.get("top3", ""),
+                "true_sector": "",
+                "annotator_note": "",
+            })
+
+    print(f"Wrote {SAMPLE_CSV}: {len(picked)} documents "
+          f"({n_low} low-confidence, {n_high} random).")
+    print("Open tools/annotate.html, load it, and fill in true_sector.")
+    print("The silver label is deliberately not shown while you decide.")
+    return 0
+
+
+def score() -> int:
+    """Report agreement between the human pass and the silver labels."""
+    if not SAMPLE_CSV.exists():
+        print(f"{SAMPLE_CSV} not found — run with --build first.", file=sys.stderr)
+        return 1
+    with open(SAMPLE_CSV, newline="", encoding="utf-8") as fh:
+        rows = list(csv.DictReader(fh))
+
+    done = [r for r in rows if (r.get("true_sector") or "").strip()]
+    if not done:
+        print(f"None of the {len(rows)} documents have been verified yet.")
+        return 1
+
+    human = [r["true_sector"].strip().upper() for r in done]
+    silver = [r["silver_sector"].strip().upper() for r in done]
+    agree = sum(1 for h, s in zip(human, silver) if h == s)
+
+    from sklearn.metrics import cohen_kappa_score
+
+    kappa = float(cohen_kappa_score(human, silver)) if len(set(human)) > 1 else None
+
+    by_conf = {}
+    for level in ("low", "high"):
+        subset = [r for r in done if r.get("labeller_confidence") == level]
+        if subset:
+            hits = sum(1 for r in subset
+                       if r["true_sector"].strip().upper() == r["silver_sector"].strip().upper())
+            by_conf[level] = {"n": len(subset), "agreement": hits / len(subset)}
+
+    disagreements = [
+        {"queue_id": r["queue_id"], "human": r["true_sector"].strip().upper(),
+         "silver": r["silver_sector"], "note": r.get("annotator_note", "")}
+        for r in done
+        if r["true_sector"].strip().upper() != r["silver_sector"].strip().upper()
+    ]
+
+    report = {
+        "n_verified": len(done),
+        "n_sample": len(rows),
+        "raw_agreement": agree / len(done),
+        "cohen_kappa": kappa,
+        "by_labeller_confidence": by_conf,
+        "disagreements": disagreements,
+        "note": (
+            "Agreement between a human pass and model-produced silver labels. "
+            "Quote this alongside any result computed on those labels."
+        ),
+    }
+    ensure_dirs()
+    REPORT_JSON.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    print(f"Verified {len(done)} of {len(rows)} documents")
+    print(f"Raw agreement : {agree}/{len(done)} = {agree / len(done):.1%}")
+    print(f"Cohen's kappa : {kappa:.3f}" if kappa is not None else "Cohen's kappa : n/a")
+    for level, stats in by_conf.items():
+        print(f"  {level:<5} confidence: {stats['agreement']:.1%} of {stats['n']}")
+    if disagreements:
+        print(f"\n{len(disagreements)} disagreements:")
+        for d in disagreements[:15]:
+            print(f"  queue {d['queue_id']:>3}: you said {d['human']}, silver said {d['silver']}")
+    print(f"\nWrote {REPORT_JSON}")
+    return 0
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--build", action="store_true", help="Draw the sample.")
+    parser.add_argument("--size", type=int, default=SAMPLE_SIZE)
+    args = parser.parse_args()
+    return build(args.size) if args.build else score()
+
+
+if __name__ == "__main__":
+    sys.exit(main())

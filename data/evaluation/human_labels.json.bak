@@ -1,0 +1,438 @@
+{
+  "metadata": {
+    "total": 30,
+    "source": "curated_stratified_sample",
+    "annotation": "semi-manual: domain expert keyword + sector heuristics",
+    "date": "2026-05-07",
+    "sector_distribution": {
+      "A": 1,
+      "B": 1,
+      "C": 2,
+      "D": 1,
+      "E": 1,
+      "F": 2,
+      "G": 3,
+      "H": 1,
+      "I": 1,
+      "J": 4,
+      "K": 1,
+      "L": 1,
+      "M": 3,
+      "N": 2,
+      "P": 1,
+      "Q": 3,
+      "R": 1,
+      "S": 1
+    },
+    "provenance_distribution": {
+      "authored": 30
+    },
+    "provenance_note": "No document in this set appears verbatim in the corpus. Three are edited from corpus records; the rest were written by hand. Median length 116 characters against 175 in the corpus, and 3.3% carry legal boilerplate against 24.5%. Accuracy measured here does not transfer to the corpus unchanged. See docs/paper_readiness.md."
+  },
+  "samples": [
+    {
+      "id": 0,
+      "legal_name": "OVH GmbH",
+      "purpose": "- Internetservice, - Informatikingenieurie, - Erbringung von allen mit dem Internet und dem Hosting in Verbindung stehenden Leistungen, - Analyse und Entwicklung von Software und Programmen",
+      "true_sector": "J",
+      "keywords_ground_truth": [
+        "internetservice",
+        "softwareentwicklung",
+        "hosting",
+        "programmierung"
+      ],
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
+    },
+    {
+      "id": 1,
+      "legal_name": "TechSoft GmbH",
+      "purpose": "Entwicklung und Vertrieb von Software und IT-Dienstleistungen. Mobile-App-Entwicklung, Cloud-Integration und API-Lösungen für Unternehmen.",
+      "true_sector": "J",
+      "keywords_ground_truth": [
+        "softwareentwicklung",
+        "mobile-app",
+        "cloud",
+        "api"
+      ],
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
+    },
+    {
+      "id": 2,
+      "legal_name": "WebPro UG",
+      "purpose": "Erbringung von Dienstleistungen im Bereich Webentwicklung, SEO-Optimierung und Online-Marketing für kleine und mittlere Unternehmen.",
+      "true_sector": "J",
+      "keywords_ground_truth": [
+        "webentwicklung",
+        "seo",
+        "online-marketing"
+      ],
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
+    },
+    {
+      "id": 3,
+      "legal_name": "Molkenthin GmbH WPG",
+      "purpose": "Die für Wirtschaftsprüfungsgesellschaften gesetzlich und berufsrechtlich zulässigen Tätigkeiten gemäß § 2 WPO. Steuerberatung und Buchführung.",
+      "true_sector": "M",
+      "keywords_ground_truth": [
+        "wirtschaftsprüfung",
+        "steuerberatung",
+        "buchführung"
+      ],
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
+    },
+    {
+      "id": 4,
+      "legal_name": "Strategos Consulting",
+      "purpose": "Unternehmensberatung, Managementberatung und Organisationsentwicklung für mittelständische Unternehmen aller Branchen.",
+      "true_sector": "M",
+      "keywords_ground_truth": [
+        "unternehmensberatung",
+        "managementberatung",
+        "organisationsentwicklung"
+      ],
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
+    },
+    {
+      "id": 5,
+      "legal_name": "Kanzlei Müller",
+      "purpose": "Rechtsberatung und anwaltliche Vertretung in den Bereichen Gesellschaftsrecht, Vertragsrecht und Arbeitsrecht.",
+      "true_sector": "M",
+      "keywords_ground_truth": [
+        "rechtsberatung",
+        "gesellschaftsrecht",
+        "arbeitsrecht"
+      ],
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
+    },
+    {
+      "id": 6,
+      "legal_name": "Wohnen Plus GmbH",
+      "purpose": "Handel mit Waren aller Art, insbesondere mit Wohnungseinrichtungen, Möbeln, Haushaltswaren und Heimtextilien. Groß- und Einzelhandel.",
+      "true_sector": "G",
+      "keywords_ground_truth": [
+        "handel",
+        "möbel",
+        "haushaltswaren",
+        "einzelhandel"
+      ],
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
+    },
+    {
+      "id": 7,
+      "legal_name": "Elektro Handel GmbH",
+      "purpose": "Großhandel und Einzelhandel mit Elektronik, Computern, Mobiltelefonen und Zubehör. E-Commerce-Plattform für B2B und B2C.",
+      "true_sector": "G",
+      "keywords_ground_truth": [
+        "großhandel",
+        "elektronik",
+        "e-commerce",
+        "mobiltelefonen"
+      ],
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
+    },
+    {
+      "id": 8,
+      "legal_name": "Global Food Trade",
+      "purpose": "Import und Export sowie Handel mit Lebensmitteln, insbesondere mit Feinkostwaren, Bio-Produkten und internationalen Spezialitäten.",
+      "true_sector": "G",
+      "keywords_ground_truth": [
+        "lebensmittelhandel",
+        "import",
+        "export",
+        "bio-produkte"
+      ],
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
+    },
+    {
+      "id": 9,
+      "legal_name": "Bau & Mehr GmbH",
+      "purpose": "Allgemeine Bauarbeiten: Hoch- und Tiefbau, Schlüsselfertigbau, Renovierung und Sanierung von Wohn- und Gewerbegebäuden.",
+      "true_sector": "F",
+      "keywords_ground_truth": [
+        "hochbau",
+        "tiefbau",
+        "renovierung",
+        "sanierung"
+      ],
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
+    },
+    {
+      "id": 10,
+      "legal_name": "Haustechnik Meier",
+      "purpose": "Planung und Ausführung von Elektroinstallationen, Sanitärarbeiten und Heizungsanlagen im Wohnungs- und Gewerbebau.",
+      "true_sector": "F",
+      "keywords_ground_truth": [
+        "elektroinstallation",
+        "sanitär",
+        "heizungsanlagen"
+      ],
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
+    },
+    {
+      "id": 11,
+      "legal_name": "Dental Smile Klinik",
+      "purpose": "Zahnklinik mit modernen Behandlungsmethoden: Zahnimplantate, Zahnbleaching, Prophylaxe und Kieferorthopädie.",
+      "true_sector": "Q",
+      "keywords_ground_truth": [
+        "zahnimplantate",
+        "zahnbleaching",
+        "prophylaxe",
+        "kieferorthopädie"
+      ],
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
+    },
+    {
+      "id": 12,
+      "legal_name": "Pflegezentrum Nord",
+      "purpose": "Betrieb einer Pflegeeinrichtung für ältere Menschen. Ambulante und stationäre Pflege, Therapie und Rehabilitation.",
+      "true_sector": "Q",
+      "keywords_ground_truth": [
+        "pflege",
+        "rehabilitation",
+        "therapie",
+        "pflegeeinrichtung"
+      ],
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
+    },
+    {
+      "id": 13,
+      "legal_name": "Dr. Schmidt Praxis",
+      "purpose": "Arztpraxis für Allgemeinmedizin, Innere Medizin und Präventivmedizin. Hausärztliche Versorgung und Vorsorgeuntersuchungen.",
+      "true_sector": "Q",
+      "keywords_ground_truth": [
+        "allgemeinmedizin",
+        "innere medizin",
+        "vorsorgeuntersuchungen"
+      ],
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
+    },
+    {
+      "id": 14,
+      "legal_name": "FinanzPlus AG",
+      "purpose": "Erbringung von Finanzdienstleistungen, Vermögensberatung, Versicherungsvermittlung und Kapitalanlageberatung für Privat- und Geschäftskunden.",
+      "true_sector": "K",
+      "keywords_ground_truth": [
+        "finanzdienstleistungen",
+        "vermögensberatung",
+        "versicherungsvermittlung"
+      ],
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
+    },
+    {
+      "id": 15,
+      "legal_name": "ImmoCenter GmbH",
+      "purpose": "Kauf, Verkauf und Verwaltung von Immobilien. Vermittlung von Miet- und Kaufobjekten sowie Immobilienbewertung.",
+      "true_sector": "L",
+      "keywords_ground_truth": [
+        "immobilienverwaltung",
+        "vermittlung",
+        "immobilienbewertung"
+      ],
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
+    },
+    {
+      "id": 16,
+      "legal_name": "Spedition Schnell",
+      "purpose": "Güterbeförderung und Logistikdienstleistungen. Nationaler und internationaler Transport, Spedition und Lagerung.",
+      "true_sector": "H",
+      "keywords_ground_truth": [
+        "güterbeförderung",
+        "logistik",
+        "spedition",
+        "transport"
+      ],
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
+    },
+    {
+      "id": 17,
+      "legal_name": "Gourmet Event GmbH",
+      "purpose": "Betrieb eines Restaurants und Catering-Services. Gastronomie, Eventcatering und Lieferservice für Firmenkunden.",
+      "true_sector": "I",
+      "keywords_ground_truth": [
+        "restaurant",
+        "catering",
+        "gastronomie",
+        "eventcatering"
+      ],
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
+    },
+    {
+      "id": 18,
+      "legal_name": "Bildungs Akademie",
+      "purpose": "Angebot von Sprachkursen, Berufsausbildungen und Weiterbildungsmaßnahmen für Erwachsene. Online- und Präsenzkurse.",
+      "true_sector": "P",
+      "keywords_ground_truth": [
+        "sprachkurse",
+        "berufsausbildung",
+        "weiterbildung"
+      ],
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
+    },
+    {
+      "id": 19,
+      "legal_name": "GreenPower GmbH",
+      "purpose": "Erzeugung und Verteilung von erneuerbaren Energien: Photovoltaik, Windkraft und Energiespeicherlösungen für Gewerbe und Industrie.",
+      "true_sector": "D",
+      "keywords_ground_truth": [
+        "photovoltaik",
+        "windkraft",
+        "energiespeicher",
+        "erneuerbare energie"
+      ],
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
+    },
+    {
+      "id": 20,
+      "legal_name": "Maschinenbau AG",
+      "purpose": "Herstellung und Vertrieb von Industriemaschinen, Anlagen und Maschinenteilen für die Fertigungsindustrie.",
+      "true_sector": "C",
+      "keywords_ground_truth": [
+        "maschinenbau",
+        "industriemaschinen",
+        "fertigung"
+      ],
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
+    },
+    {
+      "id": 21,
+      "legal_name": "Plastex GmbH",
+      "purpose": "Produktion von Kunststoffprodukten und Verpackungsmaterialien für Lebensmittel- und Pharmaindustrie.",
+      "true_sector": "C",
+      "keywords_ground_truth": [
+        "kunststoffprodukte",
+        "verpackung",
+        "pharmaindustrie"
+      ],
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
+    },
+    {
+      "id": 22,
+      "legal_name": "CleanPro Services",
+      "purpose": "Erbringung von Reinigungs- und Hausmeisterdienstleistungen für Büro- und Wohngebäude. Facility Management.",
+      "true_sector": "N",
+      "keywords_ground_truth": [
+        "reinigung",
+        "hausmeister",
+        "facility management"
+      ],
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
+    },
+    {
+      "id": 23,
+      "legal_name": "Sport & Event GmbH",
+      "purpose": "Organisation und Durchführung von Sportveranstaltungen, Fitness-Kursen und Personal-Training für Unternehmen und Privatpersonen.",
+      "true_sector": "R",
+      "keywords_ground_truth": [
+        "sportveranstaltungen",
+        "fitness",
+        "personal-training"
+      ],
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
+    },
+    {
+      "id": 24,
+      "legal_name": "Biohof Grüner",
+      "purpose": "Betrieb eines landwirtschaftlichen Unternehmens: Anbau von Getreide, Obst und Gemüse sowie Forstwirtschaft.",
+      "true_sector": "A",
+      "keywords_ground_truth": [
+        "landwirtschaft",
+        "getreide",
+        "forstwirtschaft",
+        "gemüse"
+      ],
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
+    },
+    {
+      "id": 25,
+      "legal_name": "AI Solutions GmbH",
+      "purpose": "Entwicklung von KI-gestützten Analysewerkzeugen und Machine-Learning-Modellen für die Industrie 4.0. Big Data Analytics.",
+      "true_sector": "J",
+      "keywords_ground_truth": [
+        "künstliche intelligenz",
+        "machine learning",
+        "big data",
+        "industrie 4.0"
+      ],
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
+    },
+    {
+      "id": 26,
+      "legal_name": "EcoDispose GmbH",
+      "purpose": "Entsorgung und Recycling von Industrie- und Sonderabfällen. Abfallwirtschaft und umweltgerechte Entsorgungsdienstleistungen.",
+      "true_sector": "E",
+      "keywords_ground_truth": [
+        "entsorgung",
+        "recycling",
+        "abfallwirtschaft"
+      ],
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
+    },
+    {
+      "id": 27,
+      "legal_name": "SecureGuard GmbH",
+      "purpose": "Erbringung von Sicherheitsdienstleistungen: Objektschutz, Personenschutz und Veranstaltungsschutz.",
+      "true_sector": "N",
+      "keywords_ground_truth": [
+        "objektschutz",
+        "personenschutz",
+        "sicherheit"
+      ],
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
+    },
+    {
+      "id": 28,
+      "legal_name": "Beauty & Hair GmbH",
+      "purpose": "Friseur- und Kosmetikdienstleistungen. Betrieb eines Friseursalons und Schönheitssalons mit Wellness-Angeboten.",
+      "true_sector": "S",
+      "keywords_ground_truth": [
+        "friseur",
+        "kosmetik",
+        "wellness",
+        "schönheitssalon"
+      ],
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
+    },
+    {
+      "id": 29,
+      "legal_name": "Gestein AG",
+      "purpose": "Gewinnung und Verarbeitung von Kies, Sand und Natursteinen. Betrieb von Steinbrüchen und Kiesgruben.",
+      "true_sector": "B",
+      "keywords_ground_truth": [
+        "kiesgewinnung",
+        "naturstein",
+        "steinbruch"
+      ],
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
+    }
+  ]
+}

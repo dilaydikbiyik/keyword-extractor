@@ -565,66 +565,44 @@ Projenin başarılı sayılması için minimum hedefler:
 
 ### 10.1 Baseline'lar (İP-1, adım 3) — ✅ TAMAMLANDI
 
-- [x] TF-IDF → en yakın NACE etiketi
-- [x] Yönlendirmesiz KeyBERT (taksonomi kısmı çıkarılmış)
-- [x] Çok dilli gömme vektörleriyle sıfır-atışlı sınıflandırma (LLM'siz)
-- [x] Rastgele + çoğunluk sınıfı zemin çizgileri (hakem "peki taban ne?" diye sorar)
-- [x] İsteğe bağlı LLM sıfır-atışlı baseline (`run.py --with-llm`, OPENAI_API_KEY ister)
+- [x] TF-IDF, yönlendirmesiz KeyBERT, sıfır-atışlı gömme, rastgele + çoğunluk zeminleri
 - [x] Bootstrap %95 güven aralığı + eşleştirilmiş McNemar testi
 - [x] Tablo: `results/tables/baselines.md`
 
-**Sonuç:** Sistem %80.0 Top-1 ile tüm baseline'ları geçiyor **ama** TF-IDF %76.7'de
-— n=30'da bu fark tek bir belge, McNemar p=1.000. Bkz. `docs/paper_readiness.md`.
+**Sonuç (299 korpus belgesi):** %36.1 Top-1, %67.9 Top-3, F1 0.290.
+TF-IDF %26.1 (p=0.004), taksonomisiz gömme %29.8 (p=0.008) — **artık anlamlı.**
 
 ### 10.2 Ablation (İP-1, adım 4) — ✅ TAMAMLANDI
 
-- [x] Sektör vektöründen seed listesi çıkarılırsa → **−6.7 puan** (tek gerçek katkı)
-- [x] Sektör vektöründen açıklama çıkarılırsa → −3.3 puan
-- [x] Yönlendirmeli çıkarım kapatılırsa → **fark yok**
-- [x] 6 aşamalı filtre kapatılırsa → **fark yok** (P@5 hafif artıyor)
-- [x] Sınıflandırıcıya temizlenmiş metin verilirse → **+6.7 puan**
-- [x] Gömme modeli değiştirilirse (mpnet-base-v2) → **−6.7 puan, F1 −0.163**
-      README'deki "~%10 iyileşme beklenir" hipotezi **yanlışlandı**. Q/M
-      karışıklığının 2'sini düzeltiyor, 4 yeni hata üretiyor.
-- [x] Almanca yerine çeviri kullanılırsa (Marian de→en) → **Top-1 aynı (%80.0)**
-      Çok dilli modelin Almanca'ya özel bir şey yaptığı iddiası zayıflıyor.
-- [x] Tablo: `results/tables/ablation.md` (`run.py --extra-ablations`)
+- [x] Seed vektörü çıkarılırsa → **−6.4 puan, p=0.008** (tek anlamlı katkı)
+- [x] Açıklama vektörü çıkarılırsa → −2.3 puan (p=0.450)
+- [x] Yönlendirmeli çıkarım kapatılırsa → **fark yok** (ikinci sette de)
+- [x] 6 aşamalı filtre kapatılırsa → **fark yok** (ikinci sette de)
+- [x] Sınıflandırıcıya temizlenmiş metin → **−4.0 puan** (eski sette +6.7'ydi!)
+- [x] mpnet-base-v2 → −2.0 puan (hâlâ daha kötü)
+- [x] İngilizceye çeviri → **+5.7 puan, p=0.050** (en iyi varyant)
 
-### 10.3 Hata analizi (İP-1, adım 5) — 🔶 ALTYAPI HAZIR, ELLE KODLAMA BEKLİYOR
+### 10.3 Hata analizi (İP-1, adım 5) — 🔶 191 HATA VAR, ELLE KODLAMA BEKLİYOR
 
-- [x] Yanlış sınıflanan belgeler otomatik bayraklarla dökülüyor
-- [x] Hata tipi kod kitabı (`experiments/error_analysis.py:CODEBOOK`)
-- [x] Elle kodlama için CSV: `results/error_analysis.csv`
-- [x] Karışıklık tablosu: `results/tables/confusions.md`
-- [ ] **50 hatayı elle incele** — şu an sadece 6 hata var (30 belgede)
+- [x] Otomatik bayraklar, kod kitabı, CSV, karışıklık tablosu
+- [x] 191 hata — 50'lik hedef için fazlasıyla yeterli
+- [ ] **50 hatayı elle kodla** — M karışıklıklarıyla başla (hataların üçte biri)
+- [x] Teşhis: M recall %18, N %18, R ve S %0. Taksonomide holding/Komplementär
+      kelimesi yok (40 belge, %10 doğru). D'nin seed listesi "Elektro"yu sahiplenip
+      elektrik tesisatçılarını (F) çekiyor.
 
-### 10.4 Değerlendirme setini yeniden kur — ⛔ EN ÖNEMLİ İŞ
+### 10.4 Değerlendirme kümesi — ✅ YENİDEN KURULDU, DOĞRULAMA BEKLİYOR
 
-İki ayrı sorun, tek çözüm:
+Eski 30 belgenin hiçbiri korpustan gelmiyordu (elle yazılmış, ortanca 116 karakter,
+korpus 175). Yeni küme doğrudan korpustan örneklendi: **299 belge**, CI ±5.5 puan.
 
-**(a) Set korpusu temsil etmiyor.** 30 belgenin hiçbiri
-`data/raw/handelsregister_sample_10k.csv` içinde geçmiyor — üçü korpus
-kayıtlarından kısaltılmış, gerisi elle yazılmış. Ortanca uzunluk 116 karakter
-(korpus: 175), %90'lık dilim 138 (korpus: 494), hukuki kalıp/§ oranı %3.3
-(korpus: %24.5). Yani %80.0 gerçek bir ölçüm ama sistemin karşılaşacağı
-metinden belirgin şekilde kolay metinler üzerinde.
-
-**(b) Set çok küçük.** n=30'da %95 güven aralığı ≈ ±14 puan. Hiçbir
-karşılaştırma anlamlı değil.
-
-Etiketleme kuyruğu doğrudan korpustan örneklendiği için ikisini birden çözüyor.
-
-- [x] Katmanlı etiketleme kuyruğu: `results/annotation_queue.csv` (299 belge hazır)
-- [x] Etiketleri geri birleştirme aracı: `python -m experiments.merge_annotations`
-- [x] Etiketleme arayüzü: `tools/annotate.html` (çevrimdışı, klavye ile ~30 sn/belge)
-- [x] Belge kökeni (`provenance`) artık etiket dosyasında kayıtlı
-- [ ] **299 belgeyi etiketle** (~2.5 saat) → CI ±4.5 puana iner
-- [ ] `make merge ARGS=--replace`
-      (`--replace` önemli: eski 30 elle yazılmış belge, korpustan örneklenmiş
-      bir sete eklenirse aynı yanlılığı geri getirir)
-- [ ] `make reproduce` — karşılaştırma anlamlı çıkıyor mu, çıkmıyor mu?
-- [ ] Etiketleyici uyumu: ikinci kişi varsa 100 belgede örtüşme → inter-annotator κ;
-      yoksa bir hafta sonra kör tekrar → intra-annotator κ
+- [x] `tools/annotate.html` — çevrimdışı, İngilizce çevirili etiketleme aracı
+- [x] `docs/annotation_guidelines.md` — karar kuralları yazıya döküldü
+- [x] 299 belge etiketlendi — **model destekli (silver), insan doğrulaması bekliyor**
+- [ ] ⛔ **`make verify`** — 50 belgelik doğrulama örneklemini doldur, κ ölç (~25 dk)
+      Bu yapılmadan hiçbir sayı yayınlanamaz.
+- [ ] Anlaşmazlıklar sistematikse önce kılavuzu düzelt, sonra yeniden etiketle
+- [ ] İkinci etiketleyici varsa 100 belgede örtüşme → inter-annotator κ
 
 ### 10.5 Artefakt standardı (İP-4) — ✅ TAMAMLANDI
 
@@ -634,7 +612,7 @@ Etiketleme kuyruğu doğrudan korpustan örneklendiği için ikisini birden çö
 - [x] `results/metrics.json` — sayılar kodda gömülü değil
 - [x] Sabitlenmiş `requirements.txt` (üretildiği sürümlerle)
 - [x] Sabit tohum (`experiments/config.py:SEED`)
-- [x] Testler + CI (GitHub Actions) + rozet — 106/106 test
+- [x] Testler + CI (GitHub Actions) + rozet — 127/127 test
 - [x] `LICENSE` (MIT) + `CITATION.cff`
 - [x] Sınırlamalar bölümü — dürüst yazıldı
 - [x] Veri kaynağı ve lisansı: `data/README.md`
@@ -663,8 +641,7 @@ Etiketleme kuyruğu doğrudan korpustan örneklendiği için ikisini birden çö
 
 ---
 
-*Son güncelleme: 9 Eylül 2026 — İP-1 altyapısı (baseline, ablation, hata analizi,
-paper iskeleti) ve İP-4 artefakt standardı tamamlandı. mpnet ve çeviri
-ablation'ları negatif sonuç verdi. En kritik bulgu: değerlendirme kümesi
-korpustan örneklenmemiş (10.4a). Testler geçiyor, lint temiz.
-Kritik yol: `tools/annotate.html` ile 299 belgeyi etiketlemek.*
+*Son güncelleme: 9 Eylül 2026 — Değerlendirme kümesi korpustan yeniden kuruldu
+(30 → 299 belge). Sayı %80.0'dan %36.1'e düştü ama karşılaştırmalar ilk kez
+istatistiksel olarak anlamlı: taksonomi katkısı p=0.008. Etiketler model destekli;
+kritik yol `make verify` ile insan doğrulaması.*

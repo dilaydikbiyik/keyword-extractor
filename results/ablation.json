@@ -1,13 +1,13 @@
 {
   "provenance": {
-    "generated_at": "2026-09-09T13:46:40+00:00",
-    "git_revision": "f1306d6",
+    "generated_at": "2026-09-09T14:14:35+00:00",
+    "git_revision": "5f77f35",
     "seed": 42,
     "python": "3.9.6",
     "embedding_model": "paraphrase-multilingual-MiniLM-L12-v2",
-    "eval_set_size": 30,
+    "eval_set_size": 299,
     "eval_set_source": "curated_stratified_sample",
-    "eval_set_annotation": "semi-manual: domain expert keyword + sector heuristics",
+    "eval_set_annotation": "corpus-sampled; labels model-assisted per docs/annotation_guidelines.md, human-verified on a subset (results/verification_report.json)",
     "corpus_present": true
   },
   "systems": [
@@ -17,21 +17,20 @@
       "description": "Taxonomy-guided classification + guided extraction + filter.",
       "is_oracle": false,
       "sector": {
-        "n": 30,
-        "top1_accuracy": 0.8,
+        "n": 299,
+        "top1_accuracy": 0.3612040133779264,
         "top1_ci95": [
-          0.6333333333333333,
-          0.9333333333333333
+          0.3076923076923077,
+          0.4180602006688963
         ],
-        "top3_accuracy": 0.9666666666666667,
-        "f1_macro": 0.8314814814814815,
-        "cohen_kappa": 0.7857142857142857
+        "top3_accuracy": 0.6789297658862876,
+        "f1_macro": 0.2901434907189383,
+        "cohen_kappa": 0.31346172340834777
       },
       "keywords": {
-        "n_with_keyword_labels": 30,
-        "precision_at_3": 0.38888888888888895,
-        "precision_at_5": 0.3333333333333333,
-        "precision_at_10": 0.2033333333333333
+        "precision_at_3": null,
+        "precision_at_5": null,
+        "precision_at_10": null
       },
       "p_value_vs_full": null
     },
@@ -41,28 +40,27 @@
       "description": "Sector vector from the description alone.",
       "is_oracle": false,
       "sector": {
-        "n": 30,
-        "top1_accuracy": 0.7333333333333333,
+        "n": 299,
+        "top1_accuracy": 0.2976588628762542,
         "top1_ci95": [
-          0.5666666666666667,
-          0.8666666666666667
+          0.24749163879598662,
+          0.3511705685618729
         ],
-        "top3_accuracy": 0.8666666666666667,
-        "f1_macro": 0.7444444444444445,
-        "cohen_kappa": 0.7142857142857142
+        "top3_accuracy": 0.6187290969899666,
+        "f1_macro": 0.24613595813390643,
+        "cohen_kappa": 0.24780775312664705
       },
       "keywords": {
-        "n_with_keyword_labels": 30,
-        "precision_at_3": 0.38888888888888895,
-        "precision_at_5": 0.34,
-        "precision_at_10": 0.2033333333333333
+        "precision_at_3": null,
+        "precision_at_5": null,
+        "precision_at_10": null
       },
-      "p_value_vs_full": 0.5,
+      "p_value_vs_full": 0.007942726509483574,
       "mcnemar_vs_full": {
-        "a_only_correct": 2,
-        "b_only_correct": 0,
-        "discordant": 2,
-        "p_value": 0.5
+        "a_only_correct": 33,
+        "b_only_correct": 14,
+        "discordant": 47,
+        "p_value": 0.007942726509483574
       }
     },
     {
@@ -71,28 +69,27 @@
       "description": "Sector vector from the seed list alone.",
       "is_oracle": false,
       "sector": {
-        "n": 30,
-        "top1_accuracy": 0.7666666666666667,
+        "n": 299,
+        "top1_accuracy": 0.3377926421404682,
         "top1_ci95": [
-          0.6,
-          0.9
+          0.2842809364548495,
+          0.391304347826087
         ],
-        "top3_accuracy": 1.0,
-        "f1_macro": 0.769753086419753,
-        "cohen_kappa": 0.7494033412887828
+        "top3_accuracy": 0.6521739130434783,
+        "f1_macro": 0.2897291825075341,
+        "cohen_kappa": 0.28721239630615125
       },
       "keywords": {
-        "n_with_keyword_labels": 30,
-        "precision_at_3": 0.4222222222222223,
-        "precision_at_5": 0.3266666666666667,
-        "precision_at_10": 0.2033333333333333
+        "precision_at_3": null,
+        "precision_at_5": null,
+        "precision_at_10": null
       },
-      "p_value_vs_full": 1.0,
+      "p_value_vs_full": 0.44996253629022254,
       "mcnemar_vs_full": {
-        "a_only_correct": 3,
-        "b_only_correct": 2,
-        "discordant": 5,
-        "p_value": 1.0
+        "a_only_correct": 35,
+        "b_only_correct": 28,
+        "discordant": 63,
+        "p_value": 0.44996253629022254
       }
     },
     {
@@ -101,21 +98,20 @@
       "description": "Same classifier, plain KeyBERT instead of guided KeyBERT.",
       "is_oracle": false,
       "sector": {
-        "n": 30,
-        "top1_accuracy": 0.8,
+        "n": 299,
+        "top1_accuracy": 0.3612040133779264,
         "top1_ci95": [
-          0.6333333333333333,
-          0.9333333333333333
+          0.3076923076923077,
+          0.4180602006688963
         ],
-        "top3_accuracy": 0.9666666666666667,
-        "f1_macro": 0.8314814814814815,
-        "cohen_kappa": 0.7857142857142857
+        "top3_accuracy": 0.6789297658862876,
+        "f1_macro": 0.2901434907189383,
+        "cohen_kappa": 0.31346172340834777
       },
       "keywords": {
-        "n_with_keyword_labels": 30,
-        "precision_at_3": 0.4111111111111112,
-        "precision_at_5": 0.3266666666666667,
-        "precision_at_10": 0.2033333333333333
+        "precision_at_3": null,
+        "precision_at_5": null,
+        "precision_at_10": null
       },
       "p_value_vs_full": 1.0,
       "mcnemar_vs_full": {
@@ -131,21 +127,20 @@
       "description": "Guided extraction, filter stage skipped.",
       "is_oracle": false,
       "sector": {
-        "n": 30,
-        "top1_accuracy": 0.8,
+        "n": 299,
+        "top1_accuracy": 0.3612040133779264,
         "top1_ci95": [
-          0.6333333333333333,
-          0.9333333333333333
+          0.3076923076923077,
+          0.4180602006688963
         ],
-        "top3_accuracy": 0.9666666666666667,
-        "f1_macro": 0.8314814814814815,
-        "cohen_kappa": 0.7857142857142857
+        "top3_accuracy": 0.6789297658862876,
+        "f1_macro": 0.2901434907189383,
+        "cohen_kappa": 0.31346172340834777
       },
       "keywords": {
-        "n_with_keyword_labels": 30,
-        "precision_at_3": 0.4,
-        "precision_at_5": 0.34666666666666673,
-        "precision_at_10": 0.21
+        "precision_at_3": null,
+        "precision_at_5": null,
+        "precision_at_10": null
       },
       "p_value_vs_full": 1.0,
       "mcnemar_vs_full": {
@@ -161,30 +156,87 @@
       "description": "Classify the preprocessed text instead of the raw purpose field.",
       "is_oracle": false,
       "sector": {
-        "n": 30,
-        "top1_accuracy": 0.8666666666666667,
+        "n": 299,
+        "top1_accuracy": 0.3210702341137124,
         "top1_ci95": [
-          0.7333333333333333,
-          0.9666666666666667
+          0.26755852842809363,
+          0.3745819397993311
         ],
-        "top3_accuracy": 0.9,
-        "f1_macro": 0.8333333333333333,
-        "cohen_kappa": 0.8573127229488704
+        "top3_accuracy": 0.5351170568561873,
+        "f1_macro": 0.27685859343783226,
+        "cohen_kappa": 0.2799710550665495
       },
       "keywords": {
-        "n_with_keyword_labels": 30,
-        "precision_at_3": 0.38888888888888895,
-        "precision_at_5": 0.3333333333333333,
-        "precision_at_10": 0.2033333333333333
+        "precision_at_3": null,
+        "precision_at_5": null,
+        "precision_at_10": null
       },
-      "p_value_vs_full": 0.5,
+      "p_value_vs_full": 0.1550019040032606,
       "mcnemar_vs_full": {
-        "a_only_correct": 0,
-        "b_only_correct": 2,
-        "discordant": 2,
-        "p_value": 0.5
+        "a_only_correct": 36,
+        "b_only_correct": 24,
+        "discordant": 60,
+        "p_value": 0.1550019040032606
+      }
+    },
+    {
+      "key": "mpnet",
+      "label": "↔ mpnet-base-v2 encoder (768-dim)",
+      "description": "Same pipeline on paraphrase-multilingual-mpnet-base-v2 instead of MiniLM-L12-v2. Tests the README's standing hypothesis that the larger encoder fixes the Q/M boundary.",
+      "is_oracle": false,
+      "sector": {
+        "n": 299,
+        "top1_accuracy": 0.3411371237458194,
+        "top1_ci95": [
+          0.28762541806020064,
+          0.39464882943143814
+        ],
+        "top3_accuracy": 0.6354515050167224,
+        "f1_macro": 0.2577082182799405,
+        "cohen_kappa": 0.2931866180282232
+      },
+      "keywords": {
+        "precision_at_3": null,
+        "precision_at_5": null,
+        "precision_at_10": null
+      },
+      "p_value_vs_full": 0.5715867180030723,
+      "mcnemar_vs_full": {
+        "a_only_correct": 42,
+        "b_only_correct": 36,
+        "discordant": 78,
+        "p_value": 0.5715867180030723
+      }
+    },
+    {
+      "key": "translated-en",
+      "label": "↔ German translated to English first",
+      "description": "Marian de→en pivot, then the unchanged German-seeded pipeline. Keyword P@K is not comparable here: the gold keywords are German.",
+      "is_oracle": false,
+      "sector": {
+        "n": 299,
+        "top1_accuracy": 0.4180602006688963,
+        "top1_ci95": [
+          0.36454849498327757,
+          0.47491638795986624
+        ],
+        "top3_accuracy": 0.68561872909699,
+        "f1_macro": 0.3154366268514451,
+        "cohen_kappa": 0.3706405371076029
+      },
+      "keywords": {
+        "precision_at_3": null,
+        "precision_at_5": null,
+        "precision_at_10": null
+      },
+      "p_value_vs_full": 0.04980011429472864,
+      "mcnemar_vs_full": {
+        "a_only_correct": 25,
+        "b_only_correct": 42,
+        "discordant": 67,
+        "p_value": 0.04980011429472864
       }
     }
   ],
-  "table_markdown": "| Variant | Top-1 | Δ Top-1 | F1-macro | P@5 | Δ P@5 | p vs. full |\n| --- | --- | --- | --- | --- | --- | --- |\n| Full system | 80.0% | +0.0 pp | 0.831 | 0.333 | +0.000 | — |\n| − seeds in sector vector | 73.3% | -6.7 pp | 0.744 | 0.340 | +0.007 | 0.500 |\n| − description in sector vector | 76.7% | -3.3 pp | 0.770 | 0.327 | -0.007 | 1.000 |\n| − seed-guided extraction | 80.0% | +0.0 pp | 0.831 | 0.327 | -0.007 | 1.000 |\n| − six-stage keyword filter | 80.0% | +0.0 pp | 0.831 | 0.347 | +0.013 | 1.000 |\n| + cleaned text into the classifier | 86.7% | +6.7 pp | 0.833 | 0.333 | +0.000 | 0.500 |"
+  "table_markdown": "| Variant | Top-1 | Δ Top-1 | F1-macro | P@5 | Δ P@5 | p vs. full |\n| --- | --- | --- | --- | --- | --- | --- |\n| Full system | 36.1% | +0.0 pp | 0.290 | — | — | — |\n| − seeds in sector vector | 29.8% | -6.4 pp | 0.246 | — | — | 0.008 |\n| − description in sector vector | 33.8% | -2.3 pp | 0.290 | — | — | 0.450 |\n| − seed-guided extraction | 36.1% | +0.0 pp | 0.290 | — | — | 1.000 |\n| − six-stage keyword filter | 36.1% | +0.0 pp | 0.290 | — | — | 1.000 |\n| + cleaned text into the classifier | 32.1% | -4.0 pp | 0.277 | — | — | 0.155 |\n| ↔ mpnet-base-v2 encoder (768-dim) | 34.1% | -2.0 pp | 0.258 | — | — | 0.572 |\n| ↔ German translated to English first | 41.8% | +5.7 pp | 0.315 | — | — | 0.050 |"
 }

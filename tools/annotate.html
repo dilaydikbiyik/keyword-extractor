@@ -39,6 +39,11 @@
   .card { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 20px 22px; margin: 16px 0; }
   .name { font-weight: 600; font-size: 15px; margin-bottom: 6px; }
   .purpose { font-size: 16px; line-height: 1.65; white-space: pre-wrap; }
+  .purpose.original { font-size: 14.5px; color: var(--ink-2); margin-top: 10px; }
+  details { margin-top: 14px; }
+  summary { cursor: pointer; font-family: var(--mono); font-size: 11px; letter-spacing: .06em;
+            text-transform: uppercase; color: var(--ink-3); }
+  summary:hover { color: var(--ink-2); }
 
   .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 10px; }
 
@@ -103,7 +108,11 @@
 
     <div class="card">
       <div class="name" id="legal"></div>
-      <div class="purpose" id="purpose"></div>
+      <div class="purpose" id="purposeEn"></div>
+      <details id="originalWrap">
+        <summary>Original German</summary>
+        <div class="purpose original" id="purpose"></div>
+      </details>
     </div>
 
     <div class="hint">Model's top three</div>
@@ -279,7 +288,12 @@
     $("margin").textContent = r.margin || "—";
     $("stratum").textContent = r.stratum || "—";
     $("legal").textContent = r.legal_name || "(no registered name)";
+    var english = (r.purpose_en || "").trim();
+    // Show the translation as the primary text; German stays available and is
+    // what the pipeline actually sees.
+    $("purposeEn").textContent = english || r.purpose || "";
     $("purpose").textContent = r.purpose || "";
+    $("originalWrap").hidden = !english;
     $("kw").value = r.keywords_ground_truth || "";
 
     var top3 = (r.top3 || "").split("|").filter(Boolean);

@@ -14,65 +14,61 @@ sentence embeddings and taxonomy-guided KeyBERT — no labelled training data.
 
 ## Results
 
-30-document stratified evaluation set, 18 NACE sections.  Every figure is
+299 documents sampled from the corpus, 17 NACE sections. Every figure is
 produced by `make reproduce` and written to
 [`results/metrics.json`](results/metrics.json).
 
-| System | Top-1 | 95% CI | Top-3 | F1-macro | κ | P@5 | p vs. ours |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| Random | 6.7% | [0.0, 16.7] | 26.7% | 0.033 | 0.009 | 0.000 | 0.000 |
-| Majority class (oracle floor) | 13.3% | [3.3, 26.7] | 33.3% | 0.013 | 0.000 | 0.000 | 0.000 |
-| TF-IDF → nearest NACE section | 76.7% | [60.0, 90.0] | 80.0% | 0.657 | 0.749 | 0.140 | 1.000 |
-| Zero-shot embeddings (no taxonomy) | 73.3% | [56.7, 86.7] | 86.7% | 0.744 | 0.714 | 0.327 | 0.500 |
-| Unguided KeyBERT | 73.3% | [56.7, 86.7] | 86.7% | 0.744 | 0.714 | 0.327 | 0.500 |
-| **Ours: taxonomy-guided** | **80.0%** | [63.3, 93.3] | **96.7%** | **0.831** | **0.786** | **0.333** | — |
+| System | Top-1 | 95% CI | Top-3 | F1-macro | κ | p vs. ours |
+| --- | --- | --- | --- | --- | --- | --- |
+| Random | 6.0% | [3.3, 8.7] | 13.7% | 0.048 | 0.010 | <0.001 |
+| Majority class (oracle floor) | 22.4% | [17.7, 27.4] | 47.5% | 0.022 | 0.000 | 0.001 |
+| TF-IDF → nearest NACE section | 26.1% | [21.4, 31.1] | 40.5% | 0.203 | 0.214 | 0.004 |
+| Zero-shot embeddings (no taxonomy) | 29.8% | [24.7, 35.1] | 61.9% | 0.246 | 0.248 | 0.008 |
+| Unguided KeyBERT | 29.8% | [24.7, 35.1] | 61.9% | 0.246 | 0.248 | 0.008 |
+| **Ours: taxonomy-guided** | **36.1%** | [30.8, 41.8] | **67.9%** | **0.290** | **0.313** | — |
 
 `p` is an exact McNemar test against the full system on the same documents.
 
-**Two caveats belong before the point estimates.** At n = 30 the intervals are
-±15 points wide and none of the differences above is statistically significant;
-the margin over TF-IDF is a single document. And the evaluation set is
-hand-authored rather than sampled from the corpus — its documents are shorter
-and far less legalistic than real register entries (median 116 vs. 175
-characters, 3.3% vs. 24.5% carrying legal boilerplate), so this is not a corpus
-accuracy. Both have the same fix, and it is in progress:
-[`docs/paper_readiness.md`](docs/paper_readiness.md).
+**Taxonomy guidance beats the description-only baseline by 6.4 points
+(p = 0.008) and TF-IDF by 10.0 points (p = 0.004).** Top-3 is 67.9%: the correct
+section is among the first three suggestions two times out of three, which is
+the number that matters for a system meant to propose a code to a human.
+
+**Two things to know before reading further.** The evaluation labels are
+*silver* — produced by a language model applying
+[`docs/annotation_guidelines.md`](docs/annotation_guidelines.md) and pending a
+human validation pass. And this repository previously reported 80.0% on a
+30-document evaluation set that was written by hand rather than sampled from
+the corpus; on real register text the same code scores 36.1%. The old number
+was not wrong, it was measured on the wrong text.
+[`docs/paper_readiness.md`](docs/paper_readiness.md) has the full account.
 
 ### Ablation
 
-| Variant | Top-1 | Δ Top-1 | F1-macro | P@5 | Δ P@5 |
-| --- | --- | --- | --- | --- | --- |
-| Full system | 80.0% | +0.0 pp | 0.831 | 0.333 | +0.000 |
-| − seeds in sector vector | 73.3% | −6.7 pp | 0.744 | 0.340 | +0.007 |
-| − description in sector vector | 76.7% | −3.3 pp | 0.770 | 0.327 | −0.007 |
-| − seed-guided extraction | 80.0% | +0.0 pp | 0.831 | 0.327 | −0.007 |
-| − six-stage keyword filter | 80.0% | +0.0 pp | 0.831 | 0.347 | +0.013 |
-| + cleaned text into the classifier | 86.7% | +6.7 pp | 0.833 | 0.333 | +0.000 |
-| ↔ mpnet-base-v2 encoder (768-dim) | 73.3% | −6.7 pp | 0.668 | 0.347 | +0.013 |
-| ↔ German translated to English first | 80.0% | +0.0 pp | 0.767 | 0.060 | −0.273 |
+| Variant | Top-1 | Δ Top-1 | F1-macro | p vs. full |
+| --- | --- | --- | --- | --- |
+| Full system | 36.1% | — | 0.290 | — |
+| − seeds in sector vector | 29.8% | −6.4 pp | 0.246 | 0.008 |
+| − description in sector vector | 33.8% | −2.3 pp | 0.290 | 0.450 |
+| − seed-guided extraction | 36.1% | 0.0 pp | 0.290 | 1.000 |
+| − six-stage keyword filter | 36.1% | 0.0 pp | 0.290 | 1.000 |
+| + cleaned text into the classifier | 32.1% | −4.0 pp | 0.277 | 0.155 |
+| ↔ mpnet-base-v2 encoder (768-dim) | 34.1% | −2.0 pp | 0.258 | 0.572 |
+| ↔ German translated to English first | 41.8% | +5.7 pp | 0.315 | 0.050 |
 
 The last two rows need extra model downloads: `python run.py --extra-ablations`.
-P@5 for the translation row is not comparable — the gold keywords are German.
 
-Four things the table settles:
-
-- **The seed-keyword vector is the component that carries the result** (−6.7 pp
-  without it).  Everything else in the taxonomy story rests on this row.
-- **Guided extraction and the six-stage filter show no measurable effect.**
-  Removing the filter even nudges P@5 up.
-- **The bigger encoder is worse, not better.**  This repository previously
-  expected ~10% improvement from `mpnet-base-v2`; measured, it loses 6.7 points
-  Top-1 and 0.163 F1-macro.  It does fix two of the three Q-sector confusions
-  the smaller model gets wrong — and introduces four new errors elsewhere.
-- **Translating to English first changes nothing at Top-1.**  Whatever the
-  multilingual encoder is doing for German, an English pivot reproduces it.
-
-Routing cleaned text into the classifier — which the pipeline computes but does
-not use — is worth more than any of the modelling choices above.  It is
-available as `classification.classify_preprocessed_text` in
-[`config/config.yaml`](config/config.yaml) and **off by default**: on 30
-documents the gain is two documents (p = 0.5), which is not enough evidence to
-change the shipped behaviour.
+- **The seed-keyword vector is the component that carries the result** and the
+  only one with a significant effect.
+- **Guided extraction and the six-stage filter show no effect**, now on two
+  different evaluation sets.
+- **Translating to English first is the strongest variant** (+5.7 pp,
+  p = 0.050), which weakens any claim that the method depends on German
+  representations.
+- **Routing cleaned text into the classifier costs 4.0 points here** and
+  appeared to gain 6.7 on the old 30-document set — the same code, the opposite
+  conclusion. It ships as
+  `classification.classify_preprocessed_text`, off by default.
 
 ---
 
@@ -107,6 +103,7 @@ writes:
 | `results/baselines.json`, `results/ablation.json` | Full per-system results |
 | `results/tables/*.md` | The markdown tables above |
 | `results/error_analysis.csv` | Misclassified documents, ready for manual coding |
+| `results/verification_sample.csv` | 50 documents for the human label check |
 
 This works from a clean clone. The raw trade register records are **not**
 redistributed, but the vocabulary and IDF weights the TF-IDF baseline needs are
@@ -159,7 +156,7 @@ in [`docs/PROJECT_SUMMARY.md`](docs/PROJECT_SUMMARY.md).
 | Path | In git | What it is |
 | --- | --- | --- |
 | `data/taxonomy/sectors.json` | yes | 21 NACE sections, 340 hand-written seed keywords |
-| `data/evaluation/human_labels.json` | yes | 30 gold documents: section + reference keywords |
+| `data/evaluation/human_labels.json` | yes | 299 corpus-sampled documents with NACE section labels |
 | `data/derived/tfidf_corpus_stats.json` | yes | Vocabulary and IDF weights derived from the corpus |
 | `data/raw/handelsregister_sample_10k.csv` | no | 9,993 German trade register purposes |
 
@@ -188,7 +185,7 @@ experiments/            Paper-only code, kept out of src/
 paper/                  Workshop paper skeleton; tables generated from results/
 tools/                  annotate.html (offline labelling) · make_demo_gif.py
 results/                Generated — every number cited anywhere
-tests/                  125 tests
+tests/                  127 tests
 run.py                  make reproduce
 ```
 
@@ -234,25 +231,22 @@ Full review and methodology decisions: [`docs/methodology.md`](docs/methodology.
 
 ## Limitations
 
-- **The evaluation set is not drawn from the corpus.**  No document in it
-  appears in `data/raw/`; three are edited corpus records and the rest were
-  written by hand.  They are shorter (median 116 vs. 175 characters, 90th
-  percentile 138 vs. 494) and far cleaner (3.3% vs. 24.5% carrying legal
-  boilerplate) than real register entries.  Accuracy measured here should not
-  be read as corpus accuracy.
-- **It is also too small for the comparisons it is used for.**  Thirty
-  documents, 95% CI ≈ ±14 points.  No result here is statistically significant,
-  including the margin over TF-IDF.
-- **One annotator, no measured agreement.**  Labels are single-pass; the κ
-  reported above is classifier-vs-gold, not annotator-vs-annotator.
-- **Two pipeline stages are unjustified by evidence.**  Guided extraction and
-  the six-stage filter show no measurable effect in the ablation.
-- **Q vs. M ambiguity.**  MiniLM-L12 (384-dim) struggles at the
-  health/professional-services boundary.  `paraphrase-multilingual-mpnet-base-v2`
-  fixes two of those three cases but is worse overall, so the boundary remains
-  open — it is a taxonomy problem more than an encoder problem.
-- **Very short texts.** Embedding quality drops below ~50 characters.
-- **German only in practice.**  The model is multilingual and the preprocessor
+- **The labels are model-assisted, not gold.** They were produced by a language
+  model applying a written guideline, and the human validation pass is not yet
+  done. Any published number has to quote the agreement figure from
+  `make verify` alongside it.
+- **36.1% is a suggestion tool, not an automatic classifier.** Top-3 at 67.9%
+  is the usable figure; top-1 is not accurate enough to assign codes unattended.
+- **Section M is where it breaks** — 18% recall, and it is the largest class.
+  The taxonomy has no vocabulary for the holding and management shells that
+  make up 13% of the corpus.
+- **One annotator on the validation pass.** No inter-annotator agreement has
+  been measured; a second annotator on an overlapping subset is what reviewers
+  ask for.
+- **Keyword extraction is unevaluated on the current set.** It carries section
+  labels only, and the ablation has twice found no measurable contribution from
+  the keyword half of the pipeline.
+- **German only in practice.** The model is multilingual and the preprocessor
   handles DE/TR/EN, but the corpus, the seeds and the evaluation are German.
 
 ## Citation

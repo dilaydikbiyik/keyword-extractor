@@ -48,52 +48,43 @@ footnote.
 
 ## Evaluation set
 
-`human_labels.json` holds 30 documents labelled by a single annotator. Every
-sample carries a `provenance` field, and right now all 30 read `authored`.
-That is the most important thing on this page.
+`human_labels.json` holds **299 documents sampled from the corpus**, labelled
+by a language model applying
+[`docs/annotation_guidelines.md`](../docs/annotation_guidelines.md). Every
+sample carries `provenance: corpus_sample` and
+`annotation_method: model_assisted`.
 
-### The evaluation set was not sampled from the corpus
+**These are silver labels.** A human validation pass on 50 of them
+(`results/verification_sample.csv`, scored with `make verify`) is what turns
+them into something a paper can cite. Until then, quote no number from them.
 
-No document in it appears in `handelsregister_sample_10k.csv`. Three are
-shortened, edited versions of corpus records; the rest were written by hand.
-The two populations differ measurably:
+### What this replaced, and why
 
-| | Evaluation set | Corpus |
-| --- | --- | --- |
-| Median length | 116 characters | 175 characters |
-| 90th percentile length | 138 characters | 494 characters |
-| Carrying legal boilerplate or `§` | 3.3% | 24.5% |
+The previous set was 30 documents, none of which appeared in the corpus: three
+were shortened edits of corpus records and the rest were written by hand. They
+were measurably easier than real register text — median 116 characters against
+175, 90th percentile 138 against 494, and 3.3% carrying legal boilerplate
+against 24.5%.
 
-So accuracy measured on this set is a real measurement of a real system, but on
-text that is systematically shorter and cleaner than the corpus the system
-exists to handle. **Do not read it as corpus accuracy.**
+The pipeline scored 80.0% on that set and 36.1% on the corpus-sampled one. Both
+are real measurements; only the second is a corpus accuracy. The old file is
+kept as `human_labels.json.bak`.
 
-### Rebuilding it
-
-`results/annotation_queue.csv` is drawn from the corpus itself, so labelling it
-fixes representativeness and sample size together:
+### Rebuilding it again
 
 ```bash
 make annotate                    # build the queue and open the labelling tool
 make merge ARGS=--replace        # fold the answers back in
-make reproduce                   # re-measure on the new set
+make reproduce                   # re-measure
 ```
 
-`ARGS=--replace` is deliberate: appending a hand-authored set to a corpus-sampled one
-reintroduces exactly the bias above. The merge backs up the old file first.
+A human answer in `true_sector` always beats the model's suggestion, and the
+merge records which is which, so the two never become indistinguishable.
 
-Merged rows are recorded as `provenance: corpus_sample`, so the two populations
-stay distinguishable and can be reported separately.
+### Remaining limitations
 
-### Two further limitations
-
-- **Thirty documents is too few** for the comparisons the set is used for: the
-  95% interval is roughly ±14 points.
-- **One annotator, no agreement measured.** Cohen's κ in the results tables
-  measures *classifier vs. gold*, not annotator vs. annotator. A second
-  annotator on an overlapping 100 documents gives the inter-annotator figure
-  reviewers ask for; re-labelling a blind subset after a week gives an
-  intra-annotator one, which is weaker but available alone.
-
-See [`docs/paper_readiness.md`](../docs/paper_readiness.md) for what each of
-these does to the reported numbers.
+- **No inter-annotator agreement.** Cohen's κ in the results tables measures
+  *classifier vs. labels*, not annotator vs. annotator. A second annotator on
+  an overlapping 100 documents gives the figure reviewers ask for.
+- **No keyword ground truth.** The set carries section labels only, so
+  Precision@K is unmeasurable on it.

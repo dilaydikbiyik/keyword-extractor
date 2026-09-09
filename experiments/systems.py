@@ -75,17 +75,30 @@ def translate_de_en(text: str) -> str:
     """
     if not text.strip():
         return text
-    # The marian model truncates hard; chunk on sentence boundaries so long
-    # legalistic purposes are not silently cut.
-    chunks, current = [], ""
-    for sentence in re.split(r"(?<=[.;])\s+", text):
-        if len(current) + len(sentence) > 400 and current:
+    # One sentence per call. Batching several into a chunk is faster, but the
+    # Marian model silently drops clauses from multi-sentence input — on these
+    # legalistic company purposes it was losing the actual business activity
+    # and keeping only the boilerplate that followed it. Sentence at a time
+    # costs more calls and guarantees nothing disappears.
+    pieces = [p for p in re.split(r"(?<=[.;])\s+", text) if p.strip()] or [text]
+
+    # A single sentence longer than the model's window is split further on
+    # commas rather than truncated.
+    chunks: List[str] = []
+    for piece in pieces:
+        if len(piece) <= 350:
+            chunks.append(piece)
+            continue
+        current = ""
+        for part in re.split(r",\s*", piece):
+            if len(current) + len(part) > 350 and current:
+                chunks.append(current)
+                current = part
+            else:
+                current = f"{current}, {part}".strip(", ")
+        if current:
             chunks.append(current)
-            current = sentence
-        else:
-            current = f"{current} {sentence}".strip()
-    if current:
-        chunks.append(current)
+
     pipe = _translation_pipeline()
     return " ".join(
         pipe(chunk, max_length=512)[0]["translation_text"] for chunk in chunks
