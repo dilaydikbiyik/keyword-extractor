@@ -45,7 +45,10 @@ class ExtractionController:
             keyword_filter: KeywordFilter instance
             preprocessor: TextPreprocessor instance
             validator: Optional LLMValidator instance
-            config: Configuration dictionary
+            config: Configuration dictionary. Recognised key:
+                ``classify_preprocessed_text`` (bool) — send the cleaned text to
+                the classifier instead of the raw purpose field.  Off by default;
+                see ``classify_preprocessed_text`` below.
         """
         self.embedding_service = embedding_service
         self.classifier = classifier
@@ -107,7 +110,9 @@ class ExtractionController:
 
             # Step 2: Classify sector
             self.logger.info("Step 2: Classifying sector...")
-            sector_result = self.classifier.classify_with_details(text, top_k=3)
+            sector_result = self.classifier.classify_with_details(
+                self._classifier_input(text, preprocessing_result), top_k=3
+            )
             result['sector_classification'] = sector_result
             primary_sector = sector_result.get('top_sector')
 
@@ -354,6 +359,23 @@ class ExtractionController:
 
         self.logger.info(f"Batch report saved to {out_path}")
         return out_path
+
+    def _classifier_input(self, text: str, preprocessing_result: Dict) -> str:
+        """Choose which form of the text the sector classifier sees.
+
+        The pipeline has always preprocessed the text and then classified the
+        raw string.  Classifying the cleaned string instead scores 6.7 points
+        higher on the current evaluation set (``results/tables/ablation.md``) —
+        but that set holds 30 documents, so the gap is two documents and is not
+        significant.  The behaviour is therefore a configuration switch, off by
+        default, to be settled once the evaluation set is large enough to
+        decide it.  See docs/paper_readiness.md.
+        """
+        if not self.config.get("classify_preprocessed_text", False):
+            return text
+        cleaned = (preprocessing_result or {}).get("cleaned_text", "")
+        # Cleaning can empty out a very short or punctuation-only text.
+        return cleaned if cleaned.strip() else text
 
     def configure(self, config: Dict):
         """

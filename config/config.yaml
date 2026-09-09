@@ -40,6 +40,10 @@ classification:
   top_k_sectors: 3
   confidence_threshold: 0.3
   sector_vector_cache: "data/taxonomy/sector_vectors.npy"
+  # Sınıflandırıcıya ham metin yerine temizlenmiş metni ver.
+  # Mevcut 30 belgelik sette +6.7 puan getiriyor (results/tables/ablation.md)
+  # ama bu iki belge demek ve anlamlı değil — set büyüyene kadar kapalı.
+  classify_preprocessed_text: false
 
 # Anahtar Kelime Çıkarımı
 extraction:

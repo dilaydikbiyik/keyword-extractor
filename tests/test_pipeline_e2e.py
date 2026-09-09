@@ -154,3 +154,46 @@ def test_processing_time_recorded(controller):
     results = controller.extract_batch(texts, top_n_keywords=3, show_progress=False)
     assert "processing_time_ms" in results[0]
     assert results[0]["processing_time_ms"] >= 0
+
+
+# ── Classifier input selection ────────────────────────────────────────────────
+
+class TestClassifierInputSelection:
+    """`classify_preprocessed_text` decides which text the classifier sees."""
+
+    def test_raw_text_is_the_default(self, controller):
+        preprocessed = {"cleaned_text": "softwareentwicklung programmierung"}
+        assert controller._classifier_input("Softwareentwicklung, GmbH.", preprocessed) == (
+            "Softwareentwicklung, GmbH."
+        )
+
+    def test_cleaned_text_when_enabled(self, controller):
+        controller.configure({"classify_preprocessed_text": True})
+        try:
+            preprocessed = {"cleaned_text": "softwareentwicklung programmierung"}
+            assert controller._classifier_input("Softwareentwicklung, GmbH.", preprocessed) == (
+                "softwareentwicklung programmierung"
+            )
+        finally:
+            controller.configure({"classify_preprocessed_text": False})
+
+    def test_falls_back_to_raw_when_cleaning_empties_the_text(self, controller):
+        controller.configure({"classify_preprocessed_text": True})
+        try:
+            assert controller._classifier_input("!!!", {"cleaned_text": "   "}) == "!!!"
+            assert controller._classifier_input("!!!", {}) == "!!!"
+            assert controller._classifier_input("!!!", None) == "!!!"
+        finally:
+            controller.configure({"classify_preprocessed_text": False})
+
+    def test_extract_still_succeeds_with_the_switch_on(self, controller):
+        controller.configure({"classify_preprocessed_text": True})
+        try:
+            result = controller.extract(
+                "Softwareentwicklung und API-Integration für Cloud-Lösungen.",
+                top_n_keywords=5,
+            )
+            assert result["status"] == "success"
+            assert result["sector_classification"]["top_sector"]
+        finally:
+            controller.configure({"classify_preprocessed_text": False})
