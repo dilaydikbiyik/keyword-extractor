@@ -63,19 +63,26 @@ class ExtractionController:
         self._setup_logging()
 
     def _setup_logging(self):
-        """Setup logging configuration."""
-        handler = logging.StreamHandler()
-        formatter = logging.Formatter(
-            '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-        )
-        handler.setFormatter(formatter)
-        self.logger.addHandler(handler)
-        self.logger.setLevel(logging.INFO)
+        """Attach one stream handler and set the configured level.
+
+        The handler is added once per logger, not once per controller: building
+        several controllers in one process used to multiply every log line.
+        The default level is WARNING so the pipeline is quiet in normal use;
+        set ``logging.level`` in the config to follow the per-step progress.
+        """
+        if not self.logger.handlers:
+            handler = logging.StreamHandler()
+            handler.setFormatter(
+                logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+            )
+            self.logger.addHandler(handler)
+        level = str(self.config.get("log_level", "WARNING")).upper()
+        self.logger.setLevel(getattr(logging, level, logging.WARNING))
 
     def extract(
         self,
         text: str,
-        top_n_keywords: int = 10,
+        top_n_keywords: Optional[int] = None,
         use_validation: bool = False,
         return_intermediate: bool = False
     ) -> Dict:
@@ -84,13 +91,16 @@ class ExtractionController:
 
         Args:
             text: Business description text
-            top_n_keywords: Number of keywords to extract
+            top_n_keywords: Number of keywords to extract; defaults to the
+                configured ``extraction.top_n_final``
             use_validation: Whether to use LLM validation
             return_intermediate: Return intermediate results for debugging
 
         Returns:
             Dictionary with extraction results
         """
+        if top_n_keywords is None:
+            top_n_keywords = self.config.get("top_n_keywords", 10)
         self.logger.info(f"Starting extraction for text: {text[:60]}...")
 
         result = {
@@ -111,7 +121,8 @@ class ExtractionController:
             # Step 2: Classify sector
             self.logger.info("Step 2: Classifying sector...")
             sector_result = self.classifier.classify_with_details(
-                self._classifier_input(text, preprocessing_result), top_k=3
+                self._classifier_input(text, preprocessing_result),
+                top_k=self.config.get("top_k_sectors", 3),
             )
             result['sector_classification'] = sector_result
             primary_sector = sector_result.get('top_sector')
@@ -126,12 +137,21 @@ class ExtractionController:
 
             # Step 3: Extract keywords (guided by sector)
             self.logger.info(f"Step 3: Extracting keywords for sector {primary_sector}...")
-            keywords = self.extractor.extract_keywords_guided_by_sector(
-                text,
-                primary_sector,
-                top_n=top_n_keywords * 2,  # Extract more to allow for filtering
-                language=preprocessing_result['detected_language']
-            )
+            # Extract more than requested: the filter stage drops candidates.
+            over_extract = top_n_keywords * 2
+            diversity = self.config.get("diversity", 0.7)
+            if self.config.get("guided_mode", True):
+                keywords = self.extractor.extract_keywords_guided_by_sector(
+                    text,
+                    primary_sector,
+                    top_n=over_extract,
+                    language=preprocessing_result['detected_language'],
+                    diversity=diversity,
+                )
+            else:
+                keywords = self.extractor.extract_keywords(
+                    text, top_n=over_extract, diversity=diversity
+                )
 
             if return_intermediate:
                 result['intermediate_steps']['keyword_extraction'] = keywords
@@ -141,7 +161,8 @@ class ExtractionController:
             filtered_keywords = self.keyword_filter.apply_all_filters(
                 keywords,
                 sector_code=primary_sector,
-                top_n=top_n_keywords
+                top_n=top_n_keywords,
+                min_score=self.config.get("min_score", 0.1),
             )
 
             if return_intermediate:
@@ -179,7 +200,7 @@ class ExtractionController:
     def extract_batch(
         self,
         texts: List[str],
-        top_n_keywords: int = 10,
+        top_n_keywords: Optional[int] = None,
         use_validation: bool = False,
         show_progress: bool = True,
         save_report: bool = False,

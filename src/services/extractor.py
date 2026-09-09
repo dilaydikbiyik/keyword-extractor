@@ -120,10 +120,15 @@ class KeywordExtractor:
         text: str,
         sector_code: str,
         top_n: int = 10,
-        language: Optional[str] = None  # accepted for API compatibility; multilingual model handles language automatically
+        language: Optional[str] = None,  # accepted for API compatibility; multilingual model handles language automatically
+        diversity: float = 0.7
     ) -> List[Tuple[str, float]]:
         """
         Extract keywords with guidance from sector-specific seed keywords.
+
+        KeyBERT blends the document embedding with the mean seed embedding at a
+        fixed 3:1 ratio before ranking candidates; the seeds tilt the ranking,
+        they do not filter it.
 
         Args:
             text: Input text
@@ -131,6 +136,7 @@ class KeywordExtractor:
             top_n: Number of keywords to extract
             language: Language of the text (informational; the multilingual model
                       handles all supported languages automatically)
+            diversity: MMR diversity, higher means less redundant keywords
 
         Returns:
             List of (keyword, score) tuples
@@ -140,14 +146,14 @@ class KeywordExtractor:
 
         if not seed_keywords:
             print(f"Warning: No seed keywords found for sector {sector_code}")
-            return self.extract_keywords(text, top_n=top_n)
+            return self.extract_keywords(text, top_n=top_n, diversity=diversity)
 
         # Extract with sector guidance
         keywords = self.extract_keywords(
             text,
             top_n=top_n,
             seed_keywords=seed_keywords,
-            diversity=0.7  # Higher diversity for sector-guided extraction
+            diversity=diversity
         )
 
         return keywords

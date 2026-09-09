@@ -6,12 +6,7 @@ Quick Start Guide - Multilingual Keyword Extraction Pipeline
 import sys
 sys.path.insert(0, 'src')
 
-from utils.preprocessing import TextPreprocessor
-from services.embedder import EmbeddingService
-from services.classifier import SectorClassifier
-from services.extractor import KeywordExtractor
-from services.filter import KeywordFilter
-from controllers.controller import ExtractionController
+from pipeline import build_controller
 
 
 def main():
@@ -22,20 +17,8 @@ def main():
     # Step 1: Initialize components
     print("\n[1/4] Initializing components...")
 
-    preprocessor = TextPreprocessor()
-    embedder = EmbeddingService()
-    classifier = SectorClassifier(embedder)
-    extractor = KeywordExtractor()
-    keyword_filter = KeywordFilter()
-
-    controller = ExtractionController(
-        embedding_service=embedder,
-        classifier=classifier,
-        extractor=extractor,
-        keyword_filter=keyword_filter,
-        preprocessor=preprocessor
-    )
-    print("      ✓ Components initialized")
+    controller, _ = build_controller()
+    print("      ✓ Components initialized from config/config.yaml")
 
     # Step 2: Sample texts
     print("\n[2/4] Loading sample texts...")

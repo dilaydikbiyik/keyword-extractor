@@ -10,12 +10,7 @@ from pathlib import Path
 
 sys.path.insert(0, 'src')
 
-from utils.preprocessing import TextPreprocessor
-from services.embedder import EmbeddingService
-from services.classifier import SectorClassifier
-from services.extractor import KeywordExtractor
-from services.filter import KeywordFilter
-from controllers.controller import ExtractionController
+from pipeline import build_controller
 
 
 def main():
@@ -29,11 +24,13 @@ def main():
     CSV_FILE = "data/raw/handelsregister_sample_10k.csv"
     OUTPUT_FILE = "output/results.json"
     BATCH_SIZE = 100
-    TOP_N_KEYWORDS = 10
 
     # Check input file
     if not Path(CSV_FILE).exists():
-        print(f"✗ Error: {CSV_FILE} not found")
+        print(f"✗ {CSV_FILE} not found.")
+        print("  The raw corpus is not distributed with this repository; see")
+        print("  data/README.md. Everything else still runs: `make reproduce`")
+        print("  regenerates the reported results from committed data.")
         return
 
     print(f"\n[1/5] Loading CSV file: {CSV_FILE}")
@@ -41,22 +38,11 @@ def main():
     print(f"      Loaded {len(df)} records")
     print(f"      Columns: {list(df.columns)}")
 
-    # Initialize components
+    # Initialize components from config/config.yaml
     print(f"\n[2/5] Initializing components...")
-    preprocessor = TextPreprocessor()
-    embedder = EmbeddingService()
-    classifier = SectorClassifier(embedder)
-    extractor = KeywordExtractor()
-    keyword_filter = KeywordFilter()
-
-    controller = ExtractionController(
-        embedding_service=embedder,
-        classifier=classifier,
-        extractor=extractor,
-        keyword_filter=keyword_filter,
-        preprocessor=preprocessor
-    )
-    print("      ✓ Components initialized")
+    controller, config = build_controller()
+    top_n_keywords = config["extraction"]["top_n_final"]
+    print(f"      ✓ Components initialized ({top_n_keywords} keywords per document)")
 
     # Process data
     print(f"\n[3/5] Processing data ({len(df)} documents)...")
@@ -74,7 +60,7 @@ def main():
         try:
             batch_results = controller.extract_batch(
                 batch_texts,
-                top_n_keywords=TOP_N_KEYWORDS,
+                top_n_keywords=top_n_keywords,
                 use_validation=False,
                 show_progress=False
             )
