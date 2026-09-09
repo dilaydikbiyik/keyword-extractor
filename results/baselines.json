@@ -1,7 +1,7 @@
 {
   "provenance": {
-    "generated_at": "2026-09-09T13:22:12+00:00",
-    "git_revision": "de99c35",
+    "generated_at": "2026-09-09T13:46:34+00:00",
+    "git_revision": "f1306d6",
     "seed": 42,
     "python": "3.9.6",
     "embedding_model": "paraphrase-multilingual-MiniLM-L12-v2",

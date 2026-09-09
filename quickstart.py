@@ -6,6 +6,8 @@ Quick Start Guide - Multilingual Keyword Extraction Pipeline
 import sys
 sys.path.insert(0, 'src')
 
+import utils.quiet  # noqa: F401  (quiet environment warnings)
+
 from pipeline import build_controller
 
 

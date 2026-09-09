@@ -15,6 +15,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / "src"))
+
+import utils.quiet  # noqa: F401,E402  (quiet environment warnings before heavy imports)
 
 from experiments import run_error_analysis, run_experiments  # noqa: E402
 from experiments.config import RESULTS_DIR, ensure_dirs, set_seed  # noqa: E402

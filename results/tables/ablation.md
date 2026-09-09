@@ -6,5 +6,3 @@
 | − seed-guided extraction | 80.0% | +0.0 pp | 0.831 | 0.327 | -0.007 | 1.000 |
 | − six-stage keyword filter | 80.0% | +0.0 pp | 0.831 | 0.347 | +0.013 | 1.000 |
 | + cleaned text into the classifier | 86.7% | +6.7 pp | 0.833 | 0.333 | +0.000 | 0.500 |
-| ↔ mpnet-base-v2 encoder (768-dim) | 73.3% | -6.7 pp | 0.668 | 0.347 | +0.013 | 0.754 |
-| ↔ German translated to English first | 80.0% | +0.0 pp | 0.767 | 0.060 | -0.273 | 1.000 |

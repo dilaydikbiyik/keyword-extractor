@@ -55,8 +55,8 @@ def main() -> int:
     parser.add_argument(
         "--force",
         action="store_true",
-        help="Overwrite an existing queue. Refused by default: the file may "
-             "already hold answers.",
+        help="Rebuild the queue from scratch, discarding any answers already "
+             "in it. Without this an existing queue is reused.",
     )
     args = parser.parse_args()
 
@@ -64,15 +64,14 @@ def main() -> int:
     ensure_dirs()
 
     if QUEUE_CSV.exists() and not args.force:
-        answered = 0
         with open(QUEUE_CSV, newline="", encoding="utf-8") as fh:
-            answered = sum(
-                1 for row in csv.DictReader(fh) if (row.get("true_sector") or "").strip()
-            )
-        print(f"{QUEUE_CSV} already exists ({answered} rows answered).")
-        print("Refusing to overwrite it. Pass --force to rebuild from scratch,")
-        print("or merge what you have first: make merge ARGS=--replace")
-        return 0 if answered == 0 else 1
+            rows = list(csv.DictReader(fh))
+        answered = sum(1 for r in rows if (r.get("true_sector") or "").strip())
+        print(f"Using the existing queue: {len(rows)} documents, {answered} answered.")
+        if answered:
+            print("Rebuilding it would discard those answers; pass --force if that is")
+            print("what you want, or merge them first with: make merge ARGS=--replace")
+        return 0
 
     df = load_corpus_frame()
     already = {s.purpose.strip() for s in load_labeled_samples()}

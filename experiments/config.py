@@ -4,7 +4,6 @@ from __future__ import annotations
 
 import os
 import random
-import warnings
 from pathlib import Path
 
 import numpy as np
@@ -32,19 +31,6 @@ EMBEDDING_MODEL = "paraphrase-multilingual-MiniLM-L12-v2"
 N_BOOTSTRAP = 10_000
 
 
-def silence_stale_fp_warnings() -> None:
-    """Drop the spurious matmul warnings numpy raises after a model forward pass.
-
-    The transformer leaves a floating-point flag set inside BLAS; numpy then
-    attributes it to the next matmul it evaluates, including ones inside
-    KeyBERT.  The similarity values are checked for finiteness where we
-    compute them, so the warning carries no information here.
-    """
-    warnings.filterwarnings(
-        "ignore", message=".*encountered in matmul", category=RuntimeWarning
-    )
-
-
 def set_seed(seed: int = SEED) -> None:
     """Pin every source of randomness we can reach.
 
@@ -52,7 +38,6 @@ def set_seed(seed: int = SEED) -> None:
     bootstrap resampling are not, so this is what makes ``make reproduce``
     byte-identical across runs.
     """
-    silence_stale_fp_warnings()
     os.environ["PYTHONHASHSEED"] = str(seed)
     random.seed(seed)
     np.random.seed(seed)

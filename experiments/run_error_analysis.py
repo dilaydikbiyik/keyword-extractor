@@ -120,9 +120,9 @@ def main() -> int:
     print(f"\nAnnotate by hand: {CSV_FILE}")
     if len(records) < 50:
         print(
-            f"\nNOTE: the guide asks for 50 hand-inspected errors; this set yields "
-            f"{len(records)}. Enlarge the labelled set with "
-            "`python -m experiments.build_annotation_queue`."
+            f"\nNOTE: 50 hand-inspected errors is the target; this set yields "
+            f"{len(records)}. Enlarge the labelled set: `make annotate`, label the "
+            "queue, then `make merge ARGS=--replace`."
         )
     return 0
 
