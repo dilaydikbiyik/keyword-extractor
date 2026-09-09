@@ -8,12 +8,12 @@
 \toprule
 System & Top-1 & 95\% CI & Top-3 & F1-macro & $\kappa$ & $p$ \\
 \midrule
-Random & 5.7 & [3.0, 8.4] & 14.4 & 0.040 & 0.007 & 0.000 \\
-Majority class (oracle floor)$^{\dagger}$ & 21.4 & [16.7, 26.1] & 46.5 & 0.021 & 0.000 & 0.002 \\
-TF-IDF → nearest NACE section & 25.8 & [21.1, 30.8] & 40.5 & 0.186 & 0.210 & 0.011 \\
-Zero-shot embeddings (no taxonomy guidance) & 29.1 & [24.1, 34.4] & 62.2 & 0.239 & 0.240 & 0.023 \\
-Unguided KeyBERT & 29.1 & [24.1, 34.4] & 62.2 & 0.239 & 0.240 & 0.023 \\
-\textbf{Ours: taxonomy-guided} & 34.4 & [29.1, 39.8] & 66.9 & 0.276 & 0.296 & -- \\
+Random & 5.0 & [2.7, 7.7] & 13.7 & 0.036 & -0.001 & 0.000 \\
+Majority class (oracle floor)$^{\dagger}$ & 21.7 & [17.1, 26.4] & 46.8 & 0.020 & 0.000 & 0.002 \\
+TF-IDF → nearest NACE section & 25.4 & [20.7, 30.4] & 40.1 & 0.184 & 0.207 & 0.007 \\
+Zero-shot embeddings (no taxonomy guidance) & 28.4 & [23.4, 33.4] & 62.5 & 0.243 & 0.234 & 0.008 \\
+Unguided KeyBERT & 28.4 & [23.4, 33.4] & 62.5 & 0.243 & 0.234 & 0.008 \\
+\textbf{Ours: taxonomy-guided} & 34.8 & [29.4, 40.1] & 67.2 & 0.293 & 0.300 & -- \\
 \bottomrule
 \end{tabular}
 \caption{Section classification on the held-out evaluation set ($n{=}\NEVAL$). Intervals are percentile bootstrap over $10{,}000$ resamples; $p$ is an exact McNemar test against our full system on the same documents. $\dagger$ uses the gold label distribution and is an oracle floor, not a competing method.}

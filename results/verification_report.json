@@ -1,143 +1,77 @@
 {
   "n_verified": 50,
   "n_sample": 50,
-  "raw_agreement": 0.58,
-  "cohen_kappa": 0.5422842197035745,
+  "raw_agreement": 0.8,
+  "cohen_kappa": 0.7724169321802459,
   "by_labeller_confidence": {
     "low": {
       "n": 25,
-      "agreement": 0.36
+      "agreement": 0.6
     },
     "high": {
       "n": 25,
-      "agreement": 0.8
+      "agreement": 1.0
     }
   },
   "disagreements": [
     {
-      "queue_id": "13",
-      "human": "J",
-      "silver": "C",
-      "note": ""
-    },
-    {
-      "queue_id": "37",
-      "human": "G",
-      "silver": "M",
-      "note": ""
-    },
-    {
-      "queue_id": "40",
-      "human": "K",
-      "silver": "M",
-      "note": ""
-    },
-    {
-      "queue_id": "56",
-      "human": "N",
-      "silver": "E",
-      "note": ""
-    },
-    {
-      "queue_id": "59",
-      "human": "E",
-      "silver": "H",
-      "note": ""
-    },
-    {
-      "queue_id": "105",
-      "human": "K",
-      "silver": "M",
-      "note": ""
-    },
-    {
-      "queue_id": "134",
-      "human": "R",
-      "silver": "I",
-      "note": ""
-    },
-    {
-      "queue_id": "150",
-      "human": "J",
-      "silver": "M",
-      "note": ""
-    },
-    {
-      "queue_id": "166",
-      "human": "K",
-      "silver": "M",
-      "note": ""
-    },
-    {
-      "queue_id": "191",
-      "human": "M",
-      "silver": "L",
-      "note": ""
-    },
-    {
-      "queue_id": "192",
-      "human": "L",
-      "silver": "M",
-      "note": ""
-    },
-    {
-      "queue_id": "203",
-      "human": "J",
-      "silver": "M",
-      "note": ""
-    },
-    {
-      "queue_id": "205",
-      "human": "G",
-      "silver": "M",
-      "note": ""
-    },
-    {
-      "queue_id": "212",
-      "human": "J",
-      "silver": "M",
-      "note": ""
-    },
-    {
-      "queue_id": "220",
-      "human": "J",
-      "silver": "M",
-      "note": ""
-    },
-    {
-      "queue_id": "225",
-      "human": "J",
+      "queue_id": "58",
+      "human": "F",
       "silver": "N",
       "note": ""
     },
     {
-      "queue_id": "232",
-      "human": "L",
-      "silver": "M",
+      "queue_id": "90",
+      "human": "Q",
+      "silver": "G",
       "note": ""
     },
     {
-      "queue_id": "233",
-      "human": "Q",
+      "queue_id": "146",
+      "human": "M",
+      "silver": "J",
+      "note": ""
+    },
+    {
+      "queue_id": "163",
+      "human": "M",
+      "silver": "K",
+      "note": ""
+    },
+    {
+      "queue_id": "170",
+      "human": "K",
       "silver": "L",
       "note": ""
     },
     {
-      "queue_id": "249",
-      "human": "R",
-      "silver": "P",
-      "note": ""
-    },
-    {
-      "queue_id": "277",
-      "human": "G",
-      "silver": "M",
-      "note": ""
-    },
-    {
-      "queue_id": "292",
+      "queue_id": "174",
       "human": "K",
       "silver": "M",
+      "note": ""
+    },
+    {
+      "queue_id": "244",
+      "human": "O",
+      "silver": "N",
+      "note": ""
+    },
+    {
+      "queue_id": "260",
+      "human": "Q",
+      "silver": "S",
+      "note": ""
+    },
+    {
+      "queue_id": "269",
+      "human": "L",
+      "silver": "N",
+      "note": ""
+    },
+    {
+      "queue_id": "290",
+      "human": "Q",
+      "silver": "R",
       "note": ""
     }
   ],

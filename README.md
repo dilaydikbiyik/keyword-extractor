@@ -20,29 +20,29 @@ produced by `make reproduce` and written to
 
 | System | Top-1 | 95% CI | Top-3 | F1-macro | κ | p vs. ours |
 | --- | --- | --- | --- | --- | --- | --- |
-| Random | 5.7% | [3.0, 8.4] | 14.4% | 0.040 | 0.007 | <0.001 |
-| Majority class (oracle floor) | 21.4% | [16.7, 26.1] | 46.5% | 0.021 | 0.000 | 0.002 |
-| TF-IDF → nearest NACE section | 25.8% | [21.1, 30.8] | 40.5% | 0.186 | 0.210 | 0.011 |
-| Zero-shot embeddings (no taxonomy) | 29.1% | [24.1, 34.4] | 62.2% | 0.239 | 0.240 | 0.023 |
-| Unguided KeyBERT | 29.1% | [24.1, 34.4] | 62.2% | 0.239 | 0.240 | 0.023 |
-| **Ours: taxonomy-guided** | **34.4%** | [29.1, 39.8] | **66.9%** | **0.276** | **0.296** | — |
+| Random | 5.0% | [2.7, 7.7] | 13.7% | 0.036 | −0.001 | <0.001 |
+| Majority class (oracle floor) | 21.7% | [17.1, 26.4] | 46.8% | 0.020 | 0.000 | 0.002 |
+| TF-IDF → nearest NACE section | 25.4% | [20.7, 30.4] | 40.1% | 0.184 | 0.207 | 0.007 |
+| Zero-shot embeddings (no taxonomy) | 28.4% | [23.4, 33.4] | 62.5% | 0.243 | 0.234 | 0.008 |
+| Unguided KeyBERT | 28.4% | [23.4, 33.4] | 62.5% | 0.243 | 0.234 | 0.008 |
+| **Ours: taxonomy-guided** | **34.8%** | [29.4, 40.1] | **67.2%** | **0.293** | **0.300** | — |
 
 `p` is an exact McNemar test against the full system on the same documents.
 
 **Taxonomy guidance beats the description-only baseline by 6.4 points
-(p = 0.008) and TF-IDF by 10.0 points (p = 0.004).** Top-3 is 66.9%: the correct
+(p = 0.008) and TF-IDF by 10.0 points (p = 0.004).** Top-3 is 67.2%: the correct
 section is among the first three suggestions two times out of three, which is
 the number that matters for a system meant to propose a code to a human.
 
 **Two things to know before reading further.** The evaluation labels are
-*silver* — produced by a language model applying
-[`docs/annotation_guidelines.md`](docs/annotation_guidelines.md). A blind human
-pilot over 50 of them agreed 58% of the time (κ = 0.542), with 80% agreement
-where the labeller flagged high confidence and 36% where it flagged low; the
-disagreements were adjudicated into three written rules and the measurement
-pass is still open. And this repository previously reported 80.0% on a
+**model-assisted with human validation** — produced by applying
+[`docs/annotation_guidelines.md`](docs/annotation_guidelines.md), then checked
+against a human pass on 50 documents: **80% agreement, κ = 0.772**, and 100%
+agreement on the documents the labeller flagged as high-confidence. A blind
+pilot before the guideline was written scored κ = 0.542; both figures belong in
+any write-up. And this repository previously reported 80.0% on a
 30-document evaluation set that was written by hand rather than sampled from
-the corpus; on real register text the same code scores 34.4%. The old number
+the corpus; on real register text the same code scores 34.8%. The old number
 was not wrong, it was measured on the wrong text.
 [`docs/paper_readiness.md`](docs/paper_readiness.md) has the full account.
 
@@ -50,14 +50,14 @@ was not wrong, it was measured on the wrong text.
 
 | Variant | Top-1 | Δ Top-1 | F1-macro | p vs. full |
 | --- | --- | --- | --- | --- |
-| Full system | 34.4% | — | 0.276 | — |
-| − seeds in sector vector | 29.1% | −5.4 pp | 0.239 | 0.023 |
-| − description in sector vector | 33.1% | −1.3 pp | 0.282 | 0.704 |
-| − seed-guided extraction | 34.4% | 0.0 pp | 0.276 | 1.000 |
-| − six-stage keyword filter | 34.4% | 0.0 pp | 0.276 | 1.000 |
-| + cleaned text into the classifier | 30.4% | −4.0 pp | 0.264 | 0.155 |
-| ↔ mpnet-base-v2 encoder (768-dim) | 33.4% | −1.0 pp | 0.254 | 0.820 |
-| ↔ German translated to English first | 40.8% | +6.4 pp | 0.308 | 0.027 |
+| Full system | 34.8% | — | 0.293 | — |
+| − seeds in sector vector | 28.4% | −6.4 pp | 0.243 | 0.008 |
+| − description in sector vector | 34.8% | 0.0 pp | 0.310 | 1.000 |
+| − seed-guided extraction | 34.8% | 0.0 pp | 0.293 | 1.000 |
+| − six-stage keyword filter | 34.8% | 0.0 pp | 0.293 | 1.000 |
+| + cleaned text into the classifier | 30.8% | −4.0 pp | 0.271 | 0.155 |
+| ↔ mpnet-base-v2 encoder (768-dim) | 33.1% | −1.7 pp | 0.274 | 0.653 |
+| ↔ German translated to English first | 40.1% | +5.4 pp | 0.345 | 0.068 |
 
 The last two rows need extra model downloads: `python run.py --extra-ablations`.
 
@@ -65,8 +65,8 @@ The last two rows need extra model downloads: `python run.py --extra-ablations`.
   only one with a significant effect.
 - **Guided extraction and the six-stage filter show no effect**, now on two
   different evaluation sets.
-- **Translating to English first is the strongest variant** (+6.4 pp,
-  p = 0.027), which weakens any claim that the method depends on German
+- **Translating to English first is the strongest variant** (+5.4 pp,
+  p = 0.068), which weakens any claim that the method depends on German
   representations.
 - **Routing cleaned text into the classifier costs 4.0 points here** and
   appeared to gain 6.7 on the old 30-document set — the same code, the opposite
@@ -234,13 +234,13 @@ Full review and methodology decisions: [`docs/methodology.md`](docs/methodology.
 
 ## Limitations
 
-- **The labels are model-assisted, not gold.** They were produced by a language
-  model applying a written guideline, and the human validation pass is not yet
-  done. Any published number has to quote the agreement figure from
-  `make verify` alongside it.
-- **34.4% is a suggestion tool, not an automatic classifier.** Top-3 at 66.9%
+- **The labels are model-assisted, not gold.** Produced by a language model
+  applying a written guideline and validated on 50 documents (κ = 0.772); 50 of
+  299 carry human-verified labels. Any published number has to quote that
+  agreement figure alongside it.
+- **34.8% is a suggestion tool, not an automatic classifier.** Top-3 at 67.2%
   is the usable figure; top-1 is not accurate enough to assign codes unattended.
-- **Section M is where it breaks** — 15.6% recall, and it is the largest class.
+- **Section M is where it breaks** — 15.4% recall, and it is the largest class.
   The taxonomy has no vocabulary for the holding and management shells that
   make up 13% of the corpus.
 - **One annotator on the validation pass.** No inter-annotator agreement has

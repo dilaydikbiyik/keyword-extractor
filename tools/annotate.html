@@ -142,6 +142,8 @@
       <button id="export" class="done">Export CSV</button>
     </div>
 
+    <p class="muted" id="saveHint" style="width:100%;margin:4px 0 0"></p>
+
     <div class="keys">
       <span><kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> accept a suggestion</span>
       <span><kbd>/</kbd> filter</span>
@@ -184,7 +186,7 @@
   SECTIONS.forEach(function (s) { NAME[s[0]] = s[1]; });
 
   var STORE = "keyword-extractor.annotation.v1";
-  var rows = [], header = [], index = 0, saveTimer = null;
+  var rows = [], header = [], index = 0, saveTimer = null, sourceName = "";
   // A verification file carries the existing label in `silver_sector`. In that
   // mode the tool hides both that label and the model's suggestions: the point
   // is an independent second opinion, and a visible suggestion is an anchor.
@@ -320,6 +322,9 @@
 
     paintAll();
     paintProgress();
+    $("saveHint").textContent = sourceName
+      ? "Export saves as " + sourceName + " — put it back in results/, replacing the file you opened."
+      : "";
   }
 
   function paintAll() {
@@ -369,7 +374,9 @@
     var blob = new Blob([toCSV(header, rows)], { type: "text/csv;charset=utf-8" });
     var a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
-    a.download = "annotation_queue.csv";
+    // Export under the name it was loaded with. A fixed name silently
+    // overwrote a different file when the answers were saved back.
+    a.download = sourceName || "annotation_queue.csv";
     document.body.appendChild(a);
     a.click();
     setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 0);
@@ -379,6 +386,7 @@
   $("file").addEventListener("change", function (e) {
     var file = e.target.files && e.target.files[0];
     if (!file) return;
+    sourceName = file.name;
     var reader = new FileReader();
     reader.onload = function () {
       var table = parseCSV(String(reader.result));

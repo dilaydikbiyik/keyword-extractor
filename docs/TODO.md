@@ -569,25 +569,25 @@ Projenin başarılı sayılması için minimum hedefler:
 - [x] Bootstrap %95 güven aralığı + eşleştirilmiş McNemar testi
 - [x] Tablo: `results/tables/baselines.md`
 
-**Sonuç (299 korpus belgesi):** %34.4 Top-1, %66.9 Top-3, F1 0.276.
-TF-IDF %25.8 (p=0.011), taksonomisiz gömme %29.1 (p=0.023) — **artık anlamlı.**
+**Sonuç (299 korpus belgesi):** %34.8 Top-1, %67.2 Top-3, F1 0.293.
+TF-IDF %25.4 (p=0.007), taksonomisiz gömme %28.4 (p=0.008) — **anlamlı.**
 
 ### 10.2 Ablation (İP-1, adım 4) — ✅ TAMAMLANDI
 
-- [x] Seed vektörü çıkarılırsa → **−5.4 puan, p=0.023** (tek anlamlı katkı)
-- [x] Açıklama vektörü çıkarılırsa → −1.3 puan (p=0.704)
+- [x] Seed vektörü çıkarılırsa → **−6.4 puan, p=0.008** (tek anlamlı katkı)
+- [x] Açıklama vektörü çıkarılırsa → fark yok (p=1.000)
 - [x] Yönlendirmeli çıkarım kapatılırsa → **fark yok** (ikinci sette de)
 - [x] 6 aşamalı filtre kapatılırsa → **fark yok** (ikinci sette de)
 - [x] Sınıflandırıcıya temizlenmiş metin → **−4.0 puan** (eski sette +6.7'ydi!)
-- [x] mpnet-base-v2 → −1.0 puan (hâlâ daha kötü)
-- [x] İngilizceye çeviri → **+6.4 puan, p=0.027** (en iyi varyant)
+- [x] mpnet-base-v2 → −1.7 puan (hâlâ daha kötü)
+- [x] İngilizceye çeviri → +5.4 puan, p=0.068 (en iyi varyant ama anlamlı değil)
 
 ### 10.3 Hata analizi (İP-1, adım 5) — 🔶 191 HATA VAR, ELLE KODLAMA BEKLİYOR
 
 - [x] Otomatik bayraklar, kod kitabı, CSV, karışıklık tablosu
-- [x] 196 hata — 50'lik hedef için fazlasıyla yeterli
+- [x] 195 hata — 50'lik hedef için fazlasıyla yeterli
 - [ ] **50 hatayı elle kodla** — M karışıklıklarıyla başla (hataların üçte biri)
-- [x] Teşhis: N recall %13.6, M %15.6. Taksonomide holding/Komplementär
+- [x] Teşhis: M recall %15.4, N %15.8. Taksonomide holding/Komplementär
       kelimesi yok (40 belge, %10 doğru). D'nin seed listesi "Elektro"yu sahiplenip
       elektrik tesisatçılarını (F) çekiyor.
 
@@ -603,8 +603,10 @@ korpus 175). Yeni küme doğrudan korpustan örneklendi: **299 belge**, CI ±5.5
       (yüksek güvende %80, düşük güvende %36 → güven bayrağı iyi kalibre)
 - [x] Anlaşmazlıklar üç sınırda toplandı, kılavuza yazıldı (§4), 299 belgenin
       tamamında 11 etiket düzeltildi. Başlık %36.1 → %34.4, sonuçlar ayakta.
-- [ ] ⛔ **`make verify`** — taze 50 belgelik ölçüm turu (§4'ü okuyup başla, ~25 dk)
-      Pilot örneklemde tekrar ölçmek, etiketleri kendi ayar verisinde sınamak olur.
+- [x] **Ölçüm turu yapıldı** — taze 50 belge (pilotla örtüşmeyen): uyum %80,
+      **κ=0.772**, yüksek güvende **%100** (25/25). Eşik geçildi.
+- [x] Doğrulanmış 50 cevap final etiket yapıldı (`make verify-apply`) — κ
+      adjudikasyondan *önce* ölçüldü, yayınlanan etiketler *sonrası*. 10 değişti.
 - [ ] İkinci etiketleyici varsa 100 belgede örtüşme → inter-annotator κ
 
 ### 10.5 Artefakt standardı (İP-4) — ✅ TAMAMLANDI
@@ -647,5 +649,6 @@ korpus 175). Yeni küme doğrudan korpustan örneklendi: **299 belge**, CI ±5.5
 *Son güncelleme: 9 Eylül 2026 — Değerlendirme kümesi korpustan yeniden kuruldu
 (30 → 299 belge). Sayı %80.0'dan %36.1'e düştü ama karşılaştırmalar ilk kez
 istatistiksel olarak anlamlı: taksonomi katkısı p=0.008. Etiketler model destekli;
-pilot doğrulama κ=0.542 çıktı, kılavuz düzeltildi; kritik yol taze örneklemde
-ölçüm turu (`make verify`).*
+etiket doğrulaması tamamlandı: pilot κ=0.542 → kılavuz düzeltildi → taze
+örneklemde κ=0.772 (yüksek güvende 25/25). Değerlendirme tarafı kapandı;
+kalan iş 50 hatayı elle kodlamak ve yazmak.*

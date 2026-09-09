@@ -54,9 +54,12 @@ by a language model applying
 sample carries `provenance: corpus_sample` and
 `annotation_method: model_assisted`.
 
-**These are silver labels.** A human validation pass on 50 of them
-(`results/verification_sample.csv`, scored with `make verify`) is what turns
-them into something a paper can cite. Until then, quote no number from them.
+**Model-assisted, human-validated.** A human pass on 50 documents agreed 80%
+of the time (κ = 0.772), and 100% on the documents the labeller flagged as
+high-confidence. Those 50 answers were promoted over the machine labels, so 50
+of the 299 are human-verified. `results/verification_report.json` has the
+detail; a blind pilot before the guideline existed scored κ = 0.542, and both
+figures belong in any write-up.
 
 ### What this replaced, and why
 
@@ -83,8 +86,9 @@ merge records which is which, so the two never become indistinguishable.
 
 ### Remaining limitations
 
-- **No inter-annotator agreement.** Cohen's κ in the results tables measures
-  *classifier vs. labels*, not annotator vs. annotator. A second annotator on
-  an overlapping 100 documents gives the figure reviewers ask for.
+- **Agreement is human-vs-model, not human-vs-human.** κ = 0.772 measures the
+  labeller against a person; two independent human annotators would give the
+  figure reviewers usually ask for. Cohen's κ in the *results tables* is a
+  third thing again — classifier against labels.
 - **No keyword ground truth.** The set carries section labels only, so
   Precision@K is unmeasurable on it.

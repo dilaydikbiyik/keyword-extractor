@@ -8,15 +8,15 @@
 \toprule
 Variant & Top-1 & $\Delta$ & F1-macro \\
 \midrule
-\textbf{Full system} & 34.4 & -- & 0.276 \\
+\textbf{Full system} & 34.8 & -- & 0.293 \\
 \midrule
-$-$ seeds in sector vector & 29.1 & $-5.4$ & 0.239 \\
-$-$ description in sector vector & 33.1 & $-1.3$ & 0.282 \\
-$-$ seed-guided extraction & 34.4 & $+0.0$ & 0.276 \\
-$-$ six-stage keyword filter & 34.4 & $+0.0$ & 0.276 \\
-+ cleaned text into the classifier & 30.4 & $-4.0$ & 0.264 \\
-$\leftrightarrow$ mpnet-base-v2 encoder (768-dim) & 33.4 & $-1.0$ & 0.254 \\
-$\leftrightarrow$ German translated to English first & 40.8 & $+6.4$ & 0.308 \\
+$-$ seeds in sector vector & 28.4 & $-6.4$ & 0.243 \\
+$-$ description in sector vector & 34.8 & $+0.0$ & 0.310 \\
+$-$ seed-guided extraction & 34.8 & $+0.0$ & 0.293 \\
+$-$ six-stage keyword filter & 34.8 & $+0.0$ & 0.293 \\
++ cleaned text into the classifier & 30.8 & $-4.0$ & 0.271 \\
+$\leftrightarrow$ mpnet-base-v2 encoder (768-dim) & 33.1 & $-1.7$ & 0.274 \\
+$\leftrightarrow$ German translated to English first & 40.1 & $+5.4$ & 0.345 \\
 \bottomrule
 \end{tabular}
 \caption{Component ablation. $\Delta$ is the change in Top-1 accuracy against the full system in percentage points.}

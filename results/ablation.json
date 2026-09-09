@@ -1,7 +1,7 @@
 {
   "provenance": {
-    "generated_at": "2026-09-09T18:30:07+00:00",
-    "git_revision": "f7a128c",
+    "generated_at": "2026-09-09T21:14:08+00:00",
+    "git_revision": "535c5fb",
     "seed": 42,
     "python": "3.9.6",
     "embedding_model": "paraphrase-multilingual-MiniLM-L12-v2",
@@ -18,14 +18,14 @@
       "is_oracle": false,
       "sector": {
         "n": 299,
-        "top1_accuracy": 0.34448160535117056,
+        "top1_accuracy": 0.34782608695652173,
         "top1_ci95": [
-          0.2909698996655518,
-          0.3979933110367893
+          0.29431438127090304,
+          0.40142140468227305
         ],
-        "top3_accuracy": 0.6688963210702341,
-        "f1_macro": 0.27628812321286783,
-        "cohen_kappa": 0.29559960094714954
+        "top3_accuracy": 0.6722408026755853,
+        "f1_macro": 0.2929361750528012,
+        "cohen_kappa": 0.2998835240576856
       },
       "keywords": {
         "precision_at_3": null,
@@ -41,26 +41,26 @@
       "is_oracle": false,
       "sector": {
         "n": 299,
-        "top1_accuracy": 0.2909698996655518,
+        "top1_accuracy": 0.2842809364548495,
         "top1_ci95": [
-          0.2408026755852843,
-          0.34448160535117056
+          0.23411371237458195,
+          0.33444816053511706
         ],
-        "top3_accuracy": 0.6220735785953178,
-        "f1_macro": 0.23937093238235066,
-        "cohen_kappa": 0.24044383732355545
+        "top3_accuracy": 0.6254180602006689,
+        "f1_macro": 0.2428354525293301,
+        "cohen_kappa": 0.23416835226388666
       },
       "keywords": {
         "precision_at_3": null,
         "precision_at_5": null,
         "precision_at_10": null
       },
-      "p_value_vs_full": 0.022628841205914796,
+      "p_value_vs_full": 0.007942726509483574,
       "mcnemar_vs_full": {
-        "a_only_correct": 30,
+        "a_only_correct": 33,
         "b_only_correct": 14,
-        "discordant": 44,
-        "p_value": 0.022628841205914796
+        "discordant": 47,
+        "p_value": 0.007942726509483574
       }
     },
     {
@@ -70,26 +70,26 @@
       "is_oracle": false,
       "sector": {
         "n": 299,
-        "top1_accuracy": 0.3311036789297659,
+        "top1_accuracy": 0.34782608695652173,
         "top1_ci95": [
-          0.27759197324414714,
-          0.38461538461538464
+          0.29431438127090304,
+          0.4013377926421405
         ],
-        "top3_accuracy": 0.6488294314381271,
-        "f1_macro": 0.28157065244484847,
-        "cohen_kappa": 0.28013386139567353
+        "top3_accuracy": 0.6588628762541806,
+        "f1_macro": 0.3104747708195236,
+        "cohen_kappa": 0.2992103270472001
       },
       "keywords": {
         "precision_at_3": null,
         "precision_at_5": null,
         "precision_at_10": null
       },
-      "p_value_vs_full": 0.7035366713552733,
+      "p_value_vs_full": 1.0,
       "mcnemar_vs_full": {
-        "a_only_correct": 33,
-        "b_only_correct": 29,
+        "a_only_correct": 31,
+        "b_only_correct": 31,
         "discordant": 62,
-        "p_value": 0.7035366713552733
+        "p_value": 1.0
       }
     },
     {
@@ -99,14 +99,14 @@
       "is_oracle": false,
       "sector": {
         "n": 299,
-        "top1_accuracy": 0.34448160535117056,
+        "top1_accuracy": 0.34782608695652173,
         "top1_ci95": [
-          0.2909698996655518,
-          0.3979933110367893
+          0.29431438127090304,
+          0.40142140468227305
         ],
-        "top3_accuracy": 0.6688963210702341,
-        "f1_macro": 0.27628812321286783,
-        "cohen_kappa": 0.29559960094714954
+        "top3_accuracy": 0.6722408026755853,
+        "f1_macro": 0.2929361750528012,
+        "cohen_kappa": 0.2998835240576856
       },
       "keywords": {
         "precision_at_3": null,
@@ -128,14 +128,14 @@
       "is_oracle": false,
       "sector": {
         "n": 299,
-        "top1_accuracy": 0.34448160535117056,
+        "top1_accuracy": 0.34782608695652173,
         "top1_ci95": [
-          0.2909698996655518,
-          0.3979933110367893
+          0.29431438127090304,
+          0.40142140468227305
         ],
-        "top3_accuracy": 0.6688963210702341,
-        "f1_macro": 0.27628812321286783,
-        "cohen_kappa": 0.29559960094714954
+        "top3_accuracy": 0.6722408026755853,
+        "f1_macro": 0.2929361750528012,
+        "cohen_kappa": 0.2998835240576856
       },
       "keywords": {
         "precision_at_3": null,
@@ -157,14 +157,14 @@
       "is_oracle": false,
       "sector": {
         "n": 299,
-        "top1_accuracy": 0.30434782608695654,
+        "top1_accuracy": 0.3076923076923077,
         "top1_ci95": [
-          0.2508361204013378,
-          0.35785953177257523
+          0.25418060200668896,
+          0.3612040133779264
         ],
-        "top3_accuracy": 0.5183946488294314,
-        "f1_macro": 0.26411788795076213,
-        "cohen_kappa": 0.2618948717644405
+        "top3_accuracy": 0.5284280936454849,
+        "f1_macro": 0.2705399505639511,
+        "cohen_kappa": 0.26647941406527764
       },
       "keywords": {
         "precision_at_3": null,
@@ -186,26 +186,26 @@
       "is_oracle": false,
       "sector": {
         "n": 299,
-        "top1_accuracy": 0.33444816053511706,
+        "top1_accuracy": 0.3311036789297659,
         "top1_ci95": [
-          0.2809364548494983,
-          0.3879598662207358
+          0.27759197324414714,
+          0.38461538461538464
         ],
-        "top3_accuracy": 0.6354515050167224,
-        "f1_macro": 0.25429863946861725,
-        "cohen_kappa": 0.28673835125448033
+        "top3_accuracy": 0.6387959866220736,
+        "f1_macro": 0.27393954022609335,
+        "cohen_kappa": 0.28347192599870585
       },
       "keywords": {
         "precision_at_3": null,
         "precision_at_5": null,
         "precision_at_10": null
       },
-      "p_value_vs_full": 0.8198929037490488,
+      "p_value_vs_full": 0.6529643755164601,
       "mcnemar_vs_full": {
-        "a_only_correct": 40,
+        "a_only_correct": 42,
         "b_only_correct": 37,
-        "discordant": 77,
-        "p_value": 0.8198929037490488
+        "discordant": 79,
+        "p_value": 0.6529643755164601
       }
     },
     {
@@ -215,28 +215,28 @@
       "is_oracle": false,
       "sector": {
         "n": 299,
-        "top1_accuracy": 0.4080267558528428,
+        "top1_accuracy": 0.4013377926421405,
         "top1_ci95": [
-          0.35451505016722407,
-          0.46488294314381273
+          0.34782608695652173,
+          0.45819397993311034
         ],
-        "top3_accuracy": 0.6789297658862876,
-        "f1_macro": 0.30780445813162693,
-        "cohen_kappa": 0.36015330302737214
+        "top3_accuracy": 0.6822742474916388,
+        "f1_macro": 0.3448834248844678,
+        "cohen_kappa": 0.35347056123311826
       },
       "keywords": {
         "precision_at_3": null,
         "precision_at_5": null,
         "precision_at_10": null
       },
-      "p_value_vs_full": 0.027119992403126333,
+      "p_value_vs_full": 0.06811867428409976,
       "mcnemar_vs_full": {
-        "a_only_correct": 24,
-        "b_only_correct": 43,
-        "discordant": 67,
-        "p_value": 0.027119992403126333
+        "a_only_correct": 26,
+        "b_only_correct": 42,
+        "discordant": 68,
+        "p_value": 0.06811867428409976
       }
     }
   ],
-  "table_markdown": "| Variant | Top-1 | Δ Top-1 | F1-macro | P@5 | Δ P@5 | p vs. full |\n| --- | --- | --- | --- | --- | --- | --- |\n| Full system | 34.4% | +0.0 pp | 0.276 | — | — | — |\n| − seeds in sector vector | 29.1% | -5.4 pp | 0.239 | — | — | 0.023 |\n| − description in sector vector | 33.1% | -1.3 pp | 0.282 | — | — | 0.704 |\n| − seed-guided extraction | 34.4% | +0.0 pp | 0.276 | — | — | 1.000 |\n| − six-stage keyword filter | 34.4% | +0.0 pp | 0.276 | — | — | 1.000 |\n| + cleaned text into the classifier | 30.4% | -4.0 pp | 0.264 | — | — | 0.155 |\n| ↔ mpnet-base-v2 encoder (768-dim) | 33.4% | -1.0 pp | 0.254 | — | — | 0.820 |\n| ↔ German translated to English first | 40.8% | +6.4 pp | 0.308 | — | — | 0.027 |"
+  "table_markdown": "| Variant | Top-1 | Δ Top-1 | F1-macro | P@5 | Δ P@5 | p vs. full |\n| --- | --- | --- | --- | --- | --- | --- |\n| Full system | 34.8% | +0.0 pp | 0.293 | — | — | — |\n| − seeds in sector vector | 28.4% | -6.4 pp | 0.243 | — | — | 0.008 |\n| − description in sector vector | 34.8% | +0.0 pp | 0.310 | — | — | 1.000 |\n| − seed-guided extraction | 34.8% | +0.0 pp | 0.293 | — | — | 1.000 |\n| − six-stage keyword filter | 34.8% | +0.0 pp | 0.293 | — | — | 1.000 |\n| + cleaned text into the classifier | 30.8% | -4.0 pp | 0.271 | — | — | 0.155 |\n| ↔ mpnet-base-v2 encoder (768-dim) | 33.1% | -1.7 pp | 0.274 | — | — | 0.653 |\n| ↔ German translated to English first | 40.1% | +5.4 pp | 0.345 | — | — | 0.068 |"
 }

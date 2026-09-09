@@ -162,6 +162,59 @@ def score() -> int:
     return 0
 
 
+def apply_verified() -> int:
+    """Promote the human answers over the silver labels for verified documents.
+
+    Standard annotation practice: agreement is reported from the pass *before*
+    adjudication, and the released labels are the adjudicated ones. Running
+    this before scoring would make the agreement figure meaningless.
+    """
+    if not REPORT_JSON.exists():
+        print("Score the sample first: make verify", file=sys.stderr)
+        return 1
+    with open(SAMPLE_CSV, newline="", encoding="utf-8") as fh:
+        verified = {
+            r["queue_id"]: r["true_sector"].strip().upper()
+            for r in csv.DictReader(fh)
+            if (r.get("true_sector") or "").strip()
+        }
+    if not verified:
+        print("No verified answers in the sample.", file=sys.stderr)
+        return 1
+
+    with open(QUEUE_CSV, newline="", encoding="utf-8") as fh:
+        header = list(csv.DictReader(fh).fieldnames or [])
+        fh.seek(0)
+        rows = list(csv.DictReader(fh))
+    for column in ("human_verified", "adjudication_note"):
+        if column not in header:
+            header.append(column)
+
+    changed = 0
+    for row in rows:
+        answer = verified.get(row["queue_id"])
+        if not answer:
+            continue
+        row["human_verified"] = "yes"
+        if row.get("model_assisted_sector") != answer:
+            row["adjudication_note"] = (
+                f"{row.get('model_assisted_sector')}->{answer}: human verification"
+            )
+            row["model_assisted_sector"] = answer
+            row["labeller_confidence"] = "high"
+            changed += 1
+
+    with open(QUEUE_CSV, "w", newline="", encoding="utf-8") as fh:
+        writer = csv.DictWriter(fh, fieldnames=header)
+        writer.writeheader()
+        for row in rows:
+            writer.writerow({k: row.get(k, "") for k in header})
+
+    print(f"{len(verified)} documents marked human-verified; {changed} labels changed.")
+    print("Re-merge and re-measure: make merge ARGS=--replace && make reproduce")
+    return 0
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--build", action="store_true", help="Draw the sample.")
@@ -173,9 +226,18 @@ def main() -> int:
              "adjudicated would score them on their own training data.",
     )
     parser.add_argument("--size", type=int, default=SAMPLE_SIZE)
+    parser.add_argument(
+        "--apply",
+        action="store_true",
+        help="Write the verified answers back into the queue as the final "
+             "labels for those documents. Run after scoring: kappa is measured "
+             "before adjudication, the released labels come after it.",
+    )
     args = parser.parse_args()
     if args.build or args.fresh:
         return build(args.size, fresh=args.fresh)
+    if args.apply:
+        return apply_verified()
     return score()
 
 
