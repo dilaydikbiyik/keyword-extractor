@@ -1,0 +1,121 @@
+#!/usr/bin/env python3
+"""Merge a hand-annotated queue back into the evaluation set.
+
+    python -m experiments.merge_annotations --queue results/annotation_queue.csv
+
+Reads the CSV produced by ``build_annotation_queue``, keeps the rows where a
+``true_sector`` has been filled in, validates it against the taxonomy, and
+appends them to ``data/evaluation/human_labels.json``.  The previous label
+file is copied to ``.bak`` first, and documents already present are skipped,
+so the command is safe to run repeatedly as annotation proceeds.
+"""
+
+from __future__ import annotations
+
+import argparse
+import csv
+import json
+import shutil
+import sys
+from collections import Counter
+from datetime import date
+from pathlib import Path
+
+from experiments.config import LABELS_JSON, RESULTS_DIR
+from experiments.data import load_taxonomy
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--queue", type=Path, default=RESULTS_DIR / "annotation_queue.csv"
+    )
+    parser.add_argument(
+        "--annotator", default="", help="Recorded on every merged sample."
+    )
+    parser.add_argument(
+        "--dry-run", action="store_true", help="Report what would change, write nothing."
+    )
+    args = parser.parse_args()
+
+    if not args.queue.exists():
+        print(f"Queue not found: {args.queue}", file=sys.stderr)
+        return 1
+
+    codes = set(load_taxonomy())
+    payload = json.loads(LABELS_JSON.read_text(encoding="utf-8"))
+    samples = payload["samples"]
+    existing = {s["purpose"].strip() for s in samples}
+    next_id = max((s["id"] for s in samples), default=-1) + 1
+
+    added, skipped_blank, skipped_dupe, invalid = [], 0, 0, []
+
+    with open(args.queue, newline="", encoding="utf-8") as fh:
+        for row in csv.DictReader(fh):
+            label = (row.get("true_sector") or "").strip().upper()
+            if not label:
+                skipped_blank += 1
+                continue
+            if label not in codes:
+                invalid.append((row.get("queue_id"), label))
+                continue
+            purpose = (row.get("purpose") or "").strip()
+            if not purpose or purpose in existing:
+                skipped_dupe += 1
+                continue
+            keywords = [
+                kw.strip()
+                for kw in (row.get("keywords_ground_truth") or "").split("|")
+                if kw.strip()
+            ]
+            added.append(
+                {
+                    "id": next_id + len(added),
+                    "legal_name": row.get("legal_name", ""),
+                    "purpose": purpose,
+                    "true_sector": label,
+                    "keywords_ground_truth": keywords,
+                    "annotation_method": "manual",
+                    "annotator": args.annotator,
+                    "source_queue_id": row.get("queue_id"),
+                }
+            )
+            existing.add(purpose)
+
+    print(f"Annotated and new:   {len(added)}")
+    print(f"Not yet annotated:   {skipped_blank}")
+    print(f"Already in label set:{skipped_dupe}")
+    if invalid:
+        print(f"\nInvalid sector codes on {len(invalid)} rows — fix these first:")
+        for queue_id, label in invalid[:20]:
+            print(f"  queue_id {queue_id}: {label!r}")
+        return 1
+    if not added:
+        print("\nNothing to merge.")
+        return 0
+
+    samples.extend(added)
+    payload["metadata"]["total"] = len(samples)
+    payload["metadata"]["sector_distribution"] = dict(
+        sorted(Counter(s["true_sector"] for s in samples).items())
+    )
+    payload["metadata"]["last_merged"] = date.today().isoformat()
+    payload["metadata"]["annotation"] = (
+        "mixed: original semi-manual seed set plus manually annotated queue batches"
+    )
+
+    if args.dry_run:
+        print("\n--dry-run: no files written.")
+        return 0
+
+    shutil.copyfile(LABELS_JSON, LABELS_JSON.with_suffix(".json.bak"))
+    LABELS_JSON.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    print(f"\nEvaluation set is now {len(samples)} documents → {LABELS_JSON}")
+    print("Backup written alongside it. Re-run `make reproduce` to update the tables.")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

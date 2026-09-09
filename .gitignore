@@ -133,7 +133,9 @@ dmypy.json
 data/raw/
 data/processed/
 data/taxonomy/sector_vectors.npy
-data/evaluation/
+# data/evaluation/ is NOT ignored: the human labels are the ground truth the
+# reported numbers depend on, and they are small enough to version.
+data/evaluation/*.csv
 
 # Model dosyaları
 *.pkl
