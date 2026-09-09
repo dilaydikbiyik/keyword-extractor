@@ -95,7 +95,8 @@
        kept in this browser as you go, and written back into a copy of the same CSV when
        you export — which <code>python -m experiments.merge_annotations</code> then folds
        into the evaluation set.</p>
-    <p><input type="file" id="file" accept=".csv,text/csv"></p>
+    <p><input type="file" id="file"></p>
+    <p class="muted">Any file is selectable; the tool checks the contents.</p>
     <p class="muted" id="resume" hidden></p>
   </section>
 
@@ -384,7 +385,13 @@
       if (!table.length) { alert("That file has no rows."); return; }
       header = table[0];
       if (header.indexOf("true_sector") === -1) {
-        alert("This does not look like an annotation queue: no true_sector column.");
+        alert(
+          "This file has no true_sector column, so it is not an annotation "
+          + "queue or a verification sample.\n\nExpected one of:\n"
+          + "  results/verification_sample.csv\n"
+          + "  results/annotation_queue.csv\n\n"
+          + "Columns found: " + header.join(", ")
+        );
         return;
       }
       rows = table.slice(1).map(function (cells) {
