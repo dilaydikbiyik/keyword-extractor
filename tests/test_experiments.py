@@ -348,3 +348,96 @@ class TestMergeAnnotations:
         )
         assert self._run(monkeypatch, labels, queue, ["--dry-run"]) == 0
         assert labels.read_text(encoding="utf-8") == before
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Reproducing without the raw corpus
+# ─────────────────────────────────────────────────────────────────────────────
+
+class TestCorpusStatistics:
+    """The committed statistics must stand in for the corpus exactly."""
+
+    DOCS = [
+        "Softwareentwicklung und Vertrieb von IT-Dienstleistungen für Unternehmen.",
+        "Handel mit Elektronik und Betrieb einer E-Commerce-Plattform.",
+        "Zahnklinik mit Implantaten, Prophylaxe und Zahnbehandlung.",
+        "Errichtung und Betrieb von Photovoltaikanlagen und Windkraftanlagen.",
+        "Unternehmensberatung, Managementberatung und Wirtschaftsprüfung.",
+        "Vermietung und Verwaltung von eigenen Grundstücken und Wohnungen.",
+    ]
+
+    def _fitted(self):
+        from sklearn.feature_extraction.text import TfidfVectorizer
+
+        vec = TfidfVectorizer(
+            lowercase=True, ngram_range=(1, 2), min_df=1, sublinear_tf=True
+        )
+        vec.fit(self.DOCS)
+        return vec
+
+    def test_transform_matches_scikit_learn(self):
+        import numpy as np
+
+        from experiments.corpus_stats import CorpusStatistics
+
+        vec = self._fitted()
+        stats = CorpusStatistics.from_vectorizer(vec, n_documents=len(self.DOCS))
+        for doc in self.DOCS:
+            expected = vec.transform([doc]).toarray()[0]
+            assert np.allclose(stats.transform(doc), expected, atol=1e-9)
+
+    def test_unknown_terms_are_ignored(self):
+        from experiments.corpus_stats import CorpusStatistics
+
+        stats = CorpusStatistics.from_vectorizer(self._fitted(), n_documents=6)
+        vector = stats.transform("völlig unbekanntes vokabular xyzzy")
+        assert vector.shape == (len(stats.vocabulary),)
+        assert float(vector.sum()) == 0.0
+
+    def test_round_trip_through_json(self, tmp_path):
+        import numpy as np
+
+        from experiments.corpus_stats import CorpusStatistics
+
+        stats = CorpusStatistics.from_vectorizer(self._fitted(), n_documents=6)
+        path = tmp_path / "stats.json"
+        stats.save(path)
+        restored = CorpusStatistics.load(path)
+        assert restored.vocabulary == stats.vocabulary
+        assert restored.n_documents == 6
+        assert np.allclose(restored.transform(self.DOCS[0]), stats.transform(self.DOCS[0]), atol=1e-6)
+
+    def test_missing_file_explains_the_fix(self, tmp_path):
+        from experiments.corpus_stats import CorpusStatistics
+
+        with pytest.raises(FileNotFoundError, match="data/README.md"):
+            CorpusStatistics.load(tmp_path / "absent.json")
+
+    def test_feature_names_line_up_with_indices(self):
+        from experiments.corpus_stats import CorpusStatistics
+
+        stats = CorpusStatistics.from_vectorizer(self._fitted(), n_documents=6)
+        names = stats.feature_names
+        for term, index in stats.vocabulary.items():
+            assert names[index] == term
+
+
+@pytest.mark.slow
+class TestCommittedStatisticsReproduceTheCorpus:
+    def test_stored_statistics_rank_like_the_fitted_vectorizer(self):
+        from experiments.data import load_corpus, load_labeled_samples
+        from experiments.systems import TfidfRanker
+
+        corpus = load_corpus()
+        if not corpus:
+            pytest.skip("raw corpus not present in this checkout")
+
+        fitted = TfidfRanker()
+        fitted.fit(corpus)
+        stored = TfidfRanker()
+        stored.fit([])  # forces the committed statistics
+
+        for sample in load_labeled_samples():
+            assert [c for c, _ in fitted.rank(sample.purpose)] == [
+                c for c, _ in stored.rank(sample.purpose)
+            ]

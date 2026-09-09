@@ -18,6 +18,10 @@ RESULTS_DIR = ROOT / "results"
 TABLES_DIR = RESULTS_DIR / "tables"
 
 CORPUS_CSV = DATA_DIR / "raw" / "handelsregister_sample_10k.csv"
+# Corpus-derived statistics, committed so a clone without the raw records can
+# still reproduce the tables. See data/README.md.
+DERIVED_DIR = DATA_DIR / "derived"
+TFIDF_STATS = DERIVED_DIR / "tfidf_corpus_stats.json"
 LABELS_JSON = DATA_DIR / "evaluation" / "human_labels.json"
 SECTORS_JSON = DATA_DIR / "taxonomy" / "sectors.json"
 

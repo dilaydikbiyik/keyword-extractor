@@ -21,6 +21,10 @@ class LabeledSample:
     true_sector: str
     keywords_ground_truth: List[str] = field(default_factory=list)
     annotation_method: str = "unknown"
+    # "corpus_sample" = drawn from the raw corpus; "authored" = written or
+    # edited by hand rather than sampled. The distinction decides whether the
+    # measured accuracy transfers to the corpus at all.
+    provenance: str = "authored"
 
 
 def load_labeled_samples() -> List[LabeledSample]:
@@ -35,9 +39,17 @@ def load_labeled_samples() -> List[LabeledSample]:
             true_sector=item["true_sector"],
             keywords_ground_truth=item.get("keywords_ground_truth", []),
             annotation_method=item.get("annotation_method", "unknown"),
+            provenance=item.get("provenance", "authored"),
         )
         for item in payload["samples"]
     ]
+
+
+def provenance_counts() -> Dict[str, int]:
+    """How many evaluation documents actually come from the corpus."""
+    from collections import Counter
+
+    return dict(Counter(s.provenance for s in load_labeled_samples()))
 
 
 def load_labels_metadata() -> Dict:
@@ -45,12 +57,21 @@ def load_labels_metadata() -> Dict:
         return json.load(fh)["metadata"]
 
 
+def corpus_available() -> bool:
+    """Whether the raw corpus is present in this checkout."""
+    return CORPUS_CSV.exists()
+
+
 def load_corpus(limit: int | None = None) -> List[str]:
     """Load the unlabelled business-purpose texts.
 
     The corpus is what the unsupervised baselines are allowed to fit on
-    (TF-IDF statistics); no label ever touches it.
+    (TF-IDF statistics); no label ever touches it.  Returns an empty list when
+    the corpus is not in this checkout — the baselines then fall back to the
+    committed corpus statistics.
     """
+    if not CORPUS_CSV.exists():
+        return []
     df = pd.read_csv(CORPUS_CSV)
     texts = [t for t in df["purpose"].fillna("").tolist() if t.strip()]
     return texts[:limit] if limit else texts

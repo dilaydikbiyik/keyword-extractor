@@ -21,7 +21,12 @@ from typing import Dict, List
 
 from experiments import report
 from experiments.config import EMBEDDING_MODEL, RESULTS_DIR, SEED, TABLES_DIR, ensure_dirs, set_seed
-from experiments.data import load_corpus, load_labeled_samples, load_labels_metadata
+from experiments.data import (
+    corpus_available,
+    load_corpus,
+    load_labeled_samples,
+    load_labels_metadata,
+)
 from experiments.metrics import (
     evaluate_keywords,
     evaluate_sector_predictions,
@@ -116,6 +121,7 @@ def provenance(samples, extra: Dict | None = None) -> Dict:
         "eval_set_size": len(samples),
         "eval_set_source": meta.get("source"),
         "eval_set_annotation": meta.get("annotation"),
+        "corpus_present": corpus_available(),
         **(extra or {}),
     }
 
@@ -177,7 +183,13 @@ def main() -> int:
     corpus = load_corpus(limit=args.corpus_limit)
     label_counts = Counter(s.true_sector for s in samples)
     print(f"Evaluation set: {len(samples)} documents, {len(label_counts)} sectors")
-    print(f"Corpus for TF-IDF statistics: {len(corpus)} documents")
+    if corpus:
+        print(f"Corpus for TF-IDF statistics: {len(corpus)} documents")
+    else:
+        print(
+            "Corpus not in this checkout — TF-IDF uses the committed corpus "
+            "statistics (data/derived/), which reproduce it exactly."
+        )
 
     metrics: Dict[str, Dict] = {}
 

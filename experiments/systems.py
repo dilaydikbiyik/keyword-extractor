@@ -26,6 +26,7 @@ from services.filter import KeywordFilter  # noqa: E402
 from utils.preprocessing import TextPreprocessor  # noqa: E402
 
 from experiments.config import EMBEDDING_MODEL, SEED  # noqa: E402
+from experiments.corpus_stats import CorpusStatistics  # noqa: E402
 from experiments.data import load_taxonomy  # noqa: E402
 
 
@@ -183,6 +184,7 @@ class TfidfRanker:
         self.taxonomy = load_taxonomy()
         self.codes = sorted(self.taxonomy)
         self.vectorizer = None
+        self.stats = None
         self.sector_matrix = None
 
     def _sector_document(self, code: str) -> str:
@@ -192,36 +194,60 @@ class TfidfRanker:
             parts.extend(info.get("seed_keywords", []))
         return " ".join(parts)
 
-    def fit(self, corpus: Sequence[str]) -> None:
+    def _new_vectorizer(self):
         from sklearn.feature_extraction.text import TfidfVectorizer
 
-        self.vectorizer = TfidfVectorizer(
+        return TfidfVectorizer(
             lowercase=True,
             ngram_range=self.ngram_range,
             min_df=2,
             max_df=0.6,
             sublinear_tf=True,
         )
-        # IDF statistics come from the unlabelled corpus only.
-        self.vectorizer.fit(list(corpus) + [self._sector_document(c) for c in self.codes])
-        self.sector_matrix = self.vectorizer.transform(
-            [self._sector_document(c) for c in self.codes]
-        )
+
+    def fit(self, corpus: Sequence[str]) -> None:
+        """Fit on the corpus, or fall back to the committed corpus statistics.
+
+        The raw trade register records are not redistributed, so a clone has no
+        corpus to fit on.  The vocabulary and IDF weights derived from it are
+        committed instead, which is enough to reproduce this baseline exactly.
+        """
+        sector_docs = [self._sector_document(c) for c in self.codes]
+        if corpus:
+            self.vectorizer = self._new_vectorizer()
+            # IDF statistics come from the unlabelled corpus only.
+            self.vectorizer.fit(list(corpus) + sector_docs)
+            self.stats = CorpusStatistics.from_vectorizer(
+                self.vectorizer, n_documents=len(corpus)
+            )
+        else:
+            self.vectorizer = None
+            self.stats = CorpusStatistics.load()
+        self.sector_matrix = np.vstack([self._vector(d) for d in sector_docs])
+
+    def _vector(self, text: str) -> np.ndarray:
+        if self.vectorizer is not None:
+            return self.vectorizer.transform([text]).toarray()[0]
+        return self.stats.transform(text)
 
     def rank(self, text: str) -> List[Tuple[str, float]]:
         from sklearn.metrics.pairwise import cosine_similarity
 
-        vec = self.vectorizer.transform([text])
+        vec = self._vector(text).reshape(1, -1)
         sims = cosine_similarity(vec, self.sector_matrix)[0]
         order = np.argsort(-sims)
         return [(self.codes[i], float(sims[i])) for i in order]
 
     def top_terms(self, text: str, top_n: int = 10) -> List[str]:
         """Highest-weighted TF-IDF terms of the document, as its keywords."""
-        vec = self.vectorizer.transform([text]).tocoo()
-        names = self.vectorizer.get_feature_names_out()
-        ranked = sorted(zip(vec.col, vec.data), key=lambda x: -x[1])
-        return [names[i] for i, _ in ranked[:top_n]]
+        weights = self._vector(text)
+        names = (
+            self.vectorizer.get_feature_names_out()
+            if self.vectorizer is not None
+            else self.stats.feature_names
+        )
+        order = np.argsort(-weights)[:top_n]
+        return [names[i] for i in order if weights[i] > 0]
 
 
 class EmbeddingRanker:
