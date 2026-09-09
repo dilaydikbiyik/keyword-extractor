@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NACE annotation — keyword-extractor</title>
+<style>
+  :root {
+    --ground: #f3f4f7; --surface: #fff; --sunk: #eaecf1;
+    --ink: #14161c; --ink-2: #454c5b; --ink-3: #737b8c;
+    --rule: #d9dde5; --accent: #2f3f8f; --accent-soft: #e4e8f8;
+    --good: #1c6a4a; --good-soft: #dcece4; --warn: #8a5713;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #101218; --surface: #181b22; --sunk: #14171d;
+      --ink: #e7e9ef; --ink-2: #b8becc; --ink-3: #8d95a7;
+      --rule: #2b303b; --accent: #93a4ef; --accent-soft: #1e2540;
+      --good: #5cbc8e; --good-soft: #16291f; --warn: #d8a557;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--ground); color: var(--ink); font: 15px/1.6 var(--sans); }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 24px 20px 80px; }
+
+  header { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px; padding-bottom: 14px; border-bottom: 1px solid var(--rule); }
+  h1 { font-size: 18px; margin: 0; font-weight: 600; }
+  .sub { color: var(--ink-3); font-size: 13px; }
+  .spacer { flex: 1 1 auto; }
+
+  .bar { height: 5px; background: var(--sunk); margin: 14px 0 20px; border-radius: 3px; overflow: hidden; }
+  .bar > div { height: 100%; background: var(--accent); width: 0; transition: width 160ms ease; }
+
+  .row { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; font-family: var(--mono); font-size: 12px; color: var(--ink-3); }
+  .row b { color: var(--ink-2); font-weight: 500; }
+
+  .card { background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 20px 22px; margin: 16px 0; }
+  .name { font-weight: 600; font-size: 15px; margin-bottom: 6px; }
+  .purpose { font-size: 16px; line-height: 1.65; white-space: pre-wrap; }
+
+  .hint { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 10px; }
+
+  .suggest { display: flex; flex-wrap: wrap; gap: 8px; }
+  button { font: inherit; cursor: pointer; border-radius: 5px; border: 1px solid var(--rule); background: var(--surface); color: var(--ink); padding: 9px 13px; }
+  button:hover { border-color: var(--accent); }
+  button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .suggest button { background: var(--accent-soft); border-color: transparent; }
+  .suggest button kbd, .all button kbd { font-family: var(--mono); font-size: 11px; color: var(--ink-3); margin-right: 7px; }
+  .all { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 6px; margin-top: 12px; }
+  .all button { text-align: left; font-size: 13.5px; padding: 7px 10px; }
+  .all button.hit { border-color: var(--accent); }
+
+  input[type=text] { font: inherit; width: 100%; padding: 9px 12px; border: 1px solid var(--rule); border-radius: 5px; background: var(--surface); color: var(--ink); }
+  input[type=text]:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+  label { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 6px; }
+
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 18px; }
+  .done { color: var(--good); background: var(--good-soft); border-color: transparent; font-weight: 600; }
+  .muted { color: var(--ink-3); font-size: 13px; }
+
+  .keys { margin-top: 26px; padding-top: 14px; border-top: 1px solid var(--rule); font-family: var(--mono); font-size: 11.5px; color: var(--ink-3); display: flex; flex-wrap: wrap; gap: 6px 20px; }
+
+  .drop { border: 1px dashed var(--rule); border-radius: 6px; padding: 40px 24px; text-align: center; background: var(--surface); }
+  .drop p { color: var(--ink-2); max-width: 62ch; margin: 8px auto; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>NACE section annotation</h1>
+    <span class="sub">offline · nothing leaves this browser</span>
+    <span class="spacer"></span>
+    <span class="sub" id="counter"></span>
+  </header>
+
+  <div class="bar"><div id="progress"></div></div>
+
+  <!-- ── loader ─────────────────────────────────────────── -->
+  <section id="loader" class="drop">
+    <p><b>Open <code>results/annotation_queue.csv</code></b></p>
+    <p>Built by <code>python -m experiments.build_annotation_queue</code>. Your answers are
+       kept in this browser as you go, and written back into a copy of the same CSV when
+       you export — which <code>python -m experiments.merge_annotations</code> then folds
+       into the evaluation set.</p>
+    <p><input type="file" id="file" accept=".csv,text/csv"></p>
+    <p class="muted" id="resume" hidden></p>
+  </section>
+
+  <!-- ── annotator ──────────────────────────────────────── -->
+  <section id="app" hidden>
+    <div class="row">
+      <span>queue <b id="qid"></b></span>
+      <span>model says <b id="pred"></b></span>
+      <span>margin <b id="margin"></b></span>
+      <span>stratum <b id="stratum"></b></span>
+      <span class="spacer"></span>
+      <span id="saved" class="muted"></span>
+    </div>
+
+    <div class="card">
+      <div class="name" id="legal"></div>
+      <div class="purpose" id="purpose"></div>
+    </div>
+
+    <div class="hint">Model's top three</div>
+    <div class="suggest" id="suggest"></div>
+
+    <div class="hint" style="margin-top:22px">Everything else</div>
+    <div style="max-width:420px"><input type="text" id="search" placeholder="Filter sections — press /"></div>
+    <div class="all" id="all"></div>
+
+    <div class="card" style="margin-top:22px">
+      <label for="kw">Reference keywords — optional, separate with |</label>
+      <input type="text" id="kw" placeholder="softwareentwicklung | cloud | api">
+    </div>
+
+    <div class="actions">
+      <button id="prev">← Previous</button>
+      <button id="skip">Skip →</button>
+      <span class="spacer"></span>
+      <span class="muted" id="progressText"></span>
+      <button id="export" class="done">Export CSV</button>
+    </div>
+
+    <div class="keys">
+      <span><kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> accept a suggestion</span>
+      <span><kbd>/</kbd> filter</span>
+      <span><kbd>←</kbd> <kbd>→</kbd> move</span>
+      <span><kbd>u</kbd> clear this answer</span>
+      <span><kbd>Esc</kbd> leave the filter</span>
+    </div>
+  </section>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  // NACE Rev. 2 sections — the same 21 the taxonomy defines.
+  var SECTIONS = [
+    ["A", "Agriculture, Forestry and Fishing"],
+    ["B", "Mining and Quarrying"],
+    ["C", "Manufacturing"],
+    ["D", "Electricity, Gas, Steam and Air Conditioning"],
+    ["E", "Water Supply, Sewerage and Waste"],
+    ["F", "Construction"],
+    ["G", "Wholesale and Retail Trade"],
+    ["H", "Transportation and Storage"],
+    ["I", "Accommodation and Food Service"],
+    ["J", "Information and Communication"],
+    ["K", "Financial and Insurance Activities"],
+    ["L", "Real Estate Activities"],
+    ["M", "Professional, Scientific and Technical"],
+    ["N", "Administrative and Support Service"],
+    ["O", "Public Administration and Defence"],
+    ["P", "Education"],
+    ["Q", "Human Health and Social Work"],
+    ["R", "Arts, Entertainment and Recreation"],
+    ["S", "Other Service Activities"],
+    ["T", "Households as Employers"],
+    ["U", "Extraterritorial Organisations"]
+  ];
+  var NAME = {};
+  SECTIONS.forEach(function (s) { NAME[s[0]] = s[1]; });
+
+  var STORE = "keyword-extractor.annotation.v1";
+  var rows = [], header = [], index = 0, saveTimer = null;
+
+  var $ = function (id) { return document.getElementById(id); };
+
+  // ── CSV ───────────────────────────────────────────────────────────────
+  // Small RFC-4180 reader: quoted fields, doubled quotes, embedded newlines.
+  function parseCSV(text) {
+    var out = [], row = [], field = "", quoted = false, i = 0;
+    text = text.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+    while (i < text.length) {
+      var c = text[i];
+      if (quoted) {
+        if (c === '"') {
+          if (text[i + 1] === '"') { field += '"'; i += 2; continue; }
+          quoted = false; i++; continue;
+        }
+        field += c; i++; continue;
+      }
+      if (c === '"') { quoted = true; i++; continue; }
+      if (c === ",") { row.push(field); field = ""; i++; continue; }
+      if (c === "\n") { row.push(field); out.push(row); row = []; field = ""; i++; continue; }
+      field += c; i++;
+    }
+    if (field.length || row.length) { row.push(field); out.push(row); }
+    return out.filter(function (r) { return r.length > 1 || (r[0] || "").trim() !== ""; });
+  }
+
+  function toCSV(headerRow, dataRows) {
+    var esc = function (v) {
+      v = v == null ? "" : String(v);
+      return /[",\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v;
+    };
+    return [headerRow.map(esc).join(",")]
+      .concat(dataRows.map(function (r) {
+        return headerRow.map(function (h) { return esc(r[h]); }).join(",");
+      })).join("\n") + "\n";
+  }
+
+  // ── persistence ───────────────────────────────────────────────────────
+  function answers() {
+    var out = {};
+    rows.forEach(function (r) {
+      if (r.true_sector) out[r.queue_id] = { s: r.true_sector, k: r.keywords_ground_truth || "" };
+    });
+    return out;
+  }
+
+  function save() {
+    try {
+      localStorage.setItem(STORE, JSON.stringify({ at: Date.now(), answers: answers() }));
+      $("saved").textContent = "saved";
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(function () { $("saved").textContent = ""; }, 1200);
+    } catch (e) {
+      $("saved").textContent = "could not save locally — export often";
+    }
+  }
+
+  function restore() {
+    try {
+      var raw = localStorage.getItem(STORE);
+      if (!raw) return 0;
+      var saved = JSON.parse(raw).answers || {};
+      var n = 0;
+      rows.forEach(function (r) {
+        if (saved[r.queue_id]) {
+          r.true_sector = saved[r.queue_id].s;
+          r.keywords_ground_truth = saved[r.queue_id].k;
+          n++;
+        }
+      });
+      return n;
+    } catch (e) { return 0; }
+  }
+
+  // ── rendering ─────────────────────────────────────────────────────────
+  function counts() {
+    var done = rows.filter(function (r) { return r.true_sector; }).length;
+    return { done: done, total: rows.length };
+  }
+
+  function paintProgress() {
+    var c = counts();
+    $("counter").textContent = c.done + " of " + c.total + " annotated";
+    $("progress").style.width = (c.total ? (c.done / c.total) * 100 : 0) + "%";
+    $("progressText").textContent = c.done === c.total
+      ? "All done — export and merge."
+      : (c.total - c.done) + " left";
+  }
+
+  function button(code, key) {
+    var b = document.createElement("button");
+    if (key) {
+      var k = document.createElement("kbd");
+      k.textContent = key;
+      b.appendChild(k);
+    }
+    b.appendChild(document.createTextNode(code + " — " + (NAME[code] || code)));
+    b.addEventListener("click", function () { answer(code); });
+    return b;
+  }
+
+  function render() {
+    var r = rows[index];
+    if (!r) return;
+
+    $("qid").textContent = r.queue_id;
+    $("pred").textContent = (r.predicted_sector || "?") + " — " + (NAME[r.predicted_sector] || "");
+    $("margin").textContent = r.margin || "—";
+    $("stratum").textContent = r.stratum || "—";
+    $("legal").textContent = r.legal_name || "(no registered name)";
+    $("purpose").textContent = r.purpose || "";
+    $("kw").value = r.keywords_ground_truth || "";
+
+    var top3 = (r.top3 || "").split("|").filter(Boolean);
+    var suggest = $("suggest");
+    suggest.textContent = "";
+    top3.forEach(function (code, i) { suggest.appendChild(button(code, String(i + 1))); });
+    if (!top3.length) suggest.appendChild(document.createTextNode("—"));
+
+    paintAll();
+    paintProgress();
+  }
+
+  function paintAll() {
+    var q = $("search").value.trim().toLowerCase();
+    var current = rows[index] ? rows[index].true_sector : "";
+    var all = $("all");
+    all.textContent = "";
+    SECTIONS.forEach(function (s) {
+      if (q && (s[0] + " " + s[1]).toLowerCase().indexOf(q) === -1) return;
+      var b = button(s[0]);
+      if (s[0] === current) b.className = "hit";
+      all.appendChild(b);
+    });
+  }
+
+  // ── actions ───────────────────────────────────────────────────────────
+  function answer(code) {
+    var r = rows[index];
+    if (!r) return;
+    r.true_sector = code;
+    r.keywords_ground_truth = $("kw").value.trim();
+    save();
+    move(1);
+  }
+
+  function move(delta) {
+    var next = index + delta;
+    if (next < 0 || next >= rows.length) { paintProgress(); return; }
+    var r = rows[index];
+    if (r) r.keywords_ground_truth = $("kw").value.trim();
+    index = next;
+    render();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function clearAnswer() {
+    var r = rows[index];
+    if (!r) return;
+    r.true_sector = "";
+    save();
+    render();
+  }
+
+  function exportCSV() {
+    var r = rows[index];
+    if (r) r.keywords_ground_truth = $("kw").value.trim();
+    var blob = new Blob([toCSV(header, rows)], { type: "text/csv;charset=utf-8" });
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "annotation_queue.csv";
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 0);
+  }
+
+  // ── wiring ────────────────────────────────────────────────────────────
+  $("file").addEventListener("change", function (e) {
+    var file = e.target.files && e.target.files[0];
+    if (!file) return;
+    var reader = new FileReader();
+    reader.onload = function () {
+      var table = parseCSV(String(reader.result));
+      if (!table.length) { alert("That file has no rows."); return; }
+      header = table[0];
+      if (header.indexOf("true_sector") === -1) {
+        alert("This does not look like an annotation queue: no true_sector column.");
+        return;
+      }
+      rows = table.slice(1).map(function (cells) {
+        var o = {};
+        header.forEach(function (h, i) { o[h] = cells[i] == null ? "" : cells[i]; });
+        return o;
+      });
+      var restored = restore();
+      // Resume at the first unanswered row.
+      index = rows.findIndex(function (r) { return !r.true_sector; });
+      if (index < 0) index = 0;
+      $("loader").hidden = true;
+      $("app").hidden = false;
+      if (restored) $("saved").textContent = "restored " + restored + " earlier answers";
+      render();
+    };
+    reader.readAsText(file, "utf-8");
+  });
+
+  $("search").addEventListener("input", paintAll);
+  $("prev").addEventListener("click", function () { move(-1); });
+  $("skip").addEventListener("click", function () { move(1); });
+  $("export").addEventListener("click", exportCSV);
+
+  document.addEventListener("keydown", function (e) {
+    var typing = /^(INPUT|TEXTAREA)$/.test(document.activeElement.tagName);
+    if (e.key === "Escape" && typing) { document.activeElement.blur(); return; }
+    if (typing) return;
+    if (e.key === "/") { e.preventDefault(); $("search").focus(); return; }
+    if (e.key === "ArrowLeft") { move(-1); return; }
+    if (e.key === "ArrowRight") { move(1); return; }
+    if (e.key === "u") { clearAnswer(); return; }
+    if (/^[1-3]$/.test(e.key)) {
+      var top3 = ((rows[index] || {}).top3 || "").split("|").filter(Boolean);
+      var code = top3[Number(e.key) - 1];
+      if (code) answer(code);
+    }
+  });
+
+  try {
+    var raw = localStorage.getItem(STORE);
+    if (raw) {
+      var n = Object.keys(JSON.parse(raw).answers || {}).length;
+      if (n) {
+        $("resume").hidden = false;
+        $("resume").textContent = n + " answers from an earlier session are stored in this "
+          + "browser and will be restored when you open the queue.";
+      }
+    }
+  } catch (e) { /* storage unavailable; the tool still works, export more often */ }
+})();
+</script>
+</body>
+</html>

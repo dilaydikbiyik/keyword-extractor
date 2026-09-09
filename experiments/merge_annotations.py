@@ -36,6 +36,16 @@ def main() -> int:
     parser.add_argument(
         "--dry-run", action="store_true", help="Report what would change, write nothing."
     )
+    parser.add_argument(
+        "--replace",
+        action="store_true",
+        help=(
+            "Start a fresh evaluation set from the merged rows instead of "
+            "appending. Use this once the queue is labelled: the original 30 "
+            "documents were written by hand rather than sampled from the "
+            "corpus, so mixing them dilutes a representative set."
+        ),
+    )
     args = parser.parse_args()
 
     if not args.queue.exists():
@@ -76,6 +86,7 @@ def main() -> int:
                     "true_sector": label,
                     "keywords_ground_truth": keywords,
                     "annotation_method": "manual",
+                    "provenance": "corpus_sample",
                     "annotator": args.annotator,
                     "source_queue_id": row.get("queue_id"),
                 }
@@ -94,14 +105,25 @@ def main() -> int:
         print("\nNothing to merge.")
         return 0
 
-    samples.extend(added)
+    if args.replace:
+        print(f"\n--replace: dropping {len(samples)} previously labelled documents.")
+        samples = added
+        for new_id, sample in enumerate(samples):
+            sample["id"] = new_id
+    else:
+        samples.extend(added)
     payload["metadata"]["total"] = len(samples)
     payload["metadata"]["sector_distribution"] = dict(
         sorted(Counter(s["true_sector"] for s in samples).items())
     )
     payload["metadata"]["last_merged"] = date.today().isoformat()
     payload["metadata"]["annotation"] = (
-        "mixed: original semi-manual seed set plus manually annotated queue batches"
+        "corpus-sampled, manually annotated"
+        if args.replace
+        else "mixed: hand-authored seed set plus corpus-sampled queue batches"
+    )
+    payload["metadata"]["provenance_distribution"] = dict(
+        sorted(Counter(s.get("provenance", "authored") for s in samples).items())
     )
 
     if args.dry_run:

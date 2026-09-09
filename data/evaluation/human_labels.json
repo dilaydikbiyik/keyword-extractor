@@ -23,7 +23,11 @@
       "Q": 3,
       "R": 1,
       "S": 1
-    }
+    },
+    "provenance_distribution": {
+      "authored": 30
+    },
+    "provenance_note": "No document in this set appears verbatim in the corpus. Three are edited from corpus records; the rest were written by hand. Median length 116 characters against 175 in the corpus, and 3.3% carry legal boilerplate against 24.5%. Accuracy measured here does not transfer to the corpus unchanged. See docs/paper_readiness.md."
   },
   "samples": [
     {
@@ -37,7 +41,8 @@
         "hosting",
         "programmierung"
       ],
-      "annotation_method": "semi_manual"
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
     },
     {
       "id": 1,
@@ -50,7 +55,8 @@
         "cloud",
         "api"
       ],
-      "annotation_method": "semi_manual"
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
     },
     {
       "id": 2,
@@ -62,7 +68,8 @@
         "seo",
         "online-marketing"
       ],
-      "annotation_method": "semi_manual"
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
     },
     {
       "id": 3,
@@ -74,7 +81,8 @@
         "steuerberatung",
         "buchführung"
       ],
-      "annotation_method": "semi_manual"
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
     },
     {
       "id": 4,
@@ -86,7 +94,8 @@
         "managementberatung",
         "organisationsentwicklung"
       ],
-      "annotation_method": "semi_manual"
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
     },
     {
       "id": 5,
@@ -98,7 +107,8 @@
         "gesellschaftsrecht",
         "arbeitsrecht"
       ],
-      "annotation_method": "semi_manual"
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
     },
     {
       "id": 6,
@@ -111,7 +121,8 @@
         "haushaltswaren",
         "einzelhandel"
       ],
-      "annotation_method": "semi_manual"
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
     },
     {
       "id": 7,
@@ -124,7 +135,8 @@
         "e-commerce",
         "mobiltelefonen"
       ],
-      "annotation_method": "semi_manual"
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
     },
     {
       "id": 8,
@@ -137,7 +149,8 @@
         "export",
         "bio-produkte"
       ],
-      "annotation_method": "semi_manual"
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
     },
     {
       "id": 9,
@@ -150,7 +163,8 @@
         "renovierung",
         "sanierung"
       ],
-      "annotation_method": "semi_manual"
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
     },
     {
       "id": 10,
@@ -162,7 +176,8 @@
         "sanitär",
         "heizungsanlagen"
       ],
-      "annotation_method": "semi_manual"
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
     },
     {
       "id": 11,
@@ -175,7 +190,8 @@
         "prophylaxe",
         "kieferorthopädie"
       ],
-      "annotation_method": "semi_manual"
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
     },
     {
       "id": 12,
@@ -188,7 +204,8 @@
         "therapie",
         "pflegeeinrichtung"
       ],
-      "annotation_method": "semi_manual"
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
     },
     {
       "id": 13,
@@ -200,7 +217,8 @@
         "innere medizin",
         "vorsorgeuntersuchungen"
       ],
-      "annotation_method": "semi_manual"
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
     },
     {
       "id": 14,
@@ -212,7 +230,8 @@
         "vermögensberatung",
         "versicherungsvermittlung"
       ],
-      "annotation_method": "semi_manual"
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
     },
     {
       "id": 15,
@@ -224,7 +243,8 @@
         "vermittlung",
         "immobilienbewertung"
       ],
-      "annotation_method": "semi_manual"
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
     },
     {
       "id": 16,
@@ -237,7 +257,8 @@
         "spedition",
         "transport"
       ],
-      "annotation_method": "semi_manual"
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
     },
     {
       "id": 17,
@@ -250,7 +271,8 @@
         "gastronomie",
         "eventcatering"
       ],
-      "annotation_method": "semi_manual"
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
     },
     {
       "id": 18,
@@ -262,7 +284,8 @@
         "berufsausbildung",
         "weiterbildung"
       ],
-      "annotation_method": "semi_manual"
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
     },
     {
       "id": 19,
@@ -275,7 +298,8 @@
         "energiespeicher",
         "erneuerbare energie"
       ],
-      "annotation_method": "semi_manual"
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
     },
     {
       "id": 20,
@@ -287,7 +311,8 @@
         "industriemaschinen",
         "fertigung"
       ],
-      "annotation_method": "semi_manual"
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
     },
     {
       "id": 21,
@@ -299,7 +324,8 @@
         "verpackung",
         "pharmaindustrie"
       ],
-      "annotation_method": "semi_manual"
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
     },
     {
       "id": 22,
@@ -311,7 +337,8 @@
         "hausmeister",
         "facility management"
       ],
-      "annotation_method": "semi_manual"
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
     },
     {
       "id": 23,
@@ -323,7 +350,8 @@
         "fitness",
         "personal-training"
       ],
-      "annotation_method": "semi_manual"
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
     },
     {
       "id": 24,
@@ -336,7 +364,8 @@
         "forstwirtschaft",
         "gemüse"
       ],
-      "annotation_method": "semi_manual"
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
     },
     {
       "id": 25,
@@ -349,7 +378,8 @@
         "big data",
         "industrie 4.0"
       ],
-      "annotation_method": "semi_manual"
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
     },
     {
       "id": 26,
@@ -361,7 +391,8 @@
         "recycling",
         "abfallwirtschaft"
       ],
-      "annotation_method": "semi_manual"
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
     },
     {
       "id": 27,
@@ -373,7 +404,8 @@
         "personenschutz",
         "sicherheit"
       ],
-      "annotation_method": "semi_manual"
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
     },
     {
       "id": 28,
@@ -386,7 +418,8 @@
         "wellness",
         "schönheitssalon"
       ],
-      "annotation_method": "semi_manual"
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
     },
     {
       "id": 29,
@@ -398,7 +431,8 @@
         "naturstein",
         "steinbruch"
       ],
-      "annotation_method": "semi_manual"
+      "annotation_method": "semi_manual",
+      "provenance": "authored"
     }
   ]
 }
