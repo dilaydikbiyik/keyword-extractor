@@ -1,5 +1,12 @@
 # Metodoloji Belgesi — Sektörel Anahtar Kelime Çıkartma
 
+> **Not (Eylül 2026):** Bu belge projenin geliştirme aşamasında yazıldı.
+> Ölçülmüş güncel sonuçlar için tek kaynak `results/` ve
+> [`paper_readiness.md`](paper_readiness.md); çelişki olursa onlar geçerlidir.
+> Aşağıda ölçümle çürütülen iddialar düzeltildi ve nasıl düzeltildikleri
+> belirtildi.
+
+
 **Proje:** Hizmet Metinlerinden Sektörel Anahtar Kelime Çıkartma Pipeline'ı  
 **Veri:** Alman Ticaret Sicili (Handelsregister) — 9.993 hizmet tanımı  
 **Dil:** Almanca (birincil), Türkçe & İngilizce (seed desteği)  
@@ -158,12 +165,13 @@ ile sektöre özgü terimler öne çıkartılıyor.
 ### 4.2 Neden paraphrase-multilingual-MiniLM-L12-v2?
 
 - Almanca + Türkçe + İngilizce seed keyword'lerin aynı uzayda karşılaştırılması şart
-- MiniLM: mpnet-base ile %82 performans, %3 boyut → hız/kalite dengesi
+- MiniLM: mpnet-base'e göre çok daha küçük → hız/kalite dengesi
+  (bu veri kümesinde mpnet-base *daha kötü* çıktı, bkz. ablation tablosu)
 - 384 boyutlu vektör: düşük bellek, hızlı cosine similarity
 
 **Alternatif değerlendirme:**
 ```
-paraphrase-multilingual-mpnet-base-v2  → Daha iyi kalite, 3x yavaş
+paraphrase-multilingual-mpnet-base-v2  → 3x yavaş; ölçüldü, bu görevde daha kötü
 German-specific BERT (deepset/gbert)   → Sadece Almanca, seed dil desteği yok
 XLM-RoBERTa-large                     → En iyi kalite, 10x yavaş, 1.7GB RAM
 ```
@@ -222,9 +230,13 @@ Yüksek `information_score` + düşük `noise_score` → keyword kabul edilir.
 | YAKE | Zahnklinik, Zahnimplantate, Behandlungsmethoden, Zahnbleaching, Prophylaxe | ✅ |
 | Guided KeyBERT (C*) | prophylaxe (0.54), behandlungsmethoden (0.50), zahnimplantate (0.44), zahnklinik (0.40) | ⚠️ Sektör yanlış (C→Q) |
 
-> ⚠️ **Model Sınırlılığı:** `paraphrase-multilingual-MiniLM-L12-v2` (384-dim) Q (Sağlık)  
-> ve M (Profesyonel Hizmetler) sektörlerini dental metinlerde ayırt edemedi.  
-> **Çözüm:** Daha büyük model (`mpnet-base-v2`) veya fine-tuning gerektirir.
+> ⚠️ **Model Sınırlılığı:** `paraphrase-multilingual-MiniLM-L12-v2` (384-dim) Q (Sağlık)
+> ve M (Profesyonel Hizmetler) sektörlerini dental metinlerde ayırt edemedi.
+>
+> **Ölçüldü (Eylül 2026):** `mpnet-base-v2` bu üç Q hatasının ikisini düzeltiyor
+> ama genel doğruluğu düşürüyor (%73.3 Top-1, F1 0.668) ve başka yerlerde dört
+> yeni hata üretiyor. Sınır bir model sorunundan çok bir taksonomi sorunu.
+> Bkz. `results/tables/ablation.md`.
 
 ---
 
@@ -279,8 +291,9 @@ Bu projenin literatüre özgün katkıları:
 
 ### Mevcut Sınırlılıklar
 
-1. **Model boyutu:** MiniLM-L12 (384-dim) benzer sektörleri (Q vs M) ayırt etmede  
-   zayıf. `mpnet-base-v2` ile %10–15 sınıflandırma iyileştirmesi beklenir.
+1. **Model boyutu:** MiniLM-L12 (384-dim) benzer sektörleri (Q vs M) ayırt etmede
+   zayıf. ~~`mpnet-base-v2` ile %10–15 iyileşme beklenir.~~ **Bu hipotez test
+   edildi ve yanlışlandı:** mpnet-base-v2 −6.7 puan Top-1, −0.163 F1 veriyor.
 
 2. **Etiketli veri yokluğu:** Top-1/3 Accuracy hesabı için ground truth manuel üretilmeli.
 

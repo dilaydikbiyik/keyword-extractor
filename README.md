@@ -29,12 +29,14 @@ produced by `make reproduce` and written to
 
 `p` is an exact McNemar test against the full system on the same documents.
 
-**Read the confidence intervals before the point estimates.**  At n = 30 they
-are ±15 points wide and none of the differences above is statistically
-significant.  The margin over TF-IDF is a single document.  What the numbers
-support today is a promising direction, not a demonstrated advantage —
-see [`docs/paper_readiness.md`](docs/paper_readiness.md) for the full read and
-for the annotation queue that fixes it.
+**Two caveats belong before the point estimates.** At n = 30 the intervals are
+±15 points wide and none of the differences above is statistically significant;
+the margin over TF-IDF is a single document. And the evaluation set is
+hand-authored rather than sampled from the corpus — its documents are shorter
+and far less legalistic than real register entries (median 116 vs. 175
+characters, 3.3% vs. 24.5% carrying legal boilerplate), so this is not a corpus
+accuracy. Both have the same fix, and it is in progress:
+[`docs/paper_readiness.md`](docs/paper_readiness.md).
 
 ### Ablation
 
@@ -82,6 +84,9 @@ pip install -r requirements.txt
 python quickstart.py
 ```
 
+Three commands, no model downloads to arrange by hand and no optional language
+models: the encoder is fetched on first use and everything else is pinned.
+
 ## Reproduce every number above
 
 ```bash
@@ -99,8 +104,11 @@ writes:
 | `results/tables/*.md` | The markdown tables above |
 | `results/error_analysis.csv` | Misclassified documents, ready for manual coding |
 
-Reproduction needs `data/raw/handelsregister_sample_10k.csv`, which is **not
-distributed with this repository** — see [`data/README.md`](data/README.md).
+This works from a clean clone. The raw trade register records are **not**
+redistributed, but the vocabulary and IDF weights the TF-IDF baseline needs are
+committed under `data/derived/` and reproduce the fitted baseline exactly —
+identical section rankings on all 30 documents. See
+[`data/README.md`](data/README.md).
 
 ---
 
@@ -148,11 +156,13 @@ in [`docs/PROJECT_SUMMARY.md`](docs/PROJECT_SUMMARY.md).
 | --- | --- | --- |
 | `data/taxonomy/sectors.json` | yes | 21 NACE sections, 340 hand-written seed keywords |
 | `data/evaluation/human_labels.json` | yes | 30 gold documents: section + reference keywords |
+| `data/derived/tfidf_corpus_stats.json` | yes | Vocabulary and IDF weights derived from the corpus |
 | `data/raw/handelsregister_sample_10k.csv` | no | 9,993 German trade register purposes |
 
-The corpus is withheld pending a redistribution licence decision.
-[`data/README.md`](data/README.md) explains the options and what a clone can
-still run without it.
+The corpus is not redistributed; the statistics derived from it are, which is
+what makes `make reproduce` work from a clone.
+[`data/README.md`](data/README.md) has the reasoning and the evidence that the
+substitution is exact.
 
 ---
 
@@ -171,8 +181,10 @@ experiments/            Paper-only code, kept out of src/
   run_experiments.py    Baseline + ablation suites
   run_error_analysis.py Error report and annotation CSV
   build_annotation_queue.py  Stratified sampling for new labels
+paper/                  Workshop paper skeleton; tables generated from results/
+tools/                  annotate.html (offline labelling) · make_demo_gif.py
 results/                Generated — every number cited anywhere
-tests/                  106 tests
+tests/                  125 tests
 run.py                  make reproduce
 ```
 
@@ -190,9 +202,14 @@ rather than a lookalike.
 
 ## Configuration
 
-All hyperparameters live in [`config/config.yaml`](config/config.yaml):
-embedding model and chunking, classification thresholds and top-k, extraction
-α/β weights and MMR diversity, iterative expansion limits.
+All tunables live in [`config/config.yaml`](config/config.yaml) and are read
+through `src/utils/config.py`: embedding model and chunking, preprocessing
+switches, classification threshold and top-k, extraction mode and MMR
+diversity, filter cut-off, logging level.
+
+Keys that change nothing have been removed rather than left as decoration, and
+`tests/test_config.py::TestEveryConfigKeyIsHonoured` fails if one creeps back
+in. Build the pipeline from a config with `pipeline.build_controller()`.
 
 ---
 
@@ -213,15 +230,17 @@ Full review and methodology decisions: [`docs/methodology.md`](docs/methodology.
 
 ## Limitations
 
-- **The evaluation set is too small for the comparisons it is used for.**
-  Thirty documents, 95% CI ≈ ±14 points.  No result here is statistically
-  significant, including the margin over TF-IDF.
-- **One annotator, no measured agreement.**  Labels are semi-manual and
-  single-pass; the κ reported above is classifier-vs-gold, not
-  annotator-vs-annotator.
-- **Part of the evaluation set is synthetic.**  A few entries are invented
-  clean descriptions rather than real trade register text, which is longer and
-  more legalistic.  This inflates accuracy.
+- **The evaluation set is not drawn from the corpus.**  No document in it
+  appears in `data/raw/`; three are edited corpus records and the rest were
+  written by hand.  They are shorter (median 116 vs. 175 characters, 90th
+  percentile 138 vs. 494) and far cleaner (3.3% vs. 24.5% carrying legal
+  boilerplate) than real register entries.  Accuracy measured here should not
+  be read as corpus accuracy.
+- **It is also too small for the comparisons it is used for.**  Thirty
+  documents, 95% CI ≈ ±14 points.  No result here is statistically significant,
+  including the margin over TF-IDF.
+- **One annotator, no measured agreement.**  Labels are single-pass; the κ
+  reported above is classifier-vs-gold, not annotator-vs-annotator.
 - **Two pipeline stages are unjustified by evidence.**  Guided extraction and
   the six-stage filter show no measurable effect in the ablation.
 - **Q vs. M ambiguity.**  MiniLM-L12 (384-dim) struggles at the

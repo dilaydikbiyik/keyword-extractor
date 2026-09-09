@@ -1,5 +1,12 @@
 # Sektörel Anahtar Kelime Çıkartma Projesi - Proje Özeti
 
+> **Not (Eylül 2026):** Bu belge projenin geliştirme aşamasında yazıldı.
+> Ölçülmüş güncel sonuçlar için tek kaynak `results/` ve
+> [`paper_readiness.md`](paper_readiness.md); çelişki olursa onlar geçerlidir.
+> Aşağıda ölçümle çürütülen iddialar düzeltildi ve nasıl düzeltildikleri
+> belirtildi.
+
+
 ## 📊 Projeye Genel Bakış
 
 Bu proje, Almanca (ve çok dilli) hizmet tanımlarından **sektörel bağlamı anlayan** anahtar kelimeleri çıkaran, açık kaynaklı bir NLP pipeline'ıdır.
@@ -296,7 +303,9 @@ print(f"Sector distribution: {stats['sector_distribution']}")
 3. **Active Learning**: User feedback'ten seed keyword iyileştirmesi
 4. **Multilingual Expansion**: FR, ES, IT, NL, PL için taxonomy
 5. **Real-time Inference**: REST API deployment
-6. **Ablation Studies**: Alpha/beta parametrelerine göre sensitivite
+6. ~~**Ablation Studies**: Alpha/beta parametrelerine göre sensitivite~~
+   **Yapıldı** — ama alpha/beta diye bir parametre yok (KeyBERT 3:1 sabit
+   harmanlıyor). Gerçek bileşen ablation'ı: `results/tables/ablation.md`
 
 ### Evaluasyon Plan
 - [x] Data exploration (9,993 sample)

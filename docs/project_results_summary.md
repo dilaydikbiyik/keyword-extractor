@@ -1,5 +1,12 @@
 # Proje Sonuç Özeti — Sektörel Anahtar Kelime Çıkartma
 
+> **Not (Eylül 2026):** Bu belge projenin geliştirme aşamasında yazıldı.
+> Ölçülmüş güncel sonuçlar için tek kaynak `results/` ve
+> [`paper_readiness.md`](paper_readiness.md); çelişki olursa onlar geçerlidir.
+> Aşağıda ölçümle çürütülen iddialar düzeltildi ve nasıl düzeltildikleri
+> belirtildi.
+
+
 **Öğrenci:** Dilay Dikbiyık  
 **Veri:** Handelsregister (Alman Ticaret Sicili) — 9.993 metin  
 **Dil:** Almanca (birincil), Türkçe & İngilizce seed desteği  
@@ -7,12 +14,21 @@
 
 ---
 
-## Sonuç Metrikleri (30 Örnek, Stratified)
+## Sonuç Metrikleri (30 Örnek)
+
+> **Top-3 düzeltmesi:** Bu belgede daha önce %83.3 yazıyordu. O sayı
+> `confidence_threshold` filtresinden geçen adaylar üzerinden hesaplanmıştı —
+> 30 belgenin 25'inde eşiği geçen üçten az aday var. Filtrelenmemiş gerçek
+> Top-3 doğruluğu **%96.7**. Bkz. `results/baselines.json`.
+>
+> **Değerlendirme kümesi uyarısı:** Bu 30 belge korpustan örneklenmedi, elle
+> yazıldı; gerçek sicil kayıtlarından belirgin şekilde kısa ve temiz.
+> Buradaki doğruluk korpus doğruluğu değil. Bkz. `paper_readiness.md` §1.
 
 | Metrik | Sonuç | Hedef | Durum |
 |--------|-------|-------|-------|
 | **Sektör Top-1 Accuracy** | **%80.0** | ≥%70 | ✅ Aşıldı |
-| **Sektör Top-3 Accuracy** | **%83.3** | ≥%85 | 🔶 Yakın |
+| **Sektör Top-3 Accuracy** | **%96.7** | ≥%85 | ✅ Aşıldı |
 | **F1-Macro (Sektör)** | **0.831** | ≥0.70 | ✅ Aşıldı |
 | **Precision@3** | **0.389** | ≥0.40 | 🔶 Yakın |
 | **Precision@5** | **0.333** | ≥0.35 | 🔶 Yakın |
@@ -25,6 +41,7 @@
 | Yöntem | Semantik Anlama | Domain Bilgisi | Dil Bağımsız | Sektör Rehberliği |
 |--------|-----------------|----------------|--------------|-------------------|
 | TF-IDF (baseline) | ❌ | ❌ | ⚠️ | ❌ |
+| *(ölçüldü: TF-IDF %76.7 Top-1 — aradaki fark tek belge, anlamlı değil)* | | | | |
 | YAKE! (2020) | ❌ | ❌ | ✅ | ❌ |
 | Vanilla KeyBERT (2020) | ✅ | ❌ | ✅ Modele bağlı | ❌ |
 | **Guided KeyBERT (Bu Proje)** | ✅ | ✅ Seed KW | ✅ Multilingual | ✅ NACE 21 sektör |
@@ -51,7 +68,7 @@ Ham Almanca Hizmet Metni
   ▼
 ③ Guided KeyBERT Extraction
   (seed_keywords = sektöre ait terimler)
-  Skor = α × cosine(aday, belge) + β × cosine(aday, seed)
+  KeyBERT belge vektörü ile ortalama seed vektörünü 3:1 harmanlar, sonra sıralar
   MMR diversity (çeşitlilik, tekrar engeli)
   │
   ▼

@@ -537,7 +537,9 @@ def semantic_match_score(extracted_keywords, gold_standard_keywords, model) -> f
 Projenin başarılı sayılması için minimum hedefler:
 
 - [x] Sektör sınıflandırma Top-1 Accuracy ≥ %70 → **%80.0** ✅
-- [x] Sektör sınıflandırma Top-3 Accuracy ≥ %85 → **%83.3** 🔶 (hedefe yakın)
+- [x] Sektör sınıflandırma Top-3 Accuracy ≥ %85 → **%96.7** ✅
+      (%83.3 rakamı confidence eşiğinden geçen adaylar üzerindendi; 30 belgenin
+      25'inde eşiği geçen üçten az aday var. Filtrelenmemiş gerçek değer %96.7.)
 - [x] Precision@10 ≥ %60 → **%20.3** ⚠️ (exact-match sınırlaması; semantic olarak doğru)
 - [x] Ortalama Cosine Similarity Match ≥ 0.65 → F1-Macro **0.831** ✅
 - [x] İşleme hızı: saniyede en az 10 metin → **~150–250 ms/metin (cache'li)** ✅
@@ -596,18 +598,35 @@ Projenin başarılı sayılması için minimum hedefler:
 - [x] Karışıklık tablosu: `results/tables/confusions.md`
 - [ ] **50 hatayı elle incele** — şu an sadece 6 hata var (30 belgede)
 
-### 10.4 Değerlendirme setini büyüt — ⛔ EN ÖNEMLİ İŞ
+### 10.4 Değerlendirme setini yeniden kur — ⛔ EN ÖNEMLİ İŞ
 
-n=30'da %95 güven aralığı ≈ ±14 puan. Hiçbir karşılaştırma anlamlı değil.
+İki ayrı sorun, tek çözüm:
+
+**(a) Set korpusu temsil etmiyor.** 30 belgenin hiçbiri
+`data/raw/handelsregister_sample_10k.csv` içinde geçmiyor — üçü korpus
+kayıtlarından kısaltılmış, gerisi elle yazılmış. Ortanca uzunluk 116 karakter
+(korpus: 175), %90'lık dilim 138 (korpus: 494), hukuki kalıp/§ oranı %3.3
+(korpus: %24.5). Yani %80.0 gerçek bir ölçüm ama sistemin karşılaşacağı
+metinden belirgin şekilde kolay metinler üzerinde.
+
+**(b) Set çok küçük.** n=30'da %95 güven aralığı ≈ ±14 puan. Hiçbir
+karşılaştırma anlamlı değil.
+
+Etiketleme kuyruğu doğrudan korpustan örneklendiği için ikisini birden çözüyor.
 
 - [x] Katmanlı etiketleme kuyruğu: `results/annotation_queue.csv` (296 belge hazır)
 - [x] Etiketleri geri birleştirme aracı: `python -m experiments.merge_annotations`
-- [ ] **296 belgeyi elle etiketle** (~2.5 saat) → CI ±4.5 puana iner
+- [x] Etiketleme arayüzü: `tools/annotate.html` (çevrimdışı, klavye ile ~30 sn/belge)
+- [x] Belge kökeni (`provenance`) artık etiket dosyasında kayıtlı
+- [ ] **296 belgeyi etiketle** (~2.5 saat) → CI ±4.5 puana iner
+- [ ] `python -m experiments.merge_annotations --replace`
+      (`--replace` önemli: eski 30 elle yazılmış belge, korpustan örneklenmiş
+      bir sete eklenirse aynı yanlılığı geri getirir)
 - [ ] `make reproduce` — karşılaştırma anlamlı çıkıyor mu, çıkmıyor mu?
-- [ ] İkinci bir etiketleyiciyle 100 belgede örtüşme → annotator-arası Cohen κ
-- [ ] Sentetik örnekleri (TechSoft, WebPro) gerçek kayıtlarla değiştir
+- [ ] Etiketleyici uyumu: ikinci kişi varsa 100 belgede örtüşme → inter-annotator κ;
+      yoksa bir hafta sonra kör tekrar → intra-annotator κ
 
-### 10.5 Artefakt standardı (İP-4) — 🔶 BÜYÜK ÖLÇÜDE TAMAM
+### 10.5 Artefakt standardı (İP-4) — ✅ TAMAMLANDI
 
 - [x] README: sonuç tablosu ilk 10 saniyede görünüyor
 - [x] Kurulum: 3 komut
@@ -619,21 +638,33 @@ n=30'da %95 güven aralığı ≈ ±14 puan. Hiçbir karşılaştırma anlamlı 
 - [x] `LICENSE` (MIT) + `CITATION.cff`
 - [x] Sınırlamalar bölümü — dürüst yazıldı
 - [x] Veri kaynağı ve lisansı: `data/README.md`
+- [x] Temiz klondan yeniden üretim: korpus dağıtılmıyor ama TF-IDF'in ihtiyaç
+      duyduğu sözlük + IDF ağırlıkları `data/derived/` altında commit'li ve
+      30 belgenin hepsinde birebir aynı sıralamayı veriyor
+- [x] `config/config.yaml` gerçekten okunuyor (`src/utils/config.py`,
+      `src/pipeline.py`); okunmayan anahtar kalmadı, test bunu koruyor
+- [x] spaCy bağımlılığı kaldırıldı — numpy 2 ile ikili uyumsuzluk yüzünden
+      zaten hiç yüklenmiyordu, her çağrıda uyarı basıyordu
 - [x] Demo GIF (`python tools/make_demo_gif.py` → `docs/assets/demo.gif`)
 - [x] Mimari şeması görsel (`docs/assets/architecture.svg`)
 - [x] `classification.classify_preprocessed_text` anahtarı (varsayılan kapalı,
       kanıt yetersiz — set büyüyünce karar ver)
 
-### 10.6 Danışman ve mekân (İP-1, adım 1, 7) — kod dışı
+### 10.6 Yazım ve mekân (İP-1, adım 6, 7)
 
-- [ ] Danışmanla 30 dk toplantı — maddeli e-posta gündemiyle
-- [ ] Veri paylaşım kısıtı sorusu (bkz. `data/README.md`)
-- [ ] Ortak yazarlık ve mekân kararı
-- [ ] *ACL SRW / düşük kaynaklı diller atölyeleri — son tarihleri kendi sayfalarından doğrula
+- [x] Paper iskeleti: `paper/main.tex` (ACL şablonu için, hedef uzunluklarla)
+- [x] Tablolar `results/`'tan üretiliyor: `make paper-tables` — prose'a elle
+      sayı yazılmıyor, `\OursTopOne` gibi makrolar kullanılıyor
+- [x] `paper/references.bib` — her kayıt "CHECK" notlarıyla, göndermeden önce
+      ACL Anthology'den doğrulanacak
+- [x] Mekân takip tablosu: `paper/venues.md` (6 hafta / 2 hafta / 3 gün hatırlatma)
+- [ ] Son başvuru tarihlerini her mekânın kendi sayfasından doğrula ve tabloya yaz
+- [ ] Yazım — ama 10.4 bitmeden başlama
 
 ---
 
-*Son güncelleme: 9 Eylül 2026 — İP-1 baseline + ablation + hata analizi altyapısı
-kuruldu, İP-4 artefakt standardı tamamlandı (GIF + diyagram dahil). mpnet ve
-çeviri ablation'ları da koşuldu — ikisi de negatif sonuç. Testler geçiyor, lint temiz.
-Kritik yol: değerlendirme setini 30'dan ~300 belgeye çıkarmak (10.4).*
+*Son güncelleme: 9 Eylül 2026 — İP-1 altyapısı (baseline, ablation, hata analizi,
+paper iskeleti) ve İP-4 artefakt standardı tamamlandı. mpnet ve çeviri
+ablation'ları negatif sonuç verdi. En kritik bulgu: değerlendirme kümesi
+korpustan örneklenmemiş (10.4a). Testler geçiyor, lint temiz.
+Kritik yol: `tools/annotate.html` ile 296 belgeyi etiketlemek.*

@@ -974,7 +974,7 @@
         "A"
       ],
       "scores": [
-        0.033088216237261284,
+        0.03308821623726128,
         0.007616944966176116,
         0.0
       ],
@@ -1001,9 +1001,9 @@
         "G"
       ],
       "scores": [
-        0.25923869154621476,
-        0.01600559650748965,
-        0.00905317597736988
+        0.2592386915462147,
+        0.016005596507489655,
+        0.009053175977369881
       ],
       "keywords": [
         "app",
@@ -1028,14 +1028,14 @@
         "S"
       ],
       "scores": [
-        0.09267643854759974,
+        0.09267643854759972,
         0.0,
         0.0
       ],
       "keywords": [
+        "webentwicklung",
         "mittlere",
         "und mittlere",
-        "webentwicklung",
         "marketing für",
         "online marketing",
         "und online",
@@ -1055,7 +1055,7 @@
         "S"
       ],
       "scores": [
-        0.1041606245327434,
+        0.10416062453274343,
         0.0,
         0.0
       ],
@@ -1064,11 +1064,11 @@
         "steuerberatung und",
         "buchführung",
         "wirtschaftsprüfungsgesellschaften gesetzlich",
-        "für wirtschaftsprüfungsgesellschaften",
         "wirtschaftsprüfungsgesellschaften",
+        "für wirtschaftsprüfungsgesellschaften",
         "wpo",
-        "berufsrechtlich zulässigen",
         "tätigkeiten gemäß",
+        "berufsrechtlich zulässigen",
         "und berufsrechtlich"
       ]
     },
@@ -1162,8 +1162,8 @@
         "C"
       ],
       "scores": [
-        0.06664738338422609,
-        0.05486336344772747,
+        0.06664738338422606,
+        0.054863363447727465,
         0.041315417627525775
       ],
       "keywords": [
@@ -1189,7 +1189,7 @@
         "S"
       ],
       "scores": [
-        0.05545837494455081,
+        0.0554583749445508,
         0.0,
         0.0
       ],
@@ -1216,14 +1216,14 @@
         "S"
       ],
       "scores": [
-        0.22474886666893648,
+        0.2247488666689365,
         0.0,
         0.0
       ],
       "keywords": [
         "und gewerbegebäuden",
-        "gewerbegebäuden",
         "schlüsselfertigbau",
+        "gewerbegebäuden",
         "renovierung und",
         "renovierung",
         "und sanierung",
@@ -1243,7 +1243,7 @@
         "S"
       ],
       "scores": [
-        0.054026606876004725,
+        0.05402660687600472,
         0.0,
         0.0
       ],
@@ -1251,8 +1251,8 @@
         "und heizungsanlagen",
         "und gewerbebau",
         "sanitärarbeiten",
-        "gewerbebau",
         "wohnungs und",
+        "gewerbebau",
         "heizungsanlagen",
         "von elektroinstallationen",
         "wohnungs",
@@ -1291,14 +1291,14 @@
       "scores": [
         0.17546791168998604,
         0.0423036459279055,
-        0.030049552531543774
+        0.03004955253154378
       ],
       "keywords": [
-        "für ältere",
         "ältere menschen",
+        "für ältere",
+        "ältere",
         "ambulante und",
         "therapie und",
-        "ältere",
         "und stationäre",
         "therapie",
         "stationäre",
@@ -1316,7 +1316,7 @@
         "S"
       ],
       "scores": [
-        0.16774830458015527,
+        0.16774830458015524,
         0.0,
         0.0
       ],
@@ -1401,8 +1401,8 @@
         "nationaler und",
         "und internationaler",
         "und logistikdienstleistungen",
-        "nationaler",
         "spedition und",
+        "nationaler",
         "und lagerung",
         "logistikdienstleistungen",
         "internationaler",
@@ -1452,12 +1452,12 @@
         0.0
       ],
       "keywords": [
-        "für erwachsene",
         "sprachkursen",
+        "für erwachsene",
         "und weiterbildungsmaßnahmen",
+        "online und",
         "angebot von",
         "erwachsene",
-        "online und",
         "weiterbildungsmaßnahmen",
         "angebot",
         "online",
@@ -1501,13 +1501,13 @@
         "A"
       ],
       "scores": [
-        0.0406480259961638,
-        0.010964667135417216,
+        0.040648025996163795,
+        0.010964667135417215,
         0.0
       ],
       "keywords": [
-        "maschinenteilen für",
         "von industriemaschinen",
+        "maschinenteilen für",
         "und maschinenteilen",
         "industriemaschinen",
         "maschinenteilen",
@@ -1528,13 +1528,13 @@
         "S"
       ],
       "scores": [
-        0.12057159399216773,
-        0.034324541184219445,
+        0.12057159399216774,
+        0.03432454118421945,
         0.0
       ],
       "keywords": [
-        "für lebensmittel",
         "und verpackungsmaterialien",
+        "für lebensmittel",
         "von kunststoffprodukten",
         "kunststoffprodukten",
         "verpackungsmaterialien",
@@ -1587,9 +1587,9 @@
         0.03323335016841597
       ],
       "keywords": [
+        "von sportveranstaltungen",
         "kursen und",
         "personal training",
-        "von sportveranstaltungen",
         "und personal",
         "sportveranstaltungen",
         "kursen",
@@ -1609,7 +1609,7 @@
         "R"
       ],
       "scores": [
-        0.09933230165148438,
+        0.09933230165148439,
         0.0,
         0.0
       ],
@@ -1636,7 +1636,7 @@
         "A"
       ],
       "scores": [
-        0.0720227903428809,
+        0.07202279034288088,
         0.012331885739520985,
         0.0
       ],
@@ -1663,15 +1663,15 @@
         "S"
       ],
       "scores": [
-        0.2283056796484937,
+        0.22830567964849371,
         0.0,
         0.0
       ],
       "keywords": [
         "umweltgerechte",
-        "abfallwirtschaft",
         "entsorgung und",
         "und recycling",
+        "abfallwirtschaft",
         "von industrie",
         "recycling von",
         "recycling",
@@ -1695,8 +1695,8 @@
         0.0
       ],
       "keywords": [
-        "personenschutz",
         "veranstaltungsschutz",
+        "personenschutz",
         "von sicherheitsdienstleistungen",
         "objektschutz",
         "sicherheitsdienstleistungen",
@@ -1714,7 +1714,7 @@
         "R"
       ],
       "scores": [
-        0.10194499671361752,
+        0.10194499671361754,
         0.0,
         0.0
       ],
@@ -1746,8 +1746,8 @@
         0.0
       ],
       "keywords": [
-        "kies sand",
         "kiesgruben",
+        "kies sand",
         "gewinnung und",
         "sand und",
         "sand",
