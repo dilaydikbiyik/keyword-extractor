@@ -1,0 +1,7 @@
+id,legal_name,purpose,text_length,true_sector,predicted_sector,top3,score_top1,margin_top1_top2,auto_flags,manual_category,manual_note
+3,Molkenthin GmbH WPG,Die für Wirtschaftsprüfungsgesellschaften gesetzlich und berufsrechtlich zulässigen Tätigkeiten gemäß § 2 WPO. Steuerberatung und Buchführung.,142,M,K,K|N|S,0.5160,0.0223,outside_top3,,
+5,Kanzlei Müller,"Rechtsberatung und anwaltliche Vertretung in den Bereichen Gesellschaftsrecht, Vertragsrecht und Arbeitsrecht.",110,M,N,N|M|O,0.4702,0.0004,low_margin|crowded_top3|recoverable_in_top3,,
+10,Haustechnik Meier,"Planung und Ausführung von Elektroinstallationen, Sanitärarbeiten und Heizungsanlagen im Wohnungs- und Gewerbebau.",114,F,D,D|F|L,0.6345,0.1288,recoverable_in_top3,,
+11,Dental Smile Klinik,"Zahnklinik mit modernen Behandlungsmethoden: Zahnimplantate, Zahnbleaching, Prophylaxe und Kieferorthopädie.",108,Q,M,M|Q|F,0.2898,0.0135,low_margin|recoverable_in_top3,,
+12,Pflegezentrum Nord,"Betrieb einer Pflegeeinrichtung für ältere Menschen. Ambulante und stationäre Pflege, Therapie und Rehabilitation.",114,Q,N,N|Q|S,0.4722,0.0002,low_margin|crowded_top3|recoverable_in_top3,,
+27,SecureGuard GmbH,"Erbringung von Sicherheitsdienstleistungen: Objektschutz, Personenschutz und Veranstaltungsschutz.",98,N,S,S|N|R,0.4809,0.0152,low_margin|recoverable_in_top3,,

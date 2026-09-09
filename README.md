@@ -1,91 +1,116 @@
 # Sectoral Keyword Extraction Pipeline
 
-An unsupervised NLP system based on the **NACE Rev. 2 taxonomy**, extracting keywords from German service description texts with **sectoral context awareness**.
+[![CI](https://github.com/dilaydikbiyik/keyword-extractor/actions/workflows/ci.yml/badge.svg)](https://github.com/dilaydikbiyik/keyword-extractor/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/downloads/)
 
-**Data:** 9,993 German Trade Register (Handelsregister) records  | 
-**Model:** `paraphrase-multilingual-MiniLM-L12-v2` (384-dim)  | 
-**Language:** DE / TR / EN
+An unsupervised pipeline that assigns German trade register business purposes to
+**NACE Rev. 2** sections and extracts sector-aware keywords, using multilingual
+sentence embeddings and taxonomy-guided KeyBERT — no labelled training data.
 
----
-
-## Evaluation Results
-
-Based on a 30-sample stratified test set (covering 18 different NACE sectors):
-
-| Metric | Result |
-| --- | --- |
-| Sector Top-1 Accuracy | **80.0%** |
-| Sector Top-3 Accuracy | **83.3%** |
-| F1-Macro (Sector) | **0.831** |
-| Precision@3 | **0.389** |
-| Precision@5 | **0.333** |
-| Precision@10 | **0.203** |
-| Tests Passed | **68 / 68 passed** |
-| Processing Speed | ~150–250 ms / text (cached) |
-
-> Evaluation report: `data/evaluation/evaluation_report.json`
-> Methodology document: `docs/methodology.md`
+![Reproducing the reported results end to end](docs/assets/demo.gif)
 
 ---
 
-## Pipeline Architecture
+## Results
 
-```
-Raw Text (German)
-      │
-      ▼
-① TextPreprocessor         Language detection · URL/Email cleaning · Stopword filtering
-      │
-      ▼
-② EmbeddingService         paraphrase-multilingual-MiniLM-L12-v2 · MD5 disk cache
-      │
-      ▼
-③ SectorClassifier         Zero-shot cosine similarity · 21 NACE sectors
-                           vector = avg(description_emb, all_seeds_emb)
-      │
-      ▼
-④ KeywordExtractor         Guided KeyBERT · seed_keywords = sector_keywords
-                           score = α · doc_sim + β · seed_sim · MMR diversity
-      │
-      ▼
-⑤ KeywordFilter            6 stages: Linguistic quality → Dedup → Sector relevance
-                           → Information value → Min score → Top-K
-      │
-      ▼
-⑥ LLMValidator (optional)  OpenAI API · Only for 0.3–0.6 confidence interval
-      │
-      ▼
-Output JSON
+30-document stratified evaluation set, 18 NACE sections.  Every figure is
+produced by `make reproduce` and written to
+[`results/metrics.json`](results/metrics.json).
 
-```
+| System | Top-1 | 95% CI | Top-3 | F1-macro | κ | P@5 | p vs. ours |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Random | 6.7% | [0.0, 16.7] | 26.7% | 0.033 | 0.009 | 0.000 | 0.000 |
+| Majority class (oracle floor) | 13.3% | [3.3, 26.7] | 33.3% | 0.013 | 0.000 | 0.000 | 0.000 |
+| TF-IDF → nearest NACE section | 76.7% | [60.0, 90.0] | 80.0% | 0.657 | 0.749 | 0.140 | 1.000 |
+| Zero-shot embeddings (no taxonomy) | 73.3% | [56.7, 86.7] | 86.7% | 0.744 | 0.714 | 0.327 | 0.500 |
+| Unguided KeyBERT | 73.3% | [56.7, 86.7] | 86.7% | 0.744 | 0.714 | 0.327 | 0.500 |
+| **Ours: taxonomy-guided** | **80.0%** | [63.3, 93.3] | **96.7%** | **0.831** | **0.786** | **0.333** | — |
+
+`p` is an exact McNemar test against the full system on the same documents.
+
+**Read the confidence intervals before the point estimates.**  At n = 30 they
+are ±15 points wide and none of the differences above is statistically
+significant.  The margin over TF-IDF is a single document.  What the numbers
+support today is a promising direction, not a demonstrated advantage —
+see [`docs/paper_readiness.md`](docs/paper_readiness.md) for the full read and
+for the annotation queue that fixes it.
+
+### Ablation
+
+| Variant | Top-1 | Δ Top-1 | F1-macro | P@5 | Δ P@5 |
+| --- | --- | --- | --- | --- | --- |
+| Full system | 80.0% | +0.0 pp | 0.831 | 0.333 | +0.000 |
+| − seeds in sector vector | 73.3% | −6.7 pp | 0.744 | 0.340 | +0.007 |
+| − description in sector vector | 76.7% | −3.3 pp | 0.770 | 0.327 | −0.007 |
+| − seed-guided extraction | 80.0% | +0.0 pp | 0.831 | 0.327 | −0.007 |
+| − six-stage keyword filter | 80.0% | +0.0 pp | 0.831 | 0.347 | +0.013 |
+| + cleaned text into the classifier | 86.7% | +6.7 pp | 0.833 | 0.333 | +0.000 |
+| ↔ mpnet-base-v2 encoder (768-dim) | 73.3% | −6.7 pp | 0.668 | 0.347 | +0.013 |
+| ↔ German translated to English first | 80.0% | +0.0 pp | 0.767 | 0.060 | −0.273 |
+
+The last two rows need extra model downloads: `python run.py --extra-ablations`.
+P@5 for the translation row is not comparable — the gold keywords are German.
+
+Four things the table settles:
+
+- **The seed-keyword vector is the component that carries the result** (−6.7 pp
+  without it).  Everything else in the taxonomy story rests on this row.
+- **Guided extraction and the six-stage filter show no measurable effect.**
+  Removing the filter even nudges P@5 up.
+- **The bigger encoder is worse, not better.**  This repository previously
+  expected ~10% improvement from `mpnet-base-v2`; measured, it loses 6.7 points
+  Top-1 and 0.163 F1-macro.  It does fix two of the three Q-sector confusions
+  the smaller model gets wrong — and introduces four new errors elsewhere.
+- **Translating to English first changes nothing at Top-1.**  Whatever the
+  multilingual encoder is doing for German, an English pivot reproduces it.
+
+Routing cleaned text into the classifier — which the pipeline computes but does
+not use — is worth more than any of the modelling choices above.  It is
+available as `classification.classify_preprocessed_text` in
+[`config/config.yaml`](config/config.yaml) and **off by default**: on 30
+documents the gain is two documents (p = 0.5), which is not enough evidence to
+change the shipped behaviour.
 
 ---
 
-## Installation
-
-**Requirements:** Python 3.9+
+## Install
 
 ```bash
-# 1. Create virtual environment
-python3 -m venv .venv
-source .venv/bin/activate
-
-# 2. Install dependencies
+python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-
-# 3. (Optional) Turkish spaCy model
-python -m spacy download tr_core_news_sm
-
-# 4. Run demo
 python quickstart.py
-
 ```
+
+## Reproduce every number above
+
+```bash
+make reproduce
+```
+
+Equivalent to `python run.py --config config/config.yaml`.  Runs the baseline
+comparison, the ablation study and the error analysis with a fixed seed, and
+writes:
+
+| File | Contents |
+| --- | --- |
+| `results/metrics.json` | Headline metrics plus every system, with provenance |
+| `results/baselines.json`, `results/ablation.json` | Full per-system results |
+| `results/tables/*.md` | The markdown tables above |
+| `results/error_analysis.csv` | Misclassified documents, ready for manual coding |
+
+Reproduction needs `data/raw/handelsregister_sample_10k.csv`, which is **not
+distributed with this repository** — see [`data/README.md`](data/README.md).
 
 ---
 
-## Quick Usage
+## Pipeline
 
-### Single Text
+![Pipeline architecture](docs/assets/architecture.svg)
+
+Dashed stages are the ones the ablation finds no evidence for.
+
+## Usage
 
 ```python
 from src.controllers.controller import ExtractionController
@@ -95,258 +120,122 @@ from src.services.extractor import KeywordExtractor
 from src.services.filter import KeywordFilter
 from src.utils.preprocessing import TextPreprocessor
 
-embedder     = EmbeddingService()
-classifier   = SectorClassifier(embedder)
-extractor    = KeywordExtractor()
-kw_filter    = KeywordFilter()
-preprocessor = TextPreprocessor()
-
+embedder = EmbeddingService()
 controller = ExtractionController(
     embedding_service=embedder,
-    classifier=classifier,
-    extractor=extractor,
-    keyword_filter=kw_filter,
-    preprocessor=preprocessor,
+    classifier=SectorClassifier(embedder),
+    extractor=KeywordExtractor(),
+    keyword_filter=KeywordFilter(),
+    preprocessor=TextPreprocessor(),
 )
 
 result = controller.extract(
     "Softwareentwicklung und API-Integration für Cloud-Lösungen.",
     top_n_keywords=10,
 )
-
-print(result["sector_classification"]["top_sector"])   # "J"
-print(result["sector_classification"]["confidence"])   # 0.62
-print([kw["keyword"] for kw in result["keywords"]])
-# ['softwareentwicklung', 'api-integration', 'cloud', ...]
-
+result["sector_classification"]["top_sector"]      # "J"
+[kw["keyword"] for kw in result["keywords"]]       # ['softwareentwicklung', ...]
 ```
 
-### Batch Processing
-
-```python
-texts = [
-    "Handel mit Elektronik und E-Commerce-Plattform.",
-    "Zahnklinik mit Implantaten und Prophylaxe.",
-    "Unternehmensberatung und Managementberatung.",
-]
-
-results = controller.extract_batch(texts, top_n_keywords=10)
-
-# Save timestamped JSON report
-report_path = controller.save_batch_report(results)
-# → output/batch_report_20260507_001234.json
-
-stats = controller.get_extraction_stats(results)
-print(stats["success_rate"])         # 1.0
-print(stats["sector_distribution"])  # {"G": 1, "Q": 1, "M": 1}
-
-```
-
-### Iterative Seed Expansion
-
-```python
-corpus = [row["purpose"] for _, row in df.iterrows()]
-
-new_seeds = extractor.iterative_expand(
-    sector_code="J",
-    corpus=corpus,
-    max_iterations=5,
-    quality_threshold=0.55,
-    max_seed_size=80,
-)
-print(new_seeds)  # ['cloud-native', 'microservices', 'devops', ...]
-
-```
-
-### Taxonomy Management
-
-```python
-from src.models.taxonomy import TaxonomyManager
-
-tm = TaxonomyManager()
-print(tm.stats())
-# {'total_sectors': 21, 'total_seeds': 340, 'avg_seeds_per_sector': 16.2}
-
-tm.add_seed_keywords("Q", ["zahnprothetik", "parodontologie"])
-tm.save()
-
-```
+Batch processing, iterative seed expansion and taxonomy editing are documented
+in [`docs/PROJECT_SUMMARY.md`](docs/PROJECT_SUMMARY.md).
 
 ---
 
-## Project Structure
+## Data
 
-```
-keyword-extractor/
-├── src/
-│   ├── controllers/
-│   │   └── controller.py         ExtractionController — 5-step orchestration
-│   ├── services/
-│   │   ├── embedder.py           EmbeddingService — SentenceTransformer + cache
-│   │   ├── classifier.py         SectorClassifier — zero-shot, 21 NACE sectors
-│   │   ├── extractor.py          KeywordExtractor — guided KeyBERT + iterative_expand
-│   │   ├── filter.py             KeywordFilter — 6-stage filtering
-│   │   └── validator.py          LLMValidator — OpenAI (optional)
-│   ├── models/
-│   │   ├── taxonomy.py           TaxonomyManager — Sector taxonomy management
-│   │   └── evaluation.py         EvaluationMetrics — Precision@K, F1, Kappa
-│   └── utils/
-│       └── preprocessing.py      TextPreprocessor — DE/TR/EN multilingual support
-│
-├── data/
-│   ├── raw/
-│   │   └── handelsregister_sample_10k.csv   9,993 German job/business descriptions
-│   ├── taxonomy/
-│   │   ├── sectors.json                    21 NACE sectors + seed keywords
-│   │   └── sector_descriptions.txt
-│   ├── cache/                              MD5 embedding cache (NPZ)
-│   └── evaluation/
-│       ├── human_labels.json               Ground truth for 30 samples
-│       └── evaluation_report.json          Per-document metric report
-│
-├── docs/
-│   ├── methodology.md            Academic literature, datasets, decision rationales
-│   ├── project_results_summary.md  1-page summary of results
-│   ├── ARCHITECTURE.md           System architecture and component diagrams
-│   ├── PROJECT_SUMMARY.md        Comprehensive project summary
-│   └── COMPLETION_CHECKLIST.md   Completion checklist
-│
-├── tests/
-│   ├── test_preprocessing.py     16 unit tests
-│   ├── test_extractor.py         13 mock-based tests
-│   ├── test_evaluation.py        15 unit tests
-│   └── test_pipeline_e2e.py      24 integration tests
-│
-├── notebooks/
-│   ├── initial_analysis.ipynb    Data exploration
-│   └── 04_evaluation.ipynb       Visual metric reports
-│
-├── config/
-│   └── config.yaml               All hyperparameters
-├── output/                       Batch reports (JSON, .gitignore)
-├── quickstart.py                 Quick demo
-├── main.py                       CSV batch processing
-└── requirements.txt
-
-```
-
----
-
-## Configuration
-
-All parameters are managed centrally via `config/config.yaml`:
-
-| Parameter | Default | Description |
+| Path | In git | What it is |
 | --- | --- | --- |
-| `embedding.model_name` | `paraphrase-multilingual-MiniLM-L12-v2` | SentenceTransformer model |
-| `embedding.chunk_size` | `256` | Long text chunk size (words) |
-| `embedding.chunk_overlap` | `50` | Chunk overlap size |
-| `classification.confidence_threshold` | `0.30` | Sector confidence threshold |
-| `classification.top_k` | `3` | Number of candidate sectors to return |
-| `extraction.top_n_final` | `10` | Final keyword count in output |
-| `extraction.alpha` | `0.6` | Weight for document similarity |
-| `extraction.beta` | `0.4` | Weight for seed similarity |
-| `extraction.diversity` | `0.7` | MMR diversity coefficient |
-| `iteration.max_iterations` | `5` | Iterative seed expansion rounds |
-| `iteration.quality_threshold` | `0.55` | Acceptance threshold for new seeds |
+| `data/taxonomy/sectors.json` | yes | 21 NACE sections, 340 hand-written seed keywords |
+| `data/evaluation/human_labels.json` | yes | 30 gold documents: section + reference keywords |
+| `data/raw/handelsregister_sample_10k.csv` | no | 9,993 German trade register purposes |
+
+The corpus is withheld pending a redistribution licence decision.
+[`data/README.md`](data/README.md) explains the options and what a clone can
+still run without it.
 
 ---
+
+## Repository layout
+
+```
+src/                    The shipped pipeline
+  controllers/          ExtractionController — 5-step orchestration
+  services/             embedder · classifier · extractor · filter · validator
+  models/               TaxonomyManager · evaluation metrics
+  utils/                TextPreprocessor (DE / TR / EN)
+experiments/            Paper-only code, kept out of src/
+  systems.py            Baselines and ablations as compositions of components
+  metrics.py            Bootstrap CIs and exact McNemar on top of src metrics
+  error_analysis.py     Error codebook and automatic flags
+  run_experiments.py    Baseline + ablation suites
+  run_error_analysis.py Error report and annotation CSV
+  build_annotation_queue.py  Stratified sampling for new labels
+results/                Generated — every number cited anywhere
+tests/                  106 tests
+run.py                  make reproduce
+```
 
 ## Tests
 
 ```bash
-# Run all tests (68/68)
-pytest tests/ -v
-
-# Run only unit tests
-pytest tests/test_preprocessing.py tests/test_extractor.py tests/test_evaluation.py -v
-
-# Run only integration tests
-pytest tests/test_pipeline_e2e.py -v
-
-# Lint check
-python -m flake8 src/ main.py quickstart.py \
-    --select=F401,F841,W293,E302,E303 --max-line-length=120
-
+make test          # or: pytest tests/ -q
+make lint
 ```
 
-**Test Coverage:**
+106 tests: 72 covering the pipeline, 34 covering the experiment harness.  One of
+them asserts that the harness's "full system" predicts the same section as the
+shipped `SectorClassifier`, so the ablation table measures the real pipeline
+rather than a lookalike.
 
-| Module | Test Count | Scope |
-| --- | --- | --- |
-| `test_preprocessing.py` | 16 | `clean_text`, `detect_language`, `generate_ngram_candidates`, `preprocess_pipeline` |
-| `test_extractor.py` | 13 | `extract_keywords`, `extract_guided`, `iterative_expand` (mock-based) |
-| `test_evaluation.py` | 15 | `precision_at_k`, `semantic_match_score`, `f1_macro`, `cohen_kappa`, `EvaluationMetrics` |
-| `test_pipeline_e2e.py` | 24 | Full pipeline, batch processing, report files, timing fields |
-| **Total** | **68** | **68/68 ✅** |
+## Configuration
 
----
-
-## Sector Taxonomy (NACE Rev. 2)
-
-21 sectors, each with a custom list of seed keywords (average 16 seeds/sector, total 340):
-
-| Code | Sector | Seed Count |
-| --- | --- | --- |
-| A | Agriculture & Forestry | 12 |
-| B | Mining | 10 |
-| C | Manufacturing | 18 |
-| D | Electricity & Energy | 15 |
-| E | Water & Waste Management | 12 |
-| F | Construction | 18 |
-| G | Wholesale & Retail Trade | 16 |
-| H | Transport & Logistics | 14 |
-| I | Accommodation & Food | 13 |
-| J | Information & Communication Technology | 36 |
-| K | Finance & Insurance | 16 |
-| L | Real Estate | 13 |
-| M | Professional & Scientific Services | 18 |
-| N | Administrative & Support Services | 14 |
-| O | Public Administration | 10 |
-| P | Education | 13 |
-| Q | Health & Social Services | 45 |
-| R | Arts & Entertainment | 12 |
-| S | Other Services | 13 |
-| T | Household Employers | 8 |
-| U | International Organizations | 8 |
+All hyperparameters live in [`config/config.yaml`](config/config.yaml):
+embedding model and chunking, classification thresholds and top-k, extraction
+α/β weights and MMR diversity, iterative expansion limits.
 
 ---
 
-## Related Literature
+## Related literature
 
 | Method | Source | Role |
 | --- | --- | --- |
-| **KeyBERT** | Grootendorst (2020) — Zenodo | Pipeline core |
-| **YAKE!** | Campos et al. (2020) — *Information Sciences* | Comparison baseline |
-| **PatternRank** | Schopf et al. (2022) — ICPRAM | N-gram candidate strategy |
-| **PromptRank** | Kong et al. (2023) — ACL | LLM-based comparison |
-| **Sentence-BERT** | Reimers & Gurevych (2019) — EMNLP | Embedding foundation |
-| **Multilingual SBERT** | Reimers & Gurevych (2020) — EMNLP | Multilingual model selection |
+| KeyBERT | Grootendorst (2020) | Pipeline core |
+| YAKE! | Campos et al. (2020), *Information Sciences* | Comparison baseline |
+| PatternRank | Schopf et al. (2022), ICPRAM | N-gram candidate strategy |
+| PromptRank | Kong et al. (2023), ACL | LLM-based comparison |
+| Sentence-BERT | Reimers & Gurevych (2019), EMNLP | Embedding foundation |
+| Multilingual SBERT | Reimers & Gurevych (2020), EMNLP | Model selection |
 
-For detailed literature review, dataset comparisons, and methodology decisions:
-
-→ [`docs/methodology.md`](https://www.google.com/search?q=docs/methodology.md)
-
----
-
-## Technology Stack
-
-| Layer | Tool | Version |
-| --- | --- | --- |
-| Embedding | `sentence-transformers` | ≥ 2.6.0 |
-| Keyword Extraction | `keybert` | ≥ 0.8.0 |
-| NLP | `nltk`, `spacy` | ≥ 3.8, ≥ 3.6 |
-| Language Detection | `langdetect` | ≥ 1.0.9 |
-| Metrics | `scikit-learn` | ≥ 1.3.0 |
-| Data | `pandas`, `numpy` | ≥ 2.0, ≥ 1.24 |
-| LLM (optional) | `openai` | ≥ 1.0.0 |
-| Test | `pytest` | ≥ 7.4.0 |
+Full review and methodology decisions: [`docs/methodology.md`](docs/methodology.md).
 
 ---
 
 ## Limitations
 
-* **Q vs M Ambiguity:** `MiniLM-L12` (384-dim) has difficulty distinguishing dental/health from professional services at the boundary.
-Solution: Switching to `paraphrase-multilingual-mpnet-base-v2` is expected to provide ~10% improvement.
-* **Very Short Texts:** Embedding quality decreases for texts shorter than 50 characters.
-* **Lack of Labeled Data:** The ground truth set was semi-manually produced (30 samples); true accuracy assessment requires domain expert labeling.
+- **The evaluation set is too small for the comparisons it is used for.**
+  Thirty documents, 95% CI ≈ ±14 points.  No result here is statistically
+  significant, including the margin over TF-IDF.
+- **One annotator, no measured agreement.**  Labels are semi-manual and
+  single-pass; the κ reported above is classifier-vs-gold, not
+  annotator-vs-annotator.
+- **Part of the evaluation set is synthetic.**  A few entries are invented
+  clean descriptions rather than real trade register text, which is longer and
+  more legalistic.  This inflates accuracy.
+- **Two pipeline stages are unjustified by evidence.**  Guided extraction and
+  the six-stage filter show no measurable effect in the ablation.
+- **Q vs. M ambiguity.**  MiniLM-L12 (384-dim) struggles at the
+  health/professional-services boundary.  `paraphrase-multilingual-mpnet-base-v2`
+  fixes two of those three cases but is worse overall, so the boundary remains
+  open — it is a taxonomy problem more than an encoder problem.
+- **Very short texts.** Embedding quality drops below ~50 characters.
+- **German only in practice.**  The model is multilingual and the preprocessor
+  handles DE/TR/EN, but the corpus, the seeds and the evaluation are German.
+
+## Citation
+
+See [`CITATION.cff`](CITATION.cff).
+
+## License
+
+MIT — see [`LICENSE`](LICENSE).

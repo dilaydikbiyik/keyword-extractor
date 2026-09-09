@@ -1,0 +1,4150 @@
+{
+  "random": [
+    {
+      "id": 0,
+      "true": "J",
+      "predicted": "Q",
+      "top3": [
+        "Q",
+        "K",
+        "P"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 1,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "Q",
+        "G"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 2,
+      "true": "J",
+      "predicted": "N",
+      "top3": [
+        "N",
+        "K",
+        "S"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 3,
+      "true": "M",
+      "predicted": "E",
+      "top3": [
+        "E",
+        "L",
+        "C"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 4,
+      "true": "M",
+      "predicted": "T",
+      "top3": [
+        "T",
+        "A",
+        "P"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 5,
+      "true": "M",
+      "predicted": "G",
+      "top3": [
+        "G",
+        "U",
+        "O"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 6,
+      "true": "G",
+      "predicted": "I",
+      "top3": [
+        "I",
+        "T",
+        "H"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 7,
+      "true": "G",
+      "predicted": "H",
+      "top3": [
+        "H",
+        "T",
+        "J"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 8,
+      "true": "G",
+      "predicted": "G",
+      "top3": [
+        "G",
+        "O",
+        "H"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 9,
+      "true": "F",
+      "predicted": "P",
+      "top3": [
+        "P",
+        "R",
+        "Q"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 10,
+      "true": "F",
+      "predicted": "D",
+      "top3": [
+        "D",
+        "U",
+        "Q"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 11,
+      "true": "Q",
+      "predicted": "T",
+      "top3": [
+        "T",
+        "C",
+        "Q"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 12,
+      "true": "Q",
+      "predicted": "A",
+      "top3": [
+        "A",
+        "M",
+        "P"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 13,
+      "true": "Q",
+      "predicted": "L",
+      "top3": [
+        "L",
+        "S",
+        "M"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 14,
+      "true": "K",
+      "predicted": "M",
+      "top3": [
+        "M",
+        "L",
+        "N"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 15,
+      "true": "L",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "U",
+        "H"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 16,
+      "true": "H",
+      "predicted": "Q",
+      "top3": [
+        "Q",
+        "E",
+        "A"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 17,
+      "true": "I",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "D",
+        "R"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 18,
+      "true": "P",
+      "predicted": "E",
+      "top3": [
+        "E",
+        "U",
+        "P"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 19,
+      "true": "D",
+      "predicted": "N",
+      "top3": [
+        "N",
+        "R",
+        "D"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 20,
+      "true": "C",
+      "predicted": "U",
+      "top3": [
+        "U",
+        "K",
+        "C"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 21,
+      "true": "C",
+      "predicted": "O",
+      "top3": [
+        "O",
+        "Q",
+        "J"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 22,
+      "true": "N",
+      "predicted": "Q",
+      "top3": [
+        "Q",
+        "G",
+        "P"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 23,
+      "true": "R",
+      "predicted": "L",
+      "top3": [
+        "L",
+        "A",
+        "R"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 24,
+      "true": "A",
+      "predicted": "E",
+      "top3": [
+        "E",
+        "K",
+        "H"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 25,
+      "true": "J",
+      "predicted": "K",
+      "top3": [
+        "K",
+        "D",
+        "E"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 26,
+      "true": "E",
+      "predicted": "A",
+      "top3": [
+        "A",
+        "E",
+        "S"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 27,
+      "true": "N",
+      "predicted": "Q",
+      "top3": [
+        "Q",
+        "L",
+        "U"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 28,
+      "true": "S",
+      "predicted": "F",
+      "top3": [
+        "F",
+        "P",
+        "H"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 29,
+      "true": "B",
+      "predicted": "S",
+      "top3": [
+        "S",
+        "H",
+        "C"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    }
+  ],
+  "majority": [
+    {
+      "id": 0,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "G",
+        "M"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 1,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "G",
+        "M"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 2,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "G",
+        "M"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 3,
+      "true": "M",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "G",
+        "M"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 4,
+      "true": "M",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "G",
+        "M"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 5,
+      "true": "M",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "G",
+        "M"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 6,
+      "true": "G",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "G",
+        "M"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 7,
+      "true": "G",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "G",
+        "M"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 8,
+      "true": "G",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "G",
+        "M"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 9,
+      "true": "F",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "G",
+        "M"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 10,
+      "true": "F",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "G",
+        "M"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 11,
+      "true": "Q",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "G",
+        "M"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 12,
+      "true": "Q",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "G",
+        "M"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 13,
+      "true": "Q",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "G",
+        "M"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 14,
+      "true": "K",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "G",
+        "M"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 15,
+      "true": "L",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "G",
+        "M"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 16,
+      "true": "H",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "G",
+        "M"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 17,
+      "true": "I",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "G",
+        "M"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 18,
+      "true": "P",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "G",
+        "M"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 19,
+      "true": "D",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "G",
+        "M"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 20,
+      "true": "C",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "G",
+        "M"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 21,
+      "true": "C",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "G",
+        "M"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 22,
+      "true": "N",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "G",
+        "M"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 23,
+      "true": "R",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "G",
+        "M"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 24,
+      "true": "A",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "G",
+        "M"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 25,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "G",
+        "M"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 26,
+      "true": "E",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "G",
+        "M"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 27,
+      "true": "N",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "G",
+        "M"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 28,
+      "true": "S",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "G",
+        "M"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    },
+    {
+      "id": 29,
+      "true": "B",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "G",
+        "M"
+      ],
+      "scores": [
+        21.0,
+        20.0,
+        19.0
+      ],
+      "keywords": []
+    }
+  ],
+  "tfidf-nace": [
+    {
+      "id": 0,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "M",
+        "A"
+      ],
+      "scores": [
+        0.033088216237261284,
+        0.007616944966176116,
+        0.0
+      ],
+      "keywords": [
+        "internetservice",
+        "allen mit",
+        "dem internet",
+        "und programmen",
+        "hosting",
+        "analyse und",
+        "stehenden leistungen",
+        "von allen",
+        "verbindung stehenden",
+        "programmen"
+      ]
+    },
+    {
+      "id": 1,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "M",
+        "G"
+      ],
+      "scores": [
+        0.25923869154621476,
+        0.01600559650748965,
+        0.00905317597736988
+      ],
+      "keywords": [
+        "app",
+        "cloud",
+        "integration und",
+        "lösungen für",
+        "und it",
+        "mobile",
+        "integration",
+        "it dienstleistungen",
+        "für unternehmen",
+        "lösungen"
+      ]
+    },
+    {
+      "id": 2,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "A",
+        "S"
+      ],
+      "scores": [
+        0.09267643854759974,
+        0.0,
+        0.0
+      ],
+      "keywords": [
+        "mittlere",
+        "und mittlere",
+        "webentwicklung",
+        "marketing für",
+        "online marketing",
+        "und online",
+        "optimierung",
+        "online",
+        "marketing",
+        "dienstleistungen im"
+      ]
+    },
+    {
+      "id": 3,
+      "true": "M",
+      "predicted": "M",
+      "top3": [
+        "M",
+        "A",
+        "S"
+      ],
+      "scores": [
+        0.1041606245327434,
+        0.0,
+        0.0
+      ],
+      "keywords": [
+        "gemäß wpo",
+        "steuerberatung und",
+        "buchführung",
+        "wirtschaftsprüfungsgesellschaften gesetzlich",
+        "für wirtschaftsprüfungsgesellschaften",
+        "wirtschaftsprüfungsgesellschaften",
+        "wpo",
+        "berufsrechtlich zulässigen",
+        "tätigkeiten gemäß",
+        "und berufsrechtlich"
+      ]
+    },
+    {
+      "id": 4,
+      "true": "M",
+      "predicted": "M",
+      "top3": [
+        "M",
+        "A",
+        "S"
+      ],
+      "scores": [
+        0.039081750705923964,
+        0.0,
+        0.0
+      ],
+      "keywords": [
+        "mittelständische unternehmen",
+        "mittelständische",
+        "managementberatung und",
+        "organisationsentwicklung",
+        "branchen",
+        "managementberatung",
+        "unternehmen aller",
+        "unternehmensberatung",
+        "unternehmen",
+        "für"
+      ]
+    },
+    {
+      "id": 5,
+      "true": "M",
+      "predicted": "M",
+      "top3": [
+        "M",
+        "A",
+        "S"
+      ],
+      "scores": [
+        0.11978440959096427,
+        0.0,
+        0.0
+      ],
+      "keywords": [
+        "rechtsberatung und",
+        "vertretung in",
+        "rechtsberatung",
+        "den bereichen",
+        "in den",
+        "bereichen",
+        "vertretung",
+        "den",
+        "in"
+      ]
+    },
+    {
+      "id": 6,
+      "true": "G",
+      "predicted": "G",
+      "top3": [
+        "G",
+        "C",
+        "A"
+      ],
+      "scores": [
+        0.05190420487501782,
+        0.016195989779153215,
+        0.0
+      ],
+      "keywords": [
+        "wohnungseinrichtungen",
+        "und heimtextilien",
+        "haushaltswaren und",
+        "heimtextilien",
+        "haushaltswaren",
+        "möbeln",
+        "insbesondere mit",
+        "mit waren",
+        "und einzelhandel",
+        "groß und"
+      ]
+    },
+    {
+      "id": 7,
+      "true": "G",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "G",
+        "C"
+      ],
+      "scores": [
+        0.06664738338422609,
+        0.05486336344772747,
+        0.041315417627525775
+      ],
+      "keywords": [
+        "b2c",
+        "mobiltelefonen",
+        "b2b",
+        "plattform für",
+        "großhandel und",
+        "plattform",
+        "commerce",
+        "computern",
+        "elektronik",
+        "großhandel"
+      ]
+    },
+    {
+      "id": 8,
+      "true": "G",
+      "predicted": "G",
+      "top3": [
+        "G",
+        "A",
+        "S"
+      ],
+      "scores": [
+        0.05545837494455081,
+        0.0,
+        0.0
+      ],
+      "keywords": [
+        "spezialitäten",
+        "bio",
+        "lebensmitteln insbesondere",
+        "und internationalen",
+        "mit lebensmitteln",
+        "export sowie",
+        "internationalen",
+        "produkten und",
+        "sowie handel",
+        "insbesondere mit"
+      ]
+    },
+    {
+      "id": 9,
+      "true": "F",
+      "predicted": "F",
+      "top3": [
+        "F",
+        "A",
+        "S"
+      ],
+      "scores": [
+        0.22474886666893648,
+        0.0,
+        0.0
+      ],
+      "keywords": [
+        "und gewerbegebäuden",
+        "gewerbegebäuden",
+        "schlüsselfertigbau",
+        "renovierung und",
+        "renovierung",
+        "und sanierung",
+        "bauarbeiten",
+        "von wohn",
+        "und tiefbau",
+        "sanierung von"
+      ]
+    },
+    {
+      "id": 10,
+      "true": "F",
+      "predicted": "F",
+      "top3": [
+        "F",
+        "A",
+        "S"
+      ],
+      "scores": [
+        0.054026606876004725,
+        0.0,
+        0.0
+      ],
+      "keywords": [
+        "und heizungsanlagen",
+        "und gewerbebau",
+        "sanitärarbeiten",
+        "gewerbebau",
+        "wohnungs und",
+        "heizungsanlagen",
+        "von elektroinstallationen",
+        "wohnungs",
+        "elektroinstallationen",
+        "und ausführung"
+      ]
+    },
+    {
+      "id": 11,
+      "true": "Q",
+      "predicted": "A",
+      "top3": [
+        "A",
+        "S",
+        "R"
+      ],
+      "scores": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "keywords": [
+        "modernen",
+        "mit"
+      ]
+    },
+    {
+      "id": 12,
+      "true": "Q",
+      "predicted": "Q",
+      "top3": [
+        "Q",
+        "T",
+        "S"
+      ],
+      "scores": [
+        0.17546791168998604,
+        0.0423036459279055,
+        0.030049552531543774
+      ],
+      "keywords": [
+        "für ältere",
+        "ältere menschen",
+        "ambulante und",
+        "therapie und",
+        "ältere",
+        "und stationäre",
+        "therapie",
+        "stationäre",
+        "und rehabilitation",
+        "rehabilitation"
+      ]
+    },
+    {
+      "id": 13,
+      "true": "Q",
+      "predicted": "Q",
+      "top3": [
+        "Q",
+        "A",
+        "S"
+      ],
+      "scores": [
+        0.16774830458015527,
+        0.0,
+        0.0
+      ],
+      "keywords": [
+        "arztpraxis",
+        "medizin und",
+        "versorgung und",
+        "medizin",
+        "versorgung",
+        "für"
+      ]
+    },
+    {
+      "id": 14,
+      "true": "K",
+      "predicted": "T",
+      "top3": [
+        "T",
+        "A",
+        "S"
+      ],
+      "scores": [
+        0.09376367382581141,
+        0.0,
+        0.0
+      ],
+      "keywords": [
+        "geschäftskunden",
+        "vermögensberatung",
+        "für privat",
+        "versicherungsvermittlung",
+        "privat und",
+        "von finanzdienstleistungen",
+        "privat",
+        "finanzdienstleistungen",
+        "erbringung von",
+        "erbringung"
+      ]
+    },
+    {
+      "id": 15,
+      "true": "L",
+      "predicted": "L",
+      "top3": [
+        "L",
+        "G",
+        "F"
+      ],
+      "scores": [
+        0.018124272583153946,
+        0.015488936206045403,
+        0.013895189644965802
+      ],
+      "keywords": [
+        "von miet",
+        "miet und",
+        "immobilien vermittlung",
+        "miet",
+        "kauf verkauf",
+        "kauf",
+        "verkauf und",
+        "und verwaltung",
+        "von immobilien",
+        "vermittlung von"
+      ]
+    },
+    {
+      "id": 16,
+      "true": "H",
+      "predicted": "H",
+      "top3": [
+        "H",
+        "A",
+        "S"
+      ],
+      "scores": [
+        0.14380723184905658,
+        0.0,
+        0.0
+      ],
+      "keywords": [
+        "nationaler und",
+        "und internationaler",
+        "und logistikdienstleistungen",
+        "nationaler",
+        "spedition und",
+        "und lagerung",
+        "logistikdienstleistungen",
+        "internationaler",
+        "spedition",
+        "lagerung"
+      ]
+    },
+    {
+      "id": 17,
+      "true": "I",
+      "predicted": "I",
+      "top3": [
+        "I",
+        "A",
+        "S"
+      ],
+      "scores": [
+        0.100405591191668,
+        0.0,
+        0.0
+      ],
+      "keywords": [
+        "firmenkunden",
+        "lieferservice",
+        "und catering",
+        "restaurants und",
+        "eines restaurants",
+        "services",
+        "catering",
+        "restaurants",
+        "gastronomie",
+        "betrieb eines"
+      ]
+    },
+    {
+      "id": 18,
+      "true": "P",
+      "predicted": "A",
+      "top3": [
+        "A",
+        "S",
+        "R"
+      ],
+      "scores": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "keywords": [
+        "für erwachsene",
+        "sprachkursen",
+        "und weiterbildungsmaßnahmen",
+        "angebot von",
+        "erwachsene",
+        "online und",
+        "weiterbildungsmaßnahmen",
+        "angebot",
+        "online",
+        "für"
+      ]
+    },
+    {
+      "id": 19,
+      "true": "D",
+      "predicted": "A",
+      "top3": [
+        "A",
+        "S",
+        "R"
+      ],
+      "scores": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "keywords": [
+        "für gewerbe",
+        "windkraft",
+        "und verteilung",
+        "von erneuerbaren",
+        "verteilung von",
+        "und industrie",
+        "erzeugung und",
+        "photovoltaik",
+        "verteilung",
+        "gewerbe und"
+      ]
+    },
+    {
+      "id": 20,
+      "true": "C",
+      "predicted": "C",
+      "top3": [
+        "C",
+        "G",
+        "A"
+      ],
+      "scores": [
+        0.0406480259961638,
+        0.010964667135417216,
+        0.0
+      ],
+      "keywords": [
+        "maschinenteilen für",
+        "von industriemaschinen",
+        "und maschinenteilen",
+        "industriemaschinen",
+        "maschinenteilen",
+        "anlagen und",
+        "für die",
+        "anlagen",
+        "herstellung und",
+        "und vertrieb"
+      ]
+    },
+    {
+      "id": 21,
+      "true": "C",
+      "predicted": "C",
+      "top3": [
+        "C",
+        "A",
+        "S"
+      ],
+      "scores": [
+        0.12057159399216773,
+        0.034324541184219445,
+        0.0
+      ],
+      "keywords": [
+        "für lebensmittel",
+        "und verpackungsmaterialien",
+        "von kunststoffprodukten",
+        "kunststoffprodukten",
+        "verpackungsmaterialien",
+        "lebensmittel und",
+        "lebensmittel",
+        "produktion von",
+        "produktion",
+        "für"
+      ]
+    },
+    {
+      "id": 22,
+      "true": "N",
+      "predicted": "N",
+      "top3": [
+        "N",
+        "L",
+        "E"
+      ],
+      "scores": [
+        0.07925037034496611,
+        0.055075902599627614,
+        0.038149759674179655
+      ],
+      "keywords": [
+        "und hausmeisterdienstleistungen",
+        "von reinigungs",
+        "hausmeisterdienstleistungen",
+        "reinigungs und",
+        "reinigungs",
+        "büro und",
+        "facility management",
+        "facility",
+        "büro",
+        "management"
+      ]
+    },
+    {
+      "id": 23,
+      "true": "R",
+      "predicted": "P",
+      "top3": [
+        "P",
+        "U",
+        "N"
+      ],
+      "scores": [
+        0.04680295274229877,
+        0.03749931983922952,
+        0.03323335016841597
+      ],
+      "keywords": [
+        "kursen und",
+        "personal training",
+        "von sportveranstaltungen",
+        "und personal",
+        "sportveranstaltungen",
+        "kursen",
+        "und privatpersonen",
+        "privatpersonen",
+        "fitness",
+        "training"
+      ]
+    },
+    {
+      "id": 24,
+      "true": "A",
+      "predicted": "A",
+      "top3": [
+        "A",
+        "S",
+        "R"
+      ],
+      "scores": [
+        0.09933230165148438,
+        0.0,
+        0.0
+      ],
+      "keywords": [
+        "anbau von",
+        "gemüse sowie",
+        "getreide",
+        "eines landwirtschaftlichen",
+        "anbau",
+        "forstwirtschaft",
+        "und gemüse",
+        "obst und",
+        "gemüse",
+        "obst"
+      ]
+    },
+    {
+      "id": 25,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "M",
+        "A"
+      ],
+      "scores": [
+        0.0720227903428809,
+        0.012331885739520985,
+        0.0
+      ],
+      "keywords": [
+        "gestützten",
+        "data",
+        "learning",
+        "modellen",
+        "die industrie",
+        "industrie",
+        "entwicklung von",
+        "für die",
+        "entwicklung",
+        "für"
+      ]
+    },
+    {
+      "id": 26,
+      "true": "E",
+      "predicted": "E",
+      "top3": [
+        "E",
+        "A",
+        "S"
+      ],
+      "scores": [
+        0.2283056796484937,
+        0.0,
+        0.0
+      ],
+      "keywords": [
+        "umweltgerechte",
+        "abfallwirtschaft",
+        "entsorgung und",
+        "und recycling",
+        "von industrie",
+        "recycling von",
+        "recycling",
+        "entsorgung",
+        "industrie und",
+        "industrie"
+      ]
+    },
+    {
+      "id": 27,
+      "true": "N",
+      "predicted": "A",
+      "top3": [
+        "A",
+        "S",
+        "R"
+      ],
+      "scores": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "keywords": [
+        "personenschutz",
+        "veranstaltungsschutz",
+        "von sicherheitsdienstleistungen",
+        "objektschutz",
+        "sicherheitsdienstleistungen",
+        "erbringung von",
+        "erbringung"
+      ]
+    },
+    {
+      "id": 28,
+      "true": "S",
+      "predicted": "S",
+      "top3": [
+        "S",
+        "A",
+        "R"
+      ],
+      "scores": [
+        0.10194499671361752,
+        0.0,
+        0.0
+      ],
+      "keywords": [
+        "friseursalons und",
+        "friseur",
+        "eines friseursalons",
+        "friseursalons",
+        "wellness",
+        "angeboten",
+        "betrieb eines",
+        "eines",
+        "betrieb",
+        "mit"
+      ]
+    },
+    {
+      "id": 29,
+      "true": "B",
+      "predicted": "B",
+      "top3": [
+        "B",
+        "C",
+        "A"
+      ],
+      "scores": [
+        0.1723339175940469,
+        0.03251010122310338,
+        0.0
+      ],
+      "keywords": [
+        "kies sand",
+        "kiesgruben",
+        "gewinnung und",
+        "sand und",
+        "sand",
+        "kies",
+        "natursteinen",
+        "gewinnung",
+        "und verarbeitung",
+        "verarbeitung von"
+      ]
+    }
+  ],
+  "embed-zeroshot": [
+    {
+      "id": 0,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "S",
+        "N"
+      ],
+      "scores": [
+        0.6887976509642657,
+        0.5193231508135189,
+        0.5119389974143421
+      ],
+      "keywords": [
+        "internetservice",
+        "informatikingenieurie",
+        "hosting",
+        "software",
+        "programmen",
+        "verbindung",
+        "entwicklung",
+        "leistungen",
+        "analyse",
+        "allen"
+      ]
+    },
+    {
+      "id": 1,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "N",
+        "S"
+      ],
+      "scores": [
+        0.689603833568389,
+        0.4477448994970006,
+        0.405471601639479
+      ],
+      "keywords": [
+        "app",
+        "software",
+        "cloud",
+        "mobile",
+        "dienstleistungen",
+        "entwicklung",
+        "lösungen",
+        "integration",
+        "unternehmen",
+        "api"
+      ]
+    },
+    {
+      "id": 2,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "S",
+        "N"
+      ],
+      "scores": [
+        0.4334736549563909,
+        0.4311609130675118,
+        0.3695805112171187
+      ],
+      "keywords": [
+        "webentwicklung",
+        "marketing",
+        "dienstleistungen",
+        "online",
+        "seo",
+        "optimierung",
+        "kleine",
+        "erbringung",
+        "unternehmen",
+        "mittlere"
+      ]
+    },
+    {
+      "id": 3,
+      "true": "M",
+      "predicted": "K",
+      "top3": [
+        "K",
+        "T",
+        "N"
+      ],
+      "scores": [
+        0.5473685584962962,
+        0.4841952842391837,
+        0.47758088438857
+      ],
+      "keywords": [
+        "wirtschaftsprüfungsgesellschaften",
+        "steuerberatung",
+        "berufsrechtlich",
+        "gesetzlich",
+        "zulässigen",
+        "tätigkeiten",
+        "wpo",
+        "buchführung",
+        "für",
+        "und"
+      ]
+    },
+    {
+      "id": 4,
+      "true": "M",
+      "predicted": "M",
+      "top3": [
+        "M",
+        "N",
+        "C"
+      ],
+      "scores": [
+        0.5032665859340261,
+        0.4919948748330226,
+        0.4034789087336628
+      ],
+      "keywords": [
+        "unternehmensberatung",
+        "managementberatung",
+        "organisationsentwicklung",
+        "branchen",
+        "mittelständische",
+        "für",
+        "unternehmen",
+        "aller",
+        "und"
+      ]
+    },
+    {
+      "id": 5,
+      "true": "M",
+      "predicted": "N",
+      "top3": [
+        "N",
+        "U",
+        "O"
+      ],
+      "scores": [
+        0.4717543180360537,
+        0.44206768377731637,
+        0.4398060903720868
+      ],
+      "keywords": [
+        "rechtsberatung",
+        "gesellschaftsrecht",
+        "anwaltliche",
+        "arbeitsrecht",
+        "vertragsrecht",
+        "vertretung",
+        "bereichen",
+        "und",
+        "den"
+      ]
+    },
+    {
+      "id": 6,
+      "true": "G",
+      "predicted": "G",
+      "top3": [
+        "G",
+        "L",
+        "T"
+      ],
+      "scores": [
+        0.7267398273178072,
+        0.501538885275671,
+        0.4646371634762285
+      ],
+      "keywords": [
+        "einzelhandel",
+        "handel",
+        "heimtextilien",
+        "haushaltswaren",
+        "art",
+        "möbeln",
+        "insbesondere",
+        "wohnungseinrichtungen",
+        "mit",
+        "groß"
+      ]
+    },
+    {
+      "id": 7,
+      "true": "G",
+      "predicted": "G",
+      "top3": [
+        "G",
+        "J",
+        "C"
+      ],
+      "scores": [
+        0.4963359336463208,
+        0.4914172240596113,
+        0.36166137020185984
+      ],
+      "keywords": [
+        "commerce",
+        "elektronik",
+        "b2b",
+        "mobiltelefonen",
+        "einzelhandel",
+        "computern",
+        "großhandel",
+        "plattform",
+        "für",
+        "zubehör"
+      ]
+    },
+    {
+      "id": 8,
+      "true": "G",
+      "predicted": "G",
+      "top3": [
+        "G",
+        "C",
+        "A"
+      ],
+      "scores": [
+        0.5902617328559199,
+        0.522868633094222,
+        0.37368524883331045
+      ],
+      "keywords": [
+        "import",
+        "export",
+        "handel",
+        "lebensmitteln",
+        "produkten",
+        "feinkostwaren",
+        "internationalen",
+        "bio",
+        "insbesondere",
+        "spezialitäten"
+      ]
+    },
+    {
+      "id": 9,
+      "true": "F",
+      "predicted": "F",
+      "top3": [
+        "F",
+        "M",
+        "C"
+      ],
+      "scores": [
+        0.8169310742732406,
+        0.5475962139980015,
+        0.4828082675087061
+      ],
+      "keywords": [
+        "gewerbegebäuden",
+        "bauarbeiten",
+        "renovierung",
+        "sanierung",
+        "schlüsselfertigbau",
+        "allgemeine",
+        "tiefbau",
+        "wohn",
+        "von",
+        "hoch"
+      ]
+    },
+    {
+      "id": 10,
+      "true": "F",
+      "predicted": "D",
+      "top3": [
+        "D",
+        "C",
+        "E"
+      ],
+      "scores": [
+        0.6179496850604121,
+        0.4791111990073517,
+        0.46764801514638255
+      ],
+      "keywords": [
+        "elektroinstallationen",
+        "sanitärarbeiten",
+        "heizungsanlagen",
+        "planung",
+        "ausführung",
+        "und",
+        "von",
+        "im",
+        "gewerbebau",
+        "wohnungs"
+      ]
+    },
+    {
+      "id": 11,
+      "true": "Q",
+      "predicted": "M",
+      "top3": [
+        "M",
+        "F",
+        "S"
+      ],
+      "scores": [
+        0.2636021059088853,
+        0.21168308017170273,
+        0.17037789581846666
+      ],
+      "keywords": [
+        "behandlungsmethoden",
+        "zahnklinik",
+        "prophylaxe",
+        "zahnimplantate",
+        "modernen",
+        "kieferorthopädie",
+        "mit",
+        "und",
+        "zahnbleaching"
+      ]
+    },
+    {
+      "id": 12,
+      "true": "Q",
+      "predicted": "N",
+      "top3": [
+        "N",
+        "Q",
+        "S"
+      ],
+      "scores": [
+        0.4351782931981025,
+        0.40222948607571124,
+        0.3534827941519519
+      ],
+      "keywords": [
+        "pflegeeinrichtung",
+        "pflege",
+        "rehabilitation",
+        "therapie",
+        "ältere",
+        "stationäre",
+        "ambulante",
+        "betrieb",
+        "menschen",
+        "für"
+      ]
+    },
+    {
+      "id": 13,
+      "true": "Q",
+      "predicted": "M",
+      "top3": [
+        "M",
+        "F",
+        "Q"
+      ],
+      "scores": [
+        0.5449905043138186,
+        0.5420692908963703,
+        0.5089819968465945
+      ],
+      "keywords": [
+        "allgemeinmedizin",
+        "präventivmedizin",
+        "hausärztliche",
+        "arztpraxis",
+        "medizin",
+        "vorsorgeuntersuchungen",
+        "für",
+        "versorgung",
+        "und",
+        "innere"
+      ]
+    },
+    {
+      "id": 14,
+      "true": "K",
+      "predicted": "K",
+      "top3": [
+        "K",
+        "N",
+        "S"
+      ],
+      "scores": [
+        0.630409402016388,
+        0.4529032435211774,
+        0.42463478567880175
+      ],
+      "keywords": [
+        "kapitalanlageberatung",
+        "finanzdienstleistungen",
+        "vermögensberatung",
+        "versicherungsvermittlung",
+        "geschäftskunden",
+        "privat",
+        "erbringung",
+        "für",
+        "und",
+        "von"
+      ]
+    },
+    {
+      "id": 15,
+      "true": "L",
+      "predicted": "L",
+      "top3": [
+        "L",
+        "T",
+        "K"
+      ],
+      "scores": [
+        0.8062181735881677,
+        0.4910011986737456,
+        0.448244898369878
+      ],
+      "keywords": [
+        "immobilienbewertung",
+        "kauf",
+        "kaufobjekten",
+        "verkauf",
+        "verwaltung",
+        "vermittlung",
+        "immobilien",
+        "und",
+        "von",
+        "sowie"
+      ]
+    },
+    {
+      "id": 16,
+      "true": "H",
+      "predicted": "H",
+      "top3": [
+        "H",
+        "G",
+        "C"
+      ],
+      "scores": [
+        0.6742208310691709,
+        0.5688596581762103,
+        0.49746935298202893
+      ],
+      "keywords": [
+        "logistikdienstleistungen",
+        "transport",
+        "internationaler",
+        "lagerung",
+        "nationaler",
+        "güterbeförderung",
+        "spedition",
+        "und"
+      ]
+    },
+    {
+      "id": 17,
+      "true": "I",
+      "predicted": "I",
+      "top3": [
+        "I",
+        "S",
+        "G"
+      ],
+      "scores": [
+        0.6399749371945948,
+        0.5396378988772473,
+        0.4789006817083244
+      ],
+      "keywords": [
+        "catering",
+        "restaurants",
+        "gastronomie",
+        "firmenkunden",
+        "services",
+        "lieferservice",
+        "eventcatering",
+        "betrieb",
+        "für",
+        "eines"
+      ]
+    },
+    {
+      "id": 18,
+      "true": "P",
+      "predicted": "P",
+      "top3": [
+        "P",
+        "M",
+        "J"
+      ],
+      "scores": [
+        0.6310306946060534,
+        0.4508220004777003,
+        0.413016631146738
+      ],
+      "keywords": [
+        "sprachkursen",
+        "berufsausbildungen",
+        "online",
+        "weiterbildungsmaßnahmen",
+        "erwachsene",
+        "angebot",
+        "für",
+        "präsenzkurse",
+        "und",
+        "von"
+      ]
+    },
+    {
+      "id": 19,
+      "true": "D",
+      "predicted": "D",
+      "top3": [
+        "D",
+        "C",
+        "E"
+      ],
+      "scores": [
+        0.5758842057008681,
+        0.39044791963273046,
+        0.36568866643348147
+      ],
+      "keywords": [
+        "photovoltaik",
+        "erneuerbaren",
+        "energiespeicherlösungen",
+        "energien",
+        "windkraft",
+        "industrie",
+        "verteilung",
+        "erzeugung",
+        "für",
+        "von"
+      ]
+    },
+    {
+      "id": 20,
+      "true": "C",
+      "predicted": "C",
+      "top3": [
+        "C",
+        "D",
+        "G"
+      ],
+      "scores": [
+        0.7849469681894179,
+        0.43583450694588843,
+        0.3953883546953531
+      ],
+      "keywords": [
+        "industriemaschinen",
+        "fertigungsindustrie",
+        "maschinenteilen",
+        "anlagen",
+        "herstellung",
+        "und",
+        "von",
+        "für",
+        "vertrieb",
+        "die"
+      ]
+    },
+    {
+      "id": 21,
+      "true": "C",
+      "predicted": "C",
+      "top3": [
+        "C",
+        "E",
+        "G"
+      ],
+      "scores": [
+        0.6460630623080655,
+        0.3276952752779398,
+        0.31841664559293825
+      ],
+      "keywords": [
+        "kunststoffprodukten",
+        "verpackungsmaterialien",
+        "pharmaindustrie",
+        "produktion",
+        "lebensmittel",
+        "für",
+        "und",
+        "von"
+      ]
+    },
+    {
+      "id": 22,
+      "true": "N",
+      "predicted": "N",
+      "top3": [
+        "N",
+        "T",
+        "E"
+      ],
+      "scores": [
+        0.5620667342829037,
+        0.5394549243675001,
+        0.534021917509133
+      ],
+      "keywords": [
+        "hausmeisterdienstleistungen",
+        "büro",
+        "management",
+        "reinigungs",
+        "wohngebäude",
+        "facility",
+        "erbringung",
+        "für",
+        "und",
+        "von"
+      ]
+    },
+    {
+      "id": 23,
+      "true": "R",
+      "predicted": "R",
+      "top3": [
+        "R",
+        "M",
+        "N"
+      ],
+      "scores": [
+        0.48210963996662315,
+        0.423741427716236,
+        0.3880629598321502
+      ],
+      "keywords": [
+        "fitness",
+        "sportveranstaltungen",
+        "training",
+        "organisation",
+        "kursen",
+        "personal",
+        "durchführung",
+        "privatpersonen",
+        "unternehmen",
+        "von"
+      ]
+    },
+    {
+      "id": 24,
+      "true": "A",
+      "predicted": "A",
+      "top3": [
+        "A",
+        "C",
+        "T"
+      ],
+      "scores": [
+        0.6938544822639029,
+        0.5268360345016926,
+        0.40928408152176726
+      ],
+      "keywords": [
+        "landwirtschaftlichen",
+        "forstwirtschaft",
+        "unternehmens",
+        "betrieb",
+        "sowie",
+        "gemüse",
+        "von",
+        "obst",
+        "getreide",
+        "anbau"
+      ]
+    },
+    {
+      "id": 25,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "M",
+        "N"
+      ],
+      "scores": [
+        0.3971669524442289,
+        0.21103755367009258,
+        0.19660146976838358
+      ],
+      "keywords": [
+        "analytics",
+        "analysewerkzeugen",
+        "data",
+        "modellen",
+        "learning",
+        "machine",
+        "industrie",
+        "entwicklung",
+        "big",
+        "gestützten"
+      ]
+    },
+    {
+      "id": 26,
+      "true": "E",
+      "predicted": "E",
+      "top3": [
+        "E",
+        "H",
+        "C"
+      ],
+      "scores": [
+        0.7829038688129688,
+        0.48445276314320257,
+        0.3693249531595699
+      ],
+      "keywords": [
+        "abfallwirtschaft",
+        "recycling",
+        "umweltgerechte",
+        "entsorgungsdienstleistungen",
+        "industrie",
+        "entsorgung",
+        "sonderabfällen",
+        "und",
+        "von"
+      ]
+    },
+    {
+      "id": 27,
+      "true": "N",
+      "predicted": "S",
+      "top3": [
+        "S",
+        "O",
+        "N"
+      ],
+      "scores": [
+        0.488613191269782,
+        0.4882189558292543,
+        0.47524131039336276
+      ],
+      "keywords": [
+        "veranstaltungsschutz",
+        "sicherheitsdienstleistungen",
+        "personenschutz",
+        "objektschutz",
+        "erbringung",
+        "und",
+        "von"
+      ]
+    },
+    {
+      "id": 28,
+      "true": "S",
+      "predicted": "I",
+      "top3": [
+        "I",
+        "S",
+        "M"
+      ],
+      "scores": [
+        0.396475449121172,
+        0.3931463866311682,
+        0.34771815168990033
+      ],
+      "keywords": [
+        "friseursalons",
+        "kosmetikdienstleistungen",
+        "friseur",
+        "schönheitssalons",
+        "wellness",
+        "betrieb",
+        "angeboten",
+        "eines",
+        "und",
+        "mit"
+      ]
+    },
+    {
+      "id": 29,
+      "true": "B",
+      "predicted": "B",
+      "top3": [
+        "B",
+        "F",
+        "M"
+      ],
+      "scores": [
+        0.6040852444485508,
+        0.5507866596099423,
+        0.41200381329633445
+      ],
+      "keywords": [
+        "natursteinen",
+        "steinbrüchen",
+        "sand",
+        "kiesgruben",
+        "von",
+        "verarbeitung",
+        "betrieb",
+        "gewinnung",
+        "kies",
+        "und"
+      ]
+    }
+  ],
+  "keybert-unguided": [
+    {
+      "id": 0,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "S",
+        "N"
+      ],
+      "scores": [
+        0.6887976509642657,
+        0.5193231508135189,
+        0.5119389974143421
+      ],
+      "keywords": [
+        "internetservice",
+        "informatikingenieurie",
+        "internet",
+        "hosting",
+        "software",
+        "programmen",
+        "verbindung",
+        "entwicklung",
+        "leistungen",
+        "analyse"
+      ]
+    },
+    {
+      "id": 1,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "N",
+        "S"
+      ],
+      "scores": [
+        0.689603833568389,
+        0.4477448994970006,
+        0.405471601639479
+      ],
+      "keywords": [
+        "app",
+        "software",
+        "cloud",
+        "mobile",
+        "dienstleistungen",
+        "entwicklung",
+        "lösungen",
+        "integration",
+        "für",
+        "unternehmen"
+      ]
+    },
+    {
+      "id": 2,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "S",
+        "N"
+      ],
+      "scores": [
+        0.4334736549563909,
+        0.4311609130675118,
+        0.3695805112171187
+      ],
+      "keywords": [
+        "webentwicklung",
+        "marketing",
+        "dienstleistungen",
+        "online",
+        "seo",
+        "optimierung",
+        "kleine",
+        "erbringung"
+      ]
+    },
+    {
+      "id": 3,
+      "true": "M",
+      "predicted": "K",
+      "top3": [
+        "K",
+        "T",
+        "N"
+      ],
+      "scores": [
+        0.5473685584962962,
+        0.4841952842391837,
+        0.47758088438857
+      ],
+      "keywords": [
+        "wirtschaftsprüfungsgesellschaften",
+        "berufsrechtlich",
+        "gesetzlich",
+        "steuerberatung",
+        "zulässigen",
+        "tätigkeiten",
+        "wpo",
+        "buchführung",
+        "gemäß",
+        "für"
+      ]
+    },
+    {
+      "id": 4,
+      "true": "M",
+      "predicted": "M",
+      "top3": [
+        "M",
+        "N",
+        "C"
+      ],
+      "scores": [
+        0.5032665859340261,
+        0.4919948748330226,
+        0.4034789087336628
+      ],
+      "keywords": [
+        "unternehmensberatung",
+        "managementberatung",
+        "organisationsentwicklung",
+        "branchen",
+        "mittelständische",
+        "für",
+        "unternehmen",
+        "aller"
+      ]
+    },
+    {
+      "id": 5,
+      "true": "M",
+      "predicted": "N",
+      "top3": [
+        "N",
+        "U",
+        "O"
+      ],
+      "scores": [
+        0.4717543180360537,
+        0.44206768377731637,
+        0.4398060903720868
+      ],
+      "keywords": [
+        "rechtsberatung",
+        "gesellschaftsrecht",
+        "anwaltliche",
+        "arbeitsrecht",
+        "vertragsrecht",
+        "vertretung",
+        "bereichen",
+        "und",
+        "den"
+      ]
+    },
+    {
+      "id": 6,
+      "true": "G",
+      "predicted": "G",
+      "top3": [
+        "G",
+        "L",
+        "T"
+      ],
+      "scores": [
+        0.7267398273178072,
+        0.501538885275671,
+        0.4646371634762285
+      ],
+      "keywords": [
+        "einzelhandel",
+        "handel",
+        "heimtextilien",
+        "haushaltswaren",
+        "art",
+        "möbeln",
+        "insbesondere",
+        "wohnungseinrichtungen",
+        "und"
+      ]
+    },
+    {
+      "id": 7,
+      "true": "G",
+      "predicted": "G",
+      "top3": [
+        "G",
+        "J",
+        "C"
+      ],
+      "scores": [
+        0.4963359336463208,
+        0.4914172240596113,
+        0.36166137020185984
+      ],
+      "keywords": [
+        "commerce",
+        "elektronik",
+        "mobiltelefonen",
+        "einzelhandel",
+        "computern",
+        "großhandel",
+        "plattform",
+        "und",
+        "für",
+        "zubehör"
+      ]
+    },
+    {
+      "id": 8,
+      "true": "G",
+      "predicted": "G",
+      "top3": [
+        "G",
+        "C",
+        "A"
+      ],
+      "scores": [
+        0.5902617328559199,
+        0.522868633094222,
+        0.37368524883331045
+      ],
+      "keywords": [
+        "import",
+        "export",
+        "handel",
+        "lebensmitteln",
+        "produkten",
+        "feinkostwaren",
+        "internationalen",
+        "bio",
+        "insbesondere",
+        "sowie"
+      ]
+    },
+    {
+      "id": 9,
+      "true": "F",
+      "predicted": "F",
+      "top3": [
+        "F",
+        "M",
+        "C"
+      ],
+      "scores": [
+        0.8169310742732406,
+        0.5475962139980015,
+        0.4828082675087061
+      ],
+      "keywords": [
+        "gewerbegebäuden",
+        "bauarbeiten",
+        "renovierung",
+        "sanierung",
+        "schlüsselfertigbau",
+        "allgemeine",
+        "tiefbau",
+        "wohn",
+        "von",
+        "und"
+      ]
+    },
+    {
+      "id": 10,
+      "true": "F",
+      "predicted": "D",
+      "top3": [
+        "D",
+        "C",
+        "E"
+      ],
+      "scores": [
+        0.6179496850604121,
+        0.4791111990073517,
+        0.46764801514638255
+      ],
+      "keywords": [
+        "elektroinstallationen",
+        "sanitärarbeiten",
+        "heizungsanlagen",
+        "planung",
+        "ausführung",
+        "und"
+      ]
+    },
+    {
+      "id": 11,
+      "true": "Q",
+      "predicted": "M",
+      "top3": [
+        "M",
+        "F",
+        "S"
+      ],
+      "scores": [
+        0.2636021059088853,
+        0.21168308017170273,
+        0.17037789581846666
+      ],
+      "keywords": [
+        "behandlungsmethoden",
+        "zahnklinik",
+        "prophylaxe",
+        "zahnimplantate",
+        "modernen",
+        "kieferorthopädie",
+        "mit",
+        "und",
+        "zahnbleaching"
+      ]
+    },
+    {
+      "id": 12,
+      "true": "Q",
+      "predicted": "N",
+      "top3": [
+        "N",
+        "Q",
+        "S"
+      ],
+      "scores": [
+        0.4351782931981025,
+        0.40222948607571124,
+        0.3534827941519519
+      ],
+      "keywords": [
+        "pflegeeinrichtung",
+        "pflege",
+        "rehabilitation",
+        "therapie",
+        "ältere",
+        "stationäre",
+        "ambulante",
+        "betrieb",
+        "menschen",
+        "für"
+      ]
+    },
+    {
+      "id": 13,
+      "true": "Q",
+      "predicted": "M",
+      "top3": [
+        "M",
+        "F",
+        "Q"
+      ],
+      "scores": [
+        0.5449905043138186,
+        0.5420692908963703,
+        0.5089819968465945
+      ],
+      "keywords": [
+        "allgemeinmedizin",
+        "präventivmedizin",
+        "hausärztliche",
+        "arztpraxis",
+        "medizin",
+        "vorsorgeuntersuchungen",
+        "für",
+        "versorgung",
+        "und",
+        "innere"
+      ]
+    },
+    {
+      "id": 14,
+      "true": "K",
+      "predicted": "K",
+      "top3": [
+        "K",
+        "N",
+        "S"
+      ],
+      "scores": [
+        0.630409402016388,
+        0.4529032435211774,
+        0.42463478567880175
+      ],
+      "keywords": [
+        "kapitalanlageberatung",
+        "finanzdienstleistungen",
+        "vermögensberatung",
+        "versicherungsvermittlung",
+        "geschäftskunden",
+        "privat",
+        "erbringung",
+        "für"
+      ]
+    },
+    {
+      "id": 15,
+      "true": "L",
+      "predicted": "L",
+      "top3": [
+        "L",
+        "T",
+        "K"
+      ],
+      "scores": [
+        0.8062181735881677,
+        0.4910011986737456,
+        0.448244898369878
+      ],
+      "keywords": [
+        "immobilienbewertung",
+        "kauf",
+        "kaufobjekten",
+        "verkauf",
+        "verwaltung",
+        "vermittlung",
+        "immobilien",
+        "und",
+        "von",
+        "sowie"
+      ]
+    },
+    {
+      "id": 16,
+      "true": "H",
+      "predicted": "H",
+      "top3": [
+        "H",
+        "G",
+        "C"
+      ],
+      "scores": [
+        0.6742208310691709,
+        0.5688596581762103,
+        0.49746935298202893
+      ],
+      "keywords": [
+        "logistikdienstleistungen",
+        "transport",
+        "internationaler",
+        "lagerung",
+        "nationaler",
+        "güterbeförderung",
+        "spedition",
+        "und"
+      ]
+    },
+    {
+      "id": 17,
+      "true": "I",
+      "predicted": "I",
+      "top3": [
+        "I",
+        "S",
+        "G"
+      ],
+      "scores": [
+        0.6399749371945948,
+        0.5396378988772473,
+        0.4789006817083244
+      ],
+      "keywords": [
+        "catering",
+        "restaurants",
+        "gastronomie",
+        "firmenkunden",
+        "services",
+        "lieferservice",
+        "eventcatering",
+        "betrieb",
+        "für",
+        "und"
+      ]
+    },
+    {
+      "id": 18,
+      "true": "P",
+      "predicted": "P",
+      "top3": [
+        "P",
+        "M",
+        "J"
+      ],
+      "scores": [
+        0.6310306946060534,
+        0.4508220004777003,
+        0.413016631146738
+      ],
+      "keywords": [
+        "sprachkursen",
+        "berufsausbildungen",
+        "online",
+        "weiterbildungsmaßnahmen",
+        "erwachsene",
+        "angebot",
+        "für",
+        "präsenzkurse",
+        "und",
+        "von"
+      ]
+    },
+    {
+      "id": 19,
+      "true": "D",
+      "predicted": "D",
+      "top3": [
+        "D",
+        "C",
+        "E"
+      ],
+      "scores": [
+        0.5758842057008681,
+        0.39044791963273046,
+        0.36568866643348147
+      ],
+      "keywords": [
+        "photovoltaik",
+        "erneuerbaren",
+        "energiespeicherlösungen",
+        "energien",
+        "windkraft",
+        "industrie",
+        "verteilung",
+        "erzeugung"
+      ]
+    },
+    {
+      "id": 20,
+      "true": "C",
+      "predicted": "C",
+      "top3": [
+        "C",
+        "D",
+        "G"
+      ],
+      "scores": [
+        0.7849469681894179,
+        0.43583450694588843,
+        0.3953883546953531
+      ],
+      "keywords": [
+        "industriemaschinen",
+        "fertigungsindustrie",
+        "maschinenteilen",
+        "anlagen",
+        "herstellung",
+        "und",
+        "von",
+        "für",
+        "vertrieb"
+      ]
+    },
+    {
+      "id": 21,
+      "true": "C",
+      "predicted": "C",
+      "top3": [
+        "C",
+        "E",
+        "G"
+      ],
+      "scores": [
+        0.6460630623080655,
+        0.3276952752779398,
+        0.31841664559293825
+      ],
+      "keywords": [
+        "kunststoffprodukten",
+        "verpackungsmaterialien",
+        "pharmaindustrie",
+        "produktion",
+        "lebensmittel",
+        "für",
+        "und"
+      ]
+    },
+    {
+      "id": 22,
+      "true": "N",
+      "predicted": "N",
+      "top3": [
+        "N",
+        "T",
+        "E"
+      ],
+      "scores": [
+        0.5620667342829037,
+        0.5394549243675001,
+        0.534021917509133
+      ],
+      "keywords": [
+        "hausmeisterdienstleistungen",
+        "büro",
+        "management",
+        "reinigungs",
+        "wohngebäude",
+        "facility",
+        "erbringung",
+        "für",
+        "und",
+        "von"
+      ]
+    },
+    {
+      "id": 23,
+      "true": "R",
+      "predicted": "R",
+      "top3": [
+        "R",
+        "M",
+        "N"
+      ],
+      "scores": [
+        0.48210963996662315,
+        0.423741427716236,
+        0.3880629598321502
+      ],
+      "keywords": [
+        "fitness",
+        "sportveranstaltungen",
+        "training",
+        "organisation",
+        "kursen",
+        "personal",
+        "durchführung",
+        "privatpersonen",
+        "unternehmen",
+        "für"
+      ]
+    },
+    {
+      "id": 24,
+      "true": "A",
+      "predicted": "A",
+      "top3": [
+        "A",
+        "C",
+        "T"
+      ],
+      "scores": [
+        0.6938544822639029,
+        0.5268360345016926,
+        0.40928408152176726
+      ],
+      "keywords": [
+        "landwirtschaftlichen",
+        "forstwirtschaft",
+        "unternehmens",
+        "betrieb",
+        "und",
+        "sowie",
+        "gemüse",
+        "eines",
+        "von",
+        "obst"
+      ]
+    },
+    {
+      "id": 25,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "M",
+        "N"
+      ],
+      "scores": [
+        0.3971669524442289,
+        0.21103755367009258,
+        0.19660146976838358
+      ],
+      "keywords": [
+        "analytics",
+        "analysewerkzeugen",
+        "data",
+        "modellen",
+        "learning",
+        "machine",
+        "industrie",
+        "entwicklung",
+        "big",
+        "gestützten"
+      ]
+    },
+    {
+      "id": 26,
+      "true": "E",
+      "predicted": "E",
+      "top3": [
+        "E",
+        "H",
+        "C"
+      ],
+      "scores": [
+        0.7829038688129688,
+        0.48445276314320257,
+        0.3693249531595699
+      ],
+      "keywords": [
+        "abfallwirtschaft",
+        "recycling",
+        "umweltgerechte",
+        "entsorgungsdienstleistungen",
+        "industrie",
+        "entsorgung",
+        "sonderabfällen",
+        "und",
+        "von"
+      ]
+    },
+    {
+      "id": 27,
+      "true": "N",
+      "predicted": "S",
+      "top3": [
+        "S",
+        "O",
+        "N"
+      ],
+      "scores": [
+        0.488613191269782,
+        0.4882189558292543,
+        0.47524131039336276
+      ],
+      "keywords": [
+        "veranstaltungsschutz",
+        "sicherheitsdienstleistungen",
+        "personenschutz",
+        "objektschutz",
+        "erbringung",
+        "und",
+        "von"
+      ]
+    },
+    {
+      "id": 28,
+      "true": "S",
+      "predicted": "I",
+      "top3": [
+        "I",
+        "S",
+        "M"
+      ],
+      "scores": [
+        0.396475449121172,
+        0.3931463866311682,
+        0.34771815168990033
+      ],
+      "keywords": [
+        "friseursalons",
+        "kosmetikdienstleistungen",
+        "friseur",
+        "schönheitssalons",
+        "wellness",
+        "betrieb",
+        "angeboten",
+        "eines",
+        "und",
+        "mit"
+      ]
+    },
+    {
+      "id": 29,
+      "true": "B",
+      "predicted": "B",
+      "top3": [
+        "B",
+        "F",
+        "M"
+      ],
+      "scores": [
+        0.6040852444485508,
+        0.5507866596099423,
+        0.41200381329633445
+      ],
+      "keywords": [
+        "natursteinen",
+        "steinbrüchen",
+        "sand",
+        "kiesgruben",
+        "von",
+        "verarbeitung",
+        "betrieb",
+        "gewinnung",
+        "kies",
+        "und"
+      ]
+    }
+  ],
+  "full": [
+    {
+      "id": 0,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "N",
+        "S"
+      ],
+      "scores": [
+        0.7239632782437405,
+        0.5773261832662159,
+        0.5504838026248964
+      ],
+      "keywords": [
+        "internetservice",
+        "internet",
+        "informatikingenieurie",
+        "software",
+        "programmen",
+        "hosting",
+        "verbindung",
+        "entwicklung",
+        "leistungen",
+        "analyse"
+      ]
+    },
+    {
+      "id": 1,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "N",
+        "S"
+      ],
+      "scores": [
+        0.6671144611060025,
+        0.45227213740402933,
+        0.39053561608322523
+      ],
+      "keywords": [
+        "app",
+        "software",
+        "cloud",
+        "mobile",
+        "dienstleistungen",
+        "entwicklung",
+        "lösungen",
+        "integration",
+        "für",
+        "und"
+      ]
+    },
+    {
+      "id": 2,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "M",
+        "S"
+      ],
+      "scores": [
+        0.4618141392775402,
+        0.43325458371688175,
+        0.4276532931989179
+      ],
+      "keywords": [
+        "webentwicklung",
+        "marketing",
+        "online",
+        "dienstleistungen",
+        "seo",
+        "optimierung",
+        "kleine",
+        "erbringung",
+        "für",
+        "bereich"
+      ]
+    },
+    {
+      "id": 3,
+      "true": "M",
+      "predicted": "K",
+      "top3": [
+        "K",
+        "N",
+        "S"
+      ],
+      "scores": [
+        0.5159583187910615,
+        0.49370387679500116,
+        0.44835943760032215
+      ],
+      "keywords": [
+        "wirtschaftsprüfungsgesellschaften",
+        "berufsrechtlich",
+        "gesetzlich",
+        "zulässigen",
+        "steuerberatung",
+        "tätigkeiten",
+        "buchführung",
+        "gemäß",
+        "wpo",
+        "für"
+      ]
+    },
+    {
+      "id": 4,
+      "true": "M",
+      "predicted": "M",
+      "top3": [
+        "M",
+        "N",
+        "S"
+      ],
+      "scores": [
+        0.6482404187569878,
+        0.5632672112539551,
+        0.4405889036519062
+      ],
+      "keywords": [
+        "unternehmensberatung",
+        "managementberatung",
+        "organisationsentwicklung",
+        "branchen",
+        "mittelständische",
+        "für",
+        "unternehmen",
+        "und",
+        "aller"
+      ]
+    },
+    {
+      "id": 5,
+      "true": "M",
+      "predicted": "N",
+      "top3": [
+        "N",
+        "M",
+        "O"
+      ],
+      "scores": [
+        0.4702386623996549,
+        0.46984243894778605,
+        0.4577498209501643
+      ],
+      "keywords": [
+        "rechtsberatung",
+        "gesellschaftsrecht",
+        "anwaltliche",
+        "vertragsrecht",
+        "arbeitsrecht",
+        "vertretung",
+        "bereichen",
+        "den",
+        "und"
+      ]
+    },
+    {
+      "id": 6,
+      "true": "G",
+      "predicted": "G",
+      "top3": [
+        "G",
+        "L",
+        "T"
+      ],
+      "scores": [
+        0.7271628973908982,
+        0.5243483464947062,
+        0.5064540200589205
+      ],
+      "keywords": [
+        "einzelhandel",
+        "handel",
+        "heimtextilien",
+        "haushaltswaren",
+        "art",
+        "möbeln",
+        "insbesondere",
+        "wohnungseinrichtungen",
+        "und",
+        "mit"
+      ]
+    },
+    {
+      "id": 7,
+      "true": "G",
+      "predicted": "G",
+      "top3": [
+        "G",
+        "J",
+        "H"
+      ],
+      "scores": [
+        0.5232747026598521,
+        0.5153564410424676,
+        0.3814322329860526
+      ],
+      "keywords": [
+        "commerce",
+        "einzelhandel",
+        "großhandel",
+        "elektronik",
+        "mobiltelefonen",
+        "computern",
+        "plattform",
+        "und",
+        "mit",
+        "für"
+      ]
+    },
+    {
+      "id": 8,
+      "true": "G",
+      "predicted": "G",
+      "top3": [
+        "G",
+        "C",
+        "A"
+      ],
+      "scores": [
+        0.5734908818599345,
+        0.5037406949887095,
+        0.37867817873885856
+      ],
+      "keywords": [
+        "handel",
+        "import",
+        "export",
+        "lebensmitteln",
+        "produkten",
+        "feinkostwaren",
+        "internationalen",
+        "bio",
+        "insbesondere",
+        "mit"
+      ]
+    },
+    {
+      "id": 9,
+      "true": "F",
+      "predicted": "F",
+      "top3": [
+        "F",
+        "L",
+        "B"
+      ],
+      "scores": [
+        0.7318423019197928,
+        0.5078974029033465,
+        0.4843738436843503
+      ],
+      "keywords": [
+        "gewerbegebäuden",
+        "bauarbeiten",
+        "renovierung",
+        "sanierung",
+        "schlüsselfertigbau",
+        "tiefbau",
+        "wohn",
+        "allgemeine",
+        "von",
+        "und"
+      ]
+    },
+    {
+      "id": 10,
+      "true": "F",
+      "predicted": "D",
+      "top3": [
+        "D",
+        "F",
+        "L"
+      ],
+      "scores": [
+        0.6345110777323371,
+        0.5056965529272861,
+        0.487311040919935
+      ],
+      "keywords": [
+        "elektroinstallationen",
+        "sanitärarbeiten",
+        "heizungsanlagen",
+        "planung",
+        "ausführung",
+        "und",
+        "von",
+        "gewerbebau",
+        "wohnungs"
+      ]
+    },
+    {
+      "id": 11,
+      "true": "Q",
+      "predicted": "M",
+      "top3": [
+        "M",
+        "Q",
+        "F"
+      ],
+      "scores": [
+        0.289829504252468,
+        0.27633025088282276,
+        0.2113618969192671
+      ],
+      "keywords": [
+        "behandlungsmethoden",
+        "prophylaxe",
+        "zahnklinik",
+        "zahnimplantate",
+        "mit",
+        "und",
+        "modernen",
+        "kieferorthopädie",
+        "zahnbleaching"
+      ]
+    },
+    {
+      "id": 12,
+      "true": "Q",
+      "predicted": "N",
+      "top3": [
+        "N",
+        "Q",
+        "S"
+      ],
+      "scores": [
+        0.4722250663165527,
+        0.47197571173804703,
+        0.4577421829283111
+      ],
+      "keywords": [
+        "pflegeeinrichtung",
+        "pflege",
+        "rehabilitation",
+        "therapie",
+        "ältere",
+        "stationäre",
+        "ambulante",
+        "betrieb",
+        "für",
+        "menschen"
+      ]
+    },
+    {
+      "id": 13,
+      "true": "Q",
+      "predicted": "Q",
+      "top3": [
+        "Q",
+        "M",
+        "P"
+      ],
+      "scores": [
+        0.641135200077849,
+        0.47954263239587686,
+        0.44179890944524675
+      ],
+      "keywords": [
+        "allgemeinmedizin",
+        "hausärztliche",
+        "arztpraxis",
+        "medizin",
+        "präventivmedizin",
+        "versorgung",
+        "für",
+        "vorsorgeuntersuchungen",
+        "und",
+        "innere"
+      ]
+    },
+    {
+      "id": 14,
+      "true": "K",
+      "predicted": "K",
+      "top3": [
+        "K",
+        "N",
+        "M"
+      ],
+      "scores": [
+        0.7019047643408647,
+        0.4957799636523496,
+        0.4772035201537196
+      ],
+      "keywords": [
+        "kapitalanlageberatung",
+        "finanzdienstleistungen",
+        "vermögensberatung",
+        "versicherungsvermittlung",
+        "geschäftskunden",
+        "privat",
+        "erbringung",
+        "für",
+        "und",
+        "von"
+      ]
+    },
+    {
+      "id": 15,
+      "true": "L",
+      "predicted": "L",
+      "top3": [
+        "L",
+        "T",
+        "K"
+      ],
+      "scores": [
+        0.8141931151793833,
+        0.5647240909386768,
+        0.49224886617001
+      ],
+      "keywords": [
+        "immobilienbewertung",
+        "kauf",
+        "verkauf",
+        "kaufobjekten",
+        "verwaltung",
+        "vermittlung",
+        "und",
+        "immobilien",
+        "von",
+        "miet"
+      ]
+    },
+    {
+      "id": 16,
+      "true": "H",
+      "predicted": "H",
+      "top3": [
+        "H",
+        "G",
+        "S"
+      ],
+      "scores": [
+        0.7782381392341521,
+        0.5607610680846125,
+        0.5015156844689576
+      ],
+      "keywords": [
+        "logistikdienstleistungen",
+        "transport",
+        "lagerung",
+        "internationaler",
+        "güterbeförderung",
+        "und",
+        "spedition",
+        "nationaler"
+      ]
+    },
+    {
+      "id": 17,
+      "true": "I",
+      "predicted": "I",
+      "top3": [
+        "I",
+        "S",
+        "N"
+      ],
+      "scores": [
+        0.6473032491176429,
+        0.5492725611912613,
+        0.5211636443153556
+      ],
+      "keywords": [
+        "catering",
+        "restaurants",
+        "gastronomie",
+        "firmenkunden",
+        "services",
+        "lieferservice",
+        "betrieb",
+        "eventcatering",
+        "für",
+        "und"
+      ]
+    },
+    {
+      "id": 18,
+      "true": "P",
+      "predicted": "P",
+      "top3": [
+        "P",
+        "M",
+        "J"
+      ],
+      "scores": [
+        0.6511776926453502,
+        0.4945192876312885,
+        0.37995886727283146
+      ],
+      "keywords": [
+        "sprachkursen",
+        "berufsausbildungen",
+        "weiterbildungsmaßnahmen",
+        "online",
+        "erwachsene",
+        "angebot",
+        "für",
+        "und",
+        "präsenzkurse",
+        "von"
+      ]
+    },
+    {
+      "id": 19,
+      "true": "D",
+      "predicted": "D",
+      "top3": [
+        "D",
+        "C",
+        "E"
+      ],
+      "scores": [
+        0.6076016079802357,
+        0.4012643313300921,
+        0.3714486528472763
+      ],
+      "keywords": [
+        "erneuerbaren",
+        "photovoltaik",
+        "energiespeicherlösungen",
+        "energien",
+        "windkraft",
+        "industrie",
+        "verteilung",
+        "erzeugung",
+        "gewerbe",
+        "für"
+      ]
+    },
+    {
+      "id": 20,
+      "true": "C",
+      "predicted": "C",
+      "top3": [
+        "C",
+        "G",
+        "H"
+      ],
+      "scores": [
+        0.7539185664170213,
+        0.4471284313687241,
+        0.434173373088369
+      ],
+      "keywords": [
+        "industriemaschinen",
+        "fertigungsindustrie",
+        "maschinenteilen",
+        "anlagen",
+        "herstellung",
+        "und",
+        "von",
+        "für",
+        "vertrieb",
+        "die"
+      ]
+    },
+    {
+      "id": 21,
+      "true": "C",
+      "predicted": "C",
+      "top3": [
+        "C",
+        "G",
+        "E"
+      ],
+      "scores": [
+        0.6552797341087292,
+        0.3680906293639552,
+        0.35964813126441453
+      ],
+      "keywords": [
+        "kunststoffprodukten",
+        "verpackungsmaterialien",
+        "produktion",
+        "pharmaindustrie",
+        "lebensmittel",
+        "für",
+        "und",
+        "von"
+      ]
+    },
+    {
+      "id": 22,
+      "true": "N",
+      "predicted": "N",
+      "top3": [
+        "N",
+        "S",
+        "T"
+      ],
+      "scores": [
+        0.652577618337466,
+        0.6128278034027491,
+        0.5521433709461571
+      ],
+      "keywords": [
+        "hausmeisterdienstleistungen",
+        "management",
+        "büro",
+        "reinigungs",
+        "wohngebäude",
+        "facility",
+        "erbringung",
+        "für",
+        "und",
+        "von"
+      ]
+    },
+    {
+      "id": 23,
+      "true": "R",
+      "predicted": "R",
+      "top3": [
+        "R",
+        "M",
+        "N"
+      ],
+      "scores": [
+        0.47823946942311185,
+        0.4468763675582626,
+        0.40655264036549416
+      ],
+      "keywords": [
+        "sportveranstaltungen",
+        "fitness",
+        "training",
+        "organisation",
+        "kursen",
+        "durchführung",
+        "personal",
+        "unternehmen",
+        "für",
+        "und"
+      ]
+    },
+    {
+      "id": 24,
+      "true": "A",
+      "predicted": "A",
+      "top3": [
+        "A",
+        "C",
+        "T"
+      ],
+      "scores": [
+        0.7100485277773433,
+        0.4897567873109152,
+        0.43805803132806553
+      ],
+      "keywords": [
+        "landwirtschaftlichen",
+        "forstwirtschaft",
+        "unternehmens",
+        "betrieb",
+        "und",
+        "gemüse",
+        "von",
+        "eines",
+        "sowie",
+        "obst"
+      ]
+    },
+    {
+      "id": 25,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "M",
+        "N"
+      ],
+      "scores": [
+        0.44233322695424576,
+        0.2441132406617786,
+        0.22342357448803013
+      ],
+      "keywords": [
+        "analytics",
+        "analysewerkzeugen",
+        "data",
+        "modellen",
+        "learning",
+        "machine",
+        "industrie",
+        "entwicklung",
+        "gestützten",
+        "big"
+      ]
+    },
+    {
+      "id": 26,
+      "true": "E",
+      "predicted": "E",
+      "top3": [
+        "E",
+        "H",
+        "S"
+      ],
+      "scores": [
+        0.7996257147330755,
+        0.43935755343689076,
+        0.40885015685334564
+      ],
+      "keywords": [
+        "abfallwirtschaft",
+        "recycling",
+        "umweltgerechte",
+        "entsorgungsdienstleistungen",
+        "industrie",
+        "entsorgung",
+        "und",
+        "von",
+        "sonderabfällen"
+      ]
+    },
+    {
+      "id": 27,
+      "true": "N",
+      "predicted": "S",
+      "top3": [
+        "S",
+        "N",
+        "R"
+      ],
+      "scores": [
+        0.48094547642023583,
+        0.4657835263918145,
+        0.4506417025071977
+      ],
+      "keywords": [
+        "veranstaltungsschutz",
+        "personenschutz",
+        "sicherheitsdienstleistungen",
+        "objektschutz",
+        "erbringung",
+        "von",
+        "und"
+      ]
+    },
+    {
+      "id": 28,
+      "true": "S",
+      "predicted": "S",
+      "top3": [
+        "S",
+        "I",
+        "N"
+      ],
+      "scores": [
+        0.5205610737512641,
+        0.41864517527101186,
+        0.3904815892828187
+      ],
+      "keywords": [
+        "friseursalons",
+        "kosmetikdienstleistungen",
+        "friseur",
+        "schönheitssalons",
+        "wellness",
+        "betrieb",
+        "angeboten",
+        "eines",
+        "mit",
+        "und"
+      ]
+    },
+    {
+      "id": 29,
+      "true": "B",
+      "predicted": "B",
+      "top3": [
+        "B",
+        "F",
+        "C"
+      ],
+      "scores": [
+        0.6720980774122599,
+        0.4325524430798776,
+        0.3576896295697235
+      ],
+      "keywords": [
+        "natursteinen",
+        "steinbrüchen",
+        "sand",
+        "von",
+        "kiesgruben",
+        "betrieb",
+        "kies",
+        "gewinnung",
+        "und",
+        "verarbeitung"
+      ]
+    }
+  ]
+}

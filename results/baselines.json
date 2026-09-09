@@ -1,0 +1,189 @@
+{
+  "provenance": {
+    "generated_at": "2026-09-09T12:50:22+00:00",
+    "git_revision": "e011667",
+    "seed": 42,
+    "python": "3.9.6",
+    "embedding_model": "paraphrase-multilingual-MiniLM-L12-v2",
+    "eval_set_size": 30,
+    "eval_set_source": "curated_stratified_sample",
+    "eval_set_annotation": "semi-manual: domain expert keyword + sector heuristics"
+  },
+  "systems": [
+    {
+      "key": "random",
+      "label": "Random",
+      "description": "Uniform random sector ranking (seeded).",
+      "is_oracle": false,
+      "sector": {
+        "n": 30,
+        "top1_accuracy": 0.06666666666666667,
+        "top1_ci95": [
+          0.0,
+          0.16666666666666666
+        ],
+        "top3_accuracy": 0.26666666666666666,
+        "f1_macro": 0.0326530612244898,
+        "cohen_kappa": 0.009433962264150941
+      },
+      "keywords": {
+        "n_with_keyword_labels": 30,
+        "precision_at_3": 0.0,
+        "precision_at_5": 0.0,
+        "precision_at_10": 0.0
+      },
+      "p_value_vs_full": 4.76837158203125e-07,
+      "mcnemar_vs_full": {
+        "a_only_correct": 22,
+        "b_only_correct": 0,
+        "discordant": 22,
+        "p_value": 4.76837158203125e-07
+      }
+    },
+    {
+      "key": "majority",
+      "label": "Majority class (oracle floor)",
+      "description": "Always predicts the most frequent gold sector.",
+      "is_oracle": true,
+      "sector": {
+        "n": 30,
+        "top1_accuracy": 0.13333333333333333,
+        "top1_ci95": [
+          0.03333333333333333,
+          0.26666666666666666
+        ],
+        "top3_accuracy": 0.3333333333333333,
+        "f1_macro": 0.013071895424836602,
+        "cohen_kappa": 0.0
+      },
+      "keywords": {
+        "n_with_keyword_labels": 30,
+        "precision_at_3": 0.0,
+        "precision_at_5": 0.0,
+        "precision_at_10": 0.0
+      },
+      "p_value_vs_full": 1.9073486328125e-06,
+      "mcnemar_vs_full": {
+        "a_only_correct": 20,
+        "b_only_correct": 0,
+        "discordant": 20,
+        "p_value": 1.9073486328125e-06
+      }
+    },
+    {
+      "key": "tfidf-nace",
+      "label": "TF-IDF → nearest NACE section",
+      "description": "TF-IDF cosine between the text and a per-sector pseudo-document.",
+      "is_oracle": false,
+      "sector": {
+        "n": 30,
+        "top1_accuracy": 0.7666666666666667,
+        "top1_ci95": [
+          0.6,
+          0.9
+        ],
+        "top3_accuracy": 0.8,
+        "f1_macro": 0.6573099415204678,
+        "cohen_kappa": 0.7491039426523297
+      },
+      "keywords": {
+        "n_with_keyword_labels": 30,
+        "precision_at_3": 0.13333333333333333,
+        "precision_at_5": 0.14,
+        "precision_at_10": 0.13
+      },
+      "p_value_vs_full": 1.0,
+      "mcnemar_vs_full": {
+        "a_only_correct": 5,
+        "b_only_correct": 4,
+        "discordant": 9,
+        "p_value": 1.0
+      }
+    },
+    {
+      "key": "embed-zeroshot",
+      "label": "Zero-shot embeddings (no taxonomy guidance)",
+      "description": "Multilingual sentence embeddings against the sector description only; no seed keywords anywhere in the pipeline.",
+      "is_oracle": false,
+      "sector": {
+        "n": 30,
+        "top1_accuracy": 0.7333333333333333,
+        "top1_ci95": [
+          0.5666666666666667,
+          0.8666666666666667
+        ],
+        "top3_accuracy": 0.8666666666666667,
+        "f1_macro": 0.7444444444444445,
+        "cohen_kappa": 0.7142857142857142
+      },
+      "keywords": {
+        "n_with_keyword_labels": 30,
+        "precision_at_3": 0.4222222222222223,
+        "precision_at_5": 0.3266666666666667,
+        "precision_at_10": 0.21
+      },
+      "p_value_vs_full": 0.5,
+      "mcnemar_vs_full": {
+        "a_only_correct": 2,
+        "b_only_correct": 0,
+        "discordant": 2,
+        "p_value": 0.5
+      }
+    },
+    {
+      "key": "keybert-unguided",
+      "label": "Unguided KeyBERT",
+      "description": "Our pipeline with the taxonomy removed from keyword extraction: description-only sector vectors, plain KeyBERT keywords.",
+      "is_oracle": false,
+      "sector": {
+        "n": 30,
+        "top1_accuracy": 0.7333333333333333,
+        "top1_ci95": [
+          0.5666666666666667,
+          0.8666666666666667
+        ],
+        "top3_accuracy": 0.8666666666666667,
+        "f1_macro": 0.7444444444444445,
+        "cohen_kappa": 0.7142857142857142
+      },
+      "keywords": {
+        "n_with_keyword_labels": 30,
+        "precision_at_3": 0.4111111111111112,
+        "precision_at_5": 0.3266666666666667,
+        "precision_at_10": 0.2033333333333333
+      },
+      "p_value_vs_full": 0.5,
+      "mcnemar_vs_full": {
+        "a_only_correct": 2,
+        "b_only_correct": 0,
+        "discordant": 2,
+        "p_value": 0.5
+      }
+    },
+    {
+      "key": "full",
+      "label": "Ours: taxonomy-guided",
+      "description": "Sector vector = mean(description, seed list); KeyBERT guided by the predicted sector's seeds; six-stage filter.",
+      "is_oracle": false,
+      "sector": {
+        "n": 30,
+        "top1_accuracy": 0.8,
+        "top1_ci95": [
+          0.6333333333333333,
+          0.9333333333333333
+        ],
+        "top3_accuracy": 0.9666666666666667,
+        "f1_macro": 0.8314814814814815,
+        "cohen_kappa": 0.7857142857142857
+      },
+      "keywords": {
+        "n_with_keyword_labels": 30,
+        "precision_at_3": 0.38888888888888895,
+        "precision_at_5": 0.3333333333333333,
+        "precision_at_10": 0.2033333333333333
+      },
+      "p_value_vs_full": null
+    }
+  ],
+  "table_markdown": "| System | Top-1 | 95% CI | Top-3 | F1-macro | κ | P@5 | p vs. full |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| Random | 6.7% | [0.0, 16.7] | 26.7% | 0.033 | 0.009 | 0.000 | 0.000 |\n| *Majority class (oracle floor) | 13.3% | [3.3, 26.7] | 33.3% | 0.013 | 0.000 | 0.000 | 0.000 |\n| TF-IDF → nearest NACE section | 76.7% | [60.0, 90.0] | 80.0% | 0.657 | 0.749 | 0.140 | 1.000 |\n| Zero-shot embeddings (no taxonomy guidance) | 73.3% | [56.7, 86.7] | 86.7% | 0.744 | 0.714 | 0.327 | 0.500 |\n| Unguided KeyBERT | 73.3% | [56.7, 86.7] | 86.7% | 0.744 | 0.714 | 0.327 | 0.500 |\n| Ours: taxonomy-guided | 80.0% | [63.3, 93.3] | 96.7% | 0.831 | 0.786 | 0.333 | — |"
+}

@@ -1,0 +1,56 @@
+{
+  "seed": 42,
+  "pool_size": 1200,
+  "target": 300,
+  "selected": 296,
+  "per_sector": {
+    "A": 8,
+    "B": 7,
+    "C": 35,
+    "D": 11,
+    "E": 8,
+    "F": 12,
+    "G": 36,
+    "H": 13,
+    "I": 12,
+    "J": 17,
+    "K": 21,
+    "L": 25,
+    "M": 20,
+    "N": 22,
+    "O": 4,
+    "P": 6,
+    "Q": 5,
+    "R": 9,
+    "S": 12,
+    "T": 6,
+    "U": 7
+  },
+  "strata": {
+    "low_margin": 143,
+    "representative": 153
+  },
+  "ci_sizing_at_p_0.80": [
+    {
+      "n": 30,
+      "ci_halfwidth_pp": 14.3
+    },
+    {
+      "n": 100,
+      "ci_halfwidth_pp": 7.8
+    },
+    {
+      "n": 200,
+      "ci_halfwidth_pp": 5.5
+    },
+    {
+      "n": 300,
+      "ci_halfwidth_pp": 4.5
+    },
+    {
+      "n": 500,
+      "ci_halfwidth_pp": 3.5
+    }
+  ],
+  "note": "Stratified by PREDICTED sector; no gold label was used in selection. Fill in true_sector (a NACE section letter A–U) and keywords_ground_truth (pipe-separated) by hand, then merge with `python -m experiments.merge_annotations`."
+}

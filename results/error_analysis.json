@@ -1,0 +1,217 @@
+{
+  "system": "full",
+  "n_documents": 30,
+  "n_errors": 6,
+  "error_rate": 0.2,
+  "auto_flag_counts": {
+    "recoverable_in_top3": 5,
+    "low_margin": 4,
+    "crowded_top3": 2,
+    "outside_top3": 1
+  },
+  "codebook": {
+    "ambiguous_sector_definition": "The NACE section boundary itself is unclear for this business; two sections are defensible.",
+    "multi_sector_company": "The company genuinely operates in several sections; the gold label picks one.",
+    "taxonomy_granularity": "The correct activity sits in a NACE division whose parent section is counterintuitive (e.g. repair, holdings).",
+    "short_text": "Too little text to determine the sector.",
+    "boilerplate_only": "The purpose field is legal boilerplate (holding, asset management, participation) with no activity signal.",
+    "seed_gap": "The correct sector's seed list lacks the vocabulary in this text.",
+    "seed_leakage": "A wrong sector's seed list contains a term that dominates this text.",
+    "annotation_error": "The gold label is wrong; the prediction is defensible."
+  },
+  "manual_coding_complete": false,
+  "errors": [
+    {
+      "id": 3,
+      "legal_name": "Molkenthin GmbH WPG",
+      "purpose": "Die für Wirtschaftsprüfungsgesellschaften gesetzlich und berufsrechtlich zulässigen Tätigkeiten gemäß § 2 WPO. Steuerberatung und Buchführung.",
+      "text_length": 142,
+      "true_sector": "M",
+      "predicted_sector": "K",
+      "top3": [
+        "K",
+        "N",
+        "S"
+      ],
+      "score_top1": 0.5159583187910615,
+      "margin_top1_top2": 0.022254441996060303,
+      "keywords": [
+        "wirtschaftsprüfungsgesellschaften",
+        "berufsrechtlich",
+        "gesetzlich",
+        "zulässigen",
+        "steuerberatung",
+        "tätigkeiten",
+        "buchführung",
+        "gemäß",
+        "wpo",
+        "für"
+      ],
+      "auto_flags": [
+        "outside_top3"
+      ],
+      "manual_category": "",
+      "manual_note": ""
+    },
+    {
+      "id": 5,
+      "legal_name": "Kanzlei Müller",
+      "purpose": "Rechtsberatung und anwaltliche Vertretung in den Bereichen Gesellschaftsrecht, Vertragsrecht und Arbeitsrecht.",
+      "text_length": 110,
+      "true_sector": "M",
+      "predicted_sector": "N",
+      "top3": [
+        "N",
+        "M",
+        "O"
+      ],
+      "score_top1": 0.4702386623996549,
+      "margin_top1_top2": 0.000396223451868849,
+      "keywords": [
+        "rechtsberatung",
+        "gesellschaftsrecht",
+        "anwaltliche",
+        "vertragsrecht",
+        "arbeitsrecht",
+        "vertretung",
+        "bereichen",
+        "den",
+        "und"
+      ],
+      "auto_flags": [
+        "low_margin",
+        "crowded_top3",
+        "recoverable_in_top3"
+      ],
+      "manual_category": "",
+      "manual_note": ""
+    },
+    {
+      "id": 10,
+      "legal_name": "Haustechnik Meier",
+      "purpose": "Planung und Ausführung von Elektroinstallationen, Sanitärarbeiten und Heizungsanlagen im Wohnungs- und Gewerbebau.",
+      "text_length": 114,
+      "true_sector": "F",
+      "predicted_sector": "D",
+      "top3": [
+        "D",
+        "F",
+        "L"
+      ],
+      "score_top1": 0.6345110777323371,
+      "margin_top1_top2": 0.12881452480505096,
+      "keywords": [
+        "elektroinstallationen",
+        "sanitärarbeiten",
+        "heizungsanlagen",
+        "planung",
+        "ausführung",
+        "und",
+        "von",
+        "gewerbebau",
+        "wohnungs"
+      ],
+      "auto_flags": [
+        "recoverable_in_top3"
+      ],
+      "manual_category": "",
+      "manual_note": ""
+    },
+    {
+      "id": 11,
+      "legal_name": "Dental Smile Klinik",
+      "purpose": "Zahnklinik mit modernen Behandlungsmethoden: Zahnimplantate, Zahnbleaching, Prophylaxe und Kieferorthopädie.",
+      "text_length": 108,
+      "true_sector": "Q",
+      "predicted_sector": "M",
+      "top3": [
+        "M",
+        "Q",
+        "F"
+      ],
+      "score_top1": 0.289829504252468,
+      "margin_top1_top2": 0.013499253369645248,
+      "keywords": [
+        "behandlungsmethoden",
+        "prophylaxe",
+        "zahnklinik",
+        "zahnimplantate",
+        "mit",
+        "und",
+        "modernen",
+        "kieferorthopädie",
+        "zahnbleaching"
+      ],
+      "auto_flags": [
+        "low_margin",
+        "recoverable_in_top3"
+      ],
+      "manual_category": "",
+      "manual_note": ""
+    },
+    {
+      "id": 12,
+      "legal_name": "Pflegezentrum Nord",
+      "purpose": "Betrieb einer Pflegeeinrichtung für ältere Menschen. Ambulante und stationäre Pflege, Therapie und Rehabilitation.",
+      "text_length": 114,
+      "true_sector": "Q",
+      "predicted_sector": "N",
+      "top3": [
+        "N",
+        "Q",
+        "S"
+      ],
+      "score_top1": 0.4722250663165527,
+      "margin_top1_top2": 0.0002493545785056672,
+      "keywords": [
+        "pflegeeinrichtung",
+        "pflege",
+        "rehabilitation",
+        "therapie",
+        "ältere",
+        "stationäre",
+        "ambulante",
+        "betrieb",
+        "für",
+        "menschen"
+      ],
+      "auto_flags": [
+        "low_margin",
+        "crowded_top3",
+        "recoverable_in_top3"
+      ],
+      "manual_category": "",
+      "manual_note": ""
+    },
+    {
+      "id": 27,
+      "legal_name": "SecureGuard GmbH",
+      "purpose": "Erbringung von Sicherheitsdienstleistungen: Objektschutz, Personenschutz und Veranstaltungsschutz.",
+      "text_length": 98,
+      "true_sector": "N",
+      "predicted_sector": "S",
+      "top3": [
+        "S",
+        "N",
+        "R"
+      ],
+      "score_top1": 0.48094547642023583,
+      "margin_top1_top2": 0.015161950028421356,
+      "keywords": [
+        "veranstaltungsschutz",
+        "personenschutz",
+        "sicherheitsdienstleistungen",
+        "objektschutz",
+        "erbringung",
+        "von",
+        "und"
+      ],
+      "auto_flags": [
+        "low_margin",
+        "recoverable_in_top3"
+      ],
+      "manual_category": "",
+      "manual_note": ""
+    }
+  ]
+}

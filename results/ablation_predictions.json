@@ -1,0 +1,6369 @@
+{
+  "full": [
+    {
+      "id": 0,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "N",
+        "S"
+      ],
+      "scores": [
+        0.7239632782437405,
+        0.5773261832662159,
+        0.5504838026248964
+      ],
+      "keywords": [
+        "internetservice",
+        "internet",
+        "informatikingenieurie",
+        "software",
+        "programmen",
+        "hosting",
+        "verbindung",
+        "entwicklung",
+        "leistungen",
+        "analyse"
+      ]
+    },
+    {
+      "id": 1,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "N",
+        "S"
+      ],
+      "scores": [
+        0.6671144611060025,
+        0.45227213740402933,
+        0.39053561608322523
+      ],
+      "keywords": [
+        "app",
+        "software",
+        "cloud",
+        "mobile",
+        "dienstleistungen",
+        "entwicklung",
+        "lösungen",
+        "integration",
+        "für",
+        "und"
+      ]
+    },
+    {
+      "id": 2,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "M",
+        "S"
+      ],
+      "scores": [
+        0.4618141392775402,
+        0.43325458371688175,
+        0.4276532931989179
+      ],
+      "keywords": [
+        "webentwicklung",
+        "marketing",
+        "online",
+        "dienstleistungen",
+        "seo",
+        "optimierung",
+        "kleine",
+        "erbringung",
+        "für",
+        "bereich"
+      ]
+    },
+    {
+      "id": 3,
+      "true": "M",
+      "predicted": "K",
+      "top3": [
+        "K",
+        "N",
+        "S"
+      ],
+      "scores": [
+        0.5159583187910615,
+        0.49370387679500116,
+        0.44835943760032215
+      ],
+      "keywords": [
+        "wirtschaftsprüfungsgesellschaften",
+        "berufsrechtlich",
+        "gesetzlich",
+        "zulässigen",
+        "steuerberatung",
+        "tätigkeiten",
+        "buchführung",
+        "gemäß",
+        "wpo",
+        "für"
+      ]
+    },
+    {
+      "id": 4,
+      "true": "M",
+      "predicted": "M",
+      "top3": [
+        "M",
+        "N",
+        "S"
+      ],
+      "scores": [
+        0.6482404187569878,
+        0.5632672112539551,
+        0.4405889036519062
+      ],
+      "keywords": [
+        "unternehmensberatung",
+        "managementberatung",
+        "organisationsentwicklung",
+        "branchen",
+        "mittelständische",
+        "für",
+        "unternehmen",
+        "und",
+        "aller"
+      ]
+    },
+    {
+      "id": 5,
+      "true": "M",
+      "predicted": "N",
+      "top3": [
+        "N",
+        "M",
+        "O"
+      ],
+      "scores": [
+        0.4702386623996549,
+        0.46984243894778605,
+        0.4577498209501643
+      ],
+      "keywords": [
+        "rechtsberatung",
+        "gesellschaftsrecht",
+        "anwaltliche",
+        "vertragsrecht",
+        "arbeitsrecht",
+        "vertretung",
+        "bereichen",
+        "den",
+        "und"
+      ]
+    },
+    {
+      "id": 6,
+      "true": "G",
+      "predicted": "G",
+      "top3": [
+        "G",
+        "L",
+        "T"
+      ],
+      "scores": [
+        0.7271628973908982,
+        0.5243483464947062,
+        0.5064540200589205
+      ],
+      "keywords": [
+        "einzelhandel",
+        "handel",
+        "heimtextilien",
+        "haushaltswaren",
+        "art",
+        "möbeln",
+        "insbesondere",
+        "wohnungseinrichtungen",
+        "und",
+        "mit"
+      ]
+    },
+    {
+      "id": 7,
+      "true": "G",
+      "predicted": "G",
+      "top3": [
+        "G",
+        "J",
+        "H"
+      ],
+      "scores": [
+        0.5232747026598521,
+        0.5153564410424676,
+        0.3814322329860526
+      ],
+      "keywords": [
+        "commerce",
+        "einzelhandel",
+        "großhandel",
+        "elektronik",
+        "mobiltelefonen",
+        "computern",
+        "plattform",
+        "und",
+        "mit",
+        "für"
+      ]
+    },
+    {
+      "id": 8,
+      "true": "G",
+      "predicted": "G",
+      "top3": [
+        "G",
+        "C",
+        "A"
+      ],
+      "scores": [
+        0.5734908818599345,
+        0.5037406949887095,
+        0.37867817873885856
+      ],
+      "keywords": [
+        "handel",
+        "import",
+        "export",
+        "lebensmitteln",
+        "produkten",
+        "feinkostwaren",
+        "internationalen",
+        "bio",
+        "insbesondere",
+        "mit"
+      ]
+    },
+    {
+      "id": 9,
+      "true": "F",
+      "predicted": "F",
+      "top3": [
+        "F",
+        "L",
+        "B"
+      ],
+      "scores": [
+        0.7318423019197928,
+        0.5078974029033465,
+        0.4843738436843503
+      ],
+      "keywords": [
+        "gewerbegebäuden",
+        "bauarbeiten",
+        "renovierung",
+        "sanierung",
+        "schlüsselfertigbau",
+        "tiefbau",
+        "wohn",
+        "allgemeine",
+        "von",
+        "und"
+      ]
+    },
+    {
+      "id": 10,
+      "true": "F",
+      "predicted": "D",
+      "top3": [
+        "D",
+        "F",
+        "L"
+      ],
+      "scores": [
+        0.6345110777323371,
+        0.5056965529272861,
+        0.487311040919935
+      ],
+      "keywords": [
+        "elektroinstallationen",
+        "sanitärarbeiten",
+        "heizungsanlagen",
+        "planung",
+        "ausführung",
+        "und",
+        "von",
+        "gewerbebau",
+        "wohnungs"
+      ]
+    },
+    {
+      "id": 11,
+      "true": "Q",
+      "predicted": "M",
+      "top3": [
+        "M",
+        "Q",
+        "F"
+      ],
+      "scores": [
+        0.289829504252468,
+        0.27633025088282276,
+        0.2113618969192671
+      ],
+      "keywords": [
+        "behandlungsmethoden",
+        "prophylaxe",
+        "zahnklinik",
+        "zahnimplantate",
+        "mit",
+        "und",
+        "modernen",
+        "kieferorthopädie",
+        "zahnbleaching"
+      ]
+    },
+    {
+      "id": 12,
+      "true": "Q",
+      "predicted": "N",
+      "top3": [
+        "N",
+        "Q",
+        "S"
+      ],
+      "scores": [
+        0.4722250663165527,
+        0.47197571173804703,
+        0.4577421829283111
+      ],
+      "keywords": [
+        "pflegeeinrichtung",
+        "pflege",
+        "rehabilitation",
+        "therapie",
+        "ältere",
+        "stationäre",
+        "ambulante",
+        "betrieb",
+        "für",
+        "menschen"
+      ]
+    },
+    {
+      "id": 13,
+      "true": "Q",
+      "predicted": "Q",
+      "top3": [
+        "Q",
+        "M",
+        "P"
+      ],
+      "scores": [
+        0.641135200077849,
+        0.47954263239587686,
+        0.44179890944524675
+      ],
+      "keywords": [
+        "allgemeinmedizin",
+        "hausärztliche",
+        "arztpraxis",
+        "medizin",
+        "präventivmedizin",
+        "versorgung",
+        "für",
+        "vorsorgeuntersuchungen",
+        "und",
+        "innere"
+      ]
+    },
+    {
+      "id": 14,
+      "true": "K",
+      "predicted": "K",
+      "top3": [
+        "K",
+        "N",
+        "M"
+      ],
+      "scores": [
+        0.7019047643408647,
+        0.4957799636523496,
+        0.4772035201537196
+      ],
+      "keywords": [
+        "kapitalanlageberatung",
+        "finanzdienstleistungen",
+        "vermögensberatung",
+        "versicherungsvermittlung",
+        "geschäftskunden",
+        "privat",
+        "erbringung",
+        "für",
+        "und",
+        "von"
+      ]
+    },
+    {
+      "id": 15,
+      "true": "L",
+      "predicted": "L",
+      "top3": [
+        "L",
+        "T",
+        "K"
+      ],
+      "scores": [
+        0.8141931151793833,
+        0.5647240909386768,
+        0.49224886617001
+      ],
+      "keywords": [
+        "immobilienbewertung",
+        "kauf",
+        "verkauf",
+        "kaufobjekten",
+        "verwaltung",
+        "vermittlung",
+        "und",
+        "immobilien",
+        "von",
+        "miet"
+      ]
+    },
+    {
+      "id": 16,
+      "true": "H",
+      "predicted": "H",
+      "top3": [
+        "H",
+        "G",
+        "S"
+      ],
+      "scores": [
+        0.7782381392341521,
+        0.5607610680846125,
+        0.5015156844689576
+      ],
+      "keywords": [
+        "logistikdienstleistungen",
+        "transport",
+        "lagerung",
+        "internationaler",
+        "güterbeförderung",
+        "und",
+        "spedition",
+        "nationaler"
+      ]
+    },
+    {
+      "id": 17,
+      "true": "I",
+      "predicted": "I",
+      "top3": [
+        "I",
+        "S",
+        "N"
+      ],
+      "scores": [
+        0.6473032491176429,
+        0.5492725611912613,
+        0.5211636443153556
+      ],
+      "keywords": [
+        "catering",
+        "restaurants",
+        "gastronomie",
+        "firmenkunden",
+        "services",
+        "lieferservice",
+        "betrieb",
+        "eventcatering",
+        "für",
+        "und"
+      ]
+    },
+    {
+      "id": 18,
+      "true": "P",
+      "predicted": "P",
+      "top3": [
+        "P",
+        "M",
+        "J"
+      ],
+      "scores": [
+        0.6511776926453502,
+        0.4945192876312885,
+        0.37995886727283146
+      ],
+      "keywords": [
+        "sprachkursen",
+        "berufsausbildungen",
+        "weiterbildungsmaßnahmen",
+        "online",
+        "erwachsene",
+        "angebot",
+        "für",
+        "und",
+        "präsenzkurse",
+        "von"
+      ]
+    },
+    {
+      "id": 19,
+      "true": "D",
+      "predicted": "D",
+      "top3": [
+        "D",
+        "C",
+        "E"
+      ],
+      "scores": [
+        0.6076016079802357,
+        0.4012643313300921,
+        0.3714486528472763
+      ],
+      "keywords": [
+        "erneuerbaren",
+        "photovoltaik",
+        "energiespeicherlösungen",
+        "energien",
+        "windkraft",
+        "industrie",
+        "verteilung",
+        "erzeugung",
+        "gewerbe",
+        "für"
+      ]
+    },
+    {
+      "id": 20,
+      "true": "C",
+      "predicted": "C",
+      "top3": [
+        "C",
+        "G",
+        "H"
+      ],
+      "scores": [
+        0.7539185664170213,
+        0.4471284313687241,
+        0.434173373088369
+      ],
+      "keywords": [
+        "industriemaschinen",
+        "fertigungsindustrie",
+        "maschinenteilen",
+        "anlagen",
+        "herstellung",
+        "und",
+        "von",
+        "für",
+        "vertrieb",
+        "die"
+      ]
+    },
+    {
+      "id": 21,
+      "true": "C",
+      "predicted": "C",
+      "top3": [
+        "C",
+        "G",
+        "E"
+      ],
+      "scores": [
+        0.6552797341087292,
+        0.3680906293639552,
+        0.35964813126441453
+      ],
+      "keywords": [
+        "kunststoffprodukten",
+        "verpackungsmaterialien",
+        "produktion",
+        "pharmaindustrie",
+        "lebensmittel",
+        "für",
+        "und",
+        "von"
+      ]
+    },
+    {
+      "id": 22,
+      "true": "N",
+      "predicted": "N",
+      "top3": [
+        "N",
+        "S",
+        "T"
+      ],
+      "scores": [
+        0.652577618337466,
+        0.6128278034027491,
+        0.5521433709461571
+      ],
+      "keywords": [
+        "hausmeisterdienstleistungen",
+        "management",
+        "büro",
+        "reinigungs",
+        "wohngebäude",
+        "facility",
+        "erbringung",
+        "für",
+        "und",
+        "von"
+      ]
+    },
+    {
+      "id": 23,
+      "true": "R",
+      "predicted": "R",
+      "top3": [
+        "R",
+        "M",
+        "N"
+      ],
+      "scores": [
+        0.47823946942311185,
+        0.4468763675582626,
+        0.40655264036549416
+      ],
+      "keywords": [
+        "sportveranstaltungen",
+        "fitness",
+        "training",
+        "organisation",
+        "kursen",
+        "durchführung",
+        "personal",
+        "unternehmen",
+        "für",
+        "und"
+      ]
+    },
+    {
+      "id": 24,
+      "true": "A",
+      "predicted": "A",
+      "top3": [
+        "A",
+        "C",
+        "T"
+      ],
+      "scores": [
+        0.7100485277773433,
+        0.4897567873109152,
+        0.43805803132806553
+      ],
+      "keywords": [
+        "landwirtschaftlichen",
+        "forstwirtschaft",
+        "unternehmens",
+        "betrieb",
+        "und",
+        "gemüse",
+        "von",
+        "eines",
+        "sowie",
+        "obst"
+      ]
+    },
+    {
+      "id": 25,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "M",
+        "N"
+      ],
+      "scores": [
+        0.44233322695424576,
+        0.2441132406617786,
+        0.22342357448803013
+      ],
+      "keywords": [
+        "analytics",
+        "analysewerkzeugen",
+        "data",
+        "modellen",
+        "learning",
+        "machine",
+        "industrie",
+        "entwicklung",
+        "gestützten",
+        "big"
+      ]
+    },
+    {
+      "id": 26,
+      "true": "E",
+      "predicted": "E",
+      "top3": [
+        "E",
+        "H",
+        "S"
+      ],
+      "scores": [
+        0.7996257147330755,
+        0.43935755343689076,
+        0.40885015685334564
+      ],
+      "keywords": [
+        "abfallwirtschaft",
+        "recycling",
+        "umweltgerechte",
+        "entsorgungsdienstleistungen",
+        "industrie",
+        "entsorgung",
+        "und",
+        "von",
+        "sonderabfällen"
+      ]
+    },
+    {
+      "id": 27,
+      "true": "N",
+      "predicted": "S",
+      "top3": [
+        "S",
+        "N",
+        "R"
+      ],
+      "scores": [
+        0.48094547642023583,
+        0.4657835263918145,
+        0.4506417025071977
+      ],
+      "keywords": [
+        "veranstaltungsschutz",
+        "personenschutz",
+        "sicherheitsdienstleistungen",
+        "objektschutz",
+        "erbringung",
+        "von",
+        "und"
+      ]
+    },
+    {
+      "id": 28,
+      "true": "S",
+      "predicted": "S",
+      "top3": [
+        "S",
+        "I",
+        "N"
+      ],
+      "scores": [
+        0.5205610737512641,
+        0.41864517527101186,
+        0.3904815892828187
+      ],
+      "keywords": [
+        "friseursalons",
+        "kosmetikdienstleistungen",
+        "friseur",
+        "schönheitssalons",
+        "wellness",
+        "betrieb",
+        "angeboten",
+        "eines",
+        "mit",
+        "und"
+      ]
+    },
+    {
+      "id": 29,
+      "true": "B",
+      "predicted": "B",
+      "top3": [
+        "B",
+        "F",
+        "C"
+      ],
+      "scores": [
+        0.6720980774122599,
+        0.4325524430798776,
+        0.3576896295697235
+      ],
+      "keywords": [
+        "natursteinen",
+        "steinbrüchen",
+        "sand",
+        "von",
+        "kiesgruben",
+        "betrieb",
+        "kies",
+        "gewinnung",
+        "und",
+        "verarbeitung"
+      ]
+    }
+  ],
+  "no-seed-vector": [
+    {
+      "id": 0,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "S",
+        "N"
+      ],
+      "scores": [
+        0.6887976509642657,
+        0.5193231508135189,
+        0.5119389974143421
+      ],
+      "keywords": [
+        "internetservice",
+        "internet",
+        "informatikingenieurie",
+        "software",
+        "programmen",
+        "hosting",
+        "verbindung",
+        "entwicklung",
+        "leistungen",
+        "analyse"
+      ]
+    },
+    {
+      "id": 1,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "N",
+        "S"
+      ],
+      "scores": [
+        0.689603833568389,
+        0.4477448994970006,
+        0.405471601639479
+      ],
+      "keywords": [
+        "app",
+        "software",
+        "cloud",
+        "mobile",
+        "dienstleistungen",
+        "entwicklung",
+        "lösungen",
+        "integration",
+        "für",
+        "und"
+      ]
+    },
+    {
+      "id": 2,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "S",
+        "N"
+      ],
+      "scores": [
+        0.4334736549563909,
+        0.4311609130675118,
+        0.3695805112171187
+      ],
+      "keywords": [
+        "webentwicklung",
+        "marketing",
+        "online",
+        "dienstleistungen",
+        "seo",
+        "optimierung",
+        "kleine",
+        "erbringung",
+        "für",
+        "bereich"
+      ]
+    },
+    {
+      "id": 3,
+      "true": "M",
+      "predicted": "K",
+      "top3": [
+        "K",
+        "T",
+        "N"
+      ],
+      "scores": [
+        0.5473685584962962,
+        0.4841952842391837,
+        0.47758088438857
+      ],
+      "keywords": [
+        "wirtschaftsprüfungsgesellschaften",
+        "berufsrechtlich",
+        "gesetzlich",
+        "zulässigen",
+        "steuerberatung",
+        "tätigkeiten",
+        "buchführung",
+        "gemäß",
+        "wpo",
+        "für"
+      ]
+    },
+    {
+      "id": 4,
+      "true": "M",
+      "predicted": "M",
+      "top3": [
+        "M",
+        "N",
+        "C"
+      ],
+      "scores": [
+        0.5032665859340261,
+        0.4919948748330226,
+        0.4034789087336628
+      ],
+      "keywords": [
+        "unternehmensberatung",
+        "managementberatung",
+        "organisationsentwicklung",
+        "branchen",
+        "mittelständische",
+        "für",
+        "unternehmen",
+        "und",
+        "aller"
+      ]
+    },
+    {
+      "id": 5,
+      "true": "M",
+      "predicted": "N",
+      "top3": [
+        "N",
+        "U",
+        "O"
+      ],
+      "scores": [
+        0.4717543180360537,
+        0.44206768377731637,
+        0.4398060903720868
+      ],
+      "keywords": [
+        "rechtsberatung",
+        "gesellschaftsrecht",
+        "anwaltliche",
+        "vertragsrecht",
+        "arbeitsrecht",
+        "vertretung",
+        "bereichen",
+        "den",
+        "und"
+      ]
+    },
+    {
+      "id": 6,
+      "true": "G",
+      "predicted": "G",
+      "top3": [
+        "G",
+        "L",
+        "T"
+      ],
+      "scores": [
+        0.7267398273178072,
+        0.501538885275671,
+        0.4646371634762285
+      ],
+      "keywords": [
+        "einzelhandel",
+        "handel",
+        "heimtextilien",
+        "haushaltswaren",
+        "art",
+        "möbeln",
+        "insbesondere",
+        "wohnungseinrichtungen",
+        "und",
+        "mit"
+      ]
+    },
+    {
+      "id": 7,
+      "true": "G",
+      "predicted": "G",
+      "top3": [
+        "G",
+        "J",
+        "C"
+      ],
+      "scores": [
+        0.4963359336463208,
+        0.4914172240596113,
+        0.36166137020185984
+      ],
+      "keywords": [
+        "commerce",
+        "einzelhandel",
+        "großhandel",
+        "elektronik",
+        "mobiltelefonen",
+        "computern",
+        "plattform",
+        "und",
+        "mit",
+        "für"
+      ]
+    },
+    {
+      "id": 8,
+      "true": "G",
+      "predicted": "G",
+      "top3": [
+        "G",
+        "C",
+        "A"
+      ],
+      "scores": [
+        0.5902617328559199,
+        0.522868633094222,
+        0.37368524883331045
+      ],
+      "keywords": [
+        "handel",
+        "import",
+        "export",
+        "lebensmitteln",
+        "produkten",
+        "feinkostwaren",
+        "internationalen",
+        "bio",
+        "insbesondere",
+        "mit"
+      ]
+    },
+    {
+      "id": 9,
+      "true": "F",
+      "predicted": "F",
+      "top3": [
+        "F",
+        "M",
+        "C"
+      ],
+      "scores": [
+        0.8169310742732406,
+        0.5475962139980015,
+        0.4828082675087061
+      ],
+      "keywords": [
+        "gewerbegebäuden",
+        "bauarbeiten",
+        "renovierung",
+        "sanierung",
+        "schlüsselfertigbau",
+        "tiefbau",
+        "wohn",
+        "allgemeine",
+        "von",
+        "und"
+      ]
+    },
+    {
+      "id": 10,
+      "true": "F",
+      "predicted": "D",
+      "top3": [
+        "D",
+        "C",
+        "E"
+      ],
+      "scores": [
+        0.6179496850604121,
+        0.4791111990073517,
+        0.46764801514638255
+      ],
+      "keywords": [
+        "elektroinstallationen",
+        "sanitärarbeiten",
+        "heizungsanlagen",
+        "planung",
+        "ausführung",
+        "und",
+        "von",
+        "gewerbebau",
+        "wohnungs"
+      ]
+    },
+    {
+      "id": 11,
+      "true": "Q",
+      "predicted": "M",
+      "top3": [
+        "M",
+        "F",
+        "S"
+      ],
+      "scores": [
+        0.2636021059088853,
+        0.21168308017170273,
+        0.17037789581846666
+      ],
+      "keywords": [
+        "behandlungsmethoden",
+        "prophylaxe",
+        "zahnklinik",
+        "zahnimplantate",
+        "mit",
+        "und",
+        "modernen",
+        "kieferorthopädie",
+        "zahnbleaching"
+      ]
+    },
+    {
+      "id": 12,
+      "true": "Q",
+      "predicted": "N",
+      "top3": [
+        "N",
+        "Q",
+        "S"
+      ],
+      "scores": [
+        0.4351782931981025,
+        0.40222948607571124,
+        0.3534827941519519
+      ],
+      "keywords": [
+        "pflegeeinrichtung",
+        "pflege",
+        "rehabilitation",
+        "therapie",
+        "ältere",
+        "stationäre",
+        "ambulante",
+        "betrieb",
+        "für",
+        "menschen"
+      ]
+    },
+    {
+      "id": 13,
+      "true": "Q",
+      "predicted": "M",
+      "top3": [
+        "M",
+        "F",
+        "Q"
+      ],
+      "scores": [
+        0.5449905043138186,
+        0.5420692908963703,
+        0.5089819968465945
+      ],
+      "keywords": [
+        "hausärztliche",
+        "allgemeinmedizin",
+        "arztpraxis",
+        "vorsorgeuntersuchungen",
+        "versorgung",
+        "medizin",
+        "für",
+        "präventivmedizin",
+        "und",
+        "innere"
+      ]
+    },
+    {
+      "id": 14,
+      "true": "K",
+      "predicted": "K",
+      "top3": [
+        "K",
+        "N",
+        "S"
+      ],
+      "scores": [
+        0.630409402016388,
+        0.4529032435211774,
+        0.42463478567880175
+      ],
+      "keywords": [
+        "kapitalanlageberatung",
+        "finanzdienstleistungen",
+        "vermögensberatung",
+        "versicherungsvermittlung",
+        "geschäftskunden",
+        "privat",
+        "erbringung",
+        "für",
+        "und",
+        "von"
+      ]
+    },
+    {
+      "id": 15,
+      "true": "L",
+      "predicted": "L",
+      "top3": [
+        "L",
+        "T",
+        "K"
+      ],
+      "scores": [
+        0.8062181735881677,
+        0.4910011986737456,
+        0.448244898369878
+      ],
+      "keywords": [
+        "immobilienbewertung",
+        "kauf",
+        "verkauf",
+        "kaufobjekten",
+        "verwaltung",
+        "vermittlung",
+        "und",
+        "immobilien",
+        "von",
+        "miet"
+      ]
+    },
+    {
+      "id": 16,
+      "true": "H",
+      "predicted": "H",
+      "top3": [
+        "H",
+        "G",
+        "C"
+      ],
+      "scores": [
+        0.6742208310691709,
+        0.5688596581762103,
+        0.49746935298202893
+      ],
+      "keywords": [
+        "logistikdienstleistungen",
+        "transport",
+        "lagerung",
+        "internationaler",
+        "güterbeförderung",
+        "und",
+        "spedition",
+        "nationaler"
+      ]
+    },
+    {
+      "id": 17,
+      "true": "I",
+      "predicted": "I",
+      "top3": [
+        "I",
+        "S",
+        "G"
+      ],
+      "scores": [
+        0.6399749371945948,
+        0.5396378988772473,
+        0.4789006817083244
+      ],
+      "keywords": [
+        "catering",
+        "restaurants",
+        "gastronomie",
+        "firmenkunden",
+        "services",
+        "lieferservice",
+        "betrieb",
+        "eventcatering",
+        "für",
+        "und"
+      ]
+    },
+    {
+      "id": 18,
+      "true": "P",
+      "predicted": "P",
+      "top3": [
+        "P",
+        "M",
+        "J"
+      ],
+      "scores": [
+        0.6310306946060534,
+        0.4508220004777003,
+        0.413016631146738
+      ],
+      "keywords": [
+        "sprachkursen",
+        "berufsausbildungen",
+        "weiterbildungsmaßnahmen",
+        "online",
+        "erwachsene",
+        "angebot",
+        "für",
+        "und",
+        "präsenzkurse",
+        "von"
+      ]
+    },
+    {
+      "id": 19,
+      "true": "D",
+      "predicted": "D",
+      "top3": [
+        "D",
+        "C",
+        "E"
+      ],
+      "scores": [
+        0.5758842057008681,
+        0.39044791963273046,
+        0.36568866643348147
+      ],
+      "keywords": [
+        "erneuerbaren",
+        "photovoltaik",
+        "energiespeicherlösungen",
+        "energien",
+        "windkraft",
+        "industrie",
+        "verteilung",
+        "erzeugung",
+        "gewerbe",
+        "für"
+      ]
+    },
+    {
+      "id": 20,
+      "true": "C",
+      "predicted": "C",
+      "top3": [
+        "C",
+        "D",
+        "G"
+      ],
+      "scores": [
+        0.7849469681894179,
+        0.43583450694588843,
+        0.3953883546953531
+      ],
+      "keywords": [
+        "industriemaschinen",
+        "fertigungsindustrie",
+        "maschinenteilen",
+        "anlagen",
+        "herstellung",
+        "und",
+        "von",
+        "für",
+        "vertrieb",
+        "die"
+      ]
+    },
+    {
+      "id": 21,
+      "true": "C",
+      "predicted": "C",
+      "top3": [
+        "C",
+        "E",
+        "G"
+      ],
+      "scores": [
+        0.6460630623080655,
+        0.3276952752779398,
+        0.31841664559293825
+      ],
+      "keywords": [
+        "kunststoffprodukten",
+        "verpackungsmaterialien",
+        "produktion",
+        "pharmaindustrie",
+        "lebensmittel",
+        "für",
+        "und",
+        "von"
+      ]
+    },
+    {
+      "id": 22,
+      "true": "N",
+      "predicted": "N",
+      "top3": [
+        "N",
+        "T",
+        "E"
+      ],
+      "scores": [
+        0.5620667342829037,
+        0.5394549243675001,
+        0.534021917509133
+      ],
+      "keywords": [
+        "hausmeisterdienstleistungen",
+        "management",
+        "büro",
+        "reinigungs",
+        "wohngebäude",
+        "facility",
+        "erbringung",
+        "für",
+        "und",
+        "von"
+      ]
+    },
+    {
+      "id": 23,
+      "true": "R",
+      "predicted": "R",
+      "top3": [
+        "R",
+        "M",
+        "N"
+      ],
+      "scores": [
+        0.48210963996662315,
+        0.423741427716236,
+        0.3880629598321502
+      ],
+      "keywords": [
+        "sportveranstaltungen",
+        "fitness",
+        "training",
+        "organisation",
+        "kursen",
+        "durchführung",
+        "personal",
+        "unternehmen",
+        "für",
+        "und"
+      ]
+    },
+    {
+      "id": 24,
+      "true": "A",
+      "predicted": "A",
+      "top3": [
+        "A",
+        "C",
+        "T"
+      ],
+      "scores": [
+        0.6938544822639029,
+        0.5268360345016926,
+        0.40928408152176726
+      ],
+      "keywords": [
+        "landwirtschaftlichen",
+        "forstwirtschaft",
+        "unternehmens",
+        "betrieb",
+        "und",
+        "gemüse",
+        "von",
+        "eines",
+        "sowie",
+        "obst"
+      ]
+    },
+    {
+      "id": 25,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "M",
+        "N"
+      ],
+      "scores": [
+        0.3971669524442289,
+        0.21103755367009258,
+        0.19660146976838358
+      ],
+      "keywords": [
+        "analytics",
+        "analysewerkzeugen",
+        "data",
+        "modellen",
+        "learning",
+        "machine",
+        "industrie",
+        "entwicklung",
+        "gestützten",
+        "big"
+      ]
+    },
+    {
+      "id": 26,
+      "true": "E",
+      "predicted": "E",
+      "top3": [
+        "E",
+        "H",
+        "C"
+      ],
+      "scores": [
+        0.7829038688129688,
+        0.48445276314320257,
+        0.3693249531595699
+      ],
+      "keywords": [
+        "abfallwirtschaft",
+        "recycling",
+        "umweltgerechte",
+        "entsorgungsdienstleistungen",
+        "industrie",
+        "entsorgung",
+        "und",
+        "von",
+        "sonderabfällen"
+      ]
+    },
+    {
+      "id": 27,
+      "true": "N",
+      "predicted": "S",
+      "top3": [
+        "S",
+        "O",
+        "N"
+      ],
+      "scores": [
+        0.488613191269782,
+        0.4882189558292543,
+        0.47524131039336276
+      ],
+      "keywords": [
+        "veranstaltungsschutz",
+        "personenschutz",
+        "sicherheitsdienstleistungen",
+        "objektschutz",
+        "erbringung",
+        "von",
+        "und"
+      ]
+    },
+    {
+      "id": 28,
+      "true": "S",
+      "predicted": "I",
+      "top3": [
+        "I",
+        "S",
+        "M"
+      ],
+      "scores": [
+        0.396475449121172,
+        0.3931463866311682,
+        0.34771815168990033
+      ],
+      "keywords": [
+        "friseursalons",
+        "kosmetikdienstleistungen",
+        "friseur",
+        "schönheitssalons",
+        "wellness",
+        "angeboten",
+        "betrieb",
+        "eines",
+        "mit",
+        "und"
+      ]
+    },
+    {
+      "id": 29,
+      "true": "B",
+      "predicted": "B",
+      "top3": [
+        "B",
+        "F",
+        "M"
+      ],
+      "scores": [
+        0.6040852444485508,
+        0.5507866596099423,
+        0.41200381329633445
+      ],
+      "keywords": [
+        "natursteinen",
+        "steinbrüchen",
+        "sand",
+        "von",
+        "kiesgruben",
+        "betrieb",
+        "kies",
+        "gewinnung",
+        "und",
+        "verarbeitung"
+      ]
+    }
+  ],
+  "no-desc-vector": [
+    {
+      "id": 0,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "N",
+        "M"
+      ],
+      "scores": [
+        0.6842830973961485,
+        0.5369926772460678,
+        0.4911004112300978
+      ],
+      "keywords": [
+        "internetservice",
+        "internet",
+        "informatikingenieurie",
+        "software",
+        "programmen",
+        "hosting",
+        "verbindung",
+        "entwicklung",
+        "leistungen",
+        "analyse"
+      ]
+    },
+    {
+      "id": 1,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "M",
+        "N"
+      ],
+      "scores": [
+        0.5832121069929614,
+        0.38509586442925897,
+        0.3702037817094371
+      ],
+      "keywords": [
+        "app",
+        "software",
+        "cloud",
+        "mobile",
+        "dienstleistungen",
+        "entwicklung",
+        "lösungen",
+        "integration",
+        "für",
+        "und"
+      ]
+    },
+    {
+      "id": 2,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "M",
+        "N"
+      ],
+      "scores": [
+        0.441597451357331,
+        0.43481386739654293,
+        0.3799886745953387
+      ],
+      "keywords": [
+        "webentwicklung",
+        "marketing",
+        "online",
+        "dienstleistungen",
+        "seo",
+        "optimierung",
+        "kleine",
+        "erbringung",
+        "für",
+        "bereich"
+      ]
+    },
+    {
+      "id": 3,
+      "true": "M",
+      "predicted": "N",
+      "top3": [
+        "N",
+        "M",
+        "O"
+      ],
+      "scores": [
+        0.4162023014027681,
+        0.4015499985564935,
+        0.3692775408253575
+      ],
+      "keywords": [
+        "wirtschaftsprüfungsgesellschaften",
+        "berufsrechtlich",
+        "steuerberatung",
+        "gesetzlich",
+        "zulässigen",
+        "tätigkeiten",
+        "buchführung",
+        "wpo",
+        "gemäß",
+        "für"
+      ]
+    },
+    {
+      "id": 4,
+      "true": "M",
+      "predicted": "M",
+      "top3": [
+        "M",
+        "N",
+        "C"
+      ],
+      "scores": [
+        0.6815423728843528,
+        0.5319978296777091,
+        0.37592110052523764
+      ],
+      "keywords": [
+        "unternehmensberatung",
+        "managementberatung",
+        "organisationsentwicklung",
+        "branchen",
+        "mittelständische",
+        "für",
+        "unternehmen",
+        "und",
+        "aller"
+      ]
+    },
+    {
+      "id": 5,
+      "true": "M",
+      "predicted": "M",
+      "top3": [
+        "M",
+        "O",
+        "N"
+      ],
+      "scores": [
+        0.48687692812825123,
+        0.382795753691987,
+        0.37818435246382215
+      ],
+      "keywords": [
+        "rechtsberatung",
+        "gesellschaftsrecht",
+        "anwaltliche",
+        "vertragsrecht",
+        "arbeitsrecht",
+        "vertretung",
+        "bereichen",
+        "den",
+        "und"
+      ]
+    },
+    {
+      "id": 6,
+      "true": "G",
+      "predicted": "G",
+      "top3": [
+        "G",
+        "H",
+        "C"
+      ],
+      "scores": [
+        0.569059283687538,
+        0.4869518581947599,
+        0.4635065879093869
+      ],
+      "keywords": [
+        "einzelhandel",
+        "handel",
+        "heimtextilien",
+        "haushaltswaren",
+        "art",
+        "möbeln",
+        "insbesondere",
+        "wohnungseinrichtungen",
+        "und",
+        "mit"
+      ]
+    },
+    {
+      "id": 7,
+      "true": "G",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "G",
+        "C"
+      ],
+      "scores": [
+        0.4861668634485593,
+        0.43660558628789586,
+        0.36815410893518175
+      ],
+      "keywords": [
+        "elektronik",
+        "commerce",
+        "mobiltelefonen",
+        "computern",
+        "einzelhandel",
+        "großhandel",
+        "plattform",
+        "mit",
+        "und",
+        "für"
+      ]
+    },
+    {
+      "id": 8,
+      "true": "G",
+      "predicted": "C",
+      "top3": [
+        "C",
+        "G",
+        "H"
+      ],
+      "scores": [
+        0.47293614934348815,
+        0.43139328378946573,
+        0.35651830734131373
+      ],
+      "keywords": [
+        "import",
+        "lebensmitteln",
+        "export",
+        "produkten",
+        "feinkostwaren",
+        "handel",
+        "internationalen",
+        "bio",
+        "insbesondere",
+        "mit"
+      ]
+    },
+    {
+      "id": 9,
+      "true": "F",
+      "predicted": "F",
+      "top3": [
+        "F",
+        "L",
+        "R"
+      ],
+      "scores": [
+        0.6155981448727763,
+        0.5767488887191566,
+        0.4973167616797128
+      ],
+      "keywords": [
+        "gewerbegebäuden",
+        "bauarbeiten",
+        "renovierung",
+        "sanierung",
+        "schlüsselfertigbau",
+        "tiefbau",
+        "wohn",
+        "allgemeine",
+        "von",
+        "und"
+      ]
+    },
+    {
+      "id": 10,
+      "true": "F",
+      "predicted": "D",
+      "top3": [
+        "D",
+        "F",
+        "C"
+      ],
+      "scores": [
+        0.605073567552597,
+        0.5186802225394974,
+        0.46543395251768843
+      ],
+      "keywords": [
+        "elektroinstallationen",
+        "sanitärarbeiten",
+        "heizungsanlagen",
+        "planung",
+        "ausführung",
+        "und",
+        "von",
+        "gewerbebau",
+        "wohnungs"
+      ]
+    },
+    {
+      "id": 11,
+      "true": "Q",
+      "predicted": "Q",
+      "top3": [
+        "Q",
+        "M",
+        "F"
+      ],
+      "scores": [
+        0.32428906598611884,
+        0.26784518902966875,
+        0.1935976231988873
+      ],
+      "keywords": [
+        "behandlungsmethoden",
+        "zahnklinik",
+        "prophylaxe",
+        "zahnimplantate",
+        "mit",
+        "und",
+        "modernen",
+        "kieferorthopädie",
+        "zahnbleaching"
+      ]
+    },
+    {
+      "id": 12,
+      "true": "Q",
+      "predicted": "S",
+      "top3": [
+        "S",
+        "N",
+        "Q"
+      ],
+      "scores": [
+        0.4596959917458903,
+        0.42146864089740965,
+        0.41561768018185985
+      ],
+      "keywords": [
+        "pflegeeinrichtung",
+        "pflege",
+        "rehabilitation",
+        "therapie",
+        "ältere",
+        "stationäre",
+        "ambulante",
+        "betrieb",
+        "menschen",
+        "für"
+      ]
+    },
+    {
+      "id": 13,
+      "true": "Q",
+      "predicted": "Q",
+      "top3": [
+        "Q",
+        "S",
+        "T"
+      ],
+      "scores": [
+        0.6027102721149706,
+        0.43497869696086666,
+        0.4060237459852564
+      ],
+      "keywords": [
+        "allgemeinmedizin",
+        "hausärztliche",
+        "arztpraxis",
+        "medizin",
+        "präventivmedizin",
+        "versorgung",
+        "für",
+        "vorsorgeuntersuchungen",
+        "und",
+        "innere"
+      ]
+    },
+    {
+      "id": 14,
+      "true": "K",
+      "predicted": "K",
+      "top3": [
+        "K",
+        "M",
+        "N"
+      ],
+      "scores": [
+        0.5991546965209832,
+        0.5495907492595318,
+        0.44679570961747556
+      ],
+      "keywords": [
+        "kapitalanlageberatung",
+        "finanzdienstleistungen",
+        "vermögensberatung",
+        "versicherungsvermittlung",
+        "geschäftskunden",
+        "privat",
+        "erbringung",
+        "für",
+        "und",
+        "von"
+      ]
+    },
+    {
+      "id": 15,
+      "true": "L",
+      "predicted": "L",
+      "top3": [
+        "L",
+        "T",
+        "S"
+      ],
+      "scores": [
+        0.5929468479560988,
+        0.5093951871080024,
+        0.5031927659982074
+      ],
+      "keywords": [
+        "immobilienbewertung",
+        "kauf",
+        "verkauf",
+        "kaufobjekten",
+        "verwaltung",
+        "vermittlung",
+        "und",
+        "immobilien",
+        "von",
+        "miet"
+      ]
+    },
+    {
+      "id": 16,
+      "true": "H",
+      "predicted": "H",
+      "top3": [
+        "H",
+        "N",
+        "G"
+      ],
+      "scores": [
+        0.709960448785848,
+        0.47365884993570617,
+        0.4302639952439124
+      ],
+      "keywords": [
+        "logistikdienstleistungen",
+        "transport",
+        "lagerung",
+        "internationaler",
+        "güterbeförderung",
+        "und",
+        "spedition",
+        "nationaler"
+      ]
+    },
+    {
+      "id": 17,
+      "true": "I",
+      "predicted": "N",
+      "top3": [
+        "N",
+        "I",
+        "C"
+      ],
+      "scores": [
+        0.48185407925557494,
+        0.4584511138183618,
+        0.43024356389672813
+      ],
+      "keywords": [
+        "catering",
+        "services",
+        "gastronomie",
+        "restaurants",
+        "firmenkunden",
+        "betrieb",
+        "lieferservice",
+        "eventcatering",
+        "für",
+        "und"
+      ]
+    },
+    {
+      "id": 18,
+      "true": "P",
+      "predicted": "P",
+      "top3": [
+        "P",
+        "M",
+        "J"
+      ],
+      "scores": [
+        0.5555123629036188,
+        0.4560025664881729,
+        0.31471004969003735
+      ],
+      "keywords": [
+        "sprachkursen",
+        "berufsausbildungen",
+        "weiterbildungsmaßnahmen",
+        "online",
+        "erwachsene",
+        "angebot",
+        "für",
+        "und",
+        "präsenzkurse",
+        "von"
+      ]
+    },
+    {
+      "id": 19,
+      "true": "D",
+      "predicted": "D",
+      "top3": [
+        "D",
+        "C",
+        "E"
+      ],
+      "scores": [
+        0.5934691222794277,
+        0.39379624900093757,
+        0.3541524089642273
+      ],
+      "keywords": [
+        "erneuerbaren",
+        "photovoltaik",
+        "energiespeicherlösungen",
+        "energien",
+        "windkraft",
+        "industrie",
+        "verteilung",
+        "erzeugung",
+        "gewerbe",
+        "für"
+      ]
+    },
+    {
+      "id": 20,
+      "true": "C",
+      "predicted": "C",
+      "top3": [
+        "C",
+        "H",
+        "B"
+      ],
+      "scores": [
+        0.7062422799577949,
+        0.4446773430240225,
+        0.4201241084749845
+      ],
+      "keywords": [
+        "industriemaschinen",
+        "fertigungsindustrie",
+        "maschinenteilen",
+        "anlagen",
+        "herstellung",
+        "und",
+        "von",
+        "für",
+        "vertrieb",
+        "die"
+      ]
+    },
+    {
+      "id": 21,
+      "true": "C",
+      "predicted": "C",
+      "top3": [
+        "C",
+        "E",
+        "G"
+      ],
+      "scores": [
+        0.6375496947532425,
+        0.36527114991302256,
+        0.33839050980428165
+      ],
+      "keywords": [
+        "kunststoffprodukten",
+        "verpackungsmaterialien",
+        "produktion",
+        "pharmaindustrie",
+        "lebensmittel",
+        "für",
+        "und",
+        "von"
+      ]
+    },
+    {
+      "id": 22,
+      "true": "N",
+      "predicted": "N",
+      "top3": [
+        "N",
+        "S",
+        "L"
+      ],
+      "scores": [
+        0.6249296898420589,
+        0.5677814227959984,
+        0.4398327357168153
+      ],
+      "keywords": [
+        "hausmeisterdienstleistungen",
+        "management",
+        "büro",
+        "reinigungs",
+        "wohngebäude",
+        "facility",
+        "erbringung",
+        "für",
+        "und",
+        "von"
+      ]
+    },
+    {
+      "id": 23,
+      "true": "R",
+      "predicted": "R",
+      "top3": [
+        "R",
+        "M",
+        "N"
+      ],
+      "scores": [
+        0.3975034863342915,
+        0.39644550817767765,
+        0.34836626313309516
+      ],
+      "keywords": [
+        "sportveranstaltungen",
+        "fitness",
+        "training",
+        "organisation",
+        "kursen",
+        "durchführung",
+        "personal",
+        "unternehmen",
+        "für",
+        "und"
+      ]
+    },
+    {
+      "id": 24,
+      "true": "A",
+      "predicted": "A",
+      "top3": [
+        "A",
+        "C",
+        "B"
+      ],
+      "scores": [
+        0.6077541426196523,
+        0.44769787785703924,
+        0.4191655694712527
+      ],
+      "keywords": [
+        "landwirtschaftlichen",
+        "forstwirtschaft",
+        "unternehmens",
+        "betrieb",
+        "und",
+        "gemüse",
+        "von",
+        "eines",
+        "sowie",
+        "obst"
+      ]
+    },
+    {
+      "id": 25,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "M",
+        "N"
+      ],
+      "scores": [
+        0.43851017644778034,
+        0.23609312683691525,
+        0.20945475052588985
+      ],
+      "keywords": [
+        "analytics",
+        "analysewerkzeugen",
+        "data",
+        "modellen",
+        "learning",
+        "machine",
+        "industrie",
+        "entwicklung",
+        "gestützten",
+        "big"
+      ]
+    },
+    {
+      "id": 26,
+      "true": "E",
+      "predicted": "E",
+      "top3": [
+        "E",
+        "N",
+        "C"
+      ],
+      "scores": [
+        0.7660574338529185,
+        0.3912980682936106,
+        0.3735130457332937
+      ],
+      "keywords": [
+        "abfallwirtschaft",
+        "recycling",
+        "umweltgerechte",
+        "entsorgungsdienstleistungen",
+        "industrie",
+        "entsorgung",
+        "und",
+        "von",
+        "sonderabfällen"
+      ]
+    },
+    {
+      "id": 27,
+      "true": "N",
+      "predicted": "R",
+      "top3": [
+        "R",
+        "N",
+        "S"
+      ],
+      "scores": [
+        0.3671835340014985,
+        0.36600166505086146,
+        0.34154381014417495
+      ],
+      "keywords": [
+        "veranstaltungsschutz",
+        "objektschutz",
+        "personenschutz",
+        "sicherheitsdienstleistungen",
+        "erbringung",
+        "von",
+        "und"
+      ]
+    },
+    {
+      "id": 28,
+      "true": "S",
+      "predicted": "S",
+      "top3": [
+        "S",
+        "N",
+        "M"
+      ],
+      "scores": [
+        0.5334599377301975,
+        0.38878178434657396,
+        0.32724565518784077
+      ],
+      "keywords": [
+        "friseursalons",
+        "kosmetikdienstleistungen",
+        "friseur",
+        "schönheitssalons",
+        "wellness",
+        "betrieb",
+        "angeboten",
+        "eines",
+        "mit",
+        "und"
+      ]
+    },
+    {
+      "id": 29,
+      "true": "B",
+      "predicted": "B",
+      "top3": [
+        "B",
+        "L",
+        "R"
+      ],
+      "scores": [
+        0.6081821401149745,
+        0.34063423558941824,
+        0.3368399690967962
+      ],
+      "keywords": [
+        "natursteinen",
+        "steinbrüchen",
+        "sand",
+        "von",
+        "kiesgruben",
+        "betrieb",
+        "kies",
+        "gewinnung",
+        "und",
+        "verarbeitung"
+      ]
+    }
+  ],
+  "no-guided-extraction": [
+    {
+      "id": 0,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "N",
+        "S"
+      ],
+      "scores": [
+        0.7239632782437405,
+        0.5773261832662159,
+        0.5504838026248964
+      ],
+      "keywords": [
+        "internetservice",
+        "informatikingenieurie",
+        "internet",
+        "hosting",
+        "software",
+        "programmen",
+        "verbindung",
+        "entwicklung",
+        "leistungen",
+        "analyse"
+      ]
+    },
+    {
+      "id": 1,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "N",
+        "S"
+      ],
+      "scores": [
+        0.6671144611060025,
+        0.45227213740402933,
+        0.39053561608322523
+      ],
+      "keywords": [
+        "app",
+        "software",
+        "cloud",
+        "mobile",
+        "dienstleistungen",
+        "entwicklung",
+        "lösungen",
+        "integration",
+        "für",
+        "unternehmen"
+      ]
+    },
+    {
+      "id": 2,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "M",
+        "S"
+      ],
+      "scores": [
+        0.4618141392775402,
+        0.43325458371688175,
+        0.4276532931989179
+      ],
+      "keywords": [
+        "webentwicklung",
+        "marketing",
+        "dienstleistungen",
+        "online",
+        "seo",
+        "optimierung",
+        "kleine",
+        "erbringung"
+      ]
+    },
+    {
+      "id": 3,
+      "true": "M",
+      "predicted": "K",
+      "top3": [
+        "K",
+        "N",
+        "S"
+      ],
+      "scores": [
+        0.5159583187910615,
+        0.49370387679500116,
+        0.44835943760032215
+      ],
+      "keywords": [
+        "wirtschaftsprüfungsgesellschaften",
+        "berufsrechtlich",
+        "gesetzlich",
+        "steuerberatung",
+        "zulässigen",
+        "tätigkeiten",
+        "wpo",
+        "buchführung",
+        "gemäß",
+        "für"
+      ]
+    },
+    {
+      "id": 4,
+      "true": "M",
+      "predicted": "M",
+      "top3": [
+        "M",
+        "N",
+        "S"
+      ],
+      "scores": [
+        0.6482404187569878,
+        0.5632672112539551,
+        0.4405889036519062
+      ],
+      "keywords": [
+        "unternehmensberatung",
+        "managementberatung",
+        "organisationsentwicklung",
+        "branchen",
+        "mittelständische",
+        "für",
+        "unternehmen",
+        "aller"
+      ]
+    },
+    {
+      "id": 5,
+      "true": "M",
+      "predicted": "N",
+      "top3": [
+        "N",
+        "M",
+        "O"
+      ],
+      "scores": [
+        0.4702386623996549,
+        0.46984243894778605,
+        0.4577498209501643
+      ],
+      "keywords": [
+        "rechtsberatung",
+        "gesellschaftsrecht",
+        "anwaltliche",
+        "arbeitsrecht",
+        "vertragsrecht",
+        "vertretung",
+        "bereichen",
+        "und",
+        "den"
+      ]
+    },
+    {
+      "id": 6,
+      "true": "G",
+      "predicted": "G",
+      "top3": [
+        "G",
+        "L",
+        "T"
+      ],
+      "scores": [
+        0.7271628973908982,
+        0.5243483464947062,
+        0.5064540200589205
+      ],
+      "keywords": [
+        "einzelhandel",
+        "handel",
+        "heimtextilien",
+        "haushaltswaren",
+        "art",
+        "möbeln",
+        "insbesondere",
+        "wohnungseinrichtungen",
+        "und"
+      ]
+    },
+    {
+      "id": 7,
+      "true": "G",
+      "predicted": "G",
+      "top3": [
+        "G",
+        "J",
+        "H"
+      ],
+      "scores": [
+        0.5232747026598521,
+        0.5153564410424676,
+        0.3814322329860526
+      ],
+      "keywords": [
+        "commerce",
+        "elektronik",
+        "mobiltelefonen",
+        "einzelhandel",
+        "computern",
+        "großhandel",
+        "plattform",
+        "und",
+        "für",
+        "zubehör"
+      ]
+    },
+    {
+      "id": 8,
+      "true": "G",
+      "predicted": "G",
+      "top3": [
+        "G",
+        "C",
+        "A"
+      ],
+      "scores": [
+        0.5734908818599345,
+        0.5037406949887095,
+        0.37867817873885856
+      ],
+      "keywords": [
+        "import",
+        "export",
+        "handel",
+        "lebensmitteln",
+        "produkten",
+        "feinkostwaren",
+        "internationalen",
+        "bio",
+        "insbesondere",
+        "sowie"
+      ]
+    },
+    {
+      "id": 9,
+      "true": "F",
+      "predicted": "F",
+      "top3": [
+        "F",
+        "L",
+        "B"
+      ],
+      "scores": [
+        0.7318423019197928,
+        0.5078974029033465,
+        0.4843738436843503
+      ],
+      "keywords": [
+        "gewerbegebäuden",
+        "bauarbeiten",
+        "renovierung",
+        "sanierung",
+        "schlüsselfertigbau",
+        "allgemeine",
+        "tiefbau",
+        "wohn",
+        "von",
+        "und"
+      ]
+    },
+    {
+      "id": 10,
+      "true": "F",
+      "predicted": "D",
+      "top3": [
+        "D",
+        "F",
+        "L"
+      ],
+      "scores": [
+        0.6345110777323371,
+        0.5056965529272861,
+        0.487311040919935
+      ],
+      "keywords": [
+        "elektroinstallationen",
+        "sanitärarbeiten",
+        "heizungsanlagen",
+        "planung",
+        "ausführung",
+        "und"
+      ]
+    },
+    {
+      "id": 11,
+      "true": "Q",
+      "predicted": "M",
+      "top3": [
+        "M",
+        "Q",
+        "F"
+      ],
+      "scores": [
+        0.289829504252468,
+        0.27633025088282276,
+        0.2113618969192671
+      ],
+      "keywords": [
+        "behandlungsmethoden",
+        "zahnklinik",
+        "prophylaxe",
+        "zahnimplantate",
+        "modernen",
+        "kieferorthopädie",
+        "mit",
+        "und",
+        "zahnbleaching"
+      ]
+    },
+    {
+      "id": 12,
+      "true": "Q",
+      "predicted": "N",
+      "top3": [
+        "N",
+        "Q",
+        "S"
+      ],
+      "scores": [
+        0.4722250663165527,
+        0.47197571173804703,
+        0.4577421829283111
+      ],
+      "keywords": [
+        "pflegeeinrichtung",
+        "pflege",
+        "rehabilitation",
+        "therapie",
+        "ältere",
+        "stationäre",
+        "ambulante",
+        "betrieb",
+        "menschen",
+        "für"
+      ]
+    },
+    {
+      "id": 13,
+      "true": "Q",
+      "predicted": "Q",
+      "top3": [
+        "Q",
+        "M",
+        "P"
+      ],
+      "scores": [
+        0.641135200077849,
+        0.47954263239587686,
+        0.44179890944524675
+      ],
+      "keywords": [
+        "allgemeinmedizin",
+        "präventivmedizin",
+        "hausärztliche",
+        "arztpraxis",
+        "medizin",
+        "vorsorgeuntersuchungen",
+        "für",
+        "versorgung",
+        "und",
+        "innere"
+      ]
+    },
+    {
+      "id": 14,
+      "true": "K",
+      "predicted": "K",
+      "top3": [
+        "K",
+        "N",
+        "M"
+      ],
+      "scores": [
+        0.7019047643408647,
+        0.4957799636523496,
+        0.4772035201537196
+      ],
+      "keywords": [
+        "kapitalanlageberatung",
+        "finanzdienstleistungen",
+        "vermögensberatung",
+        "versicherungsvermittlung",
+        "geschäftskunden",
+        "privat",
+        "erbringung",
+        "für"
+      ]
+    },
+    {
+      "id": 15,
+      "true": "L",
+      "predicted": "L",
+      "top3": [
+        "L",
+        "T",
+        "K"
+      ],
+      "scores": [
+        0.8141931151793833,
+        0.5647240909386768,
+        0.49224886617001
+      ],
+      "keywords": [
+        "immobilienbewertung",
+        "kauf",
+        "kaufobjekten",
+        "verkauf",
+        "verwaltung",
+        "vermittlung",
+        "immobilien",
+        "und",
+        "von",
+        "sowie"
+      ]
+    },
+    {
+      "id": 16,
+      "true": "H",
+      "predicted": "H",
+      "top3": [
+        "H",
+        "G",
+        "S"
+      ],
+      "scores": [
+        0.7782381392341521,
+        0.5607610680846125,
+        0.5015156844689576
+      ],
+      "keywords": [
+        "logistikdienstleistungen",
+        "transport",
+        "internationaler",
+        "lagerung",
+        "nationaler",
+        "güterbeförderung",
+        "spedition",
+        "und"
+      ]
+    },
+    {
+      "id": 17,
+      "true": "I",
+      "predicted": "I",
+      "top3": [
+        "I",
+        "S",
+        "N"
+      ],
+      "scores": [
+        0.6473032491176429,
+        0.5492725611912613,
+        0.5211636443153556
+      ],
+      "keywords": [
+        "catering",
+        "restaurants",
+        "gastronomie",
+        "firmenkunden",
+        "services",
+        "lieferservice",
+        "eventcatering",
+        "betrieb",
+        "für",
+        "und"
+      ]
+    },
+    {
+      "id": 18,
+      "true": "P",
+      "predicted": "P",
+      "top3": [
+        "P",
+        "M",
+        "J"
+      ],
+      "scores": [
+        0.6511776926453502,
+        0.4945192876312885,
+        0.37995886727283146
+      ],
+      "keywords": [
+        "sprachkursen",
+        "berufsausbildungen",
+        "online",
+        "weiterbildungsmaßnahmen",
+        "erwachsene",
+        "angebot",
+        "für",
+        "präsenzkurse",
+        "und",
+        "von"
+      ]
+    },
+    {
+      "id": 19,
+      "true": "D",
+      "predicted": "D",
+      "top3": [
+        "D",
+        "C",
+        "E"
+      ],
+      "scores": [
+        0.6076016079802357,
+        0.4012643313300921,
+        0.3714486528472763
+      ],
+      "keywords": [
+        "photovoltaik",
+        "erneuerbaren",
+        "energiespeicherlösungen",
+        "energien",
+        "windkraft",
+        "industrie",
+        "verteilung",
+        "erzeugung"
+      ]
+    },
+    {
+      "id": 20,
+      "true": "C",
+      "predicted": "C",
+      "top3": [
+        "C",
+        "G",
+        "H"
+      ],
+      "scores": [
+        0.7539185664170213,
+        0.4471284313687241,
+        0.434173373088369
+      ],
+      "keywords": [
+        "industriemaschinen",
+        "fertigungsindustrie",
+        "maschinenteilen",
+        "anlagen",
+        "herstellung",
+        "und",
+        "von",
+        "für",
+        "vertrieb"
+      ]
+    },
+    {
+      "id": 21,
+      "true": "C",
+      "predicted": "C",
+      "top3": [
+        "C",
+        "G",
+        "E"
+      ],
+      "scores": [
+        0.6552797341087292,
+        0.3680906293639552,
+        0.35964813126441453
+      ],
+      "keywords": [
+        "kunststoffprodukten",
+        "verpackungsmaterialien",
+        "pharmaindustrie",
+        "produktion",
+        "lebensmittel",
+        "für",
+        "und"
+      ]
+    },
+    {
+      "id": 22,
+      "true": "N",
+      "predicted": "N",
+      "top3": [
+        "N",
+        "S",
+        "T"
+      ],
+      "scores": [
+        0.652577618337466,
+        0.6128278034027491,
+        0.5521433709461571
+      ],
+      "keywords": [
+        "hausmeisterdienstleistungen",
+        "büro",
+        "management",
+        "reinigungs",
+        "wohngebäude",
+        "facility",
+        "erbringung",
+        "für",
+        "und",
+        "von"
+      ]
+    },
+    {
+      "id": 23,
+      "true": "R",
+      "predicted": "R",
+      "top3": [
+        "R",
+        "M",
+        "N"
+      ],
+      "scores": [
+        0.47823946942311185,
+        0.4468763675582626,
+        0.40655264036549416
+      ],
+      "keywords": [
+        "fitness",
+        "sportveranstaltungen",
+        "training",
+        "organisation",
+        "kursen",
+        "personal",
+        "durchführung",
+        "privatpersonen",
+        "unternehmen",
+        "für"
+      ]
+    },
+    {
+      "id": 24,
+      "true": "A",
+      "predicted": "A",
+      "top3": [
+        "A",
+        "C",
+        "T"
+      ],
+      "scores": [
+        0.7100485277773433,
+        0.4897567873109152,
+        0.43805803132806553
+      ],
+      "keywords": [
+        "landwirtschaftlichen",
+        "forstwirtschaft",
+        "unternehmens",
+        "betrieb",
+        "und",
+        "sowie",
+        "gemüse",
+        "eines",
+        "von",
+        "obst"
+      ]
+    },
+    {
+      "id": 25,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "M",
+        "N"
+      ],
+      "scores": [
+        0.44233322695424576,
+        0.2441132406617786,
+        0.22342357448803013
+      ],
+      "keywords": [
+        "analytics",
+        "analysewerkzeugen",
+        "data",
+        "modellen",
+        "learning",
+        "machine",
+        "industrie",
+        "entwicklung",
+        "big",
+        "gestützten"
+      ]
+    },
+    {
+      "id": 26,
+      "true": "E",
+      "predicted": "E",
+      "top3": [
+        "E",
+        "H",
+        "S"
+      ],
+      "scores": [
+        0.7996257147330755,
+        0.43935755343689076,
+        0.40885015685334564
+      ],
+      "keywords": [
+        "abfallwirtschaft",
+        "recycling",
+        "umweltgerechte",
+        "entsorgungsdienstleistungen",
+        "industrie",
+        "entsorgung",
+        "sonderabfällen",
+        "und",
+        "von"
+      ]
+    },
+    {
+      "id": 27,
+      "true": "N",
+      "predicted": "S",
+      "top3": [
+        "S",
+        "N",
+        "R"
+      ],
+      "scores": [
+        0.48094547642023583,
+        0.4657835263918145,
+        0.4506417025071977
+      ],
+      "keywords": [
+        "veranstaltungsschutz",
+        "sicherheitsdienstleistungen",
+        "personenschutz",
+        "objektschutz",
+        "erbringung",
+        "und",
+        "von"
+      ]
+    },
+    {
+      "id": 28,
+      "true": "S",
+      "predicted": "S",
+      "top3": [
+        "S",
+        "I",
+        "N"
+      ],
+      "scores": [
+        0.5205610737512641,
+        0.41864517527101186,
+        0.3904815892828187
+      ],
+      "keywords": [
+        "friseursalons",
+        "kosmetikdienstleistungen",
+        "friseur",
+        "schönheitssalons",
+        "wellness",
+        "betrieb",
+        "angeboten",
+        "eines",
+        "und",
+        "mit"
+      ]
+    },
+    {
+      "id": 29,
+      "true": "B",
+      "predicted": "B",
+      "top3": [
+        "B",
+        "F",
+        "C"
+      ],
+      "scores": [
+        0.6720980774122599,
+        0.4325524430798776,
+        0.3576896295697235
+      ],
+      "keywords": [
+        "natursteinen",
+        "steinbrüchen",
+        "sand",
+        "kiesgruben",
+        "von",
+        "verarbeitung",
+        "betrieb",
+        "gewinnung",
+        "kies",
+        "und"
+      ]
+    }
+  ],
+  "no-filter": [
+    {
+      "id": 0,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "N",
+        "S"
+      ],
+      "scores": [
+        0.7239632782437405,
+        0.5773261832662159,
+        0.5504838026248964
+      ],
+      "keywords": [
+        "internetservice",
+        "informatikingenieurie",
+        "software",
+        "programmen",
+        "hosting",
+        "verbindung",
+        "entwicklung",
+        "leistungen",
+        "analyse",
+        "allen"
+      ]
+    },
+    {
+      "id": 1,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "N",
+        "S"
+      ],
+      "scores": [
+        0.6671144611060025,
+        0.45227213740402933,
+        0.39053561608322523
+      ],
+      "keywords": [
+        "app",
+        "software",
+        "cloud",
+        "mobile",
+        "dienstleistungen",
+        "entwicklung",
+        "lösungen",
+        "integration",
+        "unternehmen",
+        "api"
+      ]
+    },
+    {
+      "id": 2,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "M",
+        "S"
+      ],
+      "scores": [
+        0.4618141392775402,
+        0.43325458371688175,
+        0.4276532931989179
+      ],
+      "keywords": [
+        "webentwicklung",
+        "marketing",
+        "online",
+        "dienstleistungen",
+        "seo",
+        "optimierung",
+        "kleine",
+        "erbringung",
+        "unternehmen",
+        "mittlere"
+      ]
+    },
+    {
+      "id": 3,
+      "true": "M",
+      "predicted": "K",
+      "top3": [
+        "K",
+        "N",
+        "S"
+      ],
+      "scores": [
+        0.5159583187910615,
+        0.49370387679500116,
+        0.44835943760032215
+      ],
+      "keywords": [
+        "wirtschaftsprüfungsgesellschaften",
+        "steuerberatung",
+        "berufsrechtlich",
+        "gesetzlich",
+        "zulässigen",
+        "tätigkeiten",
+        "buchführung",
+        "wpo",
+        "für",
+        "und"
+      ]
+    },
+    {
+      "id": 4,
+      "true": "M",
+      "predicted": "M",
+      "top3": [
+        "M",
+        "N",
+        "S"
+      ],
+      "scores": [
+        0.6482404187569878,
+        0.5632672112539551,
+        0.4405889036519062
+      ],
+      "keywords": [
+        "unternehmensberatung",
+        "managementberatung",
+        "organisationsentwicklung",
+        "branchen",
+        "mittelständische",
+        "für",
+        "unternehmen",
+        "und",
+        "aller"
+      ]
+    },
+    {
+      "id": 5,
+      "true": "M",
+      "predicted": "N",
+      "top3": [
+        "N",
+        "M",
+        "O"
+      ],
+      "scores": [
+        0.4702386623996549,
+        0.46984243894778605,
+        0.4577498209501643
+      ],
+      "keywords": [
+        "rechtsberatung",
+        "gesellschaftsrecht",
+        "anwaltliche",
+        "vertragsrecht",
+        "arbeitsrecht",
+        "vertretung",
+        "bereichen",
+        "den",
+        "und"
+      ]
+    },
+    {
+      "id": 6,
+      "true": "G",
+      "predicted": "G",
+      "top3": [
+        "G",
+        "L",
+        "T"
+      ],
+      "scores": [
+        0.7271628973908982,
+        0.5243483464947062,
+        0.5064540200589205
+      ],
+      "keywords": [
+        "einzelhandel",
+        "handel",
+        "heimtextilien",
+        "haushaltswaren",
+        "art",
+        "möbeln",
+        "insbesondere",
+        "wohnungseinrichtungen",
+        "mit",
+        "groß"
+      ]
+    },
+    {
+      "id": 7,
+      "true": "G",
+      "predicted": "G",
+      "top3": [
+        "G",
+        "J",
+        "H"
+      ],
+      "scores": [
+        0.5232747026598521,
+        0.5153564410424676,
+        0.3814322329860526
+      ],
+      "keywords": [
+        "commerce",
+        "einzelhandel",
+        "großhandel",
+        "elektronik",
+        "mobiltelefonen",
+        "b2b",
+        "computern",
+        "plattform",
+        "für",
+        "zubehör"
+      ]
+    },
+    {
+      "id": 8,
+      "true": "G",
+      "predicted": "G",
+      "top3": [
+        "G",
+        "C",
+        "A"
+      ],
+      "scores": [
+        0.5734908818599345,
+        0.5037406949887095,
+        0.37867817873885856
+      ],
+      "keywords": [
+        "handel",
+        "import",
+        "export",
+        "lebensmitteln",
+        "produkten",
+        "feinkostwaren",
+        "internationalen",
+        "bio",
+        "insbesondere",
+        "spezialitäten"
+      ]
+    },
+    {
+      "id": 9,
+      "true": "F",
+      "predicted": "F",
+      "top3": [
+        "F",
+        "L",
+        "B"
+      ],
+      "scores": [
+        0.7318423019197928,
+        0.5078974029033465,
+        0.4843738436843503
+      ],
+      "keywords": [
+        "gewerbegebäuden",
+        "bauarbeiten",
+        "renovierung",
+        "sanierung",
+        "schlüsselfertigbau",
+        "tiefbau",
+        "wohn",
+        "allgemeine",
+        "von",
+        "hoch"
+      ]
+    },
+    {
+      "id": 10,
+      "true": "F",
+      "predicted": "D",
+      "top3": [
+        "D",
+        "F",
+        "L"
+      ],
+      "scores": [
+        0.6345110777323371,
+        0.5056965529272861,
+        0.487311040919935
+      ],
+      "keywords": [
+        "elektroinstallationen",
+        "sanitärarbeiten",
+        "heizungsanlagen",
+        "planung",
+        "ausführung",
+        "und",
+        "von",
+        "im",
+        "gewerbebau",
+        "wohnungs"
+      ]
+    },
+    {
+      "id": 11,
+      "true": "Q",
+      "predicted": "M",
+      "top3": [
+        "M",
+        "Q",
+        "F"
+      ],
+      "scores": [
+        0.289829504252468,
+        0.27633025088282276,
+        0.2113618969192671
+      ],
+      "keywords": [
+        "behandlungsmethoden",
+        "prophylaxe",
+        "zahnklinik",
+        "zahnimplantate",
+        "mit",
+        "und",
+        "modernen",
+        "kieferorthopädie",
+        "zahnbleaching"
+      ]
+    },
+    {
+      "id": 12,
+      "true": "Q",
+      "predicted": "N",
+      "top3": [
+        "N",
+        "Q",
+        "S"
+      ],
+      "scores": [
+        0.4722250663165527,
+        0.47197571173804703,
+        0.4577421829283111
+      ],
+      "keywords": [
+        "pflegeeinrichtung",
+        "pflege",
+        "rehabilitation",
+        "therapie",
+        "ältere",
+        "stationäre",
+        "ambulante",
+        "betrieb",
+        "für",
+        "menschen"
+      ]
+    },
+    {
+      "id": 13,
+      "true": "Q",
+      "predicted": "Q",
+      "top3": [
+        "Q",
+        "M",
+        "P"
+      ],
+      "scores": [
+        0.641135200077849,
+        0.47954263239587686,
+        0.44179890944524675
+      ],
+      "keywords": [
+        "allgemeinmedizin",
+        "hausärztliche",
+        "arztpraxis",
+        "medizin",
+        "präventivmedizin",
+        "versorgung",
+        "für",
+        "vorsorgeuntersuchungen",
+        "und",
+        "innere"
+      ]
+    },
+    {
+      "id": 14,
+      "true": "K",
+      "predicted": "K",
+      "top3": [
+        "K",
+        "N",
+        "M"
+      ],
+      "scores": [
+        0.7019047643408647,
+        0.4957799636523496,
+        0.4772035201537196
+      ],
+      "keywords": [
+        "kapitalanlageberatung",
+        "finanzdienstleistungen",
+        "vermögensberatung",
+        "versicherungsvermittlung",
+        "geschäftskunden",
+        "privat",
+        "erbringung",
+        "für",
+        "und",
+        "von"
+      ]
+    },
+    {
+      "id": 15,
+      "true": "L",
+      "predicted": "L",
+      "top3": [
+        "L",
+        "T",
+        "K"
+      ],
+      "scores": [
+        0.8141931151793833,
+        0.5647240909386768,
+        0.49224886617001
+      ],
+      "keywords": [
+        "immobilienbewertung",
+        "kauf",
+        "verkauf",
+        "kaufobjekten",
+        "verwaltung",
+        "vermittlung",
+        "und",
+        "immobilien",
+        "von",
+        "sowie"
+      ]
+    },
+    {
+      "id": 16,
+      "true": "H",
+      "predicted": "H",
+      "top3": [
+        "H",
+        "G",
+        "S"
+      ],
+      "scores": [
+        0.7782381392341521,
+        0.5607610680846125,
+        0.5015156844689576
+      ],
+      "keywords": [
+        "logistikdienstleistungen",
+        "transport",
+        "lagerung",
+        "internationaler",
+        "güterbeförderung",
+        "und",
+        "spedition",
+        "nationaler"
+      ]
+    },
+    {
+      "id": 17,
+      "true": "I",
+      "predicted": "I",
+      "top3": [
+        "I",
+        "S",
+        "N"
+      ],
+      "scores": [
+        0.6473032491176429,
+        0.5492725611912613,
+        0.5211636443153556
+      ],
+      "keywords": [
+        "catering",
+        "restaurants",
+        "gastronomie",
+        "firmenkunden",
+        "services",
+        "lieferservice",
+        "betrieb",
+        "eventcatering",
+        "für",
+        "eines"
+      ]
+    },
+    {
+      "id": 18,
+      "true": "P",
+      "predicted": "P",
+      "top3": [
+        "P",
+        "M",
+        "J"
+      ],
+      "scores": [
+        0.6511776926453502,
+        0.4945192876312885,
+        0.37995886727283146
+      ],
+      "keywords": [
+        "sprachkursen",
+        "berufsausbildungen",
+        "weiterbildungsmaßnahmen",
+        "online",
+        "erwachsene",
+        "angebot",
+        "für",
+        "und",
+        "präsenzkurse",
+        "von"
+      ]
+    },
+    {
+      "id": 19,
+      "true": "D",
+      "predicted": "D",
+      "top3": [
+        "D",
+        "C",
+        "E"
+      ],
+      "scores": [
+        0.6076016079802357,
+        0.4012643313300921,
+        0.3714486528472763
+      ],
+      "keywords": [
+        "erneuerbaren",
+        "photovoltaik",
+        "energiespeicherlösungen",
+        "energien",
+        "windkraft",
+        "industrie",
+        "verteilung",
+        "erzeugung",
+        "für",
+        "von"
+      ]
+    },
+    {
+      "id": 20,
+      "true": "C",
+      "predicted": "C",
+      "top3": [
+        "C",
+        "G",
+        "H"
+      ],
+      "scores": [
+        0.7539185664170213,
+        0.4471284313687241,
+        0.434173373088369
+      ],
+      "keywords": [
+        "industriemaschinen",
+        "fertigungsindustrie",
+        "maschinenteilen",
+        "anlagen",
+        "herstellung",
+        "und",
+        "von",
+        "für",
+        "vertrieb",
+        "die"
+      ]
+    },
+    {
+      "id": 21,
+      "true": "C",
+      "predicted": "C",
+      "top3": [
+        "C",
+        "G",
+        "E"
+      ],
+      "scores": [
+        0.6552797341087292,
+        0.3680906293639552,
+        0.35964813126441453
+      ],
+      "keywords": [
+        "kunststoffprodukten",
+        "verpackungsmaterialien",
+        "produktion",
+        "pharmaindustrie",
+        "lebensmittel",
+        "für",
+        "und",
+        "von"
+      ]
+    },
+    {
+      "id": 22,
+      "true": "N",
+      "predicted": "N",
+      "top3": [
+        "N",
+        "S",
+        "T"
+      ],
+      "scores": [
+        0.652577618337466,
+        0.6128278034027491,
+        0.5521433709461571
+      ],
+      "keywords": [
+        "hausmeisterdienstleistungen",
+        "management",
+        "büro",
+        "reinigungs",
+        "wohngebäude",
+        "facility",
+        "erbringung",
+        "für",
+        "und",
+        "von"
+      ]
+    },
+    {
+      "id": 23,
+      "true": "R",
+      "predicted": "R",
+      "top3": [
+        "R",
+        "M",
+        "N"
+      ],
+      "scores": [
+        0.47823946942311185,
+        0.4468763675582626,
+        0.40655264036549416
+      ],
+      "keywords": [
+        "sportveranstaltungen",
+        "fitness",
+        "training",
+        "organisation",
+        "kursen",
+        "durchführung",
+        "personal",
+        "unternehmen",
+        "von",
+        "privatpersonen"
+      ]
+    },
+    {
+      "id": 24,
+      "true": "A",
+      "predicted": "A",
+      "top3": [
+        "A",
+        "C",
+        "T"
+      ],
+      "scores": [
+        0.7100485277773433,
+        0.4897567873109152,
+        0.43805803132806553
+      ],
+      "keywords": [
+        "landwirtschaftlichen",
+        "forstwirtschaft",
+        "unternehmens",
+        "betrieb",
+        "gemüse",
+        "von",
+        "sowie",
+        "obst",
+        "getreide",
+        "anbau"
+      ]
+    },
+    {
+      "id": 25,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "M",
+        "N"
+      ],
+      "scores": [
+        0.44233322695424576,
+        0.2441132406617786,
+        0.22342357448803013
+      ],
+      "keywords": [
+        "analytics",
+        "analysewerkzeugen",
+        "data",
+        "modellen",
+        "learning",
+        "machine",
+        "industrie",
+        "entwicklung",
+        "gestützten",
+        "big"
+      ]
+    },
+    {
+      "id": 26,
+      "true": "E",
+      "predicted": "E",
+      "top3": [
+        "E",
+        "H",
+        "S"
+      ],
+      "scores": [
+        0.7996257147330755,
+        0.43935755343689076,
+        0.40885015685334564
+      ],
+      "keywords": [
+        "abfallwirtschaft",
+        "recycling",
+        "umweltgerechte",
+        "entsorgungsdienstleistungen",
+        "industrie",
+        "entsorgung",
+        "und",
+        "von",
+        "sonderabfällen"
+      ]
+    },
+    {
+      "id": 27,
+      "true": "N",
+      "predicted": "S",
+      "top3": [
+        "S",
+        "N",
+        "R"
+      ],
+      "scores": [
+        0.48094547642023583,
+        0.4657835263918145,
+        0.4506417025071977
+      ],
+      "keywords": [
+        "veranstaltungsschutz",
+        "personenschutz",
+        "sicherheitsdienstleistungen",
+        "objektschutz",
+        "erbringung",
+        "von",
+        "und"
+      ]
+    },
+    {
+      "id": 28,
+      "true": "S",
+      "predicted": "S",
+      "top3": [
+        "S",
+        "I",
+        "N"
+      ],
+      "scores": [
+        0.5205610737512641,
+        0.41864517527101186,
+        0.3904815892828187
+      ],
+      "keywords": [
+        "friseursalons",
+        "kosmetikdienstleistungen",
+        "friseur",
+        "schönheitssalons",
+        "wellness",
+        "betrieb",
+        "angeboten",
+        "eines",
+        "mit",
+        "und"
+      ]
+    },
+    {
+      "id": 29,
+      "true": "B",
+      "predicted": "B",
+      "top3": [
+        "B",
+        "F",
+        "C"
+      ],
+      "scores": [
+        0.6720980774122599,
+        0.4325524430798776,
+        0.3576896295697235
+      ],
+      "keywords": [
+        "natursteinen",
+        "steinbrüchen",
+        "sand",
+        "von",
+        "kiesgruben",
+        "betrieb",
+        "kies",
+        "gewinnung",
+        "und",
+        "verarbeitung"
+      ]
+    }
+  ],
+  "preprocessed-input": [
+    {
+      "id": 0,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "N",
+        "S"
+      ],
+      "scores": [
+        0.6696660330919968,
+        0.5146486884963344,
+        0.4784371313379273
+      ],
+      "keywords": [
+        "internetservice",
+        "internet",
+        "informatikingenieurie",
+        "software",
+        "programmen",
+        "hosting",
+        "verbindung",
+        "entwicklung",
+        "leistungen",
+        "analyse"
+      ]
+    },
+    {
+      "id": 1,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "N",
+        "S"
+      ],
+      "scores": [
+        0.6267344719768612,
+        0.37456416570248124,
+        0.31761874861737127
+      ],
+      "keywords": [
+        "app",
+        "software",
+        "cloud",
+        "mobile",
+        "dienstleistungen",
+        "entwicklung",
+        "lösungen",
+        "integration",
+        "für",
+        "und"
+      ]
+    },
+    {
+      "id": 2,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "S",
+        "N"
+      ],
+      "scores": [
+        0.46222923755583256,
+        0.4536864316948513,
+        0.4488069561286067
+      ],
+      "keywords": [
+        "webentwicklung",
+        "marketing",
+        "online",
+        "dienstleistungen",
+        "seo",
+        "optimierung",
+        "kleine",
+        "erbringung",
+        "für",
+        "bereich"
+      ]
+    },
+    {
+      "id": 3,
+      "true": "M",
+      "predicted": "K",
+      "top3": [
+        "K",
+        "G",
+        "N"
+      ],
+      "scores": [
+        0.4824342806515055,
+        0.41181587091820887,
+        0.3820249637036243
+      ],
+      "keywords": [
+        "wirtschaftsprüfungsgesellschaften",
+        "berufsrechtlich",
+        "gesetzlich",
+        "zulässigen",
+        "steuerberatung",
+        "tätigkeiten",
+        "buchführung",
+        "gemäß",
+        "wpo",
+        "für"
+      ]
+    },
+    {
+      "id": 4,
+      "true": "M",
+      "predicted": "M",
+      "top3": [
+        "M",
+        "N",
+        "S"
+      ],
+      "scores": [
+        0.6073795541099468,
+        0.54644780884467,
+        0.4162460490406882
+      ],
+      "keywords": [
+        "unternehmensberatung",
+        "managementberatung",
+        "organisationsentwicklung",
+        "branchen",
+        "mittelständische",
+        "für",
+        "unternehmen",
+        "und",
+        "aller"
+      ]
+    },
+    {
+      "id": 5,
+      "true": "M",
+      "predicted": "O",
+      "top3": [
+        "O",
+        "N",
+        "U"
+      ],
+      "scores": [
+        0.4252455163961203,
+        0.41308305682260066,
+        0.38002625218509917
+      ],
+      "keywords": [
+        "gesellschaftsrecht",
+        "rechtsberatung",
+        "anwaltliche",
+        "vertragsrecht",
+        "arbeitsrecht",
+        "vertretung",
+        "bereichen",
+        "den",
+        "und"
+      ]
+    },
+    {
+      "id": 6,
+      "true": "G",
+      "predicted": "G",
+      "top3": [
+        "G",
+        "C",
+        "T"
+      ],
+      "scores": [
+        0.6763716545050413,
+        0.4953414782408527,
+        0.46187412594665833
+      ],
+      "keywords": [
+        "einzelhandel",
+        "handel",
+        "heimtextilien",
+        "haushaltswaren",
+        "art",
+        "möbeln",
+        "insbesondere",
+        "wohnungseinrichtungen",
+        "und",
+        "mit"
+      ]
+    },
+    {
+      "id": 7,
+      "true": "G",
+      "predicted": "G",
+      "top3": [
+        "G",
+        "J",
+        "H"
+      ],
+      "scores": [
+        0.5119919233031582,
+        0.48376834597868285,
+        0.36391930232121183
+      ],
+      "keywords": [
+        "commerce",
+        "einzelhandel",
+        "großhandel",
+        "elektronik",
+        "mobiltelefonen",
+        "computern",
+        "plattform",
+        "und",
+        "mit",
+        "für"
+      ]
+    },
+    {
+      "id": 8,
+      "true": "G",
+      "predicted": "G",
+      "top3": [
+        "G",
+        "C",
+        "A"
+      ],
+      "scores": [
+        0.5075028736362805,
+        0.4853587010843414,
+        0.4126832896867954
+      ],
+      "keywords": [
+        "handel",
+        "import",
+        "export",
+        "lebensmitteln",
+        "produkten",
+        "feinkostwaren",
+        "internationalen",
+        "bio",
+        "insbesondere",
+        "mit"
+      ]
+    },
+    {
+      "id": 9,
+      "true": "F",
+      "predicted": "F",
+      "top3": [
+        "F",
+        "L",
+        "B"
+      ],
+      "scores": [
+        0.6445891064875832,
+        0.5520037079809035,
+        0.4118880297719544
+      ],
+      "keywords": [
+        "gewerbegebäuden",
+        "bauarbeiten",
+        "renovierung",
+        "sanierung",
+        "schlüsselfertigbau",
+        "tiefbau",
+        "wohn",
+        "allgemeine",
+        "von",
+        "und"
+      ]
+    },
+    {
+      "id": 10,
+      "true": "F",
+      "predicted": "E",
+      "top3": [
+        "E",
+        "D",
+        "H"
+      ],
+      "scores": [
+        0.5816352625321477,
+        0.563088996663344,
+        0.46912973655549
+      ],
+      "keywords": [
+        "elektroinstallationen",
+        "sanitärarbeiten",
+        "heizungsanlagen",
+        "planung",
+        "ausführung",
+        "und",
+        "von",
+        "gewerbebau",
+        "wohnungs"
+      ]
+    },
+    {
+      "id": 11,
+      "true": "Q",
+      "predicted": "Q",
+      "top3": [
+        "Q",
+        "M",
+        "S"
+      ],
+      "scores": [
+        0.38099253790448284,
+        0.20771730607539535,
+        0.2066001225354117
+      ],
+      "keywords": [
+        "behandlungsmethoden",
+        "zahnklinik",
+        "prophylaxe",
+        "zahnimplantate",
+        "mit",
+        "und",
+        "modernen",
+        "kieferorthopädie",
+        "zahnbleaching"
+      ]
+    },
+    {
+      "id": 12,
+      "true": "Q",
+      "predicted": "Q",
+      "top3": [
+        "Q",
+        "S",
+        "N"
+      ],
+      "scores": [
+        0.5179864229083307,
+        0.4817021706502893,
+        0.45712591356901366
+      ],
+      "keywords": [
+        "pflegeeinrichtung",
+        "pflege",
+        "therapie",
+        "rehabilitation",
+        "ältere",
+        "stationäre",
+        "ambulante",
+        "menschen",
+        "betrieb",
+        "für"
+      ]
+    },
+    {
+      "id": 13,
+      "true": "Q",
+      "predicted": "Q",
+      "top3": [
+        "Q",
+        "S",
+        "M"
+      ],
+      "scores": [
+        0.4587896944887514,
+        0.4148749082666117,
+        0.35197296415682733
+      ],
+      "keywords": [
+        "allgemeinmedizin",
+        "hausärztliche",
+        "arztpraxis",
+        "medizin",
+        "präventivmedizin",
+        "versorgung",
+        "für",
+        "vorsorgeuntersuchungen",
+        "und",
+        "innere"
+      ]
+    },
+    {
+      "id": 14,
+      "true": "K",
+      "predicted": "K",
+      "top3": [
+        "K",
+        "N",
+        "S"
+      ],
+      "scores": [
+        0.7224177154185325,
+        0.4414527508585249,
+        0.4130208151442219
+      ],
+      "keywords": [
+        "kapitalanlageberatung",
+        "finanzdienstleistungen",
+        "vermögensberatung",
+        "versicherungsvermittlung",
+        "geschäftskunden",
+        "privat",
+        "erbringung",
+        "für",
+        "und",
+        "von"
+      ]
+    },
+    {
+      "id": 15,
+      "true": "L",
+      "predicted": "L",
+      "top3": [
+        "L",
+        "K",
+        "G"
+      ],
+      "scores": [
+        0.7790173799891011,
+        0.48593059019957663,
+        0.4779211254937558
+      ],
+      "keywords": [
+        "immobilienbewertung",
+        "kauf",
+        "verkauf",
+        "kaufobjekten",
+        "verwaltung",
+        "vermittlung",
+        "und",
+        "immobilien",
+        "von",
+        "miet"
+      ]
+    },
+    {
+      "id": 16,
+      "true": "H",
+      "predicted": "H",
+      "top3": [
+        "H",
+        "G",
+        "N"
+      ],
+      "scores": [
+        0.7075048407576853,
+        0.4539483351234592,
+        0.4264861306289792
+      ],
+      "keywords": [
+        "logistikdienstleistungen",
+        "transport",
+        "lagerung",
+        "internationaler",
+        "güterbeförderung",
+        "und",
+        "spedition",
+        "nationaler"
+      ]
+    },
+    {
+      "id": 17,
+      "true": "I",
+      "predicted": "I",
+      "top3": [
+        "I",
+        "S",
+        "G"
+      ],
+      "scores": [
+        0.6079636672349468,
+        0.4563774696039363,
+        0.44063575845044345
+      ],
+      "keywords": [
+        "catering",
+        "restaurants",
+        "gastronomie",
+        "firmenkunden",
+        "services",
+        "lieferservice",
+        "betrieb",
+        "eventcatering",
+        "für",
+        "und"
+      ]
+    },
+    {
+      "id": 18,
+      "true": "P",
+      "predicted": "P",
+      "top3": [
+        "P",
+        "M",
+        "J"
+      ],
+      "scores": [
+        0.6097531542032683,
+        0.42002686718863286,
+        0.3614553510386981
+      ],
+      "keywords": [
+        "sprachkursen",
+        "berufsausbildungen",
+        "weiterbildungsmaßnahmen",
+        "online",
+        "erwachsene",
+        "angebot",
+        "für",
+        "und",
+        "präsenzkurse",
+        "von"
+      ]
+    },
+    {
+      "id": 19,
+      "true": "D",
+      "predicted": "D",
+      "top3": [
+        "D",
+        "E",
+        "C"
+      ],
+      "scores": [
+        0.6106398412795546,
+        0.34649826216833957,
+        0.29721431949819516
+      ],
+      "keywords": [
+        "erneuerbaren",
+        "photovoltaik",
+        "energiespeicherlösungen",
+        "energien",
+        "windkraft",
+        "industrie",
+        "verteilung",
+        "erzeugung",
+        "gewerbe",
+        "für"
+      ]
+    },
+    {
+      "id": 20,
+      "true": "C",
+      "predicted": "C",
+      "top3": [
+        "C",
+        "B",
+        "F"
+      ],
+      "scores": [
+        0.6700017876654919,
+        0.43959562772272165,
+        0.4145854473442247
+      ],
+      "keywords": [
+        "industriemaschinen",
+        "fertigungsindustrie",
+        "maschinenteilen",
+        "anlagen",
+        "herstellung",
+        "und",
+        "von",
+        "für",
+        "vertrieb",
+        "die"
+      ]
+    },
+    {
+      "id": 21,
+      "true": "C",
+      "predicted": "C",
+      "top3": [
+        "C",
+        "G",
+        "E"
+      ],
+      "scores": [
+        0.7095970855842817,
+        0.4638588714798465,
+        0.4004059796816745
+      ],
+      "keywords": [
+        "kunststoffprodukten",
+        "verpackungsmaterialien",
+        "produktion",
+        "pharmaindustrie",
+        "lebensmittel",
+        "für",
+        "und",
+        "von"
+      ]
+    },
+    {
+      "id": 22,
+      "true": "N",
+      "predicted": "N",
+      "top3": [
+        "N",
+        "S",
+        "E"
+      ],
+      "scores": [
+        0.6124930267488553,
+        0.6095227772890731,
+        0.60382548515844
+      ],
+      "keywords": [
+        "hausmeisterdienstleistungen",
+        "management",
+        "büro",
+        "reinigungs",
+        "wohngebäude",
+        "facility",
+        "erbringung",
+        "für",
+        "und",
+        "von"
+      ]
+    },
+    {
+      "id": 23,
+      "true": "R",
+      "predicted": "R",
+      "top3": [
+        "R",
+        "M",
+        "N"
+      ],
+      "scores": [
+        0.46521155329050967,
+        0.3798969562333233,
+        0.3517447913712459
+      ],
+      "keywords": [
+        "sportveranstaltungen",
+        "fitness",
+        "training",
+        "organisation",
+        "kursen",
+        "durchführung",
+        "personal",
+        "unternehmen",
+        "für",
+        "und"
+      ]
+    },
+    {
+      "id": 24,
+      "true": "A",
+      "predicted": "A",
+      "top3": [
+        "A",
+        "B",
+        "L"
+      ],
+      "scores": [
+        0.6844950991143607,
+        0.516281497927612,
+        0.4528417436921787
+      ],
+      "keywords": [
+        "landwirtschaftlichen",
+        "forstwirtschaft",
+        "unternehmens",
+        "betrieb",
+        "und",
+        "gemüse",
+        "von",
+        "eines",
+        "sowie",
+        "obst"
+      ]
+    },
+    {
+      "id": 25,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "B",
+        "M"
+      ],
+      "scores": [
+        0.4310390796499487,
+        0.2826601082944209,
+        0.2413809809508541
+      ],
+      "keywords": [
+        "analytics",
+        "analysewerkzeugen",
+        "data",
+        "modellen",
+        "learning",
+        "machine",
+        "industrie",
+        "entwicklung",
+        "gestützten",
+        "big"
+      ]
+    },
+    {
+      "id": 26,
+      "true": "E",
+      "predicted": "E",
+      "top3": [
+        "E",
+        "H",
+        "S"
+      ],
+      "scores": [
+        0.7837575782821561,
+        0.436081763706397,
+        0.40984170143078413
+      ],
+      "keywords": [
+        "abfallwirtschaft",
+        "recycling",
+        "umweltgerechte",
+        "entsorgungsdienstleistungen",
+        "industrie",
+        "entsorgung",
+        "und",
+        "von",
+        "sonderabfällen"
+      ]
+    },
+    {
+      "id": 27,
+      "true": "N",
+      "predicted": "S",
+      "top3": [
+        "S",
+        "N",
+        "O"
+      ],
+      "scores": [
+        0.44043934181897987,
+        0.437003460073077,
+        0.4312161086016691
+      ],
+      "keywords": [
+        "veranstaltungsschutz",
+        "personenschutz",
+        "sicherheitsdienstleistungen",
+        "objektschutz",
+        "erbringung",
+        "von",
+        "und"
+      ]
+    },
+    {
+      "id": 28,
+      "true": "S",
+      "predicted": "S",
+      "top3": [
+        "S",
+        "I",
+        "N"
+      ],
+      "scores": [
+        0.49818376927639857,
+        0.41468090097135835,
+        0.37234767143489983
+      ],
+      "keywords": [
+        "friseursalons",
+        "kosmetikdienstleistungen",
+        "friseur",
+        "schönheitssalons",
+        "wellness",
+        "betrieb",
+        "angeboten",
+        "eines",
+        "mit",
+        "und"
+      ]
+    },
+    {
+      "id": 29,
+      "true": "B",
+      "predicted": "B",
+      "top3": [
+        "B",
+        "C",
+        "F"
+      ],
+      "scores": [
+        0.7973805770048907,
+        0.33397921619734433,
+        0.3278189254974304
+      ],
+      "keywords": [
+        "natursteinen",
+        "steinbrüchen",
+        "sand",
+        "von",
+        "kiesgruben",
+        "betrieb",
+        "kies",
+        "gewinnung",
+        "und",
+        "verarbeitung"
+      ]
+    }
+  ],
+  "mpnet": [
+    {
+      "id": 0,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "N",
+        "S"
+      ],
+      "scores": [
+        0.7349057912894836,
+        0.4799803007481994,
+        0.450885220361903
+      ],
+      "keywords": [
+        "internetservice",
+        "internet",
+        "informatikingenieurie",
+        "software",
+        "hosting",
+        "programmen",
+        "entwicklung",
+        "verbindung",
+        "analyse",
+        "leistungen"
+      ]
+    },
+    {
+      "id": 1,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "N",
+        "S"
+      ],
+      "scores": [
+        0.6685270391204942,
+        0.39627942079418155,
+        0.3507785223419118
+      ],
+      "keywords": [
+        "app",
+        "software",
+        "dienstleistungen",
+        "mobile",
+        "cloud",
+        "integration",
+        "entwicklung",
+        "unternehmen",
+        "lösungen",
+        "vertrieb"
+      ]
+    },
+    {
+      "id": 2,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "N",
+        "S"
+      ],
+      "scores": [
+        0.48806413868228776,
+        0.4755506218301488,
+        0.46472614786369415
+      ],
+      "keywords": [
+        "seo",
+        "webentwicklung",
+        "marketing",
+        "dienstleistungen",
+        "online",
+        "optimierung",
+        "unternehmen",
+        "erbringung",
+        "mittlere",
+        "kleine"
+      ]
+    },
+    {
+      "id": 3,
+      "true": "M",
+      "predicted": "K",
+      "top3": [
+        "K",
+        "O",
+        "N"
+      ],
+      "scores": [
+        0.49251505171002297,
+        0.46124034453819346,
+        0.45457829326518007
+      ],
+      "keywords": [
+        "wirtschaftsprüfungsgesellschaften",
+        "berufsrechtlich",
+        "gesetzlich",
+        "zulässigen",
+        "steuerberatung",
+        "buchführung",
+        "gemäß",
+        "tätigkeiten",
+        "für",
+        "und"
+      ]
+    },
+    {
+      "id": 4,
+      "true": "M",
+      "predicted": "N",
+      "top3": [
+        "N",
+        "M",
+        "T"
+      ],
+      "scores": [
+        0.6138139416688224,
+        0.5298152504753099,
+        0.4924927578720308
+      ],
+      "keywords": [
+        "unternehmensberatung",
+        "organisationsentwicklung",
+        "managementberatung",
+        "branchen",
+        "mittelständische",
+        "unternehmen",
+        "für",
+        "und",
+        "aller"
+      ]
+    },
+    {
+      "id": 5,
+      "true": "M",
+      "predicted": "M",
+      "top3": [
+        "M",
+        "O",
+        "T"
+      ],
+      "scores": [
+        0.5504464676406988,
+        0.5228389624012157,
+        0.46136013418462235
+      ],
+      "keywords": [
+        "arbeitsrecht",
+        "rechtsberatung",
+        "gesellschaftsrecht",
+        "anwaltliche",
+        "vertragsrecht",
+        "vertretung",
+        "bereichen",
+        "und",
+        "den"
+      ]
+    },
+    {
+      "id": 6,
+      "true": "G",
+      "predicted": "G",
+      "top3": [
+        "G",
+        "C",
+        "S"
+      ],
+      "scores": [
+        0.7039905249064633,
+        0.5831266554563989,
+        0.5523946651704585
+      ],
+      "keywords": [
+        "handel",
+        "haushaltswaren",
+        "heimtextilien",
+        "einzelhandel",
+        "möbeln",
+        "insbesondere",
+        "wohnungseinrichtungen",
+        "groß",
+        "und",
+        "art"
+      ]
+    },
+    {
+      "id": 7,
+      "true": "G",
+      "predicted": "G",
+      "top3": [
+        "G",
+        "J",
+        "S"
+      ],
+      "scores": [
+        0.593675930840331,
+        0.490690476368447,
+        0.4297254836907499
+      ],
+      "keywords": [
+        "großhandel",
+        "commerce",
+        "elektronik",
+        "einzelhandel",
+        "mobiltelefonen",
+        "computern",
+        "zubehör",
+        "plattform",
+        "mit",
+        "für"
+      ]
+    },
+    {
+      "id": 8,
+      "true": "G",
+      "predicted": "G",
+      "top3": [
+        "G",
+        "C",
+        "I"
+      ],
+      "scores": [
+        0.6179917244692005,
+        0.5719347288099987,
+        0.4833164395469329
+      ],
+      "keywords": [
+        "feinkostwaren",
+        "import",
+        "export",
+        "handel",
+        "lebensmitteln",
+        "produkten",
+        "internationalen",
+        "insbesondere",
+        "spezialitäten",
+        "bio"
+      ]
+    },
+    {
+      "id": 9,
+      "true": "F",
+      "predicted": "M",
+      "top3": [
+        "M",
+        "F",
+        "Q"
+      ],
+      "scores": [
+        0.622565714156762,
+        0.5876584608245008,
+        0.4850622504715435
+      ],
+      "keywords": [
+        "von",
+        "gewerbegebäuden",
+        "bauarbeiten",
+        "sanierung",
+        "renovierung",
+        "allgemeine",
+        "und",
+        "wohn",
+        "tiefbau",
+        "schlüsselfertigbau"
+      ]
+    },
+    {
+      "id": 10,
+      "true": "F",
+      "predicted": "F",
+      "top3": [
+        "F",
+        "D",
+        "M"
+      ],
+      "scores": [
+        0.6063176600776299,
+        0.587697646725194,
+        0.5758165294718937
+      ],
+      "keywords": [
+        "heizungsanlagen",
+        "sanitärarbeiten",
+        "elektroinstallationen",
+        "ausführung",
+        "planung",
+        "gewerbebau",
+        "von",
+        "und",
+        "wohnungs"
+      ]
+    },
+    {
+      "id": 11,
+      "true": "Q",
+      "predicted": "Q",
+      "top3": [
+        "Q",
+        "B",
+        "M"
+      ],
+      "scores": [
+        0.4040291175326463,
+        0.24514818989933512,
+        0.2209154349947053
+      ],
+      "keywords": [
+        "behandlungsmethoden",
+        "zahnklinik",
+        "prophylaxe",
+        "zahnimplantate",
+        "kieferorthopädie",
+        "modernen",
+        "zahnbleaching",
+        "mit",
+        "und"
+      ]
+    },
+    {
+      "id": 12,
+      "true": "Q",
+      "predicted": "Q",
+      "top3": [
+        "Q",
+        "S",
+        "I"
+      ],
+      "scores": [
+        0.5205656281523717,
+        0.4760647006411423,
+        0.4116417324492602
+      ],
+      "keywords": [
+        "pflegeeinrichtung",
+        "pflege",
+        "therapie",
+        "rehabilitation",
+        "ältere",
+        "ambulante",
+        "betrieb",
+        "menschen",
+        "für",
+        "stationäre"
+      ]
+    },
+    {
+      "id": 13,
+      "true": "Q",
+      "predicted": "M",
+      "top3": [
+        "M",
+        "Q",
+        "F"
+      ],
+      "scores": [
+        0.589035309765756,
+        0.5537131432718982,
+        0.4066340130441993
+      ],
+      "keywords": [
+        "hausärztliche",
+        "allgemeinmedizin",
+        "arztpraxis",
+        "medizin",
+        "präventivmedizin",
+        "und",
+        "für",
+        "vorsorgeuntersuchungen",
+        "versorgung",
+        "innere"
+      ]
+    },
+    {
+      "id": 14,
+      "true": "K",
+      "predicted": "K",
+      "top3": [
+        "K",
+        "N",
+        "M"
+      ],
+      "scores": [
+        0.7984577794290358,
+        0.5388923779240978,
+        0.48016883122287346
+      ],
+      "keywords": [
+        "vermögensberatung",
+        "finanzdienstleistungen",
+        "kapitalanlageberatung",
+        "versicherungsvermittlung",
+        "geschäftskunden",
+        "privat",
+        "erbringung",
+        "für",
+        "und",
+        "von"
+      ]
+    },
+    {
+      "id": 15,
+      "true": "L",
+      "predicted": "L",
+      "top3": [
+        "L",
+        "F",
+        "T"
+      ],
+      "scores": [
+        0.8461270744355863,
+        0.6107114719475819,
+        0.5397546681244884
+      ],
+      "keywords": [
+        "immobilienbewertung",
+        "immobilien",
+        "kaufobjekten",
+        "verwaltung",
+        "verkauf",
+        "vermittlung",
+        "sowie",
+        "kauf",
+        "miet",
+        "und"
+      ]
+    },
+    {
+      "id": 16,
+      "true": "H",
+      "predicted": "H",
+      "top3": [
+        "H",
+        "M",
+        "G"
+      ],
+      "scores": [
+        0.7877428709921563,
+        0.5701647320808149,
+        0.5603605557457348
+      ],
+      "keywords": [
+        "transport",
+        "güterbeförderung",
+        "logistikdienstleistungen",
+        "lagerung",
+        "internationaler",
+        "nationaler",
+        "spedition",
+        "und"
+      ]
+    },
+    {
+      "id": 17,
+      "true": "I",
+      "predicted": "I",
+      "top3": [
+        "I",
+        "S",
+        "G"
+      ],
+      "scores": [
+        0.8437788960865782,
+        0.6194359958067329,
+        0.5811474651390859
+      ],
+      "keywords": [
+        "restaurants",
+        "catering",
+        "gastronomie",
+        "lieferservice",
+        "betrieb",
+        "firmenkunden",
+        "services",
+        "eventcatering",
+        "für",
+        "und"
+      ]
+    },
+    {
+      "id": 18,
+      "true": "P",
+      "predicted": "M",
+      "top3": [
+        "M",
+        "P",
+        "J"
+      ],
+      "scores": [
+        0.5977026816985788,
+        0.5237441028300227,
+        0.4512699948782612
+      ],
+      "keywords": [
+        "sprachkursen",
+        "berufsausbildungen",
+        "weiterbildungsmaßnahmen",
+        "präsenzkurse",
+        "online",
+        "angebot",
+        "für",
+        "und",
+        "von",
+        "erwachsene"
+      ]
+    },
+    {
+      "id": 19,
+      "true": "D",
+      "predicted": "D",
+      "top3": [
+        "D",
+        "E",
+        "A"
+      ],
+      "scores": [
+        0.5476851863122626,
+        0.3948558761572938,
+        0.361679050860292
+      ],
+      "keywords": [
+        "erneuerbaren",
+        "energiespeicherlösungen",
+        "windkraft",
+        "photovoltaik",
+        "energien",
+        "erzeugung",
+        "industrie",
+        "verteilung",
+        "gewerbe",
+        "und"
+      ]
+    },
+    {
+      "id": 20,
+      "true": "C",
+      "predicted": "C",
+      "top3": [
+        "C",
+        "H",
+        "G"
+      ],
+      "scores": [
+        0.8450926791887234,
+        0.5788666305010218,
+        0.517067623039163
+      ],
+      "keywords": [
+        "fertigungsindustrie",
+        "industriemaschinen",
+        "maschinenteilen",
+        "herstellung",
+        "anlagen",
+        "vertrieb",
+        "für",
+        "und",
+        "von",
+        "die"
+      ]
+    },
+    {
+      "id": 21,
+      "true": "C",
+      "predicted": "C",
+      "top3": [
+        "C",
+        "G",
+        "H"
+      ],
+      "scores": [
+        0.6479326534720821,
+        0.4932304424939253,
+        0.3818658639481966
+      ],
+      "keywords": [
+        "kunststoffprodukten",
+        "verpackungsmaterialien",
+        "pharmaindustrie",
+        "produktion",
+        "lebensmittel",
+        "für",
+        "und",
+        "von"
+      ]
+    },
+    {
+      "id": 22,
+      "true": "N",
+      "predicted": "N",
+      "top3": [
+        "N",
+        "S",
+        "F"
+      ],
+      "scores": [
+        0.6698963625177586,
+        0.6228732723637744,
+        0.5825549474376034
+      ],
+      "keywords": [
+        "facility",
+        "büro",
+        "wohngebäude",
+        "hausmeisterdienstleistungen",
+        "reinigungs",
+        "management",
+        "erbringung",
+        "für",
+        "und",
+        "von"
+      ]
+    },
+    {
+      "id": 23,
+      "true": "R",
+      "predicted": "N",
+      "top3": [
+        "N",
+        "S",
+        "M"
+      ],
+      "scores": [
+        0.4867044270632225,
+        0.4233777283801837,
+        0.4087007039707853
+      ],
+      "keywords": [
+        "sportveranstaltungen",
+        "fitness",
+        "training",
+        "organisation",
+        "unternehmen",
+        "privatpersonen",
+        "kursen",
+        "durchführung",
+        "personal",
+        "für"
+      ]
+    },
+    {
+      "id": 24,
+      "true": "A",
+      "predicted": "A",
+      "top3": [
+        "A",
+        "C",
+        "T"
+      ],
+      "scores": [
+        0.7373677562513291,
+        0.5146531304022687,
+        0.4839900840746275
+      ],
+      "keywords": [
+        "landwirtschaftlichen",
+        "forstwirtschaft",
+        "betrieb",
+        "unternehmens",
+        "sowie",
+        "gemüse",
+        "anbau",
+        "eines",
+        "getreide",
+        "und"
+      ]
+    },
+    {
+      "id": 25,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "C",
+        "N"
+      ],
+      "scores": [
+        0.3372096104175894,
+        0.1693359812757496,
+        0.14642851345870775
+      ],
+      "keywords": [
+        "analytics",
+        "data",
+        "analysewerkzeugen",
+        "machine",
+        "industrie",
+        "modellen",
+        "learning",
+        "big",
+        "entwicklung",
+        "gestützten"
+      ]
+    },
+    {
+      "id": 26,
+      "true": "E",
+      "predicted": "E",
+      "top3": [
+        "E",
+        "H",
+        "B"
+      ],
+      "scores": [
+        0.7612308153627334,
+        0.5700040796527273,
+        0.49019763371083164
+      ],
+      "keywords": [
+        "abfallwirtschaft",
+        "sonderabfällen",
+        "recycling",
+        "umweltgerechte",
+        "entsorgungsdienstleistungen",
+        "industrie",
+        "entsorgung",
+        "und",
+        "von"
+      ]
+    },
+    {
+      "id": 27,
+      "true": "N",
+      "predicted": "O",
+      "top3": [
+        "O",
+        "S",
+        "N"
+      ],
+      "scores": [
+        0.5571470307411349,
+        0.531497785727698,
+        0.5248514083978387
+      ],
+      "keywords": [
+        "personenschutz",
+        "veranstaltungsschutz",
+        "sicherheitsdienstleistungen",
+        "objektschutz",
+        "erbringung",
+        "und",
+        "von"
+      ]
+    },
+    {
+      "id": 28,
+      "true": "S",
+      "predicted": "Q",
+      "top3": [
+        "Q",
+        "M",
+        "S"
+      ],
+      "scores": [
+        0.542594481750226,
+        0.5036442979949635,
+        0.3999874033161452
+      ],
+      "keywords": [
+        "friseursalons",
+        "schönheitssalons",
+        "kosmetikdienstleistungen",
+        "wellness",
+        "friseur",
+        "betrieb",
+        "und",
+        "mit",
+        "angeboten",
+        "eines"
+      ]
+    },
+    {
+      "id": 29,
+      "true": "B",
+      "predicted": "B",
+      "top3": [
+        "B",
+        "F",
+        "C"
+      ],
+      "scores": [
+        0.6894487135464489,
+        0.5519357021818017,
+        0.46455005802514376
+      ],
+      "keywords": [
+        "natursteinen",
+        "steinbrüchen",
+        "kiesgruben",
+        "sand",
+        "verarbeitung",
+        "betrieb",
+        "gewinnung",
+        "kies",
+        "und",
+        "von"
+      ]
+    }
+  ],
+  "translated-en": [
+    {
+      "id": 0,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "N",
+        "S"
+      ],
+      "scores": [
+        0.6786847065758033,
+        0.5962529237575529,
+        0.5785739680151014
+      ],
+      "keywords": [
+        "internet",
+        "services",
+        "service",
+        "software",
+        "programs",
+        "computer",
+        "hosting",
+        "engineering",
+        "development",
+        "provision"
+      ]
+    },
+    {
+      "id": 1,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "N",
+        "S"
+      ],
+      "scores": [
+        0.6093171614065188,
+        0.4405420514254972,
+        0.3696289889174947
+      ],
+      "keywords": [
+        "app",
+        "software",
+        "mobile",
+        "services",
+        "cloud",
+        "businesses",
+        "development",
+        "integration",
+        "solutions",
+        "distribution"
+      ]
+    },
+    {
+      "id": 2,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "S",
+        "N"
+      ],
+      "scores": [
+        0.43454838948165453,
+        0.4290301423587666,
+        0.4171613897938341
+      ],
+      "keywords": [
+        "web",
+        "marketing",
+        "services",
+        "enterprises",
+        "online",
+        "development",
+        "optimization",
+        "small",
+        "seo",
+        "provision"
+      ]
+    },
+    {
+      "id": 3,
+      "true": "M",
+      "predicted": "K",
+      "top3": [
+        "K",
+        "N",
+        "M"
+      ],
+      "scores": [
+        0.44227058632399563,
+        0.402562675045655,
+        0.36561208827722047
+      ],
+      "keywords": [
+        "auditing",
+        "accounting",
+        "law",
+        "accordance",
+        "companies",
+        "tax",
+        "professional",
+        "permitted",
+        "activities",
+        "wpo"
+      ]
+    },
+    {
+      "id": 4,
+      "true": "M",
+      "predicted": "M",
+      "top3": [
+        "M",
+        "N",
+        "J"
+      ],
+      "scores": [
+        0.6061792533651241,
+        0.5145200984851823,
+        0.39400582475783386
+      ],
+      "keywords": [
+        "consulting",
+        "management",
+        "organizational",
+        "companies",
+        "development",
+        "sectors",
+        "sized",
+        "medium"
+      ]
+    },
+    {
+      "id": 5,
+      "true": "M",
+      "predicted": "M",
+      "top3": [
+        "M",
+        "N",
+        "O"
+      ],
+      "scores": [
+        0.39210008647076855,
+        0.3906072845342216,
+        0.32075012181801177
+      ],
+      "keywords": [
+        "law",
+        "legal",
+        "contract",
+        "company",
+        "advice",
+        "representation",
+        "labour",
+        "areas"
+      ]
+    },
+    {
+      "id": 6,
+      "true": "G",
+      "predicted": "G",
+      "top3": [
+        "G",
+        "H",
+        "C"
+      ],
+      "scores": [
+        0.7167247061990135,
+        0.5119827634502809,
+        0.5092642851551169
+      ],
+      "keywords": [
+        "trade",
+        "goods",
+        "wholesale",
+        "retail",
+        "textiles",
+        "household",
+        "kinds",
+        "equipment",
+        "particular",
+        "furniture"
+      ]
+    },
+    {
+      "id": 7,
+      "true": "G",
+      "predicted": "G",
+      "top3": [
+        "G",
+        "J",
+        "C"
+      ],
+      "scores": [
+        0.512488968383705,
+        0.47139300104951704,
+        0.36721494793364673
+      ],
+      "keywords": [
+        "retail",
+        "commerce",
+        "wholesale",
+        "electronics",
+        "accessories",
+        "mobile",
+        "phones",
+        "computers",
+        "platform"
+      ]
+    },
+    {
+      "id": 8,
+      "true": "G",
+      "predicted": "G",
+      "top3": [
+        "G",
+        "C",
+        "H"
+      ],
+      "scores": [
+        0.5251334128236588,
+        0.3927339230605026,
+        0.32690089338005335
+      ],
+      "keywords": [
+        "goods",
+        "import",
+        "trade",
+        "export",
+        "products",
+        "food",
+        "delicatessen",
+        "organic",
+        "international",
+        "specialties"
+      ]
+    },
+    {
+      "id": 9,
+      "true": "F",
+      "predicted": "F",
+      "top3": [
+        "F",
+        "L",
+        "B"
+      ],
+      "scores": [
+        0.6197283815838759,
+        0.5176276938394179,
+        0.431944882408903
+      ],
+      "keywords": [
+        "construction",
+        "renovation",
+        "engineering",
+        "buildings",
+        "civil",
+        "residential",
+        "works",
+        "general",
+        "turnkey",
+        "commercial"
+      ]
+    },
+    {
+      "id": 10,
+      "true": "F",
+      "predicted": "D",
+      "top3": [
+        "D",
+        "T",
+        "L"
+      ],
+      "scores": [
+        0.5445525952484594,
+        0.47027733118856985,
+        0.4577125588868244
+      ],
+      "keywords": [
+        "electrical",
+        "heating",
+        "residential",
+        "construction",
+        "planning",
+        "sanitary",
+        "works",
+        "systems",
+        "installations",
+        "commercial"
+      ]
+    },
+    {
+      "id": 11,
+      "true": "Q",
+      "predicted": "M",
+      "top3": [
+        "M",
+        "Q",
+        "N"
+      ],
+      "scores": [
+        0.2412783142574254,
+        0.19368993135991647,
+        0.1721601827932104
+      ],
+      "keywords": [
+        "dental",
+        "orthodontics",
+        "bleaching",
+        "implants",
+        "clinic",
+        "treatment",
+        "methods",
+        "modern",
+        "prophylaxis"
+      ]
+    },
+    {
+      "id": 12,
+      "true": "Q",
+      "predicted": "N",
+      "top3": [
+        "N",
+        "S",
+        "Q"
+      ],
+      "scores": [
+        0.4453600894771888,
+        0.43202484079952863,
+        0.4318833224019915
+      ],
+      "keywords": [
+        "outpatient",
+        "elderly",
+        "inpatient",
+        "facility",
+        "care",
+        "rehabilitation",
+        "operation",
+        "therapy"
+      ]
+    },
+    {
+      "id": 13,
+      "true": "Q",
+      "predicted": "Q",
+      "top3": [
+        "Q",
+        "M",
+        "S"
+      ],
+      "scores": [
+        0.4401288349499629,
+        0.304284437201911,
+        0.2944817717205656
+      ],
+      "keywords": [
+        "medicine",
+        "medical",
+        "practice",
+        "preventive",
+        "general",
+        "internal"
+      ]
+    },
+    {
+      "id": 14,
+      "true": "K",
+      "predicted": "K",
+      "top3": [
+        "K",
+        "N",
+        "M"
+      ],
+      "scores": [
+        0.5857222262956354,
+        0.38741092191120735,
+        0.3711542418194488
+      ],
+      "keywords": [
+        "financial",
+        "investment",
+        "advice",
+        "asset",
+        "insurance",
+        "services",
+        "provision",
+        "private",
+        "mediation",
+        "business"
+      ]
+    },
+    {
+      "id": 15,
+      "true": "L",
+      "predicted": "L",
+      "top3": [
+        "L",
+        "I",
+        "K"
+      ],
+      "scores": [
+        0.7003689709339124,
+        0.3782483956830015,
+        0.3566053117635032
+      ],
+      "keywords": [
+        "property",
+        "estate",
+        "rental",
+        "valuation",
+        "properties",
+        "sale",
+        "purchase",
+        "placement",
+        "management",
+        "real"
+      ]
+    },
+    {
+      "id": 16,
+      "true": "H",
+      "predicted": "H",
+      "top3": [
+        "H",
+        "G",
+        "S"
+      ],
+      "scores": [
+        0.749812397949288,
+        0.5037456543358131,
+        0.4137227951377559
+      ],
+      "keywords": [
+        "freight",
+        "logistics",
+        "transport",
+        "services",
+        "international",
+        "forwarding",
+        "storage",
+        "national"
+      ]
+    },
+    {
+      "id": 17,
+      "true": "I",
+      "predicted": "I",
+      "top3": [
+        "I",
+        "S",
+        "N"
+      ],
+      "scores": [
+        0.5982942402293591,
+        0.5171080804453959,
+        0.5126376938473935
+      ],
+      "keywords": [
+        "catering",
+        "customers",
+        "restaurant",
+        "service",
+        "gastronomy",
+        "operation",
+        "delivery",
+        "event",
+        "corporate"
+      ]
+    },
+    {
+      "id": 18,
+      "true": "P",
+      "predicted": "P",
+      "top3": [
+        "P",
+        "M",
+        "S"
+      ],
+      "scores": [
+        0.562953348856516,
+        0.4291069707736253,
+        0.3206681677154316
+      ],
+      "keywords": [
+        "courses",
+        "training",
+        "vocational",
+        "online",
+        "language",
+        "adults",
+        "presence",
+        "offer"
+      ]
+    },
+    {
+      "id": 19,
+      "true": "D",
+      "predicted": "D",
+      "top3": [
+        "D",
+        "C",
+        "E"
+      ],
+      "scores": [
+        0.5631271854393095,
+        0.39267375233393553,
+        0.3266735179646887
+      ],
+      "keywords": [
+        "renewable",
+        "photovoltaics",
+        "energy",
+        "energies",
+        "power",
+        "production",
+        "wind",
+        "industry",
+        "distribution",
+        "business"
+      ]
+    },
+    {
+      "id": 20,
+      "true": "C",
+      "predicted": "C",
+      "top3": [
+        "C",
+        "H",
+        "G"
+      ],
+      "scores": [
+        0.7169953661499648,
+        0.4063274969259972,
+        0.39985028604414014
+      ],
+      "keywords": [
+        "manufacturing",
+        "industrial",
+        "manufacture",
+        "machinery",
+        "industry",
+        "equipment",
+        "parts",
+        "distribution"
+      ]
+    },
+    {
+      "id": 21,
+      "true": "C",
+      "predicted": "C",
+      "top3": [
+        "C",
+        "G",
+        "E"
+      ],
+      "scores": [
+        0.6314435215012514,
+        0.34857541036412115,
+        0.3428511798956372
+      ],
+      "keywords": [
+        "plastic",
+        "packaging",
+        "products",
+        "industry",
+        "materials",
+        "production",
+        "pharmaceutical",
+        "food"
+      ]
+    },
+    {
+      "id": 22,
+      "true": "N",
+      "predicted": "N",
+      "top3": [
+        "N",
+        "S",
+        "T"
+      ],
+      "scores": [
+        0.6277972245633204,
+        0.5811160338186927,
+        0.49641534341230864
+      ],
+      "keywords": [
+        "caretaker",
+        "management",
+        "cleaning",
+        "services",
+        "office",
+        "residential",
+        "facility",
+        "buildings",
+        "provision"
+      ]
+    },
+    {
+      "id": 23,
+      "true": "R",
+      "predicted": "N",
+      "top3": [
+        "N",
+        "R",
+        "M"
+      ],
+      "scores": [
+        0.44673166155218796,
+        0.44611664130724776,
+        0.43009998393089827
+      ],
+      "keywords": [
+        "organization",
+        "fitness",
+        "training",
+        "sports",
+        "personnel",
+        "companies",
+        "courses",
+        "individuals",
+        "events"
+      ]
+    },
+    {
+      "id": 24,
+      "true": "A",
+      "predicted": "A",
+      "top3": [
+        "A",
+        "C",
+        "T"
+      ],
+      "scores": [
+        0.6768126256790592,
+        0.44799487374800523,
+        0.42768585661121084
+      ],
+      "keywords": [
+        "agricultural",
+        "cultivation",
+        "vegetables",
+        "fruit",
+        "cereals",
+        "enterprise",
+        "forestry",
+        "operation"
+      ]
+    },
+    {
+      "id": 25,
+      "true": "J",
+      "predicted": "J",
+      "top3": [
+        "J",
+        "N",
+        "M"
+      ],
+      "scores": [
+        0.40797577667109275,
+        0.2364099249598631,
+        0.21737271144961232
+      ],
+      "keywords": [
+        "analytics",
+        "data",
+        "models",
+        "analysis",
+        "tools",
+        "industry",
+        "machine",
+        "learning",
+        "development",
+        "supported"
+      ]
+    },
+    {
+      "id": 26,
+      "true": "E",
+      "predicted": "E",
+      "top3": [
+        "E",
+        "H",
+        "N"
+      ],
+      "scores": [
+        0.760277116851158,
+        0.407351078736465,
+        0.390257246755913
+      ],
+      "keywords": [
+        "waste",
+        "recycling",
+        "disposal",
+        "environmentally",
+        "management",
+        "industrial",
+        "services",
+        "sound",
+        "special"
+      ]
+    },
+    {
+      "id": 27,
+      "true": "N",
+      "predicted": "O",
+      "top3": [
+        "O",
+        "N",
+        "S"
+      ],
+      "scores": [
+        0.3944740755169264,
+        0.38651974969358444,
+        0.37105460944078916
+      ],
+      "keywords": [
+        "protection",
+        "security",
+        "event",
+        "services",
+        "provision",
+        "object",
+        "personal"
+      ]
+    },
+    {
+      "id": 28,
+      "true": "S",
+      "predicted": "S",
+      "top3": [
+        "S",
+        "N",
+        "I"
+      ],
+      "scores": [
+        0.4797264114323539,
+        0.3755614611854924,
+        0.36273205323651875
+      ],
+      "keywords": [
+        "hairdressing",
+        "salon",
+        "services",
+        "beauty",
+        "wellness",
+        "operation",
+        "offers"
+      ]
+    },
+    {
+      "id": 29,
+      "true": "B",
+      "predicted": "B",
+      "top3": [
+        "B",
+        "E",
+        "C"
+      ],
+      "scores": [
+        0.7002888795262775,
+        0.2975853956846352,
+        0.2834102987331819
+      ],
+      "keywords": [
+        "gravel",
+        "stones",
+        "quarries",
+        "sand",
+        "pits",
+        "extraction",
+        "operation",
+        "natural",
+        "processing"
+      ]
+    }
+  ]
+}

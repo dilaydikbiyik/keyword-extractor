@@ -554,4 +554,86 @@ Projenin başarılı sayılması için minimum hedefler:
 
 ---
 
-*Son güncelleme: 9 Mayıs 2026 — Tüm P1–P4 görevleri tamamlandı. 68/68 test geçiyor. Kod lint temiz.*
+---
+
+## AŞAMA 10 — YAYIN HATTI (İP-1) ve ARTEFAKT STANDARDI (İP-4)
+
+> Kaynak: *AI Kariyer Rehberi, Revizyon 5* — İP-1 ve İP-4.
+> Amaç: bitmiş bir sistemi, hakem önüne çıkabilecek bir sonuca çevirmek.
+
+### 10.1 Baseline'lar (İP-1, adım 3) — ✅ TAMAMLANDI
+
+- [x] TF-IDF → en yakın NACE etiketi
+- [x] Yönlendirmesiz KeyBERT (taksonomi kısmı çıkarılmış)
+- [x] Çok dilli gömme vektörleriyle sıfır-atışlı sınıflandırma (LLM'siz)
+- [x] Rastgele + çoğunluk sınıfı zemin çizgileri (hakem "peki taban ne?" diye sorar)
+- [x] İsteğe bağlı LLM sıfır-atışlı baseline (`run.py --with-llm`, OPENAI_API_KEY ister)
+- [x] Bootstrap %95 güven aralığı + eşleştirilmiş McNemar testi
+- [x] Tablo: `results/tables/baselines.md`
+
+**Sonuç:** Sistem %80.0 Top-1 ile tüm baseline'ları geçiyor **ama** TF-IDF %76.7'de
+— n=30'da bu fark tek bir belge, McNemar p=1.000. Bkz. `docs/paper_readiness.md`.
+
+### 10.2 Ablation (İP-1, adım 4) — ✅ TAMAMLANDI
+
+- [x] Sektör vektöründen seed listesi çıkarılırsa → **−6.7 puan** (tek gerçek katkı)
+- [x] Sektör vektöründen açıklama çıkarılırsa → −3.3 puan
+- [x] Yönlendirmeli çıkarım kapatılırsa → **fark yok**
+- [x] 6 aşamalı filtre kapatılırsa → **fark yok** (P@5 hafif artıyor)
+- [x] Sınıflandırıcıya temizlenmiş metin verilirse → **+6.7 puan**
+- [x] Gömme modeli değiştirilirse (mpnet-base-v2) → **−6.7 puan, F1 −0.163**
+      README'deki "~%10 iyileşme beklenir" hipotezi **yanlışlandı**. Q/M
+      karışıklığının 2'sini düzeltiyor, 4 yeni hata üretiyor.
+- [x] Almanca yerine çeviri kullanılırsa (Marian de→en) → **Top-1 aynı (%80.0)**
+      Çok dilli modelin Almanca'ya özel bir şey yaptığı iddiası zayıflıyor.
+- [x] Tablo: `results/tables/ablation.md` (`run.py --extra-ablations`)
+
+### 10.3 Hata analizi (İP-1, adım 5) — 🔶 ALTYAPI HAZIR, ELLE KODLAMA BEKLİYOR
+
+- [x] Yanlış sınıflanan belgeler otomatik bayraklarla dökülüyor
+- [x] Hata tipi kod kitabı (`experiments/error_analysis.py:CODEBOOK`)
+- [x] Elle kodlama için CSV: `results/error_analysis.csv`
+- [x] Karışıklık tablosu: `results/tables/confusions.md`
+- [ ] **50 hatayı elle incele** — şu an sadece 6 hata var (30 belgede)
+
+### 10.4 Değerlendirme setini büyüt — ⛔ EN ÖNEMLİ İŞ
+
+n=30'da %95 güven aralığı ≈ ±14 puan. Hiçbir karşılaştırma anlamlı değil.
+
+- [x] Katmanlı etiketleme kuyruğu: `results/annotation_queue.csv` (296 belge hazır)
+- [x] Etiketleri geri birleştirme aracı: `python -m experiments.merge_annotations`
+- [ ] **296 belgeyi elle etiketle** (~2.5 saat) → CI ±4.5 puana iner
+- [ ] `make reproduce` — karşılaştırma anlamlı çıkıyor mu, çıkmıyor mu?
+- [ ] İkinci bir etiketleyiciyle 100 belgede örtüşme → annotator-arası Cohen κ
+- [ ] Sentetik örnekleri (TechSoft, WebPro) gerçek kayıtlarla değiştir
+
+### 10.5 Artefakt standardı (İP-4) — 🔶 BÜYÜK ÖLÇÜDE TAMAM
+
+- [x] README: sonuç tablosu ilk 10 saniyede görünüyor
+- [x] Kurulum: 3 komut
+- [x] Tek komutla yeniden üretim: `make reproduce`
+- [x] `results/metrics.json` — sayılar kodda gömülü değil
+- [x] Sabitlenmiş `requirements.txt` (üretildiği sürümlerle)
+- [x] Sabit tohum (`experiments/config.py:SEED`)
+- [x] Testler + CI (GitHub Actions) + rozet — 106/106 test
+- [x] `LICENSE` (MIT) + `CITATION.cff`
+- [x] Sınırlamalar bölümü — dürüst yazıldı
+- [x] Veri kaynağı ve lisansı: `data/README.md`
+- [x] Demo GIF (`python tools/make_demo_gif.py` → `docs/assets/demo.gif`)
+- [x] Mimari şeması görsel (`docs/assets/architecture.svg`)
+- [x] `classification.classify_preprocessed_text` anahtarı (varsayılan kapalı,
+      kanıt yetersiz — set büyüyünce karar ver)
+
+### 10.6 Danışman ve mekân (İP-1, adım 1, 7) — kod dışı
+
+- [ ] Danışmanla 30 dk toplantı — maddeli e-posta gündemiyle
+- [ ] Veri paylaşım kısıtı sorusu (bkz. `data/README.md`)
+- [ ] Ortak yazarlık ve mekân kararı
+- [ ] *ACL SRW / düşük kaynaklı diller atölyeleri — son tarihleri kendi sayfalarından doğrula
+
+---
+
+*Son güncelleme: 9 Eylül 2026 — İP-1 baseline + ablation + hata analizi altyapısı
+kuruldu, İP-4 artefakt standardı tamamlandı (GIF + diyagram dahil). mpnet ve
+çeviri ablation'ları da koşuldu — ikisi de negatif sonuç. Testler geçiyor, lint temiz.
+Kritik yol: değerlendirme setini 30'dan ~300 belgeye çıkarmak (10.4).*
