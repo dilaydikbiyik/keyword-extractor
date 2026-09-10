@@ -144,10 +144,19 @@ constrains candidates by part of speech, PromptRank
 \citep{kong-etal-2023-promptrank} scores them with a prompted language model,
 and MDERank \citep{zhang-etal-2022-mderank} ranks by the effect of masking a
 candidate out of the document. Purely statistical methods such as YAKE
-\citep{campos-etal-2020-yake} remain competitive on short documents. The seed
+\citep{campos-etal-2020-yake} remain competitive on short documents.
+Closest to our setting, \citet{meisenbacher-etal-2024-improved} extract
+class-specific keywords from the same register under the same 21-section scheme
+(WZ~2008, the German edition of NACE Rev.~2), guiding KeyBERT with seed keywords
+that are expanded iteratively, and evaluate the keywords against gold lists. The
+pipeline studied here follows that design, but uses it to assign the section
+rather than to extract its vocabulary. The seed
 mechanism is the closest analogue to what we study---a hand-written vocabulary
 supplied to steer an embedding-based decision---and one of our findings is that
-it is redundant once the class descriptions carry the same information.
+it is redundant once the class descriptions carry the same information. That
+finding concerns the seeds as a signal for classification; it says nothing about
+the quality of the keywords they help extract, which is what
+\citet{meisenbacher-etal-2024-improved} measure.
 
 \paragraph{Method of reporting.}
 The prospective test in Section~\ref{sec:corpora} follows the preregistration

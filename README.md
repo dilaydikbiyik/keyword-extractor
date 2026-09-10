@@ -342,7 +342,8 @@ in. Build the pipeline from a config with `pipeline.build_controller()`.
 | --- | --- | --- |
 | KeyBERT | Grootendorst (2020) | Pipeline core |
 | YAKE! | Campos et al. (2020), *Information Sciences* | Comparison baseline |
-| PatternRank | Schopf et al. (2022), ICPRAM | N-gram candidate strategy |
+| Class-specific keyword extraction on the Handelsregister | Meisenbacher et al. (2024), KONVENS | Same register and 21 sections; the seed-guided design this pipeline follows |
+| PatternRank | Schopf et al. (2022), KDIR | N-gram candidate strategy |
 | PromptRank | Kong et al. (2023), ACL | LLM-based comparison |
 | Sentence-BERT | Reimers & Gurevych (2019), EMNLP | Embedding foundation |
 | Multilingual SBERT | Reimers & Gurevych (2020), EMNLP | Model selection |

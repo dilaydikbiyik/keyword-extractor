@@ -1,11 +1,13 @@
 % Bibliography for the workshop paper.
 %
-% Provenance of every entry:
+% Provenance of every entry. Nothing here is written from memory:
 %   - Entries with an ACL Anthology citation key were pulled verbatim from
-%     https://aclanthology.org/<id>.bib and carry the Anthology's own DOI and
-%     page range. They need no further checking.
-%   - Entries marked CHECK were written by hand; their venue or page range has
-%     not been confirmed against the publisher. Verify before submission.
+%     https://aclanthology.org/<id>.bib and carry the Anthology's DOI and pages.
+%   - YAKE and PatternRank were checked against Crossref (api.crossref.org).
+%   - KeyBERT uses the author's recommended citation; its Zenodo DOI was
+%     checked against DataCite.
+%   - NACE Rev. 2 follows the Publications Office record (ISBN, ISSN).
+%   - Chang et al. 2008 and Song and Roth 2014 follow the AAAI proceedings.
 
 % ─────────────────────────────────────────────────────────────────────────────
 % Classifying without labelled data by using the meaning of the class itself.
@@ -355,38 +357,70 @@
 }
 
 % ─────────────────────────────────────────────────────────────────────────────
-% Encoders, keyword extraction, the taxonomy, and the corpora.
+% Encoders, keyword extraction and the taxonomy.
 % ─────────────────────────────────────────────────────────────────────────────
 
 @inproceedings{reimers-gurevych-2019-sentence,
-  title     = {{S}entence-{BERT}: Sentence Embeddings using {S}iamese {BERT}-Networks},
-  author    = {Reimers, Nils and Gurevych, Iryna},
-  booktitle = {Proceedings of the 2019 Conference on Empirical Methods in Natural
-               Language Processing and the 9th International Joint Conference on
-               Natural Language Processing (EMNLP-IJCNLP)},
-  year      = {2019},
-  publisher = {Association for Computational Linguistics}
+    title = "Sentence-{BERT}: Sentence Embeddings using {S}iamese {BERT}-Networks",
+    author = "Reimers, Nils  and
+      Gurevych, Iryna",
+    booktitle = "Proceedings of the 2019 Conference on Empirical Methods in Natural Language Processing and the 9th International Joint Conference on Natural Language Processing (EMNLP-IJCNLP)",
+    month = nov,
+    year = "2019",
+    address = "Hong Kong, China",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/D19-1410/",
+    doi = "10.18653/v1/D19-1410",
+    pages = "3982--3992"
 }
 
 @inproceedings{reimers-gurevych-2020-making,
-  title     = {Making Monolingual Sentence Embeddings Multilingual using
-               Knowledge Distillation},
-  author    = {Reimers, Nils and Gurevych, Iryna},
-  booktitle = {Proceedings of the 2020 Conference on Empirical Methods in
-               Natural Language Processing (EMNLP)},
-  year      = {2020},
-  publisher = {Association for Computational Linguistics}
+    title = "Making Monolingual Sentence Embeddings Multilingual using Knowledge Distillation",
+    author = "Reimers, Nils  and
+      Gurevych, Iryna",
+    booktitle = "Proceedings of the 2020 Conference on Empirical Methods in Natural Language Processing (EMNLP)",
+    month = nov,
+    year = "2020",
+    address = "Online",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2020.emnlp-main.365/",
+    doi = "10.18653/v1/2020.emnlp-main.365",
+    pages = "4512--4525"
+}
+
+@inproceedings{meisenbacher-etal-2024-improved,
+    title = "An Improved Method for Class-specific Keyword Extraction: A Case Study in the {G}erman Business Registry",
+    author = "Meisenbacher, Stephen  and
+      Schopf, Tim  and
+      Yan, Weixin  and
+      Holl, Patrick  and
+      Matthes, Florian",
+    booktitle = "Proceedings of the 20th Conference on Natural Language Processing (KONVENS 2024)",
+    month = sep,
+    year = "2024",
+    address = "Vienna, Austria",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2024.konvens-main.18/",
+    pages = "159--165"
 }
 
 @inproceedings{kong-etal-2023-promptrank,
-  title     = {{P}rompt{R}ank: Unsupervised Keyphrase Extraction Using Prompt},
-  author    = {Kong, Aobo and Zhao, Shiwan and Chen, Hao and Li, Qicheng and
-               Qin, Yong and Sun, Ruiqi and Bai, Xdiaoyan},
-  booktitle = {Proceedings of the 61st Annual Meeting of the Association for
-               Computational Linguistics},
-  year      = {2023},
-  publisher = {Association for Computational Linguistics},
-  note      = {CHECK author list against the Anthology entry}
+    title = "{P}rompt{R}ank: Unsupervised Keyphrase Extraction Using Prompt",
+    author = "Kong, Aobo  and
+      Zhao, Shiwan  and
+      Chen, Hao  and
+      Li, Qicheng  and
+      Qin, Yong  and
+      Sun, Ruiqi  and
+      Bai, Xiaoyan",
+    booktitle = "Proceedings of the 61st Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
+    month = jul,
+    year = "2023",
+    address = "Toronto, Canada",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2023.acl-long.545/",
+    doi = "10.18653/v1/2023.acl-long.545",
+    pages = "9788--9801"
 }
 
 @article{campos-etal-2020-yake,
@@ -398,32 +432,39 @@
   volume  = {509},
   pages   = {257--289},
   year    = {2020},
-  note    = {CHECK volume and page range}
+  doi     = {10.1016/j.ins.2019.09.013}
 }
 
 @misc{grootendorst-2020-keybert,
-  title  = {{K}ey{BERT}: Minimal keyword extraction with {BERT}},
-  author = {Grootendorst, Maarten},
-  year   = {2020},
-  url    = {https://github.com/MaartenGr/KeyBERT},
-  note   = {CHECK the Zenodo DOI and cite that instead if one is required}
+  title     = {{KeyBERT}: Minimal keyword extraction with {BERT}},
+  author    = {Grootendorst, Maarten},
+  year      = {2020},
+  publisher = {Zenodo},
+  doi       = {10.5281/zenodo.4461265},
+  url       = {https://doi.org/10.5281/zenodo.4461265}
 }
 
 @inproceedings{schopf-etal-2022-patternrank,
   title     = {{P}attern{R}ank: Leveraging Pretrained Language Models and Part
                of Speech for Unsupervised Keyphrase Extraction},
   author    = {Schopf, Tim and Klimek, Simon and Matthes, Florian},
-  booktitle = {Proceedings of the International Conference on Knowledge
-               Discovery and Information Retrieval},
+  booktitle = {Proceedings of the 14th International Joint Conference on
+               Knowledge Discovery, Knowledge Engineering and Knowledge
+               Management (KDIR)},
+  pages     = {243--248},
   year      = {2022},
-  note      = {CHECK the venue: this repository has previously cited ICPRAM}
+  publisher = {SciTePress},
+  doi       = {10.5220/0011546600003335}
 }
 
-@misc{eurostat-nace-2008,
-  title        = {{NACE} {R}ev. 2: Statistical classification of economic
-                  activities in the {E}uropean {C}ommunity},
-  author       = {{Eurostat}},
-  year         = {2008},
-  howpublished = {Office for Official Publications of the European Communities},
-  note         = {CHECK the exact citation form the venue expects for standards}
+@book{eurostat-nace-2008,
+  title     = {{NACE} {R}ev. 2: Statistical classification of economic
+               activities in the {E}uropean {C}ommunity},
+  author    = {{Eurostat}},
+  year      = {2008},
+  publisher = {Publications Office of the European Union},
+  address   = {Luxembourg},
+  isbn      = {978-92-79-04741-1},
+  issn      = {1977-0375},
+  note      = {Catalogue number KS-RA-07-015-EN-N}
 }

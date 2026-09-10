@@ -52,10 +52,10 @@ Before submitting, read [`../docs/paper_readiness.md`](../docs/paper_readiness.m
 §11 — the open items are an LLM baseline, a fourth corpus, and the
 inter-annotator figure that needs a second person.
 
-Every entry in `references.bib` carries a `CHECK` note where its venue or page
-range has not been confirmed against the ACL Anthology or the publisher. Verify
-them before submission; bibliographies are where reviewers look first for
-carelessness.
+Every entry in `references.bib` has been checked against its source: the ACL
+Anthology's own BibTeX where the paper is in the Anthology, Crossref or DataCite
+for DOIs, and the publisher's record otherwise. The header of the file says
+which source each entry came from. None was written from memory.
 
 ## Venues
 

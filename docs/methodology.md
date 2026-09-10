@@ -52,9 +52,9 @@ Alt sorular:
 - **Bizim pipeline ile karşılaştırma:** Baseline olarak kullanıldı (bkz. Bölüm 5).
 
 #### 2.1.3 PatternRank — Schopf et al. (2022)
-> Schopf, T., Braun, D., & Matthes, F. (2022). *PatternRank: Leveraging Pretrained  
+> Schopf, T., Klimek, S., & Matthes, F. (2022). *PatternRank: Leveraging Pretrained  
 > Language Models and Part of Speech for Unsupervised Keyphrase Extraction*.  
-> SCITEPRESS Digital Library. DOI: 10.5220/0011546600003318
+> KDIR 2022, 243–248. SCITEPRESS. https://doi.org/10.5220/0011546600003335
 
 - **Yaklaşım:** POS pattern'leri (isim öbekleri, sıfat+isim kombinasyonları) ile aday  
   kümesi kısıtlanır; sonra Sentence Transformer embedding ile sıralanır.
@@ -73,7 +73,7 @@ Alt sorular:
   seed bilgisi yoktur. Ticaret sicili metinleri için sektör bağlamı kritik.
 
 #### 2.1.5 Zero-Shot LLM ile Keyword Çıkarımı — Kang & Shin (2025)
-> Kang, S., & Shin, J. (2025). *Empirical Study of Zero-shot Keyphrase Extraction  
+> Kang, B., & Shin, Y. (2025). *Empirical Study of Zero-shot Keyphrase Extraction  
 > with Large Language Models*. COLING 2025.  
 > https://aclanthology.org/2025.coling-main.248/
 
@@ -97,16 +97,29 @@ Alt sorular:
 - **Önemi:** Almanca, Türkçe, İngilizce seed keyword'lerinin aynı vektör uzayında  
   karşılaştırılmasını mümkün kılıyor.
 
-#### 2.2.2 Zero-Shot Şirket Sektörü Sınıflandırması (2021–2023)
-> Çeşitli arxiv çalışmaları (2021–2023): Zero-shot transformer pipeline'ları  
-> (distilBART-MNLI, RoBERTa) ile NACE/GICS/WZ-2008 sınıflandırması.
+#### 2.2.2 Ticaret Sicilinde Sınıfa Özgü Anahtar Kelime Çıkarımı — Meisenbacher et al. (2024)
+> Meisenbacher, S., Schopf, T., Yan, W., Holl, P., & Matthes, F. (2024). *An Improved
+> Method for Class-specific Keyword Extraction: A Case Study in the German Business
+> Registry*. KONVENS 2024, 159–165. https://aclanthology.org/2024.konvens-main.18/
 
-- **Bulgular:** Zero-shot yaklaşımlar %70–85 Top-3 Accuracy sağlıyor (Handelsregister  
-  benzeri veri üzerinde); fine-tuned modeller %85–92.
-- **Bizim yaklaşımımız:** Zero-shot cosine similarity — etiketli veri olmadan çalışır;  
-  21 NACE sektörü için seed vektörleri ile ölçeklenir.
+- **Ne yapıyor:** Handelsregister'dan rastgele 10.000 kayıt ve WZ 2008'in 21 üst
+  sektörü (NACE Rev. 2'nin Almanca sürümü). KeyBERT'i sınıf başına 10 tohum kelimeyle
+  yönlendiriyor, tohumları iteratif olarak genişletiyor ve anahtar kelimeleri altın
+  listelere karşı precision@K ile değerlendiriyor.
+- **Bizimle ilişkisi:** Bu projenin boru hattı aynı tasarımı izliyor (tohum
+  yönlendirmeli KeyBERT, `iterative_expand()`), ama sektör atamak için kullanıyor.
+  Onlar anahtar kelime kalitesini ölçüyor, biz sınıflandırmayı; tohum listelerinin
+  sınıflandırmaya katkı vermediği bulgumuz onların sonucuyla çelişmiyor.
+
+> **Düzeltme (Eylül 2026):** Bu bölümde önceden "çeşitli arXiv çalışmalarına"
+> atfedilen %70–85 (zero-shot) ve %85–92 (fine-tuned) Top-3 rakamları vardı. Hiçbir
+> kaynağa bağlanamadıkları için kaldırıldılar.
 
 #### 2.2.3 TaxoExpan & Seed Genişletme Yaklaşımları (2020–2022)
+> Shen, J., Shen, Z., Xiong, C., Wang, C., Wang, K., & Han, J. (2020). *TaxoExpan:
+> Self-supervised Taxonomy Expansion with Position-Enhanced Graph Neural Network*.
+> The Web Conference 2020, 486–497. https://doi.org/10.1145/3366423.3380132
+
 Önemi: İteratif seed genişletme fikrinin teorik arka planı.
 
 - **İlke:** Az sayıda güvenilir "seed" term → corpus üzerinden yeni terimler keşfet →  
@@ -330,7 +343,7 @@ Bu projenin literatüre özgün katkıları:
 }
 
 @article{campos2020yake,
-  author  = {Campos, Ricardo and Mangaravite, Vitor and Pasquali, Alípio and
+  author  = {Campos, Ricardo and Mangaravite, Vítor and Pasquali, Arian and
              Jorge, Alípio and Nunes, Célia and Jatowt, Adam},
   title   = {YAKE! Keyword extraction from single documents using multiple local features},
   journal = {Information Sciences},
@@ -341,12 +354,13 @@ Bu projenin literatüre özgün katkıları:
 }
 
 @inproceedings{schopf2022patternrank,
-  author    = {Schopf, Tim and Braun, Daniel and Matthes, Florian},
+  author    = {Schopf, Tim and Klimek, Simon and Matthes, Florian},
   title     = {PatternRank: Leveraging Pretrained Language Models and Part of Speech
                for Unsupervised Keyphrase Extraction},
-  booktitle = {ICPRAM 2022},
+  booktitle = {KDIR 2022},
+  pages     = {243--248},
   year      = {2022},
-  doi       = {10.5220/0011546600003318}
+  doi       = {10.5220/0011546600003335}
 }
 
 @inproceedings{kong2023promptrank,
@@ -358,12 +372,35 @@ Bu projenin literatüre özgün katkıları:
   url       = {https://aclanthology.org/2023.acl-long.545/}
 }
 
-@inproceedings{kang2025zeroshof,
-  author    = {Kang, Seyun and Shin, Jinseon},
+@inproceedings{kang2025zeroshot,
+  author    = {Kang, Byungha and Shin, Youhyun},
   title     = {Empirical Study of Zero-shot Keyphrase Extraction with Large Language Models},
   booktitle = {COLING 2025},
+  pages     = {3670--3686},
   year      = {2025},
   url       = {https://aclanthology.org/2025.coling-main.248/}
+}
+
+@inproceedings{meisenbacher2024classspecific,
+  author    = {Meisenbacher, Stephen and Schopf, Tim and Yan, Weixin and
+               Holl, Patrick and Matthes, Florian},
+  title     = {An Improved Method for Class-specific Keyword Extraction:
+               A Case Study in the German Business Registry},
+  booktitle = {KONVENS 2024},
+  pages     = {159--165},
+  year      = {2024},
+  url       = {https://aclanthology.org/2024.konvens-main.18/}
+}
+
+@inproceedings{shen2020taxoexpan,
+  author    = {Shen, Jiaming and Shen, Zhihong and Xiong, Chenyan and Wang, Chi and
+               Wang, Kuansan and Han, Jiawei},
+  title     = {TaxoExpan: Self-supervised Taxonomy Expansion with Position-Enhanced
+               Graph Neural Network},
+  booktitle = {The Web Conference 2020},
+  pages     = {486--497},
+  year      = {2020},
+  doi       = {10.1145/3366423.3380132}
 }
 
 @inproceedings{reimers2019sbert,
