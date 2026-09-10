@@ -14,8 +14,10 @@ TF-IDF $\rightarrow$ nearest NACE section & 44.5 & [38.8, 50.2] & 65.6 & 0.297 &
 Zero-shot embeddings (no taxonomy guidance) & 52.8 & [47.2, 58.5] & 81.9 & 0.371 & 0.475 & 1.000 \\
 Unguided KeyBERT & 52.8 & [47.2, 58.5] & 81.9 & 0.371 & 0.475 & 1.000 \\
 \textbf{Ours: taxonomy-guided} & 52.5 & [46.8, 58.2] & 81.6 & 0.356 & 0.474 & -- \\
+\midrule
+\LLMModel, zero-shot$^{\ddagger}$ & 48.8 & [43.1, 54.5] & 71.9 & 0.359 & 0.430 & 0.416 \\
 \bottomrule
 \end{tabular}
-\caption{Section classification on the held-out evaluation set ($n{=}\NEVAL$). Intervals are percentile bootstrap over $10{,}000$ resamples; $p$ is an exact McNemar test against our full system on the same documents. $\dagger$ uses the gold label distribution and is an oracle floor, not a competing method.}
+\caption{Section classification on the held-out evaluation set ($n{=}\NEVAL$). Intervals are percentile bootstrap over $10{,}000$ resamples; $p$ is an exact McNemar test against our full system on the same documents. $\dagger$ uses the gold label distribution and is an oracle floor, not a competing method. $\ddagger$ an open instruction-tuned model asked directly for the section with the prompt in Section~\ref{sec:llm}, run separately by \texttt{make llm-baseline-local}.}
 \label{tab:baselines}
 \end{table*}

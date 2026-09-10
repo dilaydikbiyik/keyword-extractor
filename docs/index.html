@@ -828,13 +828,20 @@
             <td>+ German translated to English first</td><td>56.2%</td><td class="dim">[50.5, 61.9]</td>
             <td>86.0%</td><td class="dim">—</td><td class="dim">—</td>
           </tr>
+          <tr>
+            <td>Qwen2.5-7B-Instruct, asked directly <span class="dim">(open LLM)</span></td>
+            <td>48.8%</td><td class="dim">[43.1, 54.5]</td>
+            <td>71.9%</td><td>0.359</td><td>0.430</td>
+          </tr>
         </tbody>
       </table>
     </div>
     <p class="caption">
       The translation row is reported because it is the one intervention that moved the score
       upward (+3.7 pp) without reaching significance (<em>p</em> = 0.20). It is a lead, not a
-      result, and it is listed as one.
+      result, and it is listed as one. The last row asks an open 7B instruction-tuned model
+      for the section directly: no better at Top-1 (<em>p</em> = 0.42), and significantly worse
+      at Top-3 (<em>p</em> = 0.004), from a model more than fifty times the encoder's size.
     </p>
 
     <div class="cols" style="margin-top: 44px;">

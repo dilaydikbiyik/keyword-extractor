@@ -3,6 +3,7 @@
 
     python -m experiments.run_llm_baseline            # all documents
     python -m experiments.run_llm_baseline --limit 5  # smoke test, separate file
+    python -m experiments.run_llm_baseline --rescore  # statistics again, no model
 
 A 2026 reviewer expects to see how a general-purpose language model does when
 simply asked for the section. This asks Qwen2.5-7B-Instruct, with the same
@@ -22,6 +23,8 @@ import json
 import platform
 import sys
 import time
+from pathlib import Path
+from typing import Dict, List, Optional
 
 import numpy as np
 
@@ -31,11 +34,49 @@ from experiments.metrics import bootstrap_ci, evaluate_sector_predictions, mcnem
 from experiments.systems import LOCAL_LLM, LocalLLMRanker
 
 
+def model_revision(model: str) -> Optional[str]:
+    """The exact snapshot of the weights that answered, read from the local cache."""
+    try:
+        from huggingface_hub import snapshot_download
+
+        return Path(snapshot_download(model, local_files_only=True)).name
+    except Exception:  # noqa: BLE001 - an unknown revision is recorded as None
+        return None
+
+
+def summarise(samples, ranked: List[List[str]], full: Dict) -> Dict:
+    """Every statistic the paper quotes, from the rankings alone."""
+    y_true = [s.true_sector for s in samples]
+    llm_ok = [r[0] == t for r, t in zip(ranked, y_true)]
+    full_ok = [full[s.id]["predicted"] == s.true_sector for s in samples]
+    llm_top3 = [t in r[:3] for r, t in zip(ranked, y_true)]
+    full_top3 = [s.true_sector in full[s.id]["top3"][:3] for s in samples]
+    verified = [i for i, s in enumerate(samples) if s.annotation_method == "human_verified"]
+    llm_verified = [llm_ok[i] for i in verified]
+    full_verified = [full_ok[i] for i in verified]
+    return {
+        "sector": evaluate_sector_predictions(y_true, ranked),
+        "mcnemar_vs_full": mcnemar_exact(full_ok, llm_ok),
+        "mcnemar_top3_vs_full": mcnemar_exact(full_top3, llm_top3),
+        "top1_agreement_with_full": float(np.mean(
+            [r[0] == full[s.id]["predicted"] for s, r in zip(samples, ranked)])),
+        "verified": {
+            "n": len(verified),
+            "top1_llm": float(np.mean(llm_verified)) if verified else None,
+            "top1_llm_ci95": list(bootstrap_ci(llm_verified)) if verified else None,
+            "top1_full": float(np.mean(full_verified)) if verified else None,
+            "mcnemar_vs_full": mcnemar_exact(full_verified, llm_verified) if verified else None,
+        },
+    }
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--model", default=LOCAL_LLM)
     parser.add_argument("--limit", type=int, default=None,
                         help="Only the first N documents; writes llm_baseline_smoke.json.")
+    parser.add_argument("--rescore", action="store_true",
+                        help="Recompute the statistics from the saved predictions, without the model.")
     args = parser.parse_args()
 
     set_seed()
@@ -43,6 +84,18 @@ def main() -> int:
     samples = load_labeled_samples()
     if args.limit:
         samples = samples[: args.limit]
+    full = {d["id"]: d for d in json.loads(
+        (RESULTS_DIR / "baselines_predictions.json").read_text(encoding="utf-8"))["full"]}
+
+    if args.rescore:
+        path = RESULTS_DIR / "llm_baseline.json"
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        by_id = {d["id"]: d["top3"] for d in payload["predictions"]}
+        payload.update(summarise(samples, [by_id[s.id] for s in samples], full))
+        payload["revision"] = payload.get("revision") or model_revision(payload["model"])
+        path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+        print(f"Rescored {path} from its saved predictions.")
+        return 0
 
     import torch
     import transformers
@@ -57,31 +110,16 @@ def main() -> int:
             print(f"  {i}/{len(samples)}  ({time.perf_counter() - started:.0f} s)", flush=True)
     seconds = time.perf_counter() - started
 
-    full = {d["id"]: d for d in json.loads(
-        (RESULTS_DIR / "baselines_predictions.json").read_text(encoding="utf-8"))["full"]}
-    llm_ok = [r[0] == s.true_sector for s, r in zip(samples, ranked)]
-    full_ok = [full[s.id]["predicted"] == s.true_sector for s in samples]
-    verified = [i for i, s in enumerate(samples) if s.annotation_method == "human_verified"]
-    llm_verified = [llm_ok[i] for i in verified]
-    full_verified = [full_ok[i] for i in verified]
-
     payload = {
         "model": args.model,
+        "revision": model_revision(args.model),
         "device": ranker.device,
         "decoding": "greedy, at most 16 new tokens",
         "prompt": "experiments.systems.llm_prompt, the same as the API baseline",
         "complete": args.limit is None,
         "wall_clock_seconds": round(seconds, 1),
         "off_format_replies": ranker.off_format,
-        "sector": evaluate_sector_predictions([s.true_sector for s in samples], ranked),
-        "mcnemar_vs_full": mcnemar_exact(full_ok, llm_ok),
-        "verified": {
-            "n": len(verified),
-            "top1_llm": float(np.mean(llm_verified)) if verified else None,
-            "top1_llm_ci95": list(bootstrap_ci(llm_verified)) if verified else None,
-            "top1_full": float(np.mean(full_verified)) if verified else None,
-            "mcnemar_vs_full": mcnemar_exact(full_verified, llm_verified) if verified else None,
-        },
+        **summarise(samples, ranked, full),
         "versions": {"torch": torch.__version__, "transformers": transformers.__version__,
                      "python": platform.python_version()},
         "predictions": [{"id": s.id, "true": s.true_sector, "predicted": r[0], "top3": r[:3]}
@@ -93,7 +131,7 @@ def main() -> int:
     sector = payload["sector"]
     print(f"\nTop-1 {sector['top1_accuracy']:.1%}  Top-3 {sector['top3_accuracy']:.1%}  "
           f"F1 {sector['f1_macro']:.3f}  p vs full {payload['mcnemar_vs_full']['p_value']:.4f}")
-    if verified:
+    if payload["verified"]["n"]:
         v = payload["verified"]
         print(f"Human-verified ({v['n']}): LLM {v['top1_llm']:.1%} vs full {v['top1_full']:.1%}  "
               f"p = {v['mcnemar_vs_full']['p_value']:.4f}")

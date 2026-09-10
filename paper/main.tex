@@ -92,6 +92,9 @@ Our contributions are:
         holds within each corpus separately.
   \item A prospective confirmation on a third corpus, where the alignment change
         is computed and the prediction stated before accuracy is examined.
+  \item A comparison with an instruction-tuned language model asked for the
+        section directly, which does not beat the system at Top-1 and falls
+        significantly behind it at Top-3.
   \item A negative result with a measured cause: the quantity cannot be
         optimised per class, because the classifier's argmax compares across
         classes on a scale that depends on description style.
@@ -349,6 +352,24 @@ baselines. Top-3 accuracy of \OursTopThree\ is the operating point we would
 argue for: the task admits genuine ambiguity, and a tool that proposes three
 codes to a human coder is the realistic deployment.
 
+\subsection{An instruction-tuned model asked directly}
+\label{sec:llm}
+
+The obvious alternative to embedding class descriptions is to ask a language
+model for the section. We gave \LLMModel, an open instruction-tuned model of
+roughly 7B parameters from a different family than the labeller, the section
+names and the document, and asked for the three most likely sections with
+greedy decoding; the prompt is released with the code. It ran locally in about
+\LLMMinutes~minutes, and \LLMOffFormat\ of its replies left the requested format.
+It reaches \LLMTopOne\ Top-1 against \OursTopOne\ for the system, a difference
+that is not significant ($p = \LLMP$), but only \LLMTopThree\ Top-3 against
+\OursTopThree\ ($p = \LLMTopThreeP$), and \LLMVerifiedTopOne\ on the
+human-verified documents ($p = \LLMVerifiedP$). The two agree on the top section
+for only \LLMAgreeShare\ of documents, so they fail on different ones. A
+classifier built from a 118M-parameter encoder and one definition per class is
+not outperformed by a model more than fifty times its size; whether larger or
+proprietary models change that is not tested here.
+
 \subsection{Checked against human-verified labels}
 \label{sec:verified}
 
@@ -397,6 +418,8 @@ never appear in its documents, writing that vocabulary down is worth
 words, the same work is worth nothing. The alignment change predicts both, and
 predicted a third corpus before it was measured. It cannot, however, be turned
 into a per-class selection rule, and we report the three ways that failed.
+Nor does asking an instruction-tuned model directly do better: it matches the
+system at Top-1 and falls behind it at Top-3.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \section*{Limitations}
@@ -425,12 +448,11 @@ encoder family. The description effect replicates across two encoders of
 different size, but both are multilingual sentence-transformers trained by the
 same distillation procedure.
 
-We do not compare against an instruction-tuned language model asked to name a
-class directly, which in 2026 is the obvious alternative implementation of
-zero-shot taxonomy classification. The adapter is implemented in the released
-code but was not run, because it is billed to a paid API account;
-\texttt{make llm-baseline} runs it. Its model family differs from the
-labeller's, which any fair comparison against these labels requires.
+The instruction-tuned baseline is a single open model of roughly 7B
+parameters. Larger or proprietary models may do better; the released code
+includes an adapter for a paid API (\texttt{make llm-baseline}) that was not run.
+Any such model has to come from a different family than the labeller, or it is
+graded on its own answers.
 
 Finally, the per-class descriptions used in the elaborated conditions were
 drafted by the AI assistant that also produced the labels, and it had seen the

@@ -485,6 +485,8 @@ def llm_macros(llm: Dict) -> List[str]:
         r"\newcommand{\LLMTopOne}{%s\%%}" % pct(sector["top1_accuracy"]),
         r"\newcommand{\LLMTopThree}{%s\%%}" % pct(sector["top3_accuracy"]),
         r"\newcommand{\LLMP}{%.3f}" % llm["mcnemar_vs_full"]["p_value"],
+        r"\newcommand{\LLMTopThreeP}{%.3f}" % llm["mcnemar_top3_vs_full"]["p_value"],
+        r"\newcommand{\LLMAgreeShare}{%s}" % share(llm["top1_agreement_with_full"]),
         r"\newcommand{\LLMVerifiedTopOne}{%s\%%}" % pct(verified["top1_llm"]),
         r"\newcommand{\LLMVerifiedP}{%.3f}" % verified["mcnemar_vs_full"]["p_value"],
         r"\newcommand{\LLMOffFormat}{%d}" % llm["off_format_replies"],

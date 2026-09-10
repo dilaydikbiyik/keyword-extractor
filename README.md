@@ -37,7 +37,8 @@ at all.
 
 299 documents sampled from the corpus, 18 NACE sections. Every figure is
 produced by `make reproduce` and written to
-[`results/metrics.json`](results/metrics.json).
+[`results/metrics.json`](results/metrics.json), except the last row, which
+`make llm-baseline-local` produces in `results/llm_baseline.json`.
 
 | System | Top-1 | 95% CI | Top-3 | F1-macro | κ | p vs. ours |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -47,11 +48,18 @@ produced by `make reproduce` and written to
 | Zero-shot embeddings (no seed keywords) | 52.8% | [47.2, 58.5] | 81.9% | 0.371 | 0.475 | 1.000 |
 | Unguided KeyBERT | 52.8% | [47.2, 58.5] | 81.9% | 0.371 | 0.475 | 1.000 |
 | **Ours: taxonomy-guided** | **52.5%** | [46.8, 58.2] | **81.6%** | 0.356 | 0.474 | — |
+| Qwen2.5-7B-Instruct, asked directly | 48.8% | [43.1, 54.5] | 71.9% | 0.359 | 0.430 | 0.416 |
 
 **Top-3 at 81.6% is the operating point.** The correct section is among the
 first three suggestions four times out of five, against 46.8% for an oracle
 majority-class floor. This is a tool for proposing a code to a human coder, not
 for assigning one unattended.
+
+**An instruction-tuned model asked directly does not do better.** An open 7B
+model (Qwen2.5-7B-Instruct, run locally, the same prompt as the API baseline)
+is no better at Top-1 (p = 0.416) and significantly worse at Top-3: 71.9%
+against 81.6% (p = 0.004). The two agree on the top section for only a third of
+the documents.
 
 Almost all of that came from rewriting one line per class — see below.
 
