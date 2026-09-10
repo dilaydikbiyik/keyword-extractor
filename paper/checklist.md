@@ -23,9 +23,10 @@ the sentence encoders, OPUS-MT, and the released evaluation set.
   (Lewis, UCI record).
 - **B2. Licence or terms?** Partly. The *Ethics Statement* says the register
   sample's redistribution licence has not been established and it is therefore
-  not released, and that both encoders are Apache-licensed. For 20 Newsgroups
-  and Reuters-21578 it says they are used as distributed for research through
-  scikit-learn and NLTK; their licence terms themselves are not stated. See gap 1.
+  not released, that both encoders are Apache-licensed, and that Reuters-21578
+  is distributed for research only by agreement of Reuters Ltd. and Carnegie
+  Group (from the collection's own README). 20 Newsgroups' distribution states
+  no licence, and the paper says so. See gap 1.
 - **B3. Intended use?** Partly, for the same reason.
 - **B4. Personal information?** Partly. The *Ethics Statement* notes that
   company names can contain owners' names; no step removes them from the
@@ -39,9 +40,10 @@ the sentence encoders, OPUS-MT, and the released evaluation set.
 
 Yes.
 
-- **C1. Parameters and compute?** Partly. Both encoders are named with their
-  parameter counts (118M and 278M) in the *Method* section; the runtime of the
-  full reproduction is not reported. See gap 3.
+- **C1. Parameters and compute?** Yes. Both encoders are named with their
+  parameter counts (118M and 278M) in the *Method* section, which also gives the
+  wall-clock time of the complete reproduction and the hardware it ran on,
+  recorded by `run.py` in `results/compute.json`.
 - **C2. Hyperparameters?** Partly. There is no hyperparameter search; the few
   fixed settings (thresholds, top-k) are in the released configuration but not
   in the paper.
@@ -75,12 +77,12 @@ recruited annotators.
 
 ## Gaps to close before submitting
 
-Closed: the misuse sentence, the dataset and software citations, and the
-encoder parameter counts. Still open:
+Closed: the misuse sentence, the dataset and software citations, the encoder
+parameter counts and the reproduction runtime. Still open:
 
-1. The licence terms of 20 Newsgroups and Reuters-21578. Their UCI and
-   distribution records do not state one; check the original distributions.
+1. 20 Newsgroups states no licence anywhere in its distribution. Decide whether
+   that needs more than the sentence the paper now has; Reuters-21578's terms
+   are settled from its README.
 2. Decide whether the released evaluation set keeps company names. If it does,
    say why; if not, strip or hash them before release.
-3. Report the wall-clock time of `make reproduce` on the hardware used.
-4. Before relying on the answers above, check each against the final PDF.
+3. Before relying on the answers above, check each against the final PDF.

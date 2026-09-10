@@ -9,7 +9,8 @@ column, filled in against the codebook below.
 from __future__ import annotations
 
 import re
-from typing import Dict, List, Sequence
+from collections import Counter
+from typing import Dict, List, Optional, Sequence
 
 # The codebook the manual pass annotates against.  Keep these stable once
 # annotation starts — changing a definition mid-pass invalidates the counts.
@@ -99,3 +100,49 @@ def build_error_records(predictions: Sequence[Dict], samples_by_id: Dict[int, ob
             }
         )
     return records
+
+
+MANUAL_TARGET = 50
+MANUAL_NOTE = ("Coded against experiments/error_analysis.py:CODEBOOK on the development "
+               "half only; the held-out half is untouched.")
+
+
+def carry_manual_coding(records: List[Dict], previous: List[Dict]) -> Dict[str, int]:
+    """Keep the manual coding of errors that are still the same error.
+
+    The error analysis is regenerated on every reproduction, and the manual
+    categories are the one part of it no code can recompute. A category is
+    carried over only when the document is misclassified the same way as when
+    it was coded; otherwise it no longer describes this error and is dropped.
+    """
+    by_id = {str(r.get("id")): r for r in previous}
+    carried = dropped = 0
+    for record in records:
+        old = by_id.pop(str(record["id"]), None)
+        if not old or not (old.get("manual_category") or "").strip():
+            continue
+        same_error = (old.get("true_sector") == record["true_sector"]
+                      and old.get("predicted_sector") == record["predicted_sector"])
+        if same_error:
+            record["manual_category"] = old["manual_category"].strip()
+            record["manual_note"] = (old.get("manual_note") or "").strip()
+            carried += 1
+        else:
+            dropped += 1
+    dropped += sum(1 for r in by_id.values() if (r.get("manual_category") or "").strip())
+    return {"carried": carried, "dropped": dropped}
+
+
+def summarise_manual_coding(records: List[Dict], dev_ids: set) -> Optional[Dict]:
+    """The distribution the paper quotes, computed from the coded records."""
+    coded = [r for r in records if r.get("manual_category")]
+    if not coded:
+        return None
+    in_dev = sum(r["id"] in dev_ids for r in coded)
+    half = "dev" if in_dev == len(coded) else ("test" if in_dev == 0 else "mixed")
+    return {
+        "n_coded": len(coded),
+        "half": half,
+        "distribution": dict(Counter(r["manual_category"] for r in coded).most_common()),
+        "note": MANUAL_NOTE if half == "dev" else "Coded against experiments/error_analysis.py:CODEBOOK.",
+    }

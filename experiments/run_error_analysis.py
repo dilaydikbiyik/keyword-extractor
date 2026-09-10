@@ -17,14 +17,21 @@ import sys
 from collections import Counter
 from typing import Dict, List
 
-from experiments.config import RESULTS_DIR, TABLES_DIR, ensure_dirs, set_seed
+from experiments.config import RESULTS_DIR, ROOT, TABLES_DIR, ensure_dirs, set_seed
 from experiments.data import load_labeled_samples, sector_names
-from experiments.error_analysis import CODEBOOK, build_error_records
+from experiments.error_analysis import (
+    CODEBOOK,
+    MANUAL_TARGET,
+    build_error_records,
+    carry_manual_coding,
+    summarise_manual_coding,
+)
 from experiments.metrics import confusion_pairs
 from experiments.report import markdown_table
 
 PREDICTIONS_FILE = RESULTS_DIR / "baselines_predictions.json"
 CSV_FILE = RESULTS_DIR / "error_analysis.csv"
+SPLIT_FILE = ROOT / "data" / "evaluation" / "split.json"
 
 
 def confusion_markdown(predictions: List[Dict]) -> str:
@@ -71,6 +78,16 @@ def main() -> int:
     samples_by_id = {s.id: s for s in load_labeled_samples()}
     records = build_error_records(predictions, samples_by_id)
 
+    # Read the hand-coded categories before the CSV is rewritten: they are the
+    # one part of this report that no code can regenerate.
+    previous = []
+    if CSV_FILE.exists():
+        with open(CSV_FILE, newline="", encoding="utf-8") as fh:
+            previous = list(csv.DictReader(fh))
+    kept = carry_manual_coding(records, previous)
+    dev_ids = set(json.loads(SPLIT_FILE.read_text(encoding="utf-8"))["dev"])
+    coding = summarise_manual_coding(records, dev_ids)
+
     flag_counts = Counter(flag for r in records for flag in r["auto_flags"])
     n_total = len(predictions)
 
@@ -81,8 +98,9 @@ def main() -> int:
         "error_rate": len(records) / n_total if n_total else 0.0,
         "auto_flag_counts": dict(flag_counts.most_common()),
         "codebook": CODEBOOK,
-        "manual_coding_complete": all(r["manual_category"] for r in records),
+        "manual_coding_complete": bool(coding) and coding["n_coded"] >= MANUAL_TARGET,
         "errors": records,
+        "manual_coding": coding,
     }
     (RESULTS_DIR / "error_analysis.json").write_text(
         json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8"
@@ -117,7 +135,9 @@ def main() -> int:
     for flag, count in flag_counts.most_common():
         print(f"  {flag:24s} {count}")
     print("\n" + table)
-    print(f"\nAnnotate by hand: {CSV_FILE}")
+    print(f"\nManual coding: {kept['carried']} categories carried over, {kept['dropped']} dropped "
+          "because the error changed or disappeared.")
+    print(f"Annotate by hand: {CSV_FILE}")
     if len(records) < 50:
         print(
             f"\nNOTE: 50 hand-inspected errors is the target; this set yields "

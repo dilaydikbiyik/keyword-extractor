@@ -10,7 +10,12 @@ order, writing everything under ``results/``.  ``make reproduce`` calls this.
 from __future__ import annotations
 
 import argparse
+import json
+import os
+import platform
+import subprocess
 import sys
+import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
@@ -21,6 +26,30 @@ import utils.quiet  # noqa: F401,E402  (quiet environment warnings before heavy 
 
 from experiments import run_error_analysis, run_experiments  # noqa: E402
 from experiments.config import RESULTS_DIR, ensure_dirs, set_seed  # noqa: E402
+
+
+def record_compute(seconds: float) -> None:
+    """Write how long a complete reproduction took and on what hardware.
+
+    The paper quotes this, so it is written only for a complete run: a partial
+    one would overwrite the figure with a smaller number.
+    """
+    cpu = platform.processor() or platform.machine()
+    if sys.platform == "darwin":
+        try:
+            cpu = subprocess.check_output(
+                ["sysctl", "-n", "machdep.cpu.brand_string"], text=True
+            ).strip()
+        except (OSError, subprocess.CalledProcessError):
+            pass
+    payload = {
+        "wall_clock_seconds": round(seconds, 1),
+        "cpu": cpu,
+        "cpu_count": os.cpu_count(),
+        "platform": platform.platform(terse=True),
+        "python": platform.python_version(),
+    }
+    (RESULTS_DIR / "compute.json").write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
 
 
 def main() -> int:
@@ -60,6 +89,7 @@ def main() -> int:
 
     set_seed()
     ensure_dirs()
+    started = time.perf_counter()
 
     experiment_args = ["--suite", "all"]
     if args.with_llm:
@@ -82,6 +112,11 @@ def main() -> int:
     if code != 0:
         return code
 
+    complete = args.extra_ablations and args.half == "all" and not args.corpus_limit and not args.with_llm
+    if complete:
+        record_compute(time.perf_counter() - started)
+    else:
+        print("Partial run: results/compute.json left as it was.")
     print(f"\nAll results written to {RESULTS_DIR}/")
     return 0
 

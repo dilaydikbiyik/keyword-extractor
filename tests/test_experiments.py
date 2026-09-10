@@ -143,6 +143,45 @@ class TestErrorRecords:
         assert records[0]["manual_category"] == ""  # left for the manual pass
 
 
+class TestManualCoding:
+    """The one part of the error analysis no code can recompute must survive a rerun."""
+
+    def _record(self, i, true="F", predicted="B"):
+        return {"id": i, "true_sector": true, "predicted_sector": predicted,
+                "manual_category": "", "manual_note": ""}
+
+    def test_carries_coding_for_the_same_error(self):
+        records = [self._record(1), self._record(2)]
+        previous = [{"id": "1", "true_sector": "F", "predicted_sector": "B",
+                     "manual_category": "seed_leakage", "manual_note": "Boden"}]
+        kept = error_analysis.carry_manual_coding(records, previous)
+        assert kept == {"carried": 1, "dropped": 0}
+        assert records[0]["manual_category"] == "seed_leakage"
+        assert records[0]["manual_note"] == "Boden"
+        assert records[1]["manual_category"] == ""
+
+    def test_drops_coding_when_the_error_changed(self):
+        records = [self._record(1, predicted="C")]
+        previous = [{"id": "1", "true_sector": "F", "predicted_sector": "B",
+                     "manual_category": "seed_leakage", "manual_note": ""},
+                    {"id": "9", "true_sector": "J", "predicted_sector": "M",
+                     "manual_category": "multi_sector_company", "manual_note": ""}]
+        kept = error_analysis.carry_manual_coding(records, previous)
+        # One error now fails differently; the other is no longer an error at all.
+        assert kept == {"carried": 0, "dropped": 2}
+        assert records[0]["manual_category"] == ""
+
+    def test_summary_counts_categories_and_names_the_half(self):
+        records = [dict(self._record(i), manual_category=c)
+                   for i, c in enumerate(["seed_leakage", "seed_leakage", "boilerplate_only"])]
+        records.append(self._record(7))
+        summary = error_analysis.summarise_manual_coding(records, dev_ids={0, 1, 2})
+        assert summary["n_coded"] == 3
+        assert summary["half"] == "dev"
+        assert summary["distribution"] == {"seed_leakage": 2, "boilerplate_only": 1}
+        assert error_analysis.summarise_manual_coding([self._record(1)], dev_ids=set()) is None
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 # Data and reporting
 # ─────────────────────────────────────────────────────────────────────────────
@@ -606,3 +645,44 @@ class TestSecondAnnotator:
         assert report["second_vs_first_human"]["raw_agreement"] == 0.75
         # The silver labels were J, M, F, G: agreement on two of four.
         assert report["second_vs_silver"]["raw_agreement"] == 0.5
+
+
+class TestRobustness:
+    """The checks that answer "your labels are silver" and "one class carries rho"."""
+
+    def test_perfectly_monotone_classes_give_rho_one(self, monkeypatch):
+        from experiments import robustness
+
+        monkeypatch.setattr(robustness, "N_PERMUTATIONS", 300)
+        rows = [{"class": str(k), "recall_terse": 0.5, "recall_rich": 0.5 + 0.04 * k,
+                 "alignment_gain": 0.01 * k} for k in range(10)]
+        out = robustness.mechanism_check({"classes": rows})
+        assert out["rho"] == pytest.approx(1.0)
+        assert out["rho_ci95"] == pytest.approx([1.0, 1.0])
+        assert out["leave_one_out_min"] == pytest.approx(1.0)
+        assert out["permutation_p"] < 0.01
+
+    def test_refuses_predictions_made_against_other_labels(self):
+        from experiments import robustness
+
+        preds = {"full": [{"id": 0, "true": "A", "predicted": "A", "top3": ["A"]}]}
+        samples = [{"id": 0, "true_sector": "B", "annotation_method": "human_verified"}]
+        with pytest.raises(SystemExit):
+            robustness.label_check(preds, samples)
+
+    def test_splits_verified_from_the_rest(self):
+        from experiments import robustness
+
+        preds = {
+            "full": [{"id": i, "true": "A", "predicted": "A" if i < 3 else "B", "top3": ["A", "B"]}
+                     for i in range(4)],
+            "other": [{"id": i, "true": "A", "predicted": "B", "top3": ["B", "A"]} for i in range(4)],
+        }
+        samples = [{"id": i, "true_sector": "A",
+                    "annotation_method": "human_verified" if i < 2 else "model_assisted"}
+                   for i in range(4)]
+        out = robustness.label_check(preds, samples)
+        assert out["n_verified"] == 2 and out["n_rest"] == 2
+        assert out["systems"]["full"]["top1_verified"] == 1.0
+        assert out["systems"]["full"]["top1_rest"] == 0.5
+        assert out["systems"]["other"]["top3_verified"] == 1.0

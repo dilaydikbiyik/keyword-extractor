@@ -1,13 +1,13 @@
 {
   "provenance": {
-    "generated_at": "2026-09-10T08:16:52+00:00",
-    "git_revision": "e12a124",
+    "generated_at": "2026-09-10T20:31:15+00:00",
+    "git_revision": "51c12c9",
     "seed": 42,
     "python": "3.9.6",
     "embedding_model": "paraphrase-multilingual-MiniLM-L12-v2",
     "eval_set_size": 299,
     "eval_set_source": "curated_stratified_sample",
-    "eval_set_annotation": "corpus-sampled; labels model-assisted per docs/annotation_guidelines.md, human-verified on a subset (results/verification_report.json)",
+    "eval_set_annotation": "corpus-sampled; labels produced by a language model (Claude, Anthropic) applying docs/annotation_guidelines.md; 50 verified by the author from OPUS-MT English translations (results/verification_report.json)",
     "corpus_present": true,
     "evaluation_half": "all"
   },

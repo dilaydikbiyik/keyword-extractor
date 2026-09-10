@@ -201,25 +201,28 @@ it. Bare `python …` commands need `source .venv/bin/activate` first.
 ## Reproduce every number above
 
 ```bash
-make reproduce
+make reproduce    # systems, ablations and error analysis
+make study        # description studies, other corpora, predictor search, robustness
 ```
 
-Equivalent to `python run.py --config config/config.yaml`.  Runs the baseline
-comparison, the ablation study and the error analysis with a fixed seed, and
-writes:
+`make reproduce` is equivalent to
+`python run.py --config config/config.yaml --extra-ablations`. It runs the
+baseline comparison, every ablation in the paper and the error analysis with a
+fixed seed, carries the hand-coded error categories over, records its own
+runtime in `results/compute.json`, and writes:
 
 | File | Contents |
 | --- | --- |
 | `results/metrics.json` | Headline metrics plus every system, with provenance |
 | `results/baselines.json`, `results/ablation.json` | Full per-system results |
 | `results/tables/*.md` | The markdown tables above |
-| `results/error_analysis.csv` | Misclassified documents, ready for manual coding |
-| `results/verification_sample.csv` | 50 documents for the human label check |
+| `results/error_analysis.csv` | Misclassified documents, with the manual coding kept |
+| `results/compute.json` | Wall-clock time and hardware of the run |
 
 This works from a clean clone. The raw trade register records are **not**
 redistributed, but the vocabulary and IDF weights the TF-IDF baseline needs are
-committed under `data/derived/` and reproduce the fitted baseline exactly —
-identical section rankings on all 30 documents. See
+committed under `data/derived/` and reproduce the fitted baseline exactly;
+`tests/test_experiments.py::TestCorpusStatistics` checks it. See
 [`data/README.md`](data/README.md).
 
 ---
@@ -359,7 +362,8 @@ Full review and methodology decisions: [`docs/methodology.md`](docs/methodology.
   unattended.
 - **The labels are model-assisted, not gold.** Validated by the author, working
   from English machine translations, on 50 documents (κ = 0.772); 50 of 299
-  carry human-verified labels. Any published number has
+  carry human-verified labels, and on those 50 alone the central comparison
+  still holds (`results/robustness.json`). Any published number has
   to quote that agreement figure alongside it.
 - **The seed-keyword result is inconclusive, not negative.** Seeds help by 4.6
   points on the development half and hurt by 5.4 on the held-out half, neither

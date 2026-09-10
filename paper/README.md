@@ -39,8 +39,8 @@ Regenerates `tables/*.tex` from `results/baselines.json`,
 | `tables/macros.tex` | Every figure the prose cites, as a LaTeX macro |
 
 Write `\OursTopOne`, not `80.0\%`. When the evaluation set grows and
-`make reproduce` runs again, the paper follows on its own; a hardcoded number
-would silently become a lie.
+`make reproduce` and `make study` run again, the paper follows on its own; a
+hardcoded number would silently become a lie.
 
 ## What is left in it
 

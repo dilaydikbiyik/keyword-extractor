@@ -37,8 +37,10 @@ install:
 	@echo 'Done. make targets use .venv automatically.'
 	@echo 'For bare python commands, activate it first: source .venv/bin/activate'
 
+# --extra-ablations: the mpnet and English-pivot rows are in the paper, so a
+# reproduction that skips them does not reproduce the paper.
 reproduce:
-	$(PYTHON) run.py --config config/config.yaml
+	$(PYTHON) run.py --config config/config.yaml --extra-ablations
 
 test:
 	$(PYTHON) -m pytest tests/ -q
@@ -86,6 +88,7 @@ study:
 	$(PYTHON) -m experiments.lexical_gap
 	$(PYTHON) -m experiments.run_gap_analysis
 	$(PYTHON) -m experiments.run_predictor_search
+	$(PYTHON) -m experiments.robustness
 
 paper-tables:
 	$(PYTHON) -m experiments.export_latex

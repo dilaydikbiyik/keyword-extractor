@@ -429,6 +429,40 @@ def derived_macros(ablation: Dict, predictions: Dict, split: Dict, error_report:
     ]
 
 
+def robustness_macros(robustness: Dict) -> List[str]:
+    """The human-verified subset and the resampling checks on rho."""
+    systems = robustness["labels"]["systems"]
+    mechanism = robustness["mechanism"]
+    full = systems["full"]
+    lo, hi = full["top1_verified_ci95"]
+    return [
+        r"\newcommand{\CILevel}{95\%}",
+        r"\newcommand{\VerifiedTopOne}{%s\%%}" % pct(full["top1_verified"]),
+        r"\newcommand{\VerifiedTopOneCI}{[%s\%%, %s\%%]}" % (pct(lo), pct(hi)),
+        r"\newcommand{\RestTopOne}{%s\%%}" % pct(full["top1_rest"]),
+        r"\newcommand{\VerifiedOldTaxTopOne}{%s\%%}" % pct(systems["taxonomy-v1"]["top1_verified"]),
+        r"\newcommand{\VerifiedOldTaxP}{%.3f}"
+        % systems["taxonomy-v1"]["vs_full_on_verified"]["p_value"],
+        r"\newcommand{\VerifiedNoDescTopOne}{%s\%%}" % pct(systems["no-desc-vector"]["top1_verified"]),
+        r"\newcommand{\VerifiedNoDescP}{%.2f}"
+        % systems["no-desc-vector"]["vs_full_on_verified"]["p_value"],
+        r"\newcommand{\AlignRhoLo}{%+.3f}" % mechanism["rho_ci95"][0],
+        r"\newcommand{\AlignRhoHi}{%+.3f}" % mechanism["rho_ci95"][1],
+        r"\newcommand{\AlignPermP}{%.3f}" % mechanism["permutation_p"],
+        r"\newcommand{\AlignLooMin}{%+.3f}" % mechanism["leave_one_out_min"],
+        r"\newcommand{\AlignLooMax}{%+.3f}" % mechanism["leave_one_out_max"],
+    ]
+
+
+def compute_macros(compute: Dict) -> List[str]:
+    """What a complete reproduction costs, as recorded by run.py."""
+    return [
+        r"\newcommand{\ReproduceMinutes}{%d}" % max(1, round(compute["wall_clock_seconds"] / 60)),
+        r"\newcommand{\ReproduceCPU}{%s}" % escape(compute["cpu"]),
+        r"\newcommand{\ReproduceCores}{%d}" % compute["cpu_count"],
+    ]
+
+
 def macros(baselines: Dict, error_report: Dict, study: Dict, search: Dict,
            reuters: Dict, news: Dict, derived: List[str]) -> str:
     """Numbers the prose cites, as macros, so the text cannot drift either."""
@@ -493,6 +527,8 @@ def main() -> int:
     corpora = corpus_effects(study, search, reuters, news)
     derived = derived_macros(ablation, predictions, split, error_report, search,
                              verification, pilot, retired, corpora)
+    derived += robustness_macros(load("robustness"))
+    derived += compute_macros(load("compute"))
 
     written = {
         "baselines.tex": baseline_table(baselines["systems"]),

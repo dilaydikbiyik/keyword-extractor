@@ -53,7 +53,7 @@
         "crowded_top3",
         "outside_top3"
       ],
-      "manual_category": "",
+      "manual_category": "seed_leakage",
       "manual_note": ""
     },
     {
@@ -80,8 +80,8 @@
         "low_margin",
         "recoverable_in_top3"
       ],
-      "manual_category": "",
-      "manual_note": ""
+      "manual_category": "seed_leakage",
+      "manual_note": "'Garten- und Landschaftsbau' is landscape service (N 81.30); section A's seeds own Garten/Landschaft"
     },
     {
       "id": 6,
@@ -139,8 +139,8 @@
         "short_text",
         "recoverable_in_top3"
       ],
-      "manual_category": "",
-      "manual_note": ""
+      "manual_category": "seed_leakage",
+      "manual_note": "'Bodenbelagsarbeiten' — 'Boden' pulled into Mining"
     },
     {
       "id": 9,
@@ -231,8 +231,8 @@
         "crowded_top3",
         "recoverable_in_top3"
       ],
-      "manual_category": "",
-      "manual_note": ""
+      "manual_category": "seed_leakage",
+      "manual_note": "'Rohbauten' — 'Roh' pulled into raw-material extraction"
     },
     {
       "id": 12,
@@ -259,8 +259,8 @@
         "low_margin",
         "outside_top3"
       ],
-      "manual_category": "",
-      "manual_note": ""
+      "manual_category": "seed_leakage",
+      "manual_note": "'Oberflächenbehandlung' — 'Behandlung' pulled into waste treatment"
     },
     {
       "id": 15,
@@ -325,8 +325,8 @@
         "low_margin",
         "outside_top3"
       ],
-      "manual_category": "",
-      "manual_note": ""
+      "manual_category": "seed_leakage",
+      "manual_note": "'Karosseriebau' — the -bau suffix pulled into Construction"
     },
     {
       "id": 18,
@@ -420,7 +420,7 @@
         "low_margin",
         "outside_top3"
       ],
-      "manual_category": "",
+      "manual_category": "taxonomy_granularity",
       "manual_note": ""
     },
     {
@@ -452,7 +452,7 @@
       "auto_flags": [
         "outside_top3"
       ],
-      "manual_category": "",
+      "manual_category": "multi_sector_company",
       "manual_note": ""
     },
     {
@@ -485,7 +485,7 @@
         "low_margin",
         "recoverable_in_top3"
       ],
-      "manual_category": "",
+      "manual_category": "ambiguous_sector_definition",
       "manual_note": ""
     },
     {
@@ -518,7 +518,7 @@
         "low_margin",
         "recoverable_in_top3"
       ],
-      "manual_category": "",
+      "manual_category": "ambiguous_sector_definition",
       "manual_note": ""
     },
     {
@@ -546,7 +546,7 @@
       "auto_flags": [
         "outside_top3"
       ],
-      "manual_category": "",
+      "manual_category": "seed_leakage",
       "manual_note": ""
     },
     {
@@ -610,7 +610,7 @@
       "auto_flags": [
         "outside_top3"
       ],
-      "manual_category": "",
+      "manual_category": "ambiguous_sector_definition",
       "manual_note": ""
     },
     {
@@ -643,7 +643,7 @@
         "low_margin",
         "recoverable_in_top3"
       ],
-      "manual_category": "",
+      "manual_category": "seed_leakage",
       "manual_note": ""
     },
     {
@@ -699,7 +699,7 @@
       "auto_flags": [
         "recoverable_in_top3"
       ],
-      "manual_category": "",
+      "manual_category": "taxonomy_granularity",
       "manual_note": ""
     },
     {
@@ -732,7 +732,7 @@
         "low_margin",
         "recoverable_in_top3"
       ],
-      "manual_category": "",
+      "manual_category": "taxonomy_granularity",
       "manual_note": ""
     },
     {
@@ -797,7 +797,7 @@
         "low_margin",
         "outside_top3"
       ],
-      "manual_category": "",
+      "manual_category": "taxonomy_granularity",
       "manual_note": ""
     },
     {
@@ -829,7 +829,7 @@
       "auto_flags": [
         "recoverable_in_top3"
       ],
-      "manual_category": "",
+      "manual_category": "seed_leakage",
       "manual_note": ""
     },
     {
@@ -925,8 +925,8 @@
       "auto_flags": [
         "recoverable_in_top3"
       ],
-      "manual_category": "",
-      "manual_note": ""
+      "manual_category": "seed_leakage",
+      "manual_note": "'Elektroinstallation' still leaking to Energy despite removing Heizung/Klimaanlage from D"
     },
     {
       "id": 53,
@@ -957,7 +957,7 @@
       "auto_flags": [
         "recoverable_in_top3"
       ],
-      "manual_category": "",
+      "manual_category": "multi_sector_company",
       "manual_note": ""
     },
     {
@@ -1021,7 +1021,7 @@
       "auto_flags": [
         "outside_top3"
       ],
-      "manual_category": "",
+      "manual_category": "multi_sector_company",
       "manual_note": ""
     },
     {
@@ -1086,7 +1086,7 @@
       "auto_flags": [
         "recoverable_in_top3"
       ],
-      "manual_category": "",
+      "manual_category": "multi_sector_company",
       "manual_note": ""
     },
     {
@@ -1141,8 +1141,8 @@
         "short_text",
         "outside_top3"
       ],
-      "manual_category": "",
-      "manual_note": ""
+      "manual_category": "ambiguous_sector_definition",
+      "manual_note": "'Restauration' is lexically ambiguous: catering, or restoration work"
     },
     {
       "id": 71,
@@ -1498,7 +1498,7 @@
         "crowded_top3",
         "outside_top3"
       ],
-      "manual_category": "",
+      "manual_category": "ambiguous_sector_definition",
       "manual_note": ""
     },
     {
@@ -1726,7 +1726,7 @@
         "low_margin",
         "outside_top3"
       ],
-      "manual_category": "",
+      "manual_category": "taxonomy_granularity",
       "manual_note": ""
     },
     {
@@ -1758,7 +1758,7 @@
       "auto_flags": [
         "recoverable_in_top3"
       ],
-      "manual_category": "",
+      "manual_category": "taxonomy_granularity",
       "manual_note": ""
     },
     {
@@ -1820,8 +1820,8 @@
         "crowded_top3",
         "recoverable_in_top3"
       ],
-      "manual_category": "",
-      "manual_note": ""
+      "manual_category": "seed_leakage",
+      "manual_note": "'sicherheitstechnische Anlagen' — Sicherheit pulled into Public administration and defence"
     },
     {
       "id": 124,
@@ -1850,7 +1850,7 @@
       "auto_flags": [
         "recoverable_in_top3"
       ],
-      "manual_category": "",
+      "manual_category": "seed_leakage",
       "manual_note": ""
     },
     {
@@ -2107,7 +2107,7 @@
       "auto_flags": [
         "outside_top3"
       ],
-      "manual_category": "",
+      "manual_category": "multi_sector_company",
       "manual_note": ""
     },
     {
@@ -2139,7 +2139,7 @@
       "auto_flags": [
         "recoverable_in_top3"
       ],
-      "manual_category": "",
+      "manual_category": "ambiguous_sector_definition",
       "manual_note": ""
     },
     {
@@ -2239,8 +2239,8 @@
         "boilerplate_shape",
         "recoverable_in_top3"
       ],
-      "manual_category": "",
-      "manual_note": ""
+      "manual_category": "ambiguous_sector_definition",
+      "manual_note": "the K-vs-M shell convention, in one direction"
     },
     {
       "id": 164,
@@ -2340,7 +2340,7 @@
         "boilerplate_shape",
         "recoverable_in_top3"
       ],
-      "manual_category": "",
+      "manual_category": "seed_leakage",
       "manual_note": ""
     },
     {
@@ -2440,7 +2440,7 @@
         "low_margin",
         "recoverable_in_top3"
       ],
-      "manual_category": "",
+      "manual_category": "seed_leakage",
       "manual_note": ""
     },
     {
@@ -2537,7 +2537,7 @@
       "auto_flags": [
         "recoverable_in_top3"
       ],
-      "manual_category": "",
+      "manual_category": "ambiguous_sector_definition",
       "manual_note": ""
     },
     {
@@ -2603,7 +2603,7 @@
         "crowded_top3",
         "outside_top3"
       ],
-      "manual_category": "",
+      "manual_category": "multi_sector_company",
       "manual_note": ""
     },
     {
@@ -2629,8 +2629,8 @@
         "short_text",
         "outside_top3"
       ],
-      "manual_category": "",
-      "manual_note": ""
+      "manual_category": "seed_leakage",
+      "manual_note": "'Gebäudereinigung' — Gebäude pulled into Construction"
     },
     {
       "id": 197,
@@ -2723,8 +2723,8 @@
       "auto_flags": [
         "recoverable_in_top3"
       ],
-      "manual_category": "",
-      "manual_note": ""
+      "manual_category": "boilerplate_only",
+      "manual_note": "shell company; 'Bauelemente' in the partner KG's name is the only content signal"
     },
     {
       "id": 201,
@@ -2755,7 +2755,7 @@
       "auto_flags": [
         "recoverable_in_top3"
       ],
-      "manual_category": "",
+      "manual_category": "multi_sector_company",
       "manual_note": ""
     },
     {
@@ -2787,7 +2787,7 @@
       "auto_flags": [
         "recoverable_in_top3"
       ],
-      "manual_category": "",
+      "manual_category": "multi_sector_company",
       "manual_note": ""
     },
     {
@@ -2851,7 +2851,7 @@
       "auto_flags": [
         "recoverable_in_top3"
       ],
-      "manual_category": "",
+      "manual_category": "ambiguous_sector_definition",
       "manual_note": ""
     },
     {
@@ -2885,7 +2885,7 @@
         "crowded_top3",
         "recoverable_in_top3"
       ],
-      "manual_category": "",
+      "manual_category": "taxonomy_granularity",
       "manual_note": ""
     },
     {
@@ -2918,7 +2918,7 @@
         "boilerplate_shape",
         "outside_top3"
       ],
-      "manual_category": "",
+      "manual_category": "multi_sector_company",
       "manual_note": ""
     },
     {
@@ -2951,7 +2951,7 @@
         "boilerplate_shape",
         "recoverable_in_top3"
       ],
-      "manual_category": "",
+      "manual_category": "ambiguous_sector_definition",
       "manual_note": ""
     },
     {
@@ -3082,7 +3082,7 @@
         "crowded_top3",
         "recoverable_in_top3"
       ],
-      "manual_category": "",
+      "manual_category": "multi_sector_company",
       "manual_note": ""
     },
     {
@@ -3148,7 +3148,7 @@
         "crowded_top3",
         "recoverable_in_top3"
       ],
-      "manual_category": "",
+      "manual_category": "seed_leakage",
       "manual_note": ""
     },
     {
@@ -3181,7 +3181,7 @@
         "low_margin",
         "outside_top3"
       ],
-      "manual_category": "",
+      "manual_category": "ambiguous_sector_definition",
       "manual_note": ""
     },
     {
@@ -3247,8 +3247,8 @@
         "low_margin",
         "recoverable_in_top3"
       ],
-      "manual_category": "",
-      "manual_note": ""
+      "manual_category": "seed_leakage",
+      "manual_note": "data protection advice pulled into IT by 'Daten'; margin 0.000"
     },
     {
       "id": 231,
@@ -3312,7 +3312,7 @@
       "auto_flags": [
         "outside_top3"
       ],
-      "manual_category": "",
+      "manual_category": "ambiguous_sector_definition",
       "manual_note": ""
     },
     {
@@ -3410,8 +3410,8 @@
         "boilerplate_shape",
         "recoverable_in_top3"
       ],
-      "manual_category": "",
-      "manual_note": ""
+      "manual_category": "ambiguous_sector_definition",
+      "manual_note": "the K-vs-M shell convention, in the other direction"
     },
     {
       "id": 241,
@@ -3504,7 +3504,7 @@
         "crowded_top3",
         "outside_top3"
       ],
-      "manual_category": "",
+      "manual_category": "taxonomy_granularity",
       "manual_note": ""
     },
     {
@@ -3568,7 +3568,7 @@
       "auto_flags": [
         "outside_top3"
       ],
-      "manual_category": "",
+      "manual_category": "ambiguous_sector_definition",
       "manual_note": ""
     },
     {

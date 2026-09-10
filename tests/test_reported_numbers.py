@@ -123,6 +123,9 @@ def test_paper_hardcodes_no_figures():
     body = re.sub(r"\\(?:label|ref|cite[pt]?|input|documentclass|usepackage)\{[^}]*\}", "", body)
     # "p < 0.001" is a threshold, not a result, and is the one form allowed.
     body = re.sub(r"p\s*<\s*0\.001", "", body)
+    # The Reuters collection's README asks to be cited by this exact name; the
+    # "1.0" in it is a release number, not a result.
+    body = body.replace("Distribution 1.0", "")
     # Any percentage (with or without decimals), any signed or unsigned decimal,
     # and any "N points" figure. Years and small design counts are integers
     # without a unit and are not results, so they are not matched.
