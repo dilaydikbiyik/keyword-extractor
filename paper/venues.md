@@ -9,7 +9,7 @@ weeks and three days before.
 
 | # | Venue | Why | Deadline (verify) | Reminders set | Notes |
 | --- | --- | --- | --- | --- | --- |
-| 1 | \*ACL **Student Research Workshop** (ACL / EACL / NAACL / EMNLP) | Built for a first publication; assigns a mentor before the deadline; short-paper length fits this work exactly | | ☐ | Check whether the mentorship round has an earlier deadline than the paper itself |
+| 1 | \*ACL **Student Research Workshop** (ACL / EACL / NAACL / EMNLP) | Built for a first publication; assigns a mentor before the deadline. Submit as a **long paper (8 pages)**: the body already runs past four pages with its tables and figure, measured with `make paper` | | ☐ | Check whether the mentorship round has an earlier deadline than the paper itself |
 | 2 | Workshops on **low-resource / multilingual NLP** | The declared specialism; taxonomy-guided zero-shot fits the scope | | ☐ | Co-located workshop lists appear with each main conference's CFP |
 | 3 | Workshops on **evaluation and benchmarking** | The contribution is as much about measurement as method | | ☐ | |
 | 4 | **RANLP**, **LREC** | Mid-size, receptive to resource and evaluation papers; LREC especially for the evaluation set as a resource | | ☐ | LREC runs in even years |

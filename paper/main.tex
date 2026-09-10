@@ -15,6 +15,9 @@
 \usepackage{latexsym}
 \usepackage{amsmath}          % \lVert, \tfrac, \big used in Section 3
 \usepackage{booktabs}
+\usepackage{array}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
 \usepackage{graphicx}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -27,7 +30,7 @@
 
 % The [review] option to acl.sty anonymises this block automatically; it is
 % filled in for the camera-ready.
-\author{Dilay Dikbıyık \\
+\author{Dilay Dikb\i y\i k \\
   Department of Computer Engineering, Kocaeli University \\
   \texttt{dilaydikbiyik@gmail.com} \\}
 
@@ -44,9 +47,9 @@ over German trade register texts, from category labels into definitions that
 enumerate concrete activities, and gain \ContentEffect~points of top-1 accuracy.
 A control shows the gain is not linguistic: rendering the same content in the
 language of the documents is worth \LanguageEffect~points ($p =
-\LanguageP$). We identify what does explain it — how far the rewrite moves each
+\LanguageP$). We identify what does explain it---how far the rewrite moves each
 class vector toward the centroid of the documents it must attract
-($\rho = \AlignRho$, $p = \AlignP$ over \NCLASSES\ classes) — and show the
+($\rho = \AlignRho$, $p = \AlignP$ over \NCLASSES\ classes)---and show the
 account is monotone across three corpora, one of which we predict before
 measuring. The quantity cannot, however, be optimised per class: three selection
 criteria, including direct optimisation of development accuracy, all fail to
@@ -97,27 +100,65 @@ Our contributions are:
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Related Work}
 
-Zero-shot text classification by embedding label descriptions is a standard
-construction, and sentence encoders trained with a contrastive sentence-level
-objective \citep{reimers-gurevych-2019-sentence} — including multilingual ones
-trained by distillation \citep{reimers-gurevych-2020-making} — are the usual
-choice of encoder. Work in this line concentrates on the encoder, the scoring
-function or the calibration of the output distribution. The label descriptions
-themselves are typically taken as given.
+\paragraph{Classifying from the meaning of the class.}
+Assigning documents to classes with no labelled examples, using only what the
+class name means, was introduced as \emph{dataless} classification
+\citep{chang-etal-2008-importance} and extended to hierarchies
+\citep{song-roth-2014-dataless}; both represent class and document in a shared
+semantic space and take the nearest class. Contemporary practice replaces that
+space with a pretrained encoder \citep{devlin-etal-2019-bert}, most often a
+sentence encoder trained with a contrastive sentence-level objective
+\citep{reimers-gurevych-2019-sentence}, and multilingual settings use either a
+jointly pretrained encoder \citep{conneau-etal-2020-unsupervised} or one
+distilled into new languages \citep{reimers-gurevych-2020-making}. An
+influential alternative recasts the decision as entailment between the document
+and a hypothesis built from the class \citep{yin-etal-2019-benchmarking}. What
+these share is that the class is represented by text someone wrote, and that the
+text itself is treated as given: the reported comparisons vary the encoder, the
+scoring function or the calibration, not the description.
 
+\paragraph{The wording of the label, as prompt engineering.}
+That the surface form of a label matters is well established for prompted
+language models. Verbalizers are hand-designed \citep{schick-schutze-2021-exploiting},
+searched automatically over single tokens \citep{schick-etal-2020-automatically},
+or optimised as discrete triggers \citep{shin-etal-2020-autoprompt}; prompt and
+demonstration selection can be tuned jointly with the model
+\citep{gao-etal-2021-making}, and the resulting systems are famously sensitive
+to incidental choices such as the order of examples
+\citep{lu-etal-2022-fantastically}. This sensitivity is not the same thing as
+sensitivity to \emph{meaning}: \citet{webson-pavlick-2022-prompt} show that
+models can perform as well with irrelevant or actively misleading prompts as
+with sensible ones, which makes the semantic content of a label an open question
+rather than a settled one. Our setting isolates it. There is no prompted
+language model here, no in-context example and no token search---a description
+enters only as an embedding---so a change in the description can only act
+through what it means. We find that it does, that the effect is large, and that
+its size is predictable in advance.
+
+\paragraph{Keyword extraction.}
 The keyword-extraction literature is adjacent and instructive. KeyBERT
 \citep{grootendorst-2020-keybert} scores candidate phrases by embedding
 similarity to the document and admits a set of seed keywords intended to steer
-extraction toward a domain; PatternRank
-\citep{schopf-etal-2022-patternrank} constrains candidates by part of speech,
-and PromptRank \citep{kong-etal-2023-promptrank} scores them with a prompted
-language model. Purely statistical methods such as YAKE
+extraction toward a domain; PatternRank \citep{schopf-etal-2022-patternrank}
+constrains candidates by part of speech, PromptRank
+\citep{kong-etal-2023-promptrank} scores them with a prompted language model,
+and MDERank \citep{zhang-etal-2022-mderank} ranks by the effect of masking a
+candidate out of the document. Purely statistical methods such as YAKE
 \citep{campos-etal-2020-yake} remain competitive on short documents. The seed
-mechanism is the closest analogue to what we study — a hand-written vocabulary
-supplied to steer an embedding-based decision — and one of our findings is that
+mechanism is the closest analogue to what we study---a hand-written vocabulary
+supplied to steer an embedding-based decision---and one of our findings is that
 it is redundant once the class descriptions carry the same information.
 
-% ─────────────────────────────────────────────────────────────────────────────
+\paragraph{Method of reporting.}
+The prospective test in Section~\ref{sec:corpora} follows the preregistration
+practice argued for by \citet{van-miltenburg-etal-2021-preregistering}, whose
+costs and limits are discussed by \citet{sogaard-etal-2023-two}; we adopt the
+lightweight form appropriate to a single study, stating the prediction and the
+quantity it rests on before the outcome is computed. Comparisons between systems
+use paired tests rather than differences of point estimates, as urged by
+\citet{dror-etal-2018-hitchhikers}, and label quality is reported as chance-corrected
+agreement following \citet{artstein-poesio-2008-survey}.
+
 \section{Method}
 
 A taxonomy assigns each of $K$ classes a name and, optionally, a description.
@@ -152,18 +193,19 @@ assigned to one of the \NSections\ NACE Rev.~2 sections
 split between low-margin and representative cases; no gold label was used in the
 selection. Labels were produced by a language model applying a written
 annotation guideline and validated against a human pass: in a blind pilot a
-second annotator agreed on 58\% of 50 documents ($\kappa = 0.542$); after the
+second annotator agreed on \PilotAgree\ of \PilotN\ documents ($\kappa = \PilotKappa$); after the
 disagreements were adjudicated into three explicit rules, agreement on a fresh
-50-document sample was 80\% ($\kappa = 0.772$), rising to 100\% on the documents
+\VerifyN-document sample was \VerifyAgree\ ($\kappa = \VerifyKappa$), rising to \VerifyHighAgree\ on the documents
 the labeller had flagged as high-confidence. Verified answers were promoted over
 the machine labels in the released set. We report this in full because it
 bounds every number that follows.
 
-An earlier version of this evaluation set consisted of \NEVAL\ hand-written
-documents rather than corpus samples. It was measurably easier — median 116
-characters against 175, and 3.3\% carrying the legal boilerplate that 24.5\% of
-real entries carry — and the pipeline scored 80.0\% on it against 34.8\% on the
-corpus-sampled set. We mention this because it is the reason the evaluation set
+An earlier version of this evaluation set consisted of \RetiredN\ hand-written
+documents rather than corpus samples. It was measurably easier---median
+\RetiredMedianChars\ characters against \CorpusMedianChars, with
+\RetiredBoilerplate\ carrying the legal boilerplate that \CorpusBoilerplate\ of
+real entries carry---and the pipeline scored \RetiredTopOne\ on it against
+\OldTaxonomyTopOne\ on the corpus-sampled set. We mention this because it is the reason the evaluation set
 was rebuilt, and because it is a failure mode that is easy to reproduce
 accidentally.
 
@@ -188,7 +230,7 @@ The rewritten descriptions changed two things at once: language, since sixteen
 of twenty-one were originally in Turkish while every document is German, and
 content, since terse category labels became definitions enumerating concrete
 activities. Table~\ref{tab:descriptions} separates them. The control condition
-renders the original labels in German by hand — same wording, same terseness, no
+renders the original labels in German by hand---same wording, same terseness, no
 machine-translation noise, and the five sections already in German carried over
 untouched.
 
@@ -209,12 +251,15 @@ ceiling cannot gain much and raw gain largely measures where a class started.
 
 \input{tables/predictors}
 
+\input{tables/alignment_figure}
+
 Only $\Delta a(c)$ survives, and it is the only candidate that holds within each
-corpus separately. Neither the lexical overlap between a class name and its
+corpus separately (Figure~\ref{fig:alignment}). Neither the lexical overlap between a class name and its
 documents nor the confusability of the class vector predicts anything. Words
 added correlates \emph{negatively}: the recipe is not to write more.
 
 \subsection{Three corpora, one predicted in advance}
+\label{sec:corpora}
 
 If $\Delta a$ is the mechanism it should also account for differences
 \emph{between} corpora, and it should predict rather than explain.
@@ -235,16 +280,16 @@ shows, and for the same reason.
 \subsection{It cannot be optimised per class}
 
 If $\Delta a$ were locally causal, choosing each class's description by it should
-beat a fixed policy. It does not. Three criteria of increasing strength —
+beat a fixed policy. It does not. Three criteria of increasing strength ---
 marginal alignment, a contrastive margin against the other classes, and greedy
-search directly on development accuracy — all fail to generalise, the
-contrastive one significantly so ($-3.6$ points, $p = 0.005$ on 20 Newsgroups).
+search directly on development accuracy---all fail to generalise, the
+contrastive one significantly so ($\ContrastiveNewsDelta$~points, $p = \ContrastiveNewsP$ on 20 Newsgroups).
 
 Two causes, both measured. First, the styles do not share a similarity scale: in
 a set where every other class carries an elaborated description, that half wins
-69.8\% of argmax decisions on NACE and 35.2\% on 20 Newsgroups against a fair
-share of 50\%, the bias running in the direction alignment predicts. Per-class
-standardisation does not rescue it, costing 8.4 points on the best pure policy by
+\ElabShareNACE\ of argmax decisions on NACE and \ElabShareNews\ on 20 Newsgroups against a fair
+share of \FairShare, the bias running in the direction alignment predicts. Per-class
+standardisation does not rescue it, costing \ZScoreCost~points on the best pure policy by
 discarding class priors. Second, there are $2^K$ configurations for $K$ classes;
 development accuracy rises under greedy search and held-out accuracy does not
 follow.
@@ -258,12 +303,16 @@ of consistently written ones.
 \input{tables/ablation}
 
 With language-matched, informative descriptions in place, removing the
-hand-written seed keyword lists entirely costs $+0.3$ points ($p = 1.000$). They
-help by 4.6 points on the development half and hurt by 5.4 on the held-out half,
+hand-written seed keyword lists entirely changes accuracy by $\SeedRemoval$~points
+($p = \SeedRemovalP$). They help by \SeedDevHelp~points on the development half and
+hurt by \SeedTestHurt\ on the held-out half,
 neither significant, so the defensible claim is that they add nothing reliable
-rather than that they are harmful. Two further pipeline stages — seed-guided
-keyword extraction and a six-stage keyword filter — show no effect in any
-configuration we tested.
+rather than that they are harmful. Two further pipeline stages---seed-guided
+keyword extraction and a six-stage keyword filter---show no effect in any
+configuration we tested. Translating each document into English with OPUS-MT
+\citep{tiedemann-thottingal-2020-opus} before classifying is the one variant that
+raises accuracy, by \TranslateGain~points, and it does not reach significance
+($p = \TranslateP$); we report it as a lead rather than a result.
 
 \input{tables/baselines}
 
@@ -279,7 +328,7 @@ We hand-coded fifty errors from the development half against a written codebook.
 
 \input{tables/errors}
 
-Seed leakage is the largest category at 34\%, and the failures are lexical
+Seed leakage is the largest category at \SeedLeakShare, and the failures are lexical
 rather than semantic: \emph{Bodenbelagsarbeiten} (floor covering, Construction)
 is drawn to Mining because \emph{Boden} appears in that section's vocabulary;
 \emph{Gebäudereinigung} leaves Administrative services for Construction on
@@ -287,7 +336,7 @@ is drawn to Mining because \emph{Boden} appears in that section's vocabulary;
 the second reason to drop the seed lists.
 
 Ambiguous section definitions and genuinely multi-sector companies together
-account for 48\% of errors and are not addressable by any change to this system.
+account for \AmbigMultiShare\ of errors and are not addressable by any change to this system.
 NACE admits two defensible answers for a company that both manufactures and
 installs windows. We read this as a rough ceiling on single-label accuracy for
 the task, and as the strongest argument for reporting top-3.
@@ -309,7 +358,7 @@ into a per-class selection rule, and we report the three ways that failed.
 
 The evaluation labels are model-assisted rather than gold: produced by a
 language model applying a written guideline, validated against a human pass on
-50 documents at $\kappa = 0.772$, with 50 of \NEVAL\ carrying human-verified
+\VerifyN\ documents at $\kappa = \VerifyKappa$, with \VerifyN\ of \NEVAL\ carrying human-verified
 labels. Any figure in this paper should be read against that agreement.
 
 Agreement was measured between a human and the labeller, not between two humans.
@@ -317,7 +366,7 @@ The inter-annotator figure reviewers usually ask for would require a second
 annotator we did not have.
 
 The alignment account rests on three corpora. Their alignment changes are well
-separated ($+0.114$, $+0.028$, $-0.076$), which is what makes the ordering
+separated ($\NaceAlignGain$, $\ReutersAlignGain$, $\NewsAlignGain$), which is what makes the ordering
 visible, and equally what makes it a weak test of the account's behaviour near
 zero. The class-level correlation, while significant and replicated within each
 corpus, is $\rho = \AlignRho$: it orders classes, it does not determine them.

@@ -33,10 +33,54 @@ jobs:
           path: ~/.cache/huggingface
           key: hf-${{ runner.os }}-paraphrase-multilingual-MiniLM-L12-v2
 
+      # Rules and per-file exceptions live in setup.cfg, so this and `make lint`
+      # cannot drift apart.
       - name: Lint
-        run: |
-          python -m flake8 src/ experiments/ tools/ main.py run.py quickstart.py \
-            --select=F401,F841,W293,E302,E303 --max-line-length=120
+        run: python -m flake8 src/ experiments/ tools/ tests/ main.py run.py quickstart.py conftest.py
 
       - name: Test
         run: python -m pytest tests/ -q
+
+  paper:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # experiments.config imports numpy; nothing else in the export needs more.
+      - name: Install export dependencies
+        run: pip install numpy
+
+      # The tables and macros are generated from results/. If the committed
+      # copies differ from what results/ produces, the paper is quoting stale
+      # numbers, and that is a build failure.
+      - name: Tables match results/
+        run: |
+          python -m experiments.export_latex
+          git diff --exit-code paper/tables
+
+      - uses: wtfjoke/setup-tectonic@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Fetch the pinned ACL style
+        run: make paper/acl.sty paper/acl_natbib.bst
+
+      - name: Build
+        working-directory: paper
+        run: tectonic -X compile main.tex 2>&1 | tee build.log
+
+      - name: No undefined references, citations or missing glyphs
+        working-directory: paper
+        run: |
+          if grep -E "undefined|Missing character|could not represent" build.log; then
+            exit 1
+          fi
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: paper
+          path: paper/main.pdf

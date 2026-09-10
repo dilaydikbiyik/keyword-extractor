@@ -6,14 +6,21 @@ figure appears in the text instead of a macro.
 
 ## Build
 
-The skeleton targets the ACL style files — the same ones behind the Overleaf
-"ACL Proceedings" template.
+```bash
+brew install tectonic   # once; any TeX distribution also works
+make paper              # regenerate tables, fetch the ACL style, write paper/main.pdf
+```
 
-1. Start from the ACL template on Overleaf, or clone
-   <https://github.com/acl-org/acl-style-files> next to `main.tex`.
-2. Copy `main.tex`, `references.bib` and `tables/` into it.
-3. Compile. `\usepackage[review]{acl}` gives the anonymous review layout;
-   drop the option for the camera-ready.
+`make paper` pulls `acl.sty` and `acl_natbib.bst` from
+[acl-org/acl-style-files](https://github.com/acl-org/acl-style-files) at a pinned
+commit instead of vendoring them, because the upstream repository carries no
+licence file. `\usepackage[review]{acl}` gives the anonymous review layout; drop
+the option for the camera-ready.
+
+CI builds the same PDF on every push and attaches it to the run. The build fails
+if the committed tables differ from what `results/` produces, or if the log
+reports an undefined reference, an undefined citation, or a character the font
+cannot draw.
 
 ## Tables and numbers come from `results/`
 

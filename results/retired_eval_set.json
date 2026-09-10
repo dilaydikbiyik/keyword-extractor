@@ -1,0 +1,15 @@
+{
+  "retired": {
+    "n": 30,
+    "median_chars": 116.0,
+    "boilerplate_share": 0.0,
+    "reported_top1": 0.8
+  },
+  "corpus": {
+    "n": 9993,
+    "median_chars": 175.0,
+    "boilerplate_share": 0.23226258380866607
+  },
+  "boilerplate_detector": "experiments.error_analysis._BOILERPLATE",
+  "note": "The retired set's Top-1 is historical: it was measured before the set was replaced and is kept as the figure the paper retracts."
+}

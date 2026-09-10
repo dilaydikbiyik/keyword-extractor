@@ -173,3 +173,13 @@ data/cache/
 
 # Batch çıktıları
 output/
+
+# Paper build: the ACL style is fetched by `make paper`, the PDF is a build output
+paper/acl.sty
+paper/acl_natbib.bst
+paper/*.pdf
+paper/*.aux
+paper/*.log
+paper/*.bbl
+paper/*.blg
+paper/*.out

@@ -117,12 +117,21 @@ def test_paper_hardcodes_no_figures():
 
     tex = (ROOT / "paper" / "main.tex").read_text(encoding="utf-8")
     body = tex.split(r"\begin{document}", 1)[1]
-    body = re.sub(r"%.*", "", body)
+    # A comment starts at an unescaped %; "\%" is a literal percent sign and
+    # stripping it as a comment would hide every hardcoded percentage.
+    body = re.sub(r"(?<!\\)%.*", "", body)
     body = re.sub(r"\\(?:label|ref|cite[pt]?|input|documentclass|usepackage)\{[^}]*\}", "", body)
-    # Percentages and decimals that are not part of a macro name or a section number.
-    literals = re.findall(r"(?<![\\{\w.])\d+\.\d+\\?%", body)
-    allowed = {"0.005", "0.001"}  # p-value thresholds quoted as prose, not results
-    offenders = [x for x in literals if x.rstrip("\\%") not in allowed]
+    # "p < 0.001" is a threshold, not a result, and is the one form allowed.
+    body = re.sub(r"p\s*<\s*0\.001", "", body)
+    # Any percentage (with or without decimals), any signed or unsigned decimal,
+    # and any "N points" figure. Years and small design counts are integers
+    # without a unit and are not results, so they are not matched.
+    patterns = [
+        r"(?<![\\{\w.])\d+(?:\.\d+)?\\%",
+        r"(?<![\\{\w.])[-+]?\d+\.\d+",
+        r"(?<![\\{\w.])\d+(?:\.\d+)?~?\s?points",
+    ]
+    offenders = [hit for pattern in patterns for hit in re.findall(pattern, body)]
     assert not offenders, (
         "paper/main.tex hardcodes figures instead of using macros from "
         f"tables/macros.tex: {sorted(set(offenders))}"
