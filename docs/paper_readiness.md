@@ -3,24 +3,27 @@
 Every number comes from `results/`; regenerate with `make reproduce` and
 `make study`.
 
-**The finding.** The taxonomy's class descriptions were category labels —
-*"Eğitim"*, *"Emlak faaliyetleri"* — averaging ten words. Rewriting them as
-NACE-style definitions that enumerate concrete activities is worth **+26.8
-points Top-1** (p = 4×10⁻¹⁵) and validated at +15.6 points on a held-out half
-never inspected.
+**The finding.** A class description helps in proportion to the **lexical gap**
+between the class name and the words its documents actually use. Where that gap
+is wide, elaborating the description is worth **+26.8 points Top-1**
+(p = 4×10⁻¹⁵). Where the class name is already the documents' own vocabulary,
+it is worth nothing.
 
-**The control that makes it a finding.** Sixteen of the twenty-one descriptions
-were in Turkish while every document is German, which is an obvious and
-attractive explanation. It is wrong: rendering the same content in German,
-holding the wording constant, changes nothing (−2.3 points, p = 0.14). The
-first version of this document claimed the language mismatch was the cause.
-That claim was a confound — the rewrite changed language and content at once —
-and the control experiment retired it.
+**Why it is a claim and not an observation.** Three controls:
 
-**The honest companion.** Once the descriptions carry the information, the
+| Question | Answer |
+| --- | --- |
+| Is it the language? Sixteen descriptions were Turkish against German documents. | **No.** Same content in German: −2.3 pp, p = 0.14. |
+| Is it one encoder? | **No.** mpnet-base-v2: +13.7 pp, p = 1×10⁻⁵. |
+| Is it this corpus? | **Partly — and predictably so.** On 20 Newsgroups, elaboration is worth +0.4 pp (p = 0.73). Those class names appear in 18.2% of their own documents; NACE section names appear in 1.0%. |
+
+The two datasets do not conflict. They differ in one measurable property, and
+that property predicts which way the result goes.
+
+**The honest companion.** Once the descriptions carry the vocabulary, the
 hand-written seed keyword lists the project is named after add **nothing
-measurable** (+0.3 points, p = 1.000). They had been compensating for
-descriptions that named the class instead of describing it.
+measurable** (+0.3 points, p = 1.000). They had been supplying the vocabulary
+the descriptions were missing.
 
 ---
 
@@ -50,15 +53,18 @@ matters, and it is where the method is strongest.
 
 ## 2. The contribution sentence
 
-> We show that in zero-shot text classification against a taxonomy, what the
-> class descriptions *say* dominates the language they are written in: replacing
-> category labels with definitions that enumerate concrete activities improves
-> NACE section assignment of German trade register texts by 26.8 points Top-1
-> (p < 10⁻¹⁴), while translating the same descriptions into the language of the
-> documents does not help at all (−2.3 points, p = 0.14). With informative
-> descriptions in place, hand-written seed keyword lists add no further benefit.
+> We show that in zero-shot classification against a taxonomy, what a class
+> description buys is the vocabulary of the documents, and that its value is
+> predicted by a quantity measurable in advance: the lexical overlap between the
+> class name and the documents it must attract. Where that overlap is near zero —
+> NACE Rev. 2 sections over German trade register texts, 1.0% — replacing
+> category labels with definitions improves Top-1 accuracy by 26.8 points
+> (p < 10⁻¹⁴). Where it is already substantial — 20 Newsgroups, 18.2% — the same
+> elaboration is worth nothing (+0.4 points, p = 0.73). Translating descriptions
+> into the documents' language, with content held constant, does not help in
+> either setting.
 
-Three claims, one positive and two negative, each with its own control. That is
+One positive claim, one mechanism, two negative controls, two datasets. That is
 the paper.
 
 ## 3. Language or content?
@@ -118,7 +124,49 @@ Three things make it safe to say rather than merely observed: the obvious
 alternative explanation was tested and did not hold, the effect replicates on a
 second encoder, and it was validated on a held-out half never inspected.
 
-## 4. What each component contributes
+## 4. Does it hold outside this corpus?
+
+`results/replication_20newsgroups.json` · `results/lexical_gap.json` ·
+`make study`.
+
+20 Newsgroups: English instead of German, usenet posts instead of legal prose,
+twenty topical classes instead of twenty-one economic sections, no connection
+to the original data. Same three-condition design.
+
+| Class descriptions | Top-1 | 95% CI | Top-3 | F1-macro | words |
+| --- | --- | --- | --- | --- | --- |
+| Raw class identifier (`comp.sys.ibm.pc.hardware`) | 41.8% | [39.6, 44.0] | 69.2% | 0.409 | 1 |
+| Readable class name (`IBM PC hardware`) | 51.8% | [49.6, 54.0] | 76.2% | 0.513 | 2 |
+| Definition of what the class covers | 52.2% | [50.0, 54.4] | 77.2% | 0.521 | 23 |
+
+- Identifier → readable name: **+10.0 pp, p = 8×10⁻²²**
+- Readable name → definition: **+0.4 pp, p = 0.73**
+
+**Elaboration buys nothing here, and that is the result.** On NACE the same step
+was worth 26.8 points. The datasets differ in one property:
+
+| | Class name appears in its own documents | Elaboration gain |
+| --- | --- | --- |
+| NACE Rev. 2 sections | **1.0%** (median 0.0%) | **+26.8 pp** |
+| 20 Newsgroups classes | **18.2%** (median 13.4%) | +0.4 pp |
+
+A trade register entry never says *"Erbringung von freiberuflichen,
+wissenschaftlichen und technischen Dienstleistungen"*. It says
+*"Steuerberatung"*. A usenet post about baseball says "baseball".
+
+**The unified claim.** What a zero-shot classifier needs from a class
+description is the *vocabulary its documents use*. How much text that takes
+depends on how far the class name already is from that vocabulary — which is
+measurable before running anything, and tells you whether writing descriptions
+is worth the afternoon.
+
+That also explains the 20 Newsgroups jump from identifier to readable name:
+`comp.sys.ibm.pc.hardware` is not natural language at all, and spelling it out
+closes most of the gap in two words.
+
+---
+
+## 5. What each component contributes
 
 `results/tables/ablation.md`, full 299-document set.
 
@@ -158,7 +206,7 @@ second encoder, and it was validated on a held-out half never inspected.
 
 ---
 
-## 5. Held-out validation
+## 6. Held-out validation
 
 The taxonomy revision was developed by inspecting errors, which is a form of
 fitting. It was therefore developed on a development half and reported on a
@@ -180,7 +228,7 @@ help by 4.6 points on dev and hurt by 5.4 on test, neither significant
 
 ---
 
-## 6. Error analysis
+## 7. Error analysis
 
 50 errors from the development half, hand-coded against the codebook in
 `experiments/error_analysis.py`. The held-out half is untouched.
@@ -223,7 +271,7 @@ accuracy for this task — which is also the argument for reporting Top-3.
 
 ---
 
-## 7. Where the gain came from
+## 8. Where the gain came from
 
 Per-section recall on the held-out half, before and after:
 
@@ -254,7 +302,7 @@ noise, but it is the honest cost of the change and belongs in the table.
 
 ---
 
-## 8. Label quality
+## 9. Label quality
 
 The 299 labels are model-assisted: produced by a language model applying
 [`annotation_guidelines.md`](annotation_guidelines.md), then validated against
@@ -283,15 +331,14 @@ documents flagged high-confidence."*
 
 ---
 
-## 9. What remains
+## 10. What remains
 
 1. **Run the LLM baseline.** An instruction-tuned model asked to name a section
    directly is the comparison a 2026 reviewer will expect. The adapter exists
    (`run.py --with-llm`); it needs an API key.
-2. **Replicate on a second taxonomy or corpus.** It now holds across two
-   encoders, two document languages and a held-out half, but on one dataset
-   against one taxonomy. A second corpus would turn a result into a claim about
-   method.
+2. **Test the lexical-gap prediction on a third dataset.** Two points define a
+   line; a third with an intermediate overlap would test whether the
+   relationship is graded rather than a dichotomy.
 3. **Decide the keyword question.** The set carries section labels only, so
    Precision@K is unmeasurable, and the keyword half of the pipeline has now
    failed to show an effect in every configuration tested. Writing a
@@ -303,7 +350,7 @@ documents flagged high-confidence."*
 5. **Write.** `paper/main.tex` is the skeleton; `make paper-tables` regenerates
    its tables from `results/`, so no number is typed into the prose.
 
-## 10. Decisions
+## 11. Decisions
 
 - **Authorship.** The work is yours. Settle it before submission.
 - **Venue.** [`../paper/venues.md`](../paper/venues.md) has the priority order.
@@ -318,7 +365,7 @@ documents flagged high-confidence."*
   demonstrably contributes nothing. The work is now about class descriptions
   for zero-shot taxonomy classification, and the title should say so.
 
-## 11. Artefact standard
+## 12. Artefact standard
 
 Complete: one-command reproduction from a clean clone, `results/metrics.json`,
 pinned dependencies, fixed seed, tests and CI, MIT licence, `CITATION.cff`,

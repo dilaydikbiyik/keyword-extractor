@@ -1,0 +1,54 @@
+{
+  "dataset": "20 Newsgroups (test split, headers/footers/quotes removed)",
+  "n": 2000,
+  "classes": 20,
+  "language": "English",
+  "encoder": "paraphrase-multilingual-MiniLM-L12-v2",
+  "conditions": {
+    "raw class identifier": {
+      "top1_accuracy": 0.418,
+      "top1_ci95": [
+        0.396,
+        0.4395
+      ],
+      "top3_accuracy": 0.6915,
+      "f1_macro": 0.40887791525432593,
+      "mean_words_per_class": 1.0
+    },
+    "readable class name": {
+      "top1_accuracy": 0.5185,
+      "top1_ci95": [
+        0.4965,
+        0.5405
+      ],
+      "top3_accuracy": 0.762,
+      "f1_macro": 0.5133835082255096,
+      "mean_words_per_class": 1.95
+    },
+    "definition of what the class covers": {
+      "top1_accuracy": 0.522,
+      "top1_ci95": [
+        0.5,
+        0.5440124999999999
+      ],
+      "top3_accuracy": 0.7725,
+      "f1_macro": 0.5207854454970952,
+      "mean_words_per_class": 23.1
+    }
+  },
+  "spelling_the_label_out": {
+    "a_only_correct": 325,
+    "b_only_correct": 124,
+    "discordant": 449,
+    "p_value": 7.602282046781762e-22,
+    "gain_pp": 10.049999999999997
+  },
+  "defining_the_class": {
+    "a_only_correct": 159,
+    "b_only_correct": 152,
+    "discordant": 311,
+    "p_value": 0.7337452638803144,
+    "gain_pp": 0.35000000000000586
+  },
+  "table_markdown": "| Class descriptions | Top-1 | 95% CI | Top-3 | F1-macro | words/class |\n| --- | --- | --- | --- | --- | --- |\n| raw class identifier | 41.8% | [39.6%, 44.0%] | 69.2% | 0.409 | 1 |\n| readable class name | 51.8% | [49.6%, 54.0%] | 76.2% | 0.513 | 2 |\n| definition of what the class covers | 52.2% | [50.0%, 54.4%] | 77.2% | 0.521 | 23 |"
+}

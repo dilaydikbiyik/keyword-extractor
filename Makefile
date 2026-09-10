@@ -20,7 +20,7 @@ help:
 	@echo "  verify        Score the human check of the model-assisted labels"
 	@echo "  verify-new    Draw a fresh check sample, excluding the pilot documents"
 	@echo "  verify-apply  Promote the verified answers to final labels"
-	@echo "  study         Run the class-description study (language vs. content)"
+	@echo "  study         Class-description studies: language, content, replication"
 	@echo "  paper-tables  Regenerate paper/tables/*.tex from results/"
 	@echo "  demo          Re-render the README demo GIF from results/"
 	@echo "  clean         Remove generated results and caches"
@@ -66,6 +66,8 @@ study:
 	$(PYTHON) -m experiments.run_description_study
 	$(PYTHON) -m experiments.run_description_study --encoder paraphrase-multilingual-mpnet-base-v2
 	$(PYTHON) -m experiments.run_language_match --no-seeds
+	$(PYTHON) -m experiments.run_replication
+	$(PYTHON) -m experiments.lexical_gap
 
 paper-tables:
 	$(PYTHON) -m experiments.export_latex

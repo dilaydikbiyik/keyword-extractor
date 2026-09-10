@@ -8,12 +8,15 @@ Assigning **NACE Rev. 2** economic sections to German company purpose
 statements with no labelled training data, by embedding the taxonomy's own
 class descriptions and ranking them against the document.
 
-**What this repository is really about:** those class descriptions turn out to
-decide almost everything. Replacing category labels with definitions that
-enumerate concrete activities is worth **+26.8 points** — while translating the
-same descriptions into the language of the documents is worth nothing. The
-keyword-extraction half the project was originally named after contributes no
-measurable benefit at all.
+**What this repository is really about:** what a class description buys a
+zero-shot classifier is *the vocabulary of its documents* — and how much that is
+worth can be predicted before running anything. Where the class name is absent
+from the documents (NACE sections: 1.0%), writing real definitions gains
+**+26.8 points**. Where the name is already the documents' own word
+(20 Newsgroups: 18.2%), the same work gains **nothing**. Translating
+descriptions into the documents' language never helps. The keyword-extraction
+half the project was originally named after contributes no measurable benefit
+at all.
 
 ![Reproducing the reported results end to end](docs/assets/demo.gif)
 
@@ -49,10 +52,13 @@ Almost all of that came from rewriting one line per class — see below.
 
 ### The finding
 
-The taxonomy's class descriptions were category labels — *"Eğitim"*,
-*"Emlak faaliyetleri"* — averaging ten words including the section name.
-Rewriting them as NACE-style definitions that enumerate concrete activities is
-worth **+26.8 points Top-1** (p = 4×10⁻¹⁵), 28.4% → 52.8%.
+A class description helps in proportion to the **lexical gap** between the class
+name and the words its documents actually use.
+
+The taxonomy's class descriptions named their category — *"Eğitim"*,
+*"Emlak faaliyetleri"* — averaging ten words. Rewriting them as definitions that
+enumerate concrete activities is worth **+26.8 points Top-1** (p = 4×10⁻¹⁵),
+28.4% → 52.8%.
 
 | Class descriptions | Top-1 | Top-3 | words/class |
 | --- | --- | --- | --- |
@@ -60,30 +66,41 @@ worth **+26.8 points Top-1** (p = 4×10⁻¹⁵), 28.4% → 52.8%.
 | Same content, rendered in German | 26.1% | 58.9% | 10 |
 | **Rewritten as NACE-style definitions** | **52.8%** | **81.9%** | 19 |
 
-**The middle row is the control that matters.** Sixteen of the descriptions
-were in Turkish while every document is German, which looks like an obvious
-explanation. It is not: translating them, with their content held constant,
-changes nothing (−2.3 points, p = 0.14). What the description *says* dominates;
-what language it says it in does not.
+Three controls make it a claim rather than an observation:
 
-A crossed design agrees. Documents and descriptions were each varied between
-German and machine-translated English: the richer descriptions win in both
-document languages, and matching the languages is worth only +2.7 points on
-average.
+**It is not the language.** Sixteen descriptions were Turkish against German
+documents — the obvious explanation, and the one this repository published
+before testing it. Rendering the same content in German, wording held constant,
+moves the number by −2.3 points (p = 0.14). A crossed design over document and
+description language agrees.
 
-And it replicates on a second encoder — `mpnet-base-v2`, 768 dimensions:
-language +0.0 points (p = 1.00), content **+13.7 points** (p = 1×10⁻⁵). Same
-direction, same conclusion, different magnitude. `make study` runs all of it.
+**It is not one encoder.** Repeating on `mpnet-base-v2`: language +0.0 points
+(p = 1.00), content **+13.7 points** (p = 1×10⁻⁵).
 
-Validated on a held-out half never inspected during the rewrite: **+15.6 points
-there (p = 0.0006)**, 34.0% → 49.7%. Section M, which holds both professional
-services and every shell company whose only activity is managing another
-company, went from 12% to 64% recall on those documents.
+**It is not just this corpus — and the exception is the point.** On 20
+Newsgroups (English, usenet, 20 topical classes) the same elaboration step is
+worth **+0.4 points (p = 0.73)**. The datasets differ in one measurable
+property:
 
-And the honest companion result: once the descriptions carry the information,
+| | Class name appears in its own documents | Elaboration gain |
+| --- | --- | --- |
+| NACE Rev. 2 sections | **1.0%** | **+26.8 pp** |
+| 20 Newsgroups classes | **18.2%** | +0.4 pp |
+
+A trade register entry never says *"Erbringung von freiberuflichen,
+wissenschaftlichen und technischen Dienstleistungen"* — it says
+*"Steuerberatung"*. A usenet post about baseball says "baseball". What a
+zero-shot classifier needs from a description is the vocabulary of its
+documents; how much text that takes is predictable before you run anything.
+
+`make study` reproduces all of it. Validated on a held-out half never inspected
+during the rewrite: **+15.6 points there (p = 0.0006)**. Section M, which holds
+both professional services and every shell company whose only activity is
+managing another company, went from 12% to 64% recall on those documents.
+
+And the honest companion result: once the descriptions carry the vocabulary,
 **the hand-written seed keyword lists add nothing measurable** (+0.3 points,
-p = 1.000). They had been compensating for descriptions that named the class
-instead of describing it.
+p = 1.000). They had been supplying what the descriptions were missing.
 
 [`docs/paper_readiness.md`](docs/paper_readiness.md) has the full account.
 
@@ -303,10 +320,12 @@ Full review and methodology decisions: [`docs/methodology.md`](docs/methodology.
 - **Keyword extraction is unevaluated on the current set.** It carries section
   labels only, and the keyword half of the pipeline has not shown a measurable
   effect in any configuration tested.
-- **One corpus, one taxonomy.** The description-content finding holds across
-  two encoders, two document languages and a held-out half, but it is measured
-  on 299 German trade register documents against NACE Rev. 2. It has not been
-  shown on a second dataset.
+- **Two datasets define the relationship, not a curve.** The lexical-gap
+  account rests on two points — 1.0% overlap with a large gain, 18.2% with
+  none. A third dataset with an intermediate overlap would test whether the
+  relationship is graded or a threshold.
+- **The 20 Newsgroups descriptions were written by the same hand** that wrote
+  the NACE ones, which controls style but not author bias.
 - **No LLM baseline.** An instruction-tuned model asked to pick a section
   directly is the obvious comparison in 2026. The adapter is implemented
   (`run.py --with-llm`) but needs an API key and has not been run.

@@ -1,0 +1,54 @@
+{
+  "measure": "share of a class's own documents containing any content word of the class name",
+  "nace": {
+    "per_class": {
+      "N": 0.0,
+      "C": 0.0,
+      "G": 0.0,
+      "F": 0.0,
+      "J": 0.03333333333333333,
+      "M": 0.0,
+      "I": 0.09090909090909091,
+      "K": 0.0,
+      "L": 0.0,
+      "Q": 0.0,
+      "H": 0.0,
+      "P": 0.0
+    },
+    "mean": 0.010353535353535353,
+    "median": 0.0,
+    "n_classes": 12,
+    "elaboration_gain_pp": 26.8,
+    "elaboration_p": 4.38e-15
+  },
+  "20newsgroups": {
+    "per_class": {
+      "rec.autos": 0.0027247956403269754,
+      "comp.windows.x": 0.2698412698412698,
+      "talk.politics.mideast": 0.15616438356164383,
+      "talk.religion.misc": 0.1078838174273859,
+      "sci.med": 0.1111111111111111,
+      "soc.religion.christian": 0.1566579634464752,
+      "comp.graphics": 0.34564643799472294,
+      "comp.os.ms-windows.misc": 0.5930851063829787,
+      "rec.motorcycles": 0.034666666666666665,
+      "alt.atheism": 0.09868421052631579,
+      "comp.sys.mac.hardware": 0.3016304347826087,
+      "misc.forsale": 0.4026666666666667,
+      "talk.politics.guns": 0.028985507246376812,
+      "sci.space": 0.33689839572192515,
+      "comp.sys.ibm.pc.hardware": 0.07368421052631578,
+      "sci.crypt": 0.07027027027027027,
+      "rec.sport.baseball": 0.21505376344086022,
+      "rec.sport.hockey": 0.23636363636363636,
+      "talk.politics.misc": 0.03,
+      "sci.electronics": 0.07387862796833773
+    },
+    "mean": 0.1822948637792947,
+    "median": 0.13363774733637745,
+    "n_classes": 20,
+    "elaboration_gain_pp": 0.4,
+    "elaboration_p": 0.734
+  },
+  "conclusion": "Elaborating a class description pays in proportion to the lexical gap between the class name and the documents. Where the name is absent from the documents it is worth 26.8 points; where the name is already the documents' own vocabulary it is worth nothing."
+}

@@ -19,8 +19,8 @@
 
 \input{tables/macros}
 
-\title{What Class Descriptions Should Say:\\
-       Zero-Shot NACE Classification of German Trade Register Texts}
+\title{What Class Descriptions Buy You, and When:\\
+       The Lexical Gap in Zero-Shot Taxonomy Classification}
 
 \author{Dilay Dikbıyık \\
   Kocaeli University \\
@@ -33,12 +33,13 @@
 \begin{abstract}
 % TARGET: 150 words. Contribution sentence first, then the headline number.
 % The contribution sentence this paper is built around:
-%   "We show that in zero-shot classification against a taxonomy, what the class
-%    descriptions say dominates the language they are written in: replacing
-%    category labels with definitions that enumerate concrete activities improves
-%    NACE section assignment by 26.8 points Top-1, while translating the same
-%    descriptions into the language of the documents does not help at all."
-% Three claims: one positive, two negative, each with its own control.
+%   "What a class description buys a zero-shot classifier is the vocabulary of
+%    its documents, and its value is predicted by the lexical overlap between the
+%    class name and those documents. Where the overlap is near zero (NACE
+%    sections over German trade register text, 1.0%) definitions are worth 26.8
+%    points; where it is substantial (20 Newsgroups, 18.2%) they are worth
+%    nothing. Language does not matter in either setting."
+% One positive claim, one mechanism, two negative controls, two datasets.
 % Note what this is NOT about: keyword extraction. Three measurements give that
 % half of the pipeline no credit, so do not claim it here.
 FIXME
@@ -53,15 +54,17 @@ FIXME
 % P2 Gap. Unsupervised keyphrase extraction ignores the target taxonomy;
 %    zero-shot classification ignores the vocabulary the taxonomy carries.
 % P3 Contributions, as a list:
-%    (i)   class description content, not language, dominates zero-shot
-%          taxonomy classification: +26.8 points from label to definition,
-%          -2.3 points (n.s.) from translating the same content;
-%    (ii)  a crossed design over document and description language confirming it;
-%    (iii) a negative result: with informative descriptions, hand-written seed
+%    (i)   class description content, not language, drives zero-shot taxonomy
+%          classification: +26.8 points from label to definition, -2.3 (n.s.)
+%          from translating the same content, replicated on a second encoder;
+%    (ii)  a mechanism: the gain is predicted by the lexical overlap between the
+%          class name and the documents, measurable before any run;
+%    (iii) a replication on 20 Newsgroups where that overlap is 18x higher and
+%          the same elaboration is worth nothing, as the mechanism predicts;
+%    (iv)  a negative result: with informative descriptions, hand-written seed
 %          keyword lists add nothing;
-%    (iv)  a held-out validation protocol for error-driven taxonomy edits;
-%    (v)   an evaluation set with a documented annotation protocol and a fully
-%          reproducible artefact.
+%    (v)   a held-out protocol for error-driven taxonomy edits, and an
+%          evaluation set with a documented annotation protocol.
 FIXME
 
 % ─────────────────────────────────────────────────────────────────────────────
@@ -143,6 +146,8 @@ FIXME
 % Q/N, N/S, F/D): the model fails where NACE itself is ambiguous.
 
 \input{tables/errors}
+
+% \input{tables/replication}  % 20 Newsgroups, from results/replication_20newsgroups.json
 
 FIXME
 
