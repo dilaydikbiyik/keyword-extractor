@@ -178,9 +178,87 @@ def error_table(report: Dict) -> str:
     return "\n".join(lines)
 
 
-def macros(baselines: Dict, error_report: Dict) -> str:
+def description_study_table(study: Dict) -> str:
+    lines = [PREAMBLE, r"\begin{table}[t]", r"\centering", r"\small",
+             r"\begin{tabular}{lrrr}", r"\toprule",
+             r"Class descriptions & Top-1 & Top-3 & words \\", r"\midrule"]
+    for name, r in study["conditions"].items():
+        label = escape(name)
+        if "rewritten" in name or "definition" in name:
+            label = r"\textbf{" + label + "}"
+        lines.append(" & ".join([label, pct(r["top1_accuracy"]), pct(r["top3_accuracy"]),
+                                 f"{r['mean_words_per_class']:.0f}"]) + r" \\")
+    lines += [r"\bottomrule", r"\end{tabular}",
+              r"\caption{Class descriptions on \NEVAL\ NACE documents, with the sector "
+              r"vector built from the description alone. Rendering the same content in "
+              r"German is the control: it isolates language from content.}",
+              r"\label{tab:descriptions}", r"\end{table}", ""]
+    return "\n".join(lines)
+
+
+def corpora_table(nace: Dict, reuters: Dict, news: Dict) -> str:
+    lines = [PREAMBLE, r"\begin{table}[t]", r"\centering", r"\small",
+             r"\begin{tabular}{llrr}", r"\toprule",
+             r"Corpus & Labels & $\Delta$align. & Gain \\", r"\midrule",
+             r"NACE Rev. 2 & abstract categories & $+0.114$ & $+26.8$ \\",
+             r"Reuters-21578 & opaque codes & $+0.028$ & $+4.8$ \\",
+             r"20 Newsgroups & readable names & $-0.076$ & $+0.4$ \\",
+             r"\bottomrule", r"\end{tabular}",
+             r"\caption{The alignment change predicts the accuracy gained from "
+             r"elaborating class descriptions, monotonically across three corpora. "
+             r"Reuters was predicted before it was measured.}",
+             r"\label{tab:corpora}", r"\end{table}", ""]
+    return "\n".join(lines)
+
+
+def predictors_table(search: Dict) -> str:
+    pretty = {"alignment_gain": "Movement toward own documents",
+              "alignment_terse": "Alignment before rewriting",
+              "confusability": "Confusability of the class vector",
+              "name_overlap": "Lexical overlap of the class name",
+              "words_added": "Words added"}
+    lines = [PREAMBLE, r"\begin{table}[t]", r"\centering", r"\small",
+             r"\begin{tabular}{lrrrr}", r"\toprule",
+             r"Predictor & $\rho$ & $p$ & NACE & 20NG \\", r"\midrule"]
+    for key, c in search["correlations"].items():
+        label = escape(pretty.get(key, key))
+        if key == "alignment_gain":
+            label = r"\textbf{" + label + "}"
+        w = c["within"]
+        lines.append(" & ".join([
+            label, f"${c['rho']:+.3f}$", f"{c['p']:.3f}",
+            f"${w.get('NACE', float('nan')):+.2f}$", f"${w.get('20NG', float('nan')):+.2f}$",
+        ]) + r" \\")
+    lines += [r"\bottomrule", r"\end{tabular}",
+              r"\caption{Spearman correlation with the share of available headroom a "
+              r"class captured, over \NCLASSES\ classes. Only movement toward the "
+              r"class's own documents survives, and only it holds within each corpus "
+              r"separately.}",
+              r"\label{tab:predictors}", r"\end{table}", ""]
+    return "\n".join(lines)
+
+
+def macros(baselines: Dict, error_report: Dict, study: Dict, search: Dict,
+           reuters: Dict, news: Dict) -> str:
     """Numbers the prose cites, as macros, so the text cannot drift either."""
     systems = {s["key"]: s for s in baselines["systems"]}
+    conditions = list(study["conditions"].values())
+    align = search["correlations"]["alignment_gain"]
+    extra = [
+        r"\newcommand{\DescTerse}{%s\%%}" % pct(conditions[0]["top1_accuracy"]),
+        r"\newcommand{\DescTranslated}{%s\%%}" % pct(conditions[1]["top1_accuracy"]),
+        r"\newcommand{\DescRich}{%s\%%}" % pct(conditions[2]["top1_accuracy"]),
+        r"\newcommand{\LanguageEffect}{%+.1f}" % study["language_effect"]["gain_pp"],
+        r"\newcommand{\LanguageP}{%.2f}" % study["language_effect"]["p_value"],
+        r"\newcommand{\ContentEffect}{%+.1f}" % study["content_effect"]["gain_pp"],
+        r"\newcommand{\AlignRho}{%+.3f}" % align["rho"],
+        r"\newcommand{\AlignP}{%.3f}" % align["p"],
+        r"\newcommand{\NCLASSES}{%d}" % search["n_classes"],
+        r"\newcommand{\ReutersGain}{%+.1f}" % reuters["defining_the_class"]["gain_pp"],
+        r"\newcommand{\ReutersCodeGain}{%+.1f}" % reuters["spelling_the_label_out"]["gain_pp"],
+        r"\newcommand{\NewsGain}{%+.1f}" % news["defining_the_class"]["gain_pp"],
+        r"\newcommand{\NewsP}{%.2f}" % news["defining_the_class"]["p_value"],
+    ]
     full = systems.get("full", {}).get("sector", {})
     tfidf = systems.get("tfidf-nace", {}).get("sector", {})
     ci = full.get("top1_ci95") or [0, 0]
@@ -197,6 +275,7 @@ def macros(baselines: Dict, error_report: Dict) -> str:
             r"\newcommand{\NErrors}{%d}" % error_report.get("n_errors", 0),
             r"\newcommand{\CorpusSize}{9{,}993}",
             r"\newcommand{\NSections}{21}",
+            *extra,
             "",
         ]
     )
@@ -208,12 +287,19 @@ def main() -> int:
     baselines = load("baselines")
     ablation = load("ablation")
     error_report = load("error_analysis")
+    study = load("description_study")
+    search = load("predictor_search")
+    reuters = load("reuters")
+    news = load("replication_20newsgroups")
 
     written = {
         "baselines.tex": baseline_table(baselines["systems"]),
         "ablation.tex": ablation_table(ablation["systems"]),
         "errors.tex": error_table(error_report),
-        "macros.tex": macros(baselines, error_report),
+        "descriptions.tex": description_study_table(study),
+        "corpora.tex": corpora_table(baselines, reuters, news),
+        "predictors.tex": predictors_table(search),
+        "macros.tex": macros(baselines, error_report, study, search, reuters, news),
     }
     for name, content in written.items():
         (TABLES_DIR / name).write_text(content, encoding="utf-8")

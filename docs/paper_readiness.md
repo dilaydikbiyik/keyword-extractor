@@ -478,8 +478,12 @@ documents flagged high-confidence."*
 5. **Consider dropping the seed lists and two dead stages.** Guided extraction and the six-stage filter
    have no evidence behind them across three configurations. Either find a
    metric where they help, or cut them and say why.
-6. **Write.** `paper/main.tex` is the skeleton; `make paper-tables` regenerates
-   its tables from `results/`, so no number is typed into the prose.
+6. ~~**Write.**~~ **Done.** `paper/main.tex` is a complete draft — abstract,
+   five contributions, method, four experiments, error analysis, limitations and
+   an ethics statement. `make paper-tables` regenerates its seven tables and
+   twenty-three macros from `results/`, and a test fails if the prose ever
+   quotes a literal figure instead of a macro. Three `FIXME` markers remain:
+   the email, the affiliation and the acknowledgements.
 
 ## 12. Decisions
 

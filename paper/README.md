@@ -1,7 +1,8 @@
 # Paper
 
-A skeleton for the workshop submission, wired so that **no number is ever typed
-into the prose**.
+A complete draft of the workshop submission, wired so that **no number is ever
+typed into the prose**. `tests/test_reported_numbers.py` fails if a literal
+figure appears in the text instead of a macro.
 
 ## Build
 
@@ -34,16 +35,19 @@ Write `\OursTopOne`, not `80.0\%`. When the evaluation set grows and
 `make reproduce` runs again, the paper follows on its own; a hardcoded number
 would silently become a lie.
 
-## Before writing a word
+## What is left in it
 
-The skeleton's `FIXME` markers are ordered the way the sections should be
-written, and each carries its target length. But the paper is not ready to
-write yet — see [`../docs/paper_readiness.md`](../docs/paper_readiness.md).
-The evaluation set is 30 documents, no comparison in it is significant, and
-the error analysis needs roughly 50 errors against the current 6.
+Three `FIXME` markers, all of them yours: the author email, the acknowledgements,
+and the affiliation line if it needs changing. Everything else is written.
 
-Writing before that is writing a paper whose central table a reviewer will
-reject in the first pass.
+Before submitting, read [`../docs/paper_readiness.md`](../docs/paper_readiness.md)
+§11 — the open items are an LLM baseline, a fourth corpus, and the
+inter-annotator figure that needs a second person.
+
+Every entry in `references.bib` carries a `CHECK` note where its venue or page
+range has not been confirmed against the ACL Anthology or the publisher. Verify
+them before submission; bibliographies are where reviewers look first for
+carelessness.
 
 ## Venues
 

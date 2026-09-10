@@ -89,7 +89,7 @@ wissenschaftlichen und technischen Dienstleistungen"* — it says
 
 **What actually predicts it.** Across all 32 classes in both datasets, the one
 quantity that survives is **how far the description moves the class vector
-toward the centroid of its own documents** (Spearman ρ = +0.51, p = 0.003) — and
+toward the centroid of its own documents** (Spearman ρ = +0.513, p = 0.003) — and
 it is the only candidate that holds in both datasets separately (+0.56, +0.63).
 Lexical overlap does not (ρ = +0.07), nor does confusability (ρ = −0.01), nor
 does length — words added correlates *negatively*.
@@ -304,6 +304,7 @@ run.py                  make reproduce
 | [`docs/methodology.md`](docs/methodology.md) | Literature review and the original design decisions |
 | [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | Component diagram and data flow |
 | [`docs/TODO.md`](docs/TODO.md) | Working log, in Turkish |
+| [`paper/main.tex`](paper/main.tex) | The write-up: a complete draft for the ACL style files |
 
 ## Tests
 
