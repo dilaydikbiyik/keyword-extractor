@@ -78,8 +78,12 @@ def test_extract_keywords_with_seed_keywords(mock_extractor):
     seeds = ["software", "cloud"]
     mock_kw.extract_keywords.return_value = [("software", 0.9)]
     result = extractor.extract_keywords("text", seed_keywords=seeds, top_n=3)
-    call_kwargs = mock_kw.extract_keywords.call_args
-    assert call_kwargs is not None
+
+    _, kwargs = mock_kw.extract_keywords.call_args
+    assert kwargs["seed_keywords"] == seeds
+    assert kwargs["top_n"] == 3
+    assert kwargs["use_mmr"] is True
+    assert result == [("software", 0.9)]
 
 
 # ── extract_keywords_guided_by_sector ─────────────────────────────────────────

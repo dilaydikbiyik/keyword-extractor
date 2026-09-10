@@ -18,6 +18,14 @@ from datetime import datetime
 from pathlib import Path
 
 
+def _top_confidence(result: Dict) -> float:
+    """Confidence of the best-ranked section, or 0.0 when none was reported."""
+    classifications = result.get("sector_classification", {}).get("classifications")
+    if not classifications:
+        return 0.0
+    return classifications[0].get("confidence") or 0.0
+
+
 class ExtractionController:
     """
     Main controller for the keyword extraction pipeline.
@@ -58,26 +66,34 @@ class ExtractionController:
         self.validator = validator
         self.config = config or {}
 
-        # Setup logging
         self.logger = logging.getLogger(__name__)
         self._setup_logging()
 
+    #: Package loggers the configured level applies to. The services log their
+    #: own progress, so setting ``logging.level: INFO`` has to reach them too --
+    #: configuring only this module's logger would silence everything below it.
+    LOG_PACKAGES = ("controllers", "services", "models", "utils")
+
     def _setup_logging(self):
-        """Attach one stream handler and set the configured level.
+        """Attach one stream handler per package logger and set the level.
 
         The handler is added once per logger, not once per controller: building
         several controllers in one process used to multiply every log line.
         The default level is WARNING so the pipeline is quiet in normal use;
         set ``logging.level`` in the config to follow the per-step progress.
         """
-        if not self.logger.handlers:
-            handler = logging.StreamHandler()
-            handler.setFormatter(
-                logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-            )
-            self.logger.addHandler(handler)
-        level = str(self.config.get("log_level", "WARNING")).upper()
-        self.logger.setLevel(getattr(logging, level, logging.WARNING))
+        level = getattr(
+            logging, str(self.config.get("log_level", "WARNING")).upper(), logging.WARNING
+        )
+        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+        for package in self.LOG_PACKAGES:
+            package_logger = logging.getLogger(package)
+            if not package_logger.handlers:
+                handler = logging.StreamHandler()
+                handler.setFormatter(formatter)
+                package_logger.addHandler(handler)
+            package_logger.setLevel(level)
 
     def extract(
         self,
@@ -227,7 +243,7 @@ class ExtractionController:
 
         for i, text in enumerate(texts):
             if show_progress:
-                print(f"Processing {i + 1}/{len(texts)}...")
+                self.logger.info("Processing %d/%d...", i + 1, len(texts))
 
             t0 = time.time()
             result = self.extract(
@@ -355,12 +371,7 @@ class ExtractionController:
                 "status": r.get("status"),
                 "language": r.get("language"),
                 "sector": r.get("sector_classification", {}).get("top_sector"),
-                "confidence": (
-                    r.get("sector_classification", {}
-                         ).get("classifications", [{}])[0].get("confidence") or 0.0
-                    if r.get("sector_classification", {}).get("classifications")
-                    else 0.0
-                ),
+                "confidence": _top_confidence(r),
                 "keywords": [kw.get("keyword") for kw in r.get("keywords", [])],
                 "processing_time_ms": r.get("processing_time_ms"),
                 "error": r.get("error"),

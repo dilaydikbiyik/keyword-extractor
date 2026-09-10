@@ -40,8 +40,7 @@ test:
 	$(PYTHON) -m pytest tests/ -q
 
 lint:
-	$(PYTHON) -m flake8 src/ experiments/ tools/ main.py run.py quickstart.py \
-		--select=F401,F841,W293,E302,E303 --max-line-length=120
+	$(PYTHON) -m flake8 src/ experiments/ tools/ tests/ main.py run.py quickstart.py conftest.py
 
 annotate:
 	$(PYTHON) -m experiments.build_annotation_queue --target 300

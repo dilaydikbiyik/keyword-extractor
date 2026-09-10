@@ -26,7 +26,8 @@ def main():
     print("\n[2/4] Loading sample texts...")
 
     sample_texts = [
-        "Softwareentwicklung und Programmierung für Web- und Mobileanwendungen. API-Integrationsdienste und Cloud-Lösungen.",
+        "Softwareentwicklung und Programmierung für Web- und Mobileanwendungen. "
+        "API-Integrationsdienste und Cloud-Lösungen.",
         "Handel mit Elektronik, Computern und Mobiltelefonen. Großhandel und Einzelhandel. E-Commerce-Plattform.",
         "Zahnklinik mit modernen Behandlungsmethoden. Zahnimplantate, Zahnbleaching und Prophylaxe.",
     ]
@@ -53,7 +54,7 @@ def main():
             top_confidence = classifications[0]['confidence'] if classifications else 0.0
             print(f"Language:              {result['language']}")
             print(f"Primary Sector:        {sector_info['top_sector']} (confidence: {top_confidence:.1%})")
-            print(f"\nExtracted Keywords:")
+            print("\nExtracted Keywords:")
             keywords = result.get('keywords', [])
             for j, kw in enumerate(keywords[:5], 1):
                 score = kw.get('score', 0)
@@ -79,7 +80,7 @@ def main():
     print(f"Total keywords:        {stats['total_keywords_extracted']}")
     print(f"Avg keywords/doc:      {stats['avg_keywords_per_document']:.1f}")
     print(f"Avg confidence:        {stats['avg_confidence']:.3f}")
-    print(f"\nSector Distribution:")
+    print("\nSector Distribution:")
     for sector, count in sorted(stats['sector_distribution'].items()):
         print(f"  {sector}: {count}")
 

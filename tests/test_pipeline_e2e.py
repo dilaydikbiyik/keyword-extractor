@@ -197,3 +197,28 @@ class TestClassifierInputSelection:
             assert result["sector_classification"]["top_sector"]
         finally:
             controller.configure({"classify_preprocessed_text": False})
+
+
+def test_log_level_reaches_the_services(tmp_path, monkeypatch):
+    """`logging.level` in the config has to configure more than the controller."""
+    import logging as _logging
+
+    for package in ExtractionController.LOG_PACKAGES:
+        logger = _logging.getLogger(package)
+        logger.handlers.clear()
+        logger.setLevel(_logging.NOTSET)
+
+    controller = ExtractionController.__new__(ExtractionController)
+    controller.config = {"log_level": "INFO"}
+    controller.logger = _logging.getLogger("controllers.controller")
+    controller._setup_logging()
+
+    for package in ExtractionController.LOG_PACKAGES:
+        logger = _logging.getLogger(package)
+        assert logger.level == _logging.INFO, package
+        assert len(logger.handlers) == 1, package
+
+    # A second controller must not double every log line.
+    controller._setup_logging()
+    for package in ExtractionController.LOG_PACKAGES:
+        assert len(_logging.getLogger(package).handlers) == 1, package

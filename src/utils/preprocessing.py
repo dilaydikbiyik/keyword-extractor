@@ -61,7 +61,6 @@ class TextPreprocessor:
         # Special characters to preserve inside tokens
         self.preserve_chars = {'-', "'"} if self.preserve_hyphens else set()
 
-        # Load stopwords for different languages
         self.stopwords = self._load_stopwords()
 
         # Sector-specific stopwords (business jargon)
@@ -109,19 +108,19 @@ class TextPreprocessor:
         # German stopwords
         try:
             stopwords_dict['de'] = set(stopwords.words('german'))
-        except:
+        except LookupError:
             stopwords_dict['de'] = set()
 
         # English stopwords
         try:
             stopwords_dict['en'] = set(stopwords.words('english'))
-        except:
+        except LookupError:
             stopwords_dict['en'] = set()
 
         # Turkish stopwords (NLTK)
         try:
             stopwords_dict['tr'] = set(stopwords.words('turkish'))
-        except:
+        except LookupError:
             stopwords_dict['tr'] = set()
 
         return stopwords_dict
@@ -323,7 +322,6 @@ class TextPreprocessor:
         # Clean text
         cleaned_text = self.clean_text(text, lang)
 
-        # Generate candidates
         candidates = self.generate_ngram_candidates(text)
 
         return {

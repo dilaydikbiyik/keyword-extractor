@@ -3,6 +3,7 @@ Unit tests for evaluation metrics (src/models/evaluation.py)
 Run with: pytest tests/test_evaluation.py -v
 """
 
+import json
 import sys
 import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
@@ -14,6 +15,7 @@ from models.evaluation import (
     precision_at_k_multi,
     top_k_accuracy,
     f1_macro,
+    cohen_kappa,
     EvaluationMetrics,
 )
 
@@ -153,3 +155,24 @@ def test_evaluation_metrics_no_sector_labels():
     report = ev.compute()
     assert "precision_at_5" in report
     assert "top1_accuracy" not in report
+
+
+def test_cohen_kappa_is_none_when_undefined():
+    """One label category across both raters leaves kappa undefined, not zero."""
+    assert cohen_kappa(["J", "J"], ["J", "J"]) is None
+
+
+def test_report_never_carries_nan():
+    """A single-document report has to stay serialisable as JSON."""
+    ev = EvaluationMetrics(k_values=[3])
+    ev.add(
+        extracted=["a", "b", "c"],
+        ground_truth=["a", "c"],
+        true_sector="J",
+        predicted_sector="J",
+        predicted_top3=["J", "M", "K"],
+    )
+    report = ev.compute()
+
+    assert report["cohen_kappa"] is None
+    json.dumps(report, allow_nan=False)

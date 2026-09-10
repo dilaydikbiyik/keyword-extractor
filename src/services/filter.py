@@ -5,8 +5,11 @@ Filters and ranks keywords based on multiple criteria including
 information value, relevance, and sector specificity.
 """
 
+import logging
 from typing import List, Dict, Tuple, Optional
 import json
+
+logger = logging.getLogger(__name__)
 
 
 class KeywordFilter:
@@ -35,7 +38,6 @@ class KeywordFilter:
         self.sectors_file = sectors_file
         self.negative_keywords_weight = negative_keywords_weight
 
-        # Load sector information
         self.sectors_info = self._load_sectors_info()
         self.negative_keywords_by_sector = self._load_negative_keywords()
 
@@ -48,7 +50,7 @@ class KeywordFilter:
                 sectors_data = json.load(f)
             sectors_info = sectors_data.get('sectors', {})
         except Exception as e:
-            print(f"Error loading sectors: {e}")
+            logger.error(f"Error loading sectors: {e}")
 
         return sectors_info
 
@@ -89,7 +91,6 @@ class KeywordFilter:
         for kw, score in keywords:
             kw_lower = kw.lower()
 
-            # Check if keyword or its words are in negative list
             is_negative = kw_lower in negative_kws or any(
                 word in negative_kws for word in kw_lower.split()
             )
@@ -139,7 +140,6 @@ class KeywordFilter:
 
             re_scored.append((kw, adjusted_score))
 
-        # Sort by adjusted score
         re_scored.sort(key=lambda x: x[1], reverse=True)
 
         return re_scored

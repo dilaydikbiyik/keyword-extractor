@@ -4,9 +4,12 @@ Sector Classifier Service
 Classifies business descriptions into sectors using embedding similarity.
 """
 
+import logging
 from typing import List, Dict, Tuple
 import numpy as np
 import json
+
+logger = logging.getLogger(__name__)
 
 
 class SectorClassifier:
@@ -34,13 +37,11 @@ class SectorClassifier:
         self.sectors_file = sectors_file
         self.confidence_threshold = confidence_threshold
 
-        # Load sector information
         self.sectors_info = self._load_sectors_info()
-        print(f"Loaded {len(self.sectors_info)} sectors")
+        logger.info(f"Loaded {len(self.sectors_info)} sectors")
 
-        # Generate sector embeddings
         self.sector_embeddings = self._build_sector_embeddings()
-        print(f"Built embeddings for {len(self.sector_embeddings)} sectors")
+        logger.info(f"Built embeddings for {len(self.sector_embeddings)} sectors")
 
     def _load_sectors_info(self) -> Dict[str, dict]:
         """
@@ -58,9 +59,9 @@ class SectorClassifier:
             sectors_info = sectors_data.get('sectors', {})
 
         except FileNotFoundError:
-            print(f"Sectors file not found: {self.sectors_file}")
+            logger.error(f"Sectors file not found: {self.sectors_file}")
         except Exception as e:
-            print(f"Error loading sectors: {e}")
+            logger.error(f"Error loading sectors: {e}")
 
         return sectors_info
 
@@ -106,7 +107,6 @@ class SectorClassifier:
         self,
         text: str,
         top_k: int = 1,
-        return_scores: bool = True
     ) -> List[Tuple[str, float]]:
         """
         Classify a text into sector(s).
@@ -114,15 +114,21 @@ class SectorClassifier:
         Args:
             text: Input text to classify
             top_k: Number of top sectors to return
-            return_scores: Whether to return confidence scores
+
+        Note:
+            The threshold filter runs *before* the top-k cut, so this can return
+            fewer than ``top_k`` sectors -- and for a document whose scores all
+            sit below the threshold, none at all. Measuring top-k accuracy over
+            this method therefore scores a shorter list than k and overstates
+            the result; use :meth:`classify_with_details`, which always reports
+            a best match, or read the unfiltered ranking directly.
 
         Returns:
-            List of (sector_code, confidence_score) tuples, sorted by confidence
+            List of (sector_code, confidence_score) tuples, sorted by
+            confidence; at most ``top_k`` and possibly fewer
         """
-        # Generate embedding for input text
         text_embedding = self.embedding_service.embed_text(text)
 
-        # Calculate similarity with all sectors
         similarities = []
 
         for sector_code, sector_embedding in self.sector_embeddings.items():
@@ -133,18 +139,12 @@ class SectorClassifier:
             )
             similarities.append((sector_code, float(similarity)))
 
-        # Sort by similarity (descending)
         similarities.sort(key=lambda x: x[1], reverse=True)
 
-        # Filter by confidence threshold
-        if return_scores:
-            results = [
-                (code, score) for code, score in similarities
-                if score >= self.confidence_threshold
-            ]
-        else:
-            results = [code for code, score in similarities if score >= self.confidence_threshold]
-
+        results = [
+            (code, score) for code, score in similarities
+            if score >= self.confidence_threshold
+        ]
         return results[:top_k]
 
     def classify_with_details(

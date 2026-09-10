@@ -417,7 +417,6 @@ class TestMergeAnnotations:
         assert human["annotation_method"] == "manual"
 
 
-
 # ─────────────────────────────────────────────────────────────────────────────
 # Reproducing without the raw corpus
 # ─────────────────────────────────────────────────────────────────────────────

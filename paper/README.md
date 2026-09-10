@@ -37,8 +37,9 @@ would silently become a lie.
 
 ## What is left in it
 
-Three `FIXME` markers, all of them yours: the author email, the acknowledgements,
-and the affiliation line if it needs changing. Everything else is written.
+Nothing in the prose. The author block, affiliation and email are filled in; the
+acknowledgements are commented out and must stay that way until the paper is
+accepted, because a named acknowledgement breaks review anonymity.
 
 Before submitting, read [`../docs/paper_readiness.md`](../docs/paper_readiness.md)
 §11 — the open items are an LLM baseline, a fourth corpus, and the

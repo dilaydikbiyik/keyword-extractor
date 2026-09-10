@@ -8,9 +8,11 @@ Implements:
   - Batch evaluation helpers
 """
 
+import math
 from typing import List, Dict, Optional
-import numpy as np
 from collections import defaultdict
+
+import numpy as np
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -96,7 +98,6 @@ def semantic_match_score(
 
     from sklearn.metrics.pairwise import cosine_similarity as _cos_sim
 
-    # Encode both sets
     extracted_embs = _encode(model, extracted_keywords)   # (E, D)
     gold_embs = _encode(model, gold_standard_keywords)    # (G, D)
 
@@ -169,19 +170,27 @@ def f1_macro(
 def cohen_kappa(
     y_true: List[str],
     y_pred: List[str],
-) -> float:
+) -> Optional[float]:
     """
     Cohen's Kappa for inter-annotator or classifier agreement.
+
+    Kappa is undefined when only one label category occurs across both raters:
+    chance agreement is then 1, and the correction divides by zero. sklearn
+    returns NaN in that case, which is not valid JSON and reads as a score of
+    zero in a report, so this returns None instead.
 
     Args:
         y_true: Ground-truth labels
         y_pred: Predicted labels
 
     Returns:
-        Kappa score in [-1, 1]
+        Kappa score in [-1, 1], or None when it is undefined
     """
     from sklearn.metrics import cohen_kappa_score  # type: ignore
-    return float(cohen_kappa_score(y_true, y_pred))
+    if len(set(y_true) | set(y_pred)) < 2:
+        return None
+    kappa = float(cohen_kappa_score(y_true, y_pred))
+    return None if math.isnan(kappa) else kappa
 
 
 # ─────────────────────────────────────────────────────────────────────────────

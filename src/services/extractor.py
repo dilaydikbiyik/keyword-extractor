@@ -4,9 +4,12 @@ Keyword Extractor Service
 Provides guided keyword extraction using KeyBERT with sector-specific seed keywords.
 """
 
+import logging
 from typing import List, Dict, Tuple, Optional
 from keybert import KeyBERT
 import json
+
+logger = logging.getLogger(__name__)
 
 
 class KeywordExtractor:
@@ -33,13 +36,11 @@ class KeywordExtractor:
         self.model_name = model_name
         self.device = device
 
-        # Initialize KeyBERT
-        print(f"Initializing KeyBERT with model: {model_name}")
+        logger.info(f"Initializing KeyBERT with model: {model_name}")
         self.kw_model = KeyBERT(model=model_name)
 
-        # Load sector keywords
         self.sector_keywords = self._load_sector_keywords(sectors_file)
-        print(f"Loaded seed keywords for {len(self.sector_keywords)} sectors")
+        logger.info(f"Loaded seed keywords for {len(self.sector_keywords)} sectors")
 
     def _load_sector_keywords(self, sectors_file: str) -> Dict[str, List[str]]:
         """
@@ -65,9 +66,9 @@ class KeywordExtractor:
                     sector_keywords[code] = keywords
 
         except FileNotFoundError:
-            print(f"Sectors file not found: {sectors_file}")
+            logger.error(f"Sectors file not found: {sectors_file}")
         except Exception as e:
-            print(f"Error loading sectors: {e}")
+            logger.error(f"Error loading sectors: {e}")
 
         return sector_keywords
 
@@ -112,7 +113,7 @@ class KeywordExtractor:
             return keywords
 
         except Exception as e:
-            print(f"Error extracting keywords: {e}")
+            logger.error(f"Error extracting keywords: {e}")
             return []
 
     def extract_keywords_guided_by_sector(
@@ -120,7 +121,8 @@ class KeywordExtractor:
         text: str,
         sector_code: str,
         top_n: int = 10,
-        language: Optional[str] = None,  # accepted for API compatibility; multilingual model handles language automatically
+        # Accepted for API compatibility; the multilingual model needs no language hint.
+        language: Optional[str] = None,
         diversity: float = 0.7
     ) -> List[Tuple[str, float]]:
         """
@@ -141,11 +143,10 @@ class KeywordExtractor:
         Returns:
             List of (keyword, score) tuples
         """
-        # Get sector seed keywords
         seed_keywords = self.sector_keywords.get(sector_code, [])
 
         if not seed_keywords:
-            print(f"Warning: No seed keywords found for sector {sector_code}")
+            logger.warning(f"No seed keywords found for sector {sector_code}")
             return self.extract_keywords(text, top_n=top_n, diversity=diversity)
 
         # Extract with sector guidance
@@ -195,8 +196,6 @@ class KeywordExtractor:
         Returns:
             Expanded seed keyword list
         """
-        import logging
-        logger = logging.getLogger(__name__)
 
         # Start from current seeds for this sector
         current_seeds: List[str] = list(self.sector_keywords.get(sector_code, []))

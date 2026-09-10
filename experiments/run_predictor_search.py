@@ -132,8 +132,10 @@ def selection_rule(names, documents, terse, rich, contrastive: bool):
         d = list(documents[c])
         rng.shuffle(d)
         cut = max(1, len(d) // 2)
-        dev_docs += d[:cut]; dev_gold += [c] * cut
-        test_docs += d[cut:]; test_gold += [c] * (len(d) - cut)
+        dev_docs += d[:cut]
+        dev_gold += [c] * cut
+        test_docs += d[cut:]
+        test_gold += [c] * (len(d) - cut)
 
     dev, test = unit(dev_docs), unit(test_docs)
     centroids = {}
@@ -154,9 +156,11 @@ def selection_rule(names, documents, terse, rich, contrastive: bool):
     chosen, picks = {}, {"terse": 0, "rich": 0}
     for c in names:
         if score(c, terse[c]) >= score(c, rich[c]):
-            chosen[c] = terse[c]; picks["terse"] += 1
+            chosen[c] = terse[c]
+            picks["terse"] += 1
         else:
-            chosen[c] = rich[c]; picks["rich"] += 1
+            chosen[c] = rich[c]
+            picks["rich"] += 1
 
     def evaluate(descriptions):
         vectors = unit([descriptions[c] for c in names])
@@ -194,8 +198,10 @@ def greedy_set_search(names, documents, terse, rich):
         d = list(documents[c])
         rng.shuffle(d)
         cut = max(1, len(d) // 2)
-        dev_docs += d[:cut]; dev_gold += [c] * cut
-        test_docs += d[cut:]; test_gold += [c] * (len(d) - cut)
+        dev_docs += d[:cut]
+        dev_gold += [c] * cut
+        test_docs += d[cut:]
+        test_gold += [c] * (len(d) - cut)
 
     dev, test = unit(dev_docs), unit(test_docs)
     terse_vectors, rich_vectors = unit([terse[c] for c in names]), unit([rich[c] for c in names])

@@ -5,9 +5,12 @@ Validates extracted keywords using OpenAI API for quality assurance.
 This is an optional component for high-confidence extraction.
 """
 
+import logging
 from typing import List, Dict, Tuple, Optional
 import json
 import time
+
+logger = logging.getLogger(__name__)
 
 
 class LLMValidator:
@@ -53,10 +56,10 @@ class LLMValidator:
 
             self.available = True
         except ImportError:
-            print("Warning: OpenAI library not installed. Validator disabled.")
+            logger.warning("OpenAI library not installed. Validator disabled.")
             self.available = False
         except Exception as e:
-            print(f"Warning: Could not initialize OpenAI client: {e}")
+            logger.warning(f"Could not initialize OpenAI client: {e}")
             self.available = False
 
     def validate_keywords(
@@ -94,13 +97,12 @@ class LLMValidator:
         # Prepare validation prompt
         prompt = self._build_validation_prompt(text, to_validate, sector)
 
-        # Get LLM validation
         try:
             response = self._call_llm(prompt)
             validation_result = self._parse_validation_response(response, keywords)
             return validation_result
         except Exception as e:
-            print(f"LLM validation failed: {e}. Returning original scores.")
+            logger.error(f"LLM validation failed: {e}. Returning original scores.")
             return self._format_validation_results(keywords, validated=False)
 
     def _build_validation_prompt(
@@ -140,7 +142,10 @@ Format your response as JSON:
                     messages=[
                         {
                             "role": "system",
-                            "content": "You are an expert at validating business keywords. Always respond in JSON format."
+                            "content": (
+                                "You are an expert at validating business keywords. "
+                                "Always respond in JSON format."
+                            ),
                         },
                         {"role": "user", "content": prompt}
                     ],
@@ -152,7 +157,7 @@ Format your response as JSON:
             except Exception:
                 if attempt < self.max_retries - 1:
                     wait_time = 2 ** attempt  # Exponential backoff
-                    print(f"API call failed (attempt {attempt + 1}), retrying in {wait_time}s...")
+                    logger.warning(f"API call failed (attempt {attempt + 1}), retrying in {wait_time}s...")
                     time.sleep(wait_time)
                 else:
                     raise
@@ -208,7 +213,7 @@ Format your response as JSON:
             return results
 
         except Exception:
-            print("Failed to parse validation response. Returning original scores.")
+            logger.error("Failed to parse validation response. Returning original scores.")
             return self._format_validation_results(original_keywords, validated=False)
 
     def _format_validation_results(

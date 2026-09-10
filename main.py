@@ -27,7 +27,6 @@ def main():
     OUTPUT_FILE = "output/results.json"
     BATCH_SIZE = 100
 
-    # Check input file
     if not Path(CSV_FILE).exists():
         print(f"✗ {CSV_FILE} not found.")
         print("  The raw corpus is not distributed with this repository; see")
@@ -40,8 +39,7 @@ def main():
     print(f"      Loaded {len(df)} records")
     print(f"      Columns: {list(df.columns)}")
 
-    # Initialize components from config/config.yaml
-    print(f"\n[2/5] Initializing components...")
+    print("\n[2/5] Initializing components...")
     controller, config = build_controller()
     top_n_keywords = config["extraction"]["top_n_final"]
     print(f"      ✓ Components initialized ({top_n_keywords} keywords per document)")
@@ -57,7 +55,9 @@ def main():
         batch_end = min(batch_start + BATCH_SIZE, len(df))
         batch_texts = df.iloc[batch_start:batch_end]['purpose'].tolist()
 
-        print(f"      Processing batch {batch_start//BATCH_SIZE + 1}/{(len(df)-1)//BATCH_SIZE + 1}...", end='', flush=True)
+        batch_no = batch_start // BATCH_SIZE + 1
+        n_batches = (len(df) - 1) // BATCH_SIZE + 1
+        print(f"      Processing batch {batch_no}/{n_batches}...", end='', flush=True)
 
         try:
             batch_results = controller.extract_batch(
@@ -75,7 +75,6 @@ def main():
             print(f" ✗ Error: {e}")
             errors.append({'batch': batch_start, 'error': str(e)})
 
-    # Save results
     print(f"\n[4/5] Saving results to {OUTPUT_FILE}...")
     output_path = Path(OUTPUT_FILE)
     output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -85,7 +84,7 @@ def main():
     print(f"      ✓ Saved {len(results)} results")
 
     # Summary statistics
-    print(f"\n[5/5] Summary Statistics")
+    print("\n[5/5] Summary Statistics")
     print("="*80)
 
     stats = controller.get_extraction_stats(results)
@@ -96,7 +95,7 @@ def main():
     print(f"Avg keywords/document:    {stats['avg_keywords_per_document']:.1f}")
     print(f"Avg confidence score:     {stats['avg_confidence']:.3f}")
 
-    print(f"\nSector Distribution:")
+    print("\nSector Distribution:")
     for sector, count in sorted(stats['sector_distribution'].items()):
         pct = (count / stats['successful']) * 100
         print(f"  {sector:2s}: {count:5d} ({pct:5.1f}%)")

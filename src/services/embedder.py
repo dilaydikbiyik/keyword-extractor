@@ -5,11 +5,14 @@ Provides embeddings for texts and sector descriptions using
 sentence-transformers for multilingual support.
 """
 
+import logging
 from typing import List, Dict, Optional
 import numpy as np
 from sentence_transformers import SentenceTransformer
 import os
 from pathlib import Path
+
+logger = logging.getLogger(__name__)
 
 
 class EmbeddingService:
@@ -37,14 +40,12 @@ class EmbeddingService:
         self.cache_dir = cache_dir or "data/cache"
         self.device = device
 
-        # Create cache directory if it doesn't exist
         Path(self.cache_dir).mkdir(parents=True, exist_ok=True)
 
-        # Load model
-        print(f"Loading model: {model_name}")
+        logger.info(f"Loading model: {model_name}")
         self.model = SentenceTransformer(model_name, device=device)
         self.embedding_dim = self.model.get_sentence_embedding_dimension()
-        print(f"Model loaded. Embedding dimension: {self.embedding_dim}")
+        logger.info(f"Model loaded. Embedding dimension: {self.embedding_dim}")
 
         # Cache for embeddings
         self._embedding_cache: Dict[str, np.ndarray] = {}
@@ -61,14 +62,11 @@ class EmbeddingService:
         Returns:
             Embedding vector (ndarray)
         """
-        # Create cache key
         cache_key = self._get_cache_key(text)
 
-        # Check cache
         if use_cache and cache_key in self._embedding_cache:
             return self._embedding_cache[cache_key]
 
-        # Generate embedding
         embedding = self.model.encode(text, convert_to_numpy=True)
 
         # Store in cache
@@ -149,7 +147,7 @@ class EmbeddingService:
 
         for i, text in enumerate(texts):
             if show_progress and i % max(1, len(texts) // 10) == 0:
-                print(f"Embedding progress: {i}/{len(texts)}")
+                logger.info(f"Embedding progress: {i}/{len(texts)}")
 
             embeddings.append(self.embed_text(text, use_cache=use_cache))
 
@@ -207,6 +205,6 @@ class EmbeddingService:
             if os.path.exists(cache_file):
                 data = np.load(cache_file, allow_pickle=True)
                 self._embedding_cache = dict(data['embeddings'].item())
-                print(f"Loaded {len(self._embedding_cache)} cached embeddings")
+                logger.info(f"Loaded {len(self._embedding_cache)} cached embeddings")
         except Exception as e:
-            print(f"Could not load cache: {e}")
+            logger.warning(f"Could not load cache: {e}")
