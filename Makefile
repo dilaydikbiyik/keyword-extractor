@@ -68,6 +68,7 @@ study:
 	$(PYTHON) -m experiments.run_language_match --no-seeds
 	$(PYTHON) -m experiments.run_replication
 	$(PYTHON) -m experiments.lexical_gap
+	$(PYTHON) -m experiments.run_gap_analysis
 
 paper-tables:
 	$(PYTHON) -m experiments.export_latex

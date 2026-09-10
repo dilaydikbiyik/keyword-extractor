@@ -89,16 +89,26 @@ property:
 
 A trade register entry never says *"Erbringung von freiberuflichen,
 wissenschaftlichen und technischen Dienstleistungen"* — it says
-*"Steuerberatung"*. A usenet post about baseball says "baseball". What a
-zero-shot classifier needs from a description is the vocabulary of its
-documents; how much text that takes is predictable before you run anything.
+*"Steuerberatung"*. A usenet post about baseball says "baseball".
+
+**How far that account goes, tested.** Binned across all 32 classes in both
+datasets, those with under 5% name overlap gain **+8.1 points** on average and
+the rest **+1.4**. But at the level of individual classes the overlap does *not*
+predict the gain (Spearman ρ = −0.16, p = 0.37), and neither does class
+confusability (ρ = +0.05, p = 0.80). Only headroom does (ρ = −0.61,
+p = 0.0002), which is largely mechanical — a class already at 90% cannot gain
+much.
+
+So the lexical gap separates the two **regimes** without explaining which
+classes inside a regime benefit. That second question is open, and
+`make study` reports it rather than smoothing it over.
 
 `make study` reproduces all of it. Validated on a held-out half never inspected
 during the rewrite: **+15.6 points there (p = 0.0006)**. Section M, which holds
 both professional services and every shell company whose only activity is
 managing another company, went from 12% to 64% recall on those documents.
 
-And the honest companion result: once the descriptions carry the vocabulary,
+And the companion result: once the descriptions carry the vocabulary,
 **the hand-written seed keyword lists add nothing measurable** (+0.3 points,
 p = 1.000). They had been supplying what the descriptions were missing.
 
@@ -260,6 +270,16 @@ tests/                  128 tests
 run.py                  make reproduce
 ```
 
+## Documentation
+
+| File | What it is |
+| --- | --- |
+| [`docs/paper_readiness.md`](docs/paper_readiness.md) | Every result, every control, and what is still open |
+| [`docs/annotation_guidelines.md`](docs/annotation_guidelines.md) | The rules the evaluation labels were produced under |
+| [`docs/methodology.md`](docs/methodology.md) | Literature review and the original design decisions |
+| [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | Component diagram and data flow |
+| [`docs/TODO.md`](docs/TODO.md) | Working log, in Turkish |
+
 ## Tests
 
 ```bash
@@ -320,10 +340,12 @@ Full review and methodology decisions: [`docs/methodology.md`](docs/methodology.
 - **Keyword extraction is unevaluated on the current set.** It carries section
   labels only, and the keyword half of the pipeline has not shown a measurable
   effect in any configuration tested.
-- **Two datasets define the relationship, not a curve.** The lexical-gap
-  account rests on two points — 1.0% overlap with a large gain, 18.2% with
-  none. A third dataset with an intermediate overlap would test whether the
-  relationship is graded or a threshold.
+- **The lexical-gap account is regime-level, not class-level.** It separates
+  two datasets that differ eighteenfold in name overlap, but within either
+  dataset it does not predict which classes benefit (ρ = −0.16, p = 0.37).
+  What drives per-class variation is unresolved.
+- **Two datasets, not a curve.** A third with an intermediate overlap would
+  test whether the regime boundary is graded or a threshold.
 - **The 20 Newsgroups descriptions were written by the same hand** that wrote
   the NACE ones, which controls style but not author bias.
 - **No LLM baseline.** An instruction-tuned model asked to pick a section

@@ -1,0 +1,381 @@
+{
+  "n_classes": 32,
+  "note": "Spearman correlations between per-class gain from elaboration and three candidate predictors. Only headroom survives, and it is largely mechanical.",
+  "correlations": {
+    "name_overlap": {
+      "rho": -0.16346971631136936,
+      "p": 0.37133902670469854
+    },
+    "confusability": {
+      "rho": 0.046110055252223704,
+      "p": 0.8021285342449807
+    },
+    "recall_terse": {
+      "rho": -0.6127849755730045,
+      "p": 0.00019278078171905497
+    }
+  },
+  "per_dataset": {
+    "NACE": {
+      "name_overlap": {
+        "rho": 0.11388681556099788,
+        "p": 0.7245222862053488
+      },
+      "confusability": {
+        "rho": 0.44149213755297445,
+        "p": 0.1507687727609231
+      },
+      "recall_terse": {
+        "rho": -0.8148464979493788,
+        "p": 0.0012444161000958144
+      }
+    },
+    "20NG": {
+      "name_overlap": {
+        "rho": 0.04171443194821564,
+        "p": 0.8613814580769787
+      },
+      "confusability": {
+        "rho": -0.01170253009016918,
+        "p": 0.960945712648661
+      },
+      "recall_terse": {
+        "rho": -0.5181268882175227,
+        "p": 0.01927119046979796
+      }
+    }
+  },
+  "binned_by_overlap": {
+    "below_5_percent": {
+      "n": 18,
+      "mean_gain": 0.08086988369401718
+    },
+    "at_or_above_5_percent": {
+      "n": 14,
+      "mean_gain": 0.01363636363636365
+    }
+  },
+  "conclusion": "The lexical gap separates the two regimes — classes whose names are absent from their documents gain 8.1 points on average against 1.4 for the rest — but it does not predict which classes inside a regime benefit (rho = -0.16, p = 0.37). Neither does confusability (rho = +0.05, p = 0.80). What remains is an open question.",
+  "classes": [
+    {
+      "dataset": "NACE",
+      "class": "C",
+      "n_documents": 20,
+      "name_overlap": 0.0,
+      "confusability": 0.5600348923044012,
+      "recall_terse": 0.9,
+      "recall_rich": 0.4,
+      "gain": -0.5
+    },
+    {
+      "dataset": "NACE",
+      "class": "F",
+      "n_documents": 34,
+      "name_overlap": 0.0,
+      "confusability": 0.5767555426982429,
+      "recall_terse": 0.17647058823529413,
+      "recall_rich": 0.6764705882352942,
+      "gain": 0.5
+    },
+    {
+      "dataset": "NACE",
+      "class": "G",
+      "n_documents": 41,
+      "name_overlap": 0.0,
+      "confusability": 0.42503255685124725,
+      "recall_terse": 0.5121951219512195,
+      "recall_rich": 0.7073170731707317,
+      "gain": 0.19512195121951215
+    },
+    {
+      "dataset": "NACE",
+      "class": "H",
+      "n_documents": 8,
+      "name_overlap": 0.0,
+      "confusability": 0.370655195967767,
+      "recall_terse": 0.625,
+      "recall_rich": 0.625,
+      "gain": 0.0
+    },
+    {
+      "dataset": "NACE",
+      "class": "I",
+      "n_documents": 11,
+      "name_overlap": 0.09090909090909091,
+      "confusability": 0.52002952603357,
+      "recall_terse": 0.5454545454545454,
+      "recall_rich": 0.6363636363636364,
+      "gain": 0.09090909090909094
+    },
+    {
+      "dataset": "NACE",
+      "class": "J",
+      "n_documents": 30,
+      "name_overlap": 0.03333333333333333,
+      "confusability": 0.4885118961738125,
+      "recall_terse": 0.4666666666666667,
+      "recall_rich": 0.7333333333333333,
+      "gain": 0.2666666666666666
+    },
+    {
+      "dataset": "NACE",
+      "class": "K",
+      "n_documents": 19,
+      "name_overlap": 0.0,
+      "confusability": 0.46483482815922733,
+      "recall_terse": 0.5263157894736842,
+      "recall_rich": 0.3157894736842105,
+      "gain": -0.21052631578947367
+    },
+    {
+      "dataset": "NACE",
+      "class": "L",
+      "n_documents": 17,
+      "name_overlap": 0.0,
+      "confusability": 0.46483482815922733,
+      "recall_terse": 0.7058823529411765,
+      "recall_rich": 0.7058823529411765,
+      "gain": 0.0
+    },
+    {
+      "dataset": "NACE",
+      "class": "M",
+      "n_documents": 65,
+      "name_overlap": 0.0,
+      "confusability": 0.583058993657769,
+      "recall_terse": 0.07692307692307693,
+      "recall_rich": 0.5384615384615384,
+      "gain": 0.4615384615384615
+    },
+    {
+      "dataset": "NACE",
+      "class": "N",
+      "n_documents": 19,
+      "name_overlap": 0.0,
+      "confusability": 0.52002952603357,
+      "recall_terse": 0.3157894736842105,
+      "recall_rich": 0.3157894736842105,
+      "gain": 0.0
+    },
+    {
+      "dataset": "NACE",
+      "class": "P",
+      "n_documents": 7,
+      "name_overlap": 0.0,
+      "confusability": 0.3976372361135436,
+      "recall_terse": 0.2857142857142857,
+      "recall_rich": 0.42857142857142855,
+      "gain": 0.14285714285714285
+    },
+    {
+      "dataset": "NACE",
+      "class": "Q",
+      "n_documents": 14,
+      "name_overlap": 0.0,
+      "confusability": 0.583058993657769,
+      "recall_terse": 0.14285714285714285,
+      "recall_rich": 0.6428571428571429,
+      "gain": 0.5
+    },
+    {
+      "dataset": "20NG",
+      "class": "alt.atheism",
+      "n_documents": 60,
+      "name_overlap": 0.08333333333333333,
+      "confusability": 0.5987250881325926,
+      "recall_terse": 0.35,
+      "recall_rich": 0.43333333333333335,
+      "gain": 0.08333333333333337
+    },
+    {
+      "dataset": "20NG",
+      "class": "comp.graphics",
+      "n_documents": 60,
+      "name_overlap": 0.36666666666666664,
+      "confusability": 0.5162342265346342,
+      "recall_terse": 0.6833333333333333,
+      "recall_rich": 0.6166666666666667,
+      "gain": -0.06666666666666665
+    },
+    {
+      "dataset": "20NG",
+      "class": "comp.os.ms-windows.misc",
+      "n_documents": 60,
+      "name_overlap": 0.6333333333333333,
+      "confusability": 0.5639374779103923,
+      "recall_terse": 0.31666666666666665,
+      "recall_rich": 0.36666666666666664,
+      "gain": 0.04999999999999999
+    },
+    {
+      "dataset": "20NG",
+      "class": "comp.sys.ibm.pc.hardware",
+      "n_documents": 60,
+      "name_overlap": 0.03333333333333333,
+      "confusability": 0.6578413625729205,
+      "recall_terse": 0.31666666666666665,
+      "recall_rich": 0.45,
+      "gain": 0.13333333333333336
+    },
+    {
+      "dataset": "20NG",
+      "class": "comp.sys.mac.hardware",
+      "n_documents": 60,
+      "name_overlap": 0.26666666666666666,
+      "confusability": 0.5954914279999498,
+      "recall_terse": 0.4666666666666667,
+      "recall_rich": 0.5666666666666667,
+      "gain": 0.09999999999999998
+    },
+    {
+      "dataset": "20NG",
+      "class": "comp.windows.x",
+      "n_documents": 60,
+      "name_overlap": 0.25,
+      "confusability": 0.5572247887463658,
+      "recall_terse": 0.5333333333333333,
+      "recall_rich": 0.5833333333333334,
+      "gain": 0.050000000000000044
+    },
+    {
+      "dataset": "20NG",
+      "class": "misc.forsale",
+      "n_documents": 60,
+      "name_overlap": 0.3,
+      "confusability": 0.3271250719941127,
+      "recall_terse": 0.35,
+      "recall_rich": 0.3333333333333333,
+      "gain": -0.016666666666666663
+    },
+    {
+      "dataset": "20NG",
+      "class": "rec.autos",
+      "n_documents": 60,
+      "name_overlap": 0.0,
+      "confusability": 0.5147273509852438,
+      "recall_terse": 0.6666666666666666,
+      "recall_rich": 0.6,
+      "gain": -0.06666666666666665
+    },
+    {
+      "dataset": "20NG",
+      "class": "rec.motorcycles",
+      "n_documents": 60,
+      "name_overlap": 0.0,
+      "confusability": 0.5147273509852438,
+      "recall_terse": 0.38333333333333336,
+      "recall_rich": 0.6,
+      "gain": 0.21666666666666662
+    },
+    {
+      "dataset": "20NG",
+      "class": "rec.sport.baseball",
+      "n_documents": 60,
+      "name_overlap": 0.21666666666666667,
+      "confusability": 0.4155675995931074,
+      "recall_terse": 0.85,
+      "recall_rich": 0.7666666666666667,
+      "gain": -0.08333333333333326
+    },
+    {
+      "dataset": "20NG",
+      "class": "rec.sport.hockey",
+      "n_documents": 60,
+      "name_overlap": 0.31666666666666665,
+      "confusability": 0.4155675995931074,
+      "recall_terse": 0.65,
+      "recall_rich": 0.8166666666666667,
+      "gain": 0.16666666666666663
+    },
+    {
+      "dataset": "20NG",
+      "class": "sci.crypt",
+      "n_documents": 60,
+      "name_overlap": 0.03333333333333333,
+      "confusability": 0.2846786835057994,
+      "recall_terse": 0.6,
+      "recall_rich": 0.6666666666666666,
+      "gain": 0.06666666666666665
+    },
+    {
+      "dataset": "20NG",
+      "class": "sci.electronics",
+      "n_documents": 60,
+      "name_overlap": 0.016666666666666666,
+      "confusability": 0.6578413625729205,
+      "recall_terse": 0.5,
+      "recall_rich": 0.35,
+      "gain": -0.15000000000000002
+    },
+    {
+      "dataset": "20NG",
+      "class": "sci.med",
+      "n_documents": 60,
+      "name_overlap": 0.08333333333333333,
+      "confusability": 0.376843767839627,
+      "recall_terse": 0.6666666666666666,
+      "recall_rich": 0.6333333333333333,
+      "gain": -0.033333333333333326
+    },
+    {
+      "dataset": "20NG",
+      "class": "sci.space",
+      "n_documents": 60,
+      "name_overlap": 0.31666666666666665,
+      "confusability": 0.2785026564961256,
+      "recall_terse": 0.7833333333333333,
+      "recall_rich": 0.7166666666666667,
+      "gain": -0.06666666666666665
+    },
+    {
+      "dataset": "20NG",
+      "class": "soc.religion.christian",
+      "n_documents": 60,
+      "name_overlap": 0.08333333333333333,
+      "confusability": 0.7981989566888598,
+      "recall_terse": 0.8166666666666667,
+      "recall_rich": 0.6833333333333333,
+      "gain": -0.1333333333333333
+    },
+    {
+      "dataset": "20NG",
+      "class": "talk.politics.guns",
+      "n_documents": 60,
+      "name_overlap": 0.03333333333333333,
+      "confusability": 0.5951849404534593,
+      "recall_terse": 0.48333333333333334,
+      "recall_rich": 0.43333333333333335,
+      "gain": -0.04999999999999999
+    },
+    {
+      "dataset": "20NG",
+      "class": "talk.politics.mideast",
+      "n_documents": 60,
+      "name_overlap": 0.15,
+      "confusability": 0.5387057543500674,
+      "recall_terse": 0.75,
+      "recall_rich": 0.75,
+      "gain": 0.0
+    },
+    {
+      "dataset": "20NG",
+      "class": "talk.politics.misc",
+      "n_documents": 60,
+      "name_overlap": 0.016666666666666666,
+      "confusability": 0.5951849404534593,
+      "recall_terse": 0.31666666666666665,
+      "recall_rich": 0.26666666666666666,
+      "gain": -0.04999999999999999
+    },
+    {
+      "dataset": "20NG",
+      "class": "talk.religion.misc",
+      "n_documents": 60,
+      "name_overlap": 0.08333333333333333,
+      "confusability": 0.7981989566888598,
+      "recall_terse": 0.11666666666666667,
+      "recall_rich": 0.16666666666666666,
+      "gain": 0.04999999999999999
+    }
+  ]
+}

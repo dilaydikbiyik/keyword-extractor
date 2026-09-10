@@ -231,42 +231,6 @@ Format your response as JSON:
 
         return results
 
-    def batch_validate(
-        self,
-        items: List[Dict],
-        confidence_range: Tuple[float, float] = (0.3, 0.6)
-    ) -> List[Dict]:
-        """
-        Validate keywords for multiple items.
-
-        Args:
-            items: List of items with 'text' and 'keywords' fields
-            confidence_range: Confidence range for validation
-
-        Returns:
-            List of items with validated keywords
-        """
-        results = []
-
-        for i, item in enumerate(items):
-            print(f"Validating item {i + 1}/{len(items)}...")
-
-            validated_keywords = self.validate_keywords(
-                item.get('text', ''),
-                item.get('keywords', []),
-                item.get('sector'),
-                confidence_range
-            )
-
-            item['validated_keywords'] = validated_keywords
-            results.append(item)
-
-            # Rate limiting
-            if i < len(items) - 1:
-                time.sleep(1)
-
-        return results
-
     def is_available(self) -> bool:
         """Check if validator is available."""
         return self.available

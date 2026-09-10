@@ -154,11 +154,26 @@ A trade register entry never says *"Erbringung von freiberuflichen,
 wissenschaftlichen und technischen Dienstleistungen"*. It says
 *"Steuerberatung"*. A usenet post about baseball says "baseball".
 
-**The unified claim.** What a zero-shot classifier needs from a class
-description is the *vocabulary its documents use*. How much text that takes
-depends on how far the class name already is from that vocabulary — which is
-measurable before running anything, and tells you whether writing descriptions
-is worth the afternoon.
+**How far the account goes.** Binned across all 32 classes in both datasets,
+those with under 5% name overlap gain **+8.1 points** on average and the rest
+**+1.4**. But the account does not survive at class level:
+
+| Predictor of per-class gain | Spearman ρ | p |
+| --- | --- | --- |
+| Name overlap with the documents | −0.163 | 0.371 |
+| Confusability of the terse class vector | +0.046 | 0.802 |
+| Headroom — recall under the terse description | **−0.613** | **0.0002** |
+
+Only headroom predicts it, and headroom is largely mechanical: a class already
+at 90% cannot gain much. So **the lexical gap separates the two regimes without
+explaining which classes inside a regime benefit.** That is a limitation, not a
+footnote, and `results/gap_analysis.json` reports it.
+
+**The claim, at the strength the evidence carries it.** What a zero-shot
+classifier needs from a class description is the vocabulary of its documents.
+Where the class names are absent from the documents, writing that vocabulary
+down is worth a great deal; where they are already present, it is worth
+nothing. Which individual classes benefit inside the first regime is open.
 
 That also explains the 20 Newsgroups jump from identifier to readable name:
 `comp.sys.ibm.pc.hardware` is not natural language at all, and spelling it out
@@ -336,18 +351,21 @@ documents flagged high-confidence."*
 1. **Run the LLM baseline.** An instruction-tuned model asked to name a section
    directly is the comparison a 2026 reviewer will expect. The adapter exists
    (`run.py --with-llm`); it needs an API key.
-2. **Test the lexical-gap prediction on a third dataset.** Two points define a
-   line; a third with an intermediate overlap would test whether the
-   relationship is graded rather than a dichotomy.
-3. **Decide the keyword question.** The set carries section labels only, so
+2. **Find what predicts per-class gain.** Name overlap and confusability both
+   fail (ρ = −0.16 and +0.05). This is the most interesting open question the
+   project has produced, and answering it would turn a regime-level observation
+   into a mechanism.
+3. **A third dataset with intermediate overlap**, to test whether the regime
+   boundary is graded or a threshold.
+4. **Decide the keyword question.** The set carries section labels only, so
    Precision@K is unmeasurable, and the keyword half of the pipeline has now
    failed to show an effect in every configuration tested. Writing a
    section-classification paper is the honest and tighter option; the
    contribution sentence never mentioned keywords.
-4. **Consider dropping the seed lists and two dead stages.** Guided extraction and the six-stage filter
+5. **Consider dropping the seed lists and two dead stages.** Guided extraction and the six-stage filter
    have no evidence behind them across three configurations. Either find a
    metric where they help, or cut them and say why.
-5. **Write.** `paper/main.tex` is the skeleton; `make paper-tables` regenerates
+6. **Write.** `paper/main.tex` is the skeleton; `make paper-tables` regenerates
    its tables from `results/`, so no number is typed into the prose.
 
 ## 11. Decisions

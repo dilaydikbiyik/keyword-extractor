@@ -5,10 +5,9 @@ Provides embeddings for texts and sector descriptions using
 sentence-transformers for multilingual support.
 """
 
-from typing import List, Dict, Tuple, Optional
+from typing import List, Dict, Optional
 import numpy as np
 from sentence_transformers import SentenceTransformer
-import json
 import os
 from pathlib import Path
 
@@ -156,98 +155,6 @@ class EmbeddingService:
 
         return embeddings
 
-    def embed_sector_descriptions(
-        self,
-        sector_file: str = "data/taxonomy/sector_descriptions.txt"
-    ) -> Dict[str, np.ndarray]:
-        """
-        Generate embeddings for sector descriptions.
-
-        Args:
-            sector_file: Path to sector descriptions file
-
-        Returns:
-            Dictionary mapping sector codes to embeddings
-        """
-        sector_embeddings = {}
-
-        try:
-            with open(sector_file, 'r', encoding='utf-8') as f:
-                content = f.read()
-
-            # Parse sectors (format: ## A - Name)
-            sectors = content.split('\n##')
-            for sector_block in sectors:
-                if not sector_block.strip():
-                    continue
-
-                lines = sector_block.strip().split('\n')
-                if not lines:
-                    continue
-
-                # Extract sector code
-                header = lines[0].strip()
-                if not header.startswith(' '):
-                    header = '##' + header
-
-                # Extract sector code (first letter after ##)
-                code_match = header.split('-')[0].strip().replace('#', '').strip()
-                if len(code_match) == 1 and code_match.isalpha():
-                    sector_code = code_match.upper()
-
-                    # Get description text
-                    description = ' '.join(lines[1:])
-
-                    if description.strip():
-                        # Generate embedding
-                        embedding = self.embed_text(description)
-                        sector_embeddings[sector_code] = embedding
-
-        except FileNotFoundError:
-            print(f"Sector file not found: {sector_file}")
-        except Exception as e:
-            print(f"Error loading sector descriptions: {e}")
-
-        return sector_embeddings
-
-    def load_sector_embeddings_from_json(
-        self,
-        sectors_file: str = "data/taxonomy/sectors.json"
-    ) -> Dict[str, np.ndarray]:
-        """
-        Generate embeddings from sector JSON file.
-
-        Args:
-            sectors_file: Path to sectors.json
-
-        Returns:
-            Dictionary mapping sector codes to embeddings
-        """
-        sector_embeddings = {}
-
-        try:
-            with open(sectors_file, 'r', encoding='utf-8') as f:
-                sectors_data = json.load(f)
-
-            sectors = sectors_data.get('sectors', {})
-
-            for code, sector_info in sectors.items():
-                # Use sector name and description for embedding
-                name = sector_info.get('name', '')
-                description = sector_info.get('description', '')
-                text = f"{name}. {description}"
-
-                if text.strip():
-                    embedding = self.embed_text(text)
-                    sector_embeddings[code] = embedding
-
-        except FileNotFoundError:
-            print(f"Sectors file not found: {sectors_file}")
-        except Exception as e:
-            print(f"Error loading sectors: {e}")
-
-        return sector_embeddings
-
     def similarity(
         self,
         embedding1: np.ndarray,
@@ -288,36 +195,6 @@ class EmbeddingService:
         else:
             raise ValueError(f"Unknown metric: {metric}")
 
-    def most_similar(
-        self,
-        embedding: np.ndarray,
-        candidates: Dict[str, np.ndarray],
-        top_k: int = 5,
-        metric: str = "cosine"
-    ) -> List[Tuple[str, float]]:
-        """
-        Find most similar candidates to an embedding.
-
-        Args:
-            embedding: Query embedding
-            candidates: Dictionary of candidate embeddings {id: embedding}
-            top_k: Number of top similar items to return
-            metric: Similarity metric
-
-        Returns:
-            List of (candidate_id, similarity) tuples, sorted by similarity
-        """
-        similarities = []
-
-        for candidate_id, candidate_embedding in candidates.items():
-            sim = self.similarity(embedding, candidate_embedding, metric=metric)
-            similarities.append((candidate_id, sim))
-
-        # Sort by similarity (descending)
-        similarities.sort(key=lambda x: x[1], reverse=True)
-
-        return similarities[:top_k]
-
     def _get_cache_key(self, text: str) -> str:
         """Generate cache key for text (using hash)."""
         import hashlib
@@ -333,64 +210,3 @@ class EmbeddingService:
                 print(f"Loaded {len(self._embedding_cache)} cached embeddings")
         except Exception as e:
             print(f"Could not load cache: {e}")
-
-    def save_cache(self):
-        """Save embeddings cache to disk."""
-        cache_file = os.path.join(self.cache_dir, "embeddings.npz")
-        try:
-            np.savez_compressed(
-                cache_file,
-                embeddings=np.array(self._embedding_cache, dtype=object)
-            )
-            print(f"Saved {len(self._embedding_cache)} embeddings to cache")
-        except Exception as e:
-            print(f"Could not save cache: {e}")
-
-    def save_sector_embeddings(
-        self,
-        sector_embeddings: Dict[str, np.ndarray],
-        output_file: str = "data/taxonomy/sector_embeddings.npy"
-    ):
-        """
-        Save sector embeddings to file.
-
-        Args:
-            sector_embeddings: Dictionary of sector embeddings
-            output_file: Path to save embeddings
-        """
-        try:
-            # Convert to numpy array for saving
-            embeddings_array = {
-                code: embedding.astype(np.float32)
-                for code, embedding in sector_embeddings.items()
-            }
-
-            Path(output_file).parent.mkdir(parents=True, exist_ok=True)
-            np.save(output_file, embeddings_array, allow_pickle=True)
-            print(f"Saved sector embeddings to {output_file}")
-        except Exception as e:
-            print(f"Error saving sector embeddings: {e}")
-
-    def load_sector_embeddings(
-        self,
-        input_file: str = "data/taxonomy/sector_embeddings.npy"
-    ) -> Dict[str, np.ndarray]:
-        """
-        Load sector embeddings from file.
-
-        Args:
-            input_file: Path to embeddings file
-
-        Returns:
-            Dictionary of sector embeddings
-        """
-        try:
-            embeddings_array = np.load(input_file, allow_pickle=True).item()
-            print(f"Loaded {len(embeddings_array)} sector embeddings")
-            return embeddings_array
-        except FileNotFoundError:
-            print(f"Embeddings file not found: {input_file}")
-            return {}
-        except Exception as e:
-            print(f"Error loading embeddings: {e}")
-            return {}
