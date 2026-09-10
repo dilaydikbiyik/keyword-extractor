@@ -22,6 +22,19 @@ if the committed tables differ from what `results/` produces, or if the log
 reports an undefined reference, an undefined citation, or a character the font
 cannot draw.
 
+## Before submitting
+
+```bash
+make submission
+```
+
+Builds the review PDF and an anonymised archive of the code into `dist/`, then
+scans both for any fragment of the author's name, username, email or
+affiliation and refuses to finish if one survives. The review PDF prints
+"Anonymous ACL submission" in place of the author block. The archive comes from
+`git archive`, so history and commit authors never enter it; binary media are
+left out because a scan cannot read text inside them.
+
 ## Tables and numbers come from `results/`
 
 ```bash

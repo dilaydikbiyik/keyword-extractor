@@ -27,6 +27,8 @@ From [`../docs/paper_readiness.md`](../docs/paper_readiness.md):
 - [ ] Inter- or intra-annotator agreement measured and reported
 - [ ] Synthetic entries replaced with real register records
 - [ ] Data licence position stated in the paper's data section
+- [ ] `make submission` passes: nothing in `dist/review.pdf` or
+      `dist/anonymous_code.zip` identifies the author
 
 ## After submission
 

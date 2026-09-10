@@ -473,7 +473,9 @@ documents flagged high-confidence."*
    [`second_annotator.md`](second_annotator.md) is the instruction sheet, and
    `make second-annotator-score` reports human-versus-human agreement.
 3. **Close the remaining checklist gaps.** [`../paper/checklist.md`](../paper/checklist.md)
-   answers the Responsible NLP checklist and lists what is still open.
+   answers the Responsible NLP checklist and lists what is still open, and
+   `make submission` builds the anonymous review PDF and code archive and
+   refuses to finish if either still names the author.
 4. **A fourth dataset**, ideally one where the alignment change is near zero,
    to test the account at the point where it makes its least obvious
    prediction.

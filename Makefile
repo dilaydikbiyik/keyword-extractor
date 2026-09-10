@@ -5,7 +5,7 @@ PYTHON ?= $(shell \
 	elif command -v python3 >/dev/null 2>&1; then command -v python3; \
 	else echo python; fi)
 
-.PHONY: help install reproduce test lint annotate merge verify verify-new verify-apply second-annotator second-annotator-score llm-baseline llm-baseline-local study paper-tables paper demo clean
+.PHONY: help install reproduce test lint annotate merge verify verify-new verify-apply second-annotator second-annotator-score llm-baseline llm-baseline-local study paper-tables paper submission demo clean
 
 help:
 	@echo "Using PYTHON = $(PYTHON)"
@@ -27,6 +27,7 @@ help:
 	@echo "  study         Class-description studies: language, content, replication"
 	@echo "  paper-tables  Regenerate paper/tables/*.tex from results/"
 	@echo "  paper         Build paper/main.pdf (needs tectonic: brew install tectonic)"
+	@echo "  submission    Anonymous review PDF and code archive in dist/, checked"
 	@echo "  demo          Re-render the README demo GIF from results/"
 	@echo "  clean         Remove generated results and caches"
 
@@ -111,6 +112,9 @@ paper/acl.sty paper/acl_natbib.bst:
 paper: paper-tables paper/acl.sty paper/acl_natbib.bst
 	cd paper && tectonic -X compile main.tex
 	@echo "Wrote paper/main.pdf"
+
+submission: paper
+	$(PYTHON) -m experiments.submission
 
 demo:
 	$(PYTHON) tools/make_demo_gif.py

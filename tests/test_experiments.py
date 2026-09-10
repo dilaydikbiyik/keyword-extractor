@@ -717,3 +717,29 @@ class TestLLMReplyParsing:
         assert ranking[0][0] == "Q"
         assert len(ranking) == len(taxonomy)
         assert [score for _, score in ranking] == sorted((score for _, score in ranking), reverse=True)
+
+
+class TestSubmissionAnonymity:
+    """A submission that names its author is rejected without review."""
+
+    def test_every_form_of_the_name_is_replaced(self):
+        from experiments.submission import anonymize_text, find_identity
+
+        text = ("Dilay Dikbıyık, Dikb\\i y\\i k, dilaydikbiyik@gmail.com, "
+                "github.com/dilaydikbiyik/keyword-extractor, Kocaeli University")
+        cleaned = anonymize_text(text)
+        assert find_identity(cleaned) == []
+        # No fragment may survive inside a URL or an address.
+        assert "dilay" not in cleaned.lower() and "kocaeli" not in cleaned.lower()
+        assert "github.com/ANONYMOUS/keyword-extractor" in cleaned
+
+    def test_a_surviving_fragment_is_detected(self):
+        from experiments.submission import find_identity
+
+        assert find_identity("https://github.com/dilayANONYMOUS/x")
+
+    def test_ordinary_text_is_left_alone(self):
+        from experiments.submission import anonymize_text
+
+        text = "Zero-shot NACE classification of German trade register texts."
+        assert anonymize_text(text) == text
