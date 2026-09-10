@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import json
 from dataclasses import dataclass, field
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 import pandas as pd
 
@@ -52,6 +52,30 @@ def provenance_counts() -> Dict[str, int]:
     return dict(Counter(s.provenance for s in load_labeled_samples()))
 
 
+def load_split() -> Dict[str, List[int]]:
+    """Development / held-out test document ids, if a split has been made."""
+    path = LABELS_JSON.parent / "split.json"
+    if not path.exists():
+        return {}
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    return {"dev": payload["dev"], "test": payload["test"]}
+
+
+def load_labeled_samples_split(half: Optional[str] = None) -> List[LabeledSample]:
+    """Load the evaluation set, or one half of it.
+
+    ``half`` is "dev", "test", or None for everything.
+    """
+    samples = load_labeled_samples()
+    if half is None:
+        return samples
+    split = load_split()
+    if not split:
+        raise FileNotFoundError("No split yet — run `python -m experiments.split`.")
+    wanted = set(split[half])
+    return [s for s in samples if s.id in wanted]
+
+
 def load_labels_metadata() -> Dict:
     with open(LABELS_JSON, encoding="utf-8") as fh:
         return json.load(fh)["metadata"]
@@ -81,8 +105,8 @@ def load_corpus_frame() -> pd.DataFrame:
     return pd.read_csv(CORPUS_CSV)
 
 
-def load_taxonomy() -> Dict[str, dict]:
-    with open(SECTORS_JSON, encoding="utf-8") as fh:
+def load_taxonomy(path=None) -> Dict[str, dict]:
+    with open(path or SECTORS_JSON, encoding="utf-8") as fh:
         return json.load(fh)["sectors"]
 
 

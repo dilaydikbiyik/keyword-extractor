@@ -36,6 +36,12 @@ def main() -> int:
         help="Include the paid LLM zero-shot baseline (needs OPENAI_API_KEY).",
     )
     parser.add_argument(
+        "--half",
+        choices=["dev", "test", "all"],
+        default="all",
+        help="Evaluate on the development half, the held-out test half, or all.",
+    )
+    parser.add_argument(
         "--extra-ablations",
         action="store_true",
         help="Add the mpnet and translation ablations (downloads two models).",
@@ -60,6 +66,8 @@ def main() -> int:
         experiment_args.append("--with-llm")
     if args.extra_ablations:
         experiment_args.append("--extra-ablations")
+    if args.half != "all":
+        experiment_args += ["--half", args.half]
     if args.corpus_limit:
         experiment_args += ["--corpus-limit", str(args.corpus_limit)]
 

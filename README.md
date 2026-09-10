@@ -14,64 +14,92 @@ sentence embeddings and taxonomy-guided KeyBERT — no labelled training data.
 
 ## Results
 
-299 documents sampled from the corpus, 17 NACE sections. Every figure is
+299 documents sampled from the corpus, 18 NACE sections. Every figure is
 produced by `make reproduce` and written to
 [`results/metrics.json`](results/metrics.json).
 
 | System | Top-1 | 95% CI | Top-3 | F1-macro | κ | p vs. ours |
 | --- | --- | --- | --- | --- | --- | --- |
 | Random | 5.0% | [2.7, 7.7] | 13.7% | 0.036 | −0.001 | <0.001 |
-| Majority class (oracle floor) | 21.7% | [17.1, 26.4] | 46.8% | 0.020 | 0.000 | 0.002 |
-| TF-IDF → nearest NACE section | 25.4% | [20.7, 30.4] | 40.1% | 0.184 | 0.207 | 0.007 |
-| Zero-shot embeddings (no taxonomy) | 28.4% | [23.4, 33.4] | 62.5% | 0.243 | 0.234 | 0.008 |
-| Unguided KeyBERT | 28.4% | [23.4, 33.4] | 62.5% | 0.243 | 0.234 | 0.008 |
-| **Ours: taxonomy-guided** | **34.8%** | [29.4, 40.1] | **67.2%** | **0.293** | **0.300** | — |
+| Majority class (oracle floor) | 21.7% | [17.1, 26.4] | 46.8% | 0.020 | 0.000 | <0.001 |
+| TF-IDF → nearest NACE section | 44.5% | [38.8, 50.2] | 65.6% | 0.297 | 0.385 | 0.037 |
+| Zero-shot embeddings (no seed keywords) | 52.8% | [47.2, 58.5] | 81.9% | 0.371 | 0.475 | 1.000 |
+| Unguided KeyBERT | 52.8% | [47.2, 58.5] | 81.9% | 0.371 | 0.475 | 1.000 |
+| **Ours: taxonomy-guided** | **52.5%** | [46.8, 58.2] | **81.6%** | 0.356 | 0.474 | — |
 
-`p` is an exact McNemar test against the full system on the same documents.
+**Top-3 at 81.6% is the operating point.** The correct section is among the
+first three suggestions four times out of five, against 46.8% for an oracle
+majority-class floor. This is a tool for proposing a code to a human coder, not
+for assigning one unattended.
 
-**Taxonomy guidance beats the description-only baseline by 6.4 points
-(p = 0.008) and TF-IDF by 10.0 points (p = 0.004).** Top-3 is 67.2%: the correct
-section is among the first three suggestions two times out of three, which is
-the number that matters for a system meant to propose a code to a human.
+Almost all of that came from rewriting one line per class — see below.
 
-**Two things to know before reading further.** The evaluation labels are
-**model-assisted with human validation** — produced by applying
-[`docs/annotation_guidelines.md`](docs/annotation_guidelines.md), then checked
-against a human pass on 50 documents: **80% agreement, κ = 0.772**, and 100%
-agreement on the documents the labeller flagged as high-confidence. A blind
-pilot before the guideline was written scored κ = 0.542; both figures belong in
-any write-up. And this repository previously reported 80.0% on a
-30-document evaluation set that was written by hand rather than sampled from
-the corpus; on real register text the same code scores 34.8%. The old number
-was not wrong, it was measured on the wrong text.
+### The finding
+
+The taxonomy's class descriptions were category labels — *"Eğitim"*,
+*"Emlak faaliyetleri"* — averaging ten words including the section name.
+Rewriting them as NACE-style definitions that enumerate concrete activities is
+worth **+26.8 points Top-1** (p = 4×10⁻¹⁵), 28.4% → 52.8%.
+
+| Class descriptions | Top-1 | Top-3 | words/class |
+| --- | --- | --- | --- |
+| Original (16 of 21 in Turkish, terse) | 28.4% | 62.5% | 10 |
+| Same content, rendered in German | 26.1% | 58.9% | 10 |
+| **Rewritten as NACE-style definitions** | **52.8%** | **81.9%** | 19 |
+
+**The middle row is the control that matters.** Sixteen of the descriptions
+were in Turkish while every document is German, which looks like an obvious
+explanation. It is not: translating them, with their content held constant,
+changes nothing (−2.3 points, p = 0.14). What the description *says* dominates;
+what language it says it in does not.
+
+A crossed design agrees. Documents and descriptions were each varied between
+German and machine-translated English: the richer descriptions win in both
+document languages, and matching the languages is worth only +2.7 points on
+average. `make study` reproduces both experiments.
+
+Validated on a held-out half never inspected during the rewrite: **+15.6 points
+there (p = 0.0006)**, 34.0% → 49.7%. Section M, which holds both professional
+services and every shell company whose only activity is managing another
+company, went from 12% to 64% recall on those documents.
+
+And the honest companion result: once the descriptions carry the information,
+**the hand-written seed keyword lists add nothing measurable** (+0.3 points,
+p = 1.000). They had been compensating for descriptions that named the class
+instead of describing it.
+
 [`docs/paper_readiness.md`](docs/paper_readiness.md) has the full account.
 
 ### Ablation
 
 | Variant | Top-1 | Δ Top-1 | F1-macro | p vs. full |
 | --- | --- | --- | --- | --- |
-| Full system | 34.8% | — | 0.293 | — |
-| − seeds in sector vector | 28.4% | −6.4 pp | 0.243 | 0.008 |
-| − description in sector vector | 34.8% | 0.0 pp | 0.310 | 1.000 |
-| − seed-guided extraction | 34.8% | 0.0 pp | 0.293 | 1.000 |
-| − six-stage keyword filter | 34.8% | 0.0 pp | 0.293 | 1.000 |
-| + cleaned text into the classifier | 30.8% | −4.0 pp | 0.271 | 0.155 |
-| ↔ mpnet-base-v2 encoder (768-dim) | 33.1% | −1.7 pp | 0.274 | 0.653 |
-| ↔ German translated to English first | 40.1% | +5.4 pp | 0.345 | 0.068 |
+| Full system | 52.5% | — | 0.356 | — |
+| − seeds in sector vector | 52.8% | +0.3 pp | 0.371 | 1.000 |
+| − description in sector vector | 44.1% | −8.4 pp | 0.342 | 0.002 |
+| − seed-guided extraction | 52.5% | 0.0 pp | 0.356 | 1.000 |
+| − six-stage keyword filter | 52.5% | 0.0 pp | 0.356 | 1.000 |
+| ↩ previous taxonomy (Turkish descriptions) | 34.8% | −17.7 pp | 0.293 | <0.001 |
+| + cleaned text into the classifier | 41.8% | −10.7 pp | 0.352 | 0.001 |
+| ↔ mpnet-base-v2 encoder (768-dim) | 42.1% | −10.4 pp | 0.303 | <0.001 |
+| ↔ German translated to English first | 56.2% | +3.7 pp | 0.422 | 0.200 |
 
 The last two rows need extra model downloads: `python run.py --extra-ablations`.
+`--half dev` and `--half test` evaluate on either side of the split.
 
-- **The seed-keyword vector is the component that carries the result** and the
-  only one with a significant effect.
-- **Guided extraction and the six-stage filter show no effect**, now on two
-  different evaluation sets.
-- **Translating to English first is the strongest variant** (+5.4 pp,
-  p = 0.068), which weakens any claim that the method depends on German
-  representations.
-- **Routing cleaned text into the classifier costs 4.0 points here** and
-  appeared to gain 6.7 on the old 30-document set — the same code, the opposite
-  conclusion. It ships as
-  `classification.classify_preprocessed_text`, off by default.
+- **The description carries the sector vector; the seed list does not.**
+- **Guided extraction and the six-stage filter show no effect**, now across
+  three separate configurations of the system.
+- **The larger encoder is worse** by 10.4 points, not the ~10% better this
+  repository used to expect.
+
+### Evaluation labels
+
+Model-assisted, produced by applying
+[`docs/annotation_guidelines.md`](docs/annotation_guidelines.md) and validated
+against a human pass: **80% agreement, κ = 0.772**, rising to **100%** on the
+documents the labeller flagged as high-confidence. A blind pilot before the
+guideline existed scored κ = 0.542; both figures belong in any write-up.
 
 ---
 
@@ -234,23 +262,31 @@ Full review and methodology decisions: [`docs/methodology.md`](docs/methodology.
 
 ## Limitations
 
-- **The labels are model-assisted, not gold.** Produced by a language model
-  applying a written guideline and validated on 50 documents (κ = 0.772); 50 of
-  299 carry human-verified labels. Any published number has to quote that
-  agreement figure alongside it.
-- **34.8% is a suggestion tool, not an automatic classifier.** Top-3 at 67.2%
-  is the usable figure; top-1 is not accurate enough to assign codes unattended.
-- **Section M is where it breaks** — 15.4% recall, and it is the largest class.
-  The taxonomy has no vocabulary for the holding and management shells that
-  make up 13% of the corpus.
+- **52.5% Top-1 is a suggestion tool, not an automatic classifier.** Top-3 at
+  81.6% is the usable figure; top-1 is not accurate enough to assign codes
+  unattended.
+- **The labels are model-assisted, not gold.** Validated on 50 documents
+  (κ = 0.772); 50 of 299 carry human-verified labels. Any published number has
+  to quote that agreement figure alongside it.
+- **The seed-keyword result is inconclusive, not negative.** Seeds help by 4.6
+  points on the development half and hurt by 5.4 on the held-out half, neither
+  significant. The defensible claim is that they add nothing reliable, not that
+  they are harmful.
 - **One annotator on the validation pass.** No inter-annotator agreement has
   been measured; a second annotator on an overlapping subset is what reviewers
   ask for.
+- **Sections R, S and T are barely represented** (0–4 documents each) and their
+  per-section figures should not be read.
 - **Keyword extraction is unevaluated on the current set.** It carries section
-  labels only, and the ablation has twice found no measurable contribution from
-  the keyword half of the pipeline.
-- **German only in practice.** The model is multilingual and the preprocessor
-  handles DE/TR/EN, but the corpus, the seeds and the evaluation are German.
+  labels only, and the keyword half of the pipeline has not shown a measurable
+  effect in any configuration tested.
+- **One corpus, one taxonomy, one encoder.** The description-content finding is
+  measured on 299 German trade register documents against NACE Rev. 2 with
+  MiniLM-L12. It is consistent across two document languages and a held-out
+  half, but it has not been shown on a second dataset.
+- **No LLM baseline.** An instruction-tuned model asked to pick a section
+  directly is the obvious comparison in 2026. The adapter is implemented
+  (`run.py --with-llm`) but needs an API key and has not been run.
 
 ## Citation
 

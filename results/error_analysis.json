@@ -1,15 +1,15 @@
 {
   "system": "full",
   "n_documents": 299,
-  "n_errors": 195,
-  "error_rate": 0.6521739130434783,
+  "n_errors": 142,
+  "error_rate": 0.47491638795986624,
   "auto_flag_counts": {
-    "low_margin": 116,
-    "outside_top3": 98,
-    "recoverable_in_top3": 97,
-    "crowded_top3": 61,
-    "boilerplate_shape": 50,
-    "short_text": 16
+    "recoverable_in_top3": 87,
+    "outside_top3": 55,
+    "low_margin": 50,
+    "crowded_top3": 22,
+    "boilerplate_shape": 22,
+    "short_text": 15
   },
   "codebook": {
     "ambiguous_sector_definition": "The NACE section boundary itself is unclear for this business; two sections are defensible.",
@@ -24,38 +24,6 @@
   "manual_coding_complete": false,
   "errors": [
     {
-      "id": 1,
-      "legal_name": "Barkhoff & Co. GmbH",
-      "purpose": "Der Garten- und Landschaftsbau, der Baumschulbetrieb sowie der Groß- und Einzelhandel mit Pflanzen jeder Art und den damit in Verbindung stehenden Artikeln.",
-      "text_length": 156,
-      "true_sector": "N",
-      "predicted_sector": "A",
-      "top3": [
-        "A",
-        "S",
-        "P"
-      ],
-      "score_top1": 0.5380274051785356,
-      "margin_top1_top2": 0.03382273221175769,
-      "keywords": [
-        "landschaftsbau",
-        "baumschulbetrieb",
-        "garten",
-        "artikeln",
-        "den",
-        "der",
-        "sowie",
-        "art",
-        "pflanzen",
-        "und"
-      ],
-      "auto_flags": [
-        "outside_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
       "id": 2,
       "legal_name": "Pleistocene & Permafrost Stiftung gemeinnützige UG (haftungsbeschränkt)",
       "purpose": "Beschaffung von Mitteln, insbesondere Sammeln von Spenden oder auf andere Art zur Förderung von Wissenschaft und Forschung; des Naturschutzes und Landschaftspflege im Sinne des Bundesnaturschutzgesetzes und Naturschutzgesetze der Länder, des Umweltschutzes, des Küstenschutzes und des Hochwasserschutzes sowie des Tierschutzes.",
@@ -64,11 +32,11 @@
       "predicted_sector": "A",
       "top3": [
         "A",
-        "O",
-        "E"
+        "M",
+        "O"
       ],
-      "score_top1": 0.41420219747774784,
-      "margin_top1_top2": 0.030040855048609594,
+      "score_top1": 0.43389674856669447,
+      "margin_top1_top2": 0.02299096518145144,
       "keywords": [
         "naturschutzes",
         "naturschutzgesetze",
@@ -82,39 +50,6 @@
         "sammeln"
       ],
       "auto_flags": [
-        "outside_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 3,
-      "legal_name": "Stefan Obholzer GmbH",
-      "purpose": "Planung und Gestaltung von Gartenanlagen und Durchführung aller damit zusammenhängenden Arbeiten.",
-      "text_length": 97,
-      "true_sector": "N",
-      "predicted_sector": "A",
-      "top3": [
-        "A",
-        "L",
-        "F"
-      ],
-      "score_top1": 0.49801028192708097,
-      "margin_top1_top2": 0.014877022997311806,
-      "keywords": [
-        "gartenanlagen",
-        "gestaltung",
-        "planung",
-        "arbeiten",
-        "durchführung",
-        "zusammenhängenden",
-        "und",
-        "damit",
-        "von",
-        "aller"
-      ],
-      "auto_flags": [
-        "low_margin",
         "crowded_top3",
         "outside_top3"
       ],
@@ -131,10 +66,10 @@
       "top3": [
         "A",
         "L",
-        "B"
+        "N"
       ],
-      "score_top1": 0.5421852550667992,
-      "margin_top1_top2": 0.01161141114058939,
+      "score_top1": 0.5053448755013379,
+      "margin_top1_top2": 0.004914567794287894,
       "keywords": [
         "landschaftsbau",
         "garten",
@@ -142,39 +77,6 @@
       ],
       "auto_flags": [
         "short_text",
-        "low_margin",
-        "outside_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 5,
-      "legal_name": "Kollektive Mühlenbäckerei 'LEMBAS' Gesellschaft mit beschränkter Haftung",
-      "purpose": "Gegenstand des Unternehmens ist a) die Herstellung und der Vertrieb von Vollkornbrot unter der Bezeichnung 'LEMBAS' und anderen Vollkornbackwaren. Es wird nur Getreide verwendet, welches umweltfreundlich, ohne synthetische Dünge- und Pflanzenschutzmittel angebaut wird; möglichst nach den Richtlinien eines Verbandes wie Demeter oder Bioland; b) der Vertrieb von Lebensmitteln, die weitgehend nicht nach einer für die Menschheit und die Erde schädlichen Anbauweise angebaut sind; c) der Vertrieb anderer Waren aus Naturstoffen, insbesondere solcher aus Ländern der Dritten Welt, soweit deren Vertrieb dem in den Abschnitten a) und b) genannten Unternehmenszweck nicht entgegensteht und die Aufnahme der Waren durch die Versammlung der Gesellschafter/innen beschlossen wurde. Die Gesellschaft kann gleichartige oder ähnliche Unternehmen gründen, erwerben oder sich an solchen beteiligen.",
-      "text_length": 886,
-      "true_sector": "C",
-      "predicted_sector": "A",
-      "top3": [
-        "A",
-        "C",
-        "E"
-      ],
-      "score_top1": 0.4889052079786663,
-      "margin_top1_top2": 0.008403197505350735,
-      "keywords": [
-        "pflanzenschutzmittel",
-        "lebensmitteln",
-        "umweltfreundlich",
-        "vollkornbackwaren",
-        "bioland",
-        "gesellschafter",
-        "gründen",
-        "richtlinien",
-        "ländern",
-        "erde"
-      ],
-      "auto_flags": [
         "low_margin",
         "recoverable_in_top3"
       ],
@@ -191,10 +93,10 @@
       "top3": [
         "B",
         "G",
-        "A"
+        "H"
       ],
-      "score_top1": 0.7155088313497161,
-      "margin_top1_top2": 0.21914972104303704,
+      "score_top1": 0.691602353061427,
+      "margin_top1_top2": 0.2184091036728132,
       "keywords": [
         "bodenbelägen",
         "handel",
@@ -222,11 +124,11 @@
       "predicted_sector": "B",
       "top3": [
         "B",
-        "E",
-        "L"
+        "F",
+        "N"
       ],
-      "score_top1": 0.5790539862257905,
-      "margin_top1_top2": 0.08446607053958949,
+      "score_top1": 0.5627924258688864,
+      "margin_top1_top2": 0.036127317143195836,
       "keywords": [
         "bodenbelagsarbeiten",
         "durchführung",
@@ -235,38 +137,6 @@
       ],
       "auto_flags": [
         "short_text",
-        "outside_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 8,
-      "legal_name": "reifen & räder profi GmbH",
-      "purpose": "An- und Verkauf von Neu- und Gebrauchtreifen sowie Reifenmontagen und Felgen und Kfz-Zubhör aller Art.",
-      "text_length": 102,
-      "true_sector": "G",
-      "predicted_sector": "B",
-      "top3": [
-        "B",
-        "G",
-        "C"
-      ],
-      "score_top1": 0.5129100448431684,
-      "margin_top1_top2": 0.059595367116257736,
-      "keywords": [
-        "gebrauchtreifen",
-        "verkauf",
-        "felgen",
-        "art",
-        "kfz",
-        "und",
-        "sowie",
-        "von",
-        "aller",
-        "reifenmontagen"
-      ],
-      "auto_flags": [
         "recoverable_in_top3"
       ],
       "manual_category": "",
@@ -281,11 +151,11 @@
       "predicted_sector": "B",
       "top3": [
         "B",
-        "C",
-        "F"
+        "F",
+        "C"
       ],
-      "score_top1": 0.5219638247958842,
-      "margin_top1_top2": 0.036453016585064335,
+      "score_top1": 0.505189043177157,
+      "margin_top1_top2": 0.017632495196261533,
       "keywords": [
         "fertigungsanlagen",
         "beton",
@@ -299,6 +169,8 @@
         "herstellung"
       ],
       "auto_flags": [
+        "low_margin",
+        "crowded_top3",
         "boilerplate_shape",
         "recoverable_in_top3"
       ],
@@ -315,10 +187,10 @@
       "top3": [
         "B",
         "C",
-        "H"
+        "F"
       ],
-      "score_top1": 0.5474240333411166,
-      "margin_top1_top2": 0.02055563703001506,
+      "score_top1": 0.5373848894034243,
+      "margin_top1_top2": 0.0194344598894306,
       "keywords": [
         "behälterbau",
         "kessel",
@@ -327,6 +199,7 @@
       ],
       "auto_flags": [
         "short_text",
+        "low_margin",
         "recoverable_in_top3"
       ],
       "manual_category": "",
@@ -341,11 +214,11 @@
       "predicted_sector": "B",
       "top3": [
         "B",
-        "A",
+        "L",
         "F"
       ],
-      "score_top1": 0.6216121598795954,
-      "margin_top1_top2": 0.01911947011110704,
+      "score_top1": 0.5991214529322515,
+      "margin_top1_top2": 0.026675667994390584,
       "keywords": [
         "erstellung",
         "rohbauten",
@@ -355,7 +228,7 @@
       ],
       "auto_flags": [
         "short_text",
-        "low_margin",
+        "crowded_top3",
         "recoverable_in_top3"
       ],
       "manual_category": "",
@@ -367,14 +240,14 @@
       "purpose": "Oberflächenbehandlung und der Korrosionsschutz",
       "text_length": 46,
       "true_sector": "C",
-      "predicted_sector": "B",
+      "predicted_sector": "E",
       "top3": [
-        "B",
         "E",
-        "H"
+        "F",
+        "B"
       ],
-      "score_top1": 0.28147328245933817,
-      "margin_top1_top2": 0.009878621977132351,
+      "score_top1": 0.2806025134344055,
+      "margin_top1_top2": 0.008079256190468453,
       "keywords": [
         "korrosionsschutz",
         "oberflächenbehandlung",
@@ -401,8 +274,8 @@
         "D",
         "J"
       ],
-      "score_top1": 0.6429392986082084,
-      "margin_top1_top2": 0.08237929516179865,
+      "score_top1": 0.6385289281086268,
+      "margin_top1_top2": 0.049465601102122614,
       "keywords": [
         "betriebsmitteln",
         "branchenähnlichen",
@@ -428,14 +301,14 @@
       "purpose": "Betrieb eines Autohauses mit Reparaturwerkstatt sowie die Autovermietung und der Karosseriebau.",
       "text_length": 95,
       "true_sector": "G",
-      "predicted_sector": "C",
+      "predicted_sector": "F",
       "top3": [
-        "C",
         "F",
+        "C",
         "L"
       ],
-      "score_top1": 0.5232146778810687,
-      "margin_top1_top2": 0.055161493158991826,
+      "score_top1": 0.5575696584613442,
+      "margin_top1_top2": 0.015688840235266843,
       "keywords": [
         "autohauses",
         "reparaturwerkstatt",
@@ -449,6 +322,7 @@
         "sowie"
       ],
       "auto_flags": [
+        "low_margin",
         "outside_top3"
       ],
       "manual_category": "",
@@ -463,11 +337,11 @@
       "predicted_sector": "C",
       "top3": [
         "C",
-        "G",
-        "N"
+        "M",
+        "K"
       ],
-      "score_top1": 0.48829057888969624,
-      "margin_top1_top2": 0.05198695948629234,
+      "score_top1": 0.48288335891936357,
+      "margin_top1_top2": 0.015833017907918245,
       "keywords": [
         "gesellschaft",
         "unternehmens",
@@ -479,6 +353,7 @@
         "gegenstand"
       ],
       "auto_flags": [
+        "low_margin",
         "outside_top3"
       ],
       "manual_category": "",
@@ -493,11 +368,11 @@
       "predicted_sector": "C",
       "top3": [
         "C",
-        "R",
-        "F"
+        "F",
+        "R"
       ],
-      "score_top1": 0.4585744568807395,
-      "margin_top1_top2": 0.049650674505482106,
+      "score_top1": 0.4672878217971201,
+      "margin_top1_top2": 0.05984206987078389,
       "keywords": [
         "filmprojektes",
         "koproduktion",
@@ -516,70 +391,6 @@
       "manual_note": ""
     },
     {
-      "id": 21,
-      "legal_name": "Jürgen Lässig Verwaltungs-GmbH",
-      "purpose": "Gegenstand des Unternehmens ist ausschließlich die Übernahme der persönlichen Haftung und die Geschäftsführung der künftigen Kommanditgesellschaft unter der Firma: Jürgen Lässig GmbH & Co. Kommanditgesellschaft in Geilenkirchen, die den Handel mit Elektrowaren aller Art, die Durchführung von Elektroinstallationen und den Schaltschrankbau zum Gegenstand hat.",
-      "text_length": 359,
-      "true_sector": "M",
-      "predicted_sector": "C",
-      "top3": [
-        "C",
-        "M",
-        "H"
-      ],
-      "score_top1": 0.3588663751974173,
-      "margin_top1_top2": 0.0430415955427948,
-      "keywords": [
-        "firma",
-        "unternehmens",
-        "geschäftsführung",
-        "kommanditgesellschaft",
-        "elektroinstallationen",
-        "übernahme",
-        "schaltschrankbau",
-        "des",
-        "gmbh",
-        "zum"
-      ],
-      "auto_flags": [
-        "boilerplate_shape",
-        "recoverable_in_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 22,
-      "legal_name": "Hugo Roth & Sohn GmbH Bau u. Stuckgeschäft",
-      "purpose": "Gegenstand des Unternehmens ist Ausführung von Bauarbeiten aller Art.",
-      "text_length": 69,
-      "true_sector": "F",
-      "predicted_sector": "C",
-      "top3": [
-        "C",
-        "F",
-        "N"
-      ],
-      "score_top1": 0.5760354591339063,
-      "margin_top1_top2": 0.039976144343433107,
-      "keywords": [
-        "bauarbeiten",
-        "unternehmens",
-        "ist",
-        "ausführung",
-        "des",
-        "art",
-        "von",
-        "aller",
-        "gegenstand"
-      ],
-      "auto_flags": [
-        "recoverable_in_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
       "id": 23,
       "legal_name": "Jacobs & Partner GmbH",
       "purpose": "Betrieb einer Reparaturwerkstatt für Nutzfahrzeuge, insbesondere LKW, Kräne, Forst- und Landmaschinen. Die Gesellschaft übernimmt den Vertrieb und den Service von Forst- und Gartengeräten. Sie rüstet LKW mit Spezialaufbauten aus und vertreibt sie. Die Gesellschaft führt Stahlbau- und Zerspanungsarbeiten durch. Die Gesellschaft handelt mit Neu- und Gebraucht-PKW. Die Gesellschaft vermietet PKW und Kleintransporter.",
@@ -589,10 +400,10 @@
       "top3": [
         "C",
         "N",
-        "S"
+        "H"
       ],
-      "score_top1": 0.5460184760254273,
-      "margin_top1_top2": 0.03154358474801566,
+      "score_top1": 0.5664465064317407,
+      "margin_top1_top2": 0.004094923286391716,
       "keywords": [
         "landmaschinen",
         "nutzfahrzeuge",
@@ -606,39 +417,8 @@
         "kleintransporter"
       ],
       "auto_flags": [
+        "low_margin",
         "outside_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 24,
-      "legal_name": "HERA Medien UG (haftungsbeschränkt)",
-      "purpose": "Herstellung und Vertrieb (EH) von polygraphischen buchhändlerischen Erzeugnissen eigener und fremder Werke, Werbe- und Promotions-Dienstleistungen (incl. Vorbereitung, Produktion und Veröffentlichung von Werbung und Promotion unter Ausnutzung von allen zugänglichen Mitteln der Polygraphischen und Audiovisuellen Übertragung), Herstellung und Vertrieb von Homepages, Webseiten sowie von Hard- und Software.",
-      "text_length": 406,
-      "true_sector": "J",
-      "predicted_sector": "C",
-      "top3": [
-        "C",
-        "J",
-        "G"
-      ],
-      "score_top1": 0.48016610642522883,
-      "margin_top1_top2": 0.02164485433634261,
-      "keywords": [
-        "produktion",
-        "polygraphischen",
-        "erzeugnissen",
-        "buchhändlerischen",
-        "zugänglichen",
-        "veröffentlichung",
-        "herstellung",
-        "ausnutzung",
-        "werke",
-        "software"
-      ],
-      "auto_flags": [
-        "recoverable_in_top3"
       ],
       "manual_category": "",
       "manual_note": ""
@@ -655,8 +435,8 @@
         "G",
         "H"
       ],
-      "score_top1": 0.6156699767781323,
-      "margin_top1_top2": 0.020508058893689673,
+      "score_top1": 0.6236899153373001,
+      "margin_top1_top2": 0.027505655455440148,
       "keywords": [
         "gastronomischen",
         "freizeitbetrieben",
@@ -676,138 +456,66 @@
       "manual_note": ""
     },
     {
-      "id": 27,
-      "legal_name": "Autozentrum Ebber GmbH",
-      "purpose": "Beteiligung als persönlich haftende geschäftsführende Gesellschafterin an der Dillhage-Ebber GmbH & Co. KG in Borken/Westf., die als Unternehmensgegenstand Verwaltung und Halten von Immobilien sowie Vermieten von spezifischen Geräten aller Art eines Kraftfahrzeugbetriebes, wie z.B. Hebebühnen, Werkzeuge etc. hat, sowie Vertrieb von neuen und gebrauchten Kraftfahrzeugen, Vermietung und Leasing von Kraftfahrzeugen, Handel mit Zubehör sowie Ersatzteilen, Instandsetzung von Kraftfahrzeugen und Ausübung aller mit einem Kraftfahrzeugbetrieb zusammenhängenden Tätigkeiten einschließlich Einbringungen von Dienstleistungen für Kraftfahrzeugbetriebe",
-      "text_length": 646,
-      "true_sector": "M",
-      "predicted_sector": "C",
+      "id": 26,
+      "legal_name": "INTEWA Ingenieur-Gesellschaft für Energie- und Wassertechnik mbH.",
+      "purpose": "Gegenstand des Unternehmens ist die Entwicklung, Konzeption und Produktion von Anlagen und Geräten für die Energieund Wassertechnik. Die Gesellschaft darf alle Maßnahmen treffen, die geeignet sind, den Gesellschaftszweck zu fördern. Die Gesellschaft kann sich an anderen Unternehmen, die demselben Zweck dienen oder einen verwandten oder ergänzenden Geschäftszweig führen, beteiligen oder solche Unternehmen erwerben oder kann als Vertreter solcher Unternehmen tätig werden. Die Gesellschaft ist berechtigt, sich an Personengesellschaften als unbeschränkt persönlich haftende Gesellschafterin zu beteiligen, deren Geschäftszweck gegenstandsgleich oder ähnlich ist. Die Gesellschaft ist berechtigt, Zweigniederlassungen zu errichten.",
+      "text_length": 732,
+      "true_sector": "C",
+      "predicted_sector": "M",
       "top3": [
-        "C",
-        "H",
-        "M"
-      ],
-      "score_top1": 0.4055790210500986,
-      "margin_top1_top2": 0.009141487532967285,
-      "keywords": [
-        "gesellschafterin",
-        "kraftfahrzeugen",
-        "werkzeuge",
-        "vermietung",
-        "gmbh",
-        "verwaltung",
-        "hebebühnen",
-        "westf",
-        "ebber",
-        "spezifischen"
-      ],
-      "auto_flags": [
-        "low_margin",
-        "crowded_top3",
-        "boilerplate_shape",
-        "recoverable_in_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 29,
-      "legal_name": "GUSA Gesellschaft für Unfall- und Schadenanalysen mbH",
-      "purpose": "Die Ausarbeitung von Expertisen, Erfassen, Analysieren und Auswerten von Unfallabläufen im Kraftverkehrbereich, Bauwesen und Arbeitssicherheit, Objektaufnahmen unter Beachtung systemtechnischer Gegebenheiten, Schadenbeurteilungen und Auswertungen unter Berücksichtigung der besonderen Umstände. Analysen und Entwicklungen von Verfahrenstechniken, metallurgische Gefügeuntersuchungen, Metallographie, Anlagen und Objektplanungen, statische Auswertungen und Wertermittlung von Anlagen, Objekten und Wirtschaftsgütern. Die Gesellschaft kann sich an anderen Unternehmen in beliebiger Rechtsform beteiligen. Sie kann Zweigniederlassungen errichten. Die Gesellschaft kann alle Geschäfte betreiben, die dem Gesellschaftszweck unmittelbar oder mittelbar zu dienen geeignet sind. Sie kann sieh insbesondere an anderen Unternehmen, auch wenn sie einen anderen Unternehmensgegenstand haben, beteiligen, sie erwerben, die Geschäftsführung für solche Unternehmen übernehmen, sowie Zweigniederlassungen errichten.",
-      "text_length": 999,
-      "true_sector": "M",
-      "predicted_sector": "C",
-      "top3": [
-        "C",
         "M",
-        "J"
+        "C",
+        "O"
       ],
-      "score_top1": 0.5025848988708752,
-      "margin_top1_top2": 0.004211219424824775,
+      "score_top1": 0.4993350306333895,
+      "margin_top1_top2": 0.01005756349666631,
       "keywords": [
-        "analysieren",
-        "verfahrenstechniken",
-        "systemtechnischer",
-        "expertisen",
-        "entwicklungen",
-        "objektplanungen",
         "gesellschaftszweck",
-        "kraftverkehrbereich",
-        "unternehmensgegenstand",
-        "metallurgische"
+        "personengesellschaften",
+        "geschäftszweck",
+        "wassertechnik",
+        "gesellschafterin",
+        "konzeption",
+        "fördern",
+        "geräten",
+        "dienen",
+        "entwicklung"
       ],
       "auto_flags": [
         "low_margin",
-        "boilerplate_shape",
         "recoverable_in_top3"
       ],
       "manual_category": "",
       "manual_note": ""
     },
     {
-      "id": 30,
-      "legal_name": "Institut für Stadtmarketing Lorenz GmbH",
-      "purpose": "die Bereitstellung von durch Werbung finanzierten Produkten an gemeinnützige Einrichtung, Kommunen und Vereine sowie das Entwerfen und Vertreiben von Druckerzeugnissen.",
-      "text_length": 168,
-      "true_sector": "M",
-      "predicted_sector": "C",
+      "id": 31,
+      "legal_name": "Tischlerei Timm GmbH",
+      "purpose": "Herstellung, Handel und Einbau von Fenstern, Türen, Treppen, Fußböden und anderen Holzelementen, Innausbau und Restauration.",
+      "text_length": 124,
+      "true_sector": "C",
+      "predicted_sector": "F",
       "top3": [
+        "F",
         "C",
-        "G",
-        "N"
+        "L"
       ],
-      "score_top1": 0.4556408504314921,
-      "margin_top1_top2": 0.004203256472788686,
+      "score_top1": 0.6939396359268811,
+      "margin_top1_top2": 0.01435720801255802,
       "keywords": [
-        "produkten",
-        "gemeinnützige",
-        "bereitstellung",
-        "finanzierten",
-        "entwerfen",
-        "druckerzeugnissen",
-        "kommunen",
-        "durch",
-        "das",
-        "sowie"
+        "innausbau",
+        "herstellung",
+        "restauration",
+        "einbau",
+        "fußböden",
+        "holzelementen",
+        "fenstern",
+        "handel",
+        "treppen",
+        "und"
       ],
       "auto_flags": [
         "low_margin",
-        "crowded_top3",
-        "outside_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 32,
-      "legal_name": "Bioenergie Rothtal Verwaltungs GmbH",
-      "purpose": "Erwerb und Verwaltung von Beteiligungen sowie Übernahme der persönlichen Haftung und der Geschäftsführung bei Handelsgesellschaften, insbesondere die Beteiligung als persönlich haftende Gesellschafterin an der Bioenergie Rothtal GmbH & Co. KG mit dem Sitz in Horgau, die die Errichtung und den Betrieb einer Biogasanlage zur Energieerzeugung sowie Energievermarktung zum Gegenstand hat.",
-      "text_length": 386,
-      "true_sector": "M",
-      "predicted_sector": "C",
-      "top3": [
-        "C",
-        "M",
-        "K"
-      ],
-      "score_top1": 0.34654142438318336,
-      "margin_top1_top2": 0.003727556956696132,
-      "keywords": [
-        "gesellschafterin",
-        "biogasanlage",
-        "handelsgesellschaften",
-        "bioenergie",
-        "geschäftsführung",
-        "energievermarktung",
-        "betrieb",
-        "verwaltung",
-        "gmbh",
-        "horgau"
-      ],
-      "auto_flags": [
-        "low_margin",
-        "crowded_top3",
-        "boilerplate_shape",
         "recoverable_in_top3"
       ],
       "manual_category": "",
@@ -819,14 +527,14 @@
       "purpose": "Der Vertrieb wissenschaftlicher Geräte und Laborbedarf.",
       "text_length": 55,
       "true_sector": "G",
-      "predicted_sector": "C",
+      "predicted_sector": "J",
       "top3": [
-        "C",
         "J",
+        "C",
         "M"
       ],
-      "score_top1": 0.4903267232925144,
-      "margin_top1_top2": 0.0032993615786892083,
+      "score_top1": 0.5582755334971259,
+      "margin_top1_top2": 0.07757673251046421,
       "keywords": [
         "wissenschaftlicher",
         "geräte",
@@ -836,43 +544,7 @@
         "vertrieb"
       ],
       "auto_flags": [
-        "low_margin",
-        "crowded_top3",
         "outside_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 34,
-      "legal_name": "DBD Verwaltung Unternehmergesellschaft (haftungsbeschränkt)",
-      "purpose": "Übernahme der Funktion des geschäftsführenden Gesellschafters und Komplementärs sowie des Liquidators der DBD Deutsche Biodiesel GmbH & Co. KG i.L. mit Sitz in Berlin.",
-      "text_length": 167,
-      "true_sector": "M",
-      "predicted_sector": "C",
-      "top3": [
-        "C",
-        "M",
-        "H"
-      ],
-      "score_top1": 0.26243273997376154,
-      "margin_top1_top2": 0.003123887563558858,
-      "keywords": [
-        "gesellschafters",
-        "biodiesel",
-        "berlin",
-        "deutsche",
-        "geschäftsführenden",
-        "liquidators",
-        "gmbh",
-        "des",
-        "übernahme",
-        "mit"
-      ],
-      "auto_flags": [
-        "low_margin",
-        "boilerplate_shape",
-        "recoverable_in_top3"
       ],
       "manual_category": "",
       "manual_note": ""
@@ -883,14 +555,14 @@
       "purpose": "Import, Export und Handel von Umwelttechnologie und Erbringung von damit im Zusammenhang stehenden Dienstleistungen.",
       "text_length": 116,
       "true_sector": "G",
-      "predicted_sector": "C",
+      "predicted_sector": "H",
       "top3": [
-        "C",
         "H",
+        "C",
         "G"
       ],
-      "score_top1": 0.5384215676985631,
-      "margin_top1_top2": 0.002696453127992604,
+      "score_top1": 0.5905196468927567,
+      "margin_top1_top2": 0.02978509332594026,
       "keywords": [
         "import",
         "export",
@@ -900,47 +572,10 @@
         "handel",
         "und",
         "von",
-        "damit",
-        "stehenden"
+        "stehenden",
+        "damit"
       ],
       "auto_flags": [
-        "low_margin",
-        "crowded_top3",
-        "recoverable_in_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 37,
-      "legal_name": "Huifeng Europe Verwaltungs GmbH",
-      "purpose": "Die Geschäftsführung der Huifeng Europe GmbH & Co.KG., die ihrerseits folgenden Geschäftszweck hat: Consulting, Marketing und Distribution von chemischen Produkten und anderen Handelsgütern.",
-      "text_length": 190,
-      "true_sector": "M",
-      "predicted_sector": "C",
-      "top3": [
-        "C",
-        "M",
-        "G"
-      ],
-      "score_top1": 0.4706150839961076,
-      "margin_top1_top2": 0.0023451219883334207,
-      "keywords": [
-        "geschäftsführung",
-        "geschäftszweck",
-        "produkten",
-        "handelsgütern",
-        "marketing",
-        "huifeng",
-        "chemischen",
-        "consulting",
-        "gmbh",
-        "der"
-      ],
-      "auto_flags": [
-        "low_margin",
-        "crowded_top3",
-        "boilerplate_shape",
         "recoverable_in_top3"
       ],
       "manual_category": "",
@@ -955,11 +590,11 @@
       "predicted_sector": "C",
       "top3": [
         "C",
-        "G",
-        "N"
+        "M",
+        "G"
       ],
-      "score_top1": 0.5447222386410535,
-      "margin_top1_top2": 0.0021631812122171468,
+      "score_top1": 0.5640135276424063,
+      "margin_top1_top2": 0.026610596953455357,
       "keywords": [
         "gesellschaftszweck",
         "gesellschaft",
@@ -973,72 +608,36 @@
         "recycling"
       ],
       "auto_flags": [
-        "low_margin",
         "outside_top3"
       ],
       "manual_category": "",
       "manual_note": ""
     },
     {
-      "id": 40,
-      "legal_name": "MDG Verwaltungs-GmbH",
-      "purpose": "Verwaltung von Beteiligungen an Unternehmen und insbesondere die Übernahme der Stellung als persönlich haftende Gesellschafterin der MDG Mechanische Fertigung GmbH & Co. KG",
-      "text_length": 172,
-      "true_sector": "M",
-      "predicted_sector": "C",
+      "id": 39,
+      "legal_name": "Jeschke Gas-Wasser-Technologien GmbH",
+      "purpose": "Gegenstand des Unternehmens ist die Planung, Herstellung und Vertrieb von Transportsystemen für eigene und fremde Rechnung, insbesondere Anlagen- und Rohrleitungssystemen aus Werkstoffen aller Art, für flüssige, gasförmige und feste Stoffe. Eingeschlossen sind Arbeiten für die dazu erforderlichen Mess-, Regel- und Steuerungstechniken. Gegenstand des Unternehmens ist ferner die Vermietung/Verpachtung von Grundstücken und beweglichen Anlagegütern.",
+      "text_length": 449,
+      "true_sector": "C",
+      "predicted_sector": "H",
       "top3": [
+        "H",
         "C",
-        "M",
-        "N"
+        "D"
       ],
-      "score_top1": 0.41049348452635337,
-      "margin_top1_top2": 0.0015478977023296037,
+      "score_top1": 0.60982000796688,
+      "margin_top1_top2": 0.00421077435241235,
       "keywords": [
-        "gesellschafterin",
-        "verwaltung",
-        "übernahme",
-        "gmbh",
-        "mdg",
-        "mechanische",
-        "fertigung",
-        "stellung",
-        "als",
-        "von"
-      ],
-      "auto_flags": [
-        "low_margin",
-        "crowded_top3",
-        "boilerplate_shape",
-        "recoverable_in_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 42,
-      "legal_name": "Niggenaber und Dirksmeier -KFZ- Handel u. Reparatur GmbH",
-      "purpose": "Gegenstand des Unternehmens ist Handel, Reparatur und Instandsetzung von Kraftfahrzeugen und Fahrzeugen aller Art.",
-      "text_length": 114,
-      "true_sector": "G",
-      "predicted_sector": "C",
-      "top3": [
-        "C",
-        "G",
-        "H"
-      ],
-      "score_top1": 0.5457752853120863,
-      "margin_top1_top2": 0.0005659896652047136,
-      "keywords": [
-        "kraftfahrzeugen",
-        "fahrzeugen",
+        "transportsystemen",
+        "rohrleitungssystemen",
+        "anlagegütern",
         "unternehmens",
-        "reparatur",
-        "instandsetzung",
-        "handel",
-        "ist",
-        "des",
-        "von",
-        "und"
+        "werkstoffen",
+        "steuerungstechniken",
+        "vermietung",
+        "erforderlichen",
+        "planung",
+        "herstellung"
       ],
       "auto_flags": [
         "low_margin",
@@ -1056,17 +655,17 @@
       "predicted_sector": "D",
       "top3": [
         "D",
-        "C",
-        "I"
+        "B",
+        "C"
       ],
-      "score_top1": 0.4921582718068166,
-      "margin_top1_top2": 0.09671915153005728,
+      "score_top1": 0.4661181311279867,
+      "margin_top1_top2": 0.06923705441033429,
       "keywords": [
         "gastronomiebetrieb"
       ],
       "auto_flags": [
         "short_text",
-        "recoverable_in_top3"
+        "outside_top3"
       ],
       "manual_category": "",
       "manual_note": ""
@@ -1081,10 +680,10 @@
       "top3": [
         "D",
         "C",
-        "E"
+        "F"
       ],
-      "score_top1": 0.546842244534705,
-      "margin_top1_top2": 0.061377020974233365,
+      "score_top1": 0.5400162373986572,
+      "margin_top1_top2": 0.06068729249646643,
       "keywords": [
         "wärmepumpen",
         "thermodynamischen",
@@ -1112,11 +711,11 @@
       "predicted_sector": "D",
       "top3": [
         "D",
-        "C",
-        "F"
+        "F",
+        "C"
       ],
-      "score_top1": 0.44947051245370134,
-      "margin_top1_top2": 0.05879405782947955,
+      "score_top1": 0.44447372954544756,
+      "margin_top1_top2": 0.0017520854298441746,
       "keywords": [
         "energie",
         "regenerativer",
@@ -1130,6 +729,7 @@
         "des"
       ],
       "auto_flags": [
+        "low_margin",
         "recoverable_in_top3"
       ],
       "manual_category": "",
@@ -1145,10 +745,10 @@
       "top3": [
         "D",
         "C",
-        "H"
+        "B"
       ],
-      "score_top1": 0.5780278376415051,
-      "margin_top1_top2": 0.05607778425195509,
+      "score_top1": 0.5786042479722574,
+      "margin_top1_top2": 0.02844183942469858,
       "keywords": [
         "gasanlagen",
         "gasbetrieb",
@@ -1176,11 +776,11 @@
       "predicted_sector": "D",
       "top3": [
         "D",
-        "C",
-        "A"
+        "A",
+        "C"
       ],
-      "score_top1": 0.49047922874001126,
-      "margin_top1_top2": 0.03450223262732721,
+      "score_top1": 0.5010966837318739,
+      "margin_top1_top2": 0.017549711624287867,
       "keywords": [
         "biomasse",
         "bioenergie",
@@ -1194,38 +794,40 @@
         "güterkraftverkehr"
       ],
       "auto_flags": [
+        "low_margin",
         "outside_top3"
       ],
       "manual_category": "",
       "manual_note": ""
     },
     {
-      "id": 48,
-      "legal_name": "REIWA GmbH Heizungs-, Lüftungs- und Sanitäreinbau",
-      "purpose": "Erstellen und Vertrieb von Heizungs-, Lüftungs- und Sanitäreinbau-Anlagen.",
-      "text_length": 74,
-      "true_sector": "F",
-      "predicted_sector": "D",
+      "id": 49,
+      "legal_name": "Rudelsdorfer Bioenergie GmbH",
+      "purpose": "Erzeugung von Bioenergie in Rudelsdorf sowie alle damit in Zusammenhang stehende Betätigungen",
+      "text_length": 93,
+      "true_sector": "D",
+      "predicted_sector": "B",
       "top3": [
+        "B",
         "D",
-        "E",
         "C"
       ],
-      "score_top1": 0.6255584656743708,
-      "margin_top1_top2": 0.019055145534905615,
+      "score_top1": 0.4245879289270454,
+      "margin_top1_top2": 0.024671852087501223,
       "keywords": [
-        "sanitäreinbau",
-        "anlagen",
-        "erstellen",
-        "lüftungs",
-        "vertrieb",
-        "und",
+        "bioenergie",
+        "erzeugung",
+        "rudelsdorf",
+        "betätigungen",
         "von",
-        "heizungs"
+        "stehende",
+        "zusammenhang",
+        "sowie",
+        "damit",
+        "alle"
       ],
       "auto_flags": [
-        "low_margin",
-        "outside_top3"
+        "recoverable_in_top3"
       ],
       "manual_category": "",
       "manual_note": ""
@@ -1236,28 +838,27 @@
       "purpose": "Planung, Projektleitung und Projektsteuerung, Bauüberwachung von gebäudetechnischen Gewerken wie Heizung, Lüftung, Klima, Kälte, Sanitär, Feuerlöschanlagen, Großküchen, Brandschutz, Starkstrom, Schwachstrom, Fernmelde- und Datentechnik, Beleuchtung, Tageslichttechnik, Hoch- und Mittelspannung, Leistungen zu Betrieb und Instandhaltung von Gebäuden und Anlagen, wie Facility Management, Energiemanagement, Contracting, sowie sämtliche dabei anfallende Aufgaben im weitesten Sinne.",
       "text_length": 480,
       "true_sector": "M",
-      "predicted_sector": "D",
+      "predicted_sector": "F",
       "top3": [
-        "D",
         "F",
+        "N",
         "J"
       ],
-      "score_top1": 0.5966215014208899,
-      "margin_top1_top2": 0.01640659540325684,
+      "score_top1": 0.746693554250678,
+      "margin_top1_top2": 0.07735853330819953,
       "keywords": [
-        "energiemanagement",
         "gebäudetechnischen",
         "projektsteuerung",
-        "feuerlöschanlagen",
-        "tageslichttechnik",
-        "mittelspannung",
+        "energiemanagement",
+        "planung",
         "management",
+        "mittelspannung",
         "facility",
+        "brandschutz",
         "instandhaltung",
-        "planung"
+        "tageslichttechnik"
       ],
       "auto_flags": [
-        "low_margin",
         "outside_top3"
       ],
       "manual_category": "",
@@ -1269,28 +870,29 @@
       "purpose": "Der Aufbau und Betrieb eines Emissionshauses für die Entwicklung von geschlossenen Fonds in der Rechtsform einer GmbH & Co. KG.",
       "text_length": 127,
       "true_sector": "K",
-      "predicted_sector": "D",
+      "predicted_sector": "F",
       "top3": [
-        "D",
+        "F",
         "K",
-        "F"
+        "D"
       ],
-      "score_top1": 0.42681654164104876,
-      "margin_top1_top2": 0.00975395667886192,
+      "score_top1": 0.40600898629860976,
+      "margin_top1_top2": 0.007125803767068228,
       "keywords": [
         "emissionshauses",
         "fonds",
-        "betrieb",
-        "gmbh",
         "aufbau",
         "entwicklung",
-        "für",
+        "betrieb",
+        "gmbh",
         "der",
+        "für",
         "von",
-        "und"
+        "die"
       ],
       "auto_flags": [
         "low_margin",
+        "crowded_top3",
         "recoverable_in_top3"
       ],
       "manual_category": "",
@@ -1306,10 +908,10 @@
       "top3": [
         "D",
         "C",
-        "H"
+        "F"
       ],
-      "score_top1": 0.521797076290317,
-      "margin_top1_top2": 0.008565579294044778,
+      "score_top1": 0.54825952328784,
+      "margin_top1_top2": 0.024286047679683564,
       "keywords": [
         "elektroinstallationsarbeiten",
         "elektroartikeln",
@@ -1321,8 +923,7 @@
         "der"
       ],
       "auto_flags": [
-        "low_margin",
-        "outside_top3"
+        "recoverable_in_top3"
       ],
       "manual_category": "",
       "manual_note": ""
@@ -1337,10 +938,10 @@
       "top3": [
         "E",
         "N",
-        "S"
+        "F"
       ],
-      "score_top1": 0.7688375994374372,
-      "margin_top1_top2": 0.22248672389510116,
+      "score_top1": 0.7697358736753603,
+      "margin_top1_top2": 0.13371979983633964,
       "keywords": [
         "abfällen",
         "containerdiensten",
@@ -1354,7 +955,7 @@
         "beförderns"
       ],
       "auto_flags": [
-        "outside_top3"
+        "recoverable_in_top3"
       ],
       "manual_category": "",
       "manual_note": ""
@@ -1368,11 +969,11 @@
       "predicted_sector": "E",
       "top3": [
         "E",
-        "D",
-        "C"
+        "F",
+        "D"
       ],
-      "score_top1": 0.6802674811062064,
-      "margin_top1_top2": 0.10324071738446272,
+      "score_top1": 0.6470635215221011,
+      "margin_top1_top2": 0.02469591008273686,
       "keywords": [
         "sanitäranlagen",
         "wasser",
@@ -1386,7 +987,7 @@
         "aller"
       ],
       "auto_flags": [
-        "outside_top3"
+        "recoverable_in_top3"
       ],
       "manual_category": "",
       "manual_note": ""
@@ -1401,10 +1002,10 @@
       "top3": [
         "E",
         "H",
-        "C"
+        "F"
       ],
-      "score_top1": 0.594924663466045,
-      "margin_top1_top2": 0.03961014021286147,
+      "score_top1": 0.6108672705214673,
+      "margin_top1_top2": 0.061612660935647545,
       "keywords": [
         "recycling",
         "logistik",
@@ -1424,30 +1025,30 @@
       "manual_note": ""
     },
     {
-      "id": 57,
-      "legal_name": "REH GmbH Dienstleistungen",
-      "purpose": "die Durchführung von Gebäudeinnen- und Außenreinigung, Fenster- und Fassadenreinigung sowie Straßen- und Parkplatzreinigung einschließlich Schneeund Eisbeseitigung von Geh- und Fahrwegen, Handel mit Reinigungsprodukten, ferner die Durchführung von Reinigungs- und Desinfektionsmaßnahmen in Krankenhäusern, Kliniken, Pflege- und Altenheimen und ähnlichen sozialen Einrichtungen sowie die Durchführung von ähnlichen, damit verbundenen Dienstleistungen in diesen Bereichen",
-      "text_length": 469,
-      "true_sector": "N",
+      "id": 58,
+      "legal_name": "Laible Brandschutztechnik GmbH",
+      "purpose": "Vertrieb, Wartung und Instandsetzung von tragbaren und fahrbaren Löschsystemen. Wartung und Instandsetzung von stationären Löschanlagen. Erstellung von Brandschutzplänen- und Konzepten.",
+      "text_length": 185,
+      "true_sector": "F",
       "predicted_sector": "E",
       "top3": [
         "E",
-        "S",
-        "N"
+        "F",
+        "D"
       ],
-      "score_top1": 0.5942633930794912,
-      "margin_top1_top2": 0.0183021203800926,
+      "score_top1": 0.572933957751066,
+      "margin_top1_top2": 0.007569942316589584,
       "keywords": [
-        "außenreinigung",
-        "reinigungsprodukten",
-        "fassadenreinigung",
-        "parkplatzreinigung",
-        "eisbeseitigung",
-        "desinfektionsmaßnahmen",
-        "krankenhäusern",
-        "gebäudeinnen",
-        "dienstleistungen",
-        "pflege"
+        "löschanlagen",
+        "löschsystemen",
+        "brandschutzplänen",
+        "instandsetzung",
+        "stationären",
+        "erstellung",
+        "tragbaren",
+        "wartung",
+        "konzepten",
+        "fahrbaren"
       ],
       "auto_flags": [
         "low_margin",
@@ -1457,35 +1058,33 @@
       "manual_note": ""
     },
     {
-      "id": 58,
-      "legal_name": "Laible Brandschutztechnik GmbH",
-      "purpose": "Vertrieb, Wartung und Instandsetzung von tragbaren und fahrbaren Löschsystemen. Wartung und Instandsetzung von stationären Löschanlagen. Erstellung von Brandschutzplänen- und Konzepten.",
-      "text_length": 185,
-      "true_sector": "F",
-      "predicted_sector": "E",
+      "id": 59,
+      "legal_name": "DEHÖMA Fuhrbetrieb und Containerdienst GmbH",
+      "purpose": "Der Betrieb eines Containerdienstes, die Baumaschinenvermietung, der Güternahverkehr, Erdbau und Abrissarbeiten..",
+      "text_length": 113,
+      "true_sector": "E",
+      "predicted_sector": "H",
       "top3": [
+        "H",
         "E",
-        "D",
-        "H"
+        "C"
       ],
-      "score_top1": 0.55537295833371,
-      "margin_top1_top2": 0.01248460752354108,
+      "score_top1": 0.7335500249636744,
+      "margin_top1_top2": 0.05739715056004757,
       "keywords": [
-        "löschanlagen",
-        "löschsystemen",
-        "brandschutzplänen",
-        "instandsetzung",
-        "erstellung",
-        "stationären",
-        "tragbaren",
-        "wartung",
-        "konzepten",
-        "fahrbaren"
+        "containerdienstes",
+        "abrissarbeiten",
+        "betrieb",
+        "güternahverkehr",
+        "baumaschinenvermietung",
+        "der",
+        "und",
+        "eines",
+        "die",
+        "erdbau"
       ],
       "auto_flags": [
-        "low_margin",
-        "crowded_top3",
-        "outside_top3"
+        "recoverable_in_top3"
       ],
       "manual_category": "",
       "manual_note": ""
@@ -1496,23 +1095,22 @@
       "purpose": "Facilitymanagement, Gebäudemanagement und Gebäudereinigung.",
       "text_length": 59,
       "true_sector": "N",
-      "predicted_sector": "E",
+      "predicted_sector": "F",
       "top3": [
-        "E",
-        "L",
-        "N"
+        "F",
+        "N",
+        "L"
       ],
-      "score_top1": 0.5440812740338268,
-      "margin_top1_top2": 0.005032861900571284,
+      "score_top1": 0.6145029134535569,
+      "margin_top1_top2": 0.007754343578942224,
       "keywords": [
-        "gebäudereinigung",
         "gebäudemanagement",
+        "gebäudereinigung",
         "facilitymanagement",
         "und"
       ],
       "auto_flags": [
         "low_margin",
-        "crowded_top3",
         "recoverable_in_top3"
       ],
       "manual_category": "",
@@ -1527,11 +1125,11 @@
       "predicted_sector": "F",
       "top3": [
         "F",
-        "B",
-        "L"
+        "L",
+        "C"
       ],
-      "score_top1": 0.3037261607139207,
-      "margin_top1_top2": 0.04638161065650481,
+      "score_top1": 0.3331186140731361,
+      "margin_top1_top2": 0.10162870475167077,
       "keywords": [
         "restauration",
         "imbissgrills",
@@ -1555,11 +1153,11 @@
       "predicted_sector": "F",
       "top3": [
         "F",
-        "S",
-        "M"
+        "N",
+        "S"
       ],
-      "score_top1": 0.47388559969329286,
-      "margin_top1_top2": 0.00476804043749085,
+      "score_top1": 0.5587147667362641,
+      "margin_top1_top2": 0.05883397698261417,
       "keywords": [
         "generalplanungsleistungen",
         "designerprodukte",
@@ -1573,41 +1171,6 @@
         "sowie"
       ],
       "auto_flags": [
-        "low_margin",
-        "crowded_top3",
-        "recoverable_in_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 79,
-      "legal_name": "Verwaltungsgesellschaft Pio Kunststoffe mbH",
-      "purpose": "Gegenstand geändert; nun: Der Erwerb und die Verwaltung von Beteiligungen sowie die Übernahme der persönlichen Haftung und der Geschäftsführung bei Handelsgesellschaften, insbesondere die Beteiligung als persönlich haftende und geschäftsführende Gesellschafterin an der Chemische Fabrik Knoell GmbH & Co. KG mit Sitz in Freiburg i. Breisgau, und ggfls. weiteren Kommanditgesellschaften, die ihrerseits die Verwaltung eigenen Vermögens zum Gegenstand haben.",
-      "text_length": 456,
-      "true_sector": "M",
-      "predicted_sector": "G",
-      "top3": [
-        "G",
-        "L",
-        "K"
-      ],
-      "score_top1": 0.396167171393082,
-      "margin_top1_top2": 0.06608872769836038,
-      "keywords": [
-        "handelsgesellschaften",
-        "geschäftsführende",
-        "fabrik",
-        "kommanditgesellschaften",
-        "verwaltung",
-        "eigenen",
-        "geändert",
-        "breisgau",
-        "insbesondere",
-        "freiburg"
-      ],
-      "auto_flags": [
-        "boilerplate_shape",
         "outside_top3"
       ],
       "manual_category": "",
@@ -1625,8 +1188,8 @@
         "C",
         "S"
       ],
-      "score_top1": 0.494569308054246,
-      "margin_top1_top2": 0.06367817309788426,
+      "score_top1": 0.5059453320633114,
+      "margin_top1_top2": 0.03693138721139505,
       "keywords": [
         "verkauf",
         "unternehmens",
@@ -1646,63 +1209,31 @@
       "manual_note": ""
     },
     {
-      "id": 81,
-      "legal_name": "Freilandeier Verwaltungs GmbH",
-      "purpose": "der Erwerb und die Verwaltung von Beteiligungen sowie die Übernahme der persönlichen Haftung und der Geschäftsführung bei Handelsgesellschaften, insbesondere die Beteiligung als persönlich haftende geschäftsführende Gesellschafterin an der Kommanditgesellschaft in Firma Obermooshamer Freilandeier GmbH & Co. KG mit dem Sitz in Niederbergkirchen, die die gewerbliche Produktion und die Vermarktung sowie den Handel von und mit landwirtschaftlichen Erzeugnissen, insbesondere von und mit Eiern sowie die gewerbliche Vermietung und Verpachtung zum Gegenstand hat.",
-      "text_length": 561,
-      "true_sector": "M",
-      "predicted_sector": "G",
+      "id": 84,
+      "legal_name": "MIWA Getränkevertriebs GmbH",
+      "purpose": "Groß- und Einzelhandel mit Getränken aller Art.",
+      "text_length": 47,
+      "true_sector": "G",
+      "predicted_sector": "I",
       "top3": [
+        "I",
         "G",
-        "C",
-        "M"
+        "R"
       ],
-      "score_top1": 0.4572684117431467,
-      "margin_top1_top2": 0.06204325541872735,
+      "score_top1": 0.5214826734394846,
+      "margin_top1_top2": 0.017062360575532676,
       "keywords": [
-        "handelsgesellschaften",
-        "geschäftsführende",
-        "vermarktung",
-        "erzeugnissen",
-        "verwaltung",
-        "obermooshamer",
-        "produktion",
-        "landwirtschaftlichen",
-        "freilandeier",
-        "niederbergkirchen"
+        "einzelhandel",
+        "groß",
+        "getränken",
+        "aller",
+        "und",
+        "mit",
+        "art"
       ],
       "auto_flags": [
-        "boilerplate_shape",
-        "recoverable_in_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 86,
-      "legal_name": "Romachova GmbH",
-      "purpose": "Übernahme der Rechtsstellung eines Komplementärs in der redsquare GmbH & Co. KG",
-      "text_length": 79,
-      "true_sector": "M",
-      "predicted_sector": "G",
-      "top3": [
-        "G",
-        "M",
-        "U"
-      ],
-      "score_top1": 0.36385391346786594,
-      "margin_top1_top2": 0.03784797725567107,
-      "keywords": [
-        "gmbh",
-        "übernahme",
-        "rechtsstellung",
-        "der",
-        "komplementärs",
-        "eines",
-        "redsquare"
-      ],
-      "auto_flags": [
-        "boilerplate_shape",
+        "short_text",
+        "low_margin",
         "recoverable_in_top3"
       ],
       "manual_category": "",
@@ -1717,11 +1248,11 @@
       "predicted_sector": "G",
       "top3": [
         "G",
-        "C",
-        "K"
+        "K",
+        "C"
       ],
-      "score_top1": 0.5503477989002763,
-      "margin_top1_top2": 0.03685884369274195,
+      "score_top1": 0.5465481656276541,
+      "margin_top1_top2": 0.012401658383712766,
       "keywords": [
         "geschäfte",
         "schiffahrtsunternehmen",
@@ -1735,6 +1266,8 @@
         "vorzunehmen"
       ],
       "auto_flags": [
+        "low_margin",
+        "crowded_top3",
         "boilerplate_shape",
         "recoverable_in_top3"
       ],
@@ -1747,14 +1280,14 @@
       "purpose": "Vermietung und Verpachtung von Grundvermögen und damit im Zusammenhang stehenden Geschäfte.",
       "text_length": 91,
       "true_sector": "L",
-      "predicted_sector": "G",
+      "predicted_sector": "M",
       "top3": [
+        "M",
         "G",
-        "T",
         "K"
       ],
-      "score_top1": 0.49266344935516326,
-      "margin_top1_top2": 0.03397915570681431,
+      "score_top1": 0.45272262406543096,
+      "margin_top1_top2": 0.02027172626593171,
       "keywords": [
         "geschäfte",
         "grundvermögen",
@@ -1767,6 +1300,7 @@
         "vermietung"
       ],
       "auto_flags": [
+        "crowded_top3",
         "outside_top3"
       ],
       "manual_category": "",
@@ -1778,27 +1312,28 @@
       "purpose": "Die Übernahme, der Erwerb, das Halten und die Veräußerung von Beteiligungen an der im Handelsregister des Amtsgerichts Hamburg unter HRB 161915 eingetragenen Gesellschaft mit beschränkter Haftung unter der Firma Deutsche Hausverwaltung Plus GmbH mit dem Sitz in Hamburg.",
       "text_length": 270,
       "true_sector": "K",
-      "predicted_sector": "G",
+      "predicted_sector": "L",
       "top3": [
-        "G",
+        "L",
         "H",
-        "L"
+        "G"
       ],
-      "score_top1": 0.2899717222629529,
-      "margin_top1_top2": 0.03220151406937616,
+      "score_top1": 0.28942534061120934,
+      "margin_top1_top2": 0.021005670338517246,
       "keywords": [
+        "hamburg",
         "handelsregister",
         "veräußerung",
-        "hamburg",
-        "firma",
-        "deutsche",
         "hausverwaltung",
+        "deutsche",
+        "firma",
         "übernahme",
         "des",
         "gmbh",
         "amtsgerichts"
       ],
       "auto_flags": [
+        "crowded_top3",
         "boilerplate_shape",
         "outside_top3"
       ],
@@ -1811,62 +1346,28 @@
       "purpose": "der Handel mit Hyaluron und Schönheitsprodukten, die Unterspritzung von Hyaluron in Hyalumed Instituten und angeschlossenen Praxen",
       "text_length": 130,
       "true_sector": "Q",
-      "predicted_sector": "G",
+      "predicted_sector": "S",
       "top3": [
+        "S",
         "G",
-        "Q",
-        "C"
+        "Q"
       ],
-      "score_top1": 0.26800618419713146,
-      "margin_top1_top2": 0.031645892171655865,
+      "score_top1": 0.25880764977207976,
+      "margin_top1_top2": 0.02429468126305656,
       "keywords": [
-        "hyalumed",
         "hyaluron",
+        "hyalumed",
         "schönheitsprodukten",
-        "handel",
-        "mit",
         "instituten",
+        "mit",
         "der",
         "von",
         "die",
-        "und"
+        "und",
+        "angeschlossenen"
       ],
       "auto_flags": [
         "recoverable_in_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 92,
-      "legal_name": "Ho Da Verwaltungs- GmbH",
-      "purpose": "Der Erwerb und die Verwaltung von Beteiligungen sowie die Übernahme der persönlichen Haftung und der Geschäftsführung bei Handelsgesellschaften, insbesondere die Beteiligung als persönlich haftende geschäftsführende Gesellschafterin an der HoDa GmbH & Co. KG.",
-      "text_length": 259,
-      "true_sector": "M",
-      "predicted_sector": "G",
-      "top3": [
-        "G",
-        "K",
-        "N"
-      ],
-      "score_top1": 0.35217149864865116,
-      "margin_top1_top2": 0.016923189515804904,
-      "keywords": [
-        "handelsgesellschaften",
-        "geschäftsführung",
-        "geschäftsführende",
-        "gesellschafterin",
-        "verwaltung",
-        "übernahme",
-        "gmbh",
-        "haftung",
-        "von",
-        "persönlichen"
-      ],
-      "auto_flags": [
-        "low_margin",
-        "boilerplate_shape",
-        "outside_top3"
       ],
       "manual_category": "",
       "manual_note": ""
@@ -1877,29 +1378,27 @@
       "purpose": "der Handel, die Beratung, die Organisation und Koordination von Aus- und Weiterbildung oder akademischen und kulturellen Austauschprogrammen, insbesondere im Bereich des Jugendaustauschs zwischen China und Europa insbesondere Klassenfahrten und Jugendcamps. Die Gesellschaft darf auch maßgeschneiderte Dienstleistungen für erwachsene Reisegruppen durchführen. Die Gesellschaft ist ferner tätig auf dem Gebiet der Vermittlung und Betreuung von Geschäftskontakten zwischen China und Europa, sowie dem Studentenaustausch und der Lehrerausbildung. Die Gesellschaft ist zudem tätig im Im- und Export, dem Vertrieb und Handel mit Lehrmittel sowie Im- und Export, Vertrieb und Handel von Waren aller Art und darf alle damit im Zusammenhang stehenden Nebengeschäfte erbringen. Gegenstand des Unternehmens sind auch Eventmanagement, Ausbildungsmanagement sowie der Betrieb einer Künstleragentur. Die Gesellschaft darf Geschäfte jeder Art durchführen, die dem Unternehmensgegenstand unmittelbar oder mittelbar dienen oder diesen ergänzen.",
       "text_length": 1028,
       "true_sector": "N",
-      "predicted_sector": "G",
+      "predicted_sector": "H",
       "top3": [
+        "H",
         "G",
-        "U",
         "J"
       ],
-      "score_top1": 0.41882146448218455,
-      "margin_top1_top2": 0.008067453187078355,
+      "score_top1": 0.4685056316830561,
+      "margin_top1_top2": 0.05902421561569149,
       "keywords": [
-        "handel",
         "austauschprogrammen",
         "studentenaustausch",
-        "geschäftskontakten",
-        "kulturellen",
-        "export",
-        "jugendaustauschs",
         "dienstleistungen",
+        "reisegruppen",
+        "nebengeschäfte",
         "china",
-        "reisegruppen"
+        "kulturellen",
+        "jugendaustauschs",
+        "export",
+        "lehrerausbildung"
       ],
       "auto_flags": [
-        "low_margin",
-        "crowded_top3",
         "outside_top3"
       ],
       "manual_category": "",
@@ -1911,17 +1410,17 @@
       "purpose": "die Vermarktung von Software sowie die Erbringung von Dienstleistungen rund um Vertrieb und Marketing",
       "text_length": 101,
       "true_sector": "M",
-      "predicted_sector": "G",
+      "predicted_sector": "J",
       "top3": [
-        "G",
         "J",
-        "N"
+        "M",
+        "G"
       ],
-      "score_top1": 0.5002777440172604,
-      "margin_top1_top2": 0.007247749490966016,
+      "score_top1": 0.5467998578934251,
+      "margin_top1_top2": 0.08389720765716657,
       "keywords": [
-        "vermarktung",
         "marketing",
+        "vermarktung",
         "software",
         "dienstleistungen",
         "erbringung",
@@ -1932,9 +1431,38 @@
         "vertrieb"
       ],
       "auto_flags": [
-        "low_margin",
-        "crowded_top3",
-        "outside_top3"
+        "recoverable_in_top3"
+      ],
+      "manual_category": "",
+      "manual_note": ""
+    },
+    {
+      "id": 96,
+      "legal_name": "UED-Dienstleistungs Aktiengesellschaft",
+      "purpose": "Die Vermittlung von deutscheuropäischen Konsumgütern, Touristik-, Finanz- und Telekommunikationsdienstleistungen.",
+      "text_length": 113,
+      "true_sector": "G",
+      "predicted_sector": "H",
+      "top3": [
+        "H",
+        "I",
+        "G"
+      ],
+      "score_top1": 0.48998424994962425,
+      "margin_top1_top2": 0.031835526635206335,
+      "keywords": [
+        "deutscheuropäischen",
+        "konsumgütern",
+        "touristik",
+        "telekommunikationsdienstleistungen",
+        "finanz",
+        "von",
+        "vermittlung",
+        "die",
+        "und"
+      ],
+      "auto_flags": [
+        "recoverable_in_top3"
       ],
       "manual_category": "",
       "manual_note": ""
@@ -1945,25 +1473,25 @@
       "purpose": "Gegenstand des Unternehmens sind Montagen, Reparaturen, Kundendienst für für Industrietore aller Art, Handel mit Toren und Tor-Zubehörteilen, Handel mit Bedarfsartikeln und Baubeschlägen und artverwandte Artikel für den Metallbau und Schlosserei.",
       "text_length": 246,
       "true_sector": "F",
-      "predicted_sector": "G",
+      "predicted_sector": "N",
       "top3": [
+        "N",
         "G",
-        "S",
-        "N"
+        "C"
       ],
-      "score_top1": 0.55381801131276,
-      "margin_top1_top2": 0.006353339463150753,
+      "score_top1": 0.5806875412663804,
+      "margin_top1_top2": 0.004843993548231951,
       "keywords": [
-        "industrietore",
         "bedarfsartikeln",
-        "unternehmens",
         "kundendienst",
+        "industrietore",
+        "unternehmens",
         "handel",
         "metallbau",
         "reparaturen",
-        "montagen",
         "schlosserei",
-        "mit"
+        "montagen",
+        "zubehörteilen"
       ],
       "auto_flags": [
         "low_margin",
@@ -1974,269 +1502,33 @@
       "manual_note": ""
     },
     {
-      "id": 98,
-      "legal_name": "Güterkraftverkehr Werner Groß GmbH",
-      "purpose": "Durchführung des gewerblichen Güternahverkehrs und Handel mit Kohlen.",
-      "text_length": 69,
-      "true_sector": "H",
-      "predicted_sector": "G",
+      "id": 104,
+      "legal_name": "Roeser Medical GmbH",
+      "purpose": "Der Verkauf von Medizinprodukten des medizinisch-technischen Bedarfs an Krankenhäuser, Kliniken, Sanatorien, Arztpraxen, einzelne Privatkunden sowie andere Bedarfsträger medizintechnischer Güter zur Diagnostik und Therapie sowie die Vermietung von Medizinprodukten unter Einschluss von Leasingverträgen hierüber; Planung und Ausführung medizintechnischer Einrichtungen vorgenannter Bedarfsträger; technische Service Leistungen wie Montage, Wartung und Instandhaltung von Medizinprodukten für Diagnostik und Therapie.",
+      "text_length": 516,
+      "true_sector": "G",
+      "predicted_sector": "Q",
       "top3": [
+        "Q",
         "G",
-        "H",
-        "D"
+        "J"
       ],
-      "score_top1": 0.494765803607196,
-      "margin_top1_top2": 0.006168496415626168,
+      "score_top1": 0.5200223071646539,
+      "margin_top1_top2": 0.02269068304442262,
       "keywords": [
-        "handel",
-        "güternahverkehrs",
-        "durchführung",
-        "kohlen",
-        "und",
-        "des",
-        "gewerblichen",
-        "mit"
+        "medizinprodukten",
+        "arztpraxen",
+        "kliniken",
+        "diagnostik",
+        "therapie",
+        "bedarfs",
+        "technischen",
+        "service",
+        "sanatorien",
+        "verkauf"
       ],
       "auto_flags": [
-        "low_margin",
-        "crowded_top3",
         "recoverable_in_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 99,
-      "legal_name": "Port Gager Geschäftsführungs-GmbH",
-      "purpose": "Übernahme von Beteiligungen an anderen Unternehmen und die Übernahme der Verwaltung und Geschäftsführung in Personengesellschaften, insbesondere in Unternehmen aus den Bereichen der gewerblichen Touristik sowie Unternehmen im Bereich der Lebensmittelproduktion und -verarbeitung und des Lebensmittelversandes, insbesondere, jedoch nicht beschränkt auf den Bereich von Fisch- und Feinkostprodukten",
-      "text_length": 396,
-      "true_sector": "M",
-      "predicted_sector": "G",
-      "top3": [
-        "G",
-        "I",
-        "C"
-      ],
-      "score_top1": 0.465489109926228,
-      "margin_top1_top2": 0.005746137793540107,
-      "keywords": [
-        "geschäftsführung",
-        "personengesellschaften",
-        "lebensmittelproduktion",
-        "verwaltung",
-        "feinkostprodukten",
-        "übernahme",
-        "insbesondere",
-        "anderen",
-        "verarbeitung",
-        "beteiligungen"
-      ],
-      "auto_flags": [
-        "low_margin",
-        "crowded_top3",
-        "boilerplate_shape",
-        "outside_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 100,
-      "legal_name": "Westend Verlags- und Werbegesellschaft mbH",
-      "purpose": "Die Herausgabe und der Verlag von Zeitschriften, sonstigen Publikationen und elektronischen Medien sowie der Betrieb einer Agentur für Werbung und Verkaufsförderung und die Vornahme und Vermittlung gleichartiger oder ähnlicher Geschäfte und damit zusammenhängeder Leistungen.",
-      "text_length": 275,
-      "true_sector": "J",
-      "predicted_sector": "G",
-      "top3": [
-        "G",
-        "J",
-        "M"
-      ],
-      "score_top1": 0.4671112327836811,
-      "margin_top1_top2": 0.005404925237591285,
-      "keywords": [
-        "verkaufsförderung",
-        "geschäfte",
-        "medien",
-        "publikationen",
-        "agentur",
-        "leistungen",
-        "betrieb",
-        "sonstigen",
-        "vornahme",
-        "herausgabe"
-      ],
-      "auto_flags": [
-        "low_margin",
-        "recoverable_in_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 101,
-      "legal_name": "Fliesen Höning Verwaltungs- und Beteiligungs-GmbH",
-      "purpose": "die Übernahme der Stellung der persönlich haftenden und zur Geschäftsführung berechtigten Gesellschafterin in der Fliesen Höning GmbH & Co., KG. mit dem Sitz in Billerbeck, deren Unternehmensgegenstand a) der Handel mit Fliesen, Steinzeug und Keramikprodukten, b) der Handel mit Pflegemitteln für Fliesen, Steinzeug und Keramikproduken, c) der Handel mit Material, Zuberhör und Werkzeug für die Verlegung und Verarbeitung von Fliesen, Steinzeug und Keramikprodukten, d) die Verlegung von Fliesen, Steinzeug und Keramikprodukten ist. Zur Erreichung dieses Zwecks ist die Gesellschaft zu allen Geschäften und Rechtshandlungen berechtigt, die mittelbar oder unmittelbar der Förderung des Gesellschaftszwecks dienen.",
-      "text_length": 712,
-      "true_sector": "M",
-      "predicted_sector": "G",
-      "top3": [
-        "G",
-        "C",
-        "M"
-      ],
-      "score_top1": 0.4946884614607154,
-      "margin_top1_top2": 0.0028072059062294596,
-      "keywords": [
-        "gesellschafterin",
-        "handel",
-        "unternehmensgegenstand",
-        "werkzeug",
-        "erreichung",
-        "des",
-        "höning",
-        "dienen",
-        "verarbeitung",
-        "steinzeug"
-      ],
-      "auto_flags": [
-        "low_margin",
-        "boilerplate_shape",
-        "recoverable_in_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 102,
-      "legal_name": "H&K+S Agentur für Werbung GmbH",
-      "purpose": "Konzeption und Marketing, die Durchführung von Werbekampagnen sowie deren Produktion und mediale Umsetzung, Verkaufsförderung, Event-Marketing, PR und Sponsoring sowie alle damit im Zusammenhang stehenden Geschäfte.",
-      "text_length": 215,
-      "true_sector": "M",
-      "predicted_sector": "G",
-      "top3": [
-        "G",
-        "R",
-        "M"
-      ],
-      "score_top1": 0.4746410569045939,
-      "margin_top1_top2": 0.0025914175707308362,
-      "keywords": [
-        "marketing",
-        "verkaufsförderung",
-        "geschäfte",
-        "sponsoring",
-        "werbekampagnen",
-        "event",
-        "mediale",
-        "konzeption",
-        "durchführung",
-        "umsetzung"
-      ],
-      "auto_flags": [
-        "low_margin",
-        "recoverable_in_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 103,
-      "legal_name": "Klinkrader Dorfbäckerei GmbH",
-      "purpose": "die Herstellung von und der Handel mit Backwaren aller Art und artverwandter Geschäfte. Die Gesellschaft ist zu allen Geschäften und Maßnahmen berechtigt, die dem Gegenstand des Unternehmens dienen. Sie kann zu diesem Zweck auch andere Unternehmen gründen, erwerben und sich an ihnen beteiligen.",
-      "text_length": 295,
-      "true_sector": "C",
-      "predicted_sector": "G",
-      "top3": [
-        "G",
-        "C",
-        "S"
-      ],
-      "score_top1": 0.5844065093001453,
-      "margin_top1_top2": 0.002344097848750004,
-      "keywords": [
-        "geschäften",
-        "unternehmens",
-        "gesellschaft",
-        "handel",
-        "erwerben",
-        "zweck",
-        "gründen",
-        "dienen",
-        "maßnahmen",
-        "andere"
-      ],
-      "auto_flags": [
-        "low_margin",
-        "recoverable_in_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 105,
-      "legal_name": "Seibel Beteiligungsgesellschaft mbH",
-      "purpose": "Erwerb und die Verwaltung von Beteiligungen sowie die Übernahme der persönlichen Haftung und der Geschäftsführung bei Handelsgesellschaften, insbesondere die Beteiligung als persönlich haftende geschäftsführende Gesellschafterin an der Portlandzementwerke Seibel und Söhne GmbH & Co. KG mit dem Sitz in Erwitte.",
-      "text_length": 311,
-      "true_sector": "M",
-      "predicted_sector": "G",
-      "top3": [
-        "G",
-        "M",
-        "N"
-      ],
-      "score_top1": 0.33198005362250155,
-      "margin_top1_top2": 0.0018925090091250762,
-      "keywords": [
-        "handelsgesellschaften",
-        "geschäftsführung",
-        "geschäftsführende",
-        "gesellschafterin",
-        "verwaltung",
-        "übernahme",
-        "seibel",
-        "beteiligung",
-        "von",
-        "dem"
-      ],
-      "auto_flags": [
-        "low_margin",
-        "crowded_top3",
-        "boilerplate_shape",
-        "recoverable_in_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 106,
-      "legal_name": "Verwaltungsgesellschaft RST Rostock Sugar Terminal mbH",
-      "purpose": "Übernahme von Verwaltungstätigkeiten, insbesondere auch die Übernahme der persönlichen Haftung bei Kommanditgesellschaften sowie der Imund Export, Umschlag, Verpackung und Lagerung von Zucker sowie alle damit im Zusammenhang stehenden Geschäfte.",
-      "text_length": 245,
-      "true_sector": "M",
-      "predicted_sector": "G",
-      "top3": [
-        "G",
-        "N",
-        "K"
-      ],
-      "score_top1": 0.4539760336803798,
-      "margin_top1_top2": 0.0018832059432383197,
-      "keywords": [
-        "geschäfte",
-        "verwaltungstätigkeiten",
-        "lagerung",
-        "kommanditgesellschaften",
-        "übernahme",
-        "verpackung",
-        "export",
-        "persönlichen",
-        "insbesondere",
-        "zucker"
-      ],
-      "auto_flags": [
-        "low_margin",
-        "outside_top3"
       ],
       "manual_category": "",
       "manual_note": ""
@@ -2250,11 +1542,11 @@
       "predicted_sector": "G",
       "top3": [
         "G",
-        "P",
-        "T"
+        "M",
+        "P"
       ],
-      "score_top1": 0.3308002503628535,
-      "margin_top1_top2": 0.0015534918818433385,
+      "score_top1": 0.3083540493445889,
+      "margin_top1_top2": 0.009912983393799646,
       "keywords": [
         "unternehmens",
         "handel",
@@ -2269,40 +1561,7 @@
       ],
       "auto_flags": [
         "low_margin",
-        "recoverable_in_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 108,
-      "legal_name": "IDC-Worms Projektgesellschaft mbH",
-      "purpose": "der Erwerb, die Veräußerung, das Halten und Verwalten von Grundbesitz.",
-      "text_length": 70,
-      "true_sector": "L",
-      "predicted_sector": "G",
-      "top3": [
-        "G",
-        "L",
-        "T"
-      ],
-      "score_top1": 0.6329221650463132,
-      "margin_top1_top2": 0.0010977728652766805,
-      "keywords": [
-        "veräußerung",
-        "grundbesitz",
-        "das",
-        "der",
-        "und",
-        "verwalten",
-        "die",
-        "von",
-        "erwerb",
-        "halten"
-      ],
-      "auto_flags": [
-        "low_margin",
-        "boilerplate_shape",
+        "crowded_top3",
         "recoverable_in_top3"
       ],
       "manual_category": "",
@@ -2314,29 +1573,27 @@
       "purpose": "Gegenstand des Unternehmens ist der Erwerb, das langfristige Halten und die Verwaltung von Beteiligungen jeglicher Art an Unternehmen unter Einschluss etwaiger zukünftiger Veräußerungen insbesondere aus dem Bereich der Softwarebranche sowie an Unternehmen, die derartige Beteiligungen selbst halten.",
       "text_length": 299,
       "true_sector": "K",
-      "predicted_sector": "G",
+      "predicted_sector": "M",
       "top3": [
-        "G",
+        "M",
         "K",
-        "N"
+        "J"
       ],
-      "score_top1": 0.37932719608498877,
-      "margin_top1_top2": 0.0006415510601825436,
+      "score_top1": 0.47659313121202335,
+      "margin_top1_top2": 0.03730092866210649,
       "keywords": [
-        "veräußerungen",
         "unternehmens",
         "softwarebranche",
+        "veräußerungen",
         "verwaltung",
         "langfristige",
         "zukünftiger",
         "einschluss",
         "bereich",
         "insbesondere",
-        "des"
+        "beteiligungen"
       ],
       "auto_flags": [
-        "low_margin",
-        "crowded_top3",
         "boilerplate_shape",
         "recoverable_in_top3"
       ],
@@ -2344,35 +1601,33 @@
       "manual_note": ""
     },
     {
-      "id": 111,
-      "legal_name": "Kleffmann Verwaltungs GmbH",
-      "purpose": "der Erwerb und die Verwaltung von Beteiligungen sowie die Übernahme der persönlichen Haftung und der Geschäftsführung bei Handelsgesellschaften",
-      "text_length": 143,
-      "true_sector": "M",
-      "predicted_sector": "G",
+      "id": 110,
+      "legal_name": "COMKOPIE B Gesellschaft für Bürosysteme mbH",
+      "purpose": "Der Handel mit Bürosystemen, insbesondere mit digitalen Kopierern, die Erbringung der dazugehörigen Serviceleistungen sowie der Betrieb aller damit in unmittelbarem oder mittelbarem Zusammenhang stehenden Geschäften.",
+      "text_length": 216,
+      "true_sector": "G",
+      "predicted_sector": "J",
       "top3": [
+        "J",
         "G",
-        "K",
         "N"
       ],
-      "score_top1": 0.479552308153596,
-      "margin_top1_top2": 1.7571594165821658e-05,
+      "score_top1": 0.5613098492069603,
+      "margin_top1_top2": 0.06316765158944382,
       "keywords": [
-        "handelsgesellschaften",
-        "geschäftsführung",
-        "verwaltung",
-        "übernahme",
-        "persönlichen",
-        "der",
-        "beteiligungen",
-        "von",
-        "die",
-        "und"
+        "bürosystemen",
+        "digitalen",
+        "serviceleistungen",
+        "geschäften",
+        "handel",
+        "betrieb",
+        "kopierern",
+        "erbringung",
+        "insbesondere",
+        "dazugehörigen"
       ],
       "auto_flags": [
-        "low_margin",
-        "boilerplate_shape",
-        "outside_top3"
+        "recoverable_in_top3"
       ],
       "manual_category": "",
       "manual_note": ""
@@ -2389,8 +1644,8 @@
         "G",
         "C"
       ],
-      "score_top1": 0.33544632162071464,
-      "margin_top1_top2": 0.04548491078519856,
+      "score_top1": 0.378622488151698,
+      "margin_top1_top2": 0.06468446190788457,
       "keywords": [
         "export",
         "qualitätsprodukte",
@@ -2419,10 +1674,10 @@
       "top3": [
         "H",
         "N",
-        "S"
+        "E"
       ],
-      "score_top1": 0.5885230758748817,
-      "margin_top1_top2": 0.03395531403541174,
+      "score_top1": 0.6372800003524126,
+      "margin_top1_top2": 0.09166176835455442,
       "keywords": [
         "containerdienst",
         "silotransporte",
@@ -2453,8 +1708,8 @@
         "C",
         "J"
       ],
-      "score_top1": 0.5646823816478674,
-      "margin_top1_top2": 0.013546494661837105,
+      "score_top1": 0.5682051670123027,
+      "margin_top1_top2": 0.004456216514369005,
       "keywords": [
         "geräten",
         "stationären",
@@ -2475,36 +1730,6 @@
       "manual_note": ""
     },
     {
-      "id": 119,
-      "legal_name": "AKATEX Fußbodenhandelsgesellschaft mbH",
-      "purpose": "Im- und Export und der Vertrieb von Teppichböden und Teppichen.",
-      "text_length": 63,
-      "true_sector": "G",
-      "predicted_sector": "H",
-      "top3": [
-        "H",
-        "G",
-        "C"
-      ],
-      "score_top1": 0.5156271396610317,
-      "margin_top1_top2": 0.008432555592989832,
-      "keywords": [
-        "teppichböden",
-        "teppichen",
-        "export",
-        "und",
-        "der",
-        "vertrieb",
-        "von"
-      ],
-      "auto_flags": [
-        "low_margin",
-        "recoverable_in_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
       "id": 120,
       "legal_name": "Kornprobst GmbH",
       "purpose": "Handel, Leasing und Vermietung von Fahrzeugen, Nutzfahrzeugen und Baumaschinen aller Art.",
@@ -2516,8 +1741,8 @@
         "G",
         "C"
       ],
-      "score_top1": 0.6634867746205025,
-      "margin_top1_top2": 0.006275917912779705,
+      "score_top1": 0.727566957410084,
+      "margin_top1_top2": 0.02633304459491259,
       "keywords": [
         "nutzfahrzeugen",
         "fahrzeugen",
@@ -2531,9 +1756,39 @@
         "art"
       ],
       "auto_flags": [
-        "low_margin",
-        "crowded_top3",
         "recoverable_in_top3"
+      ],
+      "manual_category": "",
+      "manual_note": ""
+    },
+    {
+      "id": 121,
+      "legal_name": "FFIRE Parken GmbH",
+      "purpose": "Das Betreiben von Parkhäusern bzw. Parkplätzen, auch mit Tiefgaragenstellplätzen bzw. das Betreiben anderer Stellplatz-/Parkmöglichkeiten für Fahrzeuge aller Art.",
+      "text_length": 162,
+      "true_sector": "H",
+      "predicted_sector": "N",
+      "top3": [
+        "N",
+        "I",
+        "F"
+      ],
+      "score_top1": 0.530915305849884,
+      "margin_top1_top2": 0.06456856734952365,
+      "keywords": [
+        "parkplätzen",
+        "parkmöglichkeiten",
+        "parkhäusern",
+        "fahrzeuge",
+        "stellplatz",
+        "betreiben",
+        "tiefgaragenstellplätzen",
+        "für",
+        "das",
+        "mit"
+      ],
+      "auto_flags": [
+        "outside_top3"
       ],
       "manual_category": "",
       "manual_note": ""
@@ -2544,24 +1799,25 @@
       "purpose": "Verkauf und Vermietung von sicherheitstechnischen Anlagen",
       "text_length": 57,
       "true_sector": "G",
-      "predicted_sector": "H",
+      "predicted_sector": "O",
       "top3": [
-        "H",
+        "O",
         "G",
-        "K"
+        "H"
       ],
-      "score_top1": 0.4486630741521257,
-      "margin_top1_top2": 0.005265649219084401,
+      "score_top1": 0.42877780762298956,
+      "margin_top1_top2": 0.011083591848897123,
       "keywords": [
         "sicherheitstechnischen",
         "anlagen",
-        "verkauf",
         "vermietung",
-        "von",
-        "und"
+        "verkauf",
+        "und",
+        "von"
       ],
       "auto_flags": [
         "low_margin",
+        "crowded_top3",
         "recoverable_in_top3"
       ],
       "manual_category": "",
@@ -2577,10 +1833,10 @@
       "top3": [
         "H",
         "G",
-        "B"
+        "C"
       ],
-      "score_top1": 0.5392303348016533,
-      "margin_top1_top2": 0.0014910894569332145,
+      "score_top1": 0.5921102976356035,
+      "margin_top1_top2": 0.07875353773394889,
       "keywords": [
         "bauhandwerkerbedarf",
         "handelswaren",
@@ -2592,68 +1848,6 @@
         "für"
       ],
       "auto_flags": [
-        "low_margin",
-        "recoverable_in_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 130,
-      "legal_name": "Hofmann GmbH",
-      "purpose": "Die Herstellung und der Verkauf von Fleisch- und Wurstwaren aller Art, sowie der Betrieb eines Partyservice.",
-      "text_length": 108,
-      "true_sector": "C",
-      "predicted_sector": "I",
-      "top3": [
-        "I",
-        "C",
-        "S"
-      ],
-      "score_top1": 0.5638505873226329,
-      "margin_top1_top2": 0.08620444811967642,
-      "keywords": [
-        "partyservice",
-        "wurstwaren",
-        "verkauf",
-        "betrieb",
-        "sowie",
-        "der",
-        "fleisch",
-        "und",
-        "herstellung",
-        "aller"
-      ],
-      "auto_flags": [
-        "recoverable_in_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 131,
-      "legal_name": "Mainzel Clean Dienstleistungen GmbH",
-      "purpose": "Glas- und Gebäudereinigung sowie Winterdienste.",
-      "text_length": 47,
-      "true_sector": "N",
-      "predicted_sector": "I",
-      "top3": [
-        "I",
-        "S",
-        "N"
-      ],
-      "score_top1": 0.4525820568887297,
-      "margin_top1_top2": 0.011163041522922357,
-      "keywords": [
-        "winterdienste",
-        "gebäudereinigung",
-        "glas",
-        "sowie",
-        "und"
-      ],
-      "auto_flags": [
-        "short_text",
-        "low_margin",
         "recoverable_in_top3"
       ],
       "manual_category": "",
@@ -2669,10 +1863,10 @@
       "top3": [
         "I",
         "G",
-        "C"
+        "H"
       ],
-      "score_top1": 0.6161907703896313,
-      "margin_top1_top2": 0.009474054573859969,
+      "score_top1": 0.609634293539385,
+      "margin_top1_top2": 0.032626399460820354,
       "keywords": [
         "restaurants",
         "kaffee",
@@ -2686,109 +1880,6 @@
         "jeglicher"
       ],
       "auto_flags": [
-        "low_margin",
-        "recoverable_in_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 133,
-      "legal_name": "Bella Vita III Verwaltungs GmbH",
-      "purpose": "Beteiligung an anderen Unternehmen, insbesondere Beteiligung als persönlich haftende Gesellschafterin an der Bella Vita III Donauwörth GmbH & Co. KG in Donauwörth, welche den Betrieb eines ökologischen Lebensmittelsgeschäfts zum Gesellschaftszweck hat.",
-      "text_length": 252,
-      "true_sector": "M",
-      "predicted_sector": "I",
-      "top3": [
-        "I",
-        "M",
-        "N"
-      ],
-      "score_top1": 0.3470875167718137,
-      "margin_top1_top2": 0.007513167221642247,
-      "keywords": [
-        "lebensmittelsgeschäfts",
-        "gesellschafterin",
-        "gesellschaftszweck",
-        "beteiligung",
-        "betrieb",
-        "donauwörth",
-        "bella",
-        "ökologischen",
-        "vita",
-        "als"
-      ],
-      "auto_flags": [
-        "low_margin",
-        "crowded_top3",
-        "boilerplate_shape",
-        "recoverable_in_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 134,
-      "legal_name": "Baila Event GmbH",
-      "purpose": "Betrieb einer Discothek und Eventveranstaltungen sowie aller damit zusammenhängenden Geschäfte",
-      "text_length": 94,
-      "true_sector": "R",
-      "predicted_sector": "I",
-      "top3": [
-        "I",
-        "G",
-        "R"
-      ],
-      "score_top1": 0.5515708915840962,
-      "margin_top1_top2": 0.0073147847978508596,
-      "keywords": [
-        "eventveranstaltungen",
-        "geschäfte",
-        "betrieb",
-        "sowie",
-        "zusammenhängenden",
-        "aller",
-        "und",
-        "einer",
-        "damit",
-        "discothek"
-      ],
-      "auto_flags": [
-        "low_margin",
-        "crowded_top3",
-        "recoverable_in_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 135,
-      "legal_name": "LupoTherm Vertrieb UG (haftungsbeschränkt)",
-      "purpose": "Vermarktung von Produkten und Dienstleistungen im Bereich Dämmung und thermischer Isolation.",
-      "text_length": 92,
-      "true_sector": "G",
-      "predicted_sector": "I",
-      "top3": [
-        "I",
-        "G",
-        "D"
-      ],
-      "score_top1": 0.4459349078718351,
-      "margin_top1_top2": 0.00628269013740268,
-      "keywords": [
-        "vermarktung",
-        "produkten",
-        "thermischer",
-        "dienstleistungen",
-        "dämmung",
-        "bereich",
-        "von",
-        "isolation",
-        "und"
-      ],
-      "auto_flags": [
-        "low_margin",
-        "crowded_top3",
         "recoverable_in_top3"
       ],
       "manual_category": "",
@@ -2806,8 +1897,8 @@
         "G",
         "H"
       ],
-      "score_top1": 0.6591547734481944,
-      "margin_top1_top2": 0.10947328588657601,
+      "score_top1": 0.6920858195882517,
+      "margin_top1_top2": 0.11399399307468971,
       "keywords": [
         "multimediaprodukte",
         "informationstechnik",
@@ -2835,11 +1926,11 @@
       "predicted_sector": "J",
       "top3": [
         "J",
-        "G",
-        "M"
+        "M",
+        "G"
       ],
-      "score_top1": 0.5465818429085966,
-      "margin_top1_top2": 0.09059296512868309,
+      "score_top1": 0.5535355638846657,
+      "margin_top1_top2": 0.06948888670493958,
       "keywords": [
         "software",
         "computern",
@@ -2870,8 +1961,8 @@
         "G",
         "C"
       ],
-      "score_top1": 0.5937695546828796,
-      "margin_top1_top2": 0.023169405075921357,
+      "score_top1": 0.6559564823270494,
+      "margin_top1_top2": 0.08992090154423094,
       "keywords": [
         "gesellschaft",
         "handel",
@@ -2902,8 +1993,8 @@
         "M",
         "G"
       ],
-      "score_top1": 0.4692803891740448,
-      "margin_top1_top2": 0.007826542970794603,
+      "score_top1": 0.497259958331883,
+      "margin_top1_top2": 0.024440320707146024,
       "keywords": [
         "digitalen",
         "marketing",
@@ -2917,7 +2008,6 @@
         "das"
       ],
       "auto_flags": [
-        "low_margin",
         "recoverable_in_top3"
       ],
       "manual_category": "",
@@ -2929,29 +2019,27 @@
       "purpose": "Planung und Vertrieb von technischen Anlagen innerhalb und außerhalb von Gebäuden, insbesondere in den Bereichen der Elektrotechnik und der Beleuchtungstechnik.",
       "text_length": 160,
       "true_sector": "M",
-      "predicted_sector": "J",
+      "predicted_sector": "F",
       "top3": [
+        "F",
         "J",
-        "D",
-        "C"
+        "D"
       ],
-      "score_top1": 0.5025959867636399,
-      "margin_top1_top2": 0.005553836948527402,
+      "score_top1": 0.6143488442347558,
+      "margin_top1_top2": 0.07821914121998774,
       "keywords": [
         "technischen",
-        "elektrotechnik",
-        "anlagen",
         "gebäuden",
+        "anlagen",
         "beleuchtungstechnik",
         "planung",
+        "elektrotechnik",
         "außerhalb",
         "innerhalb",
         "den",
-        "insbesondere"
+        "bereichen"
       ],
       "auto_flags": [
-        "low_margin",
-        "crowded_top3",
         "outside_top3"
       ],
       "manual_category": "",
@@ -2967,10 +2055,10 @@
       "top3": [
         "J",
         "D",
-        "N"
+        "F"
       ],
-      "score_top1": 0.4655074652047608,
-      "margin_top1_top2": 0.0036334732989614094,
+      "score_top1": 0.4793003231594096,
+      "margin_top1_top2": 0.0003655291727118759,
       "keywords": [
         "wechselsprechanlagen",
         "drahtgebundenen",
@@ -2982,39 +2070,6 @@
         "planung",
         "komponenten",
         "netzen"
-      ],
-      "auto_flags": [
-        "low_margin",
-        "outside_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 152,
-      "legal_name": "Autecon GmbH",
-      "purpose": "Engineering, Vertrieb und Produktion von Komponenten, Systemen und Anlagen der Automatisierungs- und Montagetechnik sowie Beratung in diesem Bereich",
-      "text_length": 148,
-      "true_sector": "C",
-      "predicted_sector": "J",
-      "top3": [
-        "J",
-        "C",
-        "N"
-      ],
-      "score_top1": 0.5746790364005001,
-      "margin_top1_top2": 0.002582430684731518,
-      "keywords": [
-        "automatisierungs",
-        "engineering",
-        "komponenten",
-        "produktion",
-        "systemen",
-        "anlagen",
-        "montagetechnik",
-        "bereich",
-        "beratung",
-        "und"
       ],
       "auto_flags": [
         "low_margin",
@@ -3035,8 +2090,8 @@
         "M",
         "N"
       ],
-      "score_top1": 0.5750568715048827,
-      "margin_top1_top2": 0.0015785709174480633,
+      "score_top1": 0.5906929529877029,
+      "margin_top1_top2": 0.025814187823748003,
       "keywords": [
         "systemberatung",
         "software",
@@ -3050,9 +2105,39 @@
         "wartung"
       ],
       "auto_flags": [
-        "low_margin",
-        "crowded_top3",
         "outside_top3"
+      ],
+      "manual_category": "",
+      "manual_note": ""
+    },
+    {
+      "id": 155,
+      "legal_name": "SWIS - GmbH",
+      "purpose": "Erbringung von Beratungsleistungen, von Lieferungen und Leistungen in der GUS sowie Zentralasien insbesondere auf folgenden Gebieten: secure ID Solutions / Documents (ePassport and Border Control); Secured Communication Solutions; eGovernment Solutions (Transport environment, eDocumentation, PKI Solutions und Data Security, eLearning etc.); Renewable Energy Systems (windenergy-power, photovoltaic); Water Management Solutions, IPTV und Webhosting Solutions; eHealth Solutions; Medical Equipment.",
+      "text_length": 498,
+      "true_sector": "J",
+      "predicted_sector": "N",
+      "top3": [
+        "N",
+        "J",
+        "O"
+      ],
+      "score_top1": 0.5378429624086687,
+      "margin_top1_top2": 0.028851345219933933,
+      "keywords": [
+        "beratungsleistungen",
+        "security",
+        "edocumentation",
+        "egovernment",
+        "lieferungen",
+        "epassport",
+        "equipment",
+        "communication",
+        "environment",
+        "windenergy"
+      ],
+      "auto_flags": [
+        "recoverable_in_top3"
       ],
       "manual_category": "",
       "manual_note": ""
@@ -3066,11 +2151,11 @@
       "predicted_sector": "K",
       "top3": [
         "K",
-        "N",
-        "S"
+        "M",
+        "T"
       ],
-      "score_top1": 0.4943396808064234,
-      "margin_top1_top2": 0.10863244896584251,
+      "score_top1": 0.5827056632004383,
+      "margin_top1_top2": 0.016948938287255855,
       "keywords": [
         "geschäftsftührung",
         "verwaltung",
@@ -3081,11 +2166,12 @@
         "vermögens",
         "beteiligung",
         "anderen",
-        "insbesondere"
+        "unternehmen"
       ],
       "auto_flags": [
+        "low_margin",
         "boilerplate_shape",
-        "outside_top3"
+        "recoverable_in_top3"
       ],
       "manual_category": "",
       "manual_note": ""
@@ -3099,11 +2185,11 @@
       "predicted_sector": "K",
       "top3": [
         "K",
-        "L",
-        "O"
+        "M",
+        "T"
       ],
-      "score_top1": 0.3962239663013691,
-      "margin_top1_top2": 0.09345276906366656,
+      "score_top1": 0.5288181201474503,
+      "margin_top1_top2": 0.1190030510189583,
       "keywords": [
         "geschäftsführung",
         "verwaltung",
@@ -3118,7 +2204,7 @@
       ],
       "auto_flags": [
         "boilerplate_shape",
-        "outside_top3"
+        "recoverable_in_top3"
       ],
       "manual_category": "",
       "manual_note": ""
@@ -3132,16 +2218,16 @@
       "predicted_sector": "K",
       "top3": [
         "K",
-        "O",
-        "N"
+        "M",
+        "O"
       ],
-      "score_top1": 0.42509142626436724,
-      "margin_top1_top2": 0.07292571614395155,
+      "score_top1": 0.5397732287082999,
+      "margin_top1_top2": 0.08847414119021901,
       "keywords": [
         "finanzierungsgeschäfte",
         "geschäfte",
+        "gesellschaft",
         "verwaltung",
-        "gesellschafterin",
         "kommanditgesellschaften",
         "genehmigungspflichtigen",
         "bank",
@@ -3151,38 +2237,6 @@
       ],
       "auto_flags": [
         "boilerplate_shape",
-        "outside_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 163,
-      "legal_name": "hs. Financial Products GmbH",
-      "purpose": "Die Unternehmensberatung von in- und ausländischen Gesellschaften im Finanzbereich (Schwerpunkt Asset Management), der Vertrieb von Anlageprodukten (z.B. Schuldverschreibungen, Fondszertifikaten, Speuialfondsmandaten, Indexzertifikaten), die Betreuung der deutschen Kundschaft ausländischer Investmentgesellschaften.",
-      "text_length": 316,
-      "true_sector": "M",
-      "predicted_sector": "K",
-      "top3": [
-        "K",
-        "M",
-        "U"
-      ],
-      "score_top1": 0.5374675835165786,
-      "margin_top1_top2": 0.029083712796022954,
-      "keywords": [
-        "investmentgesellschaften",
-        "finanzbereich",
-        "unternehmensberatung",
-        "speuialfondsmandaten",
-        "fondszertifikaten",
-        "gesellschaften",
-        "asset",
-        "indexzertifikaten",
-        "management",
-        "schuldverschreibungen"
-      ],
-      "auto_flags": [
         "recoverable_in_top3"
       ],
       "manual_category": "",
@@ -3194,31 +2248,29 @@
       "purpose": "Groß- und Einzelhandel mit Eisen-, Elektro und Haushaltswaren. Beteiligung als persönlich haftender Gesellschafter an bestehenden oder noch zu gründenden Unternehmungen und insbesondere die Übernahme der Verwaltung und Geschäftsführung in solchen Unternehmen. Ferner Erwerb, Geltendmachung und Verwertung von Forderungen aller Art.",
       "text_length": 331,
       "true_sector": "G",
-      "predicted_sector": "K",
+      "predicted_sector": "M",
       "top3": [
+        "M",
         "K",
-        "G",
-        "N"
+        "C"
       ],
-      "score_top1": 0.5413697124220127,
-      "margin_top1_top2": 0.015387826142864158,
+      "score_top1": 0.6237898882678323,
+      "margin_top1_top2": 0.03332722911059516,
       "keywords": [
         "geschäftsführung",
         "gesellschafter",
-        "haushaltswaren",
         "verwaltung",
-        "einzelhandel",
         "unternehmungen",
-        "geltendmachung",
-        "verwertung",
+        "einzelhandel",
+        "beteiligung",
+        "haushaltswaren",
+        "übernahme",
         "gründenden",
         "forderungen"
       ],
       "auto_flags": [
-        "low_margin",
-        "crowded_top3",
         "boilerplate_shape",
-        "recoverable_in_top3"
+        "outside_top3"
       ],
       "manual_category": "",
       "manual_note": ""
@@ -3232,11 +2284,11 @@
       "predicted_sector": "K",
       "top3": [
         "K",
-        "N",
+        "M",
         "O"
       ],
-      "score_top1": 0.44679695059895563,
-      "margin_top1_top2": 0.004620180924434114,
+      "score_top1": 0.5596771967738228,
+      "margin_top1_top2": 0.030175602328193163,
       "keywords": [
         "verwaltung",
         "dachgesellschaft",
@@ -3250,77 +2302,6 @@
         "und"
       ],
       "auto_flags": [
-        "low_margin",
-        "crowded_top3",
-        "boilerplate_shape",
-        "outside_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 167,
-      "legal_name": "Ludwig Bold GmbH",
-      "purpose": "Der Erwerb und die Verwaltung von Beteiligungen sowie die Übernahme der persönlichen Haftung und der Geschäftsführung bei Handelsgesellschaften.",
-      "text_length": 144,
-      "true_sector": "M",
-      "predicted_sector": "K",
-      "top3": [
-        "K",
-        "G",
-        "N"
-      ],
-      "score_top1": 0.46369145731978056,
-      "margin_top1_top2": 0.0037941750812213737,
-      "keywords": [
-        "handelsgesellschaften",
-        "geschäftsführung",
-        "verwaltung",
-        "übernahme",
-        "persönlichen",
-        "beteiligungen",
-        "der",
-        "von",
-        "und",
-        "die"
-      ],
-      "auto_flags": [
-        "low_margin",
-        "boilerplate_shape",
-        "outside_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 168,
-      "legal_name": "Tremmel Verwaltungs GmbH",
-      "purpose": "ist die Verwaltung von Vermögen, die Übernahme der Verwaltung und Geschäftsführung der Firma Tremmel GmbH & Co. KG.",
-      "text_length": 115,
-      "true_sector": "M",
-      "predicted_sector": "K",
-      "top3": [
-        "K",
-        "O",
-        "M"
-      ],
-      "score_top1": 0.32069232382990986,
-      "margin_top1_top2": 0.00273412013802099,
-      "keywords": [
-        "geschäftsführung",
-        "firma",
-        "verwaltung",
-        "übernahme",
-        "gmbh",
-        "ist",
-        "der",
-        "und",
-        "tremmel",
-        "von"
-      ],
-      "auto_flags": [
-        "low_margin",
-        "crowded_top3",
         "boilerplate_shape",
         "recoverable_in_top3"
       ],
@@ -3328,35 +2309,36 @@
       "manual_note": ""
     },
     {
-      "id": 169,
-      "legal_name": "Donaubauer Verwaltungs GmbH",
-      "purpose": "Verwaltung eigenen und fremden Vermögens sowie Übernahme der persönlichen Haftung der Geschäftsführung bei Handelsgesellschaften, insbesondere bei der Kommanditgesellschaft Firma Donaubauer GmbH & Co. KG.",
-      "text_length": 204,
-      "true_sector": "M",
-      "predicted_sector": "K",
+      "id": 172,
+      "legal_name": "Ingenieur-Beteiligungs GmbH",
+      "purpose": "Die Verwaltung des der Gesellschaft zustehenden Vermögens, insbesondere der Beteiligung an der stahl + verbundbau gmbh mit Sitz in Dreieich.",
+      "text_length": 140,
+      "true_sector": "K",
+      "predicted_sector": "L",
       "top3": [
+        "L",
         "K",
-        "G",
-        "C"
+        "O"
       ],
-      "score_top1": 0.3841233927998373,
-      "margin_top1_top2": 0.0023699508056451157,
+      "score_top1": 0.5539624473061815,
+      "margin_top1_top2": 0.016563880952184196,
       "keywords": [
-        "handelsgesellschaften",
-        "geschäftsführung",
-        "firma",
-        "kommanditgesellschaft",
         "verwaltung",
-        "übernahme",
+        "gesellschaft",
+        "zustehenden",
         "vermögens",
-        "eigenen",
-        "persönlichen",
-        "donaubauer"
+        "verbundbau",
+        "beteiligung",
+        "der",
+        "des",
+        "die",
+        "gmbh"
       ],
       "auto_flags": [
         "low_margin",
+        "crowded_top3",
         "boilerplate_shape",
-        "outside_top3"
+        "recoverable_in_top3"
       ],
       "manual_category": "",
       "manual_note": ""
@@ -3370,18 +2352,18 @@
       "predicted_sector": "K",
       "top3": [
         "K",
-        "G",
-        "U"
+        "M",
+        "G"
       ],
-      "score_top1": 0.33155260980794865,
-      "margin_top1_top2": 0.0005903960886917137,
+      "score_top1": 0.35782352768828785,
+      "margin_top1_top2": 0.010468119233906337,
       "keywords": [
         "geschäftsführende",
         "unternehmensgegenstand",
         "handelsgesellschaften",
         "gesellschafterin",
-        "chinesischen",
         "verwaltung",
+        "chinesischen",
         "qiu",
         "übernahme",
         "betrieb",
@@ -3390,7 +2372,40 @@
       "auto_flags": [
         "low_margin",
         "boilerplate_shape",
-        "outside_top3"
+        "recoverable_in_top3"
+      ],
+      "manual_category": "",
+      "manual_note": ""
+    },
+    {
+      "id": 174,
+      "legal_name": "Bochum-Gelsenkirchener Bahngesellschaft mit beschränkter Haftung",
+      "purpose": "Halten von Aktien an der Bochum- Gelsenkirchener Straßenbahnen Aktiengesellschaft (BOGESTRA) sowie die Leitung der vorgenannten Gesellschaft über einen Beherrschungsvertrag im Sinne des § 291 Abs. 1 Satz 1 Aktiengesetz. Die Gesellschaft ist verpflichtet, nach den Wirtschaftsgrundsätzen des § 109 GO NRW zu verfahren. Dabei ist die Gesellschaft so zu führen, dass der öffentliche Zweck nachhaltig erfüllt wird.",
+      "text_length": 410,
+      "true_sector": "K",
+      "predicted_sector": "O",
+      "top3": [
+        "O",
+        "K",
+        "L"
+      ],
+      "score_top1": 0.4258276718188641,
+      "margin_top1_top2": 0.014126578568651571,
+      "keywords": [
+        "aktiengesetz",
+        "beherrschungsvertrag",
+        "aktiengesellschaft",
+        "aktien",
+        "gesellschaft",
+        "öffentliche",
+        "wirtschaftsgrundsätzen",
+        "zweck",
+        "verfahren",
+        "vorgenannten"
+      ],
+      "auto_flags": [
+        "low_margin",
+        "recoverable_in_top3"
       ],
       "manual_category": "",
       "manual_note": ""
@@ -3405,10 +2420,10 @@
       "top3": [
         "L",
         "F",
-        "T"
+        "M"
       ],
-      "score_top1": 0.6419807474380652,
-      "margin_top1_top2": 0.14856577735852428,
+      "score_top1": 0.582988512911025,
+      "margin_top1_top2": 0.014442993286744477,
       "keywords": [
         "generalunternehmer",
         "häuser",
@@ -3422,101 +2437,37 @@
         "als"
       ],
       "auto_flags": [
+        "low_margin",
         "recoverable_in_top3"
       ],
       "manual_category": "",
       "manual_note": ""
     },
     {
-      "id": 184,
-      "legal_name": "The Zipper Hotel & Apartments GmbH",
-      "purpose": "Der gewerbliche Betrieb der Wohneinheiten nebst Nebenflächen im sogenannten RKM 740 Tower als Hotel und/oder Barding House und alle hiermit verbundenen Tätigkeiten.",
-      "text_length": 164,
-      "true_sector": "I",
-      "predicted_sector": "L",
+      "id": 183,
+      "legal_name": "Inspiration GI GmbH",
+      "purpose": "Die Verwaltung des eigenen Vermögens sowie der Ankauf und die Veräußerung von Grundbesitz.",
+      "text_length": 90,
+      "true_sector": "L",
+      "predicted_sector": "K",
       "top3": [
+        "K",
         "L",
-        "I",
-        "F"
+        "M"
       ],
-      "score_top1": 0.467369579444883,
-      "margin_top1_top2": 0.06877014281941468,
+      "score_top1": 0.5670770521433605,
+      "margin_top1_top2": 0.020343571557494555,
       "keywords": [
-        "house",
-        "hotel",
-        "wohneinheiten",
-        "tower",
-        "rkm",
-        "nebenflächen",
-        "betrieb",
-        "barding",
-        "der",
-        "als"
-      ],
-      "auto_flags": [
-        "recoverable_in_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 185,
-      "legal_name": "UFT Verwaltung GmbH",
-      "purpose": "Erwerb und Verwaltung von Beteiligungen, sowie die Übernahme der persönlichen Haftung und der Geschäftsführung bei der Firma UFT Stanz- und Schmiedeteile GmbH & Co KG; Erwerb, Verwaltung, Vermietung und Verpachtung von Grundstücken, von Gebäuden, von Maschinen und Anlagen, von Betrieben und Beteiligungen.",
-      "text_length": 306,
-      "true_sector": "M",
-      "predicted_sector": "L",
-      "top3": [
-        "L",
-        "C",
-        "K"
-      ],
-      "score_top1": 0.48322836163468047,
-      "margin_top1_top2": 0.05473631945805085,
-      "keywords": [
-        "geschäftsführung",
-        "firma",
-        "betrieben",
-        "verwaltung",
-        "anlagen",
-        "übernahme",
-        "gebäuden",
-        "gmbh",
-        "stanz",
-        "grundstücken"
-      ],
-      "auto_flags": [
-        "boilerplate_shape",
-        "outside_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 187,
-      "legal_name": "CeKa Bauträger + Immobilien GmbH",
-      "purpose": "die wirtschaftliche Vorbereitung und Durchführung von Bauvorhaben als Bauherr im eigenen Namen für eigene oder fremde Rechnung und als Baubetreuer im fremden Namen und für fremde Rechnung sowie Ankauf und Verkauf von Immobilien",
-      "text_length": 227,
-      "true_sector": "F",
-      "predicted_sector": "L",
-      "top3": [
-        "L",
-        "F",
-        "T"
-      ],
-      "score_top1": 0.5286512024147013,
-      "margin_top1_top2": 0.04899072482440614,
-      "keywords": [
-        "rechnung",
-        "wirtschaftliche",
-        "namen",
-        "durchführung",
+        "grundbesitz",
+        "veräußerung",
         "ankauf",
+        "verwaltung",
         "eigenen",
-        "fremden",
-        "als",
+        "vermögens",
+        "des",
+        "der",
         "und",
-        "verkauf"
+        "von"
       ],
       "auto_flags": [
         "recoverable_in_top3"
@@ -3525,69 +2476,33 @@
       "manual_note": ""
     },
     {
-      "id": 188,
-      "legal_name": "von Poschinger GmbH",
-      "purpose": "Erwerb und Verwaltung von Beteiligungen sowie Übernahme der persönlichen Haftung und der Geschäftsführung bei Personengesellschaften, insbesondere an der Firma \"von Poschinger GmbH & Co. Verwaltungs KG\", sowie Vermietung und Verpachtung von eigenem Grundbesitz.",
-      "text_length": 261,
-      "true_sector": "M",
-      "predicted_sector": "L",
+      "id": 189,
+      "legal_name": "TIM Immobilien Management GmbH",
+      "purpose": "ist die Verwaltung von fremdem und eigenem Immobilienvermögen. Daneben können auch artverwandte Geschäfte, sowie alle sonstigen Geschäfte betrieben werden ,die geeignet sind, dem Zweck des Unternehmens zu dienen oder diesen zu fördern. Die Gesellschaft kann gleichartige oder ähnliche Unternehmen gründen oder erwerben, sich an solchen beteiligen, deren Verwaltung oder Vertretung übernehmen und Zweigniederlassungen errichten.",
+      "text_length": 427,
+      "true_sector": "L",
+      "predicted_sector": "M",
       "top3": [
-        "L",
-        "N",
-        "K"
+        "M",
+        "K",
+        "N"
       ],
-      "score_top1": 0.36266351279894093,
-      "margin_top1_top2": 0.016139187482741568,
+      "score_top1": 0.5826379134033562,
+      "margin_top1_top2": 0.010522051670914467,
       "keywords": [
-        "grundbesitz",
-        "geschäftsführung",
-        "personengesellschaften",
-        "firma",
+        "unternehmens",
+        "geschäfte",
+        "gesellschaft",
         "verwaltung",
-        "übernahme",
-        "eigenem",
-        "persönlichen",
-        "poschinger",
-        "gmbh"
+        "immobilienvermögen",
+        "fördern",
+        "gründen",
+        "erwerben",
+        "zweck",
+        "dienen"
       ],
       "auto_flags": [
         "low_margin",
-        "crowded_top3",
-        "boilerplate_shape",
-        "outside_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 190,
-      "legal_name": "Zimmermann Beteiligungs- und Verwaltungs-GmbH",
-      "purpose": "Die Beteiligung an anderen Gesellschaften, insbesondere die Beteiligung als persönlich haftende Gesellschafterin an der Zimmermann Grundbesitz- und Vermögensverwaltungs-GmbH & Co. KG mit dem Sit in 57072 Siegen, die Vornahme aller damit im Zusammenhang stehenden Geschäfte sowie die Förderung des Unternehmenszwecks der vorgenannten Kommanditgesellschaft innerhalb deren Unternehmensgegenstandes, nämlich des Erwerbs und der Verwaltung, insbesondere der Vermietung oder Verpachtung von Immobilien und sonstigen Gegenständen des Anlagevermögens.",
-      "text_length": 544,
-      "true_sector": "M",
-      "predicted_sector": "L",
-      "top3": [
-        "L",
-        "N",
-        "K"
-      ],
-      "score_top1": 0.4139770137957313,
-      "margin_top1_top2": 0.012241348270923602,
-      "keywords": [
-        "unternehmenszwecks",
-        "vermögensverwaltungs",
-        "grundbesitz",
-        "anlagevermögens",
-        "kommanditgesellschaft",
-        "verwaltung",
-        "beteiligung",
-        "förderung",
-        "gmbh",
-        "anderen"
-      ],
-      "auto_flags": [
-        "low_margin",
-        "boilerplate_shape",
         "outside_top3"
       ],
       "manual_category": "",
@@ -3599,92 +2514,59 @@
       "purpose": "Erbringen von Beratungsdienstleistungen über alle wirtschaftlichen und technischen Aspekte der Immobilienanlage, Immobilienentwicklung und Immobilienfinanzierung sowie Entwicklung, Betreuung und Verwaltung von Immobilien sowie deren Vermarktung; alle mit dem Betrieb im Zusammenhang stehenden sonstigen Geschäfte.",
       "text_length": 313,
       "true_sector": "M",
-      "predicted_sector": "L",
+      "predicted_sector": "N",
       "top3": [
-        "L",
         "N",
-        "S"
+        "M",
+        "L"
       ],
-      "score_top1": 0.6385538855827263,
-      "margin_top1_top2": 0.012212483342201153,
+      "score_top1": 0.643782607536223,
+      "margin_top1_top2": 0.026241886049227614,
       "keywords": [
+        "beratungsdienstleistungen",
         "immobilienanlage",
         "immobilienfinanzierung",
         "immobilienentwicklung",
-        "beratungsdienstleistungen",
         "verwaltung",
         "betreuung",
         "geschäfte",
         "aspekte",
         "technischen",
-        "entwicklung"
+        "betrieb"
       ],
       "auto_flags": [
-        "low_margin",
-        "outside_top3"
+        "recoverable_in_top3"
       ],
       "manual_category": "",
       "manual_note": ""
     },
     {
-      "id": 192,
-      "legal_name": "H. M. Grundbesitz Verwaltungsgesellschaft mbH",
-      "purpose": "Der Eintritt als persönlich haftende Gesellschafterin in Kommanditgesellschaften. Gegenstand des Unternehmens ist weiterhin die Verwaltung sowie der Erwerb von Immobilien. Die Gesellschaft ist berechtigt, Unternehmen im Zusammenhang mit der Verwaltung sowie dem Erwerb von Immobilien zu beraten. Die Gesellschaft ist befugt, Service-Leistungen für andere Unternehmen zu erbringen.",
-      "text_length": 380,
-      "true_sector": "M",
-      "predicted_sector": "L",
+      "id": 193,
+      "legal_name": "Kluge Immobilien-Betriebsgesellschaft mbH",
+      "purpose": "Die Vermittlung von Immobilien, die An- und Vermietung von Wohnungen sowie die Erbringung von Dienstleistungen aller Art im Fremdenverkehr.",
+      "text_length": 139,
+      "true_sector": "L",
+      "predicted_sector": "I",
       "top3": [
-        "L",
-        "N",
-        "S"
-      ],
-      "score_top1": 0.5059768683039625,
-      "margin_top1_top2": 0.011847102347161187,
-      "keywords": [
-        "unternehmens",
-        "verwaltung",
-        "gesellschaft",
-        "gesellschafterin",
-        "kommanditgesellschaften",
-        "service",
-        "leistungen",
-        "eintritt",
-        "beraten",
-        "berechtigt"
-      ],
-      "auto_flags": [
-        "low_margin",
-        "outside_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 194,
-      "legal_name": "fab-concept UG (haftungsbeschränkt)",
-      "purpose": "die Produktion und Vertrieb von Möbeln",
-      "text_length": 38,
-      "true_sector": "C",
-      "predicted_sector": "L",
-      "top3": [
-        "L",
         "I",
-        "C"
+        "L",
+        "N"
       ],
-      "score_top1": 0.4675833378745586,
-      "margin_top1_top2": 0.008553689678049592,
+      "score_top1": 0.65939687864875,
+      "margin_top1_top2": 0.0745168375082299,
       "keywords": [
-        "möbeln",
-        "produktion",
-        "von",
+        "wohnungen",
+        "fremdenverkehr",
+        "erbringung",
+        "dienstleistungen",
+        "vermittlung",
+        "art",
+        "immobilien",
         "und",
-        "vertrieb",
-        "die"
+        "die",
+        "sowie"
       ],
       "auto_flags": [
-        "short_text",
-        "low_margin",
-        "crowded_top3",
         "recoverable_in_top3"
       ],
       "manual_category": "",
@@ -3696,25 +2578,25 @@
       "purpose": "ist der Handel mit Häusern und Grundstücken sowie die Herstellung, Sanierung und Vertrieb von Häusern und Wohnungen sowie Industriebau. Die Gesellschaft ist zu allen Geschäften und Maßnahmen berechtigt, die zur Erreichung des Geschäftszwecks notwendig oder nützlich erscheinen. Die Gesellschaft ist berechtigt, gleiche oder ähnliche Unternehmen zu erwerben, sich an solchen zu beteiligen oder deren Vertretung zu übernehmen oder/und weitere Zweigniederlassungen zu gründen.",
       "text_length": 473,
       "true_sector": "F",
-      "predicted_sector": "L",
+      "predicted_sector": "C",
       "top3": [
+        "C",
         "L",
-        "T",
         "G"
       ],
-      "score_top1": 0.5354132594019082,
-      "margin_top1_top2": 0.007262814739338874,
+      "score_top1": 0.5443864374960665,
+      "margin_top1_top2": 0.013463702705114766,
       "keywords": [
-        "geschäftszwecks",
         "industriebau",
+        "geschäftszwecks",
         "gesellschaft",
-        "häusern",
         "erreichung",
-        "handel",
         "erwerben",
-        "gründen",
         "notwendig",
-        "maßnahmen"
+        "maßnahmen",
+        "herstellung",
+        "grundstücken",
+        "nützlich"
       ],
       "auto_flags": [
         "low_margin",
@@ -3730,14 +2612,14 @@
       "purpose": "Gebäudereinigungen aller Art.",
       "text_length": 29,
       "true_sector": "N",
-      "predicted_sector": "L",
+      "predicted_sector": "F",
       "top3": [
-        "L",
         "F",
+        "L",
         "E"
       ],
-      "score_top1": 0.5609031774431261,
-      "margin_top1_top2": 0.00426927075638317,
+      "score_top1": 0.6274684944240819,
+      "margin_top1_top2": 0.0773225416690766,
       "keywords": [
         "gebäudereinigungen",
         "art",
@@ -3745,8 +2627,6 @@
       ],
       "auto_flags": [
         "short_text",
-        "low_margin",
-        "crowded_top3",
         "outside_top3"
       ],
       "manual_category": "",
@@ -3758,14 +2638,14 @@
       "purpose": "Der Betrieb einer Bauunternehmung sowie sämtliche damit zusammenhängenden und den Gesellschaftszweck fördernden Geschäfte.",
       "text_length": 122,
       "true_sector": "F",
-      "predicted_sector": "L",
+      "predicted_sector": "N",
       "top3": [
-        "L",
+        "N",
         "F",
-        "N"
+        "M"
       ],
-      "score_top1": 0.5314786278420364,
-      "margin_top1_top2": 0.003923885575221608,
+      "score_top1": 0.5806436552767841,
+      "margin_top1_top2": 0.021802443944468175,
       "keywords": [
         "gesellschaftszweck",
         "geschäfte",
@@ -3779,8 +2659,6 @@
         "sowie"
       ],
       "auto_flags": [
-        "low_margin",
-        "crowded_top3",
         "recoverable_in_top3"
       ],
       "manual_category": "",
@@ -3792,14 +2670,14 @@
       "purpose": "Der Betrieb einer Bau- und Möbelschreinerei.",
       "text_length": 44,
       "true_sector": "C",
-      "predicted_sector": "L",
+      "predicted_sector": "F",
       "top3": [
-        "L",
+        "F",
         "C",
-        "F"
+        "L"
       ],
-      "score_top1": 0.52373765486791,
-      "margin_top1_top2": 0.001977634518470106,
+      "score_top1": 0.5506355155362315,
+      "margin_top1_top2": 0.002540836686819037,
       "keywords": [
         "möbelschreinerei",
         "betrieb",
@@ -3811,7 +2689,6 @@
       "auto_flags": [
         "short_text",
         "low_margin",
-        "crowded_top3",
         "recoverable_in_top3"
       ],
       "manual_category": "",
@@ -3826,11 +2703,11 @@
       "predicted_sector": "L",
       "top3": [
         "L",
-        "F",
-        "M"
+        "M",
+        "C"
       ],
-      "score_top1": 0.4321717232385101,
-      "margin_top1_top2": 0.0010903948238118466,
+      "score_top1": 0.5108192158268194,
+      "margin_top1_top2": 0.10467339033892514,
       "keywords": [
         "hagemeier",
         "der",
@@ -3844,43 +2721,7 @@
         "und"
       ],
       "auto_flags": [
-        "low_margin",
-        "crowded_top3",
         "recoverable_in_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 200,
-      "legal_name": "VHG - Massivhaus GmbH",
-      "purpose": "Vertrieb und Erstellung von Massivhäusern und Bauprojekten. Die Gesellschaft kann sich an gleichartigen oder ähnlichen Unternehmen beteiligen, deren Vertretung übernehmen und Zweigniederlassungen errichten.",
-      "text_length": 206,
-      "true_sector": "F",
-      "predicted_sector": "L",
-      "top3": [
-        "L",
-        "C",
-        "N"
-      ],
-      "score_top1": 0.49503311003613204,
-      "margin_top1_top2": 0.0006562693970961764,
-      "keywords": [
-        "gesellschaft",
-        "massivhäusern",
-        "bauprojekten",
-        "erstellung",
-        "errichten",
-        "übernehmen",
-        "beteiligen",
-        "gleichartigen",
-        "ähnlichen",
-        "unternehmen"
-      ],
-      "auto_flags": [
-        "low_margin",
-        "crowded_top3",
-        "outside_top3"
       ],
       "manual_category": "",
       "manual_note": ""
@@ -3897,8 +2738,8 @@
         "P",
         "N"
       ],
-      "score_top1": 0.5910364839908393,
-      "margin_top1_top2": 0.14491010945640576,
+      "score_top1": 0.5611959335295819,
+      "margin_top1_top2": 0.08642307814756206,
       "keywords": [
         "unternehmensberatung",
         "seminaren",
@@ -3907,8 +2748,8 @@
         "veranstaltung",
         "networking",
         "sowie",
-        "fortbildungen",
         "unternehmen",
+        "fortbildungen",
         "und"
       ],
       "auto_flags": [
@@ -3926,11 +2767,11 @@
       "predicted_sector": "M",
       "top3": [
         "M",
-        "N",
+        "J",
         "R"
       ],
-      "score_top1": 0.53448175691603,
-      "margin_top1_top2": 0.11475810040878393,
+      "score_top1": 0.4975071076294838,
+      "margin_top1_top2": 0.07047498141327802,
       "keywords": [
         "audiovisuellen",
         "unterstützung",
@@ -3944,36 +2785,7 @@
         "und"
       ],
       "auto_flags": [
-        "outside_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 207,
-      "legal_name": "IT Consulting Dadkhoo UG (haftungsbeschränkt)",
-      "purpose": "IT Beratung und Schulung und IT & Kommunikations-Service.",
-      "text_length": 57,
-      "true_sector": "J",
-      "predicted_sector": "M",
-      "top3": [
-        "M",
-        "P",
-        "N"
-      ],
-      "score_top1": 0.570124820703897,
-      "margin_top1_top2": 0.013984443422414228,
-      "keywords": [
-        "beratung",
-        "schulung",
-        "service",
-        "kommunikations",
-        "und"
-      ],
-      "auto_flags": [
-        "low_margin",
-        "crowded_top3",
-        "outside_top3"
+        "recoverable_in_top3"
       ],
       "manual_category": "",
       "manual_note": ""
@@ -3984,28 +2796,27 @@
       "purpose": "Unterhaltung eines Call-Centers sowie Beratung von Firmen und Institutionen in den Bereichen: Telematik, Marketing, Constrolling, Durchführung absatzwirksamer Kampagnen, sowie bei der Einführung und Durchführung von IT Technologien.",
       "text_length": 232,
       "true_sector": "N",
-      "predicted_sector": "M",
+      "predicted_sector": "J",
       "top3": [
-        "M",
         "J",
+        "M",
         "N"
       ],
-      "score_top1": 0.5727588967035248,
-      "margin_top1_top2": 0.012129535157223703,
+      "score_top1": 0.5939501221767511,
+      "margin_top1_top2": 0.044798124635011094,
       "keywords": [
         "telematik",
         "technologien",
-        "beratung",
         "marketing",
+        "beratung",
         "firmen",
         "kampagnen",
-        "institutionen",
         "centers",
+        "institutionen",
         "einführung",
-        "unterhaltung"
+        "absatzwirksamer"
       ],
       "auto_flags": [
-        "low_margin",
         "recoverable_in_top3"
       ],
       "manual_category": "",
@@ -4020,11 +2831,11 @@
       "predicted_sector": "M",
       "top3": [
         "M",
-        "N",
-        "J"
+        "J",
+        "N"
       ],
-      "score_top1": 0.4745330550562506,
-      "margin_top1_top2": 0.002135604688469961,
+      "score_top1": 0.49657744994225417,
+      "margin_top1_top2": 0.03603645260583166,
       "keywords": [
         "unternehmensmanagement",
         "management",
@@ -4038,7 +2849,40 @@
         "bereich"
       ],
       "auto_flags": [
+        "recoverable_in_top3"
+      ],
+      "manual_category": "",
+      "manual_note": ""
+    },
+    {
+      "id": 213,
+      "legal_name": "U.M. Ingenieurgesellschaft für Hochbau mbH",
+      "purpose": "Betrieb eines Ingenieurbüros, insbesondere die Planung, Arbeitsvorbereitung, Projektüberwachung und Kostenüberprüfung im Hochbau.",
+      "text_length": 129,
+      "true_sector": "M",
+      "predicted_sector": "F",
+      "top3": [
+        "F",
+        "N",
+        "M"
+      ],
+      "score_top1": 0.5057993647374075,
+      "margin_top1_top2": 0.0021866848920726323,
+      "keywords": [
+        "ingenieurbüros",
+        "projektüberwachung",
+        "arbeitsvorbereitung",
+        "planung",
+        "betrieb",
+        "kostenüberprüfung",
+        "hochbau",
+        "und",
+        "insbesondere",
+        "die"
+      ],
+      "auto_flags": [
         "low_margin",
+        "crowded_top3",
         "recoverable_in_top3"
       ],
       "manual_category": "",
@@ -4054,10 +2898,10 @@
       "top3": [
         "M",
         "N",
-        "S"
+        "C"
       ],
-      "score_top1": 0.5067590597799134,
-      "margin_top1_top2": 0.0011418656834940588,
+      "score_top1": 0.5707330954054702,
+      "margin_top1_top2": 0.10159208331930203,
       "keywords": [
         "geschäftsführung",
         "gesellschaft",
@@ -4066,13 +2910,11 @@
         "technischen",
         "kaufmännischen",
         "maschinenbaunahen",
-        "weiterbildung",
         "übernehmen",
+        "weiterbildung",
         "erbringung"
       ],
       "auto_flags": [
-        "low_margin",
-        "crowded_top3",
         "boilerplate_shape",
         "outside_top3"
       ],
@@ -4089,91 +2931,24 @@
       "top3": [
         "M",
         "K",
-        "G"
+        "J"
       ],
-      "score_top1": 0.5163827901807606,
-      "margin_top1_top2": 0.0005381182127589534,
+      "score_top1": 0.5961581451224336,
+      "margin_top1_top2": 0.05823383121428849,
       "keywords": [
         "anlageberatung",
         "finanzinstrumenten",
         "übernahmeverpflichtung",
+        "strategische",
         "veräußerung",
         "privatkunden",
         "mehrfachagent",
         "kapitalgesellschaft",
         "verträge",
-        "eigenen",
-        "vermögensanalysen"
+        "versicherungsvermittlung"
       ],
       "auto_flags": [
-        "low_margin",
         "boilerplate_shape",
-        "recoverable_in_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 218,
-      "legal_name": "Stünings Medien GmbH",
-      "purpose": "die Fortführung der Geschäfte der Firma \"Verlag Willi Stünings\", nämlich die Herausgabe von Zeitschriften, Büchern sowie Videoprodukten und die Herstellung elektronischer Medien. Die Gesellschaft ist zu allen Geschäften und Maßnahmen berechtigt, die dem Zweck des Unternehmens zu dienen geeignet sind. Sie kann insbesondere im In- und Ausland Zweigniederlassungen errichten oder sich an anderen Unternehmen beteiligen oder andere Unternehmen ganz übernehmen.",
-      "text_length": 458,
-      "true_sector": "J",
-      "predicted_sector": "M",
-      "top3": [
-        "M",
-        "J",
-        "N"
-      ],
-      "score_top1": 0.43322754056560137,
-      "margin_top1_top2": 0.00030221403414426584,
-      "keywords": [
-        "gesellschaft",
-        "unternehmens",
-        "geschäften",
-        "dienen",
-        "medien",
-        "insbesondere",
-        "herausgabe",
-        "maßnahmen",
-        "willi",
-        "herstellung"
-      ],
-      "auto_flags": [
-        "low_margin",
-        "crowded_top3",
-        "recoverable_in_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 219,
-      "legal_name": "Regniet Human Resources Services GmbH",
-      "purpose": "a) die Unterstützung von Unternehmen in den Bereichen Personal-Beratung und Personalentwicklung sowie für b) die Übernahme des Geschäftsbereichs Personal-Administration im Rahmen von Outsourcing-Aktivitäten in Unternehmen.",
-      "text_length": 222,
-      "true_sector": "M",
-      "predicted_sector": "N",
-      "top3": [
-        "N",
-        "M",
-        "S"
-      ],
-      "score_top1": 0.6830287345076629,
-      "margin_top1_top2": 0.15268279700695742,
-      "keywords": [
-        "geschäftsbereichs",
-        "administration",
-        "outsourcing",
-        "unterstützung",
-        "übernahme",
-        "personalentwicklung",
-        "den",
-        "bereichen",
-        "für",
-        "aktivitäten"
-      ],
-      "auto_flags": [
         "recoverable_in_top3"
       ],
       "manual_category": "",
@@ -4185,28 +2960,29 @@
       "purpose": "Die Erbringung von Beratungsdienstleistungen, schwerpunktmäßig für Non-Profit- Organisationen zur Förderung beziehungsweise Einhaltung ihrer Ziele und Verbindlichkeiten, und die Entwicklung, der Vertrieb und die Administration von vertriebs- und prozessorientierter Software.",
       "text_length": 275,
       "true_sector": "J",
-      "predicted_sector": "N",
+      "predicted_sector": "M",
       "top3": [
-        "N",
         "M",
-        "S"
+        "N",
+        "J"
       ],
-      "score_top1": 0.646918256841711,
-      "margin_top1_top2": 0.09615706007656288,
+      "score_top1": 0.5820362509715488,
+      "margin_top1_top2": 0.015123231063682963,
       "keywords": [
         "beratungsdienstleistungen",
         "organisationen",
         "prozessorientierter",
+        "software",
         "administration",
         "förderung",
-        "software",
         "entwicklung",
         "erbringung",
         "verbindlichkeiten",
         "einhaltung"
       ],
       "auto_flags": [
-        "outside_top3"
+        "low_margin",
+        "recoverable_in_top3"
       ],
       "manual_category": "",
       "manual_note": ""
@@ -4220,11 +2996,11 @@
       "predicted_sector": "N",
       "top3": [
         "N",
-        "S",
-        "M"
+        "M",
+        "J"
       ],
-      "score_top1": 0.6897846729317348,
-      "margin_top1_top2": 0.0925440818761043,
+      "score_top1": 0.6244223580536965,
+      "margin_top1_top2": 0.04662959244341336,
       "keywords": [
         "dienstleistungen",
         "gesellschaftszweck",
@@ -4232,13 +3008,13 @@
         "fördernden",
         "geschäfte",
         "erbringung",
-        "den",
         "diesbezügliche",
+        "den",
         "vorgenannten",
         "beratung"
       ],
       "auto_flags": [
-        "outside_top3"
+        "recoverable_in_top3"
       ],
       "manual_category": "",
       "manual_note": ""
@@ -4252,20 +3028,20 @@
       "predicted_sector": "N",
       "top3": [
         "N",
-        "S",
-        "J"
+        "J",
+        "O"
       ],
-      "score_top1": 0.6094175422094815,
-      "margin_top1_top2": 0.07215239376566851,
+      "score_top1": 0.5594076155720138,
+      "margin_top1_top2": 0.035888286281613,
       "keywords": [
         "service",
         "installationstätigkeiten",
+        "logistiklösungen",
         "inbetriebnahme",
         "implementierung",
-        "logistiklösungen",
+        "transportdienstleistungen",
         "betreuung",
         "sicherheitsbereich",
-        "transportdienstleistungen",
         "anlagen",
         "support"
       ],
@@ -4276,65 +3052,34 @@
       "manual_note": ""
     },
     {
-      "id": 224,
-      "legal_name": "ICP Beteiligungs GmbH",
-      "purpose": "Die Geschäftsführung und Verwaltung von Unternehmen einschließlich der Übernahme von Beteiligungen.",
-      "text_length": 99,
-      "true_sector": "M",
-      "predicted_sector": "N",
-      "top3": [
-        "N",
-        "K",
-        "O"
-      ],
-      "score_top1": 0.5321598698330534,
-      "margin_top1_top2": 0.044233594718949665,
-      "keywords": [
-        "geschäftsführung",
-        "verwaltung",
-        "übernahme",
-        "beteiligungen",
-        "unternehmen",
-        "der",
-        "einschließlich",
-        "und",
-        "von",
-        "die"
-      ],
-      "auto_flags": [
-        "boilerplate_shape",
-        "outside_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
       "id": 225,
       "legal_name": "ExpoTor GmbH",
       "purpose": "Gegenstand des Unternehmens ist nach der Erteilung dazu erforderlichen behördlichen Genehmigungen und Konzessionen das Betreiben von Internetplattformen für Messen, Events und andere Veranstaltungen, die Durchführung von Internet- und Messedienstleistungen aller Art sowie die beratende Tätigkeit auf den vorgenannten Gebieten. Darüber hinaus ist die Gesellschaft berechtigt, Geschäfte anderer Art zu tätigen, soweit ihr dies zur Erreichung des Gesellschaftszwecks dienlich erscheint und Zweigniederlassungen im In- und Ausland zu errichten.",
       "text_length": 541,
       "true_sector": "J",
-      "predicted_sector": "N",
+      "predicted_sector": "M",
       "top3": [
-        "N",
-        "S",
-        "J"
+        "M",
+        "J",
+        "N"
       ],
-      "score_top1": 0.5593896881664804,
-      "margin_top1_top2": 0.03467848196079959,
+      "score_top1": 0.5582564595524502,
+      "margin_top1_top2": 0.0028190370993110836,
       "keywords": [
         "gesellschaftszwecks",
         "messedienstleistungen",
         "geschäfte",
         "internetplattformen",
         "genehmigungen",
-        "erforderlichen",
         "beratende",
-        "betreiben",
+        "erforderlichen",
+        "tätigen",
         "konzessionen",
-        "tätigkeit"
+        "andere"
       ],
       "auto_flags": [
+        "low_margin",
+        "crowded_top3",
         "recoverable_in_top3"
       ],
       "manual_category": "",
@@ -4346,14 +3091,14 @@
       "purpose": "der Industrieanlagenbau. Die Gesellschaft darf andere Unternehmen übernehmen und sich an solchen Unternehmen beteiligen. Sie darf auch Zweigniederlassungen errichten und auswärtige Stellen unterhalten.",
       "text_length": 201,
       "true_sector": "F",
-      "predicted_sector": "N",
+      "predicted_sector": "M",
       "top3": [
+        "M",
         "N",
-        "U",
         "O"
       ],
-      "score_top1": 0.4749212850787144,
-      "margin_top1_top2": 0.02744987652356634,
+      "score_top1": 0.5188241403611994,
+      "margin_top1_top2": 0.05434136517587412,
       "keywords": [
         "gesellschaft",
         "industrieanlagenbau",
@@ -4373,32 +3118,67 @@
       "manual_note": ""
     },
     {
+      "id": 227,
+      "legal_name": "New Silk Road Network GmbH",
+      "purpose": "Die Verbindung von logistikbezogenen und anderen Unternehmen und ein Netzwerk zu formen, um deren Geschäfte zu fördern, einschließlich Eventmanagement.",
+      "text_length": 151,
+      "true_sector": "N",
+      "predicted_sector": "H",
+      "top3": [
+        "H",
+        "M",
+        "N"
+      ],
+      "score_top1": 0.46279435976808253,
+      "margin_top1_top2": 0.008924277813335602,
+      "keywords": [
+        "logistikbezogenen",
+        "eventmanagement",
+        "geschäfte",
+        "verbindung",
+        "netzwerk",
+        "fördern",
+        "unternehmen",
+        "einschließlich",
+        "ein",
+        "und"
+      ],
+      "auto_flags": [
+        "low_margin",
+        "crowded_top3",
+        "recoverable_in_top3"
+      ],
+      "manual_category": "",
+      "manual_note": ""
+    },
+    {
       "id": 228,
       "legal_name": "Fastenau Forst - Service Gesellschaft mbH",
       "purpose": "Gegenstand des Unternehmens ist die Ausführung von Forst- und Lohnarbeiten aller Art. Die Gesellschaft kann sich an anderen Unternehmen beteiligen, sie erwerben, vertreten und ihre Geschäfte führen. Die Gesellschaft darf auch Zweigniederlassungen errichten.",
       "text_length": 257,
       "true_sector": "A",
-      "predicted_sector": "N",
+      "predicted_sector": "M",
       "top3": [
-        "N",
+        "M",
         "C",
-        "S"
+        "N"
       ],
-      "score_top1": 0.5555072274413037,
-      "margin_top1_top2": 0.020130964980093924,
+      "score_top1": 0.5592647085798486,
+      "margin_top1_top2": 0.01592440786865812,
       "keywords": [
-        "gesellschaft",
         "unternehmens",
+        "gesellschaft",
         "geschäfte",
         "erwerben",
-        "vertreten",
         "errichten",
-        "unternehmen",
-        "beteiligen",
+        "vertreten",
         "lohnarbeiten",
-        "und"
+        "beteiligen",
+        "unternehmen",
+        "sich"
       ],
       "auto_flags": [
+        "low_margin",
         "outside_top3"
       ],
       "manual_category": "",
@@ -4413,11 +3193,11 @@
       "predicted_sector": "N",
       "top3": [
         "N",
-        "S",
-        "T"
+        "M",
+        "S"
       ],
-      "score_top1": 0.5400635150598798,
-      "margin_top1_top2": 0.01606212185047473,
+      "score_top1": 0.5448859756039205,
+      "margin_top1_top2": 0.014209736357100544,
       "keywords": [
         "gesellschaftszwecks",
         "gesellschaft",
@@ -4443,30 +3223,29 @@
       "purpose": "Gegenstand geändert, nun: Gegenstand des Unternehmens ist - die Erbringung von Dienstleistungen für Unternehmen oder Dritte auf dem Gebiet des Datenschutzes, insb. die Beratung, die Durchführung von Schulungen, die Stellung eines externen Datenschutzbeauftragten; - die Erstellung und Publikation von Veröffentlichungen zum Thema Datenschutz; - die Informationsvermittlung zum Thema Datenschutz, insb. über ein webbasiertes Informationsportal.",
       "text_length": 443,
       "true_sector": "M",
-      "predicted_sector": "N",
+      "predicted_sector": "J",
       "top3": [
-        "N",
         "J",
-        "S"
+        "M",
+        "N"
       ],
-      "score_top1": 0.5340241488059899,
-      "margin_top1_top2": 0.0035056265172386247,
+      "score_top1": 0.5363953658926319,
+      "margin_top1_top2": 0.00023254942658135214,
       "keywords": [
         "informationsvermittlung",
-        "dienstleistungen",
-        "unternehmens",
-        "datenschutzbeauftragten",
         "informationsportal",
-        "erbringung",
+        "datenschutzbeauftragten",
+        "unternehmens",
+        "dienstleistungen",
+        "datenschutzes",
+        "webbasiertes",
         "externen",
         "thema",
-        "webbasiertes",
-        "datenschutzes"
+        "erbringung"
       ],
       "auto_flags": [
         "low_margin",
-        "crowded_top3",
-        "outside_top3"
+        "recoverable_in_top3"
       ],
       "manual_category": "",
       "manual_note": ""
@@ -4477,66 +3256,29 @@
       "purpose": "Die Verwaltung eigenen Vermögens sowie die Beteiligung und Verwaltung an und von anderen Gesellschaften.",
       "text_length": 104,
       "true_sector": "M",
-      "predicted_sector": "N",
+      "predicted_sector": "K",
       "top3": [
-        "N",
         "K",
+        "M",
         "O"
       ],
-      "score_top1": 0.5526811724519008,
-      "margin_top1_top2": 0.0034050384097690234,
+      "score_top1": 0.6292957372813028,
+      "margin_top1_top2": 0.05912745074660408,
       "keywords": [
         "verwaltung",
         "gesellschaften",
-        "beteiligung",
-        "vermögens",
         "eigenen",
-        "anderen",
+        "vermögens",
+        "beteiligung",
         "und",
+        "anderen",
         "von",
         "sowie",
         "die"
       ],
       "auto_flags": [
-        "low_margin",
-        "crowded_top3",
         "boilerplate_shape",
-        "outside_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 232,
-      "legal_name": "Lindenstruth Grundstücksverwaltungs GmbH",
-      "purpose": "Beteiligung an anderen Gesellschaften, die Übernahme der Geschäftsführung und Vertretung sowie die Verwaltung bei gleichzeitiger Übernahme der persönlichen Haftung. Die Verwaltung von eigenen und fremden Liegenschaften, der Betrieb von Handel- und Dienstleistungen jeder Art, Anund Verkauf von Immobilien jeder Art, auch für Dritte, bauliche Arbeiten (sofern in Erfüllung eines Unternehmensgegenstandes handwerkliche Arbeiten im Sinne Handwerksordnung erforderlich sein sollten, werden diese durch Subunternehmer erbracht; diese Bestimmung findet keine Anwendung, wenn durch das Unternehmen im jeweiligen Gewerk die handwerklichen Zugangsvoraussetzungen erfüllt wurden und die Eintragung in die Handwerksrolle dafür vorliegt) sowie die Projektierung solcher Arbeiten.",
-      "text_length": 767,
-      "true_sector": "M",
-      "predicted_sector": "N",
-      "top3": [
-        "N",
-        "S",
-        "T"
-      ],
-      "score_top1": 0.4925297204205155,
-      "margin_top1_top2": 0.0025383099991048708,
-      "keywords": [
-        "unternehmensgegenstandes",
-        "verwaltung",
-        "gesellschaften",
-        "subunternehmer",
-        "dienstleistungen",
-        "übernahme",
-        "zugangsvoraussetzungen",
-        "beteiligung",
-        "arbeiten",
-        "handwerksordnung"
-      ],
-      "auto_flags": [
-        "low_margin",
-        "crowded_top3",
-        "boilerplate_shape",
-        "outside_top3"
+        "recoverable_in_top3"
       ],
       "manual_category": "",
       "manual_note": ""
@@ -4550,11 +3292,11 @@
       "predicted_sector": "N",
       "top3": [
         "N",
-        "S",
-        "F"
+        "F",
+        "L"
       ],
-      "score_top1": 0.46111396020294976,
-      "margin_top1_top2": 0.0024169694990318624,
+      "score_top1": 0.4998156911765426,
+      "margin_top1_top2": 0.04728372224201188,
       "keywords": [
         "kindergärten",
         "verwaltung",
@@ -4568,111 +3310,38 @@
         "ist"
       ],
       "auto_flags": [
-        "low_margin",
         "outside_top3"
       ],
       "manual_category": "",
       "manual_note": ""
     },
     {
-      "id": 234,
-      "legal_name": "BayernCare Verwaltungs GmbH",
-      "purpose": "Gegenstand des Unternehmens ist der Erwerb und die Verwaltung von Beteiligungen sowie die Übernahme der persönlichen Haftung und der Geschäftsführung bei Handelsgesellschaften, insbesondere die Beteiligung als persönlich haftende geschäftsführende Gesellschafterin an der BayernCare Immobilien GmbH & Co. KG, deren Unternehmehsgegenstand ist die Akquisition, Entwicklung, Realisierung, Bauträgerschaft und der Verkauf, die Vermietung und Verpachtung sowie die Anmietung von Senioren- und Serviceimmobilien sowie Pflegeeinrichtungen und sonstigen Senioreneinrichtungen im In- und Ausland, ferner die Beteiligung an Betriebsträgergesellschaften, Vermittlung und Nachweis von Verträgen über Grundstücke, grundstücksgleiche Rechte, gewerbliche Räume, Wohnräume, Vorbereitung und Durchführung von Bauvorhaben als Bauherr im eigenen Namen unter Verwendung von Vermögenswerten von Erwerbern, ferner der Betrieb und die Beteiligung am Betrieb von Pflege-, Service- und Seniorenimmobilien sowie die Vermittlung von Betriebsträgern.",
-      "text_length": 1022,
-      "true_sector": "M",
-      "predicted_sector": "N",
+      "id": 235,
+      "legal_name": "Dr. Vilmar Praxisverwaltungen UG (haftungsbeschränkt)",
+      "purpose": "die zentrale Übernahme sämtlicher Verwaltungsprozesse einer Arztpraxis mit allen damit verbundenen Rechtsgeschäften. Sonstige gewerbliche Tätigkeiten im Zusammenhang mit der Verwaltung einer Arztpraxis sind der Gesellschaft untersagt.",
+      "text_length": 234,
+      "true_sector": "N",
+      "predicted_sector": "Q",
       "top3": [
-        "N",
-        "K",
-        "L"
-      ],
-      "score_top1": 0.43492284399614983,
-      "margin_top1_top2": 0.001991533586346461,
-      "keywords": [
-        "betriebsträgergesellschaften",
-        "verwaltung",
-        "bayerncare",
-        "serviceimmobilien",
-        "seniorenimmobilien",
-        "beteiligung",
-        "pflegeeinrichtungen",
-        "verkauf",
-        "service",
-        "gmbh"
-      ],
-      "auto_flags": [
-        "low_margin",
-        "crowded_top3",
-        "boilerplate_shape",
-        "outside_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 236,
-      "legal_name": "A.K.T. Dach- und Bau Verwaltungs und Beteiligungs GmbH",
-      "purpose": "die Beteiligung an Unternehmen und deren Verwaltung; insbesondere die Beteiligung und Verwaltung an der Firma A.K.T. Dachund Bau GmbH & Co. KG sowie die Übernahme der persönlichen Haftung und Geschäftsführung als persönlich haftende geschäftsführende Gesellschafterin an der Firma A.K.T. Dach- und Bau GmbH & Co. KG, deren Gegenstand Dachdecker-, Dachklempner- und Maurerarbeiten, Betonbau, Bautenschutz und Trockenbau sind",
-      "text_length": 423,
-      "true_sector": "M",
-      "predicted_sector": "N",
-      "top3": [
-        "N",
+        "Q",
         "M",
-        "L"
+        "O"
       ],
-      "score_top1": 0.3801924184016555,
-      "margin_top1_top2": 0.001713438232075426,
+      "score_top1": 0.4174960239062542,
+      "margin_top1_top2": 0.024559270650437337,
       "keywords": [
-        "geschäftsführende",
-        "gesellschafterin",
+        "arztpraxis",
+        "verwaltungsprozesse",
         "verwaltung",
+        "untersagt",
+        "gesellschaft",
         "übernahme",
-        "gmbh",
-        "maurerarbeiten",
-        "bautenschutz",
-        "dach",
-        "deren",
-        "beteiligung"
+        "rechtsgeschäften",
+        "tätigkeiten",
+        "mit",
+        "gewerbliche"
       ],
       "auto_flags": [
-        "low_margin",
-        "crowded_top3",
-        "boilerplate_shape",
-        "recoverable_in_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 237,
-      "legal_name": "Aktion Wunscherfüllung gGmbH",
-      "purpose": "1. Zweck der Gesellschaft ist die Förderung der Jugendhilfe i.S. d. § 52 Abs. 2 Nr. 4 AO und die Förderung mildtätiger Zwecke i.S. d. § 53 Satz 1 Nr. 1 der AO. Dies wird insbesondere durch die Identifizierung und Erfüllung persönlicher Herzenswünsche erkrankter Kinder und Jugendlicher geschehen, mit dem Ziel, ihren seelischen und körperlichen Zustand zu verbessern. Die Gesellschaft verwirklicht diesen Zweck insbesondere durch die umfassende Kommunikation in der Vorbereitungszeit mit dem Kind bzw. Jugendlichen, dem einen Wunsch erfüllt werden soll (im Folgenden Wünscher genannt), sowie mit Angehörigen und/oder Freunden. Durch diese Kommunikation soll der individuelle innigste Wunsch des Wünschers herausgefunden werden. Bei der Planung und der Erfüllung des Herzenswunsches wird darauf geachtet, dass die Wunscherfüllung ein ganz besonderes Erlebnis für Wünscher ist, mit dem Ziel einen seelischen bzw. körperlichen Zustand, während und nach der Erfüllung des Wunsches, zu verbessern. 2. Die Gesellschaft ist berechtigt, im Rahmen der gesetzlichen Vorschriften und der Bestimmungen dieses Gesellschaftsvertrages alle Geschäfte und Rechtshandlungen vorzunehmen, die zur Erreichung des Gesellschaftszwecks dienlich sind oder das Unternehmen zu fördern geeignet erscheinen, insbesondere auch andere Unternehmen zu unterstützen, die ebenfalls ausschließlich und unmittelbar gemeinnützige Zwecke verfolgen. 3. Die Gesellschaft arbeitet auf überparteilicher und überkonfessioneller Grundlage. 4. Zum Zweck der vorgenannten Aufgabenerfüllung veranstaltet die Gesellschaft Sammlungen von Geld- und Sachspenden. Zur Erfüllung des Gesellschaftszwecks sollen beispielsweise folgende Aktivitäten aktiv angeboten und gefördert werden: Thematische Freizeitaktivitäten und Kurzreisen, mit dem Zweck des persönlichen Erlebens und der Gewinnung neuer Energien. Das Nahebringen und Erleben von Berufsbildern mit dem Zweck des Erkenntnisgewinns und der Motivation. Moderiertes Treffen und Kennenlernen von Bekanntheiten und Persönlichkeiten mit dem Zweck der Motivation. Ausdrücklich nicht aktiv unterstützt werden sollen daher Therapien, medizinische Behandlungen und benötigtes Equipment, reine Erholungsurlaube sowie das Verschenken von Tieren und einfachen Konsumgütern.",
-      "text_length": 2263,
-      "true_sector": "Q",
-      "predicted_sector": "N",
-      "top3": [
-        "N",
-        "T",
-        "S"
-      ],
-      "score_top1": 0.43735207115668734,
-      "margin_top1_top2": 0.0011925212936849117,
-      "keywords": [
-        "gemeinnützige",
-        "motivation",
-        "jugendlichen",
-        "erkenntnisgewinns",
-        "therapien",
-        "einfachen",
-        "aktiv",
-        "rechtshandlungen",
-        "zum",
-        "kommunikation"
-      ],
-      "auto_flags": [
-        "low_margin",
-        "crowded_top3",
         "outside_top3"
       ],
       "manual_category": "",
@@ -4684,29 +3353,27 @@
       "purpose": "Gegenstand des Unternehmens ist die Verwaltung eigenen Vermögens sowie die Aufstellung von Spielautomaten gem. § 33 c GewO. Die Gesellschaft ist berechtigt, alle Handlungen vorzunehmen, die mittelbar oder unmittelbar dem Gesellschaftszweck zu dienen geeignet sind. Die Gesellschaft ist berechtigt, Zweigniederlassungen im In- und Ausland errichten zu lassen.",
       "text_length": 358,
       "true_sector": "R",
-      "predicted_sector": "N",
+      "predicted_sector": "K",
       "top3": [
-        "N",
+        "K",
         "O",
-        "K"
+        "M"
       ],
-      "score_top1": 0.47409396660091324,
-      "margin_top1_top2": 0.0008060648847678098,
+      "score_top1": 0.5263717469844704,
+      "margin_top1_top2": 0.022714557802898327,
       "keywords": [
         "gesellschaftszweck",
-        "verwaltung",
         "gesellschaft",
         "unternehmens",
+        "verwaltung",
         "dienen",
         "vermögens",
-        "errichten",
+        "spielautomaten",
+        "eigenen",
         "berechtigt",
-        "handlungen",
-        "eigenen"
+        "errichten"
       ],
       "auto_flags": [
-        "low_margin",
-        "crowded_top3",
         "boilerplate_shape",
         "outside_top3"
       ],
@@ -4719,63 +3386,27 @@
       "purpose": "Erwerb und die Verwaltung von Beteiligungen an Unternehmen im In- und Ausland, insbesondere von Anteilen der OLHO-technik Czech s.r.o.",
       "text_length": 134,
       "true_sector": "K",
-      "predicted_sector": "N",
+      "predicted_sector": "M",
       "top3": [
-        "N",
         "M",
-        "U"
+        "K",
+        "L"
       ],
-      "score_top1": 0.3679823469498638,
-      "margin_top1_top2": 0.0002919212949035743,
+      "score_top1": 0.442215476617361,
+      "margin_top1_top2": 0.03794624585169226,
       "keywords": [
-        "verwaltung",
         "czech",
+        "verwaltung",
         "technik",
         "der",
         "ausland",
-        "die",
         "beteiligungen",
-        "und",
+        "die",
         "von",
+        "und",
         "insbesondere"
       ],
       "auto_flags": [
-        "low_margin",
-        "crowded_top3",
-        "boilerplate_shape",
-        "outside_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 240,
-      "legal_name": "SaNi Invest UG (haftungsbeschränkt)",
-      "purpose": "der Erwerb sowie die Verwaltung, Verwertung und Veräußerung von Beteiligungen an Unternehmen, die Übernahme der Geschäftsführung in anderen Unternehmen, sowie die Beratung von Unternehmen insbesondere auf dem Gebiet der Strategie- und Geschäftsentwicklung, Organisation, Informationstechnologie und des Marketing",
-      "text_length": 312,
-      "true_sector": "M",
-      "predicted_sector": "N",
-      "top3": [
-        "N",
-        "M",
-        "C"
-      ],
-      "score_top1": 0.5381948513697199,
-      "margin_top1_top2": 0.0001183051167460425,
-      "keywords": [
-        "geschäftsführung",
-        "geschäftsentwicklung",
-        "verwaltung",
-        "organisation",
-        "marketing",
-        "veräußerung",
-        "strategie",
-        "übernahme",
-        "informationstechnologie",
-        "verwertung"
-      ],
-      "auto_flags": [
-        "low_margin",
         "boilerplate_shape",
         "recoverable_in_top3"
       ],
@@ -4788,64 +3419,28 @@
       "purpose": "ist die Entwicklung, die Wartung und der Support sowie der Verkauf von Software, welche individuell von einem Auftraggeber in Auftrag gegeben werden kann.",
       "text_length": 154,
       "true_sector": "J",
-      "predicted_sector": "N",
+      "predicted_sector": "M",
       "top3": [
-        "N",
         "M",
-        "J"
+        "J",
+        "N"
       ],
-      "score_top1": 0.4923960551238974,
-      "margin_top1_top2": 9.234130137808494e-05,
+      "score_top1": 0.536020464615367,
+      "margin_top1_top2": 0.03927669700915243,
       "keywords": [
         "auftraggeber",
-        "auftrag",
         "software",
+        "auftrag",
         "entwicklung",
         "support",
-        "welche",
-        "ist",
         "verkauf",
+        "welche",
         "individuell",
+        "ist",
         "gegeben"
       ],
       "auto_flags": [
-        "low_margin",
-        "crowded_top3",
         "recoverable_in_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 242,
-      "legal_name": "ConSALEting GmbH",
-      "purpose": "ist die Entwicklung und Umsetzung von neuen Geschäftskonzepten sowie die Erbringung von Dienstleistungen rund um Vertrieb und Marketing. Das umfasst sowohl Beratungsleistungen, Strategie- und Konzepterstellung und Interims- und Projektmanagement als auch die Durchführung von operativen Tätigkeiten, d.h. Vertrieb und Vermarktung von Produkten bzw. Dienstleistungen und Kundengewinnung. Der Schwerpunkt der Dienstleistungen richtet sich an die Energiebranche, kann aber auch für jede andere Branche erbracht werden, sowohl im In- und Ausland. Gegenstand des Unternehmens ist weiterhin die Verwaltung eigenen Vermögens, insbesondere durch Erwerb, Halten, Verwaltung und Veräußerung von Beteiligungen an Unternehmen im In- und Ausland einschließlich der Tätigkeit als Obergesellschaft eines unter einheitlicher Leitung zusammengefassten Unternehmensverbundes.",
-      "text_length": 857,
-      "true_sector": "M",
-      "predicted_sector": "N",
-      "top3": [
-        "N",
-        "S",
-        "J"
-      ],
-      "score_top1": 0.6053245406598683,
-      "margin_top1_top2": 7.840245508294874e-05,
-      "keywords": [
-        "geschäftskonzepten",
-        "dienstleistungen",
-        "verwaltung",
-        "obergesellschaft",
-        "projektmanagement",
-        "kundengewinnung",
-        "konzepterstellung",
-        "tätigkeiten",
-        "beratungsleistungen",
-        "entwicklung"
-      ],
-      "auto_flags": [
-        "low_margin",
-        "boilerplate_shape",
-        "outside_top3"
       ],
       "manual_category": "",
       "manual_note": ""
@@ -4859,17 +3454,17 @@
       "predicted_sector": "O",
       "top3": [
         "O",
-        "K",
-        "T"
+        "M",
+        "K"
       ],
-      "score_top1": 0.5497564355072854,
-      "margin_top1_top2": 0.04751380188990573,
+      "score_top1": 0.5590939850253682,
+      "margin_top1_top2": 0.08774288219789456,
       "keywords": [
         "steuerliche",
         "juristische",
         "und",
-        "fortbildung",
         "sowie",
+        "fortbildung",
         "die",
         "aus"
       ],
@@ -4880,67 +3475,33 @@
       "manual_note": ""
     },
     {
-      "id": 245,
-      "legal_name": "SIG SAUER Verwaltungs GmbH",
-      "purpose": "Die Übernahme der Stellung einer persönlich haftenden Gesellschafterin in anderen Unternehmen, insbesondere in der Kommanditgesellschaft unter der Firma SIG SAUER Sports und Defence GmbH & Co. KG.",
-      "text_length": 196,
-      "true_sector": "M",
-      "predicted_sector": "O",
-      "top3": [
-        "O",
-        "M",
-        "C"
-      ],
-      "score_top1": 0.30944953418334153,
-      "margin_top1_top2": 0.012414161806819812,
-      "keywords": [
-        "firma",
-        "kommanditgesellschaft",
-        "gesellschafterin",
-        "defence",
-        "übernahme",
-        "gmbh",
-        "sig",
-        "stellung",
-        "sports",
-        "anderen"
-      ],
-      "auto_flags": [
-        "low_margin",
-        "crowded_top3",
-        "recoverable_in_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
       "id": 246,
       "legal_name": "Planungsbüro Burkhardt & Burkhardt & Co. GmbH",
       "purpose": "Bauplanung und Bauüberwachung, jeweils unter Ausschluß handwerklicher Tätigkeiten und solcher, die einer besonderen staatlichen Genehmigung bedürfen.",
       "text_length": 149,
       "true_sector": "M",
-      "predicted_sector": "O",
+      "predicted_sector": "N",
       "top3": [
-        "O",
         "N",
-        "S"
+        "O",
+        "F"
       ],
-      "score_top1": 0.47244480062424077,
-      "margin_top1_top2": 0.009477631459107128,
+      "score_top1": 0.5081778692745941,
+      "margin_top1_top2": 0.02169230611549966,
       "keywords": [
-        "staatlichen",
         "bauplanung",
         "bauüberwachung",
+        "staatlichen",
         "genehmigung",
         "tätigkeiten",
         "handwerklicher",
         "ausschluß",
-        "und",
         "bedürfen",
+        "und",
         "jeweils"
       ],
       "auto_flags": [
-        "low_margin",
+        "crowded_top3",
         "outside_top3"
       ],
       "manual_category": "",
@@ -4952,28 +3513,27 @@
       "purpose": "Die Verwaltung, der Erwerb und die Verwertung von Grundbesitz aller Art im Inund Ausland, insbesondere die Wahrnehmung von Geschäftsführungsaufgaben in diesem Bereich. Tätigkeiten gemäß § 34 c GewO sind nicht Gegenstand des Unternehmens .",
       "text_length": 238,
       "true_sector": "L",
-      "predicted_sector": "O",
+      "predicted_sector": "K",
       "top3": [
-        "O",
-        "N",
-        "E"
+        "K",
+        "M",
+        "O"
       ],
-      "score_top1": 0.45899751330902394,
-      "margin_top1_top2": 0.009152425570334577,
+      "score_top1": 0.4978949795585088,
+      "margin_top1_top2": 0.03251177764432772,
       "keywords": [
-        "verwaltung",
         "geschäftsführungsaufgaben",
-        "unternehmens",
         "grundbesitz",
-        "tätigkeiten",
+        "verwaltung",
+        "unternehmens",
         "verwertung",
+        "tätigkeiten",
         "der",
-        "ausland",
         "des",
-        "bereich"
+        "bereich",
+        "ausland"
       ],
       "auto_flags": [
-        "low_margin",
         "boilerplate_shape",
         "outside_top3"
       ],
@@ -4990,10 +3550,10 @@
       "top3": [
         "P",
         "S",
-        "R"
+        "N"
       ],
-      "score_top1": 0.47980377876718355,
-      "margin_top1_top2": 0.12375484319904928,
+      "score_top1": 0.46025523431184695,
+      "margin_top1_top2": 0.13045342026081402,
       "keywords": [
         "pferden",
         "reitschule",
@@ -5006,7 +3566,7 @@
         "pferdepension"
       ],
       "auto_flags": [
-        "recoverable_in_top3"
+        "outside_top3"
       ],
       "manual_category": "",
       "manual_note": ""
@@ -5020,11 +3580,11 @@
       "predicted_sector": "P",
       "top3": [
         "P",
-        "S",
-        "N"
+        "N",
+        "S"
       ],
-      "score_top1": 0.5541636913549723,
-      "margin_top1_top2": 0.03217811713370933,
+      "score_top1": 0.5094246209693795,
+      "margin_top1_top2": 0.024774912835980656,
       "keywords": [
         "erziehungsanstalten",
         "unterstützung",
@@ -5053,10 +3613,10 @@
       "top3": [
         "P",
         "U",
-        "G"
+        "J"
       ],
-      "score_top1": 0.20888449901247041,
-      "margin_top1_top2": 0.027210319872505107,
+      "score_top1": 0.19396193059009853,
+      "margin_top1_top2": 0.00586599479920058,
       "keywords": [
         "bibel",
         "übersetzungen",
@@ -5070,39 +3630,38 @@
         "gemeinfreien"
       ],
       "auto_flags": [
+        "low_margin",
         "outside_top3"
       ],
       "manual_category": "",
       "manual_note": ""
     },
     {
-      "id": 254,
-      "legal_name": "Academy Ventures UG (haftungsbeschränkt)",
-      "purpose": "Die Entwicklung und Vermarktung von Computersoftware für Schulen zur Kommunikation von Lehrern, Eltern und Schülern.",
-      "text_length": 116,
-      "true_sector": "J",
-      "predicted_sector": "P",
+      "id": 253,
+      "legal_name": "CBS Cologne Business School GmbH",
+      "purpose": "der Betrieb der CBS Cologne Business School.",
+      "text_length": 44,
+      "true_sector": "P",
+      "predicted_sector": "M",
       "top3": [
+        "M",
         "P",
-        "J",
-        "M"
+        "I"
       ],
-      "score_top1": 0.541218286398223,
-      "margin_top1_top2": 0.0002955375959364792,
+      "score_top1": 0.25554899277040305,
+      "margin_top1_top2": 0.008755028254576164,
       "keywords": [
-        "lehrern",
-        "schulen",
-        "computersoftware",
-        "kommunikation",
-        "entwicklung",
-        "für",
-        "und",
-        "zur",
-        "von",
-        "eltern"
+        "business",
+        "cologne",
+        "school",
+        "betrieb",
+        "der",
+        "cbs"
       ],
       "auto_flags": [
+        "short_text",
         "low_margin",
+        "crowded_top3",
         "recoverable_in_top3"
       ],
       "manual_category": "",
@@ -5118,10 +3677,10 @@
       "top3": [
         "Q",
         "S",
-        "I"
+        "L"
       ],
-      "score_top1": 0.48928410173903875,
-      "margin_top1_top2": 0.04899024065082075,
+      "score_top1": 0.5252531090535153,
+      "margin_top1_top2": 0.07563686362637284,
       "keywords": [
         "medizinprodukten",
         "sanitätshauses",
@@ -5150,16 +3709,16 @@
       "top3": [
         "R",
         "I",
-        "G"
+        "H"
       ],
-      "score_top1": 0.6446255608111177,
-      "margin_top1_top2": 0.12975637905786563,
+      "score_top1": 0.597411197901869,
+      "margin_top1_top2": 0.061954602057887165,
       "keywords": [
         "reiseunterlagen",
         "reisen",
         "beförderungsausweisen",
-        "veranstaltung",
         "reiseversicherungen",
+        "veranstaltung",
         "art",
         "kultur",
         "kunstgegenständen",
@@ -5184,79 +3743,19 @@
         "I",
         "C"
       ],
-      "score_top1": 0.5970877029463539,
-      "margin_top1_top2": 0.05110695173253155,
+      "score_top1": 0.6294891428144749,
+      "margin_top1_top2": 0.0765558612216064,
       "keywords": [
         "veranstaltungstechnik",
         "veranstaltungen",
         "eventmanagement",
-        "tanzlokalen",
         "betrieben",
+        "tanzlokalen",
         "gastronomischen",
         "betreiben",
         "organisation",
-        "diskotheken",
-        "durchführung"
-      ],
-      "auto_flags": [
-        "recoverable_in_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 263,
-      "legal_name": "Delphi Medien GmbH",
-      "purpose": "Betrieb eines Buch- und Medienverlages und einer literarischen Agentur sowie der Erwerb, die Verwaltung und Wahrnehmung von Urheber- und Urhebernutzungsrechten sowie Herstellung und Verbreitung von Film und anderen medialen Erzeugnissen inclusive Internet",
-      "text_length": 255,
-      "true_sector": "J",
-      "predicted_sector": "R",
-      "top3": [
-        "R",
-        "J",
-        "U"
-      ],
-      "score_top1": 0.47089535580419833,
-      "margin_top1_top2": 0.04860894263191873,
-      "keywords": [
-        "medialen",
-        "medienverlages",
-        "film",
-        "literarischen",
-        "urhebernutzungsrechten",
-        "inclusive",
-        "internet",
-        "agentur",
-        "buch",
-        "verwaltung"
-      ],
-      "auto_flags": [
-        "recoverable_in_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 264,
-      "legal_name": "Bees and Rockets GmbH",
-      "purpose": "Fernseh-, Film- und Videoproduktion sowie Videoschnittarbeiten.",
-      "text_length": 63,
-      "true_sector": "J",
-      "predicted_sector": "R",
-      "top3": [
-        "R",
-        "C",
-        "J"
-      ],
-      "score_top1": 0.39934952768298215,
-      "margin_top1_top2": 0.03583491619068935,
-      "keywords": [
-        "videoproduktion",
-        "videoschnittarbeiten",
-        "film",
-        "sowie",
-        "und",
-        "fernseh"
+        "freizeiteinrichtungen",
+        "diskotheken"
       ],
       "auto_flags": [
         "recoverable_in_top3"
@@ -5276,8 +3775,8 @@
         "G",
         "H"
       ],
-      "score_top1": 0.5841563552652921,
-      "margin_top1_top2": 0.026016031504856874,
+      "score_top1": 0.5363412644082793,
+      "margin_top1_top2": 0.0005847564696148666,
       "keywords": [
         "sport",
         "handel",
@@ -5287,6 +3786,7 @@
       ],
       "auto_flags": [
         "short_text",
+        "low_margin",
         "recoverable_in_top3"
       ],
       "manual_category": "",
@@ -5298,28 +3798,27 @@
       "purpose": "die Durchführung von Kulturförderung, Kultursponsoring und Kulturberatung für die Wirtschaft sowie der Betrieb eines Verlages und die Herausgabe von Zeitschriften und Büchern, kunst- und kulturgeschichtlichen Inhalts. Die Gesellschaft ist auch zur Unternehmensberatung, Marketingberatung und Abhaltung von Seminaren sowie Führung von Workshops befugt.",
       "text_length": 351,
       "true_sector": "J",
-      "predicted_sector": "R",
+      "predicted_sector": "M",
       "top3": [
-        "R",
         "M",
-        "N"
+        "R",
+        "S"
       ],
-      "score_top1": 0.5315584918970759,
-      "margin_top1_top2": 0.014343392432890512,
+      "score_top1": 0.5956789368801794,
+      "margin_top1_top2": 0.09203021638933562,
       "keywords": [
         "kultursponsoring",
-        "kulturförderung",
         "kulturberatung",
+        "kulturförderung",
         "marketingberatung",
         "unternehmensberatung",
         "workshops",
         "seminaren",
-        "kulturgeschichtlichen",
+        "gesellschaft",
         "kunst",
-        "gesellschaft"
+        "kulturgeschichtlichen"
       ],
       "auto_flags": [
-        "low_margin",
         "outside_top3"
       ],
       "manual_category": "",
@@ -5337,8 +3836,8 @@
         "I",
         "M"
       ],
-      "score_top1": 0.4765465628127861,
-      "margin_top1_top2": 0.009219274083929585,
+      "score_top1": 0.484089498761996,
+      "margin_top1_top2": 0.008156593255287614,
       "keywords": [
         "diskotheken",
         "gastronomischen",
@@ -5359,65 +3858,34 @@
       "manual_note": ""
     },
     {
-      "id": 268,
-      "legal_name": "Toy Innovations GmbH",
-      "purpose": "die Entwicklung und der Vertrieb von Spielwaren und Haustierartikeln.",
-      "text_length": 69,
-      "true_sector": "G",
-      "predicted_sector": "R",
-      "top3": [
-        "R",
-        "G",
-        "S"
-      ],
-      "score_top1": 0.4193913592836524,
-      "margin_top1_top2": 0.008387185987836221,
-      "keywords": [
-        "spielwaren",
-        "haustierartikeln",
-        "entwicklung",
-        "der",
-        "und",
-        "von",
-        "die",
-        "vertrieb"
-      ],
-      "auto_flags": [
-        "low_margin",
-        "crowded_top3",
-        "recoverable_in_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
       "id": 269,
       "legal_name": "SAMACO GmbH",
       "purpose": "Beratung bezüglich und Vermittlung und/oder Erbringen von Dienstleistungen, die in einem Zusammenhang mit dem Tourismus und der Tourismusbranche stehen; weiter aktive Teilnahme an und Unterstützung von Entwicklungsprozessen in Regionen, die für den Tourismus erschlossen werden können. Hierbei kann die Gesellschaft weltweit tätig werden. Alle mit Erreichung dieses Zwecks zusammenhängenden Tätigkeiten sind vom Gegenstand des Unternehmens erfaßt, auch Kauf, Erschließung, Bebauung, Modernisierung, Verpachtung und Verkauf von Grundstücken und Immobilien.",
       "text_length": 555,
       "true_sector": "L",
-      "predicted_sector": "R",
+      "predicted_sector": "I",
       "top3": [
-        "R",
         "I",
-        "N"
+        "N",
+        "R"
       ],
-      "score_top1": 0.550810974745782,
-      "margin_top1_top2": 0.0037740458848728453,
+      "score_top1": 0.5485669131486287,
+      "margin_top1_top2": 0.00010301892692810011,
       "keywords": [
         "tourismusbranche",
-        "entwicklungsprozessen",
         "unterstützung",
+        "entwicklungsprozessen",
         "gesellschaft",
-        "tätigkeiten",
         "weltweit",
-        "teilnahme",
-        "bebauung",
+        "dienstleistungen",
+        "tätigkeiten",
         "vermittlung",
-        "dienstleistungen"
+        "teilnahme",
+        "bebauung"
       ],
       "auto_flags": [
         "low_margin",
+        "crowded_top3",
         "outside_top3"
       ],
       "manual_category": "",
@@ -5435,8 +3903,8 @@
         "N",
         "Q"
       ],
-      "score_top1": 0.4317369220077914,
-      "margin_top1_top2": 0.09599910281034546,
+      "score_top1": 0.3903233914788127,
+      "margin_top1_top2": 0.03791158385326204,
       "keywords": [
         "spezialanstriche",
         "rostschutz",
@@ -5450,94 +3918,30 @@
       "manual_note": ""
     },
     {
-      "id": 271,
-      "legal_name": "Phone Professionals GmbH",
-      "purpose": "Die Erbringung und der Verkauf von CallCenter-Dienstleistungen aller Art.",
-      "text_length": 73,
-      "true_sector": "N",
-      "predicted_sector": "S",
-      "top3": [
-        "S",
-        "N",
-        "M"
-      ],
-      "score_top1": 0.5046377977027453,
-      "margin_top1_top2": 0.04136645104673631,
-      "keywords": [
-        "callcenter",
-        "dienstleistungen",
-        "verkauf",
-        "erbringung",
-        "der",
-        "und",
-        "aller",
-        "von",
-        "die",
-        "art"
-      ],
-      "auto_flags": [
-        "recoverable_in_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 272,
-      "legal_name": "PASSI GmbH",
-      "purpose": "Die Entwicklung und der Vertrieb von Versicherungsprodukten und Finanzdienstleistungen aller Art. Die Gesellschaft kann sämtliche Dienstleistungen erbringen und sonstige Rechtshandlungen vornehmen, die zur Erreichung des Gesellschaftszwecks dienlich sind. Die Gesellschaft betreibt jedoch keine Geschäfte gem. § 34 c Abs. 1 GewO.",
-      "text_length": 329,
-      "true_sector": "K",
-      "predicted_sector": "S",
-      "top3": [
-        "S",
-        "K",
-        "N"
-      ],
-      "score_top1": 0.5623068336647543,
-      "margin_top1_top2": 0.034325735342516595,
-      "keywords": [
-        "gesellschaftszwecks",
-        "dienstleistungen",
-        "gesellschaft",
-        "finanzdienstleistungen",
-        "geschäfte",
-        "versicherungsprodukten",
-        "vornehmen",
-        "erreichung",
-        "entwicklung",
-        "rechtshandlungen"
-      ],
-      "auto_flags": [
-        "recoverable_in_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
       "id": 273,
       "legal_name": "CIVES UG (haftungsbeschränkt)",
       "purpose": "Im- und Export sowie der Handel mit Waren aller Art, wie z.B. Hygieneartikel, Schnelltests, Eventszubehör, Fitnessequipment, der Betrieb von Covid Testzentren und die Beratung für Dienstleister der Testzentren und Kleinunternehmer zur Umsetzung von Hygienemaßnahmen.",
       "text_length": 266,
       "true_sector": "G",
-      "predicted_sector": "S",
+      "predicted_sector": "N",
       "top3": [
-        "S",
+        "N",
         "G",
-        "N"
+        "C"
       ],
-      "score_top1": 0.5009542125882182,
-      "margin_top1_top2": 0.03186567911788457,
+      "score_top1": 0.5300972981671426,
+      "margin_top1_top2": 0.04995351895142153,
       "keywords": [
         "testzentren",
         "hygienemaßnahmen",
         "hygieneartikel",
         "betrieb",
         "dienstleister",
-        "beratung",
+        "handel",
         "kleinunternehmer",
         "fitnessequipment",
-        "sowie",
-        "schnelltests"
+        "schnelltests",
+        "sowie"
       ],
       "auto_flags": [
         "recoverable_in_top3"
@@ -5551,20 +3955,20 @@
       "purpose": "Der Vertrieb und der Service von EDV- Produkten.",
       "text_length": 48,
       "true_sector": "G",
-      "predicted_sector": "S",
+      "predicted_sector": "J",
       "top3": [
-        "S",
-        "N",
-        "G"
+        "J",
+        "G",
+        "N"
       ],
-      "score_top1": 0.484882717759894,
-      "margin_top1_top2": 0.026816088932698323,
+      "score_top1": 0.43700538667835326,
+      "margin_top1_top2": 0.04466566061639066,
       "keywords": [
         "produkten",
         "service",
         "edv",
-        "der",
         "von",
+        "der",
         "und",
         "vertrieb"
       ],
@@ -5585,10 +3989,10 @@
       "top3": [
         "S",
         "N",
-        "M"
+        "Q"
       ],
-      "score_top1": 0.42909368742279547,
-      "margin_top1_top2": 0.023127473350966543,
+      "score_top1": 0.4218691091927887,
+      "margin_top1_top2": 0.00021461653099247302,
       "keywords": [
         "betreuungszentrums",
         "pflege",
@@ -5602,38 +4006,7 @@
         "samt"
       ],
       "auto_flags": [
-        "outside_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 276,
-      "legal_name": "MVZ Dr. Mayr und Kollegen Altötting- Burghausen GmbH",
-      "purpose": "Gründung und Betrieb eines Medizinischen Versorgungszentrums im Sinne des § 95 SGB V zur Erbringung aller hiernach zulässigen ärztlichen und nichtärztlichen Leistungen und aller hiermit im Zusammenhang stehenden Tätigkeiten.",
-      "text_length": 224,
-      "true_sector": "Q",
-      "predicted_sector": "S",
-      "top3": [
-        "S",
-        "Q",
-        "N"
-      ],
-      "score_top1": 0.5031898976259913,
-      "margin_top1_top2": 0.020461794484403995,
-      "keywords": [
-        "versorgungszentrums",
-        "medizinischen",
-        "ärztlichen",
-        "nichtärztlichen",
-        "zulässigen",
-        "leistungen",
-        "betrieb",
-        "erbringung",
-        "sgb",
-        "gründung"
-      ],
-      "auto_flags": [
+        "low_margin",
         "crowded_top3",
         "recoverable_in_top3"
       ],
@@ -5646,14 +4019,14 @@
       "purpose": "Beratungs-, Service,- Marketing und weitere Dienstleistungen in dem Bereich Blumen und Pflanzen sowie alle sonstigen damit im Zusammenhang stehenden Tätigkeiten.",
       "text_length": 161,
       "true_sector": "M",
-      "predicted_sector": "S",
+      "predicted_sector": "N",
       "top3": [
-        "S",
         "N",
+        "S",
         "M"
       ],
-      "score_top1": 0.6558224391193747,
-      "margin_top1_top2": 0.018967237056236153,
+      "score_top1": 0.6464592033423867,
+      "margin_top1_top2": 0.012821966659645412,
       "keywords": [
         "dienstleistungen",
         "service",
@@ -5664,7 +4037,7 @@
         "bereich",
         "sowie",
         "stehenden",
-        "pflanzen"
+        "und"
       ],
       "auto_flags": [
         "low_margin",
@@ -5679,23 +4052,23 @@
       "purpose": "Die Gesellschaft verfolgt ausschließlich und unmittelbar gemeinnützige Zwecke im Sinne des Abschnitts \"steuerbegünstigte Zwecke\" der Abgabenordnung (§§ 51 ff. AO) in der jeweils gültigen Fassung. Gegenstand der Gesellschaft ist die Gestaltung und Förderung von günstigen Entwicklungsbedingungen für Kinder, insbesondere durch die Wahrnehmung von Aufgaben auf dem Gebiet der Jugendhilfe, Erziehung und Bildung. Die Ziel der Gesellschaft sollen, abgestimmt auf die Bedürfnisse dieser Gruppen, erreicht werden durch - Schaffung, Betrieb und Unterhaltung von Kindertagesstätten und vergleichbaren Einrichtungen zur Tagsbetreuung von Kindern, - Entwicklung und Verbreitung der Gesellschaftsziele durch Publikationen, wissenschaftliche Veranstaltungen, in Lehrgängen und Kurssystemen sowie durch die Gestaltung wissenschaftlich fundierter Projekte.",
       "text_length": 842,
       "true_sector": "Q",
-      "predicted_sector": "S",
+      "predicted_sector": "T",
       "top3": [
-        "S",
         "T",
-        "N"
+        "N",
+        "S"
       ],
-      "score_top1": 0.5532594655986617,
-      "margin_top1_top2": 0.0023054047070858452,
+      "score_top1": 0.5249453890520952,
+      "margin_top1_top2": 0.014575944010817299,
       "keywords": [
         "gesellschaftsziele",
-        "bedürfnisse",
         "entwicklungsbedingungen",
         "kindertagesstätten",
         "abgabenordnung",
         "erziehung",
+        "jugendhilfe",
         "steuerbegünstigte",
-        "veranstaltungen",
+        "schaffung",
         "gestaltung",
         "tagsbetreuung"
       ],
@@ -5708,80 +4081,19 @@
       "manual_note": ""
     },
     {
-      "id": 279,
-      "legal_name": "Pan-Trans GmbH",
-      "purpose": "Kurier-, Express- und Postdienstleistungen",
-      "text_length": 42,
-      "true_sector": "H",
-      "predicted_sector": "S",
-      "top3": [
-        "S",
-        "N",
-        "H"
-      ],
-      "score_top1": 0.5897104037407846,
-      "margin_top1_top2": 0.00224673153959587,
-      "keywords": [
-        "postdienstleistungen",
-        "kurier",
-        "express",
-        "und"
-      ],
-      "auto_flags": [
-        "short_text",
-        "low_margin",
-        "recoverable_in_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 280,
-      "legal_name": "Crown Finanzdienstleistungen Aktiengesellschaft",
-      "purpose": "Die Gesellschaft erbringt Finanzdienstleistungen aller Art mit Ausnahme der Dienstleistungen, welche einer aufsichtsrechtlichen Erlaubnis bedürfen. Sie ist zu allen Geschäften und Maßnahmen berechtigt, die dem Gegenstand des Unternehmens dienen; innerhalb dieser Grenzen kann sie Zweigniederlassungen errichten und sich an anderen Unternehmen beteiligen.",
-      "text_length": 354,
-      "true_sector": "K",
-      "predicted_sector": "S",
-      "top3": [
-        "S",
-        "N",
-        "K"
-      ],
-      "score_top1": 0.5772390956223894,
-      "margin_top1_top2": 0.001169258930889816,
-      "keywords": [
-        "dienstleistungen",
-        "finanzdienstleistungen",
-        "gesellschaft",
-        "dienen",
-        "unternehmens",
-        "aufsichtsrechtlichen",
-        "geschäften",
-        "maßnahmen",
-        "erlaubnis",
-        "berechtigt"
-      ],
-      "auto_flags": [
-        "low_margin",
-        "recoverable_in_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
       "id": 281,
       "legal_name": "Kestermann und Werner GmbH",
       "purpose": "der Betrieb von Callcentern und der Vertrieb von SKL, NKL, Lotto und Toto.",
       "text_length": 74,
       "true_sector": "N",
-      "predicted_sector": "S",
+      "predicted_sector": "J",
       "top3": [
-        "S",
-        "G",
-        "H"
+        "J",
+        "H",
+        "N"
       ],
-      "score_top1": 0.3215909962503381,
-      "margin_top1_top2": 0.0008556869651875076,
+      "score_top1": 0.37486653715762236,
+      "margin_top1_top2": 0.06293638679220648,
       "keywords": [
         "lotto",
         "callcentern",
@@ -5795,9 +4107,7 @@
         "vertrieb"
       ],
       "auto_flags": [
-        "low_margin",
-        "crowded_top3",
-        "outside_top3"
+        "recoverable_in_top3"
       ],
       "manual_category": "",
       "manual_note": ""
@@ -5808,28 +4118,27 @@
       "purpose": "Die Entwicklung und der Vertrieb von Hard-, Software- und Kommunikationsdienstleistungen sowie die Ausführung von EDV- Dienstleistungen. Die Gesellschaft ist berechtigt, sich an Gesellschaften ähnlicher Art zu beteiligen oder gleichartige Unternehmen zu erwerben. Sie darf Zweigniederlassungen errichten. Darüber hinaus ist die Gesellschaft befugt, auch weitere Tätigkeiten zu übernehmen, die geeignet sind, den Gesellschaftszweck unmittelbar oder mittelbar zu fördern.",
       "text_length": 469,
       "true_sector": "J",
-      "predicted_sector": "S",
+      "predicted_sector": "N",
       "top3": [
-        "S",
         "N",
-        "J"
+        "J",
+        "O"
       ],
-      "score_top1": 0.6081831846114972,
-      "margin_top1_top2": 0.000610022312688141,
+      "score_top1": 0.5780025247125249,
+      "margin_top1_top2": 0.02365018888256154,
       "keywords": [
         "gesellschaftszweck",
         "dienstleistungen",
         "kommunikationsdienstleistungen",
+        "gesellschaft",
         "gesellschaften",
         "fördern",
         "entwicklung",
         "tätigkeiten",
-        "errichten",
-        "geeignet",
-        "beteiligen"
+        "beteiligen",
+        "geeignet"
       ],
       "auto_flags": [
-        "low_margin",
         "recoverable_in_top3"
       ],
       "manual_category": "",
@@ -5841,28 +4150,29 @@
       "purpose": "Der Gegenstand des Unternehmens ist die auftragsgemäße Bereitstellung von freiberuflichen Außendienstmitarbeitern, insbesondere Pharmareferenten und medizinischem Pflegepersonal, einerseits zum Vertrieb von elektrischen Abrechnungs- und Kartenterminals, Nahrungsergänzungsmitteln, medizinischen Lifestyle-Produkten, verschreibungsfreien Arzneimitteln, Impfstoffen und Dermo- Kosmetika an sämtliche medizinischen Heilberufe, wie Ärzte, Zahnärzte, Veterinäre und Heilpraktiker sowie an Krankenhäuser und Kliniken und andererseits zur Erbringung von Pflegedienstleistungen.",
       "text_length": 570,
       "true_sector": "N",
-      "predicted_sector": "S",
+      "predicted_sector": "Q",
       "top3": [
-        "S",
-        "N",
-        "M"
+        "Q",
+        "M",
+        "N"
       ],
-      "score_top1": 0.5675584034472637,
-      "margin_top1_top2": 0.0003349768023436228,
+      "score_top1": 0.5859153938737971,
+      "margin_top1_top2": 0.004774274824842162,
       "keywords": [
-        "pflegedienstleistungen",
-        "heilberufe",
-        "pharmareferenten",
+        "pflegepersonal",
         "kliniken",
+        "pharmareferenten",
+        "medizinischem",
+        "heilberufe",
         "außendienstmitarbeitern",
+        "arzneimitteln",
         "produkten",
         "krankenhäuser",
-        "verschreibungsfreien",
-        "dermo",
-        "andererseits"
+        "dermo"
       ],
       "auto_flags": [
         "low_margin",
+        "crowded_top3",
         "recoverable_in_top3"
       ],
       "manual_category": "",
@@ -5874,25 +4184,23 @@
       "purpose": "Die Durchführung von Estrich-Arbeiten.",
       "text_length": 38,
       "true_sector": "F",
-      "predicted_sector": "S",
+      "predicted_sector": "N",
       "top3": [
-        "S",
+        "N",
         "T",
-        "N"
+        "Q"
       ],
-      "score_top1": 0.4669986782008948,
-      "margin_top1_top2": 0.00029132848461177474,
+      "score_top1": 0.4468018094939499,
+      "margin_top1_top2": 0.04368069872148572,
       "keywords": [
-        "estrich",
         "arbeiten",
         "durchführung",
+        "estrich",
         "die",
         "von"
       ],
       "auto_flags": [
         "short_text",
-        "low_margin",
-        "crowded_top3",
         "outside_top3"
       ],
       "manual_category": "",
@@ -5904,29 +4212,28 @@
       "purpose": "Buchführungsservice gem. § 6 Nr. 3 und 4 StberG erlaubte Tätigkeiten, hier insbesondere: laufende Lohnabrechnung, Fertigen der Lohnsteuer-Anmeldungen, betriebswirtschaftliche Beratung.",
       "text_length": 184,
       "true_sector": "M",
-      "predicted_sector": "S",
+      "predicted_sector": "N",
       "top3": [
-        "S",
         "N",
-        "K"
+        "S",
+        "M"
       ],
-      "score_top1": 0.5799898217205489,
-      "margin_top1_top2": 0.0002902503070284501,
+      "score_top1": 0.5512472196923897,
+      "margin_top1_top2": 0.08868247073393265,
       "keywords": [
         "buchführungsservice",
         "betriebswirtschaftliche",
         "tätigkeiten",
-        "lohnsteuer",
         "anmeldungen",
+        "lohnsteuer",
         "erlaubte",
         "der",
-        "beratung",
         "insbesondere",
+        "fertigen",
         "und"
       ],
       "auto_flags": [
-        "low_margin",
-        "outside_top3"
+        "recoverable_in_top3"
       ],
       "manual_category": "",
       "manual_note": ""
@@ -5940,11 +4247,11 @@
       "predicted_sector": "T",
       "top3": [
         "T",
-        "S",
-        "N"
+        "Q",
+        "S"
       ],
-      "score_top1": 0.5152536641619478,
-      "margin_top1_top2": 0.07599226797353215,
+      "score_top1": 0.5463257788831677,
+      "margin_top1_top2": 0.06320983404160813,
       "keywords": [
         "pflegebedürftigen",
         "versorgung",
@@ -5958,7 +4265,7 @@
         "gewährung"
       ],
       "auto_flags": [
-        "outside_top3"
+        "recoverable_in_top3"
       ],
       "manual_category": "",
       "manual_note": ""
@@ -5972,11 +4279,11 @@
       "predicted_sector": "T",
       "top3": [
         "T",
-        "I",
-        "L"
+        "Q",
+        "I"
       ],
-      "score_top1": 0.630332529497265,
-      "margin_top1_top2": 0.06426873970169011,
+      "score_top1": 0.6719510715311932,
+      "margin_top1_top2": 0.10521285081674203,
       "keywords": [
         "urlaubsbetreuung",
         "kurzzeitpflege",
@@ -5990,7 +4297,7 @@
         "der"
       ],
       "auto_flags": [
-        "outside_top3"
+        "recoverable_in_top3"
       ],
       "manual_category": "",
       "manual_note": ""
@@ -6001,18 +4308,18 @@
       "purpose": "Verwaltung von eigenem Grundbesitz und Kapitalvermögen sowie sonstige Tätigkeiten, die die vorgenannten Tätigkeiten fördern.",
       "text_length": 124,
       "true_sector": "L",
-      "predicted_sector": "T",
+      "predicted_sector": "K",
       "top3": [
-        "T",
-        "L",
-        "K"
+        "K",
+        "M",
+        "T"
       ],
-      "score_top1": 0.5697617092780642,
-      "margin_top1_top2": 0.015400845533894647,
+      "score_top1": 0.6068246464929762,
+      "margin_top1_top2": 0.04725030593167123,
       "keywords": [
         "grundbesitz",
-        "verwaltung",
         "kapitalvermögen",
+        "verwaltung",
         "tätigkeiten",
         "fördern",
         "eigenem",
@@ -6022,9 +4329,7 @@
         "sowie"
       ],
       "auto_flags": [
-        "low_margin",
-        "crowded_top3",
-        "recoverable_in_top3"
+        "outside_top3"
       ],
       "manual_category": "",
       "manual_note": ""
@@ -6035,29 +4340,28 @@
       "purpose": "Vermögens- und Hausverwaltung sowie Handel mit Papier und Verpackungsmaterial aller Art. Die Gesellschaft ist zu allen Geschäften und Maßnahmen berechtigt, die zur Erreichung des Gesellschaftszweckes notwendig oder nützlich erscheinen, auch zur Beteiligung an anderen Unternehmen oder zum Erwerb anderer Unternehmen.",
       "text_length": 316,
       "true_sector": "L",
-      "predicted_sector": "T",
+      "predicted_sector": "C",
       "top3": [
-        "T",
-        "N",
+        "C",
+        "M",
         "S"
       ],
-      "score_top1": 0.5422445294969716,
-      "margin_top1_top2": 0.010678157898969531,
+      "score_top1": 0.5613529012244103,
+      "margin_top1_top2": 0.006253800056295611,
       "keywords": [
         "gesellschaftszweckes",
-        "hausverwaltung",
         "gesellschaft",
         "geschäften",
+        "hausverwaltung",
         "erreichung",
         "nützlich",
+        "verpackungsmaterial",
         "maßnahmen",
         "notwendig",
-        "handel",
-        "beteiligung"
+        "vermögens"
       ],
       "auto_flags": [
         "low_margin",
-        "crowded_top3",
         "boilerplate_shape",
         "outside_top3"
       ],
@@ -6070,14 +4374,14 @@
       "purpose": "Betrieb eines Kurmittelhauses",
       "text_length": 29,
       "true_sector": "Q",
-      "predicted_sector": "T",
+      "predicted_sector": "L",
       "top3": [
-        "T",
-        "I",
-        "L"
+        "L",
+        "F",
+        "T"
       ],
-      "score_top1": 0.5139360686251866,
-      "margin_top1_top2": 0.003095506323336772,
+      "score_top1": 0.525440839678998,
+      "margin_top1_top2": 0.03041433870898419,
       "keywords": [
         "kurmittelhauses",
         "betrieb",
@@ -6085,38 +4389,7 @@
       ],
       "auto_flags": [
         "short_text",
-        "low_margin",
-        "crowded_top3",
         "outside_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 291,
-      "legal_name": "LSG GmbH Dienstleistungen",
-      "purpose": "Gewerbsmäßige Arbeitnehmerüberlassung gem. § 1 AÜG (Arbeitnehmerüberlassungsgesetz).",
-      "text_length": 84,
-      "true_sector": "N",
-      "predicted_sector": "T",
-      "top3": [
-        "T",
-        "N",
-        "S"
-      ],
-      "score_top1": 0.4229344568474582,
-      "margin_top1_top2": 0.0009433512902518593,
-      "keywords": [
-        "arbeitnehmerüberlassungsgesetz",
-        "arbeitnehmerüberlassung",
-        "gewerbsmäßige",
-        "aüg",
-        "gem"
-      ],
-      "auto_flags": [
-        "low_margin",
-        "crowded_top3",
-        "recoverable_in_top3"
       ],
       "manual_category": "",
       "manual_note": ""
@@ -6130,11 +4403,11 @@
       "predicted_sector": "U",
       "top3": [
         "U",
-        "K",
-        "N"
+        "M",
+        "O"
       ],
-      "score_top1": 0.46825494146350183,
-      "margin_top1_top2": 0.16249424550307945,
+      "score_top1": 0.4231999033691514,
+      "margin_top1_top2": 0.15325795066867298,
       "keywords": [
         "flugzeugfonds",
         "geschäftsführende",
@@ -6149,39 +4422,7 @@
       ],
       "auto_flags": [
         "boilerplate_shape",
-        "outside_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 293,
-      "legal_name": "XJ WISSUZ Media Consult UG (haftungsbeschränkt)",
-      "purpose": "Gegenstand des Unternehmens ist Medienberatung in Deutschland und Lateinamerika, Bewegtbildproduktion im In- und Ausland",
-      "text_length": 120,
-      "true_sector": "J",
-      "predicted_sector": "U",
-      "top3": [
-        "U",
-        "R",
-        "M"
-      ],
-      "score_top1": 0.46953541986301567,
-      "margin_top1_top2": 0.08152814782469425,
-      "keywords": [
-        "medienberatung",
-        "lateinamerika",
-        "unternehmens",
-        "ausland",
-        "deutschland",
-        "ist",
-        "des",
-        "und",
-        "gegenstand",
-        "bewegtbildproduktion"
-      ],
-      "auto_flags": [
-        "outside_top3"
+        "recoverable_in_top3"
       ],
       "manual_category": "",
       "manual_note": ""
@@ -6196,10 +4437,10 @@
       "top3": [
         "U",
         "M",
-        "N"
+        "K"
       ],
-      "score_top1": 0.39807760061713643,
-      "margin_top1_top2": 0.0794854952267725,
+      "score_top1": 0.3603147477908083,
+      "margin_top1_top2": 0.003546511991439516,
       "keywords": [
         "firma",
         "gesellschaft",
@@ -6213,41 +4454,9 @@
         "dem"
       ],
       "auto_flags": [
-        "boilerplate_shape",
-        "outside_top3"
-      ],
-      "manual_category": "",
-      "manual_note": ""
-    },
-    {
-      "id": 295,
-      "legal_name": "abc projektüberwachungs UG (haftungsbeschränkt)",
-      "purpose": "Übernahme der Stellung der persönlich haftenden Gesellschafterin in der Steden Projektleitungen UG (haftungsbeschränkt) & Co. KG.",
-      "text_length": 129,
-      "true_sector": "M",
-      "predicted_sector": "U",
-      "top3": [
-        "U",
-        "O",
-        "N"
-      ],
-      "score_top1": 0.440441485041225,
-      "margin_top1_top2": 0.009227166657128416,
-      "keywords": [
-        "gesellschafterin",
-        "übernahme",
-        "der",
-        "stellung",
-        "projektleitungen",
-        "haftenden",
-        "persönlich",
-        "haftungsbeschränkt",
-        "steden"
-      ],
-      "auto_flags": [
         "low_margin",
-        "crowded_top3",
-        "outside_top3"
+        "boilerplate_shape",
+        "recoverable_in_top3"
       ],
       "manual_category": "",
       "manual_note": ""
@@ -6258,30 +4467,28 @@
       "purpose": "Die Betreuung von Berufsfußballspielern, insbesondere koreanischer Nationalität, sowie die Vertretung der IVAN Sports Corp. in Europa.",
       "text_length": 134,
       "true_sector": "R",
-      "predicted_sector": "U",
+      "predicted_sector": "M",
       "top3": [
-        "U",
         "M",
-        "N"
+        "R",
+        "Q"
       ],
-      "score_top1": 0.31879876897371073,
-      "margin_top1_top2": 0.0011410664667841353,
+      "score_top1": 0.33686642719650656,
+      "margin_top1_top2": 0.03006661687631612,
       "keywords": [
         "berufsfußballspielern",
         "sports",
-        "europa",
         "koreanischer",
+        "europa",
         "nationalität",
         "insbesondere",
-        "die",
+        "betreuung",
         "vertretung",
-        "der",
+        "die",
         "von"
       ],
       "auto_flags": [
-        "low_margin",
-        "crowded_top3",
-        "outside_top3"
+        "recoverable_in_top3"
       ],
       "manual_category": "",
       "manual_note": ""
@@ -6292,25 +4499,25 @@
       "purpose": "Das Halten einer Beteiligung an der noch zu gründenden Firma H + S Massivbau GmbH & Co. KG.",
       "text_length": 91,
       "true_sector": "K",
-      "predicted_sector": "U",
+      "predicted_sector": "L",
       "top3": [
-        "U",
-        "N",
-        "M"
+        "L",
+        "M",
+        "U"
       ],
-      "score_top1": 0.25909461977184833,
-      "margin_top1_top2": 0.0007603838123628193,
+      "score_top1": 0.2265759709400473,
+      "margin_top1_top2": 0.0008363213749042198,
       "keywords": [
         "firma",
         "gmbh",
+        "massivbau",
         "gründenden",
         "beteiligung",
-        "massivbau",
         "das",
         "der",
         "einer",
-        "noch",
-        "halten"
+        "halten",
+        "noch"
       ],
       "auto_flags": [
         "low_margin",
@@ -6327,30 +4534,29 @@
       "purpose": "Betreiben des Inkasso- und Forderungsmanagementgeschäfts. Hierzu zählen insbesondere die außergerichtliche und gerichtliche Einziehung von titulierten oder nicht titulierten fremden Forderungen im fremden Namen.",
       "text_length": 211,
       "true_sector": "N",
-      "predicted_sector": "U",
+      "predicted_sector": "O",
       "top3": [
-        "U",
-        "N",
-        "O"
+        "O",
+        "M",
+        "U"
       ],
-      "score_top1": 0.5002125468631131,
-      "margin_top1_top2": 0.0006486425890467884,
+      "score_top1": 0.5158945327536688,
+      "margin_top1_top2": 0.01353957745357759,
       "keywords": [
         "forderungsmanagementgeschäfts",
         "außergerichtliche",
         "forderungen",
         "namen",
-        "einziehung",
         "gerichtliche",
         "betreiben",
+        "einziehung",
         "titulierten",
         "insbesondere",
         "fremden"
       ],
       "auto_flags": [
         "low_margin",
-        "crowded_top3",
-        "recoverable_in_top3"
+        "outside_top3"
       ],
       "manual_category": "",
       "manual_note": ""

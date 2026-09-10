@@ -3,7 +3,7 @@
     "A": {
       "name": "Agriculture, Forestry and Fishing",
       "nace_code": "A",
-      "description": "Anbau von Pflanzen, Tierhaltung, Forstwirtschaft, Holzeinschlag, Fischerei und Aquakultur sowie damit verbundene landwirtschaftliche Dienstleistungen.",
+      "description": "Tarım, ormancılık ve balıkçılık",
       "seed_keywords": [
         "Landwirtschaft",
         "Ackerbau",
@@ -28,7 +28,7 @@
     "B": {
       "name": "Mining and Quarrying",
       "nace_code": "B",
-      "description": "Bergbau und Gewinnung von Steinen und Erden, Kohle, Erdöl, Erdgas und Erzen im Tage- oder Untertagebau.",
+      "description": "Madencilik ve taş ocakları",
       "seed_keywords": [
         "Bergbau",
         "Tagebau",
@@ -54,7 +54,7 @@
     "C": {
       "name": "Manufacturing",
       "nace_code": "C",
-      "description": "Herstellung und Verarbeitung von Waren: Nahrungsmittel, Textilien, Holz, Papier, Druckerzeugnisse, Chemie, Metall, Maschinen, Fahrzeuge, Möbel; Reparatur und Installation von Maschinen.",
+      "description": "Herstellung und Produktion von Waren: Maschinenbau, Automobilbau, Lebensmittelverarbeitung, Textilherstellung, Chemie, Pharmaindustrie, Metallverarbeitung, Holzverarbeitung, Elektronikfertigung. İmalat, üretim.",
       "seed_keywords": [
         "Herstellung",
         "Produktion",
@@ -85,13 +85,15 @@
     "D": {
       "name": "Electricity, Gas, Steam and Air Conditioning Supply",
       "nace_code": "D",
-      "description": "Erzeugung und leitungsgebundene Verteilung von Elektrizität, Gas, Dampf und Fernwärme; Betrieb von Kraftwerken und Versorgungsnetzen.",
+      "description": "Elektrik, gaz, buhar ve iklimlendirme",
       "seed_keywords": [
         "Stromversorgung",
         "Elektrizität",
         "Gasversorgung",
         "Erdgas",
         "Dampf",
+        "Heizung",
+        "Klimaanlage",
         "Energieversorgung",
         "Kraftwerk",
         "Netzbetreiber",
@@ -106,7 +108,7 @@
     "E": {
       "name": "Water Supply, Sewerage, Waste Management",
       "nace_code": "E",
-      "description": "Wassergewinnung und -verteilung, Abwasserbeseitigung, Sammlung, Behandlung und Beseitigung von Abfällen, Recycling und Wertstoffrückgewinnung.",
+      "description": "Su temini, kanalizasyon, atık yönetimi",
       "seed_keywords": [
         "Wasserversorgung",
         "Abwasser",
@@ -119,9 +121,7 @@
         "Kläranlage",
         "Abfallwirtschaft",
         "Umwelt",
-        "Sanitation",
-        "Containerdienst",
-        "Wertstoffe"
+        "Sanitation"
       ],
       "negative_keywords": [
         "Wasserbau",
@@ -131,7 +131,7 @@
     "F": {
       "name": "Construction",
       "nace_code": "F",
-      "description": "Hoch- und Tiefbau, Rohbau, Abbrucharbeiten, Bauinstallation wie Elektro-, Sanitär-, Heizungs- und Lüftungsinstallation, Ausbaugewerbe, Bauträgertätigkeit.",
+      "description": "Bauwesen, Hochbau, Tiefbau, Schlüsselfertigbau, Renovierung, Sanierung, Wohnungsbau, Gewerbebau, Infrastrukturbau, Bauplanung, Bauausführung. İnşaat, yapı, bina, tadilat.",
       "seed_keywords": [
         "Bauwesen",
         "Hochbau",
@@ -145,14 +145,7 @@
         "Sanierung",
         "Baumaterialien",
         "Bauplanung",
-        "Projektentwicklung",
-        "Elektroinstallation",
-        "Sanitärinstallation",
-        "Heizungsbau",
-        "Bauinstallation",
-        "Trockenbau",
-        "Estrich",
-        "Abbrucharbeiten"
+        "Projektentwicklung"
       ],
       "negative_keywords": [
         "Maschinenbau",
@@ -162,7 +155,7 @@
     "G": {
       "name": "Wholesale and Retail Trade",
       "nace_code": "G",
-      "description": "Groß- und Einzelhandel mit Waren aller Art, Import und Export, Handelsvermittlung, Vertrieb sowie Handel mit und Reparatur von Kraftfahrzeugen.",
+      "description": "Toptan ve perakende ticaret",
       "seed_keywords": [
         "Handel",
         "Verkauf",
@@ -188,7 +181,7 @@
     "H": {
       "name": "Transportation and Storage",
       "nace_code": "H",
-      "description": "Güter- und Personenbeförderung auf Straße, Schiene, Wasser und in der Luft, Spedition, Lagerei, Umschlag sowie Post- und Kurierdienste.",
+      "description": "Ulaşım ve depolama",
       "seed_keywords": [
         "Transport",
         "Logistik",
@@ -214,7 +207,7 @@
     "I": {
       "name": "Accommodation and Food Service Activities",
       "nace_code": "I",
-      "description": "Beherbergung in Hotels und Pensionen sowie Gastronomie: Restaurants, Gaststätten, Imbiss, Catering, Ausschank von Getränken, Diskotheken und Tanzlokale.",
+      "description": "Konaklama ve yiyecek hizmetleri",
       "seed_keywords": [
         "Hotel",
         "Gaststätte",
@@ -237,7 +230,7 @@
     "J": {
       "name": "Information and Communication",
       "nace_code": "J",
-      "description": "Verlagswesen, Film-, Fernseh- und Tonproduktion, Rundfunk, Telekommunikation, Softwareentwicklung, IT-Dienstleistungen, Webportale und Datenverarbeitung.",
+      "description": "Informationstechnologie, Softwareentwicklung, Webentwicklung, App-Entwicklung, Cloud-Computing, API, Programmierung, Netzwerk, Telekommunikation, Datenverarbeitung. Yazılım geliştirme, mobil uygulama, bulut bilişim, entegrasyon.",
       "seed_keywords": [
         "Informationstechnologie",
         "Software",
@@ -284,7 +277,7 @@
     "K": {
       "name": "Financial and Insurance Activities",
       "nace_code": "K",
-      "description": "Bankgeschäfte und Kreditgewährung, Beteiligungsgesellschaften und Holdings ohne eigene Geschäftsführung, Vermögensverwaltung, Versicherungen, Versicherungsmakler und Anlagevermittlung.",
+      "description": "Finans ve sigorta faaliyetleri",
       "seed_keywords": [
         "Bank",
         "Versicherung",
@@ -298,11 +291,7 @@
         "Währung",
         "Börse",
         "Fond",
-        "Asset Management",
-        "Beteiligungsgesellschaft",
-        "Erwerb und Verwaltung von Beteiligungen",
-        "Verwaltung eigenen Vermögens",
-        "Holding"
+        "Asset Management"
       ],
       "negative_keywords": [
         "Buchhaltung",
@@ -312,7 +301,7 @@
     "L": {
       "name": "Real Estate Activities",
       "nace_code": "L",
-      "description": "Kauf, Verkauf, Vermietung und Verpachtung eigener Grundstücke und Immobilien, Hausverwaltung und Immobilienmakler.",
+      "description": "Emlak faaliyetleri",
       "seed_keywords": [
         "Immobilien",
         "Grundstück",
@@ -336,7 +325,7 @@
     "M": {
       "name": "Professional, Scientific and Technical Activities",
       "nace_code": "M",
-      "description": "Rechts- und Steuerberatung, Wirtschaftsprüfung, Unternehmensberatung, Verwaltung und Führung von Unternehmen einschließlich der Übernahme der persönlichen Haftung und Geschäftsführung als Komplementär, Ingenieurbüros, Architektur, Forschung und Werbung.",
+      "description": "Unternehmensberatung, Steuerberatung, Rechtsberatung, Wirtschaftsprüfung, Buchhaltung, Ingenieurdienstleistungen, Architektur, Marktforschung. Danışmanlık, muhasebe, hukuk, mühendislik, mimarlık.",
       "seed_keywords": [
         "Beratung",
         "Consulting",
@@ -358,15 +347,7 @@
         "mühendislik",
         "mimarlık",
         "araştırma",
-        "geliştirme",
-        "Übernahme der persönlichen Haftung",
-        "Geschäftsführung",
-        "Komplementär",
-        "persönlich haftende Gesellschafterin",
-        "Verwaltungsgesellschaft",
-        "Führung von Unternehmen",
-        "Werbeagentur",
-        "Marktforschung"
+        "geliştirme"
       ],
       "negative_keywords": [
         "Handel",
@@ -376,10 +357,13 @@
     "N": {
       "name": "Administrative and Support Service Activities",
       "nace_code": "N",
-      "description": "Vermietung beweglicher Sachen, Arbeitnehmerüberlassung, Reisebüros, Wach- und Sicherheitsdienste, Gebäudereinigung, Garten- und Landschaftsbau, Call-Center, Inkasso und Messeveranstaltung.",
+      "description": "İdari ve destek hizmet faaliyetleri",
       "seed_keywords": [
         "Dienstleistung",
         "Service",
+        "Verwaltung",
+        "Management",
+        "Buchhaltung",
         "Personal",
         "HR",
         "Recruiting",
@@ -388,14 +372,7 @@
         "Reinigung",
         "Wartung",
         "Unterstützung",
-        "Arbeitnehmerüberlassung",
-        "Zeitarbeit",
-        "Gebäudereinigung",
-        "Garten- und Landschaftsbau",
-        "Wachdienst",
-        "Reisebüro",
-        "Call-Center",
-        "Inkasso"
+        "Administration"
       ],
       "negative_keywords": [
         "Beratung",
@@ -405,8 +382,9 @@
     "O": {
       "name": "Public Administration and Defence",
       "nace_code": "O",
-      "description": "Hoheitliche Aufgaben der öffentlichen Hand, Verteidigung, öffentliche Sicherheit und gesetzliche Sozialversicherung.",
+      "description": "Kamu yönetimi ve savunma",
       "seed_keywords": [
+        "Verwaltung",
         "Behörde",
         "Amt",
         "Staat",
@@ -418,7 +396,9 @@
         "Polizei",
         "Feuerwehr",
         "Justiz",
-        "Gericht"
+        "Gericht",
+        "Sozial",
+        "Bildung"
       ],
       "negative_keywords": [
         "Privat",
@@ -428,7 +408,7 @@
     "P": {
       "name": "Education",
       "nace_code": "P",
-      "description": "Kindergärten im Bildungsbereich, Schulen, Hochschulen, berufliche Aus- und Weiterbildung, Fahrschulen, Sport- und Freizeitunterricht sowie Seminare und Schulungen.",
+      "description": "Eğitim",
       "seed_keywords": [
         "Bildung",
         "Schule",
@@ -453,7 +433,7 @@
     "Q": {
       "name": "Human Health and Social Work Activities",
       "nace_code": "Q",
-      "description": "Krankenhäuser, Arzt- und Zahnarztpraxen, medizinische Versorgungszentren, Pflegedienste, Alten- und Pflegeheime, Kinderbetreuung und soziale Betreuung.",
+      "description": "Gesundheitswesen, Humanmedizin, Zahnmedizin, Zahnarztpraxis, Zahnklinik, Krankenhaus, Arztpraxis, Pflege, Therapie, Rehabilitation. İnsan sağlığı, diş hekimliği, hastane, klinik, tedavi, hemşirelik.",
       "seed_keywords": [
         "Gesundheit",
         "Medizin",
@@ -509,7 +489,7 @@
     "R": {
       "name": "Arts, Entertainment and Recreation",
       "nace_code": "R",
-      "description": "Theater, Musik- und Filmvorführung, Museen, Sport und Fitness, Reitanlagen, Freizeitparks, Spielhallen und Glücksspiel sowie Veranstaltungen.",
+      "description": "Sanat, eğlence ve rekreasyon",
       "seed_keywords": [
         "Kunst",
         "Kultur",
@@ -524,10 +504,7 @@
         "Event",
         "Tourismus",
         "Reise",
-        "Erholung",
-        "Diskothek",
-        "Reitschule",
-        "Spielautomaten"
+        "Erholung"
       ],
       "negative_keywords": [
         "Bildung",
@@ -537,7 +514,7 @@
     "S": {
       "name": "Other Service Activities",
       "nace_code": "S",
-      "description": "Interessenvertretungen, kirchliche und religiöse Vereinigungen, Reparatur von Gebrauchsgütern, Frisör- und Kosmetiksalons, Wellness und Bestattungswesen.",
+      "description": "Diğer hizmet faaliyetleri",
       "seed_keywords": [
         "Dienstleistung",
         "Service",
@@ -562,7 +539,7 @@
     "T": {
       "name": "Activities of Households as Employers",
       "nace_code": "T",
-      "description": "Beschäftigung von Hauspersonal in privaten Haushalten.",
+      "description": "Hane halklarının işveren olarak faaliyetleri",
       "seed_keywords": [
         "Haushalt",
         "Familie",
@@ -582,7 +559,7 @@
     "U": {
       "name": "Activities of Extraterritorial Organisations",
       "nace_code": "U",
-      "description": "Botschaften und exterritoriale Organisationen wie UN, EU und OECD.",
+      "description": "Uluslararası örgütlerin faaliyetleri",
       "seed_keywords": [
         "International",
         "Organisation",
@@ -606,7 +583,6 @@
     "source": "NACE Rev.2 classification adapted for German business registry",
     "total_sectors": 21,
     "created_date": "2024-12-19",
-    "last_updated": "2024-12-19",
-    "revision": "descriptions in corpus language; shell vocabulary; leak fixes"
+    "last_updated": "2024-12-19"
   }
 }

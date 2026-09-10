@@ -24,7 +24,7 @@ from experiments.config import EMBEDDING_MODEL, RESULTS_DIR, SEED, TABLES_DIR, e
 from experiments.data import (
     corpus_available,
     load_corpus,
-    load_labeled_samples,
+    load_labeled_samples_split,
     load_labels_metadata,
 )
 from experiments.metrics import (
@@ -110,7 +110,7 @@ def strip_per_item(results: List[Dict]) -> List[Dict]:
     return slim
 
 
-def provenance(samples, extra: Dict | None = None) -> Dict:
+def provenance(samples, half: str = "all", extra: Dict | None = None) -> Dict:
     meta = load_labels_metadata()
     return {
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
@@ -122,11 +122,12 @@ def provenance(samples, extra: Dict | None = None) -> Dict:
         "eval_set_source": meta.get("source"),
         "eval_set_annotation": meta.get("annotation"),
         "corpus_present": corpus_available(),
+        "evaluation_half": half,
         **(extra or {}),
     }
 
 
-def run_suite(name: str, systems: List[System], samples, corpus, table_fn) -> Dict:
+def run_suite(name: str, systems: List[System], samples, corpus, table_fn, half: str = "all") -> Dict:
     print(f"\n[{name}]")
     results = [run_system(s, samples, corpus) for s in systems]
     add_significance(results)
@@ -135,7 +136,7 @@ def run_suite(name: str, systems: List[System], samples, corpus, table_fn) -> Di
     (TABLES_DIR / f"{name}.md").write_text(table + "\n", encoding="utf-8")
 
     payload = {
-        "provenance": provenance(samples),
+        "provenance": provenance(samples, half),
         "systems": strip_per_item(results),
         "table_markdown": table,
     }
@@ -165,6 +166,13 @@ def main() -> int:
         help="Fit TF-IDF on the first N corpus documents (default: all).",
     )
     parser.add_argument(
+        "--half",
+        choices=["dev", "test", "all"],
+        default="all",
+        help="Evaluate on the development half, the held-out test half, or "
+             "everything. Develop on dev; report on test.",
+    )
+    parser.add_argument(
         "--extra-ablations",
         action="store_true",
         help="Add the mpnet and translation ablations (downloads two models).",
@@ -179,10 +187,11 @@ def main() -> int:
     set_seed()
     ensure_dirs()
 
-    samples = load_labeled_samples()
+    samples = load_labeled_samples_split(None if args.half == "all" else args.half)
     corpus = load_corpus(limit=args.corpus_limit)
     label_counts = Counter(s.true_sector for s in samples)
-    print(f"Evaluation set: {len(samples)} documents, {len(label_counts)} sectors")
+    half_label = {"all": "full set", "dev": "development half", "test": "HELD-OUT TEST half"}[args.half]
+    print(f"Evaluation set: {len(samples)} documents ({half_label}), {len(label_counts)} sectors")
     if corpus:
         print(f"Corpus for TF-IDF statistics: {len(corpus)} documents")
     else:
@@ -207,7 +216,7 @@ def main() -> int:
                 ),
             )
         metrics["baselines"] = run_suite(
-            "baselines", systems, samples, corpus, report.comparison_table
+            "baselines", systems, samples, corpus, report.comparison_table, args.half
         )
 
     if args.suite in ("ablation", "all"):
@@ -217,6 +226,7 @@ def main() -> int:
             samples,
             corpus,
             report.ablation_table,
+            args.half,
         )
 
     # results/metrics.json is the single file the README and the paper cite.
@@ -237,7 +247,7 @@ def main() -> int:
     (RESULTS_DIR / "metrics.json").write_text(
         json.dumps(
             {
-                "provenance": provenance(samples),
+                "provenance": provenance(samples, args.half),
                 "headline": headline,
                 "suites": {k: v["systems"] for k, v in metrics.items()},
             },

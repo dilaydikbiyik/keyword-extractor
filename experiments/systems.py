@@ -279,6 +279,7 @@ class EmbeddingRanker:
         use_seeds: bool = True,
         model_name: str = EMBEDDING_MODEL,
         preprocess_input: bool = False,
+        taxonomy_path=None,
     ):
         if not (use_description or use_seeds):
             raise ValueError("EmbeddingRanker needs at least one taxonomy source")
@@ -287,7 +288,7 @@ class EmbeddingRanker:
         self.model_name = model_name
         self.preprocess_input = preprocess_input
         self.embedder = get_embedder(model_name)
-        self.taxonomy = load_taxonomy()
+        self.taxonomy = load_taxonomy(taxonomy_path)
         self.codes = sorted(self.taxonomy)
         self.sector_vectors = self._build_sector_vectors()
 
@@ -566,6 +567,20 @@ def build_ablations(
             description="Guided extraction, filter stage skipped.",
             ranker=EmbeddingRanker(model_name=model_name),
             keywords=KeyBERTStrategy(guided=True, use_filter=False, model_name=model_name),
+        ),
+        System(
+            key="taxonomy-v1",
+            label="↩ previous taxonomy (Turkish descriptions)",
+            description=(
+                "The section descriptions before they were rewritten in the "
+                "language of the corpus, with the seed collisions and leaks "
+                "the error analysis found still in place."
+            ),
+            ranker=EmbeddingRanker(
+                model_name=model_name,
+                taxonomy_path=ROOT / "data" / "taxonomy" / "sectors_v1.json",
+            ),
+            keywords=KeyBERTStrategy(guided=True, use_filter=True, model_name=model_name),
         ),
         System(
             key="preprocessed-input",

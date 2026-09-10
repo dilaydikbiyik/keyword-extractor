@@ -1,14 +1,15 @@
 {
   "provenance": {
-    "generated_at": "2026-09-09T21:10:01+00:00",
-    "git_revision": "535c5fb",
+    "generated_at": "2026-09-10T08:12:31+00:00",
+    "git_revision": "e12a124",
     "seed": 42,
     "python": "3.9.6",
     "embedding_model": "paraphrase-multilingual-MiniLM-L12-v2",
     "eval_set_size": 299,
     "eval_set_source": "curated_stratified_sample",
     "eval_set_annotation": "corpus-sampled; labels model-assisted per docs/annotation_guidelines.md, human-verified on a subset (results/verification_report.json)",
-    "corpus_present": true
+    "corpus_present": true,
+    "evaluation_half": "all"
   },
   "systems": [
     {
@@ -32,12 +33,12 @@
         "precision_at_5": null,
         "precision_at_10": null
       },
-      "p_value_vs_full": 2.6875435853808106e-18,
+      "p_value_vs_full": 9.454208002561625e-34,
       "mcnemar_vs_full": {
-        "a_only_correct": 102,
-        "b_only_correct": 13,
-        "discordant": 115,
-        "p_value": 2.6875435853808106e-18
+        "a_only_correct": 152,
+        "b_only_correct": 10,
+        "discordant": 162,
+        "p_value": 9.454208002561625e-34
       }
     },
     {
@@ -61,12 +62,12 @@
         "precision_at_5": null,
         "precision_at_10": null
       },
-      "p_value_vs_full": 0.001756558946264747,
+      "p_value_vs_full": 1.0363075244891659e-16,
       "mcnemar_vs_full": {
-        "a_only_correct": 94,
-        "b_only_correct": 55,
-        "discordant": 149,
-        "p_value": 0.001756558946264747
+        "a_only_correct": 112,
+        "b_only_correct": 20,
+        "discordant": 132,
+        "p_value": 1.0363075244891659e-16
       }
     },
     {
@@ -76,26 +77,26 @@
       "is_oracle": false,
       "sector": {
         "n": 299,
-        "top1_accuracy": 0.25418060200668896,
+        "top1_accuracy": 0.44481605351170567,
         "top1_ci95": [
-          0.20735785953177258,
-          0.30434782608695654
+          0.3879598662207358,
+          0.5016722408026756
         ],
-        "top3_accuracy": 0.4013377926421405,
-        "f1_macro": 0.18411930611553756,
-        "cohen_kappa": 0.20669839381320632
+        "top3_accuracy": 0.6555183946488294,
+        "f1_macro": 0.29728955341967245,
+        "cohen_kappa": 0.38489565260496694
       },
       "keywords": {
         "precision_at_3": null,
         "precision_at_5": null,
         "precision_at_10": null
       },
-      "p_value_vs_full": 0.006637120515926128,
+      "p_value_vs_full": 0.0368774694497364,
       "mcnemar_vs_full": {
-        "a_only_correct": 64,
-        "b_only_correct": 36,
-        "discordant": 100,
-        "p_value": 0.006637120515926128
+        "a_only_correct": 73,
+        "b_only_correct": 49,
+        "discordant": 122,
+        "p_value": 0.0368774694497364
       }
     },
     {
@@ -105,26 +106,26 @@
       "is_oracle": false,
       "sector": {
         "n": 299,
-        "top1_accuracy": 0.2842809364548495,
+        "top1_accuracy": 0.5284280936454849,
         "top1_ci95": [
-          0.23411371237458195,
-          0.33444816053511706
+          0.47157190635451507,
+          0.5852842809364549
         ],
-        "top3_accuracy": 0.6254180602006689,
-        "f1_macro": 0.2428354525293301,
-        "cohen_kappa": 0.23416835226388666
+        "top3_accuracy": 0.8193979933110368,
+        "f1_macro": 0.37145446383118264,
+        "cohen_kappa": 0.4750205464099818
       },
       "keywords": {
         "precision_at_3": null,
         "precision_at_5": null,
         "precision_at_10": null
       },
-      "p_value_vs_full": 0.007942726509483574,
+      "p_value_vs_full": 1.0,
       "mcnemar_vs_full": {
-        "a_only_correct": 33,
-        "b_only_correct": 14,
-        "discordant": 47,
-        "p_value": 0.007942726509483574
+        "a_only_correct": 35,
+        "b_only_correct": 36,
+        "discordant": 71,
+        "p_value": 1.0
       }
     },
     {
@@ -134,26 +135,26 @@
       "is_oracle": false,
       "sector": {
         "n": 299,
-        "top1_accuracy": 0.2842809364548495,
+        "top1_accuracy": 0.5284280936454849,
         "top1_ci95": [
-          0.23411371237458195,
-          0.33444816053511706
+          0.47157190635451507,
+          0.5852842809364549
         ],
-        "top3_accuracy": 0.6254180602006689,
-        "f1_macro": 0.2428354525293301,
-        "cohen_kappa": 0.23416835226388666
+        "top3_accuracy": 0.8193979933110368,
+        "f1_macro": 0.37145446383118264,
+        "cohen_kappa": 0.4750205464099818
       },
       "keywords": {
         "precision_at_3": null,
         "precision_at_5": null,
         "precision_at_10": null
       },
-      "p_value_vs_full": 0.007942726509483574,
+      "p_value_vs_full": 1.0,
       "mcnemar_vs_full": {
-        "a_only_correct": 33,
-        "b_only_correct": 14,
-        "discordant": 47,
-        "p_value": 0.007942726509483574
+        "a_only_correct": 35,
+        "b_only_correct": 36,
+        "discordant": 71,
+        "p_value": 1.0
       }
     },
     {
@@ -163,14 +164,14 @@
       "is_oracle": false,
       "sector": {
         "n": 299,
-        "top1_accuracy": 0.34782608695652173,
+        "top1_accuracy": 0.5250836120401338,
         "top1_ci95": [
-          0.29431438127090304,
-          0.40142140468227305
+          0.4682274247491639,
+          0.5819397993311036
         ],
-        "top3_accuracy": 0.6722408026755853,
-        "f1_macro": 0.2929361750528012,
-        "cohen_kappa": 0.2998835240576856
+        "top3_accuracy": 0.8160535117056856,
+        "f1_macro": 0.3560810031830463,
+        "cohen_kappa": 0.47399588691493844
       },
       "keywords": {
         "precision_at_3": null,
@@ -180,5 +181,5 @@
       "p_value_vs_full": null
     }
   ],
-  "table_markdown": "| System | Top-1 | 95% CI | Top-3 | F1-macro | κ | P@5 | p vs. full |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| Random | 5.0% | [2.7, 7.7] | 13.7% | 0.036 | -0.001 | — | 0.000 |\n| *Majority class (oracle floor) | 21.7% | [17.1, 26.4] | 46.8% | 0.020 | 0.000 | — | 0.002 |\n| TF-IDF → nearest NACE section | 25.4% | [20.7, 30.4] | 40.1% | 0.184 | 0.207 | — | 0.007 |\n| Zero-shot embeddings (no taxonomy guidance) | 28.4% | [23.4, 33.4] | 62.5% | 0.243 | 0.234 | — | 0.008 |\n| Unguided KeyBERT | 28.4% | [23.4, 33.4] | 62.5% | 0.243 | 0.234 | — | 0.008 |\n| Ours: taxonomy-guided | 34.8% | [29.4, 40.1] | 67.2% | 0.293 | 0.300 | — | — |"
+  "table_markdown": "| System | Top-1 | 95% CI | Top-3 | F1-macro | κ | P@5 | p vs. full |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| Random | 5.0% | [2.7, 7.7] | 13.7% | 0.036 | -0.001 | — | 0.000 |\n| *Majority class (oracle floor) | 21.7% | [17.1, 26.4] | 46.8% | 0.020 | 0.000 | — | 0.000 |\n| TF-IDF → nearest NACE section | 44.5% | [38.8, 50.2] | 65.6% | 0.297 | 0.385 | — | 0.037 |\n| Zero-shot embeddings (no taxonomy guidance) | 52.8% | [47.2, 58.5] | 81.9% | 0.371 | 0.475 | — | 1.000 |\n| Unguided KeyBERT | 52.8% | [47.2, 58.5] | 81.9% | 0.371 | 0.475 | — | 1.000 |\n| Ours: taxonomy-guided | 52.5% | [46.8, 58.2] | 81.6% | 0.356 | 0.474 | — | — |"
 }

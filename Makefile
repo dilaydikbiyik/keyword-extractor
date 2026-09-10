@@ -5,7 +5,7 @@ PYTHON ?= $(shell \
 	elif command -v python3 >/dev/null 2>&1; then command -v python3; \
 	else echo python; fi)
 
-.PHONY: help install reproduce test lint annotate merge verify verify-new verify-apply paper-tables demo clean
+.PHONY: help install reproduce test lint annotate merge verify verify-new verify-apply study paper-tables demo clean
 
 help:
 	@echo "Using PYTHON = $(PYTHON)"
@@ -20,6 +20,7 @@ help:
 	@echo "  verify        Score the human check of the model-assisted labels"
 	@echo "  verify-new    Draw a fresh check sample, excluding the pilot documents"
 	@echo "  verify-apply  Promote the verified answers to final labels"
+	@echo "  study         Run the class-description study (language vs. content)"
 	@echo "  paper-tables  Regenerate paper/tables/*.tex from results/"
 	@echo "  demo          Re-render the README demo GIF from results/"
 	@echo "  clean         Remove generated results and caches"
@@ -60,6 +61,10 @@ verify-new:
 
 verify-apply:
 	$(PYTHON) -m experiments.verify_labels --apply
+
+study:
+	$(PYTHON) -m experiments.run_description_study
+	$(PYTHON) -m experiments.run_language_match --no-seeds
 
 paper-tables:
 	$(PYTHON) -m experiments.export_latex

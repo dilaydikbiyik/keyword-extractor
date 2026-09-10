@@ -565,49 +565,37 @@ Projenin başarılı sayılması için minimum hedefler:
 
 ### 10.1 Baseline'lar (İP-1, adım 3) — ✅ TAMAMLANDI
 
-- [x] TF-IDF, yönlendirmesiz KeyBERT, sıfır-atışlı gömme, rastgele + çoğunluk zeminleri
-- [x] Bootstrap %95 güven aralığı + eşleştirilmiş McNemar testi
-- [x] Tablo: `results/tables/baselines.md`
-
-**Sonuç (299 korpus belgesi):** %34.8 Top-1, %67.2 Top-3, F1 0.293.
-TF-IDF %25.4 (p=0.007), taksonomisiz gömme %28.4 (p=0.008) — **anlamlı.**
+**Sonuç (299 korpus belgesi):** %52.5 Top-1, **%81.6 Top-3**, F1 0.356.
+TF-IDF %44.5 (p=0.037), çoğunluk zemini %21.7. Top-3 asıl çalışma noktası.
 
 ### 10.2 Ablation (İP-1, adım 4) — ✅ TAMAMLANDI
 
-- [x] Seed vektörü çıkarılırsa → **−6.4 puan, p=0.008** (tek anlamlı katkı)
-- [x] Açıklama vektörü çıkarılırsa → fark yok (p=1.000)
-- [x] Yönlendirmeli çıkarım kapatılırsa → **fark yok** (ikinci sette de)
-- [x] 6 aşamalı filtre kapatılırsa → **fark yok** (ikinci sette de)
-- [x] Sınıflandırıcıya temizlenmiş metin → **−4.0 puan** (eski sette +6.7'ydi!)
-- [x] mpnet-base-v2 → −1.7 puan (hâlâ daha kötü)
-- [x] İngilizceye çeviri → +5.4 puan, p=0.068 (en iyi varyant ama anlamlı değil)
+- [x] **Açıklamalar kategori etiketi yerine tanım → +26.8 puan, p=4e-15** (asıl katkı)
+- [x] **Kontrol: dil tek başına hiçbir şey yapmıyor** (−2.3 puan, p=0.14).
+      İlk açıklamam "dil uyuşmazlığı"ydı, yanlıştı — yeniden yazarken hem dili
+      hem içeriği değiştirmiştim. Kontrol deneyi bunu ayırdı (`make study`).
+- [x] Açıklama vektörden çıkarılırsa → −8.4 puan (p=0.002)
+- [x] Seed listesi çıkarılırsa → **+0.3 puan (p=1.000)** — hiçbir katkısı yok
+- [x] Yönlendirmeli çıkarım / 6 aşamalı filtre → üç ayrı konfigürasyonda da sıfır
+- [x] mpnet-base-v2 → −10.4 puan (p<0.001), hipotez kesin yanlışlandı
+- [x] İngilizceye çeviri → +3.7 puan (p=0.200), anlamlı değil
 
-### 10.3 Hata analizi (İP-1, adım 5) — 🔶 191 HATA VAR, ELLE KODLAMA BEKLİYOR
+### 10.3 Hata analizi (İP-1, adım 5) — 🔶 142 HATA, ELLE KODLAMA BEKLİYOR
 
-- [x] Otomatik bayraklar, kod kitabı, CSV, karışıklık tablosu
-- [x] 195 hata — 50'lik hedef için fazlasıyla yeterli
-- [ ] **50 hatayı elle kodla** — M karışıklıklarıyla başla (hataların üçte biri)
-- [x] Teşhis: M recall %15.4, N %15.8. Taksonomide holding/Komplementär
-      kelimesi yok (40 belge, %10 doğru). D'nin seed listesi "Elektro"yu sahiplenip
-      elektrik tesisatçılarını (F) çekiyor.
+- [x] Teşhis işe yaradı: M'de holding/Komplementär kelimesi yoktu, D'nin
+      seed'leri `Heizung`/`Klimaanlage`'yi sahiplenip F'yi çalıyordu,
+      `Buchhaltung` hem M hem N'deydi. Üçü de düzeltildi.
+- [x] **M recall %12 → %64** (hiç bakılmamış test yarısında)
+- [ ] 50 hatayı elle kodla (`results/error_analysis.csv`)
 
-### 10.4 Değerlendirme kümesi — ✅ YENİDEN KURULDU, DOĞRULAMA BEKLİYOR
+### 10.4 Değerlendirme kümesi — ✅ KURULDU VE DOĞRULANDI
 
-Eski 30 belgenin hiçbiri korpustan gelmiyordu (elle yazılmış, ortanca 116 karakter,
-korpus 175). Yeni küme doğrudan korpustan örneklendi: **299 belge**, CI ±5.5 puan.
-
-- [x] `tools/annotate.html` — çevrimdışı, İngilizce çevirili etiketleme aracı
-- [x] `docs/annotation_guidelines.md` — karar kuralları yazıya döküldü
-- [x] 299 belge etiketlendi — **model destekli (silver), insan doğrulaması bekliyor**
-- [x] **Pilot doğrulama yapıldı** — kör ikinci tur, 50 belge: κ=0.542, uyum %58
-      (yüksek güvende %80, düşük güvende %36 → güven bayrağı iyi kalibre)
-- [x] Anlaşmazlıklar üç sınırda toplandı, kılavuza yazıldı (§4), 299 belgenin
-      tamamında 11 etiket düzeltildi. Başlık %36.1 → %34.4, sonuçlar ayakta.
-- [x] **Ölçüm turu yapıldı** — taze 50 belge (pilotla örtüşmeyen): uyum %80,
-      **κ=0.772**, yüksek güvende **%100** (25/25). Eşik geçildi.
-- [x] Doğrulanmış 50 cevap final etiket yapıldı (`make verify-apply`) — κ
-      adjudikasyondan *önce* ölçüldü, yayınlanan etiketler *sonrası*. 10 değişti.
-- [ ] İkinci etiketleyici varsa 100 belgede örtüşme → inter-annotator κ
+- [x] 299 belge, korpustan örneklenmiş, CI ±5.5 puan
+- [x] Etiketler model destekli + insan doğrulamalı: **κ=0.772**, yüksek güvende
+      **%100** (25/25). Pilot κ=0.542 → kılavuz düzeltildi → taze örneklem.
+- [x] **Katmanlı dev/test bölmesi** (152/147) — hata analizinden çıkan
+      düzeltmeler dev'de geliştirilip test'te raporlanıyor. Taksonomi düzeltmesi
+      test'te +15.6 puan (p=0.0006) verdi, yani gerçek.
 
 ### 10.5 Artefakt standardı (İP-4) — ✅ TAMAMLANDI
 
@@ -646,9 +634,8 @@ korpus 175). Yeni küme doğrudan korpustan örneklendi: **299 belge**, CI ±5.5
 
 ---
 
-*Son güncelleme: 9 Eylül 2026 — Değerlendirme kümesi korpustan yeniden kuruldu
-(30 → 299 belge). Sayı %80.0'dan %36.1'e düştü ama karşılaştırmalar ilk kez
-istatistiksel olarak anlamlı: taksonomi katkısı p=0.008. Etiketler model destekli;
-etiket doğrulaması tamamlandı: pilot κ=0.542 → kılavuz düzeltildi → taze
-örneklemde κ=0.772 (yüksek güvende 25/25). Değerlendirme tarafı kapandı;
-kalan iş 50 hatayı elle kodlamak ve yazmak.*
+*Son güncelleme: 10 Eylül 2026 — Asıl bulgu: sınıf açıklamaları kategori adı
+değil, somut faaliyetleri sayan tanımlar olmalı. **+26.8 puan (p=4e-15)**,
+tutulan test yarısında +15.6. Dil hipotezi kontrol deneyiyle elendi (−2.3,
+p=0.14). Yan bulgu: açıklamalar bilgi taşıyınca seed listelerinin katkısı sıfır
+(+0.3, p=1.000). Top-1 %52.5, Top-3 %81.6.*

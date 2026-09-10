@@ -1,0 +1,67 @@
+{
+  "half": "all",
+  "n": 299,
+  "sector_vector": "description only",
+  "cells": {
+    "German documents / German descriptions": {
+      "top1_accuracy": 0.5284280936454849,
+      "top1_ci95": [
+        0.47157190635451507,
+        0.5852842809364549
+      ],
+      "top3_accuracy": 0.8193979933110368,
+      "f1_macro": 0.37145446383118264,
+      "matched": true
+    },
+    "English documents / German descriptions": {
+      "top1_accuracy": 0.5384615384615384,
+      "top1_ci95": [
+        0.4816053511705686,
+        0.5953177257525084
+      ],
+      "top3_accuracy": 0.8729096989966555,
+      "f1_macro": 0.3958124457277429,
+      "matched": false
+    },
+    "German documents / English descriptions": {
+      "top1_accuracy": 0.4414715719063545,
+      "top1_ci95": [
+        0.38461538461538464,
+        0.4983277591973244
+      ],
+      "top3_accuracy": 0.802675585284281,
+      "f1_macro": 0.316479875496269,
+      "matched": false
+    },
+    "English documents / English descriptions": {
+      "top1_accuracy": 0.5050167224080268,
+      "top1_ci95": [
+        0.44816053511705684,
+        0.5618729096989966
+      ],
+      "top3_accuracy": 0.8461538461538461,
+      "f1_macro": 0.39518286149477444,
+      "matched": true
+    }
+  },
+  "mean_matched": 0.5167224080267558,
+  "mean_crossed": 0.4899665551839465,
+  "matched_advantage_pp": 2.6755852842809347,
+  "within_row_tests": {
+    "German": {
+      "a_only_correct": 41,
+      "b_only_correct": 15,
+      "discordant": 56,
+      "p_value": 0.0006855641563783821,
+      "gain_pp": 8.695652173913043
+    },
+    "English": {
+      "a_only_correct": 21,
+      "b_only_correct": 31,
+      "discordant": 52,
+      "p_value": 0.21160856876151612,
+      "gain_pp": -3.3444816053511683
+    }
+  },
+  "table_markdown": "| Documents | Descriptions | Top-1 | 95% CI | Top-3 | F1-macro |\n| --- | --- | --- | --- | --- | --- |\n| **German** | **German** | **52.8%** | [47.2%, 58.5%] | 81.9% | 0.371 |\n| English | German | 53.8% | [48.2%, 59.5%] | 87.3% | 0.396 |\n| German | English | 44.1% | [38.5%, 49.8%] | 80.3% | 0.316 |\n| **English** | **English** | **50.5%** | [44.8%, 56.2%] | 84.6% | 0.395 |"
+}
