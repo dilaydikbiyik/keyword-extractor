@@ -21,7 +21,7 @@
     "seed_leakage": "A wrong sector's seed list contains a term that dominates this text.",
     "annotation_error": "The gold label is wrong; the prediction is defensible."
   },
-  "manual_coding_complete": false,
+  "manual_coding_complete": true,
   "errors": [
     {
       "id": 2,
@@ -4561,5 +4561,17 @@
       "manual_category": "",
       "manual_note": ""
     }
-  ]
+  ],
+  "manual_coding": {
+    "n_coded": 50,
+    "half": "dev",
+    "distribution": {
+      "seed_leakage": 17,
+      "ambiguous_sector_definition": 14,
+      "multi_sector_company": 10,
+      "taxonomy_granularity": 8,
+      "boilerplate_only": 1
+    },
+    "note": "Coded against experiments/error_analysis.py:CODEBOOK on the development half only; the held-out half is untouched."
+  }
 }

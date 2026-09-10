@@ -1,0 +1,54 @@
+{
+  "half": "all",
+  "encoder": "paraphrase-multilingual-mpnet-base-v2",
+  "n": 299,
+  "sector_vector": "description only — seed keywords excluded to isolate the factor",
+  "conditions": {
+    "original (16 of 21 in Turkish, terse)": {
+      "top1_accuracy": 0.28762541806020064,
+      "top1_ci95": [
+        0.23745819397993312,
+        0.3411371237458194
+      ],
+      "top3_accuracy": 0.5618729096989966,
+      "f1_macro": 0.2583928543912861,
+      "mean_words_per_class": 10.428571428571429
+    },
+    "same content, rendered in German": {
+      "top1_accuracy": 0.28762541806020064,
+      "top1_ci95": [
+        0.23745819397993312,
+        0.3377926421404682
+      ],
+      "top3_accuracy": 0.4816053511705686,
+      "f1_macro": 0.24257082798734453,
+      "mean_words_per_class": 9.952380952380953
+    },
+    "rewritten as NACE-style definitions": {
+      "top1_accuracy": 0.42474916387959866,
+      "top1_ci95": [
+        0.36789297658862874,
+        0.4816053511705686
+      ],
+      "top3_accuracy": 0.745819397993311,
+      "f1_macro": 0.2929769764888678,
+      "mean_words_per_class": 18.61904761904762
+    }
+  },
+  "language_effect": {
+    "a_only_correct": 10,
+    "b_only_correct": 10,
+    "discordant": 20,
+    "p_value": 1.0,
+    "gain_pp": 0.0
+  },
+  "content_effect": {
+    "a_only_correct": 63,
+    "b_only_correct": 22,
+    "discordant": 85,
+    "p_value": 9.811984308900493e-06,
+    "gain_pp": 13.712374581939802
+  },
+  "conclusion": "Translating the descriptions into the language of the corpus, with their content held constant, does not help. Rewriting them from category labels into definitions that enumerate concrete activities does. The gain attributed to language was a confound.",
+  "table_markdown": "| Class descriptions | Top-1 | 95% CI | Top-3 | F1-macro | words/class |\n| --- | --- | --- | --- | --- | --- |\n| original (16 of 21 in Turkish, terse) | 28.8% | [23.7%, 34.1%] | 56.2% | 0.258 | 10 |\n| same content, rendered in German | 28.8% | [23.7%, 33.8%] | 48.2% | 0.243 | 10 |\n| rewritten as NACE-style definitions | 42.5% | [36.8%, 48.2%] | 74.6% | 0.293 | 19 |"
+}

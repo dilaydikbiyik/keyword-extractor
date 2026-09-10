@@ -62,11 +62,17 @@ LITERAL_GERMAN = {
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--half", choices=["dev", "test", "all"], default="all")
+    parser.add_argument(
+        "--encoder",
+        default=None,
+        help="Repeat the study with a different sentence encoder, to check that "
+             "the effect is a property of the descriptions and not of one model.",
+    )
     args = parser.parse_args()
 
     set_seed()
     ensure_dirs()
-    embedder = get_embedder()
+    embedder = get_embedder(args.encoder) if args.encoder else get_embedder()
 
     old = json.loads((ROOT / "data" / "taxonomy" / "sectors_v1.json").read_text(encoding="utf-8"))["sectors"]
     new = json.loads((ROOT / "data" / "taxonomy" / "sectors.json").read_text(encoding="utf-8"))["sectors"]
@@ -125,6 +131,8 @@ def main() -> int:
         results[names[2]]["top1_accuracy"] - results[names[1]]["top1_accuracy"]
     ) * 100
 
+    # A replication on another encoder must not overwrite the primary result.
+    suffix = "" if not args.encoder else "_" + args.encoder.split("/")[-1].replace("-", "_")
     rows = ["| Class descriptions | Top-1 | 95% CI | Top-3 | F1-macro | words/class |",
             "| --- | --- | --- | --- | --- | --- |"]
     for name in names:
@@ -135,10 +143,11 @@ def main() -> int:
             f"{r['top3_accuracy']:.1%} | {r['f1_macro']:.3f} | {r['mean_words_per_class']:.0f} |"
         )
     table = "\n".join(rows)
-    (TABLES_DIR / "description_study.md").write_text(table + "\n", encoding="utf-8")
+    (TABLES_DIR / f"description_study{suffix}.md").write_text(table + "\n", encoding="utf-8")
 
     payload = {
         "half": args.half,
+        "encoder": args.encoder or "paraphrase-multilingual-MiniLM-L12-v2",
         "n": len(samples),
         "sector_vector": "description only — seed keywords excluded to isolate the factor",
         "conditions": results,
@@ -152,7 +161,7 @@ def main() -> int:
         ),
         "table_markdown": table,
     }
-    (RESULTS_DIR / "description_study.json").write_text(
+    (RESULTS_DIR / f"description_study{suffix}.json").write_text(
         json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8"
     )
 

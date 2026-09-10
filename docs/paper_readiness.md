@@ -96,11 +96,27 @@ like; a matching effect would put the diagonal on top. The English column is
 lower because machine translation degrades a carefully written definition — a
 translation-quality effect, not a language one.
 
+### It replicates on a second encoder
+
+Run again with `paraphrase-multilingual-mpnet-base-v2` — a different model,
+768 dimensions instead of 384, and the one this repository used to expect
+better results from:
+
+| Encoder | Language effect | Content effect |
+| --- | --- | --- |
+| MiniLM-L12-v2 (384-dim) | −2.3 pp, p = 0.14 | **+26.8 pp**, p = 4×10⁻¹⁵ |
+| mpnet-base-v2 (768-dim) | +0.0 pp, p = 1.00 | **+13.7 pp**, p = 1×10⁻⁵ |
+
+Same direction, same conclusion, different magnitude: the effect is a property
+of what the descriptions say, not of one encoder's idiosyncrasies. `make study`
+runs both.
+
 **Why this generalises.** "Write class descriptions that enumerate what the
 class covers, not descriptions that name it" applies to any zero-shot
 classification pipeline that embeds label descriptions, which is most of them.
-The null result on language is what makes it safe to say: the obvious
-alternative explanation was tested and did not hold.
+Three things make it safe to say rather than merely observed: the obvious
+alternative explanation was tested and did not hold, the effect replicates on a
+second encoder, and it was validated on a held-out half never inspected.
 
 ## 4. What each component contributes
 
@@ -164,7 +180,50 @@ help by 4.6 points on dev and hurt by 5.4 on test, neither significant
 
 ---
 
-## 6. Where the gain came from
+## 6. Error analysis
+
+50 errors from the development half, hand-coded against the codebook in
+`experiments/error_analysis.py`. The held-out half is untouched.
+
+| Category | n | Share |
+| --- | --- | --- |
+| **Seed leakage** — a term in one section's seed list attracts documents from another | 17 | 34% |
+| Ambiguous section definition — two sections genuinely defensible | 14 | 28% |
+| Multi-sector company — the purpose lists several real businesses | 10 | 20% |
+| Taxonomy granularity — the activity sits under a counterintuitive parent | 8 | 16% |
+| Boilerplate only — no activity signal in the text at all | 1 | 2% |
+
+### Seed leakage is the largest category, and it converges with the ablation
+
+The failures are lexical, not semantic. *Bodenbelagsarbeiten* (floor covering,
+section F) goes to Mining because **Boden** is in B's vocabulary. *Rohbauten*
+goes to Mining on **Roh**. *Karosseriebau* leaves Trade for Construction on the
+**-bau** suffix. *Gebäudereinigung* leaves Administrative services for
+Construction on **Gebäude**. Data-protection consultancy goes to IT on **Daten**,
+at a margin of 0.000.
+
+**Two independent lines of evidence now point the same way.** The ablation says
+removing the seed lists costs nothing (+0.3 points, p = 1.000). The error
+analysis says they cause a third of the remaining errors. A component that
+adds no measurable benefit and has a named failure mode is a component to cut.
+
+It is *not* cut in this repository, and deliberately so: the seed effect is
++4.6 points on dev and −5.4 on test, neither significant, and changing shipped
+behaviour on a coin flip is the same mistake that
+`classify_preprocessed_text` was held back from. The recommendation goes in the
+paper; the decision waits for evidence that can carry it.
+
+### What the other three categories mean
+
+Ambiguity and multi-sector companies together are 48% of errors and are not
+fixable by any change to this system: NACE genuinely admits two answers for a
+Wirtschaftsprüfung practice or a company that both manufactures and installs
+windows. That number is worth reporting as a rough ceiling on single-label
+accuracy for this task — which is also the argument for reporting Top-3.
+
+---
+
+## 7. Where the gain came from
 
 Per-section recall on the held-out half, before and after:
 
@@ -195,7 +254,7 @@ noise, but it is the honest cost of the change and belongs in the table.
 
 ---
 
-## 7. Label quality
+## 8. Label quality
 
 The 299 labels are model-assisted: produced by a language model applying
 [`annotation_guidelines.md`](annotation_guidelines.md), then validated against
@@ -224,28 +283,27 @@ documents flagged high-confidence."*
 
 ---
 
-## 8. What remains
+## 9. What remains
 
-1. **Hand-code 50 errors** from `results/error_analysis.csv`, against the
-   codebook in `experiments/error_analysis.py`. 142 errors are available.
-2. **Run the LLM baseline.** An instruction-tuned model asked to name a section
+1. **Run the LLM baseline.** An instruction-tuned model asked to name a section
    directly is the comparison a 2026 reviewer will expect. The adapter exists
    (`run.py --with-llm`); it needs an API key.
-3. **Replicate the description finding on a second taxonomy or corpus.** It is
-   currently one dataset, one taxonomy, one encoder. A second setting turns a
-   result into a claim about method.
-4. **Decide the keyword question.** The set carries section labels only, so
+2. **Replicate on a second taxonomy or corpus.** It now holds across two
+   encoders, two document languages and a held-out half, but on one dataset
+   against one taxonomy. A second corpus would turn a result into a claim about
+   method.
+3. **Decide the keyword question.** The set carries section labels only, so
    Precision@K is unmeasurable, and the keyword half of the pipeline has now
    failed to show an effect in every configuration tested. Writing a
    section-classification paper is the honest and tighter option; the
    contribution sentence never mentioned keywords.
-5. **Consider dropping two stages.** Guided extraction and the six-stage filter
+4. **Consider dropping the seed lists and two dead stages.** Guided extraction and the six-stage filter
    have no evidence behind them across three configurations. Either find a
    metric where they help, or cut them and say why.
-6. **Write.** `paper/main.tex` is the skeleton; `make paper-tables` regenerates
+5. **Write.** `paper/main.tex` is the skeleton; `make paper-tables` regenerates
    its tables from `results/`, so no number is typed into the prose.
 
-## 9. Decisions
+## 10. Decisions
 
 - **Authorship.** The work is yours. Settle it before submission.
 - **Venue.** [`../paper/venues.md`](../paper/venues.md) has the priority order.
@@ -260,7 +318,7 @@ documents flagged high-confidence."*
   demonstrably contributes nothing. The work is now about class descriptions
   for zero-shot taxonomy classification, and the title should say so.
 
-## 10. Artefact standard
+## 11. Artefact standard
 
 Complete: one-command reproduction from a clean clone, `results/metrics.json`,
 pinned dependencies, fixed seed, tests and CI, MIT licence, `CITATION.cff`,

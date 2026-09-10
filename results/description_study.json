@@ -1,5 +1,6 @@
 {
   "half": "all",
+  "encoder": "paraphrase-multilingual-MiniLM-L12-v2",
   "n": 299,
   "sector_vector": "description only — seed keywords excluded to isolate the factor",
   "conditions": {

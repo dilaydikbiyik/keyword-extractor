@@ -1,14 +1,27 @@
-# Sectoral Keyword Extraction Pipeline
+# Zero-Shot NACE Classification of German Trade Register Texts
 
 [![CI](https://github.com/dilaydikbiyik/keyword-extractor/actions/workflows/ci.yml/badge.svg)](https://github.com/dilaydikbiyik/keyword-extractor/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/downloads/)
 
-An unsupervised pipeline that assigns German trade register business purposes to
-**NACE Rev. 2** sections and extracts sector-aware keywords, using multilingual
-sentence embeddings and taxonomy-guided KeyBERT — no labelled training data.
+Assigning **NACE Rev. 2** economic sections to German company purpose
+statements with no labelled training data, by embedding the taxonomy's own
+class descriptions and ranking them against the document.
+
+**What this repository is really about:** those class descriptions turn out to
+decide almost everything. Replacing category labels with definitions that
+enumerate concrete activities is worth **+26.8 points** — while translating the
+same descriptions into the language of the documents is worth nothing. The
+keyword-extraction half the project was originally named after contributes no
+measurable benefit at all.
 
 ![Reproducing the reported results end to end](docs/assets/demo.gif)
+
+> **On the name.** The directory is still `keyword-extractor`, from when the
+> project was framed around guided keyword extraction. Three separate
+> measurements have now found that half of the pipeline has no effect, so the
+> framing has moved to what the evidence supports. The directory name is
+> historical.
 
 ---
 
@@ -56,7 +69,11 @@ what language it says it in does not.
 A crossed design agrees. Documents and descriptions were each varied between
 German and machine-translated English: the richer descriptions win in both
 document languages, and matching the languages is worth only +2.7 points on
-average. `make study` reproduces both experiments.
+average.
+
+And it replicates on a second encoder — `mpnet-base-v2`, 768 dimensions:
+language +0.0 points (p = 1.00), content **+13.7 points** (p = 1×10⁻⁵). Same
+direction, same conclusion, different magnitude. `make study` runs all of it.
 
 Validated on a held-out half never inspected during the rewrite: **+15.6 points
 there (p = 0.0006)**, 34.0% → 49.7%. Section M, which holds both professional
@@ -90,6 +107,12 @@ The last two rows need extra model downloads: `python run.py --extra-ablations`.
 - **The description carries the sector vector; the seed list does not.**
 - **Guided extraction and the six-stage filter show no effect**, now across
   three separate configurations of the system.
+- **Seed leakage causes 34% of the remaining errors** — *Bodenbelagsarbeiten*
+  goes to Mining on **Boden**, *Gebäudereinigung* to Construction on
+  **Gebäude**. The ablation says the seed lists cost nothing to remove; the
+  error analysis says they cause a third of the failures. Both point at cutting
+  them, and [`docs/paper_readiness.md`](docs/paper_readiness.md) explains why
+  they have not been.
 - **The larger encoder is worse** by 10.4 points, not the ~10% better this
   repository used to expect.
 
@@ -280,10 +303,10 @@ Full review and methodology decisions: [`docs/methodology.md`](docs/methodology.
 - **Keyword extraction is unevaluated on the current set.** It carries section
   labels only, and the keyword half of the pipeline has not shown a measurable
   effect in any configuration tested.
-- **One corpus, one taxonomy, one encoder.** The description-content finding is
-  measured on 299 German trade register documents against NACE Rev. 2 with
-  MiniLM-L12. It is consistent across two document languages and a held-out
-  half, but it has not been shown on a second dataset.
+- **One corpus, one taxonomy.** The description-content finding holds across
+  two encoders, two document languages and a held-out half, but it is measured
+  on 299 German trade register documents against NACE Rev. 2. It has not been
+  shown on a second dataset.
 - **No LLM baseline.** An instruction-tuned model asked to pick a section
   directly is the obvious comparison in 2026. The adapter is implemented
   (`run.py --with-llm`) but needs an API key and has not been run.

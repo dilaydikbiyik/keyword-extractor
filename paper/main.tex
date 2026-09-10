@@ -19,8 +19,8 @@
 
 \input{tables/macros}
 
-\title{Taxonomy-Guided Keyword Extraction and Sector Classification\\
-       for German Trade Register Texts}
+\title{What Class Descriptions Should Say:\\
+       Zero-Shot NACE Classification of German Trade Register Texts}
 
 \author{Dilay Dikbıyık \\
   Kocaeli University \\
@@ -33,12 +33,14 @@
 \begin{abstract}
 % TARGET: 150 words. Contribution sentence first, then the headline number.
 % The contribution sentence this paper is built around:
-%   "We show that averaging a NACE Rev. 2 seed-keyword vector into the sector
-%    representation improves zero-shot section classification of German trade
-%    register texts by 6.7 points Top-1 over a description-only multilingual
-%    embedding baseline."
-% Note what it is NOT about: keyword extraction. The ablation gives that half
-% of the pipeline no measurable credit, so do not claim it here.
+%   "We show that in zero-shot classification against a taxonomy, what the class
+%    descriptions say dominates the language they are written in: replacing
+%    category labels with definitions that enumerate concrete activities improves
+%    NACE section assignment by 26.8 points Top-1, while translating the same
+%    descriptions into the language of the documents does not help at all."
+% Three claims: one positive, two negative, each with its own control.
+% Note what this is NOT about: keyword extraction. Three measurements give that
+% half of the pipeline no credit, so do not claim it here.
 FIXME
 \end{abstract}
 
@@ -51,12 +53,15 @@ FIXME
 % P2 Gap. Unsupervised keyphrase extraction ignores the target taxonomy;
 %    zero-shot classification ignores the vocabulary the taxonomy carries.
 % P3 Contributions, as a list:
-%    (i)   a taxonomy-guided zero-shot pipeline for NACE Rev. 2 sections;
-%    (ii)  a comparison against lexical and embedding baselines with
-%          confidence intervals and paired significance tests;
-%    (iii) an ablation isolating which components carry the result — including
-%          two that do not;
-%    (iv)  an evaluation set and a fully reproducible artefact.
+%    (i)   class description content, not language, dominates zero-shot
+%          taxonomy classification: +26.8 points from label to definition,
+%          -2.3 points (n.s.) from translating the same content;
+%    (ii)  a crossed design over document and description language confirming it;
+%    (iii) a negative result: with informative descriptions, hand-written seed
+%          keyword lists add nothing;
+%    (iv)  a held-out validation protocol for error-driven taxonomy edits;
+%    (v)   an evaluation set with a documented annotation protocol and a fully
+%          reproducible artefact.
 FIXME
 
 % ─────────────────────────────────────────────────────────────────────────────

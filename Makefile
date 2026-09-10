@@ -64,6 +64,7 @@ verify-apply:
 
 study:
 	$(PYTHON) -m experiments.run_description_study
+	$(PYTHON) -m experiments.run_description_study --encoder paraphrase-multilingual-mpnet-base-v2
 	$(PYTHON) -m experiments.run_language_match --no-seeds
 
 paper-tables:
