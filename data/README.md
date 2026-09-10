@@ -49,12 +49,15 @@ footnote.
 ## Evaluation set
 
 `human_labels.json` holds **299 documents sampled from the corpus**, labelled
-by a language model applying
+by a language model (Claude, Anthropic) applying
 [`docs/annotation_guidelines.md`](../docs/annotation_guidelines.md). Every
-sample carries `provenance: corpus_sample` and
-`annotation_method: model_assisted`.
+sample carries `provenance: corpus_sample`; 249 carry
+`annotation_method: model_assisted` and the 50 checked by a person carry
+`annotation_method: human_verified`.
 
-**Model-assisted, human-validated.** A human pass on 50 documents agreed 80%
+**Model-assisted, human-validated.** The author checked 50 documents, working
+from OPUS-MT English translations because the author does not read German, and
+agreed 80%
 of the time (κ = 0.772), and 100% on the documents the labeller flagged as
 high-confidence. Those 50 answers were promoted over the machine labels, so 50
 of the 299 are human-verified. `results/verification_report.json` has the
@@ -66,12 +69,14 @@ figures belong in any write-up.
 The previous set was 30 documents, none of which appeared in the corpus: three
 were shortened edits of corpus records and the rest were written by hand. They
 were measurably easier than real register text — median 116 characters against
-175, 90th percentile 138 against 494, and 3.3% carrying legal boilerplate
-against 24.5%.
+175, 90th percentile 138 against 494, and none carrying the legal
+boilerplate found in 23.2% of corpus entries (`results/retired_eval_set.json`).
 
 The pipeline scored 80.0% on that set and 36.1% on the corpus-sampled one. Both
-are real measurements; only the second is a corpus accuracy. The old file is
-kept as `human_labels.json.bak`.
+are real measurements; only the second is a corpus accuracy. The old documents
+are kept in `retired_handwritten.json`. (`human_labels.json.bak` is something
+else: the silver labels of the current set as they stood before the verified
+answers were promoted.)
 
 ### Rebuilding it again
 
@@ -87,7 +92,8 @@ merge records which is which, so the two never become indistinguishable.
 ### Remaining limitations
 
 - **Agreement is human-vs-model, not human-vs-human.** κ = 0.772 measures the
-  labeller against a person; two independent human annotators would give the
+  labeller against a person reading translations; `make second-annotator`
+  prepares the blind German sample that would give the
   figure reviewers usually ask for. Cohen's κ in the *results tables* is a
   third thing again — classifier against labels.
 - **No keyword ground truth.** The set carries section labels only, so

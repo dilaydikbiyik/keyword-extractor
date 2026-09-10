@@ -357,7 +357,7 @@ help by 4.6 points on dev and hurt by 5.4 on test, neither significant
 
 ## 8. Error analysis
 
-50 errors from the development half, hand-coded against the codebook in
+50 errors from the development half, coded one by one by the AI assistant against the codebook in
 `experiments/error_analysis.py`. The held-out half is untouched.
 
 | Category | n | Share |

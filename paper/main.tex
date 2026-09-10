@@ -200,9 +200,11 @@ assigned to one of the \NSections\ NACE Rev.~2 sections
 \citep{eurostat-nace-2008}. The evaluation set is
 \NEVAL\ documents sampled from that corpus, stratified by predicted section and
 split between low-margin and representative cases; no gold label was used in the
-selection. Labels were produced by a language model applying a written
-annotation guideline and validated against a human pass: in a blind pilot a
-second annotator agreed on \PilotAgree\ of \PilotN\ documents ($\kappa = \PilotKappa$); after the
+selection. Labels were produced by a language model (Claude, Anthropic) applying
+a written annotation guideline, and validated by the author, who does not read
+German and judged each document from an OPUS-MT English translation
+\citep{tiedemann-thottingal-2020-opus}: in a blind pilot the author agreed with
+the labeller on \PilotAgree\ of \PilotN\ documents ($\kappa = \PilotKappa$); after the
 disagreements were adjudicated into three explicit rules, agreement on a fresh
 \VerifyN-document sample was \VerifyAgree\ ($\kappa = \VerifyKappa$), rising to \VerifyHighAgree\ on the documents
 the labeller had flagged as high-confidence. Verified answers were promoted over
@@ -239,7 +241,7 @@ The rewritten descriptions changed two things at once: language, since sixteen
 of twenty-one were originally in Turkish while every document is German, and
 content, since terse category labels became definitions enumerating concrete
 activities. Table~\ref{tab:descriptions} separates them. The control condition
-renders the original labels in German by hand---same wording, same terseness, no
+renders the original labels literally in German---same wording, same terseness, no
 machine-translation noise, and the five sections already in German carried over
 untouched.
 
@@ -333,7 +335,9 @@ codes to a human coder is the realistic deployment.
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Error Analysis}
 
-We hand-coded fifty errors from the development half against a written codebook.
+Fifty errors from the development half were coded one by one against a written
+codebook, by the AI assistant named in the statement on AI use; the author did
+not code them independently.
 
 \input{tables/errors}
 
@@ -366,13 +370,15 @@ into a per-class selection rule, and we report the three ways that failed.
 \section*{Limitations}
 
 The evaluation labels are model-assisted rather than gold: produced by a
-language model applying a written guideline, validated against a human pass on
+language model applying a written guideline, validated by the author on
 \VerifyN\ documents at $\kappa = \VerifyKappa$, with \VerifyN\ of \NEVAL\ carrying human-verified
-labels. Any figure in this paper should be read against that agreement.
+labels. The author does not read German and judged each document from a machine
+translation, so translation errors enter the check itself. Any figure in this
+paper should be read against that agreement.
 
 Agreement was measured between a human and the labeller, not between two humans.
 The inter-annotator figure reviewers usually ask for would require a second
-annotator we did not have.
+annotator who reads German; the released code prepares the blind sample for one.
 
 The alignment account rests on three corpora. Their alignment changes are well
 separated ($\NaceAlignGain$, $\ReutersAlignGain$, $\NewsAlignGain$), which is what makes the ordering
@@ -388,11 +394,16 @@ same distillation procedure.
 We do not compare against an instruction-tuned language model asked to name a
 class directly, which in 2026 is the obvious alternative implementation of
 zero-shot taxonomy classification. The adapter is implemented in the released
-code but was not run.
+code but was not run, because it is billed to a paid API account;
+\texttt{make llm-baseline} runs it. Its model family differs from the
+labeller's, which any fair comparison against these labels requires.
 
 Finally, the per-class descriptions used in the elaborated conditions were
-written by one author, who had seen the corpora. Style is therefore controlled
-across conditions but not author bias.
+drafted by the AI assistant that also produced the labels, and it had seen the
+corpora. Style is therefore controlled across conditions, but the descriptions
+and the labels share a source: a bias that source has toward particular
+readings of a section would reach both, and would flatter the descriptions it
+wrote.
 
 \section*{Ethics Statement}
 
@@ -405,9 +416,23 @@ aggregate counts and cannot be inverted to recover the records. The evaluation
 set, the taxonomy, the annotation guideline and all experiment code are
 released.
 
-% Acknowledgements must stay empty in the review version: they are one of the
-% commonest ways an anonymous submission is de-anonymised. Fill this in for the
-% camera-ready only.
+\section*{Use of AI Assistants}
+
+This work was carried out with substantial assistance from Claude (Anthropic),
+used through Claude Code. The assistant wrote most of the experiment and
+pipeline code, produced the silver section labels by applying the annotation
+guideline, drafted the rewritten class descriptions and the German control
+descriptions, coded the errors in the error analysis, ran the analyses, and
+drafted the text of this paper. The author initiated the project, performed
+both human verification passes described in the data section, reviewed the
+analyses and the text, and takes responsibility for the content. No number in
+the paper was typed by hand: each is generated from the released experiment
+outputs.
+
+% Names belong in the Acknowledgements, which stay empty in the review version:
+% they are one of the commonest ways an anonymous submission is de-anonymised.
+% The statement above names no person, so it stays in the review version, as
+% the ACL policy on AI writing assistance requires.
 % \section*{Acknowledgements}
 
 \bibliography{references}

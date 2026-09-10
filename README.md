@@ -6,7 +6,7 @@
 
 **[Read the research record →](https://dilaydikbiyik.github.io/keyword-extractor/)**
 One page: every claim this project made and what became of it — a retracted
-headline, two falsified hypotheses of my own, and a prediction registered before
+headline, two of its own hypotheses falsified, and a prediction registered before
 it was measured.
 
 Assigning **NACE Rev. 2** economic sections to German company purpose
@@ -357,8 +357,9 @@ Full review and methodology decisions: [`docs/methodology.md`](docs/methodology.
 - **52.5% Top-1 is a suggestion tool, not an automatic classifier.** Top-3 at
   81.6% is the usable figure; top-1 is not accurate enough to assign codes
   unattended.
-- **The labels are model-assisted, not gold.** Validated on 50 documents
-  (κ = 0.772); 50 of 299 carry human-verified labels. Any published number has
+- **The labels are model-assisted, not gold.** Validated by the author, working
+  from English machine translations, on 50 documents (κ = 0.772); 50 of 299
+  carry human-verified labels. Any published number has
   to quote that agreement figure alongside it.
 - **The seed-keyword result is inconclusive, not negative.** Seeds help by 4.6
   points on the development half and hurt by 5.4 on the held-out half, neither
@@ -383,6 +384,16 @@ Full review and methodology decisions: [`docs/methodology.md`](docs/methodology.
 - **No LLM baseline.** An instruction-tuned model asked to pick a section
   directly is the obvious comparison in 2026. The adapter is implemented
   (`run.py --with-llm`) but needs an API key and has not been run.
+
+## How this was built
+
+With substantial AI assistance. Claude (Anthropic), used through Claude Code,
+wrote most of the code, produced the silver labels, drafted the rewritten class
+descriptions and the German control descriptions, coded the error sample, ran
+the analyses and drafted the paper. The author initiated the project and
+performed both human verification passes, working from OPUS-MT English
+translations because the author does not read German. The paper's statement on
+AI use gives the same account, as the ACL policy on AI writing assistance asks.
 
 ## Citation
 

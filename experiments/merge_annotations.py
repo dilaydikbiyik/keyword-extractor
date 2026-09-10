@@ -74,6 +74,10 @@ def main() -> int:
             if not label:
                 label = (row.get("model_assisted_sector") or "").strip().upper()
                 method = "model_assisted"
+                # apply_verified() writes the human answer into the silver column
+                # and flags the row; the released labels must keep saying so.
+                if (row.get("human_verified") or "").strip() == "yes":
+                    method = "human_verified"
             if not label:
                 skipped_blank += 1
                 continue

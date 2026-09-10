@@ -477,7 +477,7 @@
     </div>
     <div class="fig">
       <span class="fig-n">2</span>
-      <div class="fig-l">Of my own hypotheses falsified and published as such</div>
+      <div class="fig-l">Of the project's own hypotheses falsified and published</div>
       <div class="fig-s">Entries 02 and 03 below</div>
     </div>
   </div>
@@ -487,9 +487,9 @@
     <p class="section-note">
       This project classifies entries in a German <em>Handelsregister</em>. What follows is
       its own register: every substantive claim the work made, in the order it was made,
-      with what became of it. Two entries record hypotheses of mine that the evidence
-      destroyed. One records a headline number I withdrew. They are here because a result
-      you cannot see me trying to break is not a result.
+      with what became of it. Two entries record hypotheses the project advanced that the evidence
+      destroyed. One records a headline number that was withdrawn. They are here because a result
+      you cannot see being tested is not a result.
     </p>
 
     <!-- 01 -->
@@ -505,8 +505,8 @@
         <div class="spacer"></div>
         <div class="entry-text">
           <p>
-            That figure came from 30 documents I had written myself to exercise the pipeline.
-            It measured how well the system classified my own idea of a company description,
+            That figure came from 30 documents written by hand to exercise the pipeline.
+            It measured how well the system classified an idea of what a company description looks like,
             not the register. Re-measured on 299 documents sampled from the corpus and
             labelled under a written protocol, the same system scores <strong>52.5%</strong>.
           </p>
@@ -545,11 +545,11 @@
             the obvious reading was that the encoder had been paying a translation penalty.
           </p>
           <p>
-            The obvious reading was wrong. I wrote a control condition — the <em>same</em>
+            The obvious reading was wrong. A control condition was written — the <em>same</em>
             terse content, rendered literally into German, with no new information added.
             It did not help. It was <strong>2.3 points worse</strong>, and the difference did
-            not clear significance. The entire gain had come from the content I added while
-            translating, not from the language I added it in. A 2×2 of document-language
+            not clear significance. The entire gain had come from the content added while
+            translating, not from the language it was added in. A 2×2 of document-language
             against description-language confirmed it: language match is not what moves the
             score.
           </p>
@@ -585,7 +585,7 @@
         <div class="spacer"></div>
         <div class="entry-text">
           <p>
-            This was my explanation for why some classes gained enormously from elaboration
+            This was the project's explanation for why some classes gained enormously from elaboration
             and others not at all, and at the corpus level it looks compelling: classes whose
             names never appear in their own documents gain 8.1 points on average against 1.4
             for the rest.
@@ -660,8 +660,8 @@
             regime of 20 Newsgroups.
           </p>
           <p>
-            So I measured the alignment change first, wrote down what it implied, and only
-            then looked at accuracy. The measured change was <strong>+0.028</strong>: positive,
+            So the alignment change was measured first and its implication written down;
+            only then was accuracy examined. The measured change was <strong>+0.028</strong>: positive,
             so elaboration should help, but small, so it should help far less than on NACE.
             It helped by 4.8 points — positive, significant, and an order of magnitude below
             NACE's 26.8, exactly as the size of the alignment change required.
@@ -845,7 +845,7 @@
           inside the top three, so most failures are ranking failures rather than blindness.
         </p>
         <p>
-          I hand-coded 50 errors from the development half against a written codebook, leaving
+          50 errors from the development half were coded one by one against a written codebook, leaving
           the held-out half untouched: 17 seed leakage, 14 genuinely ambiguous section
           boundaries, 10 companies that really do operate in several sections, 8 taxonomy
           granularity, 1 pure boilerplate.
@@ -881,8 +881,16 @@
 
   <section style="margin-bottom: 0;">
     <p class="pull">
-      The finding I am most confident in is the one I tried hardest to destroy, and the two
-      hypotheses I lost along the way are in the record above rather than deleted from it.
+      The finding this project is most confident in is the one it tried hardest to destroy,
+      and the two hypotheses lost along the way are in the record above rather than deleted
+      from it.
+    </p>
+    <p class="caption" style="margin-top: 28px;">
+      <strong>How this was made.</strong> With substantial AI assistance: the code, the
+      silver labels, the rewritten class descriptions, the error coding and most of the text
+      were produced with Claude (Anthropic) at the author's request. The author performed
+      both human verification passes, working from English machine translations. The
+      paper's statement on AI use gives the full account.
     </p>
     <footer>
       <span>Every figure regenerated by <code style="font-family: var(--mono);">make reproduce</code></span>

@@ -5,7 +5,7 @@ PYTHON ?= $(shell \
 	elif command -v python3 >/dev/null 2>&1; then command -v python3; \
 	else echo python; fi)
 
-.PHONY: help install reproduce test lint annotate merge verify verify-new verify-apply study paper-tables paper demo clean
+.PHONY: help install reproduce test lint annotate merge verify verify-new verify-apply second-annotator second-annotator-score llm-baseline study paper-tables paper demo clean
 
 help:
 	@echo "Using PYTHON = $(PYTHON)"
@@ -20,6 +20,9 @@ help:
 	@echo "  verify        Score the human check of the model-assisted labels"
 	@echo "  verify-new    Draw a fresh check sample, excluding the pilot documents"
 	@echo "  verify-apply  Promote the verified answers to final labels"
+	@echo "  second-annotator        Blind German-only sample for a second annotator"
+	@echo "  second-annotator-score  Human-versus-human agreement once it is filled in"
+	@echo "  llm-baseline  Run the paid LLM zero-shot baseline (needs OPENAI_API_KEY)"
 	@echo "  study         Class-description studies: language, content, replication"
 	@echo "  paper-tables  Regenerate paper/tables/*.tex from results/"
 	@echo "  paper         Build paper/main.pdf (needs tectonic: brew install tectonic)"
@@ -61,6 +64,18 @@ verify-new:
 
 verify-apply:
 	$(PYTHON) -m experiments.verify_labels --apply
+
+second-annotator:
+	$(PYTHON) -m experiments.verify_labels --second-build
+
+second-annotator-score:
+	$(PYTHON) -m experiments.verify_labels --second-score
+
+# Billed to the account behind OPENAI_API_KEY. gpt-4o-mini is a different model
+# family from the labeller, which a fair comparison against these labels needs.
+llm-baseline:
+	@test -n "$$OPENAI_API_KEY" || { echo "Set OPENAI_API_KEY first; this run is billed to that account."; exit 1; }
+	$(PYTHON) -m experiments.run_experiments --with-llm
 
 study:
 	$(PYTHON) -m experiments.run_description_study

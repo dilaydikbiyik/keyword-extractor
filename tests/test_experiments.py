@@ -416,6 +416,33 @@ class TestMergeAnnotations:
         assert human["true_sector"] == "F"
         assert human["annotation_method"] == "manual"
 
+    def test_verified_rows_stay_marked_as_human(self, tmp_path, monkeypatch):
+        """apply_verified() promotes into the silver column; merge must keep saying so."""
+        import csv as _csv
+        import json as _json
+
+        labels = self._labels_file(tmp_path)
+        path = tmp_path / "queue.csv"
+        with open(path, "w", newline="", encoding="utf-8") as fh:
+            writer = _csv.DictWriter(
+                fh,
+                fieldnames=["queue_id", "legal_name", "purpose", "true_sector",
+                            "model_assisted_sector", "human_verified", "keywords_ground_truth"],
+            )
+            writer.writeheader()
+            writer.writerow({"queue_id": 0, "legal_name": "A", "purpose": "Softwareentwicklung.",
+                             "true_sector": "", "model_assisted_sector": "J",
+                             "human_verified": "", "keywords_ground_truth": ""})
+            writer.writerow({"queue_id": 1, "legal_name": "B", "purpose": "Verwaltung eigenen Vermögens.",
+                             "true_sector": "", "model_assisted_sector": "M",
+                             "human_verified": "yes", "keywords_ground_truth": ""})
+        assert self._run(monkeypatch, labels, path, ["--replace"]) == 0
+
+        payload = _json.loads(labels.read_text(encoding="utf-8"))
+        methods = {s["purpose"]: s["annotation_method"] for s in payload["samples"]}
+        assert methods["Softwareentwicklung."] == "model_assisted"
+        assert methods["Verwaltung eigenen Vermögens."] == "human_verified"
+
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Reproducing without the raw corpus
@@ -508,3 +535,74 @@ class TestCommittedStatisticsReproduceTheCorpus:
             assert [c for c, _ in fitted.rank(sample.purpose)] == [
                 c for c, _ in stored.rank(sample.purpose)
             ]
+
+
+class TestSecondAnnotator:
+    """The blind sample must carry nothing that hints at anyone else's answer."""
+
+    def _sample(self, tmp_path):
+        import csv as _csv
+
+        path = tmp_path / "verification_sample.csv"
+        rows = [
+            {"queue_id": str(i), "legal_name": f"Firma {i}", "purpose_en": "English text",
+             "purpose": f"Gegenstand {i}.", "silver_sector": silver, "labeller_confidence": "high",
+             "top3": "J|M|K", "true_sector": human, "annotator_note": ""}
+            for i, (silver, human) in enumerate([("J", "J"), ("M", "K"), ("F", "F"), ("G", "G")])
+        ]
+        with open(path, "w", newline="", encoding="utf-8") as fh:
+            writer = _csv.DictWriter(fh, fieldnames=list(rows[0]))
+            writer.writeheader()
+            writer.writerows(rows)
+        return path
+
+    def _patch(self, monkeypatch, tmp_path):
+        from experiments import verify_labels
+
+        monkeypatch.setattr(verify_labels, "SAMPLE_CSV", self._sample(tmp_path))
+        monkeypatch.setattr(verify_labels, "SECOND_CSV", tmp_path / "second.csv")
+        monkeypatch.setattr(verify_labels, "SECOND_REPORT_JSON", tmp_path / "second.json")
+        return verify_labels
+
+    def test_blind_sample_is_german_only(self, tmp_path, monkeypatch):
+        import csv as _csv
+
+        vl = self._patch(monkeypatch, tmp_path)
+        assert vl.build_second() == 0
+        with open(tmp_path / "second.csv", newline="", encoding="utf-8") as fh:
+            rows = list(_csv.DictReader(fh))
+        assert len(rows) == 4
+        # No translation, no suggestion, no earlier answer.
+        assert set(rows[0]) == {"queue_id", "legal_name", "purpose", "true_sector", "annotator_note"}
+        assert all(r["true_sector"] == "" for r in rows)
+
+    def test_refuses_to_overwrite_answers(self, tmp_path, monkeypatch):
+        vl = self._patch(monkeypatch, tmp_path)
+        assert vl.build_second() == 0
+        path = tmp_path / "second.csv"
+        text = path.read_text(encoding="utf-8")
+        path.write_text(text.replace("Gegenstand 0.,,", "Gegenstand 0.,J,"), encoding="utf-8")
+        assert vl.build_second() == 1
+
+    def test_scores_second_against_first_and_silver(self, tmp_path, monkeypatch):
+        import csv as _csv
+        import json as _json
+
+        vl = self._patch(monkeypatch, tmp_path)
+        assert vl.build_second() == 0
+        path = tmp_path / "second.csv"
+        with open(path, newline="", encoding="utf-8") as fh:
+            rows = list(_csv.DictReader(fh))
+        answers = {"0": "J", "1": "K", "2": "F", "3": "C"}
+        for r in rows:
+            r["true_sector"] = answers[r["queue_id"]]
+        with open(path, "w", newline="", encoding="utf-8") as fh:
+            writer = _csv.DictWriter(fh, fieldnames=list(rows[0]))
+            writer.writeheader()
+            writer.writerows(rows)
+        assert vl.score_second() == 0
+        report = _json.loads((tmp_path / "second.json").read_text(encoding="utf-8"))
+        # The first human answered J, K, F, G: the second agrees on three of four.
+        assert report["second_vs_first_human"]["raw_agreement"] == 0.75
+        # The silver labels were J, M, F, G: agreement on two of four.
+        assert report["second_vs_silver"]["raw_agreement"] == 0.5

@@ -6,7 +6,7 @@ recurring German trade register patterns were handled by a rule rather than
 case by case.
 
 **Provenance warning.** The labels in the queue were produced by a language
-model reading the German text and applying these rules, not by a human expert.
+model (Claude, Anthropic) reading the German text and applying these rules, not by a human expert.
 They are *silver* labels. Section 5 covers what has to happen before they are
 reported as anything else.
 
@@ -141,13 +141,15 @@ This guideline chooses M.
 
 They are model-produced. The protocol is the standard two-stage one:
 
-1. **Pilot pass (done).** A blind second annotator labelled 50 documents
-   without this guideline. κ = 0.542, raw agreement 58%.
+1. **Pilot pass (done).** The author, who does not read German, labelled 50
+   documents blind from OPUS-MT English translations, without this guideline.
+   κ = 0.542, raw agreement 58%.
 2. **Adjudication (done).** The disagreements were grouped, the three recurring
    boundaries above were written down, and 11 labels changed across the whole
    set — not only inside the pilot sample — so the guideline is applied
    uniformly. `adjudication_note` in the queue records each change and why.
-3. **Measurement pass (open).** A **fresh** sample, annotated after reading
+3. **Measurement pass (done).** The author again, from translations: κ = 0.772
+   and raw agreement 80% on a fresh sample (`results/verification_report.json`). A **fresh** sample, annotated after reading
    §4, is what produces the number to publish. Measuring again on the pilot
    sample would score the labels on the documents they were just tuned to.
 
@@ -158,10 +160,17 @@ make verify        # score it once filled in
 
 4. **Report both figures in the paper**, in these terms: *"Section labels were
    produced by a language model applying a written annotation guideline
-   (Appendix X). A blind second annotator agreed on 58% of a 50-document pilot
+   (Appendix X). A blind human pass agreed on 58% of a 50-document pilot
    (κ = 0.542); after adjudication and guideline revision, agreement on a fresh
    50-document sample was N% (κ = …)."* The first number is honest about how
    hard the task is; the second is the one that describes the released labels.
 
 If the second κ is still below 0.6, the guideline is still wrong somewhere —
 fix it before touching the labels again.
+
+5. **A second annotator who reads German (prepared, not done).** Agreement so
+   far is human-versus-model, and the human worked from translations.
+   `make second-annotator` writes the 50 measurement documents in German only,
+   shuffled, with no translation, suggestion or earlier answer;
+   `make second-annotator-score` reports human-versus-human agreement once they
+   are filled in. Instructions: [`second_annotator.md`](second_annotator.md).

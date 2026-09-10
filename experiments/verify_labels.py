@@ -24,6 +24,8 @@ from experiments.config import RESULTS_DIR, SEED, ensure_dirs
 QUEUE_CSV = RESULTS_DIR / "annotation_queue.csv"
 SAMPLE_CSV = RESULTS_DIR / "verification_sample.csv"
 REPORT_JSON = RESULTS_DIR / "verification_report.json"
+SECOND_CSV = RESULTS_DIR / "second_annotator_sample.csv"
+SECOND_REPORT_JSON = RESULTS_DIR / "second_annotator_report.json"
 
 SAMPLE_SIZE = 50
 
@@ -215,6 +217,85 @@ def apply_verified() -> int:
     return 0
 
 
+def build_second() -> int:
+    """Hand the measurement documents to a second annotator who reads German.
+
+    Agreement so far is human-versus-model, and the human worked from machine
+    translations. A second annotator gets the German text only: no
+    translation, no model suggestion, no earlier answer, and a shuffled order,
+    so nothing in the file hints at what anyone else said.
+    """
+    if SECOND_CSV.exists():
+        with open(SECOND_CSV, newline="", encoding="utf-8") as fh:
+            if any((r.get("true_sector") or "").strip() for r in csv.DictReader(fh)):
+                print(f"{SECOND_CSV} already holds answers; refusing to overwrite it.",
+                      file=sys.stderr)
+                return 1
+    with open(SAMPLE_CSV, newline="", encoding="utf-8") as fh:
+        rows = [r for r in csv.DictReader(fh) if (r.get("true_sector") or "").strip()]
+    if not rows:
+        print("Score the measurement sample first: make verify", file=sys.stderr)
+        return 1
+    order = np.random.default_rng(SEED).permutation(len(rows))
+    header = ["queue_id", "legal_name", "purpose", "true_sector", "annotator_note"]
+    with open(SECOND_CSV, "w", newline="", encoding="utf-8") as fh:
+        writer = csv.DictWriter(fh, fieldnames=header)
+        writer.writeheader()
+        for i in order:
+            r = rows[i]
+            writer.writerow({"queue_id": r["queue_id"], "legal_name": r.get("legal_name", ""),
+                             "purpose": r["purpose"], "true_sector": "", "annotator_note": ""})
+    print(f"Wrote {len(rows)} documents to {SECOND_CSV}.")
+    print("Give it to a second annotator with docs/second_annotator.md, then run:")
+    print("  make second-annotator-score")
+    return 0
+
+
+def pairwise(a: dict, b: dict) -> dict:
+    """Raw agreement and Cohen's kappa over the documents both have answered."""
+    from sklearn.metrics import cohen_kappa_score
+
+    common = sorted(set(a) & set(b))
+    x, y = [a[k] for k in common], [b[k] for k in common]
+    agree = sum(p == q for p, q in zip(x, y))
+    kappa = float(cohen_kappa_score(x, y)) if len(set(x) | set(y)) > 1 else None
+    return {"n": len(common), "raw_agreement": agree / len(common) if common else None,
+            "cohen_kappa": kappa}
+
+
+def score_second() -> int:
+    """Human-versus-human agreement, the figure reviewers ask for first."""
+    if not SECOND_CSV.exists():
+        print("Build the sample first: make second-annotator", file=sys.stderr)
+        return 1
+    with open(SECOND_CSV, newline="", encoding="utf-8") as fh:
+        second = {r["queue_id"]: r["true_sector"].strip().upper()
+                  for r in csv.DictReader(fh) if (r.get("true_sector") or "").strip()}
+    if not second:
+        print("None of the documents have a second answer yet.", file=sys.stderr)
+        return 1
+    with open(SAMPLE_CSV, newline="", encoding="utf-8") as fh:
+        rows = list(csv.DictReader(fh))
+    first = {r["queue_id"]: r["true_sector"].strip().upper()
+             for r in rows if (r.get("true_sector") or "").strip()}
+    silver = {r["queue_id"]: r["silver_sector"].strip().upper()
+              for r in rows if (r.get("silver_sector") or "").strip()}
+    report = {
+        "second_vs_first_human": pairwise(second, first),
+        "second_vs_silver": pairwise(second, silver),
+        "note": "The first human worked from English machine translations; the "
+                "second annotator read the German text. Quote both figures.",
+    }
+    ensure_dirs()
+    SECOND_REPORT_JSON.write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
+    for name, block in (("second vs first human", report["second_vs_first_human"]),
+                        ("second vs silver", report["second_vs_silver"])):
+        kappa = "n/a" if block["cohen_kappa"] is None else f"{block['cohen_kappa']:.3f}"
+        print(f"  {name:22s} n={block['n']:3d}  agreement {block['raw_agreement']:.1%}  kappa {kappa}")
+    print(f"\nWrote {SECOND_REPORT_JSON}")
+    return 0
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--build", action="store_true", help="Draw the sample.")
@@ -226,6 +307,10 @@ def main() -> int:
              "adjudicated would score them on their own training data.",
     )
     parser.add_argument("--size", type=int, default=SAMPLE_SIZE)
+    parser.add_argument("--second-build", action="store_true",
+                        help="Write the blind German-only sample for a second annotator.")
+    parser.add_argument("--second-score", action="store_true",
+                        help="Score the second annotator against the first and the silver labels.")
     parser.add_argument(
         "--apply",
         action="store_true",
@@ -236,6 +321,10 @@ def main() -> int:
     args = parser.parse_args()
     if args.build or args.fresh:
         return build(args.size, fresh=args.fresh)
+    if args.second_build:
+        return build_second()
+    if args.second_score:
+        return score_second()
     if args.apply:
         return apply_verified()
     return score()
