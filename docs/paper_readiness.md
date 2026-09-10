@@ -449,9 +449,11 @@ with a reliability signal that works. The verified answers were then promoted
 over the machine labels — agreement measured before adjudication, released
 labels after it.
 
-The paper's data section has to state this: *"Section labels were produced by a
-language model applying a written annotation guideline (Appendix X). In a blind
-pilot a second annotator agreed on 58% of 50 documents (κ = 0.542); the
+The paper's data section states this, and names who did what: *"Section labels
+were produced by a language model (Claude, Anthropic) applying a written
+annotation guideline, and validated by the author, who does not read German and
+judged each document from an OPUS-MT English translation. In a blind pilot the
+author agreed with the labeller on 58% of 50 documents (κ = 0.542); the
 disagreements were adjudicated into three explicit rules, and on a fresh
 50-document sample agreement was 80% (κ = 0.772), rising to 100% on the
 documents flagged high-confidence."*
@@ -461,33 +463,44 @@ documents flagged high-confidence."*
 ## 11. What remains
 
 1. **Run the LLM baseline.** An instruction-tuned model asked to name a section
-   directly is the comparison a 2026 reviewer will expect. The adapter exists
-   (`run.py --with-llm`); it needs an API key.
-2. **A fourth dataset**, ideally one where the alignment change is near zero,
+   directly is the comparison a 2026 reviewer will expect. `make llm-baseline`
+   runs it; it needs `OPENAI_API_KEY` and is billed to that account. It must
+   not be a Claude model: Claude produced the labels, so it would be graded on
+   its own answers.
+2. **A second annotator who reads German.** Agreement so far is
+   human-versus-model, and the human worked from translations.
+   `make second-annotator` has written the blind German-only sample;
+   [`second_annotator.md`](second_annotator.md) is the instruction sheet, and
+   `make second-annotator-score` reports human-versus-human agreement.
+3. **Close the remaining checklist gaps.** [`../paper/checklist.md`](../paper/checklist.md)
+   answers the Responsible NLP checklist and lists what is still open.
+4. **A fourth dataset**, ideally one where the alignment change is near zero,
    to test the account at the point where it makes its least obvious
    prediction.
-3. **A criterion that survives the argmax without labels.** Three tried here
+5. **A criterion that survives the argmax without labels.** Three tried here
    fail, including direct optimisation of the objective. Whether a label-free
    set-level criterion exists is open; it would have to beat a fixed policy
    without the development data that makes the search overfit.
-4. **Decide the keyword question.** The set carries section labels only, so
+6. **Decide the keyword question.** The set carries section labels only, so
    Precision@K is unmeasurable, and the keyword half of the pipeline has now
    failed to show an effect in every configuration tested. Writing a
    section-classification paper is the honest and tighter option; the
    contribution sentence never mentioned keywords.
-5. **Consider dropping the seed lists and two dead stages.** Guided extraction and the six-stage filter
+7. **Consider dropping the seed lists and two dead stages.** Guided extraction and the six-stage filter
    have no evidence behind them across three configurations. Either find a
    metric where they help, or cut them and say why.
-6. ~~**Write.**~~ **Done.** `paper/main.tex` is a complete draft — abstract,
-   five contributions, method, four experiments, error analysis, limitations and
-   an ethics statement. `make paper-tables` regenerates its seven tables and
-   twenty-three macros from `results/`, and a test fails if the prose ever
-   quotes a literal figure instead of a macro. Three `FIXME` markers remain:
-   the email, the affiliation and the acknowledgements.
+8. ~~**Write.**~~ **Done.** `paper/main.tex` is a complete draft — abstract,
+   five contributions, method, four experiments, error analysis, limitations,
+   an ethics statement and a statement on AI use. `make paper-tables`
+   regenerates its tables, its figure and its macros from `results/`, a test
+   fails if the prose quotes a literal figure instead of a macro, and
+   `make paper` builds the PDF, as CI does on every push.
 
 ## 12. Decisions
 
-- **Authorship.** The work is yours. Settle it before submission.
+- **Authorship.** The paper's *Use of AI Assistants* section says who did what,
+  as item E1 of the checklist requires. It is a declaration in your name: read
+  every sentence of it and correct anything that is not accurate before submitting.
 - **Venue.** [`../paper/venues.md`](../paper/venues.md) has the priority order.
   The Student Research Workshop assigns a mentor.
 - **Framing.** A 26.8-point effect from one line per class, with the obvious

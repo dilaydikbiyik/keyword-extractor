@@ -177,7 +177,10 @@ encoding of a hand-written seed keyword list:
 \[
   v_c = \tfrac{1}{2}\big(f(\text{name}_c \Vert \text{desc}_c) + f(\text{seeds}_c)\big),
 \]
-where $f$ is the sentence encoder. A document $d$ is assigned to
+where $f$ is the sentence encoder: paraphrase-\allowbreak multilingual-\allowbreak MiniLM-\allowbreak L12-\allowbreak v2
+\citep{reimers-gurevych-2020-making}, with 118M parameters. Its larger sibling,
+paraphrase-\allowbreak multilingual-\allowbreak mpnet-\allowbreak base-\allowbreak v2 (278M), is tested as an ablation.
+A document $d$ is assigned to
 $\arg\max_c \cos(f(d), v_c)$. Throughout the experiments that isolate the effect
 of descriptions we drop the seed term, so that the quantity under test is the
 only thing varying.
@@ -190,6 +193,11 @@ documents it should attract:
 \]
 with $D_c$ the documents whose gold label is $c$. Rewriting a description
 changes $v_c$ and therefore $a(c)$; we write $\Delta a(c)$ for that change.
+
+Systems are compared with exact McNemar tests on the same documents, and
+accuracies carry percentile bootstrap intervals. Agreement is Cohen's
+$\kappa$ and correlations are Spearman's $\rho$, computed with scikit-learn
+\citep{pedregosa-etal-2011-scikit} and SciPy \citep{virtanen-etal-2020-scipy}.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Data}
@@ -221,7 +229,8 @@ was rebuilt, and because it is a failure mode that is easy to reproduce
 accidentally.
 
 \paragraph{Two further corpora.}
-20 Newsgroups (20 topical classes, English usenet posts) and Reuters-21578 (12
+20 Newsgroups \citep{lang-1995-newsweeder} (20 topical classes, English usenet
+posts) and Reuters-21578 \citep{lewis-1987-reuters} (12
 frequent categories, single-label documents only, English financial newswire).
 The three differ in what their class labels look like: abstract economic
 categories, readable topic names, and opaque codes such as \texttt{money-fx}
@@ -416,6 +425,13 @@ aggregate counts and cannot be inverted to recover the records. The evaluation
 set, the taxonomy, the annotation guideline and all experiment code are
 released.
 
+Top-1 accuracy is far below what unattended assignment of economic codes would
+need. The system is meant to propose candidates to a human coder; used to
+assign codes automatically, for example in official statistics, it would
+propagate its errors silently. Both encoders are distributed under the Apache
+licence. 20 Newsgroups and Reuters-21578 are used as distributed for research
+through scikit-learn and NLTK.
+
 \section*{Use of AI Assistants}
 
 This work was carried out with substantial assistance from Claude (Anthropic),
@@ -425,8 +441,8 @@ guideline, drafted the rewritten class descriptions and the German control
 descriptions, coded the errors in the error analysis, ran the analyses, and
 drafted the text of this paper. The author initiated the project, performed
 both human verification passes described in the data section, reviewed the
-analyses and the text, and takes responsibility for the content. No number in
-the paper was typed by hand: each is generated from the released experiment
+analyses and the text, and takes responsibility for the content. No reported
+result was typed by hand: each is generated from the released experiment
 outputs.
 
 % Names belong in the Acknowledgements, which stay empty in the review version:

@@ -8,6 +8,8 @@
 %     checked against DataCite.
 %   - NACE Rev. 2 follows the Publications Office record (ISBN, ISSN).
 %   - Chang et al. 2008 and Song and Roth 2014 follow the AAAI proceedings.
+%   - scikit-learn follows its JMLR page; SciPy and 20 Newsgroups were checked
+%     against Crossref; Reuters-21578 follows its UCI record in DataCite.
 
 % ─────────────────────────────────────────────────────────────────────────────
 % Classifying without labelled data by using the meaning of the class itself.
@@ -467,4 +469,51 @@
   isbn      = {978-92-79-04741-1},
   issn      = {1977-0375},
   note      = {Catalogue number KS-RA-07-015-EN-N}
+}
+
+% ─────────────────────────────────────────────────────────────────────────────
+% Datasets and software.
+% ─────────────────────────────────────────────────────────────────────────────
+
+@incollection{lang-1995-newsweeder,
+  title     = {{NewsWeeder}: Learning to Filter Netnews},
+  author    = {Lang, Ken},
+  booktitle = {Machine Learning Proceedings 1995},
+  pages     = {331--339},
+  year      = {1995},
+  publisher = {Elsevier},
+  doi       = {10.1016/B978-1-55860-377-6.50048-7}
+}
+
+@misc{lewis-1987-reuters,
+  title        = {{Reuters-21578} Text Categorization Collection},
+  author       = {Lewis, David},
+  year         = {1987},
+  howpublished = {UCI Machine Learning Repository},
+  doi          = {10.24432/C52G6M}
+}
+
+@article{pedregosa-etal-2011-scikit,
+  title   = {Scikit-learn: Machine Learning in {P}ython},
+  author  = {Pedregosa, Fabian and Varoquaux, Ga{\"e}l and Gramfort, Alexandre and
+             Michel, Vincent and Thirion, Bertrand and Grisel, Olivier and
+             Blondel, Mathieu and Prettenhofer, Peter and Weiss, Ron and
+             Dubourg, Vincent and Vanderplas, Jake and Passos, Alexandre and
+             Cournapeau, David and Brucher, Matthieu and Perrot, Matthieu and
+             Duchesnay, {\'E}douard},
+  journal = {Journal of Machine Learning Research},
+  volume  = {12},
+  year    = {2011},
+  url     = {https://jmlr.org/papers/v12/pedregosa11a.html}
+}
+
+@article{virtanen-etal-2020-scipy,
+  title   = {{SciPy} 1.0: fundamental algorithms for scientific computing in {P}ython},
+  author  = {Virtanen, Pauli and Gommers, Ralf and Oliphant, Travis E. and others},
+  journal = {Nature Methods},
+  volume  = {17},
+  number  = {3},
+  pages   = {261--272},
+  year    = {2020},
+  doi     = {10.1038/s41592-019-0686-2}
 }

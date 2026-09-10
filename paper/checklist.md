@@ -9,10 +9,9 @@ before submitting rather than discovered by a reviewer.
 ## A. For every submission
 
 - **A1. Limitations?** Yes — the unnumbered *Limitations* section.
-- **A2. Potential risks?** Partly. The *Ethics Statement* covers the data
-  (company records, owner names inside company names, redistribution). Misuse
-  of automatic industry coding (for example, unattended use in official
-  statistics) is not discussed. See gap 1.
+- **A2. Potential risks?** Yes. The *Ethics Statement* covers the data
+  (company records, owner names inside company names, redistribution) and the
+  misuse risk: unattended automatic coding would propagate errors silently.
 
 ## B. Did you use or create scientific artifacts?
 
@@ -20,16 +19,17 @@ Yes: the trade register sample, NACE Rev. 2, 20 Newsgroups, Reuters-21578,
 the sentence encoders, OPUS-MT, and the released evaluation set.
 
 - **B1. Cited the creators?** Yes — encoders, OPUS-MT, NACE Rev. 2, the
-  keyword-extraction methods. 20 Newsgroups and Reuters-21578 are named but not
-  cited. See gap 2.
+  keyword-extraction methods, 20 Newsgroups (Lang 1995) and Reuters-21578
+  (Lewis, UCI record).
 - **B2. Licence or terms?** Partly. The *Ethics Statement* says the register
   sample's redistribution licence has not been established and it is therefore
-  not released. The terms of 20 Newsgroups and Reuters-21578 are not
-  discussed. See gap 2.
+  not released, and that both encoders are Apache-licensed. For 20 Newsgroups
+  and Reuters-21578 it says they are used as distributed for research through
+  scikit-learn and NLTK; their licence terms themselves are not stated. See gap 1.
 - **B3. Intended use?** Partly, for the same reason.
 - **B4. Personal information?** Partly. The *Ethics Statement* notes that
   company names can contain owners' names; no step removes them from the
-  released evaluation set. See gap 3.
+  released evaluation set. See gap 2.
 - **B5. Documentation of artifacts?** Yes — *Data* section, plus
   `data/README.md` and `docs/annotation_guidelines.md`.
 - **B6. Statistics and splits?** Yes — *Data* section: set size, stratified
@@ -39,16 +39,17 @@ the sentence encoders, OPUS-MT, and the released evaluation set.
 
 Yes.
 
-- **C1. Parameters and compute?** No. Encoder sizes and runtime are not
-  reported. See gap 4.
+- **C1. Parameters and compute?** Partly. Both encoders are named with their
+  parameter counts (118M and 278M) in the *Method* section; the runtime of the
+  full reproduction is not reported. See gap 3.
 - **C2. Hyperparameters?** Partly. There is no hyperparameter search; the few
   fixed settings (thresholds, top-k) are in the released configuration but not
   in the paper.
 - **C3. Descriptive statistics?** Yes — bootstrap confidence intervals and exact
   McNemar tests throughout, with the test named in each table caption.
-- **C4. Packages used?** Partly. sentence-transformers is covered by its
-  papers; scikit-learn (Cohen's kappa, TF-IDF) and SciPy (Spearman) are not
-  cited. See gap 5.
+- **C4. Packages used?** Yes. sentence-transformers is covered by its papers;
+  scikit-learn and SciPy are cited in the *Method* section, where the statistics
+  are named.
 
 ## D. Did you use human annotators?
 
@@ -74,13 +75,12 @@ recruited annotators.
 
 ## Gaps to close before submitting
 
-1. One sentence in the *Ethics Statement* on misuse: top-1 accuracy is not high
-   enough to assign codes without a human, which is why the paper argues for
-   top-3 as a suggestion tool.
-2. Cite 20 Newsgroups and Reuters-21578 and state their terms of use.
-3. Decide whether the released evaluation set keeps company names. If it does,
+Closed: the misuse sentence, the dataset and software citations, and the
+encoder parameter counts. Still open:
+
+1. The licence terms of 20 Newsgroups and Reuters-21578. Their UCI and
+   distribution records do not state one; check the original distributions.
+2. Decide whether the released evaluation set keeps company names. If it does,
    say why; if not, strip or hash them before release.
-4. Report the parameter counts of both encoders and the wall-clock time of
-   `make reproduce` on the hardware used.
-5. Cite scikit-learn and SciPy.
-6. Before relying on the answers above, check each against the final PDF.
+3. Report the wall-clock time of `make reproduce` on the hardware used.
+4. Before relying on the answers above, check each against the final PDF.
