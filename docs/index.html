@@ -1,0 +1,894 @@
+<title>What a Class Description Buys</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;450;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap">
+
+<style>
+  :root {
+    --ground: #f2f4f6;
+    --surface: #ffffff;
+    --surface-2: #eceff2;
+    --ink: #14171c;
+    --ink-2: #495059;
+    --ink-3: #79828d;
+    --rule: #d5dae0;
+    --rule-strong: #b6bec7;
+    --accent: #23458f;
+
+    --supported: #15603f;
+    --supported-bg: #e4efe9;
+    --falsified: #96271f;
+    --falsified-bg: #f6e6e4;
+    --retracted: #8a5300;
+    --retracted-bg: #f6ecdc;
+    --predicted: #23458f;
+    --predicted-bg: #e4e9f4;
+
+    --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --ground: #0e1014;
+      --surface: #161a20;
+      --surface-2: #1d222a;
+      --ink: #e6e9ed;
+      --ink-2: #a8b1bc;
+      --ink-3: #79838f;
+      --rule: #2a3039;
+      --rule-strong: #3c444f;
+      --accent: #8aa8e8;
+
+      --supported: #6cc39a;
+      --supported-bg: #12251d;
+      --falsified: #e08b83;
+      --falsified-bg: #2a1917;
+      --retracted: #d6a24e;
+      --retracted-bg: #271f12;
+      --predicted: #8aa8e8;
+      --predicted-bg: #171d2b;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --ground: #0e1014;
+    --surface: #161a20;
+    --surface-2: #1d222a;
+    --ink: #e6e9ed;
+    --ink-2: #a8b1bc;
+    --ink-3: #79838f;
+    --rule: #2a3039;
+    --rule-strong: #3c444f;
+    --accent: #8aa8e8;
+
+    --supported: #6cc39a;
+    --supported-bg: #12251d;
+    --falsified: #e08b83;
+    --falsified-bg: #2a1917;
+    --retracted: #d6a24e;
+    --retracted-bg: #271f12;
+    --predicted: #8aa8e8;
+    --predicted-bg: #171d2b;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 940px;
+    margin: 0 auto;
+    padding: 0 24px 96px;
+  }
+
+  /* ── Masthead ───────────────────────────────────────────────────────── */
+
+  .masthead {
+    border-bottom: 2px solid var(--ink);
+    padding: 56px 0 28px;
+    margin-bottom: 0;
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin: 0 0 20px;
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: clamp(34px, 5.4vw, 54px);
+    line-height: 1.08;
+    letter-spacing: -0.018em;
+    text-wrap: balance;
+    margin: 0 0 22px;
+  }
+
+  .thesis {
+    font-family: var(--serif);
+    font-size: clamp(18px, 2.3vw, 21px);
+    line-height: 1.52;
+    color: var(--ink-2);
+    max-width: 63ch;
+    margin: 0 0 32px;
+  }
+
+  .thesis strong { color: var(--ink); font-weight: 600; }
+
+  .byline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-3);
+  }
+
+  .byline span { white-space: nowrap; }
+  .byline a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--rule-strong); }
+  .byline a:hover { border-bottom-color: currentColor; }
+
+  /* ── Headline figures ───────────────────────────────────────────────── */
+
+  .figures {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 1px;
+    background: var(--rule);
+    border-bottom: 1px solid var(--rule);
+    margin: 0 0 64px;
+  }
+
+  .fig {
+    background: var(--ground);
+    padding: 22px 20px 20px;
+  }
+
+  .fig-n {
+    font-family: var(--mono);
+    font-size: 27px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    display: block;
+    line-height: 1.15;
+  }
+
+  .fig-l {
+    font-size: 13px;
+    color: var(--ink-2);
+    margin-top: 7px;
+    line-height: 1.42;
+  }
+
+  .fig-s {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-3);
+    margin-top: 5px;
+  }
+
+  /* ── Section headings ───────────────────────────────────────────────── */
+
+  h2 {
+    font-family: var(--serif);
+    font-size: 27px;
+    font-weight: 600;
+    letter-spacing: -0.012em;
+    margin: 0 0 10px;
+  }
+
+  .section-note {
+    color: var(--ink-2);
+    max-width: 66ch;
+    margin: 0 0 34px;
+    font-size: 15.5px;
+  }
+
+  section { margin-bottom: 76px; }
+
+  /* ── The register ───────────────────────────────────────────────────── */
+
+  .entry {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--status, var(--rule-strong));
+    margin-bottom: 18px;
+  }
+
+  .entry-head {
+    display: grid;
+    grid-template-columns: 62px 1fr;
+    gap: 0 18px;
+    padding: 20px 24px 0;
+  }
+
+  .entry-no {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-3);
+    padding-top: 4px;
+  }
+
+  .chip {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 9px;
+    color: var(--status);
+    background: var(--status-bg);
+    margin-bottom: 12px;
+  }
+
+  .claim {
+    font-family: var(--serif);
+    font-size: 21px;
+    line-height: 1.38;
+    font-weight: 600;
+    letter-spacing: -0.008em;
+    text-wrap: balance;
+    margin: 0 0 12px;
+  }
+
+  .entry-body {
+    padding: 0 24px 22px;
+    display: grid;
+    grid-template-columns: 62px 1fr;
+    gap: 0 18px;
+  }
+
+  .entry-body > .spacer { grid-column: 1; }
+
+  .entry-text {
+    grid-column: 2;
+    max-width: 64ch;
+  }
+
+  .entry-text p { margin: 0 0 13px; color: var(--ink-2); font-size: 15.5px; }
+  .entry-text p:last-child { margin-bottom: 0; }
+  .entry-text strong { color: var(--ink); font-weight: 600; }
+
+  .evidence {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    border-top: 1px solid var(--rule);
+    margin-top: 16px;
+    padding-top: 14px;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .evidence div {
+    padding-right: 26px;
+    margin-right: 26px;
+    border-right: 1px solid var(--rule);
+    margin-bottom: 6px;
+  }
+
+  .evidence div:last-child { border-right: 0; margin-right: 0; padding-right: 0; }
+  .evidence b { display: block; font-weight: 500; font-size: 16px; color: var(--ink); }
+  .evidence span { color: var(--ink-3); font-size: 11px; }
+
+  /* ── Tables ─────────────────────────────────────────────────────────── */
+
+  .scroller { overflow-x: auto; border: 1px solid var(--rule); background: var(--surface); }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 620px;
+    font-size: 14px;
+  }
+
+  th, td {
+    text-align: right;
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--rule);
+    font-variant-numeric: tabular-nums;
+    font-family: var(--mono);
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  th {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    border-bottom: 1px solid var(--rule-strong);
+  }
+
+  th:first-child, td:first-child {
+    text-align: left;
+    font-family: var(--sans);
+    font-size: 14px;
+    white-space: normal;
+    min-width: 210px;
+  }
+
+  tbody tr:last-child td { border-bottom: 0; }
+  tr.ours { background: var(--surface-2); }
+  tr.ours td { font-weight: 500; }
+  tr.ours td:first-child { font-weight: 600; }
+  .dim { color: var(--ink-3); }
+
+  .caption {
+    font-size: 13px;
+    color: var(--ink-3);
+    margin-top: 12px;
+    max-width: 70ch;
+    line-height: 1.5;
+  }
+
+  /* ── Chart ──────────────────────────────────────────────────────────── */
+
+  .chart-card {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    padding: 24px 24px 18px;
+  }
+
+  .chart-title {
+    font-family: var(--serif);
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 4px;
+  }
+
+  .chart-sub { font-size: 13.5px; color: var(--ink-2); margin: 0 0 18px; max-width: 62ch; }
+
+  svg { display: block; width: 100%; height: auto; }
+  .ax { stroke: var(--rule-strong); stroke-width: 1; }
+  .grid-line { stroke: var(--rule); stroke-width: 1; }
+  .zero { stroke: var(--rule-strong); stroke-width: 1; stroke-dasharray: 3 3; }
+  .tick { font-family: var(--mono); font-size: 11px; fill: var(--ink-3); }
+  .axlabel { font-family: var(--sans); font-size: 12px; fill: var(--ink-2); }
+  .pt-label { font-family: var(--mono); font-size: 12px; font-weight: 500; fill: var(--ink); }
+  .pt-sub { font-family: var(--mono); font-size: 10.5px; fill: var(--ink-3); }
+
+  /* ── Method / closing ───────────────────────────────────────────────── */
+
+  .cols {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 28px;
+  }
+
+  .col h3 {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin: 0 0 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .col p { margin: 0 0 11px; font-size: 14.5px; color: var(--ink-2); }
+  .col p:last-child { margin-bottom: 0; }
+
+  code {
+    font-family: var(--mono);
+    font-size: 0.85em;
+    background: var(--surface-2);
+    padding: 1px 5px;
+    color: var(--ink);
+  }
+
+  .pull {
+    font-family: var(--serif);
+    font-size: clamp(20px, 2.6vw, 25px);
+    line-height: 1.45;
+    font-weight: 400;
+    color: var(--ink);
+    border-top: 2px solid var(--ink);
+    border-bottom: 1px solid var(--rule);
+    padding: 30px 0;
+    margin: 0;
+    max-width: 60ch;
+    text-wrap: balance;
+  }
+
+  footer {
+    border-top: 1px solid var(--rule);
+    margin-top: 72px;
+    padding-top: 22px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-3);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+  }
+
+  footer a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--rule-strong); }
+  footer a:hover { border-bottom-color: currentColor; }
+
+  a:focus-visible, .entry:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  @media (max-width: 620px) {
+    .entry-head, .entry-body { grid-template-columns: 1fr; }
+    .entry-body > .spacer { display: none; }
+    .entry-text { grid-column: 1; }
+    .entry-no { padding-top: 0; margin-bottom: 6px; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <p class="eyebrow">Zero-shot text classification · Research record</p>
+    <h1>What a Class Description Buys</h1>
+    <p class="thesis">
+      A zero-shot classifier is handed the names of its classes and nothing else. Rewriting
+      those names into real definitions is usually treated as prompt-fiddling. It is not:
+      what a description buys is <strong>alignment with the vocabulary of the documents it
+      must attract</strong> — and how much that is worth can be predicted before the
+      classifier is run. On German trade-register texts it is worth
+      <strong>+26.8 points</strong>. On newsgroup posts, where the class name is already the
+      documents' own word, it is worth <strong>nothing</strong>.
+    </p>
+    <p class="byline">
+      <span>Dilay Dikbıyık</span>
+      <span>Kocaeli University, Computer Engineering</span>
+      <span><a href="https://github.com/dilaydikbiyik/keyword-extractor">github.com/dilaydikbiyik/keyword-extractor</a></span>
+    </p>
+  </header>
+
+  <div class="figures">
+    <div class="fig">
+      <span class="fig-n">299</span>
+      <div class="fig-l">German trade-register documents, sampled from a 9,993-record corpus</div>
+      <div class="fig-s">18 of 21 NACE sections</div>
+    </div>
+    <div class="fig">
+      <span class="fig-n">κ = 0.772</span>
+      <div class="fig-l">Human–silver agreement on a blind 50-document check</div>
+      <div class="fig-s">80.0% raw agreement</div>
+    </div>
+    <div class="fig">
+      <span class="fig-n">3</span>
+      <div class="fig-l">Corpora, one of which was predicted before it was measured</div>
+      <div class="fig-s">NACE · Reuters-21578 · 20 Newsgroups</div>
+    </div>
+    <div class="fig">
+      <span class="fig-n">2</span>
+      <div class="fig-l">Of my own hypotheses falsified and published as such</div>
+      <div class="fig-s">Entries 02 and 03 below</div>
+    </div>
+  </div>
+
+  <section>
+    <h2>A register of claims</h2>
+    <p class="section-note">
+      This project classifies entries in a German <em>Handelsregister</em>. What follows is
+      its own register: every substantive claim the work made, in the order it was made,
+      with what became of it. Two entries record hypotheses of mine that the evidence
+      destroyed. One records a headline number I withdrew. They are here because a result
+      you cannot see me trying to break is not a result.
+    </p>
+
+    <!-- 01 -->
+    <article class="entry" style="--status: var(--retracted); --status-bg: var(--retracted-bg);">
+      <div class="entry-head">
+        <div class="entry-no">01</div>
+        <div>
+          <span class="chip">Retracted</span>
+          <p class="claim">“The system reaches 80.0% Top-1 accuracy” — as first reported.</p>
+        </div>
+      </div>
+      <div class="entry-body">
+        <div class="spacer"></div>
+        <div class="entry-text">
+          <p>
+            That figure came from 30 documents I had written myself to exercise the pipeline.
+            It measured how well the system classified my own idea of a company description,
+            not the register. Re-measured on 299 documents sampled from the corpus and
+            labelled under a written protocol, the same system scores <strong>52.5%</strong>.
+          </p>
+          <p>
+            The companion Top-3 figure of 83.3% was worse than optimistic — it was an
+            artefact. The classifier filtered candidates at a confidence threshold
+            <em>before</em> the top-3 cut, so for 25 of those 30 documents fewer than three
+            candidates survived and “Top-3” was scoring a list shorter than three. Removing
+            the filter, the same run gives 96.7%. Both numbers were meaningless; the
+            evaluation set was the real defect.
+          </p>
+          <div class="evidence">
+            <div><b>80.0% → 52.5%</b><span>Top-1, as previously reported → re-measured</span></div>
+            <div><b>30 → 299</b><span>documents, self-written → corpus-sampled</span></div>
+            <div><b>25 / 30</b><span>docs where Top-3 scored &lt; 3 candidates</span></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 02 -->
+    <article class="entry" style="--status: var(--falsified); --status-bg: var(--falsified-bg);">
+      <div class="entry-head">
+        <div class="entry-no">02</div>
+        <div>
+          <span class="chip">Falsified</span>
+          <p class="claim">“The descriptions underperform because they are in the wrong language.”</p>
+        </div>
+      </div>
+      <div class="entry-body">
+        <div class="spacer"></div>
+        <div class="entry-text">
+          <p>
+            The taxonomy's original class descriptions were terse and mostly Turkish; the
+            documents are German. Rewriting them in German improved matters a great deal, and
+            the obvious reading was that the encoder had been paying a translation penalty.
+          </p>
+          <p>
+            The obvious reading was wrong. I wrote a control condition — the <em>same</em>
+            terse content, rendered literally into German, with no new information added.
+            It did not help. It was <strong>2.3 points worse</strong>, and the difference did
+            not clear significance. The entire gain had come from the content I added while
+            translating, not from the language I added it in. A 2×2 of document-language
+            against description-language confirmed it: language match is not what moves the
+            score.
+          </p>
+          <p>
+            The three conditions below hold everything else fixed and drop the seed keyword
+            lists from the class vector entirely, so that the description is the only thing
+            varying.
+          </p>
+          <div class="evidence">
+            <div><b>28.4%</b><span>original, terse, mostly Turkish</span></div>
+            <div><b>26.1%</b><span>same content, literal German</span></div>
+            <div><b>52.8%</b><span>rewritten as definitions</span></div>
+          </div>
+          <div class="evidence">
+            <div><b>−2.3 pp</b><span>language alone (p = 0.14)</span></div>
+            <div><b>+26.8 pp</b><span>content, language fixed (p &lt; 1e−14)</span></div>
+            <div><b>2 × 2</b><span>language-match design, no effect</span></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 03 -->
+    <article class="entry" style="--status: var(--falsified); --status-bg: var(--falsified-bg);">
+      <div class="entry-head">
+        <div class="entry-no">03</div>
+        <div>
+          <span class="chip">Falsified</span>
+          <p class="claim">“A class gains in proportion to how absent its name is from its documents.”</p>
+        </div>
+      </div>
+      <div class="entry-body">
+        <div class="spacer"></div>
+        <div class="entry-text">
+          <p>
+            This was my explanation for why some classes gained enormously from elaboration
+            and others not at all, and at the corpus level it looks compelling: classes whose
+            names never appear in their own documents gain 8.1 points on average against 1.4
+            for the rest.
+          </p>
+          <p>
+            Tested properly — per class, across all 32 classes of two corpora — it collapses.
+            The correlation is <strong>negative, small, and insignificant</strong>. The
+            corpus-level split was real but it was not the mechanism; lexical overlap sorts
+            the two regimes without explaining anything inside either one. The hypothesis had
+            to be replaced, which is what entry 04 does.
+          </p>
+          <div class="evidence">
+            <div><b>ρ = −0.16</b><span>name overlap vs. gain (p = 0.37)</span></div>
+            <div><b>n = 32</b><span>classes, two corpora</span></div>
+            <div><b>8.1 vs 1.4</b><span>the corpus-level split that misled me</span></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 04 -->
+    <article class="entry" style="--status: var(--supported); --status-bg: var(--supported-bg);">
+      <div class="entry-head">
+        <div class="entry-no">04</div>
+        <div>
+          <span class="chip">Supported</span>
+          <p class="claim">“A class gains in proportion to how far its description moves toward its documents.”</p>
+        </div>
+      </div>
+      <div class="entry-body">
+        <div class="spacer"></div>
+        <div class="entry-text">
+          <p>
+            The replacement is measurable without any labels at prediction time. For a class
+            <em>c</em>, alignment is the cosine between its description vector and the
+            centroid of the documents belonging to it. Elaborating the description changes
+            that alignment by some amount, and <strong>that change is what predicts the
+            gain</strong>.
+          </p>
+          <p>
+            Across 32 classes the correlation is positive and significant, and — this is the
+            part that matters — it holds <em>within</em> each corpus separately, so it is not
+            an artefact of one corpus being easier than the other. A description that does not
+            move its class toward its documents buys nothing, however well written.
+          </p>
+          <div class="evidence">
+            <div><b>ρ = +0.513</b><span>alignment change vs. gain (p = 0.003)</span></div>
+            <div><b>+0.556 / +0.634</b><span>within NACE / within 20NG</span></div>
+            <div><b>n = 32</b><span>classes</span></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 05 -->
+    <article class="entry" style="--status: var(--predicted); --status-bg: var(--predicted-bg);">
+      <div class="entry-head">
+        <div class="entry-no">05</div>
+        <div>
+          <span class="chip">Predicted, then confirmed</span>
+          <p class="claim">“Then it must work on a corpus I have not looked at yet.”</p>
+        </div>
+      </div>
+      <div class="entry-body">
+        <div class="spacer"></div>
+        <div class="entry-text">
+          <p>
+            A rule fitted to two corpora explains those two corpora. To be worth anything it
+            has to say something risky about a third. Reuters-21578 is the right test because
+            its labels are opaque codes — <code>money-fx</code>, <code>acq</code>,
+            <code>dlr</code> — which puts it in the NACE regime rather than the readable-name
+            regime of 20 Newsgroups.
+          </p>
+          <p>
+            So I measured the alignment change first, wrote down what it implied, and only
+            then looked at accuracy. The measured change was <strong>+0.028</strong>: positive,
+            so elaboration should help, but small, so it should help far less than on NACE.
+            It helped by 4.8 points — positive, significant, and an order of magnitude below
+            NACE's 26.8, exactly as the size of the alignment change required.
+            <a href="https://github.com/dilaydikbiyik/keyword-extractor/blob/main/experiments/run_reuters.py">The
+            script prints the prediction before it computes the accuracy</a>, so the order
+            cannot be quietly rearranged after the fact.
+          </p>
+          <div class="evidence">
+            <div><b>+0.028</b><span>alignment change, measured first</span></div>
+            <div><b>+4.8 pp</b><span>accuracy gain (p = 0.0005)</span></div>
+            <div><b>n = 959</b><span>documents, 12 classes</span></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 06 -->
+    <article class="entry" style="--status: var(--falsified); --status-bg: var(--falsified-bg);">
+      <div class="entry-head">
+        <div class="entry-no">06</div>
+        <div>
+          <span class="chip">Falsified</span>
+          <p class="claim">“The pipeline the project was named after contributes something.”</p>
+        </div>
+      </div>
+      <div class="entry-body">
+        <div class="spacer"></div>
+        <div class="entry-text">
+          <p>
+            The project began as a guided keyword extractor: seed keyword lists per sector, a
+            seed-guided extraction step, and a six-stage information-theoretic keyword filter.
+            Ablating each of them, on 299 documents, changes the score by nothing that can be
+            distinguished from noise — all three at <em>p</em> = 1.000.
+          </p>
+          <p>
+            Ablating the class descriptions instead costs <strong>8.4 points</strong>, and
+            reverting to the project's first taxonomy — the terse, mostly Turkish one — costs
+            17.7. So the component nobody thought of as the method is the method, and three
+            components that took most of the engineering are inert. The repository still
+            carries its original directory name; the framing has moved to what the evidence
+            supports.
+          </p>
+          <div class="evidence">
+            <div><b>52.8%</b><span>seeds removed, vs 52.5% with (p = 1.000)</span></div>
+            <div><b>−8.4 pp</b><span>removing the descriptions (p = 0.002)</span></div>
+            <div><b>34.8%</b><span>the previous taxonomy (p &lt; 1e−7)</span></div>
+            <div><b>−10.4 pp</b><span>the larger mpnet encoder (p = 0.0004)</span></div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section>
+    <h2>The rule, across three corpora</h2>
+    <p class="section-note">
+      Each corpus sits where its alignment change puts it. The relationship is monotone, and
+      Reuters was placed on this axis before its accuracy was known. Three points cannot carry
+      a correlation on their own — the statistical claim is the per-class one in entry 04,
+      <em>ρ</em> = +0.513 over 32 classes. This panel shows that the per-class rule also
+      survives aggregation.
+    </p>
+
+    <div class="chart-card">
+      <p class="chart-title">Alignment change against accuracy gain</p>
+      <p class="chart-sub">
+        Horizontal: how far elaborating the class descriptions moves each class vector toward
+        its documents. Vertical: what that elaboration is worth in Top-1 accuracy.
+      </p>
+
+      <svg viewBox="0 0 680 372" role="img" aria-label="Scatter plot of alignment change against accuracy gain for three corpora. 20 Newsgroups at minus 0.076 alignment change gains 0.4 points. Reuters at plus 0.028 gains 4.8 points. NACE at plus 0.114 gains 26.8 points.">
+        <!-- horizontal grid -->
+        <line class="grid-line" x1="70" y1="300" x2="640" y2="300"></line>
+        <line class="grid-line" x1="70" y1="207.1" x2="640" y2="207.1"></line>
+        <line class="grid-line" x1="70" y1="114.3" x2="640" y2="114.3"></line>
+
+        <!-- zero-alignment reference -->
+        <line class="zero" x1="309.1" y1="34" x2="309.1" y2="300"></line>
+        <text class="pt-sub" x="313" y="46">no change in alignment</text>
+
+        <!-- axes -->
+        <line class="ax" x1="70" y1="300" x2="640" y2="300"></line>
+        <line class="ax" x1="70" y1="34" x2="70" y2="300"></line>
+
+        <!-- y ticks -->
+        <text class="tick" x="62" y="304" text-anchor="end">0</text>
+        <text class="tick" x="62" y="211" text-anchor="end">10</text>
+        <text class="tick" x="62" y="118" text-anchor="end">20</text>
+        <text class="axlabel" x="70" y="22">Top-1 accuracy gain (percentage points)</text>
+
+        <!-- x ticks -->
+        <text class="tick" x="189.6" y="320" text-anchor="middle">−0.05</text>
+        <text class="tick" x="309.1" y="320" text-anchor="middle">0</text>
+        <text class="tick" x="428.7" y="320" text-anchor="middle">+0.05</text>
+        <text class="tick" x="548.3" y="320" text-anchor="middle">+0.10</text>
+        <text class="axlabel" x="355" y="348" text-anchor="middle">Change in alignment between class vector and its documents</text>
+
+        <!-- trend through the three corpora -->
+        <path d="M 127.4 296.3 L 376.1 255.4 L 581.7 51.1" fill="none" stroke="var(--rule-strong)" stroke-width="1.5" stroke-dasharray="5 4"></path>
+
+        <!-- 20NG -->
+        <circle cx="127.4" cy="296.3" r="6" fill="var(--surface)" stroke="var(--ink-2)" stroke-width="2"></circle>
+        <text class="pt-label" x="127.4" y="277" text-anchor="middle">20 Newsgroups</text>
+        <text class="pt-sub" x="127.4" y="291" text-anchor="middle">−0.076 → +0.4 pp</text>
+
+        <!-- Reuters -->
+        <circle cx="376.1" cy="255.4" r="6.5" fill="var(--predicted)" stroke="var(--surface)" stroke-width="2"></circle>
+        <text class="pt-label" x="392" y="243">Reuters-21578</text>
+        <text class="pt-sub" x="392" y="257">+0.028 → +4.8 pp · predicted first</text>
+
+        <!-- NACE -->
+        <circle cx="581.7" cy="51.1" r="6" fill="var(--ink)" stroke="var(--surface)" stroke-width="2"></circle>
+        <text class="pt-label" x="570" y="44" text-anchor="end">NACE / Handelsregister</text>
+        <text class="pt-sub" x="570" y="58" text-anchor="end">+0.114 → +26.8 pp</text>
+      </svg>
+    </div>
+    <p class="caption">
+      Gains are measured against the closest terse control in each corpus: for NACE, the
+      literal German rendering of the original terse descriptions; for Reuters and 20
+      Newsgroups, the readable class name.
+    </p>
+  </section>
+
+  <section>
+    <h2>Where the system actually stands</h2>
+    <p class="section-note">
+      Every figure below is regenerated by <code>make reproduce</code> and written to
+      <code>results/</code>; the paper draws them through generated LaTeX macros, so no number
+      in the prose can drift from the number in the run. A test fails the build if the README
+      quotes a figure the results no longer support.
+    </p>
+
+    <div class="scroller">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">System</th>
+            <th scope="col">Top-1</th>
+            <th scope="col">95% CI</th>
+            <th scope="col">Top-3</th>
+            <th scope="col">F1-macro</th>
+            <th scope="col">κ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Random</td><td class="dim">5.0%</td><td class="dim">[2.7, 7.7]</td>
+            <td class="dim">13.7%</td><td class="dim">0.036</td><td class="dim">−0.001</td>
+          </tr>
+          <tr>
+            <td>Majority class <span class="dim">(oracle floor)</span></td>
+            <td class="dim">21.7%</td><td class="dim">[17.1, 26.4]</td>
+            <td class="dim">46.8%</td><td class="dim">0.020</td><td class="dim">0.000</td>
+          </tr>
+          <tr>
+            <td>TF-IDF → nearest NACE section</td><td>44.5%</td><td class="dim">[38.8, 50.2]</td>
+            <td>65.6%</td><td>0.297</td><td>0.385</td>
+          </tr>
+          <tr class="ours">
+            <td>Embedded class descriptions</td><td>52.5%</td><td class="dim">[46.8, 58.2]</td>
+            <td>81.6%</td><td>0.356</td><td>0.474</td>
+          </tr>
+          <tr>
+            <td>+ German translated to English first</td><td>56.2%</td><td class="dim">[50.5, 61.9]</td>
+            <td>86.0%</td><td class="dim">—</td><td class="dim">—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="caption">
+      The translation row is reported because it is the one intervention that moved the score
+      upward (+3.7 pp) without reaching significance (<em>p</em> = 0.20). It is a lead, not a
+      result, and it is listed as one.
+    </p>
+
+    <div class="cols" style="margin-top: 44px;">
+      <div class="col">
+        <h3>Where it fails</h3>
+        <p>
+          142 of 299 documents are misclassified. 87 of those still hold the right section
+          inside the top three, so most failures are ranking failures rather than blindness.
+        </p>
+        <p>
+          I hand-coded 50 errors from the development half against a written codebook, leaving
+          the held-out half untouched: 17 seed leakage, 14 genuinely ambiguous section
+          boundaries, 10 companies that really do operate in several sections, 8 taxonomy
+          granularity, 1 pure boilerplate.
+        </p>
+      </div>
+      <div class="col">
+        <h3>How the labels were made</h3>
+        <p>
+          299 documents sampled stratified from 9,993 register records. Labels are
+          model-assisted and human-validated under a two-stage protocol: a blind pilot,
+          adjudication, then a fresh measurement sample.
+        </p>
+        <p>
+          Agreement between the human pass and the silver labels is κ = 0.772. That figure is
+          quoted next to every result computed on those labels, because it is the ceiling on
+          what any of them mean.
+        </p>
+      </div>
+      <div class="col">
+        <h3>What it is built on</h3>
+        <p>
+          <code>paraphrase-multilingual-MiniLM-L12-v2</code>, 384 dimensions, no fine-tuning
+          and no labelled training data. Seeded throughout.
+        </p>
+        <p>
+          The corpus cannot be redistributed, so the repository commits the vocabulary and IDF
+          statistics needed to reproduce the TF-IDF baseline exactly without it. 141 tests,
+          reproducible from a clean checkout.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section style="margin-bottom: 0;">
+    <p class="pull">
+      The finding I am most confident in is the one I tried hardest to destroy, and the two
+      hypotheses I lost along the way are in the record above rather than deleted from it.
+    </p>
+    <footer>
+      <span>Every figure regenerated by <code style="font-family: var(--mono);">make reproduce</code></span>
+      <span><a href="https://github.com/dilaydikbiyik/keyword-extractor">Code, data protocol and paper</a></span>
+      <span>dilaydikbiyik@gmail.com</span>
+    </footer>
+  </section>
+
+</div>

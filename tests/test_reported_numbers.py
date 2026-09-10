@@ -34,6 +34,9 @@ def pct(value):
 DOCS = {
     "README.md": ROOT / "README.md",
     "docs/paper_readiness.md": ROOT / "docs" / "paper_readiness.md",
+    # The project page is the one artefact a reader is most likely to see and
+    # least likely to cross-check, so it is held to the same standard.
+    "docs/index.html": ROOT / "docs" / "index.html",
 }
 
 

@@ -510,3 +510,11 @@ an offline annotation tool with translations, written annotation guidelines,
 a two-stage verification protocol, a stratified dev/test split so that
 error-driven changes are reported on data they were not developed on, and two
 controlled studies separating the description finding from its confound.
+
+Added since: [`docs/index.html`](index.html), a project page that states every
+claim the work made together with what became of it — the retracted headline,
+the two falsified hypotheses, and the prediction registered before it was
+measured. It is served at
+<https://dilaydikbiyik.github.io/keyword-extractor/> and is held to the same
+standard as this report: `tests/test_reported_numbers.py` fails the build if any
+figure on it drifts from `results/`.

@@ -4,6 +4,11 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/downloads/)
 
+**[Read the research record →](https://dilaydikbiyik.github.io/keyword-extractor/)**
+One page: every claim this project made and what became of it — a retracted
+headline, two falsified hypotheses of my own, and a prediction registered before
+it was measured.
+
 Assigning **NACE Rev. 2** economic sections to German company purpose
 statements with no labelled training data, by embedding the taxonomy's own
 class descriptions and ranking them against the document.
