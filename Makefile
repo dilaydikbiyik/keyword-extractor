@@ -69,6 +69,7 @@ study:
 	$(PYTHON) -m experiments.run_replication
 	$(PYTHON) -m experiments.lexical_gap
 	$(PYTHON) -m experiments.run_gap_analysis
+	$(PYTHON) -m experiments.run_predictor_search
 
 paper-tables:
 	$(PYTHON) -m experiments.export_latex

@@ -91,17 +91,37 @@ A trade register entry never says *"Erbringung von freiberuflichen,
 wissenschaftlichen und technischen Dienstleistungen"* — it says
 *"Steuerberatung"*. A usenet post about baseball says "baseball".
 
-**How far that account goes, tested.** Binned across all 32 classes in both
-datasets, those with under 5% name overlap gain **+8.1 points** on average and
-the rest **+1.4**. But at the level of individual classes the overlap does *not*
-predict the gain (Spearman ρ = −0.16, p = 0.37), and neither does class
-confusability (ρ = +0.05, p = 0.80). Only headroom does (ρ = −0.61,
-p = 0.0002), which is largely mechanical — a class already at 90% cannot gain
-much.
+**What actually predicts it.** Across all 32 classes in both datasets, the one
+quantity that survives is **how far the description moves the class vector
+toward the centroid of its own documents** (Spearman ρ = +0.51, p = 0.003) — and
+it is the only candidate that holds in both datasets separately (+0.56, +0.63).
+Lexical overlap does not (ρ = +0.07), nor does confusability (ρ = −0.01), nor
+does length — words added correlates *negatively*.
 
-So the lexical gap separates the two **regimes** without explaining which
-classes inside a regime benefit. That second question is open, and
-`make study` reports it rather than smoothing it over.
+It accounts for the dataset difference too:
+
+| | Alignment, terse → elaborated | Accuracy gain |
+| --- | --- | --- |
+| NACE | 0.645 → 0.759 (**+0.114**) | +12.1% |
+| 20 Newsgroups | 0.571 → 0.495 (**−0.076**) | +1.6% |
+
+The 20 Newsgroups definitions moved the class vectors *away* from their own
+documents: twenty-three careful words about baseball sit further from real
+usenet posts than the word "Baseball" does. **The recipe is not "write more",
+it is "write closer to the data".**
+
+**It does not become a selection rule, and that is measured too.** Choosing each
+class's description by alignment on a development half loses to a fixed policy
+(−2.5 pp on 20NG; a contrastive criterion loses 3.6 pp, p = 0.005). The reason
+is that the two styles do not share a similarity scale: in a set where every
+other class carries an elaborated description, that half wins 69.8% of argmax
+decisions on NACE and 35.2% on 20NG against a fair share of 50%. Per-class
+z-scoring does not rescue it — it costs 8.4 points on the best pure policy by
+discarding class priors.
+
+**The practical rule: keep the description style uniform across classes.** A set
+of individually-better descriptions can classify worse than a set of
+consistently-written ones.
 
 `make study` reproduces all of it. Validated on a held-out half never inspected
 during the rewrite: **+15.6 points there (p = 0.0006)**. Section M, which holds
@@ -340,12 +360,13 @@ Full review and methodology decisions: [`docs/methodology.md`](docs/methodology.
 - **Keyword extraction is unevaluated on the current set.** It carries section
   labels only, and the keyword half of the pipeline has not shown a measurable
   effect in any configuration tested.
-- **The lexical-gap account is regime-level, not class-level.** It separates
-  two datasets that differ eighteenfold in name overlap, but within either
-  dataset it does not predict which classes benefit (ρ = −0.16, p = 0.37).
-  What drives per-class variation is unresolved.
-- **Two datasets, not a curve.** A third with an intermediate overlap would
-  test whether the regime boundary is graded or a threshold.
+- **Alignment predicts the gain but cannot be optimised per class.** Both a
+  marginal and a contrastive selection criterion lose to a fixed policy,
+  because the argmax compares across classes on a scale that depends on
+  description style. A criterion defined over the whole set of class vectors at
+  once might work; none is tested here.
+- **Two datasets, not a curve.** A third would test whether the account holds
+  where the two present ones do not already differ so sharply.
 - **The 20 Newsgroups descriptions were written by the same hand** that wrote
   the NACE ones, which controls style but not author bias.
 - **No LLM baseline.** An instruction-tuned model asked to pick a section

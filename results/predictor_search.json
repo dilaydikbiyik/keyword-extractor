@@ -1,0 +1,547 @@
+{
+  "n_classes": 32,
+  "target": "share of available headroom captured",
+  "correlations": {
+    "alignment_gain": {
+      "rho": 0.512717875358927,
+      "p": 0.0026956919937634414,
+      "within": {
+        "NACE": 0.5563518240111589,
+        "20NG": 0.6335592463201046
+      }
+    },
+    "alignment_terse": {
+      "rho": -0.2927193027658057,
+      "p": 0.10398642657378702,
+      "within": {
+        "NACE": -0.549309395859119,
+        "20NG": -0.3762228303563567
+      }
+    },
+    "confusability": {
+      "rho": -0.009923741344478224,
+      "p": 0.9570109237620791,
+      "within": {
+        "NACE": 0.47433702613736023,
+        "20NG": -0.09762539223202367
+      }
+    },
+    "name_overlap": {
+      "rho": 0.06455534340659728,
+      "p": 0.7255751350746656,
+      "within": {
+        "NACE": 0.36835338128026945,
+        "20NG": -0.05318757102616155
+      }
+    },
+    "words_added": {
+      "rho": -0.2090519171232395,
+      "p": 0.2508574382869382,
+      "within": {
+        "NACE": -0.24028418562434092,
+        "20NG": 0.0802223549008228
+      }
+    }
+  },
+  "dataset_level": {
+    "NACE": {
+      "mean_alignment_terse": 0.6454560219329201,
+      "mean_alignment_gain": 0.11389635589644544,
+      "mean_accuracy_gain": 0.12054724978345004
+    },
+    "20NG": {
+      "mean_alignment_terse": 0.5710185249065767,
+      "mean_alignment_gain": -0.0757476127420306,
+      "mean_accuracy_gain": 0.015625000000000007
+    }
+  },
+  "selection_rules": {
+    "NACE": {
+      "marginal": {
+        "picks": {
+          "terse": 0,
+          "rich": 12
+        },
+        "accuracy": {
+          "terse": 0.3767123287671233,
+          "rich": 0.589041095890411,
+          "chosen": 0.589041095890411
+        },
+        "best_fixed_policy": "rich",
+        "delta_pp": 0.0,
+        "p_value": 1.0
+      },
+      "contrastive": {
+        "picks": {
+          "terse": 2,
+          "rich": 10
+        },
+        "accuracy": {
+          "terse": 0.3767123287671233,
+          "rich": 0.589041095890411,
+          "chosen": 0.5821917808219178
+        },
+        "best_fixed_policy": "rich",
+        "delta_pp": -0.6849315068493178,
+        "p_value": 1.0
+      }
+    },
+    "20NG": {
+      "marginal": {
+        "picks": {
+          "terse": 18,
+          "rich": 2
+        },
+        "accuracy": {
+          "terse": 0.4925,
+          "rich": 0.51,
+          "chosen": 0.485
+        },
+        "best_fixed_policy": "rich",
+        "delta_pp": -2.500000000000002,
+        "p_value": 0.07726226461070669
+      },
+      "contrastive": {
+        "picks": {
+          "terse": 10,
+          "rich": 10
+        },
+        "accuracy": {
+          "terse": 0.4925,
+          "rich": 0.51,
+          "chosen": 0.47375
+        },
+        "best_fixed_policy": "rich",
+        "delta_pp": -3.6250000000000004,
+        "p_value": 0.005077381119448144
+      }
+    }
+  },
+  "scale_and_calibration": {
+    "NACE": {
+      "terse": {
+        "argmax": 0.37543859649122807,
+        "z_scored": 0.40350877192982454,
+        "mean_similarity": 0.29200404547405223
+      },
+      "rich": {
+        "argmax": 0.5789473684210527,
+        "z_scored": 0.49473684210526314,
+        "mean_similarity": 0.34534477369633143
+      },
+      "mixed": {
+        "argmax": 0.512280701754386,
+        "z_scored": 0.4421052631578947,
+        "mean_similarity": 0.30848749110699264,
+        "share_of_decisions_won_by_the_elaborated_half": 0.6982456140350877,
+        "fair_share": 0.5
+      }
+    },
+    "20NG": {
+      "terse": {
+        "argmax": 0.513125,
+        "z_scored": 0.519375,
+        "mean_similarity": 0.05871358093718879
+      },
+      "rich": {
+        "argmax": 0.52875,
+        "z_scored": 0.53,
+        "mean_similarity": 0.030152799371600827
+      },
+      "mixed": {
+        "argmax": 0.490625,
+        "z_scored": 0.511875,
+        "mean_similarity": 0.044904279123337235,
+        "share_of_decisions_won_by_the_elaborated_half": 0.351875,
+        "fair_share": 0.5
+      }
+    }
+  },
+  "conclusion": "How far a description moves the class vector toward its own documents predicts which classes gain (rho = +0.61, p = 0.0002) and accounts for the difference between the datasets. It does not convert into a per-class selection rule: both a marginal and a contrastive criterion lose to a fixed policy, because the two description styles sit on different similarity scales and the argmax compares across classes. Per-class z-scoring does not rescue it either — it discards the class priors the plain argmax was exploiting.",
+  "classes": [
+    {
+      "dataset": "NACE",
+      "class": "C",
+      "recall_terse": 0.9,
+      "recall_rich": 0.4,
+      "gain": -0.5,
+      "alignment_terse": 0.7785505000766536,
+      "alignment_gain": 0.026353716847599684,
+      "confusability": 0.5600348923044012,
+      "name_overlap": 0.85,
+      "words_added": 4
+    },
+    {
+      "dataset": "NACE",
+      "class": "F",
+      "recall_terse": 0.17647058823529413,
+      "recall_rich": 0.6764705882352942,
+      "gain": 0.5,
+      "alignment_terse": 0.573357100987437,
+      "alignment_gain": 0.2505867308939964,
+      "confusability": 0.5767555426982429,
+      "name_overlap": 0.14705882352941177,
+      "words_added": -1
+    },
+    {
+      "dataset": "NACE",
+      "class": "G",
+      "recall_terse": 0.5121951219512195,
+      "recall_rich": 0.7073170731707317,
+      "gain": 0.19512195121951215,
+      "alignment_terse": 0.7303804304668278,
+      "alignment_gain": 0.09398236027821083,
+      "confusability": 0.42503255685124725,
+      "name_overlap": 0.0,
+      "words_added": 15
+    },
+    {
+      "dataset": "NACE",
+      "class": "H",
+      "recall_terse": 0.625,
+      "recall_rich": 0.625,
+      "gain": 0.0,
+      "alignment_terse": 0.6861330099645241,
+      "alignment_gain": 0.15165098083586648,
+      "confusability": 0.370655195967767,
+      "name_overlap": 0.0,
+      "words_added": 15
+    },
+    {
+      "dataset": "NACE",
+      "class": "I",
+      "recall_terse": 0.5454545454545454,
+      "recall_rich": 0.6363636363636364,
+      "gain": 0.09090909090909094,
+      "alignment_terse": 0.6650325009975679,
+      "alignment_gain": 0.06372550177546943,
+      "confusability": 0.52002952603357,
+      "name_overlap": 0.09090909090909091,
+      "words_added": 13
+    },
+    {
+      "dataset": "NACE",
+      "class": "J",
+      "recall_terse": 0.4666666666666667,
+      "recall_rich": 0.7333333333333333,
+      "gain": 0.2666666666666666,
+      "alignment_terse": 0.676430939354485,
+      "alignment_gain": 0.08807039034983255,
+      "confusability": 0.4885118961738125,
+      "name_overlap": 0.36666666666666664,
+      "words_added": -5
+    },
+    {
+      "dataset": "NACE",
+      "class": "K",
+      "recall_terse": 0.5263157894736842,
+      "recall_rich": 0.3157894736842105,
+      "gain": -0.21052631578947367,
+      "alignment_terse": 0.5912410516313734,
+      "alignment_gain": 0.048232850640093194,
+      "confusability": 0.46483482815922733,
+      "name_overlap": 0.0,
+      "words_added": 10
+    },
+    {
+      "dataset": "NACE",
+      "class": "L",
+      "recall_terse": 0.7058823529411765,
+      "recall_rich": 0.7058823529411765,
+      "gain": 0.0,
+      "alignment_terse": 0.7101768912651201,
+      "alignment_gain": 0.09613769321857069,
+      "confusability": 0.46483482815922733,
+      "name_overlap": 0.0,
+      "words_added": 10
+    },
+    {
+      "dataset": "NACE",
+      "class": "M",
+      "recall_terse": 0.07692307692307693,
+      "recall_rich": 0.5384615384615384,
+      "gain": 0.4615384615384615,
+      "alignment_terse": 0.5118549519405569,
+      "alignment_gain": 0.18660810177539,
+      "confusability": 0.583058993657769,
+      "name_overlap": 0.09230769230769231,
+      "words_added": 12
+    },
+    {
+      "dataset": "NACE",
+      "class": "N",
+      "recall_terse": 0.3157894736842105,
+      "recall_rich": 0.3157894736842105,
+      "gain": 0.0,
+      "alignment_terse": 0.6235756274486282,
+      "alignment_gain": 0.183296431759433,
+      "confusability": 0.52002952603357,
+      "name_overlap": 0.0,
+      "words_added": 11
+    },
+    {
+      "dataset": "NACE",
+      "class": "P",
+      "recall_terse": 0.2857142857142857,
+      "recall_rich": 0.42857142857142855,
+      "gain": 0.14285714285714285,
+      "alignment_terse": 0.6327462075506793,
+      "alignment_gain": 0.033437960370006126,
+      "confusability": 0.3976372361135436,
+      "name_overlap": 0.0,
+      "words_added": 16
+    },
+    {
+      "dataset": "NACE",
+      "class": "Q",
+      "recall_terse": 0.14285714285714285,
+      "recall_rich": 0.6428571428571429,
+      "gain": 0.5,
+      "alignment_terse": 0.5659930515111873,
+      "alignment_gain": 0.1446735520128768,
+      "confusability": 0.583058993657769,
+      "name_overlap": 0.35714285714285715,
+      "words_added": -4
+    },
+    {
+      "dataset": "20NG",
+      "class": "alt.atheism",
+      "recall_terse": 0.3625,
+      "recall_rich": 0.4,
+      "gain": 0.03750000000000003,
+      "alignment_terse": 0.5784802131928255,
+      "alignment_gain": -0.07159754337571034,
+      "confusability": 0.5987250881325926,
+      "name_overlap": 0.125,
+      "words_added": 25
+    },
+    {
+      "dataset": "20NG",
+      "class": "comp.graphics",
+      "recall_terse": 0.7,
+      "recall_rich": 0.6875,
+      "gain": -0.012499999999999956,
+      "alignment_terse": 0.7040118178787662,
+      "alignment_gain": -0.0518742211015597,
+      "confusability": 0.5162342265346342,
+      "name_overlap": 0.275,
+      "words_added": 22
+    },
+    {
+      "dataset": "20NG",
+      "class": "comp.os.ms-windows.misc",
+      "recall_terse": 0.4,
+      "recall_rich": 0.425,
+      "gain": 0.024999999999999967,
+      "alignment_terse": 0.5742584164755749,
+      "alignment_gain": 0.00953865993131453,
+      "confusability": 0.5639374779103923,
+      "name_overlap": 0.475,
+      "words_added": 17
+    },
+    {
+      "dataset": "20NG",
+      "class": "comp.sys.ibm.pc.hardware",
+      "recall_terse": 0.3375,
+      "recall_rich": 0.4375,
+      "gain": 0.09999999999999998,
+      "alignment_terse": 0.5323717543634252,
+      "alignment_gain": -0.016146759779938735,
+      "confusability": 0.6578413625729205,
+      "name_overlap": 0.0875,
+      "words_added": 20
+    },
+    {
+      "dataset": "20NG",
+      "class": "comp.sys.mac.hardware",
+      "recall_terse": 0.4,
+      "recall_rich": 0.4625,
+      "gain": 0.0625,
+      "alignment_terse": 0.6153116305344812,
+      "alignment_gain": -0.019601576143651434,
+      "confusability": 0.5954914279999498,
+      "name_overlap": 0.0625,
+      "words_added": 19
+    },
+    {
+      "dataset": "20NG",
+      "class": "comp.windows.x",
+      "recall_terse": 0.5,
+      "recall_rich": 0.6125,
+      "gain": 0.11250000000000004,
+      "alignment_terse": 0.5906338405228871,
+      "alignment_gain": 0.033919057734046576,
+      "confusability": 0.5572247887463658,
+      "name_overlap": 0.2375,
+      "words_added": 23
+    },
+    {
+      "dataset": "20NG",
+      "class": "misc.forsale",
+      "recall_terse": 0.275,
+      "recall_rich": 0.275,
+      "gain": 0.0,
+      "alignment_terse": 0.3778424081086109,
+      "alignment_gain": -0.08279968677090999,
+      "confusability": 0.3271250719941127,
+      "name_overlap": 0.05,
+      "words_added": 20
+    },
+    {
+      "dataset": "20NG",
+      "class": "rec.autos",
+      "recall_terse": 0.725,
+      "recall_rich": 0.5875,
+      "gain": -0.13749999999999996,
+      "alignment_terse": 0.6155730982642086,
+      "alignment_gain": -0.15965693634645733,
+      "confusability": 0.5147273509852438,
+      "name_overlap": 0.0125,
+      "words_added": 20
+    },
+    {
+      "dataset": "20NG",
+      "class": "rec.motorcycles",
+      "recall_terse": 0.35,
+      "recall_rich": 0.45,
+      "gain": 0.10000000000000003,
+      "alignment_terse": 0.4922759951901375,
+      "alignment_gain": -0.05708054349311398,
+      "confusability": 0.5147273509852438,
+      "name_overlap": 0.05,
+      "words_added": 21
+    },
+    {
+      "dataset": "20NG",
+      "class": "rec.sport.baseball",
+      "recall_terse": 0.8375,
+      "recall_rich": 0.8375,
+      "gain": 0.0,
+      "alignment_terse": 0.6874842125256835,
+      "alignment_gain": -0.16780414895855844,
+      "confusability": 0.4155675995931074,
+      "name_overlap": 0.2125,
+      "words_added": 23
+    },
+    {
+      "dataset": "20NG",
+      "class": "rec.sport.hockey",
+      "recall_terse": 0.6375,
+      "recall_rich": 0.775,
+      "gain": 0.13750000000000007,
+      "alignment_terse": 0.5521608840064574,
+      "alignment_gain": -0.06144156300545234,
+      "confusability": 0.4155675995931074,
+      "name_overlap": 0.2625,
+      "words_added": 18
+    },
+    {
+      "dataset": "20NG",
+      "class": "sci.crypt",
+      "recall_terse": 0.5375,
+      "recall_rich": 0.6625,
+      "gain": 0.125,
+      "alignment_terse": 0.5792271266099132,
+      "alignment_gain": -0.00859008643846404,
+      "confusability": 0.2846786835057994,
+      "name_overlap": 0.05,
+      "words_added": 23
+    },
+    {
+      "dataset": "20NG",
+      "class": "sci.electronics",
+      "recall_terse": 0.525,
+      "recall_rich": 0.3,
+      "gain": -0.22500000000000003,
+      "alignment_terse": 0.6115227470209684,
+      "alignment_gain": -0.15453256576274987,
+      "confusability": 0.6578413625729205,
+      "name_overlap": 0.1125,
+      "words_added": 20
+    },
+    {
+      "dataset": "20NG",
+      "class": "sci.med",
+      "recall_terse": 0.675,
+      "recall_rich": 0.6875,
+      "gain": 0.012499999999999956,
+      "alignment_terse": 0.5385984803543348,
+      "alignment_gain": -0.05083625857373386,
+      "confusability": 0.376843767839627,
+      "name_overlap": 0.0,
+      "words_added": 22
+    },
+    {
+      "dataset": "20NG",
+      "class": "sci.space",
+      "recall_terse": 0.725,
+      "recall_rich": 0.6625,
+      "gain": -0.0625,
+      "alignment_terse": 0.6408079169782632,
+      "alignment_gain": -0.14733979323900065,
+      "confusability": 0.2785026564961256,
+      "name_overlap": 0.2375,
+      "words_added": 22
+    },
+    {
+      "dataset": "20NG",
+      "class": "soc.religion.christian",
+      "recall_terse": 0.725,
+      "recall_rich": 0.5875,
+      "gain": -0.13749999999999996,
+      "alignment_terse": 0.7072053453779032,
+      "alignment_gain": -0.11787308363687954,
+      "confusability": 0.7981989566888598,
+      "name_overlap": 0.2625,
+      "words_added": 21
+    },
+    {
+      "dataset": "20NG",
+      "class": "talk.politics.guns",
+      "recall_terse": 0.4625,
+      "recall_rich": 0.5375,
+      "gain": 0.07499999999999996,
+      "alignment_terse": 0.5191282188444386,
+      "alignment_gain": -0.13551702755810846,
+      "confusability": 0.5951849404534593,
+      "name_overlap": 0.15,
+      "words_added": 21
+    },
+    {
+      "dataset": "20NG",
+      "class": "talk.politics.mideast",
+      "recall_terse": 0.75,
+      "recall_rich": 0.7875,
+      "gain": 0.03749999999999998,
+      "alignment_terse": 0.6361509460733097,
+      "alignment_gain": -0.09463171606518095,
+      "confusability": 0.5387057543500674,
+      "name_overlap": 0.0625,
+      "words_added": 23
+    },
+    {
+      "dataset": "20NG",
+      "class": "talk.politics.misc",
+      "recall_terse": 0.275,
+      "recall_rich": 0.2375,
+      "gain": -0.03750000000000003,
+      "alignment_terse": 0.4071776282269422,
+      "alignment_gain": -0.11399592832108146,
+      "confusability": 0.5951849404534593,
+      "name_overlap": 0.075,
+      "words_added": 22
+    },
+    {
+      "dataset": "20NG",
+      "class": "talk.religion.misc",
+      "recall_terse": 0.0625,
+      "recall_rich": 0.1625,
+      "gain": 0.1,
+      "alignment_terse": 0.46014781758240714,
+      "alignment_gain": -0.04709053393542223,
+      "confusability": 0.7981989566888598,
+      "name_overlap": 0.1875,
+      "words_added": 21
+    }
+  ]
+}

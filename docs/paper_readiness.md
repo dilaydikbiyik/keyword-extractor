@@ -181,7 +181,81 @@ closes most of the gap in two words.
 
 ---
 
-## 5. What each component contributes
+## 5. What predicts which classes gain
+
+`results/predictor_search.json` · `make study`. Target is the share of
+*available* headroom a class captured, not the raw gain: a class already at
+90% cannot gain much, and raw gain mostly measures where a class started.
+
+| Predictor | ρ | p | NACE | 20NG |
+| --- | --- | --- | --- | --- |
+| **How far the description moved toward its own documents** | **+0.513** | **0.003** | +0.56 | +0.63 |
+| How aligned the terse description already was | −0.293 | 0.104 | −0.55 | −0.38 |
+| Confusability of the class vector | −0.010 | 0.957 | +0.47 | −0.10 |
+| Lexical overlap of the class name | +0.065 | 0.726 | +0.37 | −0.05 |
+| Words added | −0.209 | 0.251 | −0.24 | +0.08 |
+
+**The answer is alignment.** A description helps to exactly the extent that it
+moves the class vector toward the centroid of the documents that class must
+attract. It is the only candidate that survives, and the only one that holds in
+*both* datasets separately — the test every other predictor failed.
+
+It also accounts for the dataset-level difference, which is what makes it a
+mechanism rather than a correlation:
+
+| | Alignment, terse → elaborated | Accuracy gain |
+| --- | --- | --- |
+| NACE | 0.645 → 0.759 (**+0.114**) | +12.1% |
+| 20 Newsgroups | 0.571 → 0.495 (**−0.076**) | +1.6% |
+
+**The 20 Newsgroups definitions moved the class vectors *away* from their own
+documents.** Twenty-three carefully written words about baseball sit further
+from actual usenet posts than the word "Baseball" does. That is why elaboration
+bought nothing there, and it is a sharper statement than the lexical-gap
+account it replaces: the recipe is not "write more", it is "write closer to the
+data". Words added correlates *negatively* with gain.
+
+### It does not become a selection rule
+
+If alignment were causal and local, choosing each class's description by it
+should beat a fixed policy. It does not. Choosing on a development half and
+scoring on held-out documents:
+
+| Dataset | Criterion | vs. best fixed policy | p |
+| --- | --- | --- | --- |
+| NACE | alignment to own documents | +0.0 pp | 1.000 |
+| NACE | contrastive margin against other classes | −0.7 pp | 1.000 |
+| 20NG | alignment to own documents | −2.5 pp | 0.077 |
+| 20NG | contrastive margin against other classes | **−3.6 pp** | **0.005** |
+
+### Why it fails, measured
+
+The two description styles do not sit on a common similarity scale, and the
+classifier takes an argmax *across* classes. In a set where every other class
+carries an elaborated description:
+
+| | Share of decisions won by the elaborated half | Fair share |
+| --- | --- | --- |
+| NACE | **69.8%** | 50% |
+| 20 Newsgroups | **35.2%** | 50% |
+
+The bias runs in opposite directions in the two datasets, and in exactly the
+direction alignment predicts. Per-class selection optimises each class against
+a yardstick the argmax does not use.
+
+Per-class z-scoring — the obvious calibration — does not rescue it either. It
+helps the mixed set slightly and costs 8.4 points on the best pure policy
+(57.9% → 49.5%, p = 0.005), because it discards the class-prior information the
+plain argmax was exploiting.
+
+**The practical rule that falls out: keep the description style uniform across
+classes.** Per-class description optimisation is not a free lunch in a shared
+embedding space, and a set of individually-better descriptions can classify
+worse than a set of consistently-written ones.
+
+---
+
+## 6. What each component contributes
 
 `results/tables/ablation.md`, full 299-document set.
 
@@ -221,7 +295,7 @@ closes most of the gap in two words.
 
 ---
 
-## 6. Held-out validation
+## 7. Held-out validation
 
 The taxonomy revision was developed by inspecting errors, which is a form of
 fitting. It was therefore developed on a development half and reported on a
@@ -243,7 +317,7 @@ help by 4.6 points on dev and hurt by 5.4 on test, neither significant
 
 ---
 
-## 7. Error analysis
+## 8. Error analysis
 
 50 errors from the development half, hand-coded against the codebook in
 `experiments/error_analysis.py`. The held-out half is untouched.
@@ -286,7 +360,7 @@ accuracy for this task — which is also the argument for reporting Top-3.
 
 ---
 
-## 8. Where the gain came from
+## 9. Where the gain came from
 
 Per-section recall on the held-out half, before and after:
 
@@ -317,7 +391,7 @@ noise, but it is the honest cost of the change and belongs in the table.
 
 ---
 
-## 9. Label quality
+## 10. Label quality
 
 The 299 labels are model-assisted: produced by a language model applying
 [`annotation_guidelines.md`](annotation_guidelines.md), then validated against
@@ -346,17 +420,16 @@ documents flagged high-confidence."*
 
 ---
 
-## 10. What remains
+## 11. What remains
 
 1. **Run the LLM baseline.** An instruction-tuned model asked to name a section
    directly is the comparison a 2026 reviewer will expect. The adapter exists
    (`run.py --with-llm`); it needs an API key.
-2. **Find what predicts per-class gain.** Name overlap and confusability both
-   fail (ρ = −0.16 and +0.05). This is the most interesting open question the
-   project has produced, and answering it would turn a regime-level observation
-   into a mechanism.
-3. **A third dataset with intermediate overlap**, to test whether the regime
-   boundary is graded or a threshold.
+2. **A third dataset**, to test whether the alignment account holds where the
+   two present datasets do not already differ so sharply.
+3. **Find a selection criterion that survives the argmax.** Alignment predicts
+   the gain but cannot be optimised per class; a criterion defined over the
+   whole set of class vectors at once might.
 4. **Decide the keyword question.** The set carries section labels only, so
    Precision@K is unmeasurable, and the keyword half of the pipeline has now
    failed to show an effect in every configuration tested. Writing a
@@ -368,7 +441,7 @@ documents flagged high-confidence."*
 6. **Write.** `paper/main.tex` is the skeleton; `make paper-tables` regenerates
    its tables from `results/`, so no number is typed into the prose.
 
-## 11. Decisions
+## 12. Decisions
 
 - **Authorship.** The work is yours. Settle it before submission.
 - **Venue.** [`../paper/venues.md`](../paper/venues.md) has the priority order.
@@ -383,7 +456,7 @@ documents flagged high-confidence."*
   demonstrably contributes nothing. The work is now about class descriptions
   for zero-shot taxonomy classification, and the title should say so.
 
-## 12. Artefact standard
+## 13. Artefact standard
 
 Complete: one-command reproduction from a clean clone, `results/metrics.json`,
 pinned dependencies, fixed seed, tests and CI, MIT licence, `CITATION.cff`,
