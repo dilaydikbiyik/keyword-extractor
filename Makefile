@@ -5,7 +5,7 @@ PYTHON ?= $(shell \
 	elif command -v python3 >/dev/null 2>&1; then command -v python3; \
 	else echo python; fi)
 
-.PHONY: help install reproduce test lint annotate merge verify verify-new verify-apply second-annotator second-annotator-score llm-baseline study paper-tables paper demo clean
+.PHONY: help install reproduce test lint annotate merge verify verify-new verify-apply second-annotator second-annotator-score llm-baseline llm-baseline-local study paper-tables paper demo clean
 
 help:
 	@echo "Using PYTHON = $(PYTHON)"
@@ -23,6 +23,7 @@ help:
 	@echo "  second-annotator        Blind German-only sample for a second annotator"
 	@echo "  second-annotator-score  Human-versus-human agreement once it is filled in"
 	@echo "  llm-baseline  Run the paid LLM zero-shot baseline (needs OPENAI_API_KEY)"
+	@echo "  llm-baseline-local  Same prompt, open model run locally (downloads 15.2 GB once)"
 	@echo "  study         Class-description studies: language, content, replication"
 	@echo "  paper-tables  Regenerate paper/tables/*.tex from results/"
 	@echo "  paper         Build paper/main.pdf (needs tectonic: brew install tectonic)"
@@ -78,6 +79,12 @@ second-annotator-score:
 llm-baseline:
 	@test -n "$$OPENAI_API_KEY" || { echo "Set OPENAI_API_KEY first; this run is billed to that account."; exit 1; }
 	$(PYTHON) -m experiments.run_experiments --with-llm
+
+# An open instruction-tuned model run locally: no key, no bill. Downloads
+# Qwen2.5-7B-Instruct (15.2 GB, Apache-2.0) on first use. Kept out of
+# `reproduce` so that reproducing the paper never needs the download.
+llm-baseline-local:
+	$(PYTHON) -m experiments.run_llm_baseline
 
 study:
 	$(PYTHON) -m experiments.run_description_study

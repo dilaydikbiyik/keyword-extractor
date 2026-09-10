@@ -446,9 +446,12 @@ than individuals, though registered company names sometimes contain the names of
 their owners. The collected sample is not redistributed, because its
 redistribution licence has not been established; the vocabulary and inverse
 document frequency statistics derived from it are released instead, which are
-aggregate counts and cannot be inverted to recover the records. The evaluation
-set, the taxonomy, the annotation guideline and all experiment code are
-released.
+aggregate counts and cannot be inverted to recover the records. The exception
+is the evaluation set: its \NEVAL\ records, \EvalShareOfCorpus\ of the sample, are
+released with their labels so that every reported result can be checked. They
+are entries in a public register, and company names are kept because they are
+part of that record; the pipeline itself never reads them. The taxonomy, the
+annotation guideline and all experiment code are released as well.
 
 Top-1 accuracy is far below what unattended assignment of economic codes would
 need. The system is meant to propose candidates to a human coder; used to
@@ -462,13 +465,13 @@ states no licence.
 \section*{Use of AI Assistants}
 
 This work was carried out with substantial assistance from Claude (Anthropic),
-used through Claude Code. The assistant wrote most of the experiment and
-pipeline code, produced the silver section labels by applying the annotation
+used through Claude Code. The assistant wrote the experiment code and
+refactored the pipeline, produced the silver section labels by applying the annotation
 guideline, drafted the rewritten class descriptions and the German control
 descriptions, coded the errors in the error analysis, ran the analyses, and
-drafted the text of this paper. The author initiated the project, performed
-both human verification passes described in the data section, reviewed the
-analyses and the text, and takes responsibility for the content. No reported
+drafted the text of this paper. The author initiated and owns the project,
+performed both human verification passes described in the data section, and
+takes responsibility for the content. No reported
 result was typed by hand: each is generated from the released experiment
 outputs.
 

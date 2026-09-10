@@ -15,6 +15,10 @@ matters for anyone trying to reproduce the reported numbers.
 The sample was collected for this project from the German trade register. The
 underlying facts are public record, but a bulk redistribution licence for the
 collected file has not been established, so the file is not published here.
+The one exception is the evaluation set: its 299 records, about 3% of the
+sample, are committed with their labels so that every reported result can be
+checked. They are public register entries, and company names are kept because
+they are part of that record; no classifier reads them.
 
 Rather than leave the repository unreproducible, the statistics the pipeline
 actually consumes from the corpus are committed instead. The TF-IDF baseline

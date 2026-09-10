@@ -686,3 +686,34 @@ class TestRobustness:
         assert out["systems"]["full"]["top1_verified"] == 1.0
         assert out["systems"]["full"]["top1_rest"] == 0.5
         assert out["systems"]["other"]["top3_verified"] == 1.0
+
+
+class TestLLMReplyParsing:
+    """The parser decides what an LLM baseline scores; it must not guess silently."""
+
+    def _taxonomy(self):
+        return {c: {} for c in "ABCDEFGHIJKLMNOPQRSTU"}
+
+    def test_reads_a_reply_in_the_requested_format(self):
+        from experiments.systems import parsed_letters
+
+        assert parsed_letters("M, J, N", self._taxonomy()) == (["M", "J", "N"], True)
+
+    def test_recovers_but_flags_a_reply_out_of_format(self):
+        from experiments.systems import parsed_letters
+
+        assert parsed_letters("Section M, then J.", self._taxonomy()) == (["M", "J"], False)
+
+    def test_repeated_letters_count_once(self):
+        from experiments.systems import parsed_letters
+
+        assert parsed_letters("M, M, J", self._taxonomy()) == (["M", "J"], True)
+
+    def test_ranking_puts_the_answer_first_and_keeps_every_section(self):
+        from experiments.systems import ranking_from_reply
+
+        taxonomy = self._taxonomy()
+        ranking = ranking_from_reply("Q", taxonomy, sorted(taxonomy))
+        assert ranking[0][0] == "Q"
+        assert len(ranking) == len(taxonomy)
+        assert [score for _, score in ranking] == sorted((score for _, score in ranking), reverse=True)

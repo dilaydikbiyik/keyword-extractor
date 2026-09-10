@@ -28,9 +28,10 @@ the sentence encoders, OPUS-MT, and the released evaluation set.
   Group (from the collection's own README). 20 Newsgroups' distribution states
   no licence, and the paper says so. See gap 1.
 - **B3. Intended use?** Partly, for the same reason.
-- **B4. Personal information?** Partly. The *Ethics Statement* notes that
-  company names can contain owners' names; no step removes them from the
-  released evaluation set. See gap 2.
+- **B4. Personal information?** Yes. The *Ethics Statement* notes that company
+  names can contain owners' names, says that the evaluation set's records are
+  released with them because they are part of a public register entry, and
+  that the pipeline never reads them.
 - **B5. Documentation of artifacts?** Yes — *Data* section, plus
   `data/README.md` and `docs/annotation_guidelines.md`.
 - **B6. Statistics and splits?** Yes — *Data* section: set size, stratified
@@ -80,9 +81,13 @@ recruited annotators.
 Closed: the misuse sentence, the dataset and software citations, the encoder
 parameter counts and the reproduction runtime. Still open:
 
-1. 20 Newsgroups states no licence anywhere in its distribution. Decide whether
-   that needs more than the sentence the paper now has; Reuters-21578's terms
-   are settled from its README.
-2. Decide whether the released evaluation set keeps company names. If it does,
-   say why; if not, strip or hash them before release.
+1. ~~20 Newsgroups licence.~~ Decided: the sentence the paper has is enough. The
+   collection states no licence anywhere in its distribution, has been a
+   standard research benchmark for three decades, and is used here only for
+   evaluation, as scikit-learn distributes it. Reuters-21578's terms are settled
+   from its README.
+2. ~~Company names in the released set.~~ Decided: kept, and the paper says
+   why. The 299 records are public register entries, the names are part of the
+   record, no classifier reads them, and removing them now would not remove them
+   from the repository's history.
 3. Before relying on the answers above, check each against the final PDF.

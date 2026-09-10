@@ -183,3 +183,6 @@ paper/*.log
 paper/*.bbl
 paper/*.blg
 paper/*.out
+
+# A --limit smoke run of the LLM baseline, never the result
+results/llm_baseline_smoke.json

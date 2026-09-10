@@ -8,9 +8,9 @@ a different composition.  That is what makes the ablation table honest; the
 
 from __future__ import annotations
 
+import re
 import sys
 from dataclasses import dataclass
-import re
 from functools import lru_cache
 from pathlib import Path
 from typing import Dict, List, Optional, Protocol, Sequence, Tuple
@@ -329,6 +329,43 @@ class EmbeddingRanker:
         return None
 
 
+LOCAL_LLM = "Qwen/Qwen2.5-7B-Instruct"
+
+
+def llm_prompt(menu: str, text: str) -> str:
+    """The one prompt both LLM baselines use, so their results are comparable."""
+    return (
+        "Classify the German business purpose into NACE Rev. 2 sections.\n"
+        f"{menu}\n\n"
+        f"Business purpose:\n{text}\n\n"
+        "Answer with the three most likely section letters, best first, "
+        "comma-separated, nothing else."
+    )
+
+
+STRICT_REPLY = re.compile(r"^\s*[A-Z](\s*[,;/]\s*[A-Z])*\s*\.?\s*$")
+
+
+def parsed_letters(reply: str, taxonomy: Dict) -> Tuple[List[str], bool]:
+    """Section letters in the order given, and whether the reply kept the format.
+
+    A reply in the requested form ("M, J, N") is read exactly. Anything else
+    falls back to standalone capital letters, which recovers "Section M" but can
+    also pick up an English "I" or "A"; the flag lets a run report how often
+    that fallback was needed instead of hiding it.
+    """
+    letters = re.findall(r"\b([A-Z])\b", reply)
+    return list(dict.fromkeys(c for c in letters if c in taxonomy)), bool(STRICT_REPLY.match(reply.strip()))
+
+
+def ranking_from_reply(reply: str, taxonomy: Dict, codes: Sequence[str]) -> List[Tuple[str, float]]:
+    """Section letters in the order the model gave them, then the rest."""
+    ranked, _ = parsed_letters(reply, taxonomy)
+    ranked += [c for c in codes if c not in ranked]
+    n = len(ranked)
+    return [(c, float(n - i)) for i, c in enumerate(ranked)]
+
+
 class LLMRanker:
     """Zero-shot sector assignment by a small LLM.
 
@@ -353,27 +390,74 @@ class LLMRanker:
         return None
 
     def rank(self, text: str) -> List[Tuple[str, float]]:
-        prompt = (
-            "Classify the German business purpose into NACE Rev. 2 sections.\n"
-            f"{self._menu}\n\n"
-            f"Business purpose:\n{text}\n\n"
-            "Answer with the three most likely section letters, best first, "
-            "comma-separated, nothing else."
-        )
         response = self.client.chat.completions.create(
             model=self.model,
-            messages=[{"role": "user", "content": prompt}],
+            messages=[{"role": "user", "content": llm_prompt(self._menu, text)}],
             temperature=0,
             max_tokens=16,
         )
-        guessed = [
-            tok.strip().upper()[:1]
-            for tok in response.choices[0].message.content.split(",")
-        ]
-        ranked = [c for c in guessed if c in self.taxonomy]
-        ranked += [c for c in self.codes if c not in ranked]
-        n = len(ranked)
-        return [(c, float(n - i)) for i, c in enumerate(ranked)]
+        return ranking_from_reply(response.choices[0].message.content, self.taxonomy, self.codes)
+
+
+class LocalLLMRanker:
+    """Zero-shot sector assignment by an open instruction-tuned model, run locally.
+
+    The same prompt and parsing as LLMRanker, without an API key or a bill: the
+    weights are downloaded once from the Hugging Face Hub. Its model family is
+    not the labeller's, which a fair comparison against these labels needs.
+    Greedy decoding, so a given model on a given device answers the same way
+    every time.
+    """
+
+    needs_corpus = False
+
+    def __init__(self, model: str = LOCAL_LLM):
+        import torch
+        from transformers import AutoModelForCausalLM, AutoTokenizer
+
+        self.model_name = model
+        self.taxonomy = load_taxonomy()
+        self.codes = sorted(self.taxonomy)
+        self._menu = "\n".join(
+            f"{c}: {self.taxonomy[c].get('name', c)}" for c in self.codes
+        )
+        if torch.backends.mps.is_available():
+            self.device = "mps"
+        elif torch.cuda.is_available():
+            self.device = "cuda"
+        else:
+            self.device = "cpu"
+        dtype = torch.float32 if self.device == "cpu" else torch.float16
+        self.off_format = 0
+        self.tokenizer = AutoTokenizer.from_pretrained(model)
+        self.model = AutoModelForCausalLM.from_pretrained(model, torch_dtype=dtype).to(self.device)
+        self.model.eval()
+
+    def fit(self, corpus: Sequence[str]) -> None:
+        return None
+
+    def rank(self, text: str) -> List[Tuple[str, float]]:
+        import torch
+
+        messages = [{"role": "user", "content": llm_prompt(self._menu, text)}]
+        inputs = self.tokenizer.apply_chat_template(
+            messages, add_generation_prompt=True, return_tensors="pt"
+        ).to(self.device)
+        with torch.no_grad():
+            output = self.model.generate(
+                inputs,
+                attention_mask=torch.ones_like(inputs),
+                max_new_tokens=16,
+                do_sample=False,
+                temperature=None,
+                top_p=None,
+                top_k=None,
+                pad_token_id=self.tokenizer.eos_token_id,
+            )
+        reply = self.tokenizer.decode(output[0, inputs.shape[1]:], skip_special_tokens=True)
+        if not parsed_letters(reply, self.taxonomy)[1]:
+            self.off_format += 1
+        return ranking_from_reply(reply, self.taxonomy, self.codes)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
