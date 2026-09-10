@@ -1,17 +1,20 @@
 cff-version: 1.2.0
 message: "If you use this software or its results, please cite it as below."
-title: "Sectoral Keyword Extraction Pipeline"
+title: "What a Class Description Buys: Alignment, Not Wording, in Zero-Shot Taxonomy Classification"
 abstract: >-
-  A taxonomy-guided, unsupervised pipeline that classifies German trade
-  register business purposes into NACE Rev. 2 sections and extracts
-  sector-aware keywords using multilingual sentence embeddings and guided
-  KeyBERT.
+  Zero-shot assignment of NACE Rev. 2 sections to German trade register
+  business purposes by embedding the taxonomy's own class descriptions. The
+  study finds that what a class description buys a zero-shot classifier is
+  alignment with the documents it must attract, predicts the gain on a third
+  corpus before measuring it, and reports two falsified hypotheses and one
+  retracted headline alongside the result.
 type: software
 authors:
   - family-names: "Dikbıyık"
     given-names: "Dilay"
 keywords:
   - natural language processing
+  - zero-shot classification
   - keyword extraction
   - multilingual embeddings
   - NACE Rev. 2

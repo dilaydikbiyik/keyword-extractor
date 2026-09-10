@@ -14,14 +14,15 @@ statements with no labelled training data, by embedding the taxonomy's own
 class descriptions and ranking them against the document.
 
 **What this repository is really about:** what a class description buys a
-zero-shot classifier is *the vocabulary of its documents* — and how much that is
-worth can be predicted before running anything. Where the class name is absent
-from the documents (NACE sections: 1.0%), writing real definitions gains
-**+26.8 points**. Where the name is already the documents' own word
-(20 Newsgroups: 18.2%), the same work gains **nothing**. Translating
-descriptions into the documents' language never helps. The keyword-extraction
-half the project was originally named after contributes no measurable benefit
-at all.
+zero-shot classifier is *alignment with the documents it must attract* — how far
+it moves the class vector toward them — and that can be measured before
+accuracy is. Where the class names are abstract categories that never appear in
+the documents (NACE sections), writing real definitions gains **+26.8 points**.
+Where the name is already the documents' own word (20 Newsgroups), the same
+work gains **nothing**. On a third corpus the gain was predicted before it was
+measured. Translating descriptions into the documents' language never helps,
+and the keyword-extraction half the project was originally named after
+contributes no measurable benefit at all.
 
 ![Reproducing the reported results end to end](docs/assets/demo.gif)
 
@@ -53,7 +54,8 @@ produced by `make reproduce` and written to
 **Top-3 at 81.6% is the operating point.** The correct section is among the
 first three suggestions four times out of five, against 46.8% for an oracle
 majority-class floor. This is a tool for proposing a code to a human coder, not
-for assigning one unattended.
+for assigning one unattended. Almost all of that came from rewriting one line
+per class — see below.
 
 **An instruction-tuned model asked directly does not do better.** An open 7B
 model (Qwen2.5-7B-Instruct, run locally, the same prompt as the API baseline)
@@ -61,12 +63,11 @@ is no better at Top-1 (p = 0.416) and significantly worse at Top-3: 71.9%
 against 81.6% (p = 0.004). The two agree on the top section for only a third of
 the documents.
 
-Almost all of that came from rewriting one line per class — see below.
-
 ### The finding
 
-A class description helps in proportion to the **lexical gap** between the class
-name and the words its documents actually use.
+A class description helps in proportion to **how far it moves the class vector
+toward the documents it must attract** — which is not the same thing as how
+absent the class name is from them.
 
 The taxonomy's class descriptions named their category — *"Eğitim"*,
 *"Emlak faaliyetleri"* — averaging ten words. Rewriting them as definitions that

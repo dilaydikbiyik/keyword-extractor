@@ -34,7 +34,7 @@ From [`../docs/paper_readiness.md`](../docs/paper_readiness.md):
 
 - [ ] arXiv preprint — **check the venue's anonymity policy first**; some
       forbid preprinting inside an embargo window
-- [ ] Repository made public
+- [x] Repository made public
 - [ ] One post announcing it
 
 A rejection is a normal first outcome: apply the reviews, send it to the next
