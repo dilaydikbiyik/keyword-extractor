@@ -1,0 +1,58 @@
+{
+  "dataset": "Reuters-21578, single-label documents over 15 frequent categories",
+  "n": 959,
+  "classes": 12,
+  "why_this_dataset": "Its labels are opaque codes (money-fx, acq, dlr), which puts it in the same regime as NACE sections rather than 20 Newsgroups' readable topic names.",
+  "prediction_from_alignment": {
+    "alignment_change_readable_to_definition": 0.02820636938174559,
+    "predicted": "elaboration helps",
+    "made_before_measuring_accuracy": true
+  },
+  "conditions": {
+    "raw category code": {
+      "top1_accuracy": 0.4786235662148071,
+      "top1_ci95": [
+        0.4473409801876955,
+        0.5088633993743483
+      ],
+      "top3_accuracy": 0.7236704900938478,
+      "f1_macro": 0.45497597935322026,
+      "alignment": 0.44790262917543183
+    },
+    "readable class name": {
+      "top1_accuracy": 0.6642335766423357,
+      "top1_ci95": [
+        0.635036496350365,
+        0.694473409801877
+      ],
+      "top3_accuracy": 0.8769551616266945,
+      "f1_macro": 0.6517289005867343,
+      "alignment": 0.5856529860942254
+    },
+    "definition of what the class covers": {
+      "top1_accuracy": 0.7122002085505735,
+      "top1_ci95": [
+        0.6840458811261731,
+        0.7403545359749739
+      ],
+      "top3_accuracy": 0.9124087591240876,
+      "f1_macro": 0.7081449158613071,
+      "alignment": 0.613859355475971
+    }
+  },
+  "spelling_the_label_out": {
+    "a_only_correct": 260,
+    "b_only_correct": 82,
+    "discordant": 342,
+    "p_value": 1.0600279943418623e-22,
+    "gain_pp": 18.56100104275286
+  },
+  "defining_the_class": {
+    "a_only_correct": 108,
+    "b_only_correct": 62,
+    "discordant": 170,
+    "p_value": 0.0005199074129192246,
+    "gain_pp": 4.7966631908237805
+  },
+  "table_markdown": "| Class descriptions | Top-1 | 95% CI | Top-3 | F1-macro | alignment |\n| --- | --- | --- | --- | --- | --- |\n| raw category code | 47.9% | [44.7%, 50.9%] | 72.4% | 0.455 | 0.448 |\n| readable class name | 66.4% | [63.5%, 69.4%] | 87.7% | 0.652 | 0.586 |\n| definition of what the class covers | 71.2% | [68.4%, 74.0%] | 91.2% | 0.708 | 0.614 |"
+}

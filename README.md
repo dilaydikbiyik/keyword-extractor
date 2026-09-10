@@ -79,13 +79,9 @@ description language agrees.
 
 **It is not just this corpus — and the exception is the point.** On 20
 Newsgroups (English, usenet, 20 topical classes) the same elaboration step is
-worth **+0.4 points (p = 0.73)**. The datasets differ in one measurable
-property:
-
-| | Class name appears in its own documents | Elaboration gain |
-| --- | --- | --- |
-| NACE Rev. 2 sections | **1.0%** | **+26.8 pp** |
-| 20 Newsgroups classes | **18.2%** | +0.4 pp |
+worth **+0.4 points (p = 0.73)**; on Reuters-21578 (financial newswire, opaque
+category codes) it is worth **+4.8 points (p = 5×10⁻⁴)**. What separates them is
+measured below.
 
 A trade register entry never says *"Erbringung von freiberuflichen,
 wissenschaftlichen und technischen Dienstleistungen"* — it says
@@ -98,29 +94,38 @@ it is the only candidate that holds in both datasets separately (+0.56, +0.63).
 Lexical overlap does not (ρ = +0.07), nor does confusability (ρ = −0.01), nor
 does length — words added correlates *negatively*.
 
-It accounts for the dataset difference too:
+It accounts for the differences *between* datasets too — monotonically, across
+three of them:
 
-| | Alignment, terse → elaborated | Accuracy gain |
-| --- | --- | --- |
-| NACE | 0.645 → 0.759 (**+0.114**) | +12.1% |
-| 20 Newsgroups | 0.571 → 0.495 (**−0.076**) | +1.6% |
+| Dataset | Class labels look like | Δ alignment | Accuracy gain |
+| --- | --- | --- | --- |
+| NACE Rev. 2 | abstract economic categories | **+0.114** | **+26.8 pp** (p = 4×10⁻¹⁵) |
+| Reuters-21578 | opaque codes (`money-fx`, `acq`) | **+0.028** | **+4.8 pp** (p = 5×10⁻⁴) |
+| 20 Newsgroups | readable topic names | **−0.076** | +0.4 pp (p = 0.73) |
+
+**Reuters was predicted before it was measured.** `run_reuters.py` computes the
+alignment change first, prints what it implies, and only then looks at accuracy.
 
 The 20 Newsgroups definitions moved the class vectors *away* from their own
 documents: twenty-three careful words about baseball sit further from real
 usenet posts than the word "Baseball" does. **The recipe is not "write more",
 it is "write closer to the data".**
 
-**It does not become a selection rule, and that is measured too.** Choosing each
-class's description by alignment on a development half loses to a fixed policy
-(−2.5 pp on 20NG; a contrastive criterion loses 3.6 pp, p = 0.005). The reason
-is that the two styles do not share a similarity scale: in a set where every
-other class carries an elaborated description, that half wins 69.8% of argmax
-decisions on NACE and 35.2% on 20NG against a fair share of 50%. Per-class
-z-scoring does not rescue it — it costs 8.4 points on the best pure policy by
-discarding class priors.
+**It does not become a selection rule, and that is measured too.** Three
+criteria of increasing strength all fail to generalise: marginal alignment
+(−2.5 pp on 20NG), a contrastive margin (−3.6 pp, p = 0.005), and greedy search
+directly on development accuracy (−1.5 pp on 20NG, despite gaining on dev).
 
-**The practical rule: keep the description style uniform across classes.** A set
-of individually-better descriptions can classify worse than a set of
+Two reasons, both measured. The styles do not share a similarity scale — in a
+set where every other class carries an elaborated description, that half wins
+69.8% of argmax decisions on NACE and 35.2% on 20NG against a fair share of
+50% — and per-class z-scoring does not fix it, costing 8.4 points by discarding
+class priors. And there are 2^K configurations for K classes, so choosing among
+them needs more labelled data than a zero-shot pipeline is meant to require.
+
+**The practical rule: keep the description style uniform across classes, and
+spend the effort on the style rather than on per-class choices.** A set of
+individually-better descriptions can classify worse than a set of
 consistently-written ones.
 
 `make study` reproduces all of it. Validated on a held-out half never inspected
@@ -360,13 +365,12 @@ Full review and methodology decisions: [`docs/methodology.md`](docs/methodology.
 - **Keyword extraction is unevaluated on the current set.** It carries section
   labels only, and the keyword half of the pipeline has not shown a measurable
   effect in any configuration tested.
-- **Alignment predicts the gain but cannot be optimised per class.** Both a
-  marginal and a contrastive selection criterion lose to a fixed policy,
-  because the argmax compares across classes on a scale that depends on
-  description style. A criterion defined over the whole set of class vectors at
-  once might work; none is tested here.
-- **Two datasets, not a curve.** A third would test whether the account holds
-  where the two present ones do not already differ so sharply.
+- **Alignment predicts the gain but cannot be optimised per class.** Three
+  criteria fail, including direct greedy optimisation of development accuracy.
+  Whether a label-free set-level criterion exists is open.
+- **Three datasets, not a curve.** The alignment account is monotone across
+  them and one was predicted in advance, but three points is still three
+  points.
 - **The 20 Newsgroups descriptions were written by the same hand** that wrote
   the NACE ones, which controls style but not author bias.
 - **No LLM baseline.** An instruction-tuned model asked to pick a section

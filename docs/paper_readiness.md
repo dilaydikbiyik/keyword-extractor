@@ -53,19 +53,20 @@ matters, and it is where the method is strongest.
 
 ## 2. The contribution sentence
 
-> We show that in zero-shot classification against a taxonomy, what a class
-> description buys is the vocabulary of the documents, and that its value is
-> predicted by a quantity measurable in advance: the lexical overlap between the
-> class name and the documents it must attract. Where that overlap is near zero —
-> NACE Rev. 2 sections over German trade register texts, 1.0% — replacing
-> category labels with definitions improves Top-1 accuracy by 26.8 points
-> (p < 10⁻¹⁴). Where it is already substantial — 20 Newsgroups, 18.2% — the same
-> elaboration is worth nothing (+0.4 points, p = 0.73). Translating descriptions
-> into the documents' language, with content held constant, does not help in
-> either setting.
+> We show that what a class description buys a zero-shot classifier is
+> alignment: the gain from rewriting a class description is predicted by how far
+> the rewrite moves the class vector toward the centroid of the documents it must
+> attract (ρ = +0.51, p = 0.003 across 32 classes, holding within each dataset
+> separately). The account is monotone across three corpora — NACE Rev. 2
+> (Δ = +0.114, +26.8 points), Reuters-21578 (+0.028, +4.8), 20 Newsgroups
+> (−0.076, +0.4) — and the third was predicted before it was measured. Neither
+> the language of the description, the lexical overlap of the class name, nor its
+> length accounts for the effect, and the quantity cannot be optimised per class:
+> three selection criteria, including direct optimisation of development
+> accuracy, all fail to generalise.
 
-One positive claim, one mechanism, two negative controls, two datasets. That is
-the paper.
+One positive claim with a mechanism, one prospective confirmation, and four
+negative controls. That is the paper.
 
 ## 3. Language or content?
 
@@ -215,6 +216,25 @@ bought nothing there, and it is a sharper statement than the lexical-gap
 account it replaces: the recipe is not "write more", it is "write closer to the
 data". Words added correlates *negatively* with gain.
 
+### Three datasets, and one predicted in advance
+
+| Dataset | Class labels look like | Δ alignment, terse → elaborated | Accuracy gain |
+| --- | --- | --- | --- |
+| NACE Rev. 2 | abstract economic categories | **+0.114** | **+26.8 pp** (p = 4×10⁻¹⁵) |
+| Reuters-21578 | opaque codes (`money-fx`, `acq`) | **+0.028** | **+4.8 pp** (p = 5×10⁻⁴) |
+| 20 Newsgroups | readable topic names | **−0.076** | +0.4 pp (p = 0.73) |
+
+The ordering is monotone: the more a rewrite moves the class vectors toward
+their documents, the more accuracy it buys, and where it moves them away it
+buys nothing.
+
+**Reuters was predicted before it was measured.** `run_reuters.py` computes the
+alignment change first, prints the prediction it implies, and only then looks at
+accuracy. Its labels are opaque codes, which puts it in the same regime as NACE,
+so the account said elaboration should help. It does, by 4.8 points. Spelling
+the bare code out into a readable name is worth another 18.6 (p = 1×10⁻²²) — the
+same identifier-to-name jump 20 Newsgroups shows, and for the same reason.
+
 ### It does not become a selection rule
 
 If alignment were causal and local, choosing each class's description by it
@@ -225,8 +245,23 @@ scoring on held-out documents:
 | --- | --- | --- | --- |
 | NACE | alignment to own documents | +0.0 pp | 1.000 |
 | NACE | contrastive margin against other classes | −0.7 pp | 1.000 |
+| NACE | greedy search on development accuracy | +2.1 pp | 0.250 |
 | 20NG | alignment to own documents | −2.5 pp | 0.077 |
 | 20NG | contrastive margin against other classes | **−3.6 pp** | **0.005** |
+| 20NG | greedy search on development accuracy | −1.5 pp | 0.169 |
+
+The last row is the important one. Greedy search optimises the objective the
+classifier actually uses — swap whichever single class's description most
+improves development accuracy, repeat — so it is the strongest per-class
+criterion available, and it is not a proxy for anything. Development accuracy
+rose (+1.4 pp on NACE over 2 swaps, +1.0 on 20NG over 5) and held-out accuracy
+did not follow.
+
+The reason is capacity: **there are 2^K configurations for K classes**, and
+choosing among them from a labelled development set needs more supervision than
+a zero-shot pipeline is supposed to require. By the time you have enough
+labelled data to pick descriptions per class, you have enough to train a
+classifier.
 
 ### Why it fails, measured
 
@@ -249,9 +284,12 @@ helps the mixed set slightly and costs 8.4 points on the best pure policy
 plain argmax was exploiting.
 
 **The practical rule that falls out: keep the description style uniform across
-classes.** Per-class description optimisation is not a free lunch in a shared
-embedding space, and a set of individually-better descriptions can classify
-worse than a set of consistently-written ones.
+classes, and put the effort into the style rather than into per-class choices.**
+Three criteria of increasing strength — marginal alignment, a contrastive
+margin, and direct greedy optimisation of development accuracy — all fail to
+generalise. A set of individually-better descriptions can classify worse than a
+set of consistently-written ones, and the search for which classes to treat
+differently costs more supervision than it returns.
 
 ---
 
@@ -425,11 +463,13 @@ documents flagged high-confidence."*
 1. **Run the LLM baseline.** An instruction-tuned model asked to name a section
    directly is the comparison a 2026 reviewer will expect. The adapter exists
    (`run.py --with-llm`); it needs an API key.
-2. **A third dataset**, to test whether the alignment account holds where the
-   two present datasets do not already differ so sharply.
-3. **Find a selection criterion that survives the argmax.** Alignment predicts
-   the gain but cannot be optimised per class; a criterion defined over the
-   whole set of class vectors at once might.
+2. **A fourth dataset**, ideally one where the alignment change is near zero,
+   to test the account at the point where it makes its least obvious
+   prediction.
+3. **A criterion that survives the argmax without labels.** Three tried here
+   fail, including direct optimisation of the objective. Whether a label-free
+   set-level criterion exists is open; it would have to beat a fixed policy
+   without the development data that makes the search overfit.
 4. **Decide the keyword question.** The set carries section labels only, so
    Precision@K is unmeasurable, and the keyword half of the pipeline has now
    failed to show an effect in every configuration tested. Writing a

@@ -84,6 +84,19 @@
         "best_fixed_policy": "rich",
         "delta_pp": -0.6849315068493178,
         "p_value": 1.0
+      },
+      "greedy_set_search": {
+        "swaps": 2,
+        "classes_elaborated": 10,
+        "dev_accuracy_start": 0.5683453237410072,
+        "dev_accuracy_end": 0.5827338129496403,
+        "test_terse": 0.3767123287671233,
+        "test_rich": 0.589041095890411,
+        "test_searched": 0.6095890410958904,
+        "best_fixed_policy": "rich",
+        "delta_pp": 2.0547945205479423,
+        "p_value": 0.25,
+        "dev_gain_pp": 1.4388489208633115
       }
     },
     "20NG": {
@@ -114,6 +127,19 @@
         "best_fixed_policy": "rich",
         "delta_pp": -3.6250000000000004,
         "p_value": 0.005077381119448144
+      },
+      "greedy_set_search": {
+        "swaps": 5,
+        "classes_elaborated": 15,
+        "dev_accuracy_start": 0.5475,
+        "dev_accuracy_end": 0.5575,
+        "test_terse": 0.4925,
+        "test_rich": 0.51,
+        "test_searched": 0.495,
+        "best_fixed_policy": "rich",
+        "delta_pp": -1.5000000000000013,
+        "p_value": 0.16864291143970336,
+        "dev_gain_pp": 1.0000000000000009
       }
     }
   },
@@ -157,7 +183,7 @@
       }
     }
   },
-  "conclusion": "How far a description moves the class vector toward its own documents predicts which classes gain (rho = +0.61, p = 0.0002) and accounts for the difference between the datasets. It does not convert into a per-class selection rule: both a marginal and a contrastive criterion lose to a fixed policy, because the two description styles sit on different similarity scales and the argmax compares across classes. Per-class z-scoring does not rescue it either — it discards the class priors the plain argmax was exploiting.",
+  "conclusion": "How far a description moves the class vector toward its own documents predicts which classes gain (rho = +0.61, p = 0.0002) and accounts for the difference between the datasets. It does not convert into a per-class selection rule: both a marginal and a contrastive criterion lose to a fixed policy, because the two description styles sit on different similarity scales and the argmax compares across classes. Per-class z-scoring does not rescue it either, and neither does optimising the whole set greedily against development accuracy: development accuracy rises and held-out accuracy does not follow. There are 2^K configurations for K classes, and choosing among them needs more supervision than a zero-shot pipeline is meant to require.",
   "classes": [
     {
       "dataset": "NACE",

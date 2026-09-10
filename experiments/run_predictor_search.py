@@ -175,6 +175,79 @@ def selection_rule(names, documents, terse, rich, contrastive: bool):
     }
 
 
+def greedy_set_search(names, documents, terse, rich):
+    """Optimise the whole set against development accuracy, not per class.
+
+    Per-class criteria fail because the argmax compares across classes. The
+    strongest available answer to that is to optimise the objective itself:
+    repeatedly swap whichever single class's description most improves
+    development accuracy, until nothing improves.
+
+    It also fails, and the reason is capacity: there are 2^K configurations for
+    K classes, and choosing among them from a labelled development set needs
+    more supervision than a zero-shot pipeline is meant to require. Development
+    accuracy rises and held-out accuracy does not follow.
+    """
+    rng = np.random.default_rng(SEED)
+    dev_docs, dev_gold, test_docs, test_gold = [], [], [], []
+    for c in names:
+        d = list(documents[c])
+        rng.shuffle(d)
+        cut = max(1, len(d) // 2)
+        dev_docs += d[:cut]; dev_gold += [c] * cut
+        test_docs += d[cut:]; test_gold += [c] * (len(d) - cut)
+
+    dev, test = unit(dev_docs), unit(test_docs)
+    terse_vectors, rich_vectors = unit([terse[c] for c in names]), unit([rich[c] for c in names])
+
+    def hits(docs, gold, elaborated):
+        vectors = np.vstack(
+            [rich_vectors[i] if elaborated[i] else terse_vectors[i] for i in range(len(names))]
+        )
+        predicted = [names[j] for j in np.argmax(docs @ vectors.T, axis=1)]
+        return [gold[i] == predicted[i] for i in range(len(gold))]
+
+    def accuracy(docs, gold, elaborated):
+        return float(np.mean(hits(docs, gold, elaborated)))
+
+    all_terse, all_rich = [False] * len(names), [True] * len(names)
+    start_rich = accuracy(dev, dev_gold, all_rich) > accuracy(dev, dev_gold, all_terse)
+    choice = [start_rich] * len(names)
+    best = accuracy(dev, dev_gold, choice)
+    dev_start, swaps = best, 0
+    while swaps < len(names):
+        candidates = []
+        for i in range(len(names)):
+            trial = list(choice)
+            trial[i] = not trial[i]
+            candidates.append((accuracy(dev, dev_gold, trial), i))
+        score, index = max(candidates)
+        if score <= best + 1e-12:
+            break
+        choice[index] = not choice[index]
+        best = score
+        swaps += 1
+
+    test_terse = accuracy(test, test_gold, all_terse)
+    test_rich = accuracy(test, test_gold, all_rich)
+    best_fixed = "rich" if test_rich >= test_terse else "terse"
+    fixed_hits = hits(test, test_gold, all_rich if best_fixed == "rich" else all_terse)
+    searched = hits(test, test_gold, choice)
+    return {
+        "swaps": swaps,
+        "classes_elaborated": int(sum(choice)),
+        "dev_accuracy_start": dev_start,
+        "dev_accuracy_end": best,
+        "test_terse": test_terse,
+        "test_rich": test_rich,
+        "test_searched": float(np.mean(searched)),
+        "best_fixed_policy": best_fixed,
+        "delta_pp": (float(np.mean(searched)) - max(test_terse, test_rich)) * 100,
+        "p_value": mcnemar_exact(searched, fixed_hits)["p_value"],
+        "dev_gain_pp": (best - dev_start) * 100,
+    }
+
+
 def scale_and_calibration(names, documents, terse, rich):
     """Do the two styles share a similarity scale, and does z-scoring fix it?"""
     flat = [d for c in names for d in documents[c]]
@@ -247,6 +320,7 @@ def main() -> int:
         rules[tag] = {
             "marginal": selection_rule(names, documents, terse, rich, contrastive=False),
             "contrastive": selection_rule(names, documents, terse, rich, contrastive=True),
+            "greedy_set_search": greedy_set_search(names, documents, terse, rich),
         }
         scales[tag] = scale_and_calibration(names, documents, terse, rich)
 
@@ -264,8 +338,11 @@ def main() -> int:
             "per-class selection rule: both a marginal and a contrastive criterion "
             "lose to a fixed policy, because the two description styles sit on "
             "different similarity scales and the argmax compares across classes. "
-            "Per-class z-scoring does not rescue it either — it discards the class "
-            "priors the plain argmax was exploiting."
+            "Per-class z-scoring does not rescue it either, and neither does "
+            "optimising the whole set greedily against development accuracy: "
+            "development accuracy rises and held-out accuracy does not follow. "
+            "There are 2^K configurations for K classes, and choosing among them "
+            "needs more supervision than a zero-shot pipeline is meant to require."
         ),
         "classes": rows,
     }
@@ -287,8 +364,11 @@ def main() -> int:
     print("\n  selection rules, on held-out documents:")
     for tag, r in rules.items():
         for kind, res in r.items():
-            print(f"    {tag:<6} {kind:<12} {res['delta_pp']:+.1f} pp vs "
-                  f"{res['best_fixed_policy']:<6} p = {res['p_value']:.4f}")
+            extra = ""
+            if kind == "greedy_set_search":
+                extra = f"   (dev {res['dev_gain_pp']:+.1f} pp over {res['swaps']} swaps)"
+            print(f"    {tag:<6} {kind:<18} {res['delta_pp']:+.1f} pp vs "
+                  f"{res['best_fixed_policy']:<6} p = {res['p_value']:.4f}{extra}")
     print("\n  mixed description styles:")
     for tag, s in scales.items():
         m = s["mixed"]

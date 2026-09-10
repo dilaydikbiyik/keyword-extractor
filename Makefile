@@ -67,6 +67,7 @@ study:
 	$(PYTHON) -m experiments.run_description_study --encoder paraphrase-multilingual-mpnet-base-v2
 	$(PYTHON) -m experiments.run_language_match --no-seeds
 	$(PYTHON) -m experiments.run_replication
+	$(PYTHON) -m experiments.run_reuters
 	$(PYTHON) -m experiments.lexical_gap
 	$(PYTHON) -m experiments.run_gap_analysis
 	$(PYTHON) -m experiments.run_predictor_search
