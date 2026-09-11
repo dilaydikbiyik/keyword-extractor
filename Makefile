@@ -99,6 +99,7 @@ study:
 	$(PYTHON) -m experiments.run_gap_analysis
 	$(PYTHON) -m experiments.run_predictor_search
 	$(PYTHON) -m experiments.robustness
+	$(PYTHON) -m experiments.run_rocchio
 
 rocchio-preregister:
 	$(PYTHON) -m experiments.run_rocchio --preregister

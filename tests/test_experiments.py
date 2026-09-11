@@ -761,6 +761,17 @@ class TestRocchio:
         assert moved[0] @ pool[0] > vectors[0] @ pool[0]
         assert moved[1] @ pool[2] > vectors[1] @ pool[2]
 
+    def test_alignment_skips_classes_without_documents(self):
+        import numpy as np
+
+        from experiments.run_rocchio import alignment, unit_rows
+
+        vectors = unit_rows(np.array([[1.0, 0.0], [0.0, 1.0], [1.0, 1.0]]))
+        docs = unit_rows(np.array([[1.0, 0.1], [0.9, 0.0]]))
+        out = alignment(vectors, docs, ["A", "A"], ["A", "B", "C"])
+        assert list(out) == ["A"]
+        assert not np.isnan(out["A"])
+
     def test_predictions_follow_the_alignment_changes(self):
         from experiments.run_rocchio import predictions_from
 
@@ -777,6 +788,21 @@ class TestRocchio:
         monkeypatch.setattr(run_rocchio, "PREREGISTRATION", existing)
         assert run_rocchio.preregister() == 1
         assert existing.read_text(encoding="utf-8") == "{}"
+
+    def test_accuracy_refuses_a_method_changed_after_registration(self, tmp_path, monkeypatch):
+        import json as _json
+
+        from experiments import run_rocchio
+
+        registered = tmp_path / "prereg.json"
+        registered.write_text(_json.dumps({"method_fingerprint": "not-this-method"}), encoding="utf-8")
+        monkeypatch.setattr(run_rocchio, "PREREGISTRATION", registered)
+        assert run_rocchio.evaluate() == 1
+
+    def test_the_fingerprint_is_stable(self):
+        from experiments.run_rocchio import method_fingerprint
+
+        assert method_fingerprint() == method_fingerprint()
 
     def test_accuracy_refuses_to_run_without_a_preregistration(self, tmp_path, monkeypatch):
         from experiments import run_rocchio

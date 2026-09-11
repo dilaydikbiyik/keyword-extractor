@@ -28,6 +28,8 @@ from __future__ import annotations
 
 import argparse
 import csv
+import hashlib
+import inspect
 import json
 import subprocess
 import sys
@@ -61,13 +63,21 @@ def rocchio(vectors: np.ndarray, pool: np.ndarray, k: int = K, beta: float = BET
     return unit_rows(vectors + beta * pool[nearest].mean(axis=0))
 
 
-def alignment(vectors: np.ndarray, docs: np.ndarray, gold: Sequence[str], names: Sequence[str]) -> np.ndarray:
-    """cos(class vector, centroid of that class's own documents), per class."""
-    out = []
+def alignment(vectors: np.ndarray, docs: np.ndarray, gold: Sequence[str],
+              names: Sequence[str]) -> Dict[str, float]:
+    """cos(class vector, centroid of its own documents), for classes that have any.
+
+    A class with no evaluation documents has no centroid; including it would turn
+    every mean it enters into NaN. NACE has 21 sections and the evaluation set
+    covers 18.
+    """
+    out = {}
     for i, name in enumerate(names):
-        centroid = docs[[j for j, g in enumerate(gold) if g == name]].mean(axis=0)
-        out.append(float(vectors[i] @ (centroid / np.linalg.norm(centroid))))
-    return np.array(out)
+        idx = [j for j, g in enumerate(gold) if g == name]
+        if idx:
+            centroid = docs[idx].mean(axis=0)
+            out[name] = float(vectors[i] @ (centroid / np.linalg.norm(centroid)))
+    return out
 
 
 def encode(texts: Sequence[str]) -> np.ndarray:
@@ -135,6 +145,18 @@ def predictions_from(changes: Dict[str, float]) -> List[Dict]:
     return out
 
 
+def method_fingerprint() -> str:
+    """A hash of everything that decides the moved vectors and how they are measured.
+
+    Stored with the prediction; the accuracy step refuses to run if it differs,
+    so the method cannot change between the prediction and the test of it.
+    """
+    parts = [f"K={K}", f"BETA={BETA}", f"SEED={SEED}"]
+    parts += [inspect.getsource(f) for f in (unit_rows, rocchio, alignment, encode, encode_pool,
+                                             corpora, vectors_for)]
+    return hashlib.sha256("\n".join(parts).encode("utf-8")).hexdigest()
+
+
 def git_revision() -> str:
     try:
         return subprocess.check_output(["git", "rev-parse", "--short", "HEAD"], cwd=ROOT, text=True).strip()
@@ -150,15 +172,18 @@ def preregister() -> int:
     for name, corpus in corpora().items():
         vecs = vectors_for(corpus)
         docs = encode(corpus["docs"])
-        delta = alignment(vecs["rocchio"], docs, corpus["gold"], corpus["names"]) - \
-            alignment(vecs["terse"], docs, corpus["gold"], corpus["names"])
-        changes[name] = float(delta.mean())
-        per_class[name] = dict(zip(corpus["names"], map(float, delta)))
-        print(f"  {name:8s} pool {len(corpus['pool']):6d}  mean alignment change {changes[name]:+.4f}")
+        before = alignment(vecs["terse"], docs, corpus["gold"], corpus["names"])
+        after = alignment(vecs["rocchio"], docs, corpus["gold"], corpus["names"])
+        per_class[name] = {n: after[n] - before[n] for n in before}
+        changes[name] = float(np.mean(list(per_class[name].values())))
+        print(f"  {name:8s} pool {len(corpus['pool']):6d}  classes measured {len(before):3d}  "
+              f"mean alignment change {changes[name]:+.4f}")
     payload = {
         "registered_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "code_revision": git_revision(),
+        "method_fingerprint": method_fingerprint(),
         "k": K, "beta": BETA, "seed": SEED,
+        "classes_measured": {name: len(v) for name, v in per_class.items()},
         "mean_alignment_change": changes,
         "alignment_change_per_class": per_class,
         "predictions": predictions_from(changes),
@@ -176,15 +201,21 @@ def evaluate() -> int:
         print("No preregistration: run with --preregister and commit the file first.", file=sys.stderr)
         return 1
     registered = json.loads(PREREGISTRATION.read_text(encoding="utf-8"))
+    if registered.get("method_fingerprint") != method_fingerprint():
+        print("The method changed after the prediction was registered; refusing to test it.",
+              file=sys.stderr)
+        return 1
     report, pooled = {}, []
     for name, corpus in corpora().items():
         vecs = vectors_for(corpus)
         docs, gold, names = encode(corpus["docs"]), corpus["gold"], corpus["names"]
+        present = [n for n in names if n in set(gold)]
         hits, recall = {}, {}
         for variant, v in vecs.items():
             predicted = [names[i] for i in np.argmax(docs @ v.T, axis=1)]
             hits[variant] = [g == p for g, p in zip(gold, predicted)]
-            recall[variant] = {n: float(np.mean([h for h, g in zip(hits[variant], gold) if g == n])) for n in names}
+            recall[variant] = {n: float(np.mean([h for h, g in zip(hits[variant], gold) if g == n]))
+                               for n in present}
         test = mcnemar_exact(hits["terse"], hits["rocchio"])
         report[name] = {
             "top1_terse": float(np.mean(hits["terse"])),
@@ -192,7 +223,7 @@ def evaluate() -> int:
             "gain_pp": 100 * float(np.mean(hits["rocchio"]) - np.mean(hits["terse"])),
             "mcnemar": test,
         }
-        for n in names:
+        for n in present:
             if recall["terse"][n] < 0.999:
                 share = (recall["rocchio"][n] - recall["terse"][n]) / (1 - recall["terse"][n])
                 pooled.append((registered["alignment_change_per_class"][name][n], share))
