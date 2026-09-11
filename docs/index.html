@@ -497,7 +497,7 @@
       This project classifies entries in a German <em>Handelsregister</em>. What follows is
       its own register: every substantive claim the work made, in the order it was made,
       with what became of it. Two entries record hypotheses the project advanced that the evidence
-      destroyed, and one a prediction that partly failed. One records a headline number that was
+      destroyed, and two record predictions that partly failed. One records a headline number that was
       withdrawn. They are here because a result
       you cannot see being tested is not a result.
     </p>
@@ -644,8 +644,8 @@
           <p>
             One caution the correlation cannot answer by itself: it was the best of five candidates,
             found by searching, and once every test in the paper is corrected for together it is no
-            longer significant on its own. What confirms it is entries 07 and 08, where the same relationship
-            was predicted in advance and appeared twice more.
+            longer significant on its own. What confirms it is entries 07, 08 and 09, where the same relationship
+            was predicted in advance and appeared three more times.
           </p>
           <div class="evidence">
             <div><b>ρ = +0.513</b><span>alignment change vs. gain (p = 0.003, exploratory)</span></div>
@@ -722,7 +722,7 @@
           </p>
           <div class="evidence">
             <div><b>52.8%</b><span>seeds removed, vs 52.5% with (p = 1.000)</span></div>
-            <div><b>−8.4 pp</b><span>removing the descriptions (p = 0.002)</span></div>
+            <div><b>−8.4 pp</b><span>removing the descriptions (p = 0.002, uncorrected)</span></div>
             <div><b>34.8%</b><span>the previous taxonomy (p &lt; 1e−7)</span></div>
             <div><b>−10.4 pp</b><span>the larger mpnet encoder (p = 0.0004)</span></div>
           </div>
@@ -794,6 +794,70 @@
             <div><b>3 of 5</b><span>predictions held</span></div>
             <div><b>+6.4 / +2.2 / −3.7 pp</b><span>Reuters / 20NG / NACE; ordering failed</span></div>
             <div><b>ρ = +0.450</b><span>per class, n = 49 (p = 0.001)</span></div>
+          </div>
+        </div>
+      </div>
+    </article>
+    <!-- 09 -->
+    <article class="entry" style="--status: var(--predicted); --status-bg: var(--predicted-bg);">
+      <div class="entry-head">
+        <div class="entry-no">09</div>
+        <div>
+          <span class="chip">Predicted, four of five held</span>
+          <p class="claim">“It should hold on a larger encoder too.”</p>
+        </div>
+      </div>
+      <div class="entry-body">
+        <div class="spacer"></div>
+        <div class="entry-text">
+          <p>
+            The first label-free test, unchanged, on paraphrase-multilingual-mpnet-base-v2, a model
+            more than twice the size. Five predictions were
+            <a href="https://github.com/dilaydikbiyik/keyword-extractor/commit/abfe83d">committed</a>
+            before any accuracy existed, under a fingerprint of their own.
+          </p>
+          <p>
+            Four held. Accuracy rose on all three corpora, and the per-class correlation appeared a
+            third time. The ordering failed again, NACE edging past 20 Newsgroups by 0.3 points.
+            Across the three studies, 12 of 15 predictions held: the per-class one every time, on both
+            encoders; the corpus ordering once.
+          </p>
+          <div class="evidence">
+            <div><b>4 of 5</b><span>predictions held</span></div>
+            <div><b>+4.0 / +1.7 / +2.0 pp</b><span>Reuters / 20NG / NACE; ordering failed</span></div>
+            <div><b>ρ = +0.544</b><span>per class, n = 49 (p = 0.0001)</span></div>
+          </div>
+        </div>
+      </div>
+    </article>
+    <!-- 10 -->
+    <article class="entry" style="--status: var(--supported); --status-bg: var(--supported-bg);">
+      <div class="entry-head">
+        <div class="entry-no">10</div>
+        <div>
+          <span class="chip">Tested, not preregistered</span>
+          <p class="claim">“Perhaps it is the encoder, not the description.”</p>
+        </div>
+      </div>
+      <div class="entry-body">
+        <div class="spacer"></div>
+        <div class="entry-text">
+          <p>
+            The TF-IDF baseline matched whole words, and German builds words by compounding, so it
+            never saw <em>Boden</em> inside <em>Bodenbelagsarbeiten</em>. Given character 3–5-grams
+            over the same sector texts, a lexical ranker reaches 54.2% Top-1, level with the
+            embedding system.
+          </p>
+          <p>
+            It still needs the descriptions. With the previous ones it falls to 36.8%: the rewrite is
+            worth +17.4 points to it and +17.7 to the embeddings. A classifier trained out of fold on
+            most of the evaluation labels, on the same embeddings, reaches 52.2%. The lever is the text
+            of the class, not the model that reads it.
+          </p>
+          <div class="evidence">
+            <div><b>54.2% vs 52.5%</b><span>character TF-IDF vs the system (p = 0.70)</span></div>
+            <div><b>+17.4 / +17.7 pp</b><span>what the rewrite is worth to each</span></div>
+            <div><b>52.2%</b><span>supervised, about 239 labels per fold</span></div>
           </div>
         </div>
       </div>

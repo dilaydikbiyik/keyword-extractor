@@ -1,0 +1,85 @@
+{
+  "study": "mpnet",
+  "preregistration": "rocchio_mpnet_preregistration.json",
+  "registered_at": "2026-09-11T15:54:49+00:00",
+  "k": 25,
+  "beta": 1.0,
+  "corpora": {
+    "NACE": {
+      "top1_terse": 0.28762541806020064,
+      "top1_rocchio": 0.3076923076923077,
+      "gain_pp": 2.0066889632107063,
+      "mcnemar": {
+        "a_only_correct": 7,
+        "b_only_correct": 13,
+        "discordant": 20,
+        "p_value": 0.26317596435546875
+      }
+    },
+    "20NG": {
+      "top1_terse": 0.537,
+      "top1_rocchio": 0.5545,
+      "gain_pp": 1.749999999999996,
+      "mcnemar": {
+        "a_only_correct": 49,
+        "b_only_correct": 84,
+        "discordant": 133,
+        "p_value": 0.0030493273852832733
+      }
+    },
+    "Reuters": {
+      "top1_terse": 0.708029197080292,
+      "top1_rocchio": 0.7476538060479666,
+      "gain_pp": 3.9624608967674613,
+      "mcnemar": {
+        "a_only_correct": 20,
+        "b_only_correct": 58,
+        "discordant": 78,
+        "p_value": 1.9519090743641074e-05
+      }
+    }
+  },
+  "per_class": {
+    "n": 49,
+    "rho": 0.543657312965623,
+    "p": 5.413140480699619e-05
+  },
+  "outcomes": [
+    {
+      "id": "direction-NACE",
+      "claim": "On NACE, the Rocchio update raises Top-1 accuracy.",
+      "corpus": "NACE",
+      "expected_sign": 1,
+      "held": true
+    },
+    {
+      "id": "direction-20NG",
+      "claim": "On 20NG, the Rocchio update raises Top-1 accuracy.",
+      "corpus": "20NG",
+      "expected_sign": 1,
+      "held": true
+    },
+    {
+      "id": "direction-Reuters",
+      "claim": "On Reuters, the Rocchio update raises Top-1 accuracy.",
+      "corpus": "Reuters",
+      "expected_sign": 1,
+      "held": true
+    },
+    {
+      "id": "ordering",
+      "claim": "Accuracy gains follow the order of the alignment changes: Reuters > 20NG > NACE.",
+      "order": [
+        "Reuters",
+        "20NG",
+        "NACE"
+      ],
+      "held": false
+    },
+    {
+      "id": "per-class",
+      "claim": "Across all classes, the alignment change correlates positively with the share of available headroom captured (Spearman rho > 0).",
+      "held": true
+    }
+  ]
+}

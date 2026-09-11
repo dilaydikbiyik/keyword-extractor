@@ -6,8 +6,9 @@ abstract: >-
   business purposes by embedding the taxonomy's own class descriptions. The
   study finds that what a class description buys a zero-shot classifier is
   alignment with the documents it must attract, predicts the gain on a third
-  corpus before measuring it, and reports two falsified hypotheses and one
-  retracted headline alongside the result.
+  corpus before measuring it, confirms the class-level relation in three
+  preregistered label-free studies, and reports two falsified hypotheses, two
+  partly failed predictions and one retracted headline alongside the result.
 type: software
 authors:
   - family-names: "Dikbıyık"

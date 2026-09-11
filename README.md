@@ -6,8 +6,8 @@
 
 **[Read the research record →](https://dilaydikbiyik.github.io/keyword-extractor/)**
 One page: every claim this project made and what became of it — a retracted
-headline, two of its own hypotheses falsified, and a prediction registered before
-it was measured.
+headline, two of its own hypotheses falsified, and three label-free studies whose
+predictions were committed before they were measured, 12 of 15 of which held.
 
 Assigning **NACE Rev. 2** economic sections to German company purpose
 statements with no labelled training data, by embedding the taxonomy's own
@@ -51,10 +51,10 @@ produced by `make reproduce` and written to
 | **Ours: taxonomy-guided** | **52.5%** | [46.8, 58.2] | **81.6%** | 0.356 | 0.474 | — |
 | Qwen2.5-7B-Instruct, asked directly | 48.8% | [43.1, 54.5] | 71.9% | 0.359 | 0.430 | 0.416 |
 
-*p* is uncorrected. Corrected with Holm over all 35 comparisons the paper reports
-([`results/effect_sizes.json`](results/effect_sizes.json)), 14 of the 19 nominally
-significant ones survive; the TF-IDF difference is not among them (Holm p = 0.627),
-nor is the language model's Top-3 gap (Holm p = 0.073).
+*p* is uncorrected. Corrected with Holm over all 45 comparisons the paper reports
+([`results/effect_sizes.json`](results/effect_sizes.json)), 18 of the 25 nominally
+significant ones survive; the TF-IDF difference is not among them, nor is the
+language model's Top-3 gap.
 
 **Top-3 at 81.6% is the operating point.** The correct section is among the
 first three suggestions four times out of five, against 46.8% for an oracle
@@ -176,6 +176,14 @@ p < 0.001) and the per-class correlation (ρ = +0.450). On NACE accuracy fell
 predicted ordering failed. The account orders classes within a corpus; it is
 weaker at comparing corpora.
 
+A [third study](results/rocchio_mpnet_preregistration.json) repeated the first
+on the larger mpnet encoder, and four of its five predictions held. Top-1 rose on
+Reuters (+4.0 points, p < 0.001), 20 Newsgroups (+1.7, p = 0.003, not significant
+after correction) and NACE (+2.0, not significant), and the per-class correlation
+appeared a third time (ρ = +0.544); the predicted ordering failed again, NACE
+edging past 20 Newsgroups. Across the three studies, 12 of 15 predictions held:
+the per-class one every time, on both encoders, the corpus ordering once.
+
 **Stronger references.** The TF-IDF baseline above matches whole words, which
 German compounding defeats. Over the same sector texts, a character 3–5-gram
 TF-IDF reaches 54.2% Top-1 and 81.6% Top-3, level with the embedding system
@@ -189,6 +197,9 @@ was preregistered ([`results/references.json`](results/references.json),
 `make references`).
 
 ### Ablation
+
+*p* is uncorrected; removing the description (−8.4 points, p = 0.002) does not
+survive correction over the paper's 45 tests.
 
 | Variant | Top-1 | Δ Top-1 | F1-macro | p vs. full |
 | --- | --- | --- | --- | --- |

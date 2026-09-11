@@ -50,11 +50,14 @@ language of the documents is worth \LanguageEffect~points ($p =
 \LanguageP$). We identify what does explain it---how far the rewrite moves each
 class vector toward the centroid of the documents it must attract
 ($\rho = \AlignRho$ over \NCLASSES\ classes, found by search and then
-reproduced by a preregistered intervention)---and show the
+reproduced by three preregistered interventions)---and show the
 account is monotone across three corpora, one of which we predict before
 measuring. The quantity cannot, however, be optimised per class: three selection
 criteria, including direct optimisation of development accuracy, all fail to
-generalise.
+generalise. Moving class vectors toward unlabelled documents confirms the
+class-level relation in three preregistered studies on two encoders, while the
+corpus-level ordering holds only once; and a character n-gram ranker over the
+same descriptions matches the embedding system and gains as much from them.
 \end{abstract}
 
 % ─────────────────────────────────────────────────────────────────────────────
@@ -101,12 +104,12 @@ Our contributions are:
   \item Stronger references. A character n-gram ranker over the same
         descriptions matches the system and gains as much from the rewrite,
         and a classifier trained on most of the labels does no better.
-  \item A preregistered, label-free intervention on the class vectors: moving
-        each one toward its nearest unlabelled documents raises accuracy in the
-        order the alignment change predicts, including on the corpus where
-        written definitions did not help. Repeated from the written
-        definitions, the class-level prediction holds again and the
-        corpus-level one fails, which we report as the account's limit.
+  \item Three preregistered, label-free interventions on the class vectors,
+        moving each toward its nearest unlabelled documents. The first raises
+        accuracy in the order the alignment change predicts, including on the
+        corpus where written definitions did not help. Across all three, on
+        two encoders, the class-level prediction holds every time and the
+        corpus-level ordering once, which we report as the account's limit.
   \item A negative result with a measured cause: the quantity cannot be
         optimised per class, because the classifier's argmax compares across
         classes on a scale that depends on description style.
@@ -375,6 +378,19 @@ this. The class-level relation held in both studies; the corpus mean of the
 alignment change, in the second, did not predict the corpus's gain. The account
 orders classes within a corpus more reliably than it compares corpora.
 
+\paragraph{On the larger encoder.} A third study repeated the first, unchanged,
+on paraphrase-\allowbreak multilingual-\allowbreak mpnet-\allowbreak base-\allowbreak v2,
+with its own predictions committed (\RocchioMpnetRegistered) before its accuracy
+was computed. \RocchioMpnetHeld\ of its \RocchioMpnetPredictions\ predictions held.
+Accuracy rose on Reuters by \RocchioMpnetReutersGain~points
+(\RocchioMpnetReutersPStat), on 20 Newsgroups by \RocchioMpnetNewsGain\
+(\RocchioMpnetNewsPStat; \HolmMpnetNewsStat) and on NACE by \RocchioMpnetNaceGain\
+(\RocchioMpnetNacePStat), and the per-class relation appeared a third time
+($\rho = \RocchioMpnetRho$, \RocchioMpnetRhoPStat). The predicted ordering failed
+again, NACE edging past 20 Newsgroups. Across the three studies the class-level
+prediction held every time and on both encoders; the corpus-level ordering held
+once.
+
 \subsection{It cannot be optimised per class}
 
 If $\Delta a$ were locally causal, choosing each class's description by it should
@@ -521,9 +537,9 @@ rewrite: the lever is the text of the class, not the model that reads it.
 Moving the vectors toward
 unlabelled documents, with no words at all, raised accuracy in the order the
 account predicted before it was measured. Repeated from the written
-definitions, it confirmed the class-level prediction again but not the
-corpus-level one, lowering accuracy on NACE: the account orders classes, and
-is weaker at comparing corpora.
+definitions and on a larger encoder, it confirmed the class-level prediction
+each time but the corpus-level ordering in neither: the account orders
+classes, and is weaker at comparing corpora.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \section*{Limitations}
@@ -552,8 +568,9 @@ classes, it does not determine them.
 The class vectors, the documents and the alignment measure all come from one
 encoder family. The description effect replicates across two encoders of
 different size, but both are multilingual sentence-transformers trained by the
-same distillation procedure. The description effect does appear, at the same
-size, in a character n-gram space (Section~\ref{sec:references}).
+same distillation procedure. The label-free test gives the same class-level
+result on both, and the description effect appears, at the same size, in a
+character n-gram space (Section~\ref{sec:references}).
 
 The instruction-tuned baseline is a single open model of roughly 7B
 parameters. Larger or proprietary models may do better; the released code
@@ -563,7 +580,8 @@ graded on its own answers.
 
 The label-free update in Section~\ref{sec:rocchio} uses one untuned setting of
 its two parameters. On NACE it gains nothing significant from the terse labels
-and loses accuracy from the written definitions, where its prediction failed.
+on either encoder, and loses accuracy from the written definitions, where its
+prediction failed.
 The update needs no labels; measuring alignment, and so testing the account, still does.
 
 Finally, the per-class descriptions used in the elaborated conditions were

@@ -72,16 +72,17 @@
 \newcommand{\ReproduceMinutes}{6}
 \newcommand{\ReproduceCPU}{Apple M5 Pro}
 \newcommand{\ReproduceCores}{18}
-\newcommand{\HolmAlignStat}{$p_{\mathrm{Holm}} = 0.062$}
+\newcommand{\HolmAlignStat}{$p_{\mathrm{Holm}} = 0.067$}
 \newcommand{\HolmRocchioRhoStat}{$p_{\mathrm{Holm}} = 0.005$}
-\newcommand{\HolmLLMTopThreeStat}{$p_{\mathrm{Holm}} = 0.084$}
-\newcommand{\HolmTfidfStat}{$p_{\mathrm{Holm}} = 0.738$}
-\newcommand{\HolmVerifiedStat}{$p_{\mathrm{Holm}} = 0.062$}
-\newcommand{\HolmContrastiveStat}{$p_{\mathrm{Holm}} = 0.107$}
-\newcommand{\EffectTests}{41}
-\newcommand{\EffectNominal}{22}
-\newcommand{\EffectHolm}{17}
-\newcommand{\EffectLostList}{full system vs. TF-IDF $\rightarrow$ nearest NACE section; full system vs. LLM, Top-3; full system vs. previous taxonomy; 20NG: contrastive margin vs. best fixed policy; alignment change vs. headroom captured}
+\newcommand{\HolmLLMTopThreeStat}{$p_{\mathrm{Holm}} = 0.088$}
+\newcommand{\HolmTfidfStat}{$p_{\mathrm{Holm}} = 0.774$}
+\newcommand{\HolmVerifiedStat}{$p_{\mathrm{Holm}} = 0.067$}
+\newcommand{\HolmContrastiveStat}{$p_{\mathrm{Holm}} = 0.112$}
+\newcommand{\HolmMpnetNewsStat}{$p_{\mathrm{Holm}} = 0.073$}
+\newcommand{\EffectTests}{45}
+\newcommand{\EffectNominal}{25}
+\newcommand{\EffectHolm}{18}
+\newcommand{\EffectLostList}{full system vs. TF-IDF $\rightarrow$ nearest NACE section; full system vs. $-$ description in sector vector; full system vs. LLM, Top-3; full system vs. previous taxonomy; 20NG: terse, mpnet + update vs. terse, mpnet; 20NG: contrastive margin vs. best fixed policy; alignment change vs. headroom captured}
 \newcommand{\RocchioK}{25}
 \newcommand{\RocchioHeld}{5}
 \newcommand{\RocchioPredictions}{5}
@@ -123,6 +124,26 @@
 \newcommand{\RocchioDefReutersPStat}{$p < 0.001$}
 \newcommand{\RocchioDefReutersTerse}{71.2\%}
 \newcommand{\RocchioDefReutersMoved}{77.6\%}
+\newcommand{\RocchioMpnetHeld}{4}
+\newcommand{\RocchioMpnetPredictions}{5}
+\newcommand{\RocchioMpnetRho}{+0.544}
+\newcommand{\RocchioMpnetRhoPStat}{$p < 0.001$}
+\newcommand{\RocchioMpnetRegistered}{2026-09-11}
+\newcommand{\RocchioMpnetNaceAlign}{+0.092}
+\newcommand{\RocchioMpnetNaceGain}{+2.0}
+\newcommand{\RocchioMpnetNacePStat}{$p = 0.263$}
+\newcommand{\RocchioMpnetNaceTerse}{28.8\%}
+\newcommand{\RocchioMpnetNaceMoved}{30.8\%}
+\newcommand{\RocchioMpnetNewsAlign}{+0.134}
+\newcommand{\RocchioMpnetNewsGain}{+1.7}
+\newcommand{\RocchioMpnetNewsPStat}{$p = 0.003$}
+\newcommand{\RocchioMpnetNewsTerse}{53.7\%}
+\newcommand{\RocchioMpnetNewsMoved}{55.5\%}
+\newcommand{\RocchioMpnetReutersAlign}{+0.141}
+\newcommand{\RocchioMpnetReutersGain}{+4.0}
+\newcommand{\RocchioMpnetReutersPStat}{$p < 0.001$}
+\newcommand{\RocchioMpnetReutersTerse}{70.8\%}
+\newcommand{\RocchioMpnetReutersMoved}{74.8\%}
 \newcommand{\RefEmbedDescGain}{+17.7}
 \newcommand{\RefFolds}{5}
 \newcommand{\RefTrainLabels}{239}

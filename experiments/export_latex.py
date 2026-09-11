@@ -186,7 +186,8 @@ def ablation_table(systems: List[Dict]) -> str:
         r"\bottomrule",
         r"\end{tabular}",
         r"\caption{Component ablation. $\Delta$ is the change in Top-1 accuracy "
-        r"against the full system in percentage points.}",
+        r"against the full system in percentage points; $p$ is an exact McNemar test, "
+        r"uncorrected (Holm-adjusted values are in Appendix~\ref{app:effects}).}",
         r"\label{tab:ablation}",
         r"\end{table}",
         "",
@@ -537,7 +538,7 @@ def rocchio_table(studies: List[Tuple[str, Dict, Dict]]) -> str:
         r"Corpus & $\Delta$align. & Before & Moved & Gain & $p$ & Held \\", r"\midrule",
         *rows, r"\bottomrule", r"\end{tabular}",
         r"\caption{Class vectors moved toward their $k{=}\RocchioK$ nearest unlabelled documents, "
-        r"with no label and no new text, in two preregistered studies. Each alignment change was "
+        r"with no label and no new text, in three preregistered studies. Each alignment change was "
         r"measured and its predictions committed before any accuracy was computed; \emph{Held} says "
         r"whether the predicted direction was right. 20NG is 20 Newsgroups; Reuters is Reuters-21578.}",
         r"\label{tab:rocchio}", r"\end{table}", "",
@@ -660,6 +661,7 @@ HOLM_CLAIMS = {
     "HolmTfidfStat": ("System", "full system vs. TF-IDF"),
     "HolmVerifiedStat": ("Verified labels", "full system vs. previous taxonomy"),
     "HolmContrastiveStat": ("Selection rule", "20NG: contrastive margin"),
+    "HolmMpnetNewsStat": ("Label-free update", "20NG: terse, mpnet"),
 }
 
 

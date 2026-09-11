@@ -912,4 +912,3 @@ class TestReferences:
         x = np.eye(3)[[0] * 6 + [1] * 6 + [2] * 3] + 0.01 * np.arange(15)[:, None]
         ranked = out_of_fold(lambda train, test: (x[train], x[test]), lambda: LogisticRegression(), gold)
         assert all(ranked) and sum(r[0] == g for r, g in zip(ranked, gold)) >= 12
-
