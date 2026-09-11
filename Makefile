@@ -5,7 +5,7 @@ PYTHON ?= $(shell \
 	elif command -v python3 >/dev/null 2>&1; then command -v python3; \
 	else echo python; fi)
 
-.PHONY: help install reproduce test lint annotate merge verify verify-new verify-apply second-annotator second-annotator-score llm-baseline llm-baseline-local study rocchio-preregister rocchio rocchio-definitions-preregister rocchio-definitions paper-tables paper submission demo clean rocchio-mpnet-preregister rocchio-mpnet references preprint author-coding author-coding-score
+.PHONY: help install reproduce test lint annotate merge verify verify-new verify-apply second-annotator second-annotator-score llm-baseline llm-baseline-local study rocchio-preregister rocchio rocchio-definitions-preregister rocchio-definitions paper-tables paper submission demo clean rocchio-mpnet-preregister rocchio-mpnet references preprint author-coding author-coding-score model-coding
 
 help:
 	@echo "Using PYTHON = $(PYTHON)"
@@ -163,4 +163,8 @@ author-coding:
 
 author-coding-score:
 	$(PYTHON) -m experiments.code_errors
+	$(PYTHON) -m experiments.export_latex
+
+model-coding:
+	$(PYTHON) -m experiments.code_errors --model
 	$(PYTHON) -m experiments.export_latex

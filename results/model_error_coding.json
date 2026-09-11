@@ -1,0 +1,293 @@
+{
+  "model": "Qwen/Qwen2.5-7B-Instruct",
+  "revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+  "n_coded": 50,
+  "agreement": 0.34,
+  "cohen_kappa": 0.0,
+  "second_distribution": {
+    "seed_leakage": 50
+  },
+  "first_distribution": {
+    "seed_leakage": 17,
+    "ambiguous_sector_definition": 14,
+    "multi_sector_company": 10,
+    "taxonomy_granularity": 8,
+    "boilerplate_only": 1
+  },
+  "disagreements": [
+    {
+      "first": "ambiguous_sector_definition",
+      "second": "seed_leakage",
+      "count": 14
+    },
+    {
+      "first": "multi_sector_company",
+      "second": "seed_leakage",
+      "count": 10
+    },
+    {
+      "first": "taxonomy_granularity",
+      "second": "seed_leakage",
+      "count": 8
+    },
+    {
+      "first": "boilerplate_only",
+      "second": "seed_leakage",
+      "count": 1
+    }
+  ],
+  "off_format": 0,
+  "note": "An instruction-tuned model from a different family than the first coder, coding blind against the same codebook with greedy decoding: a check on the codebook's reliability, not a human judgement.",
+  "codings": [
+    {
+      "id": "2",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "4",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "7",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "11",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "12",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "17",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "23",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "25",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "26",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "31",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "33",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "38",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "39",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "44",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "45",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "47",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "49",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "52",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "53",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "56",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "59",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "64",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "97",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "118",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "120",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "122",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "124",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "154",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "155",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "161",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "172",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "179",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "191",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "195",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "196",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "199",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "201",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "203",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "212",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "213",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "215",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "217",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "225",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "227",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "228",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "230",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "233",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "239",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "246",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    },
+    {
+      "id": "249",
+      "category": "seed_leakage",
+      "reply": "seed_leakage"
+    }
+  ]
+}

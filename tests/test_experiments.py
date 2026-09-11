@@ -963,4 +963,46 @@ class TestAuthorErrorCoding:
         report = json.loads(code_errors.REPORT.read_text(encoding="utf-8"))
         assert report["n_coded"] == 2 and report["agreement"] == 0.5
         assert report["disagreements"] == [{"first": "ambiguous_sector_definition",
-                                            "author": "multi_sector_company", "count": 1}]
+                                            "second": "multi_sector_company", "count": 1}]
+
+
+class TestModelErrorCoding:
+    """A model from another family codes the error sample blind."""
+
+    def _point_at(self, tmp_path, monkeypatch):
+        from experiments import code_errors
+
+        errors = tmp_path / "errors.csv"
+        with open(errors, "w", newline="", encoding="utf-8") as fh:
+            fh.write("id,purpose,true_sector,predicted_sector,top3,manual_category,manual_note,auto_flags\n")
+            fh.write("1,Handel mit Waren,G,C,C|G|F,seed_leakage,SECRET-NOTE,low_margin\n")
+            fh.write("2,Reinigung,N,F,F|N|L,ambiguous_sector_definition,,\n")
+        monkeypatch.setattr(code_errors, "ERRORS", errors)
+        monkeypatch.setattr(code_errors, "MODEL_REPORT", tmp_path / "model.json")
+        return code_errors
+
+    def test_replies_are_read_as_codebook_categories(self):
+        from experiments.code_errors import parse_category
+
+        assert parse_category("Seed leakage.") == "seed_leakage"
+        assert parse_category("It is a multi-sector company") == "multi_sector_company"
+        assert parse_category("no idea") is None
+
+    def test_the_model_never_sees_the_first_coding_and_is_scored_against_it(self, tmp_path, monkeypatch):
+        import json
+
+        code_errors = self._point_at(tmp_path, monkeypatch)
+        prompts = []
+
+        def ask(prompt):
+            prompts.append(prompt)
+            return "seed_leakage"
+
+        assert code_errors.code_with_model(ask=ask, translate=lambda text: f"EN: {text}") == 0
+        assert len(prompts) == 2 and not any("SECRET-NOTE" in p or "low_margin" in p for p in prompts)
+        report = json.loads(code_errors.MODEL_REPORT.read_text(encoding="utf-8"))
+        assert report["agreement"] == 0.5 and report["off_format"] == 0
+
+        code_errors.code_with_model(ask=lambda prompt: "?", translate=str)
+        report = json.loads(code_errors.MODEL_REPORT.read_text(encoding="utf-8"))
+        assert report["off_format"] == 2 and report["agreement"] == 0.0

@@ -241,7 +241,11 @@ guideline existed scored κ = 0.542; both figures belong in any write-up.
 The fifty coded errors can also be coded by the author, blind to the first
 coding: `make author-coding` writes a shuffled sheet with English translations
 and the codebook, and `make author-coding-score` reports the agreement, which
-the paper then quotes.
+the paper then quotes. `make model-coding` has Qwen2.5-7B-Instruct, a different model
+family, code the same fifty blind. Its first run assigned every error to
+`seed_leakage` (agreement 34%, κ = 0), so it measures nothing about the
+codebook and the paper does not use it; [`results/model_error_coding.json`](results/model_error_coding.json)
+keeps the run. A human second coding remains the one worth having.
 
 ## Install
 
