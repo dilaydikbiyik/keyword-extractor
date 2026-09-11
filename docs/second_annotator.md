@@ -16,7 +16,7 @@ text, and only someone who reads German can provide it.
 
 - Reads German fluently, including company-register phrasing
   (*Gegenstand des Unternehmens ist …*).
-- Has not seen the project's labels, the model's suggestions or the author's
+- Has not seen the project's labels, the model's suggestions or my
   answers. Independence is the whole point.
 
 ## What to do

@@ -834,6 +834,14 @@ class TestRocchio:
 
         assert method_fingerprint() == method_fingerprint()
 
+    def test_it_stops_with_a_clear_message_without_the_raw_corpus(self, tmp_path, monkeypatch, capsys):
+        from experiments import run_rocchio
+
+        monkeypatch.setattr(run_rocchio, "CORPUS_CSV", tmp_path / "missing.csv")
+        monkeypatch.setattr("sys.argv", ["run_rocchio"])
+        assert run_rocchio.main() == 1
+        assert "not redistributed" in capsys.readouterr().err
+
     def test_accuracy_refuses_to_run_without_a_preregistration(self, tmp_path, monkeypatch):
         from experiments import run_rocchio
 

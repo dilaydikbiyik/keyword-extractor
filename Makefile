@@ -5,7 +5,7 @@ PYTHON ?= $(shell \
 	elif command -v python3 >/dev/null 2>&1; then command -v python3; \
 	else echo python; fi)
 
-.PHONY: help install reproduce test lint annotate merge verify verify-new verify-apply second-annotator second-annotator-score llm-baseline llm-baseline-local study rocchio-preregister rocchio rocchio-definitions-preregister rocchio-definitions paper-tables paper submission demo clean rocchio-mpnet-preregister rocchio-mpnet references preprint author-coding author-coding-score model-coding
+.PHONY: help install reproduce test lint annotate merge verify verify-new verify-apply second-annotator second-annotator-score llm-baseline llm-baseline-local study rocchio-preregister rocchio rocchio-definitions-preregister rocchio-definitions paper-tables paper submission demo clean rocchio-mpnet-preregister rocchio-mpnet references preprint author-coding author-coding-score model-coding translate-queue
 
 help:
 	@echo "Using PYTHON = $(PYTHON)"
@@ -57,8 +57,12 @@ annotate:
 	$(PYTHON) -m experiments.build_annotation_queue --target 300
 	@echo
 	@echo "Opening the annotation tool. Load results/annotation_queue.csv in it."
+	@echo "(make translate-queue first adds an English translation beside each text.)"
 	@command -v open >/dev/null 2>&1 && open tools/annotate.html || \
 		echo "Open tools/annotate.html in your browser."
+
+translate-queue:
+	$(PYTHON) -m experiments.translate_queue
 
 merge:
 	$(PYTHON) -m experiments.merge_annotations $(ARGS)
@@ -100,6 +104,7 @@ study:
 	$(PYTHON) -m experiments.run_gap_analysis
 	$(PYTHON) -m experiments.run_predictor_search
 	$(PYTHON) -m experiments.robustness
+	$(PYTHON) -m experiments.retired_set
 	$(PYTHON) -m experiments.run_rocchio
 	$(PYTHON) -m experiments.run_rocchio --study definitions
 	$(PYTHON) -m experiments.run_rocchio --study mpnet

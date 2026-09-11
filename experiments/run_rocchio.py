@@ -42,7 +42,7 @@ from typing import Dict, Iterator, List, Sequence
 import numpy as np
 from scipy.stats import spearmanr
 
-from experiments.config import RESULTS_DIR, ROOT, SEED, ensure_dirs, set_seed
+from experiments.config import CORPUS_CSV, RESULTS_DIR, ROOT, SEED, ensure_dirs, set_seed
 from experiments.data import load_labeled_samples
 from experiments.metrics import mcnemar_exact
 from experiments.run_description_study import LITERAL_GERMAN
@@ -332,6 +332,10 @@ def main() -> int:
                         help="The terse class texts (the first study), the written definitions, "
                              "or the terse texts again on the mpnet encoder.")
     args = parser.parse_args()
+    if not CORPUS_CSV.exists():
+        print("The label-free studies need the raw trade register sample in data/raw/ for their "
+              "unlabelled NACE pool, and it is not redistributed; see data/README.md.", file=sys.stderr)
+        return 1
     set_seed()
     ensure_dirs()
     return preregister(args.study) if args.preregister else evaluate(args.study)

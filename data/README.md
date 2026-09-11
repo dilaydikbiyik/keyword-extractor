@@ -44,9 +44,11 @@ make reproduce
 Everything else — the taxonomy, the evaluation set, the embedding model — is
 either in the repository or fetched on first use.
 
-**What a clone cannot do:** `python main.py`, which batch-processes the raw CSV,
-and regenerating the statistics themselves
-(`python -m experiments.corpus_stats`). Both need the corpus.
+**What a clone cannot do:** `python main.py`, which batch-processes the raw CSV;
+regenerating the statistics themselves (`python -m experiments.corpus_stats`,
+`python -m experiments.run_references --refit`); and the label-free studies
+(`experiments/run_rocchio.py`), whose unlabelled NACE pool is the corpus itself.
+All of them need the corpus, and the last stops with a message saying so.
 
 If the licence question is later settled in favour of publication, add the CSV,
 drop the `data/raw/` line from `.gitignore`, and this section becomes a

@@ -238,8 +238,8 @@ guideline existed scored κ = 0.542; both figures belong in any write-up.
 
 ---
 
-The fifty coded errors can also be coded by the author, blind to the first
-coding: `make author-coding` writes a shuffled sheet with English translations
+A second, human coding of the fifty errors is set up for me to do blind to the
+first one: `make author-coding` writes a shuffled sheet with English translations
 and the codebook, and `make author-coding-score` reports the agreement, which
 the paper then quotes. `make model-coding` has Qwen2.5-7B-Instruct, a different model
 family, code the same fifty blind. Its first run assigned every error to
@@ -284,9 +284,13 @@ runtime in `results/compute.json`, and writes:
 | `results/compute.json` | Wall-clock time and hardware of the run |
 
 This works from a clean clone. The raw trade register records are **not**
-redistributed, but the vocabulary and IDF weights the TF-IDF baseline needs are
-committed under `data/derived/` and reproduce the fitted baseline exactly;
-`tests/test_experiments.py::TestCorpusStatistics` checks it. See
+redistributed, but the vocabulary and IDF weights the TF-IDF baselines need are
+committed under `data/derived/`; `tests/test_experiments.py::TestCorpusStatistics`
+checks them. Checked on a fresh clone with no corpus: every prediction comes out
+identical (TF-IDF scores agree to within 1e-8), and the stronger references,
+the Holm family and the paper's tables are byte-identical. The one exception is
+the label-free studies (`experiments/run_rocchio.py`), whose unlabelled NACE
+pool is the raw corpus itself; without it they stop and say so. See
 [`data/README.md`](data/README.md).
 
 ---
@@ -431,7 +435,7 @@ The paper's related-work section has the full review; every entry in
 - **52.5% Top-1 is a suggestion tool, not an automatic classifier.** Top-3 at
   81.6% is the usable figure; top-1 is not accurate enough to assign codes
   unattended.
-- **The labels are model-assisted, not gold.** Validated by the author, working
+- **The labels are model-assisted, not gold.** I validated them myself, working
   from English machine translations, on 50 documents (κ = 0.772); 50 of 299
   carry human-verified labels, and on those 50 alone the central comparison
   still holds (`results/robustness.json`). Any published number has
@@ -462,18 +466,16 @@ The paper's related-work section has the full review; every entry in
 
 ## How this was built
 
-The author designed and directed this project. The author built the original
-guided keyword-extraction pipeline (March–July 2026), specified the evaluation
-the study is built around (the baselines, the ablations and the error-analysis
-categories), made its decisions on data release and disclosure, and performed
-both human verification passes of the labels, working from OPUS-MT English
+I designed and directed this project. I built the original guided
+keyword-extraction pipeline (March–July 2026), specified the evaluation the
+study is built around (the baselines, the ablations and the error-analysis
+categories), made its decisions on data release and disclosure, and did both
+human verification passes of the labels myself, working from OPUS-MT English
 translations.
 
-AI assistance was used throughout: AI coding tools in the first phase, and
-Claude (Anthropic), through Claude Code, in the September 2026 research phase,
-where it wrote most of the experiment code, produced the silver labels and
-drafted the paper. The paper's statement on AI use gives the details, as the ACL
-policy on AI writing assistance asks.
+I used AI coding assistants along the way, for most of the experiment code, the
+silver labels and the draft of the paper. The paper's statement on AI use gives
+the details, as the ACL policy on AI writing assistance asks.
 
 ## Citation
 
