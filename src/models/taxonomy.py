@@ -5,9 +5,28 @@ Provides a clean interface for loading, querying, and updating the
 21-sector NACE taxonomy stored in data/taxonomy/sectors.json.
 """
 
-from typing import List, Dict, Optional
 import json
+import logging
 import os
+from typing import Dict, List, Optional
+
+logger = logging.getLogger(__name__)
+
+
+def load_sectors(path: str) -> Dict[str, Dict]:
+    """The sections of a taxonomy file, or an empty dict if it cannot be read.
+
+    The one place the services read the taxonomy from disk: the classifier,
+    the extractor and the filter used to parse the file three times over.
+    """
+    try:
+        with open(path, encoding="utf-8") as f:
+            return json.load(f).get("sectors", {})
+    except FileNotFoundError:
+        logger.error(f"Sectors file not found: {path}")
+    except (OSError, ValueError) as e:
+        logger.error(f"Error loading sectors from {path}: {e}")
+    return {}
 
 
 class TaxonomyManager:
@@ -72,10 +91,6 @@ class TaxonomyManager:
         """Seed keyword list for a sector."""
         s = self.get_sector(code)
         return list(s.get("seed_keywords", [])) if s else []
-
-    def is_valid_code(self, code: str) -> bool:
-        """Return True if the sector code exists in the taxonomy."""
-        return code in self.sectors
 
     # ── Mutation ──────────────────────────────────────────────────────────────
 

@@ -19,9 +19,6 @@ DEFAULT_CONFIG_PATH = "config/config.yaml"
 DEFAULTS: Dict[str, Any] = {
     "embedding": {
         "model_name": "paraphrase-multilingual-MiniLM-L12-v2",
-        "chunk_size": 256,
-        "overlap": 32,
-        "max_length": 512,
         "device": "cpu",
     },
     "preprocessing": {
@@ -46,23 +43,11 @@ DEFAULTS: Dict[str, Any] = {
     "filtering": {
         "min_score": 0.1,
     },
-    "iteration": {
-        "max_iterations": 5,
-        "quality_threshold": 0.55,
-        "max_seed_size": 80,
-    },
     "logging": {
         "level": "WARNING",
     },
     "paths": {
         "taxonomy": "data/taxonomy/",
-        "raw_data": "data/raw/",
-        "results": "output/",
-    },
-    "llm": {
-        "enabled": False,
-        "model": "gpt-4o-mini",
-        "api_key_env": "OPENAI_API_KEY",
     },
 }
 

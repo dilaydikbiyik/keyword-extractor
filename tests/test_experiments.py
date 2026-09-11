@@ -743,3 +743,43 @@ class TestSubmissionAnonymity:
 
         text = "Zero-shot NACE classification of German trade register texts."
         assert anonymize_text(text) == text
+
+
+class TestRocchio:
+    """The update the causal test rests on, and the order it has to happen in."""
+
+    def test_moves_each_vector_toward_its_nearest_documents(self):
+        import numpy as np
+
+        from experiments.run_rocchio import rocchio, unit_rows
+
+        vectors = unit_rows(np.array([[1.0, 0.0], [0.0, 1.0]]))
+        pool = unit_rows(np.array([[1.0, 0.2], [1.0, 0.3], [0.2, 1.0], [-1.0, 0.0]]))
+        moved = rocchio(vectors, pool, k=2, beta=1.0)
+        assert np.allclose(np.linalg.norm(moved, axis=1), 1.0)
+        # Each vector ends closer to the documents it was already nearest to.
+        assert moved[0] @ pool[0] > vectors[0] @ pool[0]
+        assert moved[1] @ pool[2] > vectors[1] @ pool[2]
+
+    def test_predictions_follow_the_alignment_changes(self):
+        from experiments.run_rocchio import predictions_from
+
+        preds = predictions_from({"A": 0.05, "B": -0.01, "C": 0.02})
+        signs = {p["corpus"]: p["expected_sign"] for p in preds if "corpus" in p}
+        assert signs == {"A": 1, "B": -1, "C": 1}
+        assert next(p for p in preds if p["id"] == "ordering")["order"] == ["A", "C", "B"]
+
+    def test_a_preregistration_is_never_overwritten(self, tmp_path, monkeypatch):
+        from experiments import run_rocchio
+
+        existing = tmp_path / "prereg.json"
+        existing.write_text("{}", encoding="utf-8")
+        monkeypatch.setattr(run_rocchio, "PREREGISTRATION", existing)
+        assert run_rocchio.preregister() == 1
+        assert existing.read_text(encoding="utf-8") == "{}"
+
+    def test_accuracy_refuses_to_run_without_a_preregistration(self, tmp_path, monkeypatch):
+        from experiments import run_rocchio
+
+        monkeypatch.setattr(run_rocchio, "PREREGISTRATION", tmp_path / "missing.json")
+        assert run_rocchio.evaluate() == 1

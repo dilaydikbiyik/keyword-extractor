@@ -29,6 +29,8 @@ import argparse
 import json
 import sys
 
+from typing import Optional
+
 import numpy as np
 from sklearn.metrics import f1_score
 
@@ -85,6 +87,38 @@ DEFINITION = {
 }
 
 
+def load_newsgroups(subset: str, sample: Optional[int] = None):
+    """Posts of one split with headers, footers and quotes removed.
+
+    Stripping them leaves some posts empty; those carry no signal for any
+    condition and are dropped. With ``sample``, a class-stratified draw.
+    """
+    from sklearn.datasets import fetch_20newsgroups
+
+    data = fetch_20newsgroups(subset=subset, remove=("headers", "footers", "quotes"))
+    names = list(data.target_names)
+    texts, labels = [], []
+    for text, target in zip(data.data, data.target):
+        if len(text.strip()) >= 40:
+            texts.append(text.strip())
+            labels.append(names[target])
+
+    rng = np.random.default_rng(SEED)
+    if sample and len(texts) > sample:
+        by_class: dict = {}
+        for i, label in enumerate(labels):
+            by_class.setdefault(label, []).append(i)
+        per_class = max(1, sample // len(by_class))
+        picked = []
+        for label in sorted(by_class):
+            idx = by_class[label]
+            take = min(per_class, len(idx))
+            picked.extend(rng.choice(idx, size=take, replace=False).tolist())
+        texts = [texts[i] for i in picked]
+        labels = [labels[i] for i in picked]
+    return texts, labels, names
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -96,31 +130,7 @@ def main() -> int:
 
     set_seed()
     ensure_dirs()
-    from sklearn.datasets import fetch_20newsgroups
-
-    data = fetch_20newsgroups(subset="test", remove=("headers", "footers", "quotes"))
-    names = list(data.target_names)
-    texts, labels = [], []
-    for text, target in zip(data.data, data.target):
-        # Stripping headers and quotes leaves some posts empty; they carry no
-        # signal for any condition and would only add noise equally.
-        if len(text.strip()) >= 40:
-            texts.append(text.strip())
-            labels.append(names[target])
-
-    rng = np.random.default_rng(SEED)
-    if args.sample and len(texts) > args.sample:
-        by_class: dict = {}
-        for i, label in enumerate(labels):
-            by_class.setdefault(label, []).append(i)
-        per_class = max(1, args.sample // len(by_class))
-        picked = []
-        for label in sorted(by_class):
-            idx = by_class[label]
-            take = min(per_class, len(idx))
-            picked.extend(rng.choice(idx, size=take, replace=False).tolist())
-        texts = [texts[i] for i in picked]
-        labels = [labels[i] for i in picked]
+    texts, labels, names = load_newsgroups("test", args.sample)
 
     print(f"{len(texts)} documents, {len(set(labels))} classes", flush=True)
 

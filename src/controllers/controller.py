@@ -6,7 +6,6 @@ Orchestrates the complete keyword extraction pipeline:
 2. Sector classification
 3. Guided keyword extraction
 4. Keyword filtering
-5. Optional LLM validation
 """
 
 from typing import List, Dict, Optional
@@ -40,7 +39,6 @@ class ExtractionController:
         extractor,
         keyword_filter,
         preprocessor,
-        validator=None,
         config: Optional[Dict] = None
     ):
         """
@@ -52,7 +50,6 @@ class ExtractionController:
             extractor: KeywordExtractor instance
             keyword_filter: KeywordFilter instance
             preprocessor: TextPreprocessor instance
-            validator: Optional LLMValidator instance
             config: Configuration dictionary. Recognised key:
                 ``classify_preprocessed_text`` (bool) — send the cleaned text to
                 the classifier instead of the raw purpose field.  Off by default;
@@ -63,7 +60,6 @@ class ExtractionController:
         self.extractor = extractor
         self.keyword_filter = keyword_filter
         self.preprocessor = preprocessor
-        self.validator = validator
         self.config = config or {}
 
         self.logger = logging.getLogger(__name__)
@@ -99,7 +95,6 @@ class ExtractionController:
         self,
         text: str,
         top_n_keywords: Optional[int] = None,
-        use_validation: bool = False,
         return_intermediate: bool = False
     ) -> Dict:
         """
@@ -109,7 +104,6 @@ class ExtractionController:
             text: Business description text
             top_n_keywords: Number of keywords to extract; defaults to the
                 configured ``extraction.top_n_final``
-            use_validation: Whether to use LLM validation
             return_intermediate: Return intermediate results for debugging
 
         Returns:
@@ -184,24 +178,9 @@ class ExtractionController:
             if return_intermediate:
                 result['intermediate_steps']['filtering'] = filtered_keywords
 
-            # Step 5: LLM Validation (optional)
-            if use_validation and self.validator and self.validator.is_available():
-                self.logger.info("Step 5: LLM validation...")
-                validated_keywords = self.validator.validate_keywords(
-                    text,
-                    filtered_keywords,
-                    sector=primary_sector
-                )
-                result['keywords'] = validated_keywords
-            else:
-                result['keywords'] = [
-                    {
-                        'keyword': kw,
-                        'score': score,
-                        'validated': False
-                    }
-                    for kw, score in filtered_keywords
-                ]
+            result['keywords'] = [
+                {'keyword': kw, 'score': score} for kw, score in filtered_keywords
+            ]
 
             result['status'] = 'success'
             self.logger.info("Extraction completed successfully")
@@ -217,7 +196,6 @@ class ExtractionController:
         self,
         texts: List[str],
         top_n_keywords: Optional[int] = None,
-        use_validation: bool = False,
         show_progress: bool = True,
         save_report: bool = False,
         report_dir: str = "output",
@@ -228,7 +206,6 @@ class ExtractionController:
         Args:
             texts: List of business descriptions
             top_n_keywords: Number of keywords per text
-            use_validation: Whether to use LLM validation
             show_progress: Whether to show progress
             save_report: If True, persist a JSON summary to *report_dir*
             report_dir: Directory to write the report file
@@ -248,8 +225,7 @@ class ExtractionController:
             t0 = time.time()
             result = self.extract(
                 text,
-                top_n_keywords=top_n_keywords,
-                use_validation=use_validation
+                top_n_keywords=top_n_keywords
             )
             result["processing_time_ms"] = round((time.time() - t0) * 1000, 1)
             results.append(result)
@@ -264,39 +240,6 @@ class ExtractionController:
             self.save_batch_report(results, output_dir=report_dir)
 
         return results
-
-    def extract_from_dataframe(
-        self,
-        df,
-        text_column: str,
-        top_n_keywords: int = 10,
-        use_validation: bool = False
-    ):
-        """
-        Extract keywords from a pandas DataFrame.
-
-        Args:
-            df: DataFrame with business descriptions
-            text_column: Name of the column containing texts
-            top_n_keywords: Number of keywords per text
-            use_validation: Whether to use LLM validation
-
-        Yields:
-            Extraction results with DataFrame row index
-        """
-        self.logger.info(f"Starting extraction from DataFrame ({len(df)} rows)...")
-
-        for idx, row in df.iterrows():
-            text = row[text_column]
-
-            result = self.extract(
-                text,
-                top_n_keywords=top_n_keywords,
-                use_validation=use_validation
-            )
-
-            result['row_index'] = idx
-            yield result
 
     def get_extraction_stats(self, results: List[Dict]) -> Dict:
         """
@@ -408,17 +351,3 @@ class ExtractionController:
         cleaned = (preprocessing_result or {}).get("cleaned_text", "")
         # Cleaning can empty out a very short or punctuation-only text.
         return cleaned if cleaned.strip() else text
-
-    def configure(self, config: Dict):
-        """
-        Update configuration.
-
-        Args:
-            config: Configuration dictionary
-        """
-        self.config.update(config)
-        self.logger.info(f"Configuration updated: {config}")
-
-    def get_config(self) -> Dict:
-        """Get current configuration."""
-        return self.config.copy()

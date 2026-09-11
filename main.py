@@ -63,7 +63,6 @@ def main():
             batch_results = controller.extract_batch(
                 batch_texts,
                 top_n_keywords=top_n_keywords,
-                use_validation=False,
                 show_progress=False
             )
 

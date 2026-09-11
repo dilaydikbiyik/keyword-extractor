@@ -105,3 +105,21 @@ class TestBuildController:
         before = len(first.logger.handlers)
         second, _ = build_controller("config/config.yaml")
         assert len(second.logger.handlers) == before
+
+
+class TestNoDeadConfiguration:
+    """DEFAULTS listing a key is not the same as code reading it."""
+
+    def test_every_default_is_read_somewhere(self):
+        from pathlib import Path
+
+        root = Path(__file__).resolve().parents[1]
+        files = [*root.glob("src/**/*.py"), *root.glob("experiments/*.py"),
+                 root / "main.py", root / "run.py", root / "quickstart.py"]
+        code = "\n".join(p.read_text(encoding="utf-8") for p in files
+                         if p != root / "src" / "utils" / "config.py")
+        unread = [f"{section}.{key}" for section, values in DEFAULTS.items()
+                  if isinstance(values, dict) for key in values
+                  if not any(f"{q}{name}{q}" in code
+                             for q in "\"'" for name in (key, f"{section}.{key}"))]
+        assert not unread, f"configured but never read: {unread}"

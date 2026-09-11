@@ -238,7 +238,14 @@ committed under `data/derived/` and reproduce the fitted baseline exactly;
 
 ## Pipeline
 
-![Pipeline architecture](docs/assets/architecture.svg)
+```mermaid
+flowchart LR
+    T["purpose text"] --> P["preprocess"] --> C["classify: document vs. section vectors"]
+    C --> E["extract keywords"] --> F["filter"] --> O["section, top 3, keywords"]
+```
+
+The layers, the rules between them and the tests that enforce each one:
+[`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
 Dashed stages are the ones the ablation finds no evidence for.
 
@@ -293,22 +300,21 @@ substitution is exact.
 ## Repository layout
 
 ```
-src/                    The shipped pipeline
-  controllers/          ExtractionController — 5-step orchestration
-  services/             embedder · classifier · extractor · filter · validator
-  models/               TaxonomyManager · evaluation metrics
-  utils/                TextPreprocessor (DE / TR / EN)
-experiments/            Paper-only code, kept out of src/
-  systems.py            Baselines and ablations as compositions of components
-  metrics.py            Bootstrap CIs and exact McNemar on top of src metrics
-  error_analysis.py     Error codebook and automatic flags
-  run_experiments.py    Baseline + ablation suites
-  run_error_analysis.py Error report and annotation CSV
-  build_annotation_queue.py  Stratified sampling for new labels
-paper/                  Workshop paper skeleton; tables generated from results/
+src/                    The library: model, services, controller
+  models/               Domain model: the taxonomy and its single loader
+  services/             embedder · classifier · extractor · filter
+  controllers/          ExtractionController: four steps per document
+  pipeline.py           Builds the services from config/config.yaml
+  utils/                Configuration, text preprocessing
+experiments/            The research layer; imports src/, never the reverse
+  systems.py            Baselines and ablations as compositions of services
+  metrics.py            Accuracy, F1, kappa, bootstrap CIs, exact McNemar
+  run_*.py              One module per study, each writing to results/
+  export_latex.py       results/ into paper tables, figure and macros
+paper/                  The paper; tables, figure and macros generated
 tools/                  annotate.html (offline labelling) · make_demo_gif.py
-results/                Generated — every number cited anywhere
-tests/                  128 tests
+results/                Generated: every number cited anywhere
+tests/                  Unit, end-to-end, architecture and reporting tests
 run.py                  make reproduce
 ```
 
@@ -318,9 +324,7 @@ run.py                  make reproduce
 | --- | --- |
 | [`docs/paper_readiness.md`](docs/paper_readiness.md) | Every result, every control, and what is still open |
 | [`docs/annotation_guidelines.md`](docs/annotation_guidelines.md) | The rules the evaluation labels were produced under |
-| [`docs/methodology.md`](docs/methodology.md) | Literature review and the original design decisions |
-| [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | Component diagram and data flow |
-| [`docs/TODO.md`](docs/TODO.md) | Working log, in Turkish |
+| [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | Layers, the rules between them, and how a result reaches the paper |
 | [`paper/main.tex`](paper/main.tex) | The write-up: a complete draft for the ACL style files |
 
 ## Tests
@@ -360,7 +364,8 @@ in. Build the pipeline from a config with `pipeline.build_controller()`.
 | Sentence-BERT | Reimers & Gurevych (2019), EMNLP | Embedding foundation |
 | Multilingual SBERT | Reimers & Gurevych (2020), EMNLP | Model selection |
 
-Full review and methodology decisions: [`docs/methodology.md`](docs/methodology.md).
+The paper's related-work section has the full review; every entry in
+[`paper/references.bib`](paper/references.bib) was checked against its source.
 
 ---
 

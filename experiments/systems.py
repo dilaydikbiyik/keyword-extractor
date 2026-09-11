@@ -13,7 +13,7 @@ import sys
 from dataclasses import dataclass
 from functools import lru_cache
 from pathlib import Path
-from typing import Dict, List, Optional, Protocol, Sequence, Tuple
+from typing import Dict, List, Optional, Sequence, Tuple
 
 import numpy as np
 
@@ -133,13 +133,6 @@ class TranslatingKeywords:
 # ─────────────────────────────────────────────────────────────────────────────
 # Sector classifiers
 # ─────────────────────────────────────────────────────────────────────────────
-
-class SectorRanker(Protocol):
-    """Ranks all 21 NACE sectors for a text, best first."""
-
-    def fit(self, corpus: Sequence[str]) -> None: ...
-
-    def rank(self, text: str) -> List[Tuple[str, float]]: ...
 
 
 class RandomRanker:
@@ -463,9 +456,6 @@ class LocalLLMRanker:
 # ─────────────────────────────────────────────────────────────────────────────
 # Keyword extractors
 # ─────────────────────────────────────────────────────────────────────────────
-
-class KeywordStrategy(Protocol):
-    def keywords(self, text: str, sector: str, top_n: int) -> List[str]: ...
 
 
 class NoKeywords:

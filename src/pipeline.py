@@ -21,15 +21,11 @@ from utils.preprocessing import TextPreprocessor
 
 def build_controller(
     config_path: Optional[str] = None,
-    *,
-    with_validator: bool = False,
 ) -> Tuple[ExtractionController, Dict[str, Any]]:
     """Build the full pipeline from a config file.
 
     Args:
         config_path: Path to the YAML config; defaults to ``config/config.yaml``.
-        with_validator: Attach the optional LLM validator. Requires the API key
-            named by ``llm.api_key_env``; the pipeline runs without it.
 
     Returns:
         The controller and the resolved configuration dictionary.
@@ -54,19 +50,12 @@ def build_controller(
     keyword_filter = KeywordFilter(sectors_file=taxonomy)
     preprocessor = TextPreprocessor(config=config.get("preprocessing"))
 
-    validator = None
-    if with_validator and get(config, "llm.enabled", False):
-        from services.validator import LLMValidator
-
-        validator = LLMValidator(model=get(config, "llm.model"))
-
     controller = ExtractionController(
         embedding_service=embedder,
         classifier=classifier,
         extractor=extractor,
         keyword_filter=keyword_filter,
         preprocessor=preprocessor,
-        validator=validator,
         config={
             "top_k_sectors": get(config, "classification.top_k_sectors", 3),
             "classify_preprocessed_text": get(

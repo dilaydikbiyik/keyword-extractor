@@ -45,13 +45,6 @@ def load_labeled_samples() -> List[LabeledSample]:
     ]
 
 
-def provenance_counts() -> Dict[str, int]:
-    """How many evaluation documents actually come from the corpus."""
-    from collections import Counter
-
-    return dict(Counter(s.provenance for s in load_labeled_samples()))
-
-
 def load_split() -> Dict[str, List[int]]:
     """Development / held-out test document ids, if a split has been made."""
     path = LABELS_JSON.parent / "split.json"

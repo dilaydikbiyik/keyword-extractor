@@ -1,29 +1,113 @@
 """Evaluation metrics for the comparison tables.
 
-Wraps the metrics already in ``src/models/evaluation.py`` and adds the two
-things a reviewer asks for that the shipped pipeline does not need:
-bootstrap confidence intervals and a paired significance test against the
-baseline a result claims to beat.
+Accuracy, F1 and agreement, plus the two things a reviewer asks for that the
+shipped pipeline does not need: bootstrap confidence intervals and a paired
+significance test against the baseline a result claims to beat. They live here
+rather than in ``src/`` because only the research layer measures anything.
 """
 
 from __future__ import annotations
 
-import sys
-from pathlib import Path
-from typing import Dict, List, Sequence, Tuple
+import math
+from typing import Dict, List, Optional, Sequence, Tuple
 
 import numpy as np
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
+from experiments.config import N_BOOTSTRAP, SEED
 
-from models.evaluation import (  # noqa: E402  (path set above)
-    cohen_kappa,
-    f1_macro,
-    precision_at_k,
-    top_k_accuracy,
-)
 
-from experiments.config import N_BOOTSTRAP, SEED  # noqa: E402
+def precision_at_k(
+    extracted: List[str],
+    ground_truth: List[str],
+    k: int = 10,
+) -> float:
+    """
+    Calculate Precision@K: fraction of top-K extracted keywords that appear
+    in the ground-truth set.
+
+    Args:
+        extracted: Ranked list of extracted keywords (best first)
+        ground_truth: Reference set of correct keywords
+        k: Cut-off rank
+
+    Returns:
+        Precision score in [0, 1]
+    """
+    if k <= 0:
+        return 0.0
+    top_k = extracted[:k]
+    gt_set = set(kw.lower().strip() for kw in ground_truth)
+    hits = sum(1 for kw in top_k if kw.lower().strip() in gt_set)
+    return hits / k
+
+
+def top_k_accuracy(
+    y_true: List[str],
+    y_pred_top_k: List[List[str]],
+    k: int = 1,
+) -> float:
+    """
+    Calculate Top-K accuracy for sector classification.
+
+    Args:
+        y_true: Ground-truth sector codes, one per document
+        y_pred_top_k: Ranked predictions per document (best first)
+        k: Consider a prediction correct if the true label is in top-K
+
+    Returns:
+        Accuracy in [0, 1]
+    """
+    if not y_true:
+        return 0.0
+    hits = sum(
+        1 for true, preds in zip(y_true, y_pred_top_k)
+        if true in preds[:k]
+    )
+    return hits / len(y_true)
+
+
+def f1_macro(
+    y_true: List[str],
+    y_pred: List[str],
+) -> float:
+    """
+    Macro-averaged F1 score for sector classification.
+
+    Args:
+        y_true: Ground-truth sector codes
+        y_pred: Predicted sector codes (top-1)
+
+    Returns:
+        F1-macro score in [0, 1]
+    """
+    from sklearn.metrics import f1_score  # type: ignore
+    return float(f1_score(y_true, y_pred, average="macro", zero_division=0))
+
+
+def cohen_kappa(
+    y_true: List[str],
+    y_pred: List[str],
+) -> Optional[float]:
+    """
+    Cohen's Kappa for inter-annotator or classifier agreement.
+
+    Kappa is undefined when only one label category occurs across both raters:
+    chance agreement is then 1, and the correction divides by zero. sklearn
+    returns NaN in that case, which is not valid JSON and reads as a score of
+    zero in a report, so this returns None instead.
+
+    Args:
+        y_true: Ground-truth labels
+        y_pred: Predicted labels
+
+    Returns:
+        Kappa score in [-1, 1], or None when it is undefined
+    """
+    from sklearn.metrics import cohen_kappa_score  # type: ignore
+    if len(set(y_true) | set(y_pred)) < 2:
+        return None
+    kappa = float(cohen_kappa_score(y_true, y_pred))
+    return None if math.isnan(kappa) else kappa
 
 
 def bootstrap_ci(

@@ -48,15 +48,6 @@ class TestThresholdFiltering:
         }
         return classifier
 
-    def test_returns_fewer_than_top_k_under_the_threshold(self, tmp_path):
-        # Only one sector clears 0.5, so asking for three yields one.
-        classifier = self._classifier([0.9, 0.4, 0.3], threshold=0.5, tmp_path=tmp_path)
-        assert len(classifier.classify("text", top_k=3)) == 1
-
-    def test_returns_nothing_when_no_sector_clears_the_threshold(self, tmp_path):
-        classifier = self._classifier([0.4, 0.3, 0.2], threshold=0.5, tmp_path=tmp_path)
-        assert classifier.classify("text", top_k=3) == []
-
     def test_details_always_reports_a_best_match(self, tmp_path):
         """The method the pipeline actually uses must never come back empty."""
         classifier = self._classifier([0.4, 0.3, 0.2], threshold=0.5, tmp_path=tmp_path)

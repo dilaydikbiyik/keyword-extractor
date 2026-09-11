@@ -23,7 +23,6 @@ if os.path.isdir(_LOCAL_NLTK) and _LOCAL_NLTK not in nltk.data.path:
 # here than linguistic tokenisation on some machines only.
 WORD_PATTERN = re.compile(r'\b\w+\b', re.UNICODE)
 
-# Download required NLTK data
 try:
     nltk.data.find('corpora/stopwords')
 except LookupError:
@@ -54,11 +53,9 @@ class TextPreprocessor:
         self.min_word_length = self.config.get('min_word_length', 3)
         self.max_ngram_length = self.config.get('max_ngram_length', 3)
 
-        # URL and email patterns
         self.url_pattern = re.compile(r'https?://\S+|www\.\S+')
         self.email_pattern = re.compile(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b')
 
-        # Special characters to preserve inside tokens
         self.preserve_chars = {'-', "'"} if self.preserve_hyphens else set()
 
         self.stopwords = self._load_stopwords()
@@ -105,19 +102,16 @@ class TextPreprocessor:
         """Load stopwords for supported languages."""
         stopwords_dict = {}
 
-        # German stopwords
         try:
             stopwords_dict['de'] = set(stopwords.words('german'))
         except LookupError:
             stopwords_dict['de'] = set()
 
-        # English stopwords
         try:
             stopwords_dict['en'] = set(stopwords.words('english'))
         except LookupError:
             stopwords_dict['en'] = set()
 
-        # Turkish stopwords (NLTK)
         try:
             stopwords_dict['tr'] = set(stopwords.words('turkish'))
         except LookupError:
@@ -148,20 +142,17 @@ class TextPreprocessor:
         if self.remove_emails:
             text = self.email_pattern.sub(' ', text)
 
-        # Normalize unicode characters
         text = unicodedata.normalize('NFKD', text).encode('ascii', 'ignore').decode('ascii')
 
         if self.remove_punctuation:
             preserved = re.escape(''.join(sorted(self.preserve_chars)))
             text = re.sub(r'[^\w\s' + preserved + r']', ' ', text)
 
-        # Normalize whitespace
         text = re.sub(r'\s+', ' ', text).strip()
 
         # Remove isolated numbers (but keep numbers in words)
         text = re.sub(r'\b\d+\b', '', text)
 
-        # Final whitespace cleanup
         text = re.sub(r'\s+', ' ', text).strip()
 
         return text
@@ -180,7 +171,6 @@ class TextPreprocessor:
             return "unknown", 0.0
 
         try:
-            # Use langdetect for language detection
             result = detect(text)
             # langdetect doesn't provide confidence, so we use a heuristic
             confidence = 0.8 if len(text) > 50 else 0.6
@@ -202,7 +192,6 @@ class TextPreprocessor:
         if lang not in self.stopwords:
             lang = 'en'  # fallback to English
 
-        # Combine general and sector-specific stopwords
         all_stopwords = self.stopwords.get(lang, set()) | self.sector_stopwords.get(lang, set())
 
         return [token for token in tokens if token.lower() not in all_stopwords]
@@ -242,13 +231,10 @@ class TextPreprocessor:
         if n_range is None:
             n_range = (1, self.max_ngram_length)
 
-        # Clean the text first
         cleaned_text = self.clean_text(text)
 
-        # Tokenize
         tokens = self.tokenize_text(cleaned_text)
 
-        # Remove stopwords
         lang, _ = self.detect_language(text)
         filtered_tokens = self.remove_stopwords(tokens, lang)
 
@@ -316,10 +302,8 @@ class TextPreprocessor:
         Returns:
             Dictionary with preprocessing results
         """
-        # Detect language
         lang, confidence = self.detect_language(text)
 
-        # Clean text
         cleaned_text = self.clean_text(text, lang)
 
         candidates = self.generate_ngram_candidates(text)
@@ -332,8 +316,6 @@ class TextPreprocessor:
             'ngram_candidates': candidates,
             'candidate_count': len(candidates)
         }
-
-# Convenience functions for external use
 
 
 def clean_text(text: str, lang: str = "auto") -> str:

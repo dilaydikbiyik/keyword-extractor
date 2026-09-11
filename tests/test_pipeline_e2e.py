@@ -168,26 +168,26 @@ class TestClassifierInputSelection:
         )
 
     def test_cleaned_text_when_enabled(self, controller):
-        controller.configure({"classify_preprocessed_text": True})
+        controller.config["classify_preprocessed_text"] = True
         try:
             preprocessed = {"cleaned_text": "softwareentwicklung programmierung"}
             assert controller._classifier_input("Softwareentwicklung, GmbH.", preprocessed) == (
                 "softwareentwicklung programmierung"
             )
         finally:
-            controller.configure({"classify_preprocessed_text": False})
+            controller.config["classify_preprocessed_text"] = False
 
     def test_falls_back_to_raw_when_cleaning_empties_the_text(self, controller):
-        controller.configure({"classify_preprocessed_text": True})
+        controller.config["classify_preprocessed_text"] = True
         try:
             assert controller._classifier_input("!!!", {"cleaned_text": "   "}) == "!!!"
             assert controller._classifier_input("!!!", {}) == "!!!"
             assert controller._classifier_input("!!!", None) == "!!!"
         finally:
-            controller.configure({"classify_preprocessed_text": False})
+            controller.config["classify_preprocessed_text"] = False
 
     def test_extract_still_succeeds_with_the_switch_on(self, controller):
-        controller.configure({"classify_preprocessed_text": True})
+        controller.config["classify_preprocessed_text"] = True
         try:
             result = controller.extract(
                 "Softwareentwicklung und API-Integration für Cloud-Lösungen.",
@@ -196,7 +196,7 @@ class TestClassifierInputSelection:
             assert result["status"] == "success"
             assert result["sector_classification"]["top_sector"]
         finally:
-            controller.configure({"classify_preprocessed_text": False})
+            controller.config["classify_preprocessed_text"] = False
 
 
 def test_log_level_reaches_the_services(tmp_path, monkeypatch):

@@ -5,9 +5,9 @@ Filters and ranks keywords based on multiple criteria including
 information value, relevance, and sector specificity.
 """
 
+from models.taxonomy import load_sectors
 import logging
 from typing import List, Dict, Tuple, Optional
-import json
 
 logger = logging.getLogger(__name__)
 
@@ -43,16 +43,7 @@ class KeywordFilter:
 
     def _load_sectors_info(self) -> Dict[str, dict]:
         """Load sector information."""
-        sectors_info = {}
-
-        try:
-            with open(self.sectors_file, 'r', encoding='utf-8') as f:
-                sectors_data = json.load(f)
-            sectors_info = sectors_data.get('sectors', {})
-        except Exception as e:
-            logger.error(f"Error loading sectors: {e}")
-
-        return sectors_info
+        return load_sectors(self.sectors_file)
 
     def _load_negative_keywords(self) -> Dict[str, set]:
         """Load negative keywords for each sector."""

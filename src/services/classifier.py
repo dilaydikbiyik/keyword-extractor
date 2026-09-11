@@ -4,10 +4,10 @@ Sector Classifier Service
 Classifies business descriptions into sectors using embedding similarity.
 """
 
+from models.taxonomy import load_sectors
 import logging
-from typing import List, Dict, Tuple
+from typing import Dict
 import numpy as np
-import json
 
 logger = logging.getLogger(__name__)
 
@@ -50,20 +50,7 @@ class SectorClassifier:
         Returns:
             Dictionary mapping sector codes to sector info
         """
-        sectors_info = {}
-
-        try:
-            with open(self.sectors_file, 'r', encoding='utf-8') as f:
-                sectors_data = json.load(f)
-
-            sectors_info = sectors_data.get('sectors', {})
-
-        except FileNotFoundError:
-            logger.error(f"Sectors file not found: {self.sectors_file}")
-        except Exception as e:
-            logger.error(f"Error loading sectors: {e}")
-
-        return sectors_info
+        return load_sectors(self.sectors_file)
 
     def _build_sector_embeddings(self) -> Dict[str, np.ndarray]:
         """
@@ -102,50 +89,6 @@ class SectorClassifier:
             sector_embeddings[code] = combined
 
         return sector_embeddings
-
-    def classify(
-        self,
-        text: str,
-        top_k: int = 1,
-    ) -> List[Tuple[str, float]]:
-        """
-        Classify a text into sector(s).
-
-        Args:
-            text: Input text to classify
-            top_k: Number of top sectors to return
-
-        Note:
-            The threshold filter runs *before* the top-k cut, so this can return
-            fewer than ``top_k`` sectors -- and for a document whose scores all
-            sit below the threshold, none at all. Measuring top-k accuracy over
-            this method therefore scores a shorter list than k and overstates
-            the result; use :meth:`classify_with_details`, which always reports
-            a best match, or read the unfiltered ranking directly.
-
-        Returns:
-            List of (sector_code, confidence_score) tuples, sorted by
-            confidence; at most ``top_k`` and possibly fewer
-        """
-        text_embedding = self.embedding_service.embed_text(text)
-
-        similarities = []
-
-        for sector_code, sector_embedding in self.sector_embeddings.items():
-            similarity = self.embedding_service.similarity(
-                text_embedding,
-                sector_embedding,
-                metric="cosine"
-            )
-            similarities.append((sector_code, float(similarity)))
-
-        similarities.sort(key=lambda x: x[1], reverse=True)
-
-        results = [
-            (code, score) for code, score in similarities
-            if score >= self.confidence_threshold
-        ]
-        return results[:top_k]
 
     def classify_with_details(
         self,

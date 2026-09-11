@@ -1,22 +1,12 @@
-"""
-Unit tests for evaluation metrics (src/models/evaluation.py)
-Run with: pytest tests/test_evaluation.py -v
-"""
-
-import json
-import sys
-import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
+"""Unit tests for the evaluation metrics in experiments/metrics.py."""
 
 import pytest
-from models.evaluation import (
-    precision_at_k,
-    calculate_precision_at_k,
-    precision_at_k_multi,
-    top_k_accuracy,
-    f1_macro,
+
+from experiments.metrics import (
     cohen_kappa,
-    EvaluationMetrics,
+    f1_macro,
+    precision_at_k,
+    top_k_accuracy,
 )
 
 
@@ -63,22 +53,7 @@ def test_precision_at_k_k_larger_than_list():
     assert precision_at_k(pred, gt, k=5) == pytest.approx(2 / 5)
 
 
-def test_calculate_precision_at_k_alias():
-    """calculate_precision_at_k is an alias and must behave identically."""
-    pred = ["a", "b", "c", "d", "e"]
-    gt = ["a", "c", "f", "g"]
-    assert calculate_precision_at_k(pred, gt, k=3) == pytest.approx(2 / 3)
-
-
 # ── precision_at_k_multi ─────────────────────────────────────────────────────
-
-def test_precision_at_k_multi_returns_dict():
-    pred = ["a", "b", "c", "d", "e"]
-    gt = ["a", "c"]
-    result = precision_at_k_multi(pred, gt, k_values=[1, 3, 5])
-    assert set(result.keys()) == {1, 3, 5}
-    assert result[1] == pytest.approx(1.0)   # "a" correct at k=1
-    assert result[3] == pytest.approx(2 / 3)  # a,c correct at k=3
 
 
 # ── top_k_accuracy ────────────────────────────────────────────────────────────
@@ -115,64 +90,6 @@ def test_f1_macro_all_wrong():
     assert f1_macro(y_true, y_pred) == pytest.approx(0.0)
 
 
-# ── EvaluationMetrics ─────────────────────────────────────────────────────────
-
-def test_evaluation_metrics_empty():
-    ev = EvaluationMetrics(k_values=[5, 10])
-    report = ev.compute()
-    assert "error" in report
-
-
-def test_evaluation_metrics_basic():
-    ev = EvaluationMetrics(k_values=[3])
-    ev.add(
-        extracted=["a", "b", "c"],
-        ground_truth=["a", "c"],
-        true_sector="J",
-        predicted_sector="J",
-        predicted_top3=["J", "M", "K"],
-    )
-    report = ev.compute()
-    assert report["n_documents"] == 1
-    assert report["precision_at_3"] == pytest.approx(2 / 3)
-    assert report["top1_accuracy"] == pytest.approx(1.0)
-    assert report["top3_accuracy"] == pytest.approx(1.0)
-
-
-def test_evaluation_metrics_multiple_docs():
-    ev = EvaluationMetrics(k_values=[2])
-    ev.add(["a", "b"], ["a", "b"], "J", "J", ["J"])
-    ev.add(["x", "y"], ["a", "b"], "G", "G", ["G"])
-    report = ev.compute()
-    assert report["n_documents"] == 2
-    assert report["precision_at_2"] == pytest.approx(0.5)  # 1.0 + 0.0 / 2
-
-
-def test_evaluation_metrics_no_sector_labels():
-    """Adding docs without sector labels must not crash."""
-    ev = EvaluationMetrics(k_values=[5])
-    ev.add(["a", "b", "c", "d", "e"], ["a", "c", "e"])
-    report = ev.compute()
-    assert "precision_at_5" in report
-    assert "top1_accuracy" not in report
-
-
 def test_cohen_kappa_is_none_when_undefined():
     """One label category across both raters leaves kappa undefined, not zero."""
     assert cohen_kappa(["J", "J"], ["J", "J"]) is None
-
-
-def test_report_never_carries_nan():
-    """A single-document report has to stay serialisable as JSON."""
-    ev = EvaluationMetrics(k_values=[3])
-    ev.add(
-        extracted=["a", "b", "c"],
-        ground_truth=["a", "c"],
-        true_sector="J",
-        predicted_sector="J",
-        predicted_top3=["J", "M", "K"],
-    )
-    report = ev.compute()
-
-    assert report["cohen_kappa"] is None
-    json.dumps(report, allow_nan=False)

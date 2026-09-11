@@ -5,7 +5,7 @@ PYTHON ?= $(shell \
 	elif command -v python3 >/dev/null 2>&1; then command -v python3; \
 	else echo python; fi)
 
-.PHONY: help install reproduce test lint annotate merge verify verify-new verify-apply second-annotator second-annotator-score llm-baseline llm-baseline-local study paper-tables paper submission demo clean
+.PHONY: help install reproduce test lint annotate merge verify verify-new verify-apply second-annotator second-annotator-score llm-baseline llm-baseline-local study rocchio-preregister rocchio paper-tables paper submission demo clean
 
 help:
 	@echo "Using PYTHON = $(PYTHON)"
@@ -25,6 +25,8 @@ help:
 	@echo "  llm-baseline  Run the paid LLM zero-shot baseline (needs OPENAI_API_KEY)"
 	@echo "  llm-baseline-local  Same prompt, open model run locally (downloads 15.2 GB once)"
 	@echo "  study         Class-description studies: language, content, replication"
+	@echo "  rocchio-preregister  Label-free causal test, step 1: write the prediction"
+	@echo "  rocchio       Step 2: accuracy, checked against the committed prediction"
 	@echo "  paper-tables  Regenerate paper/tables/*.tex from results/"
 	@echo "  paper         Build paper/main.pdf (needs tectonic: brew install tectonic)"
 	@echo "  submission    Anonymous review PDF and code archive in dist/, checked"
@@ -97,6 +99,12 @@ study:
 	$(PYTHON) -m experiments.run_gap_analysis
 	$(PYTHON) -m experiments.run_predictor_search
 	$(PYTHON) -m experiments.robustness
+
+rocchio-preregister:
+	$(PYTHON) -m experiments.run_rocchio --preregister
+
+rocchio:
+	$(PYTHON) -m experiments.run_rocchio
 
 paper-tables:
 	$(PYTHON) -m experiments.export_latex

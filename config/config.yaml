@@ -7,9 +7,6 @@
 # Embedding model
 embedding:
   model_name: "paraphrase-multilingual-MiniLM-L12-v2"
-  chunk_size: 256          # words per chunk for long documents
-  overlap: 32              # word overlap between consecutive chunks
-  max_length: 512          # below this many words a document is encoded in one pass
   device: "cpu"            # "cuda" if a GPU is available
 
 # Text preprocessing
@@ -44,12 +41,6 @@ extraction:
 filtering:
   min_score: 0.1           # candidates below this score are dropped
 
-# Iterative seed expansion (KeywordExtractor.iterative_expand)
-iteration:
-  max_iterations: 5
-  quality_threshold: 0.55
-  max_seed_size: 80
-
 # Logging. INFO follows every pipeline step; WARNING keeps normal runs quiet.
 logging:
   level: "WARNING"
@@ -57,11 +48,3 @@ logging:
 # Paths
 paths:
   taxonomy: "data/taxonomy/"
-  raw_data: "data/raw/"
-  results: "output/"
-
-# Optional LLM validation of borderline keywords
-llm:
-  enabled: false
-  model: "gpt-4o-mini"
-  api_key_env: "OPENAI_API_KEY"

@@ -90,7 +90,6 @@ def main():
     print("\nNext steps:")
     print("  1. Run: python test_integration.py")
     print("  2. Process your CSV: python main.py")
-    print("  3. Analyze results: jupyter notebook notebooks/initial_analysis.ipynb")
 
 
 if __name__ == "__main__":
