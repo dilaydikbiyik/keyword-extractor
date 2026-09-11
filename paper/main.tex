@@ -98,6 +98,9 @@ Our contributions are:
         section directly, which does not beat the system at Top-1 and falls
         behind it at Top-3, though not significantly once every comparison
         is corrected together.
+  \item Stronger references. A character n-gram ranker over the same
+        descriptions matches the system and gains as much from the rewrite,
+        and a classifier trained on most of the labels does no better.
   \item A preregistered, label-free intervention on the class vectors: moving
         each one toward its nearest unlabelled documents raises accuracy in the
         order the alignment change predicts, including on the corpus where
@@ -171,11 +174,13 @@ the quality of the keywords they help extract, which is what
 \citet{meisenbacher-etal-2024-improved} measure.
 
 \paragraph{Method of reporting.}
-The prospective test in Section~\ref{sec:corpora} follows the preregistration
-practice argued for by \citet{van-miltenburg-etal-2021-preregistering}, whose
-costs and limits are discussed by \citet{sogaard-etal-2023-two}; we adopt the
-lightweight form appropriate to a single study, stating the prediction and the
-quantity it rests on before the outcome is computed. Comparisons between systems
+The prospective tests in Sections~\ref{sec:corpora} and~\ref{sec:rocchio} follow
+the preregistration practice argued for by
+\citet{van-miltenburg-etal-2021-preregistering}, whose costs and limits are
+discussed by \citet{sogaard-etal-2023-two}. We adopt a lightweight form: the
+prediction and the quantity it rests on are stated before the outcome is
+computed, and for the label-free studies committed to version control with a
+fingerprint of the method that the evaluation checks before it runs. Comparisons between systems
 use paired tests rather than differences of point estimates, as urged by
 \citet{dror-etal-2018-hitchhikers}, and label quality is reported as chance-corrected
 agreement following \citet{artstein-poesio-2008-survey}. Every comparison
@@ -237,7 +242,8 @@ German and judged each document from an OPUS-MT English translation
 \citep{tiedemann-thottingal-2020-opus}: in a blind pilot the author agreed with
 the labeller on \PilotAgree\ of \PilotN\ documents ($\kappa = \PilotKappa$); after the
 disagreements were adjudicated into three explicit rules, agreement on a fresh
-\VerifyN-document sample was \VerifyAgree\ ($\kappa = \VerifyKappa$), rising to \VerifyHighAgree\ on the documents
+\VerifyN-document sample was \VerifyAgree\ ($\kappa = \VerifyKappa$), rising to
+\VerifyHighAgree\ on the documents
 the labeller had flagged as high-confidence. Verified answers were promoted over
 the machine labels in the released set. We report this in full because it
 bounds every number that follows.
@@ -372,10 +378,11 @@ orders classes within a corpus more reliably than it compares corpora.
 \subsection{It cannot be optimised per class}
 
 If $\Delta a$ were locally causal, choosing each class's description by it should
-beat a fixed policy. It does not. Three criteria of increasing strength ---
+beat a fixed policy. It does not. Three criteria of increasing strength---
 marginal alignment, a contrastive margin against the other classes, and greedy
-search directly on development accuracy---all fail to generalise. None beats the fixed policy, and the contrastive one
-falls furthest behind it ($\ContrastiveNewsDelta$~points on 20 Newsgroups,
+search directly on development accuracy---all fail to generalise. None beats
+the fixed policy, and the contrastive one falls furthest behind it
+($\ContrastiveNewsDelta$~points on 20 Newsgroups,
 $p = \ContrastiveNewsP$, \HolmContrastiveStat).
 
 Two causes, both measured. First, the styles do not share a similarity scale: in
@@ -412,7 +419,32 @@ raises accuracy, by \TranslateGain~points, and it does not reach significance
 Table~\ref{tab:baselines} places the system against lexical and embedding
 baselines. Top-3 accuracy of \OursTopThree\ is the operating point we would
 argue for: the task admits genuine ambiguity, and a tool that proposes three
-codes to a human coder is the realistic deployment.
+codes to a human coder is the realistic deployment. The lexical baseline there
+matches whole words; Section~\ref{sec:references} gives it a fairer form.
+
+\subsection{Stronger references}
+\label{sec:references}
+
+\input{tables/references}
+
+Two questions are asked of any zero-shot result: was the lexical baseline given
+a fair chance, and what would labels buy? Neither analysis was preregistered,
+and both enter the corrected family. German builds words by compounding, so a
+TF-IDF ranker that matches whole words never finds \emph{Boden} inside
+\emph{Bodenbelagsarbeiten}. Over the same sector texts, German Snowball stems
+reach \RefSnowTopOne\ Top-1 and character 3--5-grams within word boundaries
+\RefCharTopOne\ (\RefCharPStat\ against the system; Table~\ref{tab:references}):
+a lexical ranker that sees inside compounds matches the embedding system. It
+still needs the descriptions. The rewrite is worth \RefCharDescGain~points to it
+(\RefCharDescPStat), against \RefEmbedDescGain\ to the embeddings. The lever is
+the text of the class, not the model that reads it.
+
+Labels buy little here. Trained out of fold on the evaluation labels
+themselves, about \RefTrainLabels\ per fold, logistic regression on the same
+embeddings reaches \RefLRTopOne\ (\RefLRPStat) and Naive Bayes on TF-IDF
+\RefNBTopOne. With some sections represented by a handful of documents this is
+a small-data reference, not a ceiling; but a supervised model given most of the
+labels does no better than one written definition per class.
 
 \subsection{An instruction-tuned model asked directly}
 \label{sec:llm}
@@ -444,8 +476,9 @@ documents alone the system scores \VerifiedTopOne\ (\CILevel\ interval
 holds in direction: reverting to the previous, terse descriptions scores
 \VerifiedOldTaxTopOne\ on the same documents ($p = \VerifiedOldTaxP$, exact
 McNemar), though on so few documents it is not significant once corrected
-together with everything else (\HolmVerifiedStat). Comparisons with smaller effects, such as removing the description
-from the class vector (\VerifiedNoDescTopOne, $p = \VerifiedNoDescP$), point the
+together with everything else (\HolmVerifiedStat). Comparisons with smaller
+effects, such as removing the description from the class vector
+(\VerifiedNoDescTopOne, $p = \VerifiedNoDescP$), point the
 same way but are not significant at this size.
 
 % ─────────────────────────────────────────────────────────────────────────────
@@ -482,7 +515,10 @@ words, the same work is worth nothing. The alignment change predicts both, and
 predicted a third corpus before it was measured. It cannot, however, be turned
 into a per-class selection rule, and we report the three ways that failed.
 Nor does asking an instruction-tuned model directly do better: it matches the
-system at Top-1 and falls behind it at Top-3. Moving the vectors toward
+system at Top-1 and falls behind it at Top-3. A character n-gram ranker over the
+same descriptions matches the system as well, and gains as much from the
+rewrite: the lever is the text of the class, not the model that reads it.
+Moving the vectors toward
 unlabelled documents, with no words at all, raised accuracy in the order the
 account predicted before it was measured. Repeated from the written
 definitions, it confirmed the class-level prediction again but not the
@@ -499,7 +535,7 @@ labels. The author does not read German and judged each document from a machine
 translation, so translation errors enter the check itself. Any figure in this
 paper should be read against that agreement. Section~\ref{sec:verified} repeats
 the main comparisons on the human-verified documents alone; the central one
-holds.
+holds in direction, but at that size not once corrected for every other test.
 
 Agreement was measured between a human and the labeller, not between two humans.
 The inter-annotator figure reviewers usually ask for would require a second
@@ -516,7 +552,8 @@ classes, it does not determine them.
 The class vectors, the documents and the alignment measure all come from one
 encoder family. The description effect replicates across two encoders of
 different size, but both are multilingual sentence-transformers trained by the
-same distillation procedure.
+same distillation procedure. The description effect does appear, at the same
+size, in a character n-gram space (Section~\ref{sec:references}).
 
 The instruction-tuned baseline is a single open model of roughly 7B
 parameters. Larger or proprietary models may do better; the released code
@@ -526,8 +563,8 @@ graded on its own answers.
 
 The label-free update in Section~\ref{sec:rocchio} uses one untuned setting of
 its two parameters. On NACE it gains nothing significant from the terse labels
-and loses accuracy from the written definitions, where its prediction failed. The update needs no
-labels; measuring alignment, and so testing the account, still does.
+and loses accuracy from the written definitions, where its prediction failed.
+The update needs no labels; measuring alignment, and so testing the account, still does.
 
 Finally, the per-class descriptions used in the elaborated conditions were
 drafted by the AI assistant that also produced the labels, and it had seen the

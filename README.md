@@ -176,6 +176,18 @@ p < 0.001) and the per-class correlation (ρ = +0.450). On NACE accuracy fell
 predicted ordering failed. The account orders classes within a corpus; it is
 weaker at comparing corpora.
 
+**Stronger references.** The TF-IDF baseline above matches whole words, which
+German compounding defeats. Over the same sector texts, a character 3–5-gram
+TF-IDF reaches 54.2% Top-1 and 81.6% Top-3, level with the embedding system
+(p = 0.70), and falls to 36.8% with the previous descriptions: the rewrite is
+worth +17.4 points to it, against +17.7 to the embeddings. The lever is the text
+of the class, not the model that reads it. Logistic regression on the same
+embeddings, trained out of fold on the evaluation labels themselves (5-fold,
+about 239 labels per fold), reaches 52.2%: a supervised model given most of the
+labels does no better than one written definition per class. Neither analysis
+was preregistered ([`results/references.json`](results/references.json),
+`make references`).
+
 ### Ablation
 
 | Variant | Top-1 | Δ Top-1 | F1-macro | p vs. full |

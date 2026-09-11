@@ -92,6 +92,12 @@ def family() -> List[Dict]:
     add("Verified labels", "full system vs. previous taxonomy",
         robustness["labels"]["systems"]["taxonomy-v1"]["vs_full_on_verified"], robustness["labels"]["n_verified"])
 
+    references = load("references")
+    if references:
+        for s in references["systems"]:
+            add("Reference", f"full system vs. {s['label']}", s["mcnemar_vs_full"], s["n"])
+        add("Reference", "character TF-IDF: current vs. previous descriptions",
+            references["description_effect_char"]["mcnemar"], references["n"])
     for name, label in ROCCHIO_STUDIES:
         result = load(name)
         if not result:

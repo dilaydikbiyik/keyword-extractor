@@ -871,3 +871,45 @@ class TestEffectSizes:
         assert adjusted["c"] == 0.08
         assert adjusted["d"] == 0.5
         assert holm({"x": 0.9, "y": 0.8})["x"] == 1.0
+
+
+class TestReferences:
+    """The stronger lexical baselines and the supervised references."""
+
+    def test_sector_documents_match_the_tfidf_baseline(self):
+        from experiments.run_references import sector_documents
+        from experiments.systems import TfidfRanker
+
+        ranker = TfidfRanker()
+        assert sector_documents(ranker.taxonomy, ranker.codes) == [ranker._sector_document(c) for c in ranker.codes]
+
+    def test_the_frozen_space_matches_scikit_learn(self):
+        import numpy as np
+        from sklearn.feature_extraction.text import TfidfVectorizer
+
+        from experiments.run_references import FrozenSpace, char_analyzer
+
+        corpus = ["Bodenbelagsarbeiten und Fliesen", "Gebäudereinigung", "Handel mit Waren aller Art",
+                  "Großhandel mit Baustoffen", "Reinigung von Gebäuden und Böden"]
+        vectorizer = TfidfVectorizer(analyzer=char_analyzer(), sublinear_tf=True).fit(corpus)
+        space = FrozenSpace(dict(vectorizer.vocabulary_), vectorizer.idf_, char_analyzer())
+        text = "Bodenreinigung im Großhandel"
+        assert np.allclose(space.transform(text), vectorizer.transform([text]).toarray()[0])
+
+    def test_stems_reach_inside_inflection(self):
+        from experiments.run_references import snowball_analyzer
+
+        terms = snowball_analyzer()("Großhandel mit Baustoffen")
+        assert "grosshandel" in terms and "baustoff" in terms
+
+    def test_every_document_gets_an_out_of_fold_prediction(self):
+        import numpy as np
+        from sklearn.linear_model import LogisticRegression
+
+        from experiments.run_references import out_of_fold
+
+        gold = ["A"] * 6 + ["B"] * 6 + ["C"] * 3
+        x = np.eye(3)[[0] * 6 + [1] * 6 + [2] * 3] + 0.01 * np.arange(15)[:, None]
+        ranked = out_of_fold(lambda train, test: (x[train], x[test]), lambda: LogisticRegression(), gold)
+        assert all(ranked) and sum(r[0] == g for r, g in zip(ranked, gold)) >= 12
+

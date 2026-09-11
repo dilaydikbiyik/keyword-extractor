@@ -1,0 +1,119 @@
+{
+  "n": 299,
+  "folds": 5,
+  "seed": 42,
+  "full_top1_accuracy": 0.5250836120401338,
+  "full_top3_accuracy": 0.8160535117056856,
+  "systems": [
+    {
+      "key": "tfidf-snowball",
+      "label": "TF-IDF, German Snowball stems",
+      "kind": "zero-shot",
+      "n": 299,
+      "top1_accuracy": 0.5050167224080268,
+      "top1_ci95": [
+        0.44816053511705684,
+        0.5618729096989966
+      ],
+      "top3_accuracy": 0.7157190635451505,
+      "f1_macro": 0.37162640850261325,
+      "cohen_kappa": 0.45468212793749774,
+      "mcnemar_vs_full": {
+        "a_only_correct": 61,
+        "b_only_correct": 55,
+        "discordant": 116,
+        "p_value": 0.6426674253796116
+      }
+    },
+    {
+      "key": "tfidf-char",
+      "label": "TF-IDF, character 3-5-grams",
+      "kind": "zero-shot",
+      "n": 299,
+      "top1_accuracy": 0.5418060200668896,
+      "top1_ci95": [
+        0.48494983277591974,
+        0.5986622073578596
+      ],
+      "top3_accuracy": 0.8160535117056856,
+      "f1_macro": 0.4303738969362825,
+      "cohen_kappa": 0.4915975773221466,
+      "mcnemar_vs_full": {
+        "a_only_correct": 50,
+        "b_only_correct": 55,
+        "discordant": 105,
+        "p_value": 0.6964676629916763
+      }
+    },
+    {
+      "key": "tfidf-char-v1",
+      "label": "TF-IDF, character 3-5-grams, previous descriptions",
+      "kind": "zero-shot",
+      "n": 299,
+      "top1_accuracy": 0.36789297658862874,
+      "top1_ci95": [
+        0.31438127090301005,
+        0.4214046822742475
+      ],
+      "top3_accuracy": 0.6287625418060201,
+      "f1_macro": 0.31512486625113106,
+      "cohen_kappa": 0.3167986459529709,
+      "mcnemar_vs_full": {
+        "a_only_correct": 86,
+        "b_only_correct": 39,
+        "discordant": 125,
+        "p_value": 3.177610391278757e-05
+      }
+    },
+    {
+      "key": "supervised-nb",
+      "label": "TF-IDF + Naive Bayes, 5-fold",
+      "kind": "supervised",
+      "n": 299,
+      "top1_accuracy": 0.2842809364548495,
+      "top1_ci95": [
+        0.23411371237458195,
+        0.3377926421404682
+      ],
+      "top3_accuracy": 0.5418060200668896,
+      "f1_macro": 0.05422680989146246,
+      "cohen_kappa": 0.09588537839823663,
+      "mcnemar_vs_full": {
+        "a_only_correct": 104,
+        "b_only_correct": 32,
+        "discordant": 136,
+        "p_value": 4.4262639384791036e-10
+      }
+    },
+    {
+      "key": "supervised-lr",
+      "label": "Embeddings + logistic regression, 5-fold",
+      "kind": "supervised",
+      "n": 299,
+      "top1_accuracy": 0.5217391304347826,
+      "top1_ci95": [
+        0.46488294314381273,
+        0.5785953177257525
+      ],
+      "top3_accuracy": 0.8193979933110368,
+      "f1_macro": 0.24717596558299323,
+      "cohen_kappa": 0.43724499197136013,
+      "mcnemar_vs_full": {
+        "a_only_correct": 52,
+        "b_only_correct": 51,
+        "discordant": 103,
+        "p_value": 1.0
+      }
+    }
+  ],
+  "description_effect_char": {
+    "gain_pp": 17.391304347826086,
+    "mcnemar": {
+      "a_only_correct": 74,
+      "b_only_correct": 22,
+      "discordant": 96,
+      "p_value": 9.43985778811796e-08
+    }
+  },
+  "note": "Exploratory, not preregistered. Supervised rows are trained out of fold on the evaluation labels and are a reference, not a competing zero-shot method."
+}

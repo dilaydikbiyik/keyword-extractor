@@ -596,6 +596,59 @@ def effects_table(effects: Dict) -> str:
     ])
 
 
+REFERENCE_ROWS = {
+    "tfidf-snowball": ("Snow", r"TF-IDF, Snowball stems"),
+    "tfidf-char": ("Char", r"TF-IDF, char.\ 3--5-grams"),
+    "tfidf-char-v1": ("CharOld", r"\quad with previous descriptions"),
+    "supervised-nb": ("NB", r"TF-IDF + Naive Bayes"),
+    "supervised-lr": ("LR", r"Embeddings + logistic regression"),
+}
+
+
+def references_table(refs: Dict) -> str:
+    """Stronger lexical baselines and supervised references, on the same documents."""
+    rows = [r"This system (embeddings) & %s & %s & -- \\" % (pct(refs["full_top1_accuracy"]),
+                                                             pct(refs["full_top3_accuracy"]))]
+    kind = None
+    for s in refs["systems"]:
+        if s["kind"] != kind:
+            kind = s["kind"]
+            head = "Zero-shot, lexical" if kind == "zero-shot" else f"Supervised, {refs['folds']}-fold, out of fold"
+            rows += [r"\midrule", r"\multicolumn{4}{@{}l}{\emph{%s}} \\" % head]
+        rows.append(" & ".join([REFERENCE_ROWS[s["key"]][1], pct(s["top1_accuracy"]), pct(s["top3_accuracy"]),
+                                p_cell(s["mcnemar_vs_full"]["p_value"])]) + r" \\")
+    return "\n".join([
+        PREAMBLE, r"\begin{table}[t]", r"\centering", r"\footnotesize", r"\setlength{\tabcolsep}{4pt}",
+        r"\begin{tabular}{@{}lrrr@{}}", r"\toprule", r"System & Top-1 & Top-3 & $p$ \\", r"\midrule",
+        *rows, r"\bottomrule", r"\end{tabular}",
+        r"\caption{Stronger references on the same \NEVAL\ documents. Lexical rows rank the sector "
+        r"texts the TF-IDF baseline uses; supervised rows are trained on the evaluation labels "
+        r"themselves and scored out of fold, so they see labels the zero-shot system never does. "
+        r"$p$ is an exact McNemar test against this system, uncorrected.}",
+        r"\label{tab:references}", r"\end{table}", "",
+    ])
+
+
+def references_macros(refs: Dict, ablation: Dict) -> List[str]:
+    effect = refs["description_effect_char"]
+    top1 = {s["key"]: s["sector"]["top1_accuracy"] for s in ablation["systems"]}
+    lines = [
+        r"\newcommand{\RefEmbedDescGain}{%+.1f}" % (100 * (top1["full"] - top1["taxonomy-v1"])),
+        r"\newcommand{\RefFolds}{%d}" % refs["folds"],
+        r"\newcommand{\RefTrainLabels}{%d}" % round(refs["n"] * (refs["folds"] - 1) / refs["folds"]),
+        r"\newcommand{\RefCharDescGain}{%+.1f}" % effect["gain_pp"],
+        r"\newcommand{\RefCharDescPStat}{%s}" % p_stat(effect["mcnemar"]["p_value"]),
+    ]
+    for s in refs["systems"]:
+        stem = REFERENCE_ROWS[s["key"]][0]
+        lines += [
+            r"\newcommand{\Ref%sTopOne}{%s\%%}" % (stem, pct(s["top1_accuracy"])),
+            r"\newcommand{\Ref%sTopThree}{%s\%%}" % (stem, pct(s["top3_accuracy"])),
+            r"\newcommand{\Ref%sPStat}{%s}" % (stem, p_stat(s["mcnemar_vs_full"]["p_value"])),
+        ]
+    return lines
+
+
 def holm_stat(value: float) -> str:
     return r"$p_{\mathrm{Holm}} < 0.001$" if value < 0.001 else f"$p_{{\\mathrm{{Holm}}}} = {value:.3f}$"
 
@@ -711,6 +764,9 @@ def main() -> int:
         derived.append(r"\newcommand{\RocchioK}{%d}" % studies[0][2]["k"])
     for _, registered, result, prefix in studies:
         derived += rocchio_macros(registered, result, prefix)
+    refs = load_optional("references")
+    if refs:
+        derived += references_macros(refs, ablation)
     llm = load_optional("llm_baseline")
     if llm and llm.get("complete"):
         derived += llm_macros(llm)
@@ -726,6 +782,7 @@ def main() -> int:
         "alignment_figure.tex": alignment_figure(search),
         **({"rocchio.tex": rocchio_table([s[:3] for s in studies])} if studies else {}),
         **({"effects.tex": effects_table(effects)} if effects else {}),
+        **({"references.tex": references_table(refs)} if refs else {}),
         "predictors.tex": predictors_table(search),
         "macros.tex": macros(baselines, error_report, study, search, reuters, news, derived),
     }

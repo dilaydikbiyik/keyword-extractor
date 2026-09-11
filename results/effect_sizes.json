@@ -1,8 +1,8 @@
 {
   "alpha": 0.05,
-  "n_tests": 35,
-  "nominally_significant": 19,
-  "significant_after_holm": 14,
+  "n_tests": 41,
+  "nominally_significant": 22,
+  "significant_after_holm": 17,
   "lost_to_correction": [
     "full system vs. TF-IDF \u2192 nearest NACE section",
     "full system vs. LLM, Top-3",
@@ -24,7 +24,7 @@
         20.735785953177256,
         32.78428093645473
       ],
-      "p_holm": 1.4446521550344166e-13
+      "p_holm": 1.7073161832224925e-13
     },
     {
       "group": "Descriptions",
@@ -69,7 +69,7 @@
         8.0,
         12.1
       ],
-      "p_holm": 2.584775895905799e-20
+      "p_holm": 3.040912818712705e-20
     },
     {
       "group": "Descriptions",
@@ -84,7 +84,7 @@
         2.18978102189781,
         7.507820646506778
       ],
-      "p_holm": 0.012997685322980616
+      "p_holm": 0.01455740756173829
     },
     {
       "group": "Descriptions",
@@ -99,7 +99,7 @@
         14.911366006256518,
         22.10636079249218
       ],
-      "p_holm": 3.710097980196518e-21
+      "p_holm": 4.3461147768016355e-21
     },
     {
       "group": "System",
@@ -114,7 +114,7 @@
         1.0033444816053512,
         15.050167224080267
       ],
-      "p_holm": 0.6269169806455187
+      "p_holm": 0.737549388994728
     },
     {
       "group": "System",
@@ -159,7 +159,7 @@
         3.3444816053511706,
         13.377926421404682
       ],
-      "p_holm": 0.04109822268145552
+      "p_holm": 0.046702525774381276
     },
     {
       "group": "Ablation",
@@ -204,7 +204,7 @@
         12.040133779264215,
         23.745819397993312
       ],
-      "p_holm": 8.760434630914367e-07
+      "p_holm": 1.0220507069400095e-06
     },
     {
       "group": "Ablation",
@@ -219,7 +219,7 @@
         5.016722408026756,
         16.387959866220736
       ],
-      "p_holm": 0.012997685322980616
+      "p_holm": 0.01455740756173829
     },
     {
       "group": "Ablation",
@@ -234,7 +234,7 @@
         5.016722408026756,
         15.719063545150501
       ],
-      "p_holm": 0.010026183130334538
+      "p_holm": 0.011140203478149487
     },
     {
       "group": "Ablation",
@@ -279,7 +279,7 @@
         3.3444816053511706,
         16.05351170568562
       ],
-      "p_holm": 0.07282457531263563
+      "p_holm": 0.0843231924672623
     },
     {
       "group": "LLM",
@@ -309,7 +309,97 @@
         12.0,
         44.0
       ],
-      "p_holm": 0.05411338806152344
+      "p_holm": 0.0618438720703125
+    },
+    {
+      "group": "Reference",
+      "label": "full system vs. TF-IDF, German Snowball stems",
+      "n": 299,
+      "sign": 1,
+      "a_only": 61,
+      "b_only": 55,
+      "p": 0.6426674253796116,
+      "gain_pp": 2.0066889632107023,
+      "ci95": [
+        -5.016722408026756,
+        9.03010033444816
+      ],
+      "p_holm": 1.0
+    },
+    {
+      "group": "Reference",
+      "label": "full system vs. TF-IDF, character 3-5-grams",
+      "n": 299,
+      "sign": 1,
+      "a_only": 50,
+      "b_only": 55,
+      "p": 0.6964676629916763,
+      "gain_pp": -1.6722408026755853,
+      "ci95": [
+        -8.02675585284281,
+        5.016722408026756
+      ],
+      "p_holm": 1.0
+    },
+    {
+      "group": "Reference",
+      "label": "full system vs. TF-IDF, character 3-5-grams, previous descriptions",
+      "n": 299,
+      "sign": 1,
+      "a_only": 86,
+      "b_only": 39,
+      "p": 3.177610391278757e-05,
+      "gain_pp": 15.719063545150501,
+      "ci95": [
+        8.695652173913043,
+        22.74247491638796
+      ],
+      "p_holm": 0.0010168353252092022
+    },
+    {
+      "group": "Reference",
+      "label": "full system vs. TF-IDF + Naive Bayes, 5-fold",
+      "n": 299,
+      "sign": 1,
+      "a_only": 104,
+      "b_only": 32,
+      "p": 4.4262639384791036e-10,
+      "gain_pp": 24.08026755852843,
+      "ci95": [
+        17.05685618729097,
+        31.103678929765888
+      ],
+      "p_holm": 1.5934550178524772e-08
+    },
+    {
+      "group": "Reference",
+      "label": "full system vs. Embeddings + logistic regression, 5-fold",
+      "n": 299,
+      "sign": 1,
+      "a_only": 52,
+      "b_only": 51,
+      "p": 1.0,
+      "gain_pp": 0.33444816053511706,
+      "ci95": [
+        -6.0200668896321075,
+        7.023411371237458
+      ],
+      "p_holm": 1.0
+    },
+    {
+      "group": "Reference",
+      "label": "character TF-IDF: current vs. previous descriptions",
+      "n": 299,
+      "sign": 1,
+      "a_only": 74,
+      "b_only": 22,
+      "p": 9.43985778811796e-08,
+      "gain_pp": 17.391304347826086,
+      "ci95": [
+        11.37123745819398,
+        23.411371237458194
+      ],
+      "p_holm": 3.209551647960106e-06
     },
     {
       "group": "Label-free update",
@@ -339,7 +429,7 @@
         1.45,
         3.65
       ],
-      "p_holm": 0.00020223627432996522
+      "p_holm": 0.0002301309328582363
     },
     {
       "group": "Label-free update",
@@ -354,7 +444,7 @@
         5.005213764337852,
         8.86339937434828
       ],
-      "p_holm": 6.784396953498669e-11
+      "p_holm": 8.05647138227967e-11
     },
     {
       "group": "Label-free update",
@@ -384,7 +474,7 @@
         1.05,
         3.45
       ],
-      "p_holm": 0.011631035453796302
+      "p_holm": 0.012973078006157414
     },
     {
       "group": "Label-free update",
@@ -399,7 +489,7 @@
         4.483837330552659,
         8.342022940563087
       ],
-      "p_holm": 2.9852308567545856e-09
+      "p_holm": 3.563017474190957e-09
     },
     {
       "group": "Selection rule",
@@ -434,7 +524,7 @@
       "label": "20NG: contrastive margin vs. best fixed policy",
       "gain_pp": -3.6250000000000004,
       "p": 0.005077381119448144,
-      "p_holm": 0.09139286015006659
+      "p_holm": 0.10662500350841102
     },
     {
       "group": "Selection rule",
@@ -447,19 +537,19 @@
       "group": "Correlation",
       "label": "alignment change vs. headroom captured",
       "p": 0.0026956919937634414,
-      "p_holm": 0.05411338806152344
+      "p_holm": 0.062000915856559154
     },
     {
       "group": "Correlation",
       "label": "label-free update (terse), per class",
       "p": 0.0001577372132819086,
-      "p_holm": 0.0044166419718934405
+      "p_holm": 0.004889853611739167
     },
     {
       "group": "Correlation",
       "label": "label-free update (definitions), per class",
       "p": 0.0011800465066095585,
-      "p_holm": 0.027141069652019845
+      "p_holm": 0.03068120917184852
     }
   ]
 }

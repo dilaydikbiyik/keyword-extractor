@@ -13,37 +13,45 @@ NACE: definitions vs. terse German & 299 & $+26.8$ [$+20.7$, $+32.8$] & $<0.001$
 NACE: terse German vs. terse original & 299 & $-2.3$ [$-5.0$, $+0.3$] & 0.143 & 1.000 \\
 20NG: definitions vs. readable names & 2000 & $+0.3$ [$-1.4$, $+2.0$] & 0.734 & 1.000 \\
 20NG: readable names vs. identifiers & 2000 & $+10.1$ [$+8.0$, $+12.1$] & $<0.001$ & $<0.001$ \\
-Reuters: definitions vs. readable names & 959 & $+4.8$ [$+2.2$, $+7.5$] & $<0.001$ & 0.013 \\
+Reuters: definitions vs. readable names & 959 & $+4.8$ [$+2.2$, $+7.5$] & $<0.001$ & 0.015 \\
 Reuters: readable names vs. codes & 959 & $+18.6$ [$+14.9$, $+22.1$] & $<0.001$ & $<0.001$ \\
 \midrule
 \multicolumn{5}{@{}l}{\emph{System}} \\
-full system vs. TF-IDF $\rightarrow$ nearest NACE section & 299 & $+8.0$ [$+1.0$, $+15.1$] & 0.037 & 0.627 \\
+full system vs. TF-IDF $\rightarrow$ nearest NACE section & 299 & $+8.0$ [$+1.0$, $+15.1$] & 0.037 & 0.738 \\
 full system vs. Zero-shot embeddings (no taxonomy guidance) & 299 & $-0.3$ [$-5.7$, $+5.4$] & 1.000 & 1.000 \\
 \midrule
 \multicolumn{5}{@{}l}{\emph{Ablation}} \\
 full system vs. $-$ seeds in sector vector & 299 & $-0.3$ [$-5.7$, $+5.4$] & 1.000 & 1.000 \\
-full system vs. $-$ description in sector vector & 299 & $+8.4$ [$+3.3$, $+13.4$] & 0.002 & 0.041 \\
+full system vs. $-$ description in sector vector & 299 & $+8.4$ [$+3.3$, $+13.4$] & 0.002 & 0.047 \\
 full system vs. $-$ seed-guided extraction & 299 & $+0.0$ [$+0.0$, $+0.0$] & 1.000 & 1.000 \\
 full system vs. $-$ six-stage keyword filter & 299 & $+0.0$ [$+0.0$, $+0.0$] & 1.000 & 1.000 \\
 full system vs. $\hookleftarrow$ previous taxonomy (Turkish descriptions) & 299 & $+17.7$ [$+12.0$, $+23.7$] & $<0.001$ & $<0.001$ \\
-full system vs. + cleaned text into the classifier & 299 & $+10.7$ [$+5.0$, $+16.4$] & $<0.001$ & 0.013 \\
-full system vs. $\leftrightarrow$ mpnet-base-v2 encoder (768-dim) & 299 & $+10.4$ [$+5.0$, $+15.7$] & $<0.001$ & 0.010 \\
+full system vs. + cleaned text into the classifier & 299 & $+10.7$ [$+5.0$, $+16.4$] & $<0.001$ & 0.015 \\
+full system vs. $\leftrightarrow$ mpnet-base-v2 encoder (768-dim) & 299 & $+10.4$ [$+5.0$, $+15.7$] & $<0.001$ & 0.011 \\
 full system vs. $\leftrightarrow$ German translated to English first & 299 & $-3.7$ [$-8.7$, $+1.3$] & 0.200 & 1.000 \\
 \midrule
 \multicolumn{5}{@{}l}{\emph{LLM}} \\
 full system vs. LLM, Top-1 & 299 & $+3.7$ [$-4.3$, $+11.7$] & 0.416 & 1.000 \\
-full system vs. LLM, Top-3 & 299 & $+9.7$ [$+3.3$, $+16.1$] & 0.004 & 0.073 \\
+full system vs. LLM, Top-3 & 299 & $+9.7$ [$+3.3$, $+16.1$] & 0.004 & 0.084 \\
 full system vs. LLM, verified labels & 50 & $+18.0$ [$-4.0$, $+38.0$] & 0.150 & 1.000 \\
 \midrule
 \multicolumn{5}{@{}l}{\emph{Verified labels}} \\
-full system vs. previous taxonomy & 50 & $+28.0$ [$+12.0$, $+44.0$] & 0.003 & 0.054 \\
+full system vs. previous taxonomy & 50 & $+28.0$ [$+12.0$, $+44.0$] & 0.003 & 0.062 \\
+\midrule
+\multicolumn{5}{@{}l}{\emph{Reference}} \\
+full system vs. TF-IDF, German Snowball stems & 299 & $+2.0$ [$-5.0$, $+9.0$] & 0.643 & 1.000 \\
+full system vs. TF-IDF, character 3-5-grams & 299 & $-1.7$ [$-8.0$, $+5.0$] & 0.696 & 1.000 \\
+full system vs. TF-IDF, character 3-5-grams, previous descriptions & 299 & $+15.7$ [$+8.7$, $+22.7$] & $<0.001$ & 0.001 \\
+full system vs. TF-IDF + Naive Bayes, 5-fold & 299 & $+24.1$ [$+17.1$, $+31.1$] & $<0.001$ & $<0.001$ \\
+full system vs. Embeddings + logistic regression, 5-fold & 299 & $+0.3$ [$-6.0$, $+7.0$] & 1.000 & 1.000 \\
+character TF-IDF: current vs. previous descriptions & 299 & $+17.4$ [$+11.4$, $+23.4$] & $<0.001$ & $<0.001$ \\
 \midrule
 \multicolumn{5}{@{}l}{\emph{Label-free update}} \\
 NACE: terse + update vs. terse & 299 & $+2.3$ [$-1.3$, $+6.0$] & 0.296 & 1.000 \\
 20NG: terse + update vs. terse & 2000 & $+2.5$ [$+1.4$, $+3.6$] & $<0.001$ & $<0.001$ \\
 Reuters: terse + update vs. terse & 959 & $+6.9$ [$+5.0$, $+8.9$] & $<0.001$ & $<0.001$ \\
 NACE: definitions + update vs. definitions & 299 & $-3.7$ [$-8.4$, $+1.0$] & 0.161 & 1.000 \\
-20NG: definitions + update vs. definitions & 2000 & $+2.2$ [$+1.1$, $+3.5$] & $<0.001$ & 0.012 \\
+20NG: definitions + update vs. definitions & 2000 & $+2.2$ [$+1.1$, $+3.5$] & $<0.001$ & 0.013 \\
 Reuters: definitions + update vs. definitions & 959 & $+6.4$ [$+4.5$, $+8.3$] & $<0.001$ & $<0.001$ \\
 \midrule
 \multicolumn{5}{@{}l}{\emph{Selection rule}} \\
@@ -51,13 +59,13 @@ NACE: marginal alignment vs. best fixed policy & -- & $+0.0$ & 1.000 & 1.000 \\
 NACE: contrastive margin vs. best fixed policy & -- & $-0.7$ & 1.000 & 1.000 \\
 NACE: greedy search on development accuracy vs. best fixed policy & -- & $+2.1$ & 0.250 & 1.000 \\
 20NG: marginal alignment vs. best fixed policy & -- & $-2.5$ & 0.077 & 1.000 \\
-20NG: contrastive margin vs. best fixed policy & -- & $-3.6$ & 0.005 & 0.091 \\
+20NG: contrastive margin vs. best fixed policy & -- & $-3.6$ & 0.005 & 0.107 \\
 20NG: greedy search on development accuracy vs. best fixed policy & -- & $-1.5$ & 0.169 & 1.000 \\
 \midrule
 \multicolumn{5}{@{}l}{\emph{Correlation}} \\
-alignment change vs. headroom captured & -- & -- & 0.003 & 0.054 \\
-label-free update (terse), per class & -- & -- & $<0.001$ & 0.004 \\
-label-free update (definitions), per class & -- & -- & 0.001 & 0.027 \\
+alignment change vs. headroom captured & -- & -- & 0.003 & 0.062 \\
+label-free update (terse), per class & -- & -- & $<0.001$ & 0.005 \\
+label-free update (definitions), per class & -- & -- & 0.001 & 0.031 \\
 \bottomrule
 \end{tabular}
 \caption{Every comparison the paper reports as a finding. Differences are in Top-1 percentage points (Top-3 where stated), oriented as named; intervals are percentile bootstrap over documents, drawn from the discordant counts (the selection-rule results keep no counts, so they have none); $p$ is the exact McNemar test (Spearman for the correlations), and Holm $p$ corrects over all \EffectTests\ tests.}

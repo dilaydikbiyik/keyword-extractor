@@ -49,7 +49,10 @@ Yes.
   fixed settings (thresholds, top-k) are in the released configuration but not
   in the paper.
 - **C3. Descriptive statistics?** Yes — bootstrap confidence intervals and exact
-  McNemar tests throughout, with the test named in each table caption.
+  McNemar tests throughout, with the test named in each table caption. Every
+  comparison reported as a finding is corrected together with the Holm
+  procedure and listed with its interval in the appendix; the text qualifies
+  each claim that does not survive the correction.
 - **C4. Packages used?** Yes. sentence-transformers is covered by its papers;
   scikit-learn and SciPy are cited in the *Method* section, where the statistics
   are named.
