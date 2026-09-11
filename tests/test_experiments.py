@@ -912,3 +912,55 @@ class TestReferences:
         x = np.eye(3)[[0] * 6 + [1] * 6 + [2] * 3] + 0.01 * np.arange(15)[:, None]
         ranked = out_of_fold(lambda train, test: (x[train], x[test]), lambda: LogisticRegression(), gold)
         assert all(ranked) and sum(r[0] == g for r, g in zip(ranked, gold)) >= 12
+
+
+class TestAuthorErrorCoding:
+    """The author's blind second coding of the error sample."""
+
+    def _point_at(self, tmp_path, monkeypatch):
+        from experiments import code_errors
+
+        errors = tmp_path / "errors.csv"
+        with open(errors, "w", newline="", encoding="utf-8") as fh:
+            fh.write("id,purpose,true_sector,predicted_sector,top3,manual_category,manual_note,auto_flags\n")
+            fh.write("1,Handel mit Waren,G,C,C|G|F,seed_leakage,,low_margin\n")
+            fh.write("2,Reinigung,N,F,F|N|L,ambiguous_sector_definition,,\n")
+            fh.write("3,Beratung,M,K,K|M|N,,,\n")
+        for name, path in (("ERRORS", errors), ("SHEET", tmp_path / "sheet.csv"),
+                           ("GUIDE", tmp_path / "guide.md"), ("REPORT", tmp_path / "report.json")):
+            monkeypatch.setattr(code_errors, name, path)
+        return code_errors
+
+    def test_the_sheet_is_blind_and_holds_only_coded_errors(self, tmp_path, monkeypatch):
+        code_errors = self._point_at(tmp_path, monkeypatch)
+        assert code_errors.build(translate=lambda text: f"EN: {text}") == 0
+        sheet = code_errors.SHEET.read_text(encoding="utf-8-sig")
+        assert "seed_leakage" not in sheet and "low_margin" not in sheet and "Beratung" not in sheet
+        assert "EN: Handel mit Waren" in sheet
+        assert code_errors.build(translate=str) == 1  # never overwrites a sheet that may hold coding
+
+    def test_scoring_reports_agreement_and_rejects_unknown_categories(self, tmp_path, monkeypatch):
+        import csv
+        import json
+
+        code_errors = self._point_at(tmp_path, monkeypatch)
+        code_errors.build(translate=str)
+        with open(code_errors.SHEET, newline="", encoding="utf-8-sig") as fh:
+            rows = list(csv.DictReader(fh))
+
+        def write(categories):
+            for row in rows:
+                row["author_category"] = categories[row["id"]]
+            with open(code_errors.SHEET, "w", newline="", encoding="utf-8-sig") as fh:
+                writer = csv.DictWriter(fh, fieldnames=code_errors.COLUMNS)
+                writer.writeheader()
+                writer.writerows(rows)
+
+        write({"1": "not_a_category", "2": "multi_sector_company"})
+        assert code_errors.score() == 1
+        write({"1": "seed_leakage", "2": "multi_sector_company"})
+        assert code_errors.score() == 0
+        report = json.loads(code_errors.REPORT.read_text(encoding="utf-8"))
+        assert report["n_coded"] == 2 and report["agreement"] == 0.5
+        assert report["disagreements"] == [{"first": "ambiguous_sector_definition",
+                                            "author": "multi_sector_company", "count": 1}]

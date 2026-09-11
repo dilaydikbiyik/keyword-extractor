@@ -238,6 +238,11 @@ guideline existed scored κ = 0.542; both figures belong in any write-up.
 
 ---
 
+The fifty coded errors can also be coded by the author, blind to the first
+coding: `make author-coding` writes a shuffled sheet with English translations
+and the codebook, and `make author-coding-score` reports the agreement, which
+the paper then quotes.
+
 ## Install
 
 ```bash

@@ -766,6 +766,13 @@ def main() -> int:
         derived.append(r"\newcommand{\RocchioK}{%d}" % studies[0][2]["k"])
     for _, registered, result, prefix in studies:
         derived += rocchio_macros(registered, result, prefix)
+    coding = load_optional("author_error_coding_report")
+    if coding and coding.get("cohen_kappa") is not None:
+        derived += [
+            r"\newcommand{\ErrorCodingN}{%d}" % coding["n_coded"],
+            r"\newcommand{\ErrorCodingAgree}{%.0f\%%}" % (100 * coding["agreement"]),
+            r"\newcommand{\ErrorCodingKappa}{%.3f}" % coding["cohen_kappa"],
+        ]
     refs = load_optional("references")
     if refs:
         derived += references_macros(refs, ablation)

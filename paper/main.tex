@@ -500,8 +500,10 @@ same way but are not significant at this size.
 \section{Error Analysis}
 
 Fifty errors from the development half were coded one by one against a written
-codebook, by the AI assistant named in the statement on AI use; the author did
-not code them independently.
+codebook, by the AI assistant named in the statement on AI use\ifdefined\ErrorCodingKappa,
+and independently by the author, blind to that coding and working from English
+translations; the two codings agree on \ErrorCodingAgree\ of \ErrorCodingN\ errors
+($\kappa = \ErrorCodingKappa$)\else; the author did not code them independently\fi.
 
 \input{tables/errors}
 
