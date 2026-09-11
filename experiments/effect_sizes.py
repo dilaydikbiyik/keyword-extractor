@@ -53,6 +53,10 @@ def load(name: str) -> Optional[Dict]:
     return json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
 
 
+ROCCHIO_STUDIES = (("rocchio", "terse"), ("rocchio_definitions", "definitions"),
+                   ("rocchio_mpnet", "terse, mpnet"))
+
+
 def family() -> List[Dict]:
     """The headline comparisons: (label, discordant counts, n, orientation)."""
     rows = []
@@ -88,7 +92,7 @@ def family() -> List[Dict]:
     add("Verified labels", "full system vs. previous taxonomy",
         robustness["labels"]["systems"]["taxonomy-v1"]["vs_full_on_verified"], robustness["labels"]["n_verified"])
 
-    for name, label in (("rocchio", "terse"), ("rocchio_definitions", "definitions")):
+    for name, label in ROCCHIO_STUDIES:
         result = load(name)
         if not result:
             continue
@@ -116,7 +120,7 @@ def selection_rules() -> List[Dict]:
 def correlations() -> List[Dict]:
     out = [{"group": "Correlation", "label": "alignment change vs. headroom captured",
             "p": load("predictor_search")["correlations"]["alignment_gain"]["p"]}]
-    for name, label in (("rocchio", "terse"), ("rocchio_definitions", "definitions")):
+    for name, label in ROCCHIO_STUDIES:
         result = load(name)
         if result:
             out.append({"group": "Correlation", "label": f"label-free update ({label}), per class",

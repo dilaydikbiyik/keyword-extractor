@@ -511,6 +511,7 @@ def p_cell(value: float) -> str:
 ROCCHIO_STUDIES = [
     ("From terse labels", "rocchio_preregistration", "rocchio", "Rocchio"),
     ("From written definitions", "rocchio_definitions_preregistration", "rocchio_definitions", "RocchioDef"),
+    ("From terse labels, mpnet encoder", "rocchio_mpnet_preregistration", "rocchio_mpnet", "RocchioMpnet"),
 ]
 
 

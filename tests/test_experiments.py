@@ -811,7 +811,23 @@ class TestRocchio:
     def test_each_study_has_its_own_fingerprint(self):
         from experiments.run_rocchio import method_fingerprint
 
-        assert method_fingerprint("terse") != method_fingerprint("definitions")
+        assert len({method_fingerprint(s) for s in ("terse", "definitions", "mpnet")}) == 3
+
+    def test_the_second_committed_prediction_still_matches_the_method(self):
+        import json as _json
+
+        from experiments.run_rocchio import DEFINITIONS_PREREGISTRATION, method_fingerprint
+
+        registered = _json.loads(DEFINITIONS_PREREGISTRATION.read_text(encoding="utf-8"))
+        assert registered["method_fingerprint"] == method_fingerprint("definitions")
+
+    def test_another_encoder_is_used_only_inside_its_study(self):
+        from experiments import run_rocchio
+
+        default = run_rocchio.get_embedder
+        with run_rocchio.using_encoder("some-other-model"):
+            assert run_rocchio.get_embedder.args == ("some-other-model",)
+        assert run_rocchio.get_embedder is default
 
     def test_the_fingerprint_is_stable(self):
         from experiments.run_rocchio import method_fingerprint

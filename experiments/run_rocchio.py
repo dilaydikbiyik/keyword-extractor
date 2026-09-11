@@ -3,6 +3,7 @@
 
     python -m experiments.run_rocchio --preregister   # alignment only, then commit
     python -m experiments.run_rocchio                 # accuracy, against the file
+    python -m experiments.run_rocchio --study definitions|mpnet [--preregister]
 
 The paper's account is that a description helps in proportion to how far it
 moves the class vector toward the documents it must attract. That is a
@@ -33,8 +34,10 @@ import inspect
 import json
 import subprocess
 import sys
+from contextlib import contextmanager, nullcontext
 from datetime import datetime, timezone
-from typing import Dict, List, Sequence
+from functools import partial
+from typing import Dict, Iterator, List, Sequence
 
 import numpy as np
 from scipy.stats import spearmanr
@@ -45,7 +48,8 @@ from experiments.metrics import mcnemar_exact
 from experiments.run_description_study import LITERAL_GERMAN
 from experiments.run_replication import DEFINITION as NEWS_DEFINITION, READABLE as NEWS_READABLE, load_newsgroups
 from experiments.run_reuters import DEFINITION as REUTERS_DEFINITION, READABLE as REUTERS_READABLE, load as load_reuters
-from experiments.systems import get_embedder
+from experiments import systems
+from experiments.systems import MPNET_MODEL, get_embedder
 
 K = 25
 BETA = 1.0
@@ -53,6 +57,9 @@ PREREGISTRATION = RESULTS_DIR / "rocchio_preregistration.json"
 RESULT = RESULTS_DIR / "rocchio.json"
 DEFINITIONS_PREREGISTRATION = RESULTS_DIR / "rocchio_definitions_preregistration.json"
 DEFINITIONS_RESULT = RESULTS_DIR / "rocchio_definitions.json"
+MPNET_PREREGISTRATION = RESULTS_DIR / "rocchio_mpnet_preregistration.json"
+MPNET_RESULT = RESULTS_DIR / "rocchio_mpnet.json"
+ENCODER_OF = {"mpnet": MPNET_MODEL}
 
 
 def unit_rows(matrix: np.ndarray) -> np.ndarray:
@@ -149,7 +156,29 @@ def study_files(study: str):
         return corpora, PREREGISTRATION, RESULT
     if study == "definitions":
         return corpora_definitions, DEFINITIONS_PREREGISTRATION, DEFINITIONS_RESULT
+    if study == "mpnet":
+        return corpora, MPNET_PREREGISTRATION, MPNET_RESULT
     raise ValueError(f"unknown study {study!r}")
+
+
+@contextmanager
+def using_encoder(model_name: str) -> Iterator[None]:
+    """Run a study on another encoder without editing encode() or encode_pool().
+
+    Both are covered by the fingerprints the first two studies committed, so the
+    encoder is chosen by rebinding the name they resolve, and restored after.
+    """
+    global get_embedder
+    default = get_embedder
+    get_embedder = partial(systems.get_embedder, model_name)
+    try:
+        yield
+    finally:
+        get_embedder = default
+
+
+def encoder_for(study: str):
+    return using_encoder(ENCODER_OF[study]) if study in ENCODER_OF else nullcontext()
 
 
 def vectors_for(corpus: Dict) -> Dict[str, np.ndarray]:
@@ -183,6 +212,8 @@ def method_fingerprint(study: str = "terse") -> str:
                                              corpora, vectors_for)]
     if study != "terse":
         parts.append(inspect.getsource(study_files(study)[0]))
+    if study in ENCODER_OF:
+        parts += [f"ENCODER={ENCODER_OF[study]}", inspect.getsource(using_encoder)]
     return hashlib.sha256("\n".join(parts).encode("utf-8")).hexdigest()
 
 
@@ -194,6 +225,11 @@ def git_revision() -> str:
 
 
 def preregister(study: str = "terse") -> int:
+    with encoder_for(study):
+        return _preregister(study)
+
+
+def _preregister(study: str) -> int:
     load, prereg_path, _ = study_files(study)
     if prereg_path.exists():
         print(f"{prereg_path} already exists; a prediction is made once.", file=sys.stderr)
@@ -228,6 +264,11 @@ def preregister(study: str = "terse") -> int:
 
 
 def evaluate(study: str = "terse") -> int:
+    with encoder_for(study):
+        return _evaluate(study)
+
+
+def _evaluate(study: str) -> int:
     load, prereg_path, result_path = study_files(study)
     if not prereg_path.exists():
         print("No preregistration: run with --preregister and commit the file first.", file=sys.stderr)
@@ -287,8 +328,9 @@ def evaluate(study: str = "terse") -> int:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--preregister", action="store_true")
-    parser.add_argument("--study", choices=["terse", "definitions"], default="terse",
-                        help="Start from the terse class texts (the first study) or the written definitions.")
+    parser.add_argument("--study", choices=["terse", "definitions", "mpnet"], default="terse",
+                        help="The terse class texts (the first study), the written definitions, "
+                             "or the terse texts again on the mpnet encoder.")
     args = parser.parse_args()
     set_seed()
     ensure_dirs()
