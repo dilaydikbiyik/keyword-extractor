@@ -102,6 +102,7 @@ study:
 	$(PYTHON) -m experiments.robustness
 	$(PYTHON) -m experiments.run_rocchio
 	$(PYTHON) -m experiments.run_rocchio --study definitions
+	$(PYTHON) -m experiments.effect_sizes
 
 rocchio-preregister:
 	$(PYTHON) -m experiments.run_rocchio --preregister

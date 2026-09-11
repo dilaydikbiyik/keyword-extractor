@@ -51,6 +51,11 @@ produced by `make reproduce` and written to
 | **Ours: taxonomy-guided** | **52.5%** | [46.8, 58.2] | **81.6%** | 0.356 | 0.474 | — |
 | Qwen2.5-7B-Instruct, asked directly | 48.8% | [43.1, 54.5] | 71.9% | 0.359 | 0.430 | 0.416 |
 
+*p* is uncorrected. Corrected with Holm over all 35 comparisons the paper reports
+([`results/effect_sizes.json`](results/effect_sizes.json)), 14 of the 19 nominally
+significant ones survive; the TF-IDF difference is not among them (Holm p = 0.627),
+nor is the language model's Top-3 gap (Holm p = 0.073).
+
 **Top-3 at 81.6% is the operating point.** The correct section is among the
 first three suggestions four times out of five, against 46.8% for an oracle
 majority-class floor. This is a tool for proposing a code to a human coder, not
@@ -162,6 +167,14 @@ All five held: Top-1 rose on Reuters (+6.9 points, p < 0.001), 20 Newsgroups
 (+2.6, p < 0.001) and NACE (+2.3, not significant), in the predicted order, and
 the per-class correlation reappeared (ρ = +0.514). The 20 Newsgroups gain is the
 one the account risked most on: written definitions gained nothing there.
+
+A [second preregistered study](results/rocchio_definitions_preregistration.json)
+applied the same update, unchanged, to the written definitions, and three of its
+five predictions held: Reuters (+6.4 points, p < 0.001), 20 Newsgroups (+2.2,
+p < 0.001) and the per-class correlation (ρ = +0.450). On NACE accuracy fell
+(−3.7, p = 0.161) although alignment rose, so the NACE prediction and the
+predicted ordering failed. The account orders classes within a corpus; it is
+weaker at comparing corpora.
 
 ### Ablation
 

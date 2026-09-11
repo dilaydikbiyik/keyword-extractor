@@ -1,0 +1,465 @@
+{
+  "alpha": 0.05,
+  "n_tests": 35,
+  "nominally_significant": 19,
+  "significant_after_holm": 14,
+  "lost_to_correction": [
+    "full system vs. TF-IDF \u2192 nearest NACE section",
+    "full system vs. LLM, Top-3",
+    "full system vs. previous taxonomy",
+    "20NG: contrastive margin vs. best fixed policy",
+    "alignment change vs. headroom captured"
+  ],
+  "tests": [
+    {
+      "group": "Descriptions",
+      "label": "NACE: definitions vs. terse German",
+      "n": 299,
+      "sign": 1,
+      "a_only": 96,
+      "b_only": 16,
+      "p": 4.377733803134596e-15,
+      "gain_pp": 26.755852842809364,
+      "ci95": [
+        20.735785953177256,
+        32.78428093645473
+      ],
+      "p_holm": 1.4446521550344166e-13
+    },
+    {
+      "group": "Descriptions",
+      "label": "NACE: terse German vs. terse original",
+      "n": 299,
+      "sign": 1,
+      "a_only": 5,
+      "b_only": 12,
+      "p": 0.143463134765625,
+      "gain_pp": -2.3411371237458196,
+      "ci95": [
+        -5.016722408026756,
+        0.33444816053511706
+      ],
+      "p_holm": 1.0
+    },
+    {
+      "group": "Descriptions",
+      "label": "20NG: definitions vs. readable names",
+      "n": 2000,
+      "sign": 1,
+      "a_only": 159,
+      "b_only": 152,
+      "p": 0.7337452638803144,
+      "gain_pp": 0.35,
+      "ci95": [
+        -1.35,
+        2.05
+      ],
+      "p_holm": 1.0
+    },
+    {
+      "group": "Descriptions",
+      "label": "20NG: readable names vs. identifiers",
+      "n": 2000,
+      "sign": 1,
+      "a_only": 325,
+      "b_only": 124,
+      "p": 7.602282046781762e-22,
+      "gain_pp": 10.05,
+      "ci95": [
+        8.0,
+        12.1
+      ],
+      "p_holm": 2.584775895905799e-20
+    },
+    {
+      "group": "Descriptions",
+      "label": "Reuters: definitions vs. readable names",
+      "n": 959,
+      "sign": 1,
+      "a_only": 108,
+      "b_only": 62,
+      "p": 0.0005199074129192246,
+      "gain_pp": 4.796663190823775,
+      "ci95": [
+        2.18978102189781,
+        7.507820646506778
+      ],
+      "p_holm": 0.012997685322980616
+    },
+    {
+      "group": "Descriptions",
+      "label": "Reuters: readable names vs. codes",
+      "n": 959,
+      "sign": 1,
+      "a_only": 260,
+      "b_only": 82,
+      "p": 1.0600279943418623e-22,
+      "gain_pp": 18.561001042752867,
+      "ci95": [
+        14.911366006256518,
+        22.10636079249218
+      ],
+      "p_holm": 3.710097980196518e-21
+    },
+    {
+      "group": "System",
+      "label": "full system vs. TF-IDF \u2192 nearest NACE section",
+      "n": 299,
+      "sign": 1,
+      "a_only": 73,
+      "b_only": 49,
+      "p": 0.0368774694497364,
+      "gain_pp": 8.02675585284281,
+      "ci95": [
+        1.0033444816053512,
+        15.050167224080267
+      ],
+      "p_holm": 0.6269169806455187
+    },
+    {
+      "group": "System",
+      "label": "full system vs. Zero-shot embeddings (no taxonomy guidance)",
+      "n": 299,
+      "sign": 1,
+      "a_only": 35,
+      "b_only": 36,
+      "p": 1.0,
+      "gain_pp": -0.33444816053511706,
+      "ci95": [
+        -5.68561872909699,
+        5.351170568561873
+      ],
+      "p_holm": 1.0
+    },
+    {
+      "group": "Ablation",
+      "label": "full system vs. \u2212 seeds in sector vector",
+      "n": 299,
+      "sign": 1,
+      "a_only": 35,
+      "b_only": 36,
+      "p": 1.0,
+      "gain_pp": -0.33444816053511706,
+      "ci95": [
+        -5.68561872909699,
+        5.351170568561873
+      ],
+      "p_holm": 1.0
+    },
+    {
+      "group": "Ablation",
+      "label": "full system vs. \u2212 description in sector vector",
+      "n": 299,
+      "sign": 1,
+      "a_only": 43,
+      "b_only": 18,
+      "p": 0.001868101030975251,
+      "gain_pp": 8.361204013377927,
+      "ci95": [
+        3.3444816053511706,
+        13.377926421404682
+      ],
+      "p_holm": 0.04109822268145552
+    },
+    {
+      "group": "Ablation",
+      "label": "full system vs. \u2212 seed-guided extraction",
+      "n": 299,
+      "sign": 1,
+      "a_only": 0,
+      "b_only": 0,
+      "p": 1.0,
+      "gain_pp": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "p_holm": 1.0
+    },
+    {
+      "group": "Ablation",
+      "label": "full system vs. \u2212 six-stage keyword filter",
+      "n": 299,
+      "sign": 1,
+      "a_only": 0,
+      "b_only": 0,
+      "p": 1.0,
+      "gain_pp": 0.0,
+      "ci95": [
+        0.0,
+        0.0
+      ],
+      "p_holm": 1.0
+    },
+    {
+      "group": "Ablation",
+      "label": "full system vs. \u21a9 previous taxonomy (Turkish descriptions)",
+      "n": 299,
+      "sign": 1,
+      "a_only": 73,
+      "b_only": 20,
+      "p": 2.9201448769714557e-08,
+      "gain_pp": 17.725752508361204,
+      "ci95": [
+        12.040133779264215,
+        23.745819397993312
+      ],
+      "p_holm": 8.760434630914367e-07
+    },
+    {
+      "group": "Ablation",
+      "label": "full system vs. + cleaned text into the classifier",
+      "n": 299,
+      "sign": 1,
+      "a_only": 57,
+      "b_only": 25,
+      "p": 0.0005347214913281793,
+      "gain_pp": 10.702341137123746,
+      "ci95": [
+        5.016722408026756,
+        16.387959866220736
+      ],
+      "p_holm": 0.012997685322980616
+    },
+    {
+      "group": "Ablation",
+      "label": "full system vs. \u2194 mpnet-base-v2 encoder (768-dim)",
+      "n": 299,
+      "sign": 1,
+      "a_only": 52,
+      "b_only": 21,
+      "p": 0.0003713401159383162,
+      "gain_pp": 10.367892976588628,
+      "ci95": [
+        5.016722408026756,
+        15.719063545150501
+      ],
+      "p_holm": 0.010026183130334538
+    },
+    {
+      "group": "Ablation",
+      "label": "full system vs. \u2194 German translated to English first",
+      "n": 299,
+      "sign": 1,
+      "a_only": 25,
+      "b_only": 36,
+      "p": 0.20003136851310313,
+      "gain_pp": -3.678929765886288,
+      "ci95": [
+        -8.695652173913043,
+        1.3377926421404682
+      ],
+      "p_holm": 1.0
+    },
+    {
+      "group": "LLM",
+      "label": "full system vs. LLM, Top-1",
+      "n": 299,
+      "sign": 1,
+      "a_only": 81,
+      "b_only": 70,
+      "p": 0.4158554937643102,
+      "gain_pp": 3.678929765886288,
+      "ci95": [
+        -4.3478260869565215,
+        11.705685618729097
+      ],
+      "p_holm": 1.0
+    },
+    {
+      "group": "LLM",
+      "label": "full system vs. LLM, Top-3",
+      "n": 299,
+      "sign": 1,
+      "a_only": 62,
+      "b_only": 33,
+      "p": 0.0038328723848755596,
+      "gain_pp": 9.698996655518394,
+      "ci95": [
+        3.3444816053511706,
+        16.05351170568562
+      ],
+      "p_holm": 0.07282457531263563
+    },
+    {
+      "group": "LLM",
+      "label": "full system vs. LLM, verified labels",
+      "n": 50,
+      "sign": 1,
+      "a_only": 20,
+      "b_only": 11,
+      "p": 0.14961278438568115,
+      "gain_pp": 18.0,
+      "ci95": [
+        -4.0,
+        38.0
+      ],
+      "p_holm": 1.0
+    },
+    {
+      "group": "Verified labels",
+      "label": "full system vs. previous taxonomy",
+      "n": 50,
+      "sign": 1,
+      "a_only": 17,
+      "b_only": 3,
+      "p": 0.0025768280029296875,
+      "gain_pp": 28.0,
+      "ci95": [
+        12.0,
+        44.0
+      ],
+      "p_holm": 0.05411338806152344
+    },
+    {
+      "group": "Label-free update",
+      "label": "NACE: terse + update vs. terse",
+      "n": 299,
+      "sign": -1,
+      "a_only": 13,
+      "b_only": 20,
+      "p": 0.296206368599087,
+      "gain_pp": 2.3411371237458196,
+      "ci95": [
+        -1.3377926421404682,
+        6.0200668896321075
+      ],
+      "p_holm": 1.0
+    },
+    {
+      "group": "Label-free update",
+      "label": "20NG: terse + update vs. terse",
+      "n": 2000,
+      "sign": -1,
+      "a_only": 38,
+      "b_only": 89,
+      "p": 6.973664632067766e-06,
+      "gain_pp": 2.55,
+      "ci95": [
+        1.45,
+        3.65
+      ],
+      "p_holm": 0.00020223627432996522
+    },
+    {
+      "group": "Label-free update",
+      "label": "Reuters: terse + update vs. terse",
+      "n": 959,
+      "sign": -1,
+      "a_only": 14,
+      "b_only": 80,
+      "p": 2.120124047968334e-12,
+      "gain_pp": 6.882168925964546,
+      "ci95": [
+        5.005213764337852,
+        8.86339937434828
+      ],
+      "p_holm": 6.784396953498669e-11
+    },
+    {
+      "group": "Label-free update",
+      "label": "NACE: definitions + update vs. definitions",
+      "n": 299,
+      "sign": -1,
+      "a_only": 31,
+      "b_only": 20,
+      "p": 0.16077960181198847,
+      "gain_pp": -3.678929765886288,
+      "ci95": [
+        -8.361204013377927,
+        1.0033444816053512
+      ],
+      "p_holm": 1.0
+    },
+    {
+      "group": "Label-free update",
+      "label": "20NG: definitions + update vs. definitions",
+      "n": 2000,
+      "sign": -1,
+      "a_only": 57,
+      "b_only": 102,
+      "p": 0.0004473475174537039,
+      "gain_pp": 2.25,
+      "ci95": [
+        1.05,
+        3.45
+      ],
+      "p_holm": 0.011631035453796302
+    },
+    {
+      "group": "Label-free update",
+      "label": "Reuters: definitions + update vs. definitions",
+      "n": 959,
+      "sign": -1,
+      "a_only": 16,
+      "b_only": 77,
+      "p": 9.629776957272856e-11,
+      "gain_pp": 6.360792492179353,
+      "ci95": [
+        4.483837330552659,
+        8.342022940563087
+      ],
+      "p_holm": 2.9852308567545856e-09
+    },
+    {
+      "group": "Selection rule",
+      "label": "NACE: marginal alignment vs. best fixed policy",
+      "gain_pp": 0.0,
+      "p": 1.0,
+      "p_holm": 1.0
+    },
+    {
+      "group": "Selection rule",
+      "label": "NACE: contrastive margin vs. best fixed policy",
+      "gain_pp": -0.6849315068493178,
+      "p": 1.0,
+      "p_holm": 1.0
+    },
+    {
+      "group": "Selection rule",
+      "label": "NACE: greedy search on development accuracy vs. best fixed policy",
+      "gain_pp": 2.0547945205479423,
+      "p": 0.25,
+      "p_holm": 1.0
+    },
+    {
+      "group": "Selection rule",
+      "label": "20NG: marginal alignment vs. best fixed policy",
+      "gain_pp": -2.500000000000002,
+      "p": 0.07726226461070669,
+      "p_holm": 1.0
+    },
+    {
+      "group": "Selection rule",
+      "label": "20NG: contrastive margin vs. best fixed policy",
+      "gain_pp": -3.6250000000000004,
+      "p": 0.005077381119448144,
+      "p_holm": 0.09139286015006659
+    },
+    {
+      "group": "Selection rule",
+      "label": "20NG: greedy search on development accuracy vs. best fixed policy",
+      "gain_pp": -1.5000000000000013,
+      "p": 0.16864291143970336,
+      "p_holm": 1.0
+    },
+    {
+      "group": "Correlation",
+      "label": "alignment change vs. headroom captured",
+      "p": 0.0026956919937634414,
+      "p_holm": 0.05411338806152344
+    },
+    {
+      "group": "Correlation",
+      "label": "label-free update (terse), per class",
+      "p": 0.0001577372132819086,
+      "p_holm": 0.0044166419718934405
+    },
+    {
+      "group": "Correlation",
+      "label": "label-free update (definitions), per class",
+      "p": 0.0011800465066095585,
+      "p_holm": 0.027141069652019845
+    }
+  ]
+}

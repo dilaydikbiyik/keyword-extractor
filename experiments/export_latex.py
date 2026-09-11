@@ -14,7 +14,7 @@ import csv
 import json
 import sys
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Tuple
 
 from experiments.config import RESULTS_DIR, ROOT
 
@@ -130,7 +130,8 @@ def baseline_table(systems: List[Dict], llm: Optional[Dict] = None) -> str:
         r"\caption{Section classification on the held-out evaluation set "
         r"($n{=}\NEVAL$). Intervals are percentile bootstrap over "
         r"$10{,}000$ resamples; $p$ is an exact McNemar test against our full "
-        r"system on the same documents. $\dagger$ uses the gold label "
+        r"system on the same documents, uncorrected (Holm-adjusted values are in "
+        r"Appendix~\ref{app:effects}). $\dagger$ uses the gold label "
         r"distribution and is an oracle floor, not a competing method."
         + (r" $\ddagger$ an open instruction-tuned model asked directly for the section "
            r"with the prompt in Section~\ref{sec:llm}, run separately by "
@@ -507,52 +508,59 @@ def p_cell(value: float) -> str:
     return "$<0.001$" if value < 0.001 else f"{value:.3f}"
 
 
-def rocchio_table(registered: Dict, result: Dict) -> str:
-    """The label-free test: the registered alignment change beside what followed."""
-    held = {o["corpus"]: o["held"] for o in result["outcomes"] if o.get("corpus")}
-    order = sorted(registered["mean_alignment_change"], key=registered["mean_alignment_change"].get, reverse=True)
+ROCCHIO_STUDIES = [
+    ("From terse labels", "rocchio_preregistration", "rocchio", "Rocchio"),
+    ("From written definitions", "rocchio_definitions_preregistration", "rocchio_definitions", "RocchioDef"),
+]
+
+
+def rocchio_table(studies: List[Tuple[str, Dict, Dict]]) -> str:
+    """The label-free tests: each registered alignment change beside what followed."""
     rows = []
-    for name in order:
-        r = result["corpora"][name]
-        rows.append(" & ".join([
-            ROCCHIO_LABEL[name],
-            f"${registered['mean_alignment_change'][name]:+.3f}$",
-            pct(r["top1_terse"]), pct(r["top1_rocchio"]),
-            f"${r['gain_pp']:+.1f}$", p_cell(r["mcnemar"]["p_value"]),
-            "yes" if held[name] else "no",
-        ]) + r" \\")
+    for label, registered, result in studies:
+        held = {o["corpus"]: o["held"] for o in result["outcomes"] if o.get("corpus")}
+        change = registered["mean_alignment_change"]
+        rows += [r"\midrule"] if rows else []
+        rows.append(r"\multicolumn{7}{@{}l}{\emph{%s}} \\" % label)
+        for name in sorted(change, key=change.get, reverse=True):
+            r = result["corpora"][name]
+            rows.append(" & ".join([
+                ROCCHIO_LABEL[name], f"${change[name]:+.3f}$",
+                pct(r["top1_terse"]), pct(r["top1_rocchio"]),
+                f"${r['gain_pp']:+.1f}$", p_cell(r["mcnemar"]["p_value"]),
+                "yes" if held[name] else "no",
+            ]) + r" \\")
     return "\n".join([
         PREAMBLE, r"\begin{table}[t]", r"\centering", r"\footnotesize", r"\setlength{\tabcolsep}{3pt}",
         r"\begin{tabular}{@{}lrrrrrl@{}}", r"\toprule",
-        r"Corpus & $\Delta$align. & Terse & Moved & Gain & $p$ & Held \\", r"\midrule",
+        r"Corpus & $\Delta$align. & Before & Moved & Gain & $p$ & Held \\", r"\midrule",
         *rows, r"\bottomrule", r"\end{tabular}",
         r"\caption{Class vectors moved toward their $k{=}\RocchioK$ nearest unlabelled documents, "
-        r"with no label and no description. The alignment change was measured and the predicted "
-        r"direction committed before any accuracy was computed; \emph{Held} says whether it "
-        r"was right. 20NG is 20 Newsgroups; Reuters is Reuters-21578.}",
+        r"with no label and no new text, in two preregistered studies. Each alignment change was "
+        r"measured and its predictions committed before any accuracy was computed; \emph{Held} says "
+        r"whether the predicted direction was right. 20NG is 20 Newsgroups; Reuters is Reuters-21578.}",
         r"\label{tab:rocchio}", r"\end{table}", "",
     ])
 
 
-def rocchio_macros(registered: Dict, result: Dict) -> List[str]:
-    """The figures the Rocchio section quotes."""
+def rocchio_macros(registered: Dict, result: Dict, prefix: str = "Rocchio") -> List[str]:
+    """The figures the Rocchio section quotes, under one macro prefix per study."""
     outcomes = result["outcomes"]
     lines = [
-        r"\newcommand{\RocchioK}{%d}" % result["k"],
-        r"\newcommand{\RocchioHeld}{%d}" % sum(o["held"] for o in outcomes),
-        r"\newcommand{\RocchioPredictions}{%d}" % len(outcomes),
-        r"\newcommand{\RocchioRho}{%+.3f}" % result["per_class"]["rho"],
-        r"\newcommand{\RocchioRhoPStat}{%s}" % p_stat(result["per_class"]["p"]),
-        r"\newcommand{\RocchioRegistered}{%s}" % registered["registered_at"][:10],
+        r"\newcommand{\%sHeld}{%d}" % (prefix, sum(o["held"] for o in outcomes)),
+        r"\newcommand{\%sPredictions}{%d}" % (prefix, len(outcomes)),
+        r"\newcommand{\%sRho}{%+.3f}" % (prefix, result["per_class"]["rho"]),
+        r"\newcommand{\%sRhoPStat}{%s}" % (prefix, p_stat(result["per_class"]["p"])),
+        r"\newcommand{\%sRegistered}{%s}" % (prefix, registered["registered_at"][:10]),
     ]
     for name, stem in ROCCHIO_MACRO_NAME.items():
         r = result["corpora"][name]
         lines += [
-            r"\newcommand{\Rocchio%sAlign}{%+.3f}" % (stem, registered["mean_alignment_change"][name]),
-            r"\newcommand{\Rocchio%sGain}{%+.1f}" % (stem, r["gain_pp"]),
-            r"\newcommand{\Rocchio%sPStat}{%s}" % (stem, p_stat(r["mcnemar"]["p_value"])),
-            r"\newcommand{\Rocchio%sTerse}{%s\%%}" % (stem, pct(r["top1_terse"])),
-            r"\newcommand{\Rocchio%sMoved}{%s\%%}" % (stem, pct(r["top1_rocchio"])),
+            r"\newcommand{\%s%sAlign}{%+.3f}" % (prefix, stem, registered["mean_alignment_change"][name]),
+            r"\newcommand{\%s%sGain}{%+.1f}" % (prefix, stem, r["gain_pp"]),
+            r"\newcommand{\%s%sPStat}{%s}" % (prefix, stem, p_stat(r["mcnemar"]["p_value"])),
+            r"\newcommand{\%s%sTerse}{%s\%%}" % (prefix, stem, pct(r["top1_terse"])),
+            r"\newcommand{\%s%sMoved}{%s\%%}" % (prefix, stem, pct(r["top1_rocchio"])),
         ]
     return lines
 
@@ -574,9 +582,9 @@ def effects_table(effects: Dict) -> str:
             gain, n = "--", "--"
         rows.append(" & ".join([escape(t["label"]), n, gain, p_cell(t["p"]), p_cell(t["p_holm"])]) + r" \\")
     return "\n".join([
-        PREAMBLE, r"\begin{table*}[t]", r"\centering", r"\small",
+        PREAMBLE, r"\begin{table*}[t]", r"\centering", r"\footnotesize", r"\setlength{\tabcolsep}{5pt}",
         r"\begin{tabular}{@{}lrlrr@{}}", r"\toprule",
-        r"Comparison & $n$ & Difference in points [95\% CI] & $p$ & Holm $p$ \\",
+        r"Comparison & $n$ & Diff.\ [95\% CI] & $p$ & Holm $p$ \\",
         *[r for r in rows if r], r"\bottomrule", r"\end{tabular}",
         r"\caption{Every comparison the paper reports as a finding. Differences are in Top-1 "
         r"percentage points (Top-3 where stated), oriented as named; intervals are percentile "
@@ -587,9 +595,28 @@ def effects_table(effects: Dict) -> str:
     ])
 
 
+def holm_stat(value: float) -> str:
+    return r"$p_{\mathrm{Holm}} < 0.001$" if value < 0.001 else f"$p_{{\\mathrm{{Holm}}}} = {value:.3f}$"
+
+
+HOLM_CLAIMS = {
+    "HolmAlignStat": ("Correlation", "alignment change vs. headroom captured"),
+    "HolmRocchioRhoStat": ("Correlation", "label-free update (terse), per class"),
+    "HolmLLMTopThreeStat": ("LLM", "full system vs. LLM, Top-3"),
+    "HolmTfidfStat": ("System", "full system vs. TF-IDF"),
+    "HolmVerifiedStat": ("Verified labels", "full system vs. previous taxonomy"),
+    "HolmContrastiveStat": ("Selection rule", "20NG: contrastive margin"),
+}
+
+
 def effects_macros(effects: Dict) -> List[str]:
     lost = effects["lost_to_correction"]
-    return [
+    claims = []
+    for macro, (group, prefix) in HOLM_CLAIMS.items():
+        match = next((t for t in effects["tests"] if t["group"] == group and t["label"].startswith(prefix)), None)
+        if match:
+            claims.append(r"\newcommand{\%s}{%s}" % (macro, holm_stat(match["p_holm"])))
+    return claims + [
         r"\newcommand{\EffectTests}{%d}" % effects["n_tests"],
         r"\newcommand{\EffectNominal}{%d}" % effects["nominally_significant"],
         r"\newcommand{\EffectHolm}{%d}" % effects["significant_after_holm"],
@@ -676,9 +703,13 @@ def main() -> int:
     effects = load_optional("effect_sizes")
     if effects:
         derived += effects_macros(effects)
-    registered, rocchio = load_optional("rocchio_preregistration"), load_optional("rocchio")
-    if registered and rocchio:
-        derived += rocchio_macros(registered, rocchio)
+    studies = [(label, load_optional(prereg), load_optional(res), prefix)
+               for label, prereg, res, prefix in ROCCHIO_STUDIES]
+    studies = [s for s in studies if s[1] and s[2]]
+    if studies:
+        derived.append(r"\newcommand{\RocchioK}{%d}" % studies[0][2]["k"])
+    for _, registered, result, prefix in studies:
+        derived += rocchio_macros(registered, result, prefix)
     llm = load_optional("llm_baseline")
     if llm and llm.get("complete"):
         derived += llm_macros(llm)
@@ -692,7 +723,7 @@ def main() -> int:
         "descriptions.tex": description_study_table(study),
         "corpora.tex": corpora_table(study, search, reuters, news),
         "alignment_figure.tex": alignment_figure(search),
-        **({"rocchio.tex": rocchio_table(registered, rocchio)} if registered and rocchio else {}),
+        **({"rocchio.tex": rocchio_table([s[:3] for s in studies])} if studies else {}),
         **({"effects.tex": effects_table(effects)} if effects else {}),
         "predictors.tex": predictors_table(search),
         "macros.tex": macros(baselines, error_report, study, search, reuters, news, derived),

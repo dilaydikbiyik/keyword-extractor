@@ -49,7 +49,8 @@ A control shows the gain is not linguistic: rendering the same content in the
 language of the documents is worth \LanguageEffect~points ($p =
 \LanguageP$). We identify what does explain it---how far the rewrite moves each
 class vector toward the centroid of the documents it must attract
-($\rho = \AlignRho$, $p = \AlignP$ over \NCLASSES\ classes)---and show the
+($\rho = \AlignRho$ over \NCLASSES\ classes, found by search and then
+reproduced by a preregistered intervention)---and show the
 account is monotone across three corpora, one of which we predict before
 measuring. The quantity cannot, however, be optimised per class: three selection
 criteria, including direct optimisation of development accuracy, all fail to
@@ -88,17 +89,21 @@ Our contributions are:
         rendered in the documents' language is worth \LanguageEffect~points.
   \item A mechanism. The gain is predicted by how far the rewrite moves the
         class vector toward the centroid of its own documents
-        ($\rho = \AlignRho$, $p = \AlignP$), the only candidate of five that
-        holds within each corpus separately.
+        ($\rho = \AlignRho$), the only candidate of five that holds within
+        each corpus separately. Because it was found by search, we rest it on
+        the preregistered test below rather than on its own $p$-value.
   \item A prospective confirmation on a third corpus, where the alignment change
         is computed and the prediction stated before accuracy is examined.
   \item A comparison with an instruction-tuned language model asked for the
         section directly, which does not beat the system at Top-1 and falls
-        significantly behind it at Top-3.
+        behind it at Top-3, though not significantly once every comparison
+        is corrected together.
   \item A preregistered, label-free intervention on the class vectors: moving
         each one toward its nearest unlabelled documents raises accuracy in the
         order the alignment change predicts, including on the corpus where
-        written definitions did not help.
+        written definitions did not help. Repeated from the written
+        definitions, the class-level prediction holds again and the
+        corpus-level one fails, which we report as the account's limit.
   \item A negative result with a measured cause: the quantity cannot be
         optimised per class, because the classifier's argmax compares across
         classes on a scale that depends on description style.
@@ -173,7 +178,13 @@ lightweight form appropriate to a single study, stating the prediction and the
 quantity it rests on before the outcome is computed. Comparisons between systems
 use paired tests rather than differences of point estimates, as urged by
 \citet{dror-etal-2018-hitchhikers}, and label quality is reported as chance-corrected
-agreement following \citet{artstein-poesio-2008-survey}.
+agreement following \citet{artstein-poesio-2008-survey}. Every comparison
+reported as a finding is collected in Appendix~\ref{app:effects} with a bootstrap
+interval \citep{efron-1979-bootstrap}, and all \EffectTests\ tests are corrected
+together with the Holm procedure \citep{holm-1979-simple}, fixed as the primary
+analysis before the adjusted values were seen. \EffectNominal\ are significant
+uncorrected and \EffectHolm\ after correction; where the text relies on one of
+the others, it says so.
 
 \section{Method}
 
@@ -289,7 +300,10 @@ Only $\Delta a(c)$ survives, and it is the only candidate that holds within each
 corpus separately (Figure~\ref{fig:alignment}). Resampling the classes gives a
 \CILevel\ interval of $[\AlignRhoLo, \AlignRhoHi]$ for $\rho$, a permutation test
 gives $p = \AlignPermP$, and leaving out any one class keeps $\rho$ between
-$\AlignLooMin$ and $\AlignLooMax$. Neither the lexical overlap between a class name and its
+$\AlignLooMin$ and $\AlignLooMax$. It was, however, the best of five candidates,
+and corrected together with every other test in the paper it is not significant
+on its own (\HolmAlignStat); Section~\ref{sec:rocchio} therefore tests it
+prospectively. Neither the lexical overlap between a class name and its
 documents nor the confusability of the class vector predicts anything. Words
 added correlates \emph{negatively}: the recipe is not to write more.
 
@@ -340,13 +354,29 @@ On NACE the gain is small and not significant; a few nearest neighbours do not
 recover the vocabulary its sections lack, and written definitions remain far
 better there.
 
+\paragraph{From the written definitions.} A second study applied the same
+update, unchanged, to the written definitions, with its own predictions
+committed (\RocchioDefRegistered) before its accuracy was computed.
+\RocchioDefHeld\ of its \RocchioDefPredictions\ predictions held. The update
+again raised accuracy on Reuters (\RocchioDefReutersGain~points,
+\RocchioDefReutersPStat) and on 20 Newsgroups (\RocchioDefNewsGain,
+\RocchioDefNewsPStat), and across classes the alignment change again predicts
+the share of headroom captured ($\rho = \RocchioDefRho$, \RocchioDefRhoPStat).
+On NACE, however, accuracy changed by \RocchioDefNaceGain~points
+(\RocchioDefNacePStat) although alignment rose, so the direction predicted
+for NACE failed, and with it the predicted ordering. We did not anticipate
+this. The class-level relation held in both studies; the corpus mean of the
+alignment change, in the second, did not predict the corpus's gain. The account
+orders classes within a corpus more reliably than it compares corpora.
+
 \subsection{It cannot be optimised per class}
 
 If $\Delta a$ were locally causal, choosing each class's description by it should
 beat a fixed policy. It does not. Three criteria of increasing strength ---
 marginal alignment, a contrastive margin against the other classes, and greedy
-search directly on development accuracy---all fail to generalise, the
-contrastive one significantly so ($\ContrastiveNewsDelta$~points, $p = \ContrastiveNewsP$ on 20 Newsgroups).
+search directly on development accuracy---all fail to generalise. None beats the fixed policy, and the contrastive one
+falls furthest behind it ($\ContrastiveNewsDelta$~points on 20 Newsgroups,
+$p = \ContrastiveNewsP$, \HolmContrastiveStat).
 
 Two causes, both measured. First, the styles do not share a similarity scale: in
 a set where every other class carries an elaborated description, that half wins
@@ -395,7 +425,7 @@ greedy decoding; the prompt is released with the code. It ran locally in about
 \LLMMinutes~minutes, and \LLMOffFormat\ of its replies left the requested format.
 It reaches \LLMTopOne\ Top-1 against \OursTopOne\ for the system, a difference
 that is not significant ($p = \LLMP$), but only \LLMTopThree\ Top-3 against
-\OursTopThree\ ($p = \LLMTopThreeP$), and \LLMVerifiedTopOne\ on the
+\OursTopThree\ ($p = \LLMTopThreeP$; \HolmLLMTopThreeStat), and \LLMVerifiedTopOne\ on the
 human-verified documents ($p = \LLMVerifiedP$). The two agree on the top section
 for only \LLMAgreeShare\ of documents, so they fail on different ones. A
 classifier built from a 118M-parameter encoder and one definition per class is
@@ -411,9 +441,10 @@ their absolute accuracy is not an estimate for the whole set. What they can
 test is whether the conclusions depend on the model-produced labels. On those
 documents alone the system scores \VerifiedTopOne\ (\CILevel\ interval
 \VerifiedTopOneCI), against \RestTopOne\ on the rest. The central comparison
-survives: reverting to the previous, terse descriptions scores
+holds in direction: reverting to the previous, terse descriptions scores
 \VerifiedOldTaxTopOne\ on the same documents ($p = \VerifiedOldTaxP$, exact
-McNemar). Comparisons with smaller effects, such as removing the description
+McNemar), though on so few documents it is not significant once corrected
+together with everything else (\HolmVerifiedStat). Comparisons with smaller effects, such as removing the description
 from the class vector (\VerifiedNoDescTopOne, $p = \VerifiedNoDescP$), point the
 same way but are not significant at this size.
 
@@ -453,7 +484,10 @@ into a per-class selection rule, and we report the three ways that failed.
 Nor does asking an instruction-tuned model directly do better: it matches the
 system at Top-1 and falls behind it at Top-3. Moving the vectors toward
 unlabelled documents, with no words at all, raised accuracy in the order the
-account predicted before it was measured.
+account predicted before it was measured. Repeated from the written
+definitions, it confirmed the class-level prediction again but not the
+corpus-level one, lowering accuracy on NACE: the account orders classes, and
+is weaker at comparing corpora.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \section*{Limitations}
@@ -474,8 +508,10 @@ annotator who reads German; the released code prepares the blind sample for one.
 The alignment account rests on three corpora. Their alignment changes are well
 separated ($\NaceAlignGain$, $\ReutersAlignGain$, $\NewsAlignGain$), which is what makes the ordering
 visible, and equally what makes it a weak test of the account's behaviour near
-zero. The class-level correlation, while significant and replicated within each
-corpus, is $\rho = \AlignRho$: it orders classes, it does not determine them.
+zero. The class-level correlation holds within each corpus and was reproduced
+by a preregistered test, but it was found by search, is not significant on its
+own once corrected (\HolmAlignStat), and at $\rho = \AlignRho$ it orders
+classes, it does not determine them.
 
 The class vectors, the documents and the alignment measure all come from one
 encoder family. The description effect replicates across two encoders of
@@ -489,7 +525,8 @@ Any such model has to come from a different family than the labeller, or it is
 graded on its own answers.
 
 The label-free update in Section~\ref{sec:rocchio} uses one untuned setting of
-its two parameters, and its gain on NACE is not significant. The update needs no
+its two parameters. On NACE it gains nothing significant from the terse labels
+and loses accuracy from the written definitions, where its prediction failed. The update needs no
 labels; measuring alignment, and so testing the account, still does.
 
 Finally, the per-class descriptions used in the elaborated conditions were
@@ -542,6 +579,18 @@ outputs.
 % \section*{Acknowledgements}
 
 \bibliography{references}
-\bibliographystyle{acl_natbib}
+
+\appendix
+
+\section{Every comparison, corrected together}
+\label{app:effects}
+
+Table~\ref{tab:effects} lists every comparison the paper reports as a finding,
+with its interval, its uncorrected $p$ and its Holm-adjusted $p$ over the whole
+family. \EffectNominal\ of the \EffectTests\ are significant uncorrected and
+\EffectHolm\ after correction. Those that lose significance are qualified where
+they appear: \EffectLostList.
+
+\input{tables/effects}
 
 \end{document}

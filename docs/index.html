@@ -497,7 +497,8 @@
       This project classifies entries in a German <em>Handelsregister</em>. What follows is
       its own register: every substantive claim the work made, in the order it was made,
       with what became of it. Two entries record hypotheses the project advanced that the evidence
-      destroyed. One records a headline number that was withdrawn. They are here because a result
+      destroyed, and one a prediction that partly failed. One records a headline number that was
+      withdrawn. They are here because a result
       you cannot see being tested is not a result.
     </p>
 
@@ -640,8 +641,14 @@
             an artefact of one corpus being easier than the other. A description that does not
             move its class toward its documents buys nothing, however well written.
           </p>
+          <p>
+            One caution the correlation cannot answer by itself: it was the best of five candidates,
+            found by searching, and once every test in the paper is corrected for together it is no
+            longer significant on its own. What confirms it is entries 07 and 08, where the same relationship
+            was predicted in advance and appeared twice more.
+          </p>
           <div class="evidence">
-            <div><b>ρ = +0.513</b><span>alignment change vs. gain (p = 0.003)</span></div>
+            <div><b>ρ = +0.513</b><span>alignment change vs. gain (p = 0.003, exploratory)</span></div>
             <div><b>+0.556 / +0.634</b><span>within NACE / within 20NG</span></div>
             <div><b>n = 32</b><span>classes</span></div>
           </div>
@@ -753,6 +760,40 @@
             <div><b>5 of 5</b><span>predictions held</span></div>
             <div><b>+6.9 / +2.6 / +2.3 pp</b><span>Reuters / 20NG / NACE, in the predicted order</span></div>
             <div><b>ρ = +0.514</b><span>per class, n = 49 (p = 0.0002)</span></div>
+          </div>
+        </div>
+      </div>
+    </article>
+    <!-- 08 -->
+    <article class="entry" style="--status: var(--falsified); --status-bg: var(--falsified-bg);">
+      <div class="entry-head">
+        <div class="entry-no">08</div>
+        <div>
+          <span class="chip">Predicted, partly failed</span>
+          <p class="claim">“And it should help again, starting from the written definitions.”</p>
+        </div>
+      </div>
+      <div class="entry-body">
+        <div class="spacer"></div>
+        <div class="entry-text">
+          <p>
+            The same update, unchanged, was applied to the written definitions instead of the terse
+            labels. The alignment change was measured first, and five new predictions were
+            <a href="https://github.com/dilaydikbiyik/keyword-extractor/commit/27f6fec">committed</a>
+            before any accuracy existed, under a fingerprint of their own.
+          </p>
+          <p>
+            Three held. Reuters and 20 Newsgroups gained again, and across classes the alignment
+            change again predicted the share of headroom captured. On NACE accuracy fell, by 3.7
+            points and not significantly, although its alignment rose: the NACE prediction failed,
+            and with it the predicted ordering. The per-class rule held in both studies; the corpus
+            mean did not predict the corpus. The account orders classes within a corpus better than
+            it compares corpora.
+          </p>
+          <div class="evidence">
+            <div><b>3 of 5</b><span>predictions held</span></div>
+            <div><b>+6.4 / +2.2 / −3.7 pp</b><span>Reuters / 20NG / NACE; ordering failed</span></div>
+            <div><b>ρ = +0.450</b><span>per class, n = 49 (p = 0.001)</span></div>
           </div>
         </div>
       </div>
