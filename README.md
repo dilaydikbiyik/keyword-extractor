@@ -453,13 +453,18 @@ The paper's related-work section has the full review; every entry in
 
 ## How this was built
 
-With substantial AI assistance. Claude (Anthropic), used through Claude Code,
-wrote most of the code, produced the silver labels, drafted the rewritten class
-descriptions and the German control descriptions, coded the error sample, ran
-the analyses and drafted the paper. The author initiated the project and
-performed both human verification passes, working from OPUS-MT English
-translations because the author does not read German. The paper's statement on
-AI use gives the same account, as the ACL policy on AI writing assistance asks.
+The author designed and directed this project. The author built the original
+guided keyword-extraction pipeline (March–July 2026), specified the evaluation
+the study is built around (the baselines, the ablations and the error-analysis
+categories), made its decisions on data release and disclosure, and performed
+both human verification passes of the labels, working from OPUS-MT English
+translations.
+
+AI assistance was used throughout: AI coding tools in the first phase, and
+Claude (Anthropic), through Claude Code, in the September 2026 research phase,
+where it wrote most of the experiment code, produced the silver labels and
+drafted the paper. The paper's statement on AI use gives the details, as the ACL
+policy on AI writing assistance asks.
 
 ## Citation
 

@@ -39,9 +39,8 @@
 
 % ─────────────────────────────────────────────────────────────────────────────
 \begin{abstract}
-Zero-shot text classification against a taxonomy is usually implemented by
-embedding a short description of each class and ranking those descriptions
-against the document. How much the wording of those descriptions matters is
+Zero-shot classification against a taxonomy usually embeds a short
+description of each class and ranks the descriptions against the document. How much the wording of those descriptions matters is
 rarely measured. We rewrite the class descriptions of a NACE Rev.~2 taxonomy
 over German trade register texts, from category labels into definitions that
 enumerate concrete activities, and gain \ContentEffect~points of top-1 accuracy.
@@ -52,8 +51,8 @@ class vector toward the centroid of the documents it must attract
 ($\rho = \AlignRho$ over \NCLASSES\ classes, found by search and then
 reproduced by three preregistered interventions)---and show the
 account is monotone across three corpora, one of which we predict before
-measuring. The quantity cannot, however, be optimised per class: three selection
-criteria, including direct optimisation of development accuracy, all fail to
+measuring. It cannot, however, be optimised per class: three selection
+criteria, including direct optimisation of development accuracy, fail to
 generalise. Moving class vectors toward unlabelled documents confirms the
 class-level relation in three preregistered studies on two encoders, while the
 corpus-level ordering holds only once; and a character n-gram ranker over the
@@ -616,16 +615,18 @@ states no licence.
 
 \section*{Use of AI Assistants}
 
-This work was carried out with substantial assistance from Claude (Anthropic),
-used through Claude Code. The assistant wrote the experiment code and
-refactored the pipeline, produced the silver section labels by applying the annotation
-guideline, drafted the rewritten class descriptions and the German control
-descriptions, coded the errors in the error analysis, ran the analyses, and
-drafted the text of this paper. The author initiated and owns the project,
-performed both human verification passes described in the data section, and
-takes responsibility for the content. No reported
-result was typed by hand: each is generated from the released experiment
-outputs.
+The author designed and directed this work: the author built the
+keyword-extraction pipeline it starts from, with AI coding assistance; specified
+its core evaluation, namely the baselines, the ablations and the error-analysis
+categories; made the decisions on data release and disclosure; performed both
+human verification passes described in the data section; and takes
+responsibility for the content. Claude (Anthropic), used through Claude Code,
+was used in the study itself: it wrote most of the experiment
+code and refactored the pipeline, produced the silver section labels under the
+annotation guideline, drafted the rewritten and control class descriptions,
+coded the errors in the error analysis, ran the analyses, and drafted the text.
+No reported result was typed by hand: each is generated from the released
+experiment outputs.
 
 % Names belong in the Acknowledgements, which stay empty in the review version:
 % they are one of the commonest ways an anonymous submission is de-anonymised.

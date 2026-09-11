@@ -5,7 +5,7 @@ PYTHON ?= $(shell \
 	elif command -v python3 >/dev/null 2>&1; then command -v python3; \
 	else echo python; fi)
 
-.PHONY: help install reproduce test lint annotate merge verify verify-new verify-apply second-annotator second-annotator-score llm-baseline llm-baseline-local study rocchio-preregister rocchio rocchio-definitions-preregister rocchio-definitions paper-tables paper submission demo clean rocchio-mpnet-preregister rocchio-mpnet references
+.PHONY: help install reproduce test lint annotate merge verify verify-new verify-apply second-annotator second-annotator-score llm-baseline llm-baseline-local study rocchio-preregister rocchio rocchio-definitions-preregister rocchio-definitions paper-tables paper submission demo clean rocchio-mpnet-preregister rocchio-mpnet references preprint
 
 help:
 	@echo "Using PYTHON = $(PYTHON)"
@@ -132,6 +132,12 @@ paper/acl.sty paper/acl_natbib.bst:
 paper: paper-tables paper/acl.sty paper/acl_natbib.bst
 	cd paper && tectonic -X compile main.tex
 	@echo "Wrote paper/main.pdf"
+
+preprint: paper
+	mkdir -p dist
+	sed 's/\\usepackage\[review\]{acl}/\\usepackage[preprint]{acl}/' paper/main.tex > paper/preprint.tex
+	cd paper && tectonic -X compile preprint.tex --outdir ../dist; status=$$?; rm -f preprint.tex; exit $$status
+	@echo "Wrote dist/preprint.pdf: named, page-numbered, for arXiv"
 
 submission: paper
 	$(PYTHON) -m experiments.submission

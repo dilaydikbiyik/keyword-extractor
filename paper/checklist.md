@@ -80,7 +80,9 @@ recruited annotators.
 
 - **E1. Information about their use?** Yes — the unnumbered section *Use of AI
   Assistants* describes what the assistant did (code, silver labels, class
-  descriptions, error coding, analyses, drafting) and what the author did.
+  descriptions, error coding, analyses, drafting) and what the author did,
+  including that the original pipeline was built by the author with AI coding
+  tools.
 
 ## Gaps to close before submitting
 
