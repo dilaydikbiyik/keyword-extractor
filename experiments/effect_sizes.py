@@ -69,6 +69,9 @@ def family() -> List[Dict]:
     study = load("description_study")
     add("Descriptions", "NACE: definitions vs. terse German", study["content_effect"], study["n"])
     add("Descriptions", "NACE: terse German vs. terse original", study["language_effect"], study["n"])
+    mpnet = load("description_study_paraphrase_multilingual_mpnet_base_v2")
+    if mpnet:
+        add("Descriptions", "NACE, mpnet encoder: definitions vs. terse German", mpnet["content_effect"], mpnet["n"])
     news = load("replication_20newsgroups")
     add("Descriptions", "20NG: definitions vs. readable names", news["defining_the_class"], news["n"])
     add("Descriptions", "20NG: readable names vs. identifiers", news["spelling_the_label_out"], news["n"])

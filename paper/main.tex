@@ -40,16 +40,15 @@
 % ─────────────────────────────────────────────────────────────────────────────
 \begin{abstract}
 Zero-shot classification against a taxonomy usually embeds a short
-description of each class and ranks the descriptions against the document. How much the wording of those descriptions matters is
-rarely measured. We rewrite the class descriptions of a NACE Rev.~2 taxonomy
+description of each class and ranks the descriptions against the document.
+How much the wording of those descriptions matters is rarely measured. We rewrite the class descriptions of a NACE Rev.~2 taxonomy
 over German trade register texts, from category labels into definitions that
 enumerate concrete activities, and gain \ContentEffect~points of top-1 accuracy.
 A control shows the gain is not linguistic: rendering the same content in the
 language of the documents is worth \LanguageEffect~points ($p =
 \LanguageP$). We identify what does explain it---how far the rewrite moves each
 class vector toward the centroid of the documents it must attract
-($\rho = \AlignRho$ over \NCLASSES\ classes, found by search and then
-reproduced by three preregistered interventions)---and show the
+($\rho = \AlignRho$ over \NCLASSES\ classes)---and show the
 account is monotone across three corpora, one of which we predict before
 measuring. It cannot, however, be optimised per class: three selection
 criteria, including direct optimisation of development accuracy, fail to
@@ -96,13 +95,6 @@ Our contributions are:
         the preregistered test below rather than on its own $p$-value.
   \item A prospective confirmation on a third corpus, where the alignment change
         is computed and the prediction stated before accuracy is examined.
-  \item A comparison with an instruction-tuned language model asked for the
-        section directly, which does not beat the system at Top-1 and falls
-        behind it at Top-3, though not significantly once every comparison
-        is corrected together.
-  \item Stronger references. A character n-gram ranker over the same
-        descriptions matches the system and gains as much from the rewrite,
-        and a classifier trained on most of the labels does no better.
   \item Three preregistered, label-free interventions on the class vectors,
         moving each toward its nearest unlabelled documents. The first raises
         accuracy in the order the alignment change predicts, including on the
@@ -112,6 +104,13 @@ Our contributions are:
   \item A negative result with a measured cause: the quantity cannot be
         optimised per class, because the classifier's argmax compares across
         classes on a scale that depends on description style.
+  \item Stronger references. A character n-gram ranker over the same
+        descriptions matches the system and gains as much from the rewrite,
+        and a classifier trained on most of the labels does no better.
+  \item A comparison with an instruction-tuned language model asked for the
+        section directly, which does not beat the system at Top-1 and falls
+        behind it at Top-3, though not significantly once every comparison
+        is corrected together.
 \end{itemize}
 
 % ─────────────────────────────────────────────────────────────────────────────
@@ -182,10 +181,10 @@ the preregistration practice argued for by
 discussed by \citet{sogaard-etal-2023-two}. We adopt a lightweight form: the
 prediction and the quantity it rests on are stated before the outcome is
 computed, and for the label-free studies committed to version control with a
-fingerprint of the method that the evaluation checks before it runs. Comparisons between systems
-use paired tests rather than differences of point estimates, as urged by
-\citet{dror-etal-2018-hitchhikers}, and label quality is reported as chance-corrected
-agreement following \citet{artstein-poesio-2008-survey}. Every comparison
+fingerprint of the method that the evaluation checks before it runs.
+Comparisons between systems use paired tests rather than differences of point
+estimates, as urged by \citet{dror-etal-2018-hitchhikers}, and label quality is
+reported as chance-corrected agreement following \citet{artstein-poesio-2008-survey}. Every comparison
 reported as a finding is collected in Appendix~\ref{app:effects} with a bootstrap
 interval \citep{efron-1979-bootstrap}, and all \EffectTests\ tests are corrected
 together with the Holm procedure \citep{holm-1979-simple}, fixed as the primary
@@ -197,7 +196,7 @@ the others, it says so.
 
 A taxonomy assigns each of $K$ classes a name and, optionally, a description.
 We form a class vector by encoding the concatenation of name and description,
-and, in the configuration this repository shipped, averaging it with the
+and, in the configuration the system shipped with, averaging it with the
 encoding of a hand-written seed keyword list:
 \[
   v_c = \tfrac{1}{2}\big(f(\text{name}_c \Vert \text{desc}_c) + f(\text{seeds}_c)\big),
@@ -255,8 +254,8 @@ documents rather than corpus samples. It was measurably easier---median
 \RetiredMedianChars\ characters against \CorpusMedianChars, with
 \RetiredBoilerplate\ carrying the legal boilerplate that \CorpusBoilerplate\ of
 real entries carry---and the pipeline scored \RetiredTopOne\ on it against
-\OldTaxonomyTopOne\ on the corpus-sampled set. We mention this because it is the reason the evaluation set
-was rebuilt, and because it is a failure mode that is easy to reproduce
+\OldTaxonomyTopOne\ on the corpus-sampled set. We mention this because it is
+the reason the evaluation set was rebuilt, and because it is a failure mode that is easy to reproduce
 accidentally.
 
 \paragraph{Two further corpora.}
@@ -291,11 +290,12 @@ Language alone is worth \LanguageEffect~points ($p = \LanguageP$). Content is
 worth \ContentEffect. A crossed design varying document language and description
 language independently agrees: the richer descriptions win in both document
 languages, so the diagonal a matching effect would produce does not appear. The
-effect also survives a change of encoder.
+effect also survives a change of encoder: on the larger mpnet-base-v2, content
+is worth \MpnetContentEffect~points (\MpnetContentPStat).
 
 \subsection{What predicts which classes gain}
 
-Table~\ref{tab:predictors} regresses the per-class gain on five candidate
+Table~\ref{tab:predictors} relates the per-class gain to five candidate
 predictors over \NCLASSES\ classes. The target is the share of \emph{available}
 headroom a class captured rather than raw gain, since a class already near
 ceiling cannot gain much and raw gain largely measures where a class started.
@@ -304,8 +304,8 @@ ceiling cannot gain much and raw gain largely measures where a class started.
 
 \input{tables/alignment_figure}
 
-Only $\Delta a(c)$ survives, and it is the only candidate that holds within each
-corpus separately (Figure~\ref{fig:alignment}). Resampling the classes gives a
+Only $\Delta a(c)$ correlates with the gain, and it is the only candidate that
+holds within each corpus separately (Figure~\ref{fig:alignment}). Resampling the classes gives a
 \CILevel\ interval of $[\AlignRhoLo, \AlignRhoHi]$ for $\rho$, a permutation test
 gives $p = \AlignPermP$, and leaving out any one class keeps $\rho$ between
 $\AlignLooMin$ and $\AlignLooMax$. It was, however, the best of five candidates,
@@ -402,10 +402,10 @@ $p = \ContrastiveNewsP$, \HolmContrastiveStat).
 
 Two causes, both measured. First, the styles do not share a similarity scale: in
 a set where every other class carries an elaborated description, that half wins
-\ElabShareNACE\ of argmax decisions on NACE and \ElabShareNews\ on 20 Newsgroups against a fair
-share of \FairShare, the bias running in the direction alignment predicts. Per-class
-standardisation does not rescue it, costing \ZScoreCost~points on the best pure policy by
-discarding class priors. Second, there are $2^K$ configurations for $K$ classes;
+\ElabShareNACE\ of argmax decisions on NACE and \ElabShareNews\ on 20 Newsgroups
+against a fair share of \FairShare, the bias running in the direction alignment
+predicts. Per-class standardisation does not rescue it, costing \ZScoreCost~points
+on the best pure policy by discarding class priors. Second, there are $2^K$ configurations for $K$ classes;
 development accuracy rises under greedy search and held-out accuracy does not
 follow.
 
@@ -428,6 +428,8 @@ configuration we tested. Translating each document into English with OPUS-MT
 \citep{tiedemann-thottingal-2020-opus} before classifying is the one variant that
 raises accuracy, by \TranslateGain~points, and it does not reach significance
 ($p = \TranslateP$); we report it as a lead rather than a result.
+
+\subsection{Against baselines}
 
 \input{tables/baselines}
 
@@ -472,8 +474,8 @@ greedy decoding; the prompt is released with the code. It ran locally in about
 \LLMMinutes~minutes, and \LLMOffFormat\ of its replies left the requested format.
 It reaches \LLMTopOne\ Top-1 against \OursTopOne\ for the system, a difference
 that is not significant ($p = \LLMP$), but only \LLMTopThree\ Top-3 against
-\OursTopThree\ ($p = \LLMTopThreeP$; \HolmLLMTopThreeStat), and \LLMVerifiedTopOne\ on the
-human-verified documents ($p = \LLMVerifiedP$). The two agree on the top section
+\OursTopThree\ ($p = \LLMTopThreeP$; \HolmLLMTopThreeStat), and
+\LLMVerifiedTopOne\ on the human-verified documents ($p = \LLMVerifiedP$). The two agree on the top section
 for only \LLMAgreeShare\ of documents, so they fail on different ones. A
 classifier built from a 118M-parameter encoder and one definition per class is
 not outperformed by a model more than fifty times its size; whether larger or

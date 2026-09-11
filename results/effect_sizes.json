@@ -1,8 +1,8 @@
 {
   "alpha": 0.05,
-  "n_tests": 45,
-  "nominally_significant": 25,
-  "significant_after_holm": 18,
+  "n_tests": 46,
+  "nominally_significant": 26,
+  "significant_after_holm": 19,
   "lost_to_correction": [
     "full system vs. TF-IDF \u2192 nearest NACE section",
     "full system vs. \u2212 description in sector vector",
@@ -26,7 +26,7 @@
         20.735785953177256,
         32.78428093645473
       ],
-      "p_holm": 1.8824255353478762e-13
+      "p_holm": 1.9262028733792223e-13
     },
     {
       "group": "Descriptions",
@@ -42,6 +42,21 @@
         0.33444816053511706
       ],
       "p_holm": 1.0
+    },
+    {
+      "group": "Descriptions",
+      "label": "NACE, mpnet encoder: definitions vs. terse German",
+      "n": 299,
+      "sign": 1,
+      "a_only": 63,
+      "b_only": 22,
+      "p": 9.811984308900493e-06,
+      "gain_pp": 13.7123745819398,
+      "ci95": [
+        8.02675585284281,
+        19.39799331103679
+      ],
+      "p_holm": 0.0003630434194293182
     },
     {
       "group": "Descriptions",
@@ -71,7 +86,7 @@
         8.0,
         12.1
       ],
-      "p_holm": 3.345004100583976e-20
+      "p_holm": 3.421026921051793e-20
     },
     {
       "group": "Descriptions",
@@ -101,7 +116,7 @@
         14.911366006256518,
         22.10636079249218
       ],
-      "p_holm": 4.7701259745383804e-21
+      "p_holm": 4.876128773972567e-21
     },
     {
       "group": "System",
@@ -206,7 +221,7 @@
         12.040133779264215,
         23.745819397993312
       ],
-      "p_holm": 1.1388565020188676e-06
+      "p_holm": 1.1680579507885822e-06
     },
     {
       "group": "Ablation",
@@ -371,7 +386,7 @@
         17.05685618729097,
         31.103678929765888
       ],
-      "p_holm": 1.7705055753916415e-08
+      "p_holm": 1.8147682147764325e-08
     },
     {
       "group": "Reference",
@@ -401,7 +416,7 @@
         11.37123745819398,
         23.411371237458194
       ],
-      "p_holm": 3.5871459594848246e-06
+      "p_holm": 3.681544537366004e-06
     },
     {
       "group": "Label-free update",
@@ -431,7 +446,7 @@
         1.45,
         3.65
       ],
-      "p_holm": 0.00025802559138650736
+      "p_holm": 0.00026499925601857513
     },
     {
       "group": "Label-free update",
@@ -446,7 +461,7 @@
         5.005213764337852,
         8.86339937434828
       ],
-      "p_holm": 8.904521001467003e-11
+      "p_holm": 9.116533406263837e-11
     },
     {
       "group": "Label-free update",
@@ -491,7 +506,7 @@
         4.483837330552659,
         8.342022940563087
       ],
-      "p_holm": 3.948208552481871e-09
+      "p_holm": 4.0445063220545995e-09
     },
     {
       "group": "Label-free update",

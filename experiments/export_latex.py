@@ -773,6 +773,12 @@ def main() -> int:
             r"\newcommand{\ErrorCodingAgree}{%.0f\%%}" % (100 * coding["agreement"]),
             r"\newcommand{\ErrorCodingKappa}{%.3f}" % coding["cohen_kappa"],
         ]
+    mpnet_study = load_optional("description_study_paraphrase_multilingual_mpnet_base_v2")
+    if mpnet_study:
+        derived += [
+            r"\newcommand{\MpnetContentEffect}{%+.1f}" % mpnet_study["content_effect"]["gain_pp"],
+            r"\newcommand{\MpnetContentPStat}{%s}" % p_stat(mpnet_study["content_effect"]["p_value"]),
+        ]
     refs = load_optional("references")
     if refs:
         derived += references_macros(refs, ablation)
