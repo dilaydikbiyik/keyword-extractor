@@ -799,6 +799,20 @@ class TestRocchio:
         monkeypatch.setattr(run_rocchio, "PREREGISTRATION", registered)
         assert run_rocchio.evaluate() == 1
 
+    def test_the_committed_prediction_still_matches_the_method(self):
+        """Editing the first study's method after its prediction would void the test of it."""
+        import json as _json
+
+        from experiments.run_rocchio import PREREGISTRATION, method_fingerprint
+
+        registered = _json.loads(PREREGISTRATION.read_text(encoding="utf-8"))
+        assert registered["method_fingerprint"] == method_fingerprint("terse")
+
+    def test_each_study_has_its_own_fingerprint(self):
+        from experiments.run_rocchio import method_fingerprint
+
+        assert method_fingerprint("terse") != method_fingerprint("definitions")
+
     def test_the_fingerprint_is_stable(self):
         from experiments.run_rocchio import method_fingerprint
 
@@ -809,3 +823,35 @@ class TestRocchio:
 
         monkeypatch.setattr(run_rocchio, "PREREGISTRATION", tmp_path / "missing.json")
         assert run_rocchio.evaluate() == 1
+
+
+class TestEffectSizes:
+    """Intervals from discordant counts, and the Holm correction."""
+
+    def test_the_interval_contains_the_observed_difference(self):
+        from experiments.effect_sizes import diff_ci
+
+        lo, hi = diff_ci(a_only=96, b_only=16, n=299)
+        assert lo < 100 * (96 - 16) / 299 < hi
+        assert lo > 0
+
+    def test_no_discordant_pairs_means_no_difference(self):
+        from experiments.effect_sizes import diff_ci
+
+        assert diff_ci(0, 0, 299) == [0.0, 0.0]
+
+    def test_orientation_flips_the_interval(self):
+        from experiments.effect_sizes import diff_ci
+
+        lo, hi = diff_ci(13, 20, 299, sign=-1)
+        assert lo < 100 * 7 / 299 < hi
+
+    def test_holm_is_monotone_and_capped(self):
+        from experiments.effect_sizes import holm
+
+        adjusted = holm({"a": 0.01, "b": 0.02, "c": 0.04, "d": 0.5})
+        assert adjusted["a"] == 0.04
+        assert adjusted["b"] == 0.06
+        assert adjusted["c"] == 0.08
+        assert adjusted["d"] == 0.5
+        assert holm({"x": 0.9, "y": 0.8})["x"] == 1.0

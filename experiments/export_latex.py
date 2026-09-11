@@ -557,6 +557,46 @@ def rocchio_macros(registered: Dict, result: Dict) -> List[str]:
     return lines
 
 
+def effects_table(effects: Dict) -> str:
+    """Appendix: every headline comparison with its interval and its Holm-adjusted p."""
+    rows, group = [], None
+    for t in effects["tests"]:
+        if t["group"] != group:
+            group = t["group"]
+            rows.append(r"\midrule" if rows else "")
+            rows.append(r"\multicolumn{5}{@{}l}{\emph{%s}} \\" % escape(group))
+        if "ci95" in t:
+            gain = f"${t['gain_pp']:+.1f}$ [${t['ci95'][0]:+.1f}$, ${t['ci95'][1]:+.1f}$]"
+            n = str(t["n"])
+        elif "gain_pp" in t:
+            gain, n = f"${t['gain_pp']:+.1f}$", "--"
+        else:
+            gain, n = "--", "--"
+        rows.append(" & ".join([escape(t["label"]), n, gain, p_cell(t["p"]), p_cell(t["p_holm"])]) + r" \\")
+    return "\n".join([
+        PREAMBLE, r"\begin{table*}[t]", r"\centering", r"\small",
+        r"\begin{tabular}{@{}lrlrr@{}}", r"\toprule",
+        r"Comparison & $n$ & Difference in points [95\% CI] & $p$ & Holm $p$ \\",
+        *[r for r in rows if r], r"\bottomrule", r"\end{tabular}",
+        r"\caption{Every comparison the paper reports as a finding. Differences are in Top-1 "
+        r"percentage points (Top-3 where stated), oriented as named; intervals are percentile "
+        r"bootstrap over documents, drawn from the discordant counts (the selection-rule results "
+        r"keep no counts, so they have none); $p$ is the exact McNemar "
+        r"test (Spearman for the correlations), and Holm $p$ corrects over all \EffectTests\ tests.}",
+        r"\label{tab:effects}", r"\end{table*}", "",
+    ])
+
+
+def effects_macros(effects: Dict) -> List[str]:
+    lost = effects["lost_to_correction"]
+    return [
+        r"\newcommand{\EffectTests}{%d}" % effects["n_tests"],
+        r"\newcommand{\EffectNominal}{%d}" % effects["nominally_significant"],
+        r"\newcommand{\EffectHolm}{%d}" % effects["significant_after_holm"],
+        r"\newcommand{\EffectLostList}{%s}" % ("none" if not lost else "; ".join(escape(x) for x in lost)),
+    ]
+
+
 def compute_macros(compute: Dict) -> List[str]:
     """What a complete reproduction costs, as recorded by run.py."""
     return [
@@ -633,6 +673,9 @@ def main() -> int:
                              verification, pilot, retired, corpora)
     derived += robustness_macros(load("robustness"))
     derived += compute_macros(load("compute"))
+    effects = load_optional("effect_sizes")
+    if effects:
+        derived += effects_macros(effects)
     registered, rocchio = load_optional("rocchio_preregistration"), load_optional("rocchio")
     if registered and rocchio:
         derived += rocchio_macros(registered, rocchio)
@@ -650,6 +693,7 @@ def main() -> int:
         "corpora.tex": corpora_table(study, search, reuters, news),
         "alignment_figure.tex": alignment_figure(search),
         **({"rocchio.tex": rocchio_table(registered, rocchio)} if registered and rocchio else {}),
+        **({"effects.tex": effects_table(effects)} if effects else {}),
         "predictors.tex": predictors_table(search),
         "macros.tex": macros(baselines, error_report, study, search, reuters, news, derived),
     }

@@ -43,14 +43,16 @@ from experiments.config import RESULTS_DIR, ROOT, SEED, ensure_dirs, set_seed
 from experiments.data import load_labeled_samples
 from experiments.metrics import mcnemar_exact
 from experiments.run_description_study import LITERAL_GERMAN
-from experiments.run_replication import READABLE as NEWS_READABLE, load_newsgroups
-from experiments.run_reuters import READABLE as REUTERS_READABLE, load as load_reuters
+from experiments.run_replication import DEFINITION as NEWS_DEFINITION, READABLE as NEWS_READABLE, load_newsgroups
+from experiments.run_reuters import DEFINITION as REUTERS_DEFINITION, READABLE as REUTERS_READABLE, load as load_reuters
 from experiments.systems import get_embedder
 
 K = 25
 BETA = 1.0
 PREREGISTRATION = RESULTS_DIR / "rocchio_preregistration.json"
 RESULT = RESULTS_DIR / "rocchio.json"
+DEFINITIONS_PREREGISTRATION = RESULTS_DIR / "rocchio_definitions_preregistration.json"
+DEFINITIONS_RESULT = RESULTS_DIR / "rocchio_definitions.json"
 
 
 def unit_rows(matrix: np.ndarray) -> np.ndarray:
@@ -125,6 +127,31 @@ def corpora() -> Dict[str, Dict]:
     }
 
 
+def corpora_definitions() -> Dict[str, Dict]:
+    """The same corpora and pools, starting from the written definitions instead.
+
+    The second study: does moving the vector still help once a person has
+    already written the class a definition? If it does, the mechanism yields a
+    method that adds to the best descriptions, not only to the worst.
+    """
+    new = json.loads((ROOT / "data" / "taxonomy" / "sectors.json").read_text(encoding="utf-8"))["sectors"]
+    out = corpora()
+    out["NACE"]["terse"] = {c: f"{new[c].get('name', '')}. {new[c].get('description', '')}"
+                            for c in out["NACE"]["names"]}
+    out["20NG"]["terse"] = {n: NEWS_DEFINITION[n] for n in out["20NG"]["names"]}
+    out["Reuters"]["terse"] = {c: REUTERS_DEFINITION[c] for c in out["Reuters"]["names"]}
+    return out
+
+
+def study_files(study: str):
+    """The corpora loader and the two files a study reads and writes."""
+    if study == "terse":
+        return corpora, PREREGISTRATION, RESULT
+    if study == "definitions":
+        return corpora_definitions, DEFINITIONS_PREREGISTRATION, DEFINITIONS_RESULT
+    raise ValueError(f"unknown study {study!r}")
+
+
 def vectors_for(corpus: Dict) -> Dict[str, np.ndarray]:
     names = corpus["names"]
     terse = encode([corpus["terse"][n] for n in names])
@@ -145,7 +172,7 @@ def predictions_from(changes: Dict[str, float]) -> List[Dict]:
     return out
 
 
-def method_fingerprint() -> str:
+def method_fingerprint(study: str = "terse") -> str:
     """A hash of everything that decides the moved vectors and how they are measured.
 
     Stored with the prediction; the accuracy step refuses to run if it differs,
@@ -154,6 +181,8 @@ def method_fingerprint() -> str:
     parts = [f"K={K}", f"BETA={BETA}", f"SEED={SEED}"]
     parts += [inspect.getsource(f) for f in (unit_rows, rocchio, alignment, encode, encode_pool,
                                              corpora, vectors_for)]
+    if study != "terse":
+        parts.append(inspect.getsource(study_files(study)[0]))
     return hashlib.sha256("\n".join(parts).encode("utf-8")).hexdigest()
 
 
@@ -164,12 +193,13 @@ def git_revision() -> str:
         return "unknown"
 
 
-def preregister() -> int:
-    if PREREGISTRATION.exists():
-        print(f"{PREREGISTRATION} already exists; a prediction is made once.", file=sys.stderr)
+def preregister(study: str = "terse") -> int:
+    load, prereg_path, _ = study_files(study)
+    if prereg_path.exists():
+        print(f"{prereg_path} already exists; a prediction is made once.", file=sys.stderr)
         return 1
     changes, per_class = {}, {}
-    for name, corpus in corpora().items():
+    for name, corpus in load().items():
         vecs = vectors_for(corpus)
         docs = encode(corpus["docs"])
         before = alignment(vecs["terse"], docs, corpus["gold"], corpus["names"])
@@ -179,9 +209,10 @@ def preregister() -> int:
         print(f"  {name:8s} pool {len(corpus['pool']):6d}  classes measured {len(before):3d}  "
               f"mean alignment change {changes[name]:+.4f}")
     payload = {
+        "study": study,
         "registered_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "code_revision": git_revision(),
-        "method_fingerprint": method_fingerprint(),
+        "method_fingerprint": method_fingerprint(study),
         "k": K, "beta": BETA, "seed": SEED,
         "classes_measured": {name: len(v) for name, v in per_class.items()},
         "mean_alignment_change": changes,
@@ -189,24 +220,25 @@ def preregister() -> int:
         "predictions": predictions_from(changes),
         "note": "Written before any accuracy under the Rocchio vectors was computed.",
     }
-    PREREGISTRATION.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    prereg_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     for p in payload["predictions"]:
         print(f"  PREDICTION {p['id']}: {p['claim']}")
-    print(f"Wrote {PREREGISTRATION}. Commit it before running the accuracy step.")
+    print(f"Wrote {prereg_path}. Commit it before running the accuracy step.")
     return 0
 
 
-def evaluate() -> int:
-    if not PREREGISTRATION.exists():
+def evaluate(study: str = "terse") -> int:
+    load, prereg_path, result_path = study_files(study)
+    if not prereg_path.exists():
         print("No preregistration: run with --preregister and commit the file first.", file=sys.stderr)
         return 1
-    registered = json.loads(PREREGISTRATION.read_text(encoding="utf-8"))
-    if registered.get("method_fingerprint") != method_fingerprint():
+    registered = json.loads(prereg_path.read_text(encoding="utf-8"))
+    if registered.get("method_fingerprint") != method_fingerprint(study):
         print("The method changed after the prediction was registered; refusing to test it.",
               file=sys.stderr)
         return 1
     report, pooled = {}, []
-    for name, corpus in corpora().items():
+    for name, corpus in load().items():
         vecs = vectors_for(corpus)
         docs, gold, names = encode(corpus["docs"]), corpus["gold"], corpus["names"]
         present = [n for n in names if n in set(gold)]
@@ -243,22 +275,24 @@ def evaluate() -> int:
             held = bool(rho > 0)
         outcomes.append({**pred, "held": bool(held)})
         print(f"  {'HELD  ' if held else 'FAILED'} {pred['claim']}")
-    payload = {"preregistration": PREREGISTRATION.name, "registered_at": registered["registered_at"],
+    payload = {"study": study, "preregistration": prereg_path.name, "registered_at": registered["registered_at"],
                "k": K, "beta": BETA, "corpora": report,
                "per_class": {"n": len(pooled), "rho": float(rho), "p": float(p)},
                "outcomes": outcomes}
-    RESULT.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
-    print(f"  per-class rho = {rho:+.3f} (p = {p:.4f}, n = {len(pooled)})\nWrote {RESULT}")
+    result_path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    print(f"  per-class rho = {rho:+.3f} (p = {p:.4f}, n = {len(pooled)})\nWrote {result_path}")
     return 0
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--preregister", action="store_true")
+    parser.add_argument("--study", choices=["terse", "definitions"], default="terse",
+                        help="Start from the terse class texts (the first study) or the written definitions.")
     args = parser.parse_args()
     set_seed()
     ensure_dirs()
-    return preregister() if args.preregister else evaluate()
+    return preregister(args.study) if args.preregister else evaluate(args.study)
 
 
 if __name__ == "__main__":

@@ -5,7 +5,7 @@ PYTHON ?= $(shell \
 	elif command -v python3 >/dev/null 2>&1; then command -v python3; \
 	else echo python; fi)
 
-.PHONY: help install reproduce test lint annotate merge verify verify-new verify-apply second-annotator second-annotator-score llm-baseline llm-baseline-local study rocchio-preregister rocchio paper-tables paper submission demo clean
+.PHONY: help install reproduce test lint annotate merge verify verify-new verify-apply second-annotator second-annotator-score llm-baseline llm-baseline-local study rocchio-preregister rocchio rocchio-definitions-preregister rocchio-definitions paper-tables paper submission demo clean
 
 help:
 	@echo "Using PYTHON = $(PYTHON)"
@@ -27,6 +27,7 @@ help:
 	@echo "  study         Class-description studies: language, content, replication"
 	@echo "  rocchio-preregister  Label-free causal test, step 1: write the prediction"
 	@echo "  rocchio       Step 2: accuracy, checked against the committed prediction"
+	@echo "  rocchio-definitions-preregister / rocchio-definitions  The same, from written definitions"
 	@echo "  paper-tables  Regenerate paper/tables/*.tex from results/"
 	@echo "  paper         Build paper/main.pdf (needs tectonic: brew install tectonic)"
 	@echo "  submission    Anonymous review PDF and code archive in dist/, checked"
@@ -100,12 +101,19 @@ study:
 	$(PYTHON) -m experiments.run_predictor_search
 	$(PYTHON) -m experiments.robustness
 	$(PYTHON) -m experiments.run_rocchio
+	$(PYTHON) -m experiments.run_rocchio --study definitions
 
 rocchio-preregister:
 	$(PYTHON) -m experiments.run_rocchio --preregister
 
 rocchio:
 	$(PYTHON) -m experiments.run_rocchio
+
+rocchio-definitions-preregister:
+	$(PYTHON) -m experiments.run_rocchio --study definitions --preregister
+
+rocchio-definitions:
+	$(PYTHON) -m experiments.run_rocchio --study definitions
 
 paper-tables:
 	$(PYTHON) -m experiments.export_latex

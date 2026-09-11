@@ -1,0 +1,111 @@
+{
+  "study": "definitions",
+  "registered_at": "2026-09-11T10:13:01+00:00",
+  "code_revision": "2d76d60",
+  "method_fingerprint": "ae715adf7bf22182cba425030d616f0d9fcb54431b67ae6a5af96d76e12c8d38",
+  "k": 25,
+  "beta": 1.0,
+  "seed": 42,
+  "classes_measured": {
+    "NACE": 18,
+    "20NG": 20,
+    "Reuters": 12
+  },
+  "mean_alignment_change": {
+    "NACE": 0.09142080084125605,
+    "20NG": 0.1702372960853507,
+    "Reuters": 0.1519466057328626
+  },
+  "alignment_change_per_class": {
+    "NACE": {
+      "A": 0.14129919027475346,
+      "C": 0.07062178440940736,
+      "D": 0.07226047376060019,
+      "E": 0.10000492983932308,
+      "F": 0.05947899368079379,
+      "G": 0.05803218855293624,
+      "H": 0.058629072363951984,
+      "I": 0.13823871098042395,
+      "J": 0.1061364223726613,
+      "K": 0.1479383793529968,
+      "L": 0.07244581225763991,
+      "M": 0.13503064332735293,
+      "N": 0.0641563037939551,
+      "O": 0.03762772927417002,
+      "P": 0.08737691065950792,
+      "Q": 0.11385481116417939,
+      "R": 0.13880468773539156,
+      "S": 0.0436373713425639
+    },
+    "20NG": {
+      "alt.atheism": 0.13960166961160614,
+      "comp.graphics": 0.13623870411138517,
+      "comp.os.ms-windows.misc": 0.15058946124170214,
+      "comp.sys.ibm.pc.hardware": 0.15392714465823942,
+      "comp.sys.mac.hardware": 0.13973526796887847,
+      "comp.windows.x": 0.10798557485150995,
+      "misc.forsale": 0.19850195570505996,
+      "rec.autos": 0.23042018382213464,
+      "rec.motorcycles": 0.14866445326475686,
+      "rec.sport.baseball": 0.20235312304183578,
+      "rec.sport.hockey": 0.18689810352182634,
+      "sci.crypt": 0.13706090041707275,
+      "sci.electronics": 0.18717519516586834,
+      "sci.med": 0.1783421283133967,
+      "sci.space": 0.19597297261232516,
+      "soc.religion.christian": 0.16253384176434194,
+      "talk.politics.guns": 0.1807299812482061,
+      "talk.politics.mideast": 0.17495710464586933,
+      "talk.politics.misc": 0.22087212474102558,
+      "talk.religion.misc": 0.17218603099997376
+    },
+    "Reuters": {
+      "acq": 0.22745149603542963,
+      "coffee": 0.1135140074722002,
+      "crude": 0.10255688243658301,
+      "earn": 0.25761819689609083,
+      "grain": 0.17531458373967224,
+      "interest": 0.12221686448821889,
+      "money-fx": 0.11121387594130772,
+      "money-supply": 0.11612595601528153,
+      "oilseed": 0.16906471856510585,
+      "ship": 0.1378599774634376,
+      "sugar": 0.1621446281954082,
+      "trade": 0.12827808154561537
+    }
+  },
+  "predictions": [
+    {
+      "id": "direction-NACE",
+      "claim": "On NACE, the Rocchio update raises Top-1 accuracy.",
+      "corpus": "NACE",
+      "expected_sign": 1
+    },
+    {
+      "id": "direction-20NG",
+      "claim": "On 20NG, the Rocchio update raises Top-1 accuracy.",
+      "corpus": "20NG",
+      "expected_sign": 1
+    },
+    {
+      "id": "direction-Reuters",
+      "claim": "On Reuters, the Rocchio update raises Top-1 accuracy.",
+      "corpus": "Reuters",
+      "expected_sign": 1
+    },
+    {
+      "id": "ordering",
+      "claim": "Accuracy gains follow the order of the alignment changes: 20NG > Reuters > NACE.",
+      "order": [
+        "20NG",
+        "Reuters",
+        "NACE"
+      ]
+    },
+    {
+      "id": "per-class",
+      "claim": "Across all classes, the alignment change correlates positively with the share of available headroom captured (Spearman rho > 0)."
+    }
+  ],
+  "note": "Written before any accuracy under the Rocchio vectors was computed."
+}
