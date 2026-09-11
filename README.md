@@ -153,6 +153,16 @@ p = 1.000). They had been supplying what the descriptions were missing.
 
 [`docs/paper_readiness.md`](docs/paper_readiness.md) has the full account.
 
+**Moving the vector without words.** If alignment is the mechanism, moving a
+class vector toward its documents should help with no description at all. Each
+terse class vector was moved toward its 25 nearest unlabelled documents, the
+alignment change was measured, and five predictions were
+[committed](results/rocchio_preregistration.json) before any accuracy existed.
+All five held: Top-1 rose on Reuters (+6.9 points, p < 0.001), 20 Newsgroups
+(+2.6, p < 0.001) and NACE (+2.3, not significant), in the predicted order, and
+the per-class correlation reappeared (ρ = +0.514). The 20 Newsgroups gain is the
+one the account risked most on: written definitions gained nothing there.
+
 ### Ablation
 
 | Variant | Top-1 | Δ Top-1 | F1-macro | p vs. full |

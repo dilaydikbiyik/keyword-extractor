@@ -481,7 +481,7 @@
     </div>
     <div class="fig">
       <span class="fig-n">3</span>
-      <div class="fig-l">Corpora, one of which was predicted before it was measured</div>
+      <div class="fig-l">Corpora, and two results predicted before they were measured</div>
       <div class="fig-s">NACE · Reuters-21578 · 20 Newsgroups</div>
     </div>
     <div class="fig">
@@ -718,6 +718,41 @@
             <div><b>−8.4 pp</b><span>removing the descriptions (p = 0.002)</span></div>
             <div><b>34.8%</b><span>the previous taxonomy (p &lt; 1e−7)</span></div>
             <div><b>−10.4 pp</b><span>the larger mpnet encoder (p = 0.0004)</span></div>
+          </div>
+        </div>
+      </div>
+    </article>
+    <!-- 07 -->
+    <article class="entry" style="--status: var(--predicted); --status-bg: var(--predicted-bg);">
+      <div class="entry-head">
+        <div class="entry-no">07</div>
+        <div>
+          <span class="chip">Predicted, then confirmed</span>
+          <p class="claim">“Then moving the vector should help without any words at all.”</p>
+        </div>
+      </div>
+      <div class="entry-body">
+        <div class="spacer"></div>
+        <div class="entry-text">
+          <p>
+            Every result above rests on descriptions someone wrote. If alignment is the mechanism,
+            moving a class vector toward its documents should help by itself, with no description
+            and no label. Each terse vector was moved toward its 25 nearest unlabelled documents,
+            with the evaluation documents kept out.
+          </p>
+          <p>
+            Only the alignment change was measured first. Five predictions followed from it and were
+            <a href="https://github.com/dilaydikbiyik/keyword-extractor/commit/7b677dd">committed</a>
+            before any accuracy existed, with a fingerprint of the method that the accuracy step
+            checks. All five held. The risky one was 20 Newsgroups, where written definitions gained
+            nothing because they moved its vectors away from its documents; this update moves them
+            toward them, and it gains. On NACE the gain is small and not significant: a few nearest
+            neighbours do not recover the vocabulary its sections lack.
+          </p>
+          <div class="evidence">
+            <div><b>5 of 5</b><span>predictions held</span></div>
+            <div><b>+6.9 / +2.6 / +2.3 pp</b><span>Reuters / 20NG / NACE, in the predicted order</span></div>
+            <div><b>ρ = +0.514</b><span>per class, n = 49 (p = 0.0002)</span></div>
           </div>
         </div>
       </div>

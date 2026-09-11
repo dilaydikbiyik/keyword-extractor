@@ -495,7 +495,16 @@ def llm_macros(llm: Dict) -> List[str]:
 
 
 ROCCHIO_MACRO_NAME = {"NACE": "Nace", "20NG": "News", "Reuters": "Reuters"}
-ROCCHIO_LABEL = {"NACE": "NACE Rev. 2", "20NG": "20 Newsgroups", "Reuters": "Reuters-21578"}
+ROCCHIO_LABEL = {"NACE": "NACE", "20NG": "20NG", "Reuters": "Reuters"}
+
+
+def p_stat(value: float) -> str:
+    """A p-value for running text: "$p < 0.001$" rather than a misleading "$p = 0.000$"."""
+    return r"$p < 0.001$" if value < 0.001 else f"$p = {value:.3f}$"
+
+
+def p_cell(value: float) -> str:
+    return "$<0.001$" if value < 0.001 else f"{value:.3f}"
 
 
 def rocchio_table(registered: Dict, result: Dict) -> str:
@@ -509,17 +518,18 @@ def rocchio_table(registered: Dict, result: Dict) -> str:
             ROCCHIO_LABEL[name],
             f"${registered['mean_alignment_change'][name]:+.3f}$",
             pct(r["top1_terse"]), pct(r["top1_rocchio"]),
-            f"${r['gain_pp']:+.1f}$", f"{r['mcnemar']['p_value']:.3f}",
-            "held" if held[name] else "failed",
+            f"${r['gain_pp']:+.1f}$", p_cell(r["mcnemar"]["p_value"]),
+            "yes" if held[name] else "no",
         ]) + r" \\")
     return "\n".join([
-        PREAMBLE, r"\begin{table}[t]", r"\centering", r"\footnotesize", r"\setlength{\tabcolsep}{4pt}",
+        PREAMBLE, r"\begin{table}[t]", r"\centering", r"\footnotesize", r"\setlength{\tabcolsep}{3pt}",
         r"\begin{tabular}{@{}lrrrrrl@{}}", r"\toprule",
-        r"Corpus & $\Delta$align. & Terse & Moved & Gain & $p$ & Direction \\", r"\midrule",
+        r"Corpus & $\Delta$align. & Terse & Moved & Gain & $p$ & Held \\", r"\midrule",
         *rows, r"\bottomrule", r"\end{tabular}",
         r"\caption{Class vectors moved toward their $k{=}\RocchioK$ nearest unlabelled documents, "
         r"with no label and no description. The alignment change was measured and the predicted "
-        r"direction committed before any accuracy was computed.}",
+        r"direction committed before any accuracy was computed; \emph{Held} says whether it "
+        r"was right. 20NG is 20 Newsgroups; Reuters is Reuters-21578.}",
         r"\label{tab:rocchio}", r"\end{table}", "",
     ])
 
@@ -532,7 +542,7 @@ def rocchio_macros(registered: Dict, result: Dict) -> List[str]:
         r"\newcommand{\RocchioHeld}{%d}" % sum(o["held"] for o in outcomes),
         r"\newcommand{\RocchioPredictions}{%d}" % len(outcomes),
         r"\newcommand{\RocchioRho}{%+.3f}" % result["per_class"]["rho"],
-        r"\newcommand{\RocchioRhoP}{%.3f}" % result["per_class"]["p"],
+        r"\newcommand{\RocchioRhoPStat}{%s}" % p_stat(result["per_class"]["p"]),
         r"\newcommand{\RocchioRegistered}{%s}" % registered["registered_at"][:10],
     ]
     for name, stem in ROCCHIO_MACRO_NAME.items():
@@ -540,7 +550,7 @@ def rocchio_macros(registered: Dict, result: Dict) -> List[str]:
         lines += [
             r"\newcommand{\Rocchio%sAlign}{%+.3f}" % (stem, registered["mean_alignment_change"][name]),
             r"\newcommand{\Rocchio%sGain}{%+.1f}" % (stem, r["gain_pp"]),
-            r"\newcommand{\Rocchio%sP}{%.3f}" % (stem, r["mcnemar"]["p_value"]),
+            r"\newcommand{\Rocchio%sPStat}{%s}" % (stem, p_stat(r["mcnemar"]["p_value"])),
             r"\newcommand{\Rocchio%sTerse}{%s\%%}" % (stem, pct(r["top1_terse"])),
             r"\newcommand{\Rocchio%sMoved}{%s\%%}" % (stem, pct(r["top1_rocchio"])),
         ]

@@ -95,6 +95,10 @@ Our contributions are:
   \item A comparison with an instruction-tuned language model asked for the
         section directly, which does not beat the system at Top-1 and falls
         significantly behind it at Top-3.
+  \item A preregistered, label-free intervention on the class vectors: moving
+        each one toward its nearest unlabelled documents raises accuracy in the
+        order the alignment change predicts, including on the corpus where
+        written definitions did not help.
   \item A negative result with a measured cause: the quantity cannot be
         optimised per class, because the classifier's argmax compares across
         classes on a scale that depends on description style.
@@ -308,6 +312,34 @@ does. Spelling a bare Reuters category code out into a readable name is worth a
 further \ReutersCodeGain~points, the same identifier-to-name jump 20 Newsgroups
 shows, and for the same reason.
 
+\subsection{Moving the vector without words}
+\label{sec:rocchio}
+
+Everything above rests on descriptions someone wrote. If alignment is the
+mechanism, moving a class vector toward its documents should help by itself,
+with no description and no label. We moved each terse class vector toward the
+mean of its \RocchioK\ nearest documents in an unlabelled pool from the same
+source, with the evaluation documents removed and both settings fixed in
+advance. Before any accuracy was computed we measured the alignment change in
+each corpus, derived \RocchioPredictions\ predictions from it, and committed them
+(\RocchioRegistered) with a fingerprint of the method that the accuracy step
+checks before it runs.
+
+\input{tables/rocchio}
+
+\RocchioHeld\ of the \RocchioPredictions\ predictions held
+(Table~\ref{tab:rocchio}). Accuracy rose on Reuters by \RocchioReutersGain~points
+(\RocchioReutersPStat), on 20 Newsgroups by \RocchioNewsGain\
+(\RocchioNewsPStat) and on NACE by \RocchioNaceGain\ (\RocchioNacePStat), in the
+order the alignment changes predicted, and across classes the alignment change
+again predicts the share of headroom captured ($\rho = \RocchioRho$,
+\RocchioRhoPStat). The 20 Newsgroups result is the one the account risked most
+on: written definitions gained nothing there because they moved its vectors
+away from its documents, and this update, which moves them toward them, gains.
+On NACE the gain is small and not significant; a few nearest neighbours do not
+recover the vocabulary its sections lack, and written definitions remain far
+better there.
+
 \subsection{It cannot be optimised per class}
 
 If $\Delta a$ were locally causal, choosing each class's description by it should
@@ -419,7 +451,9 @@ words, the same work is worth nothing. The alignment change predicts both, and
 predicted a third corpus before it was measured. It cannot, however, be turned
 into a per-class selection rule, and we report the three ways that failed.
 Nor does asking an instruction-tuned model directly do better: it matches the
-system at Top-1 and falls behind it at Top-3.
+system at Top-1 and falls behind it at Top-3. Moving the vectors toward
+unlabelled documents, with no words at all, raised accuracy in the order the
+account predicted before it was measured.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \section*{Limitations}
@@ -453,6 +487,10 @@ parameters. Larger or proprietary models may do better; the released code
 includes an adapter for a paid API (\texttt{make llm-baseline}) that was not run.
 Any such model has to come from a different family than the labeller, or it is
 graded on its own answers.
+
+The label-free update in Section~\ref{sec:rocchio} uses one untuned setting of
+its two parameters, and its gain on NACE is not significant. The update needs no
+labels; measuring alignment, and so testing the account, still does.
 
 Finally, the per-class descriptions used in the elaborated conditions were
 drafted by the AI assistant that also produced the labels, and it had seen the
