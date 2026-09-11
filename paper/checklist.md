@@ -16,7 +16,9 @@ before submitting rather than discovered by a reviewer.
 ## B. Did you use or create scientific artifacts?
 
 Yes: the trade register sample, NACE Rev. 2, 20 Newsgroups, Reuters-21578,
-the sentence encoders, OPUS-MT, and the released evaluation set.
+the sentence encoders, OPUS-MT, the released evaluation set, and the derived
+TF-IDF statistics (vocabulary and IDF only) that stand in for the unreleased
+corpus.
 
 - **B1. Cited the creators?** Yes — encoders, OPUS-MT, NACE Rev. 2, the
   keyword-extraction methods, 20 Newsgroups (Lang 1995) and Reuters-21578
@@ -33,7 +35,8 @@ the sentence encoders, OPUS-MT, and the released evaluation set.
   released with them because they are part of a public register entry, and
   that the pipeline never reads them.
 - **B5. Documentation of artifacts?** Yes — *Data* section, plus
-  `data/README.md` and `docs/annotation_guidelines.md`.
+  `data/README.md` (which lists every derived statistics file) and
+  `docs/annotation_guidelines.md`.
 - **B6. Statistics and splits?** Yes — *Data* section: set size, stratified
   development/test halves, corpus size.
 

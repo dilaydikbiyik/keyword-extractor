@@ -481,7 +481,7 @@
     </div>
     <div class="fig">
       <span class="fig-n">3</span>
-      <div class="fig-l">Corpora, and two results predicted before they were measured</div>
+      <div class="fig-l">Corpora, and four sets of predictions committed before they were measured</div>
       <div class="fig-s">NACE · Reuters-21578 · 20 Newsgroups</div>
     </div>
     <div class="fig">
@@ -636,7 +636,7 @@
             gain</strong>.
           </p>
           <p>
-            Across 32 classes the correlation is positive and significant, and — this is the
+            Across 32 classes the correlation is positive (p = 0.003 before correction), and — this is the
             part that matters — it holds <em>within</em> each corpus separately, so it is not
             an artefact of one corpus being easier than the other. A description that does not
             move its class toward its documents buys nothing, however well written.
@@ -989,8 +989,8 @@
       The translation row is reported because it is the one intervention that moved the score
       upward (+3.7 pp) without reaching significance (<em>p</em> = 0.20). It is a lead, not a
       result, and it is listed as one. The last row asks an open 7B instruction-tuned model
-      for the section directly: no better at Top-1 (<em>p</em> = 0.42), and significantly worse
-      at Top-3 (<em>p</em> = 0.004), from a model more than fifty times the encoder's size.
+      for the section directly: no better at Top-1 (<em>p</em> = 0.42), and behind
+      at Top-3 (<em>p</em> = 0.004 uncorrected, not significant after correction), from a model more than fifty times the encoder's size.
     </p>
 
     <div class="cols" style="margin-top: 44px;">

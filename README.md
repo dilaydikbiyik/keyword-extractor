@@ -64,8 +64,8 @@ per class — see below.
 
 **An instruction-tuned model asked directly does not do better.** An open 7B
 model (Qwen2.5-7B-Instruct, run locally, the same prompt as the API baseline)
-is no better at Top-1 (p = 0.416) and significantly worse at Top-3: 71.9%
-against 81.6% (p = 0.004). The two agree on the top section for only a third of
+is no better at Top-1 (p = 0.416) and behind at Top-3: 71.9% against 81.6%
+(p = 0.004 uncorrected, not significant after correction). The two agree on the top section for only a third of
 the documents.
 
 ### The finding
@@ -334,6 +334,8 @@ in [`docs/PROJECT_SUMMARY.md`](docs/PROJECT_SUMMARY.md).
 | `data/taxonomy/sectors.json` | yes | 21 NACE sections, 340 hand-written seed keywords |
 | `data/evaluation/human_labels.json` | yes | 299 corpus-sampled documents with NACE section labels |
 | `data/derived/tfidf_corpus_stats.json` | yes | Vocabulary and IDF weights derived from the corpus |
+| `data/derived/tfidf_snowball_corpus_stats.json` | yes | The same over German Snowball stems (stronger lexical baseline) |
+| `data/derived/tfidf_char_corpus_stats.json` | yes | The same over character 3–5-grams (stronger lexical baseline) |
 | `data/raw/handelsregister_sample_10k.csv` | no | 9,993 German trade register purposes |
 
 The corpus is not redistributed; the statistics derived from it are, which is

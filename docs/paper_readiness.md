@@ -482,7 +482,11 @@ documents flagged high-confidence."*
 5. **A criterion that survives the argmax without labels.** Three tried here
    fail, including direct optimisation of the objective. Whether a label-free
    set-level criterion exists is open; it would have to beat a fixed policy
-   without the development data that makes the search overfit.
+   without the development data that makes the search overfit. Moving the
+   vectors, rather than choosing among descriptions, is a different question
+   and has been answered: in three preregistered studies the class-level
+   prediction held every time and the corpus ordering once (paper, *Moving
+   the vector without words*).
 6. **Decide the keyword question.** The set carries section labels only, so
    Precision@K is unmeasurable, and the keyword half of the pipeline has now
    failed to show an effect in every configuration tested. Writing a

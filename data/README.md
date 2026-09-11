@@ -8,6 +8,8 @@ matters for anyone trying to reproduce the reported numbers.
 | `data/taxonomy/sectors.json` | yes | 21 NACE Rev. 2 sections with hand-written seed keywords and descriptions. Authored for this project. |
 | `data/evaluation/human_labels.json` | yes | The evaluation set: gold NACE section plus reference keywords per document. Authored for this project. |
 | `data/derived/tfidf_corpus_stats.json` | yes | Vocabulary and IDF weights derived from the corpus below. |
+| `data/derived/tfidf_snowball_corpus_stats.json` | yes | The same over German Snowball stems, for `experiments/run_references.py`. |
+| `data/derived/tfidf_char_corpus_stats.json` | yes | The same over character 3–5-grams, for `experiments/run_references.py`. |
 | `data/raw/handelsregister_sample_10k.csv` | **no** | 9,993 German trade register business purposes. |
 
 ## The corpus is not redistributed — and reproduction does not need it
