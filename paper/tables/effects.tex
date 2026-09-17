@@ -7,7 +7,7 @@
 \setlength{\tabcolsep}{5pt}
 \begin{tabular}{@{}lrlrr@{}}
 \toprule
-Comparison & $n$ & Diff.\ [95\% CI] & $p$ & Holm $p$ \\
+Comparison & $n$ & Diff.\ (pp) [95\% CI] & $p$ & Holm $p$ \\
 \multicolumn{5}{@{}l}{\emph{Descriptions}} \\
 NACE: definitions vs. terse German & 299 & $+26.8$ [$+20.7$, $+32.8$] & $<0.001$ & $<0.001$ \\
 NACE: terse German vs. terse original & 299 & $-2.3$ [$-5.0$, $+0.3$] & 0.143 & 1.000 \\
@@ -73,6 +73,6 @@ label-free update (definitions), per class & -- & -- & 0.001 & 0.033 \\
 label-free update (terse, mpnet), per class & -- & -- & $<0.001$ & 0.002 \\
 \bottomrule
 \end{tabular}
-\caption{Every comparison the paper reports as a finding. Differences are in Top-1 percentage points (Top-3 where stated), oriented as named; intervals are percentile bootstrap over documents, drawn from the discordant counts (the selection-rule results keep no counts, so they have none); $p$ is the exact McNemar test (Spearman for the correlations), and Holm $p$ corrects over all \EffectTests\ tests.}
+\caption{Every comparison the paper reports as a finding. Differences are in Top-1 percentage points (Top-3 where stated), oriented as named; intervals are percentile bootstrap over documents, drawn from the discordant counts (the selection-rule results keep no counts, so they have none); $p$ is the exact McNemar test (Spearman for the correlations), and Holm $p$ corrects over all \EffectTests\ tests. LLM is the instruction-tuned language model of Section~\ref{sec:llm}.}
 \label{tab:effects}
 \end{table*}

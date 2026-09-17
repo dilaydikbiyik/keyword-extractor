@@ -86,7 +86,7 @@ def baseline_table(systems: List[Dict], llm: Optional[Dict] = None) -> str:
         r"\small",
         r"\begin{tabular}{lrrrrrr}",
         r"\toprule",
-        r"System & Top-1 & 95\% CI & Top-3 & F1-macro & $\kappa$ & $p$ \\",
+        r"System & Top-1 (\%) & 95\% CI & Top-3 (\%) & F1-macro & $\kappa$ & $p$ \\",
         r"\midrule",
     ]
     for s in systems:
@@ -187,7 +187,8 @@ def ablation_table(systems: List[Dict]) -> str:
         r"\end{tabular}",
         r"\caption{Component ablation. $\Delta$ is the change in Top-1 accuracy "
         r"against the full system in percentage points; $p$ is an exact McNemar test, "
-        r"uncorrected (Holm-adjusted values are in Appendix~\ref{app:effects}).}",
+        r"uncorrected (Holm-adjusted values are in Appendix~\ref{app:effects}). "
+        r"Top-1 is a percentage, $\Delta$ percentage points.}",
         r"\label{tab:ablation}",
         r"\end{table}",
         "",
@@ -226,7 +227,7 @@ def error_table(report: Dict) -> str:
 def description_study_table(study: Dict) -> str:
     lines = [PREAMBLE, r"\begin{table}[t]", r"\centering", r"\small",
              r"\begin{tabular}{@{}>{\raggedright\arraybackslash}p{3.5cm}rrr@{}}", r"\toprule",
-             r"Class descriptions & Top-1 & Top-3 & words \\", r"\midrule"]
+             r"Class descriptions & Top-1 & Top-3 & Words \\", r"\midrule"]
     for name, r in study["conditions"].items():
         label = escape(name)
         if "rewritten" in name or "definition" in name:
@@ -236,7 +237,7 @@ def description_study_table(study: Dict) -> str:
     lines += [r"\bottomrule", r"\end{tabular}",
               r"\caption{Class descriptions on \NEVAL\ NACE documents, with the sector "
               r"vector built from the description alone. Rendering the same content in "
-              r"German is the control: it isolates language from content.}",
+              r"German is the control: it isolates language from content. Top-1 and Top-3 are percentages.}",
               r"\label{tab:descriptions}", r"\end{table}", ""]
     return "\n".join(lines)
 
@@ -261,7 +262,7 @@ def corpora_table(study: Dict, search: Dict, reuters: Dict, news: Dict) -> str:
     lines = [PREAMBLE, r"\begin{table}[t]", r"\centering", r"\small",
              r"\setlength{\tabcolsep}{4pt}",
              r"\begin{tabular}{@{}llrr@{}}", r"\toprule",
-             r"Corpus & Labels & $\Delta$align. & Gain \\", r"\midrule",
+             r"Corpus & Labels & $\Delta$align. & Gain (pp) \\", r"\midrule",
              *rows,
              r"\bottomrule", r"\end{tabular}",
              r"\caption{The alignment change predicts the accuracy gained from "
@@ -294,7 +295,7 @@ def predictors_table(search: Dict) -> str:
               r"\caption{Spearman correlation with the share of available headroom a "
               r"class captured, over \NCLASSES\ classes. Only movement toward the "
               r"class's own documents survives, and only it holds within each corpus "
-              r"separately.}",
+              r"separately. 20NG is 20 Newsgroups.}",
               r"\label{tab:predictors}", r"\end{table}", ""]
     return "\n".join(lines)
 
@@ -540,7 +541,8 @@ def rocchio_table(studies: List[Tuple[str, Dict, Dict]]) -> str:
         r"\caption{Class vectors moved toward their $k{=}\RocchioK$ nearest unlabelled documents, "
         r"with no label and no new text, in three preregistered studies. Each alignment change was "
         r"measured and its predictions committed before any accuracy was computed; \emph{Held} says "
-        r"whether the predicted direction was right. 20NG is 20 Newsgroups; Reuters is Reuters-21578.}",
+        r"whether the predicted direction was right. 20NG is 20 Newsgroups; Reuters is "
+        r"Reuters-21578. Before, Moved and Gain are percentages and percentage points.}",
         r"\label{tab:rocchio}", r"\end{table}", "",
     ])
 
@@ -586,13 +588,14 @@ def effects_table(effects: Dict) -> str:
     return "\n".join([
         PREAMBLE, r"\begin{table*}[t]", r"\centering", r"\footnotesize", r"\setlength{\tabcolsep}{5pt}",
         r"\begin{tabular}{@{}lrlrr@{}}", r"\toprule",
-        r"Comparison & $n$ & Diff.\ [95\% CI] & $p$ & Holm $p$ \\",
+        r"Comparison & $n$ & Diff.\ (pp) [95\% CI] & $p$ & Holm $p$ \\",
         *[r for r in rows if r], r"\bottomrule", r"\end{tabular}",
         r"\caption{Every comparison the paper reports as a finding. Differences are in Top-1 "
         r"percentage points (Top-3 where stated), oriented as named; intervals are percentile "
         r"bootstrap over documents, drawn from the discordant counts (the selection-rule results "
         r"keep no counts, so they have none); $p$ is the exact McNemar "
-        r"test (Spearman for the correlations), and Holm $p$ corrects over all \EffectTests\ tests.}",
+        r"test (Spearman for the correlations), and Holm $p$ corrects over all \EffectTests\ tests. "
+        r"LLM is the instruction-tuned language model of Section~\ref{sec:llm}.}",
         r"\label{tab:effects}", r"\end{table*}", "",
     ])
 
@@ -625,7 +628,7 @@ def references_table(refs: Dict) -> str:
         r"\caption{Stronger references on the same \NEVAL\ documents. Lexical rows rank the sector "
         r"texts the TF-IDF baseline uses; supervised rows are trained on the evaluation labels "
         r"themselves and scored out of fold, so they see labels the zero-shot system never does. "
-        r"$p$ is an exact McNemar test against this system, uncorrected.}",
+        r"$p$ is an exact McNemar test against this system, uncorrected. Top-1 and Top-3 are percentages.}",
         r"\label{tab:references}", r"\end{table}", "",
     ])
 

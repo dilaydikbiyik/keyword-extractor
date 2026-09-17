@@ -43,7 +43,7 @@ Zero-shot classification against a taxonomy usually embeds a short
 description of each class and ranks the descriptions against the document.
 How much the wording of those descriptions matters is rarely measured. We rewrite the class descriptions of a NACE Rev.~2 taxonomy
 over German trade register texts, from category labels into definitions that
-enumerate concrete activities, and gain \ContentEffect~points of top-1 accuracy.
+enumerate concrete activities, and gain \ContentEffect~points of Top-1 accuracy.
 A control shows the gain is not linguistic: rendering the same content in the
 language of the documents is worth \LanguageEffect~points ($p =
 \LanguageP$). We identify what does explain it---how far the rewrite moves each
@@ -81,7 +81,7 @@ quantity that governs it.
 Our contributions are:
 \begin{itemize}
   \item Rewriting class descriptions from category labels into definitions that
-        enumerate concrete activities gains \ContentEffect~points of top-1
+        enumerate concrete activities gains \ContentEffect~points of Top-1
         accuracy on NACE section assignment, validated on a held-out half of the
         evaluation set that was never inspected during the rewrite.
   \item A control separating content from language. Sixteen of twenty-one
@@ -351,10 +351,8 @@ checks before it runs.
 \input{tables/rocchio}
 
 \RocchioHeld\ of the \RocchioPredictions\ predictions held
-(Table~\ref{tab:rocchio}). Accuracy rose on Reuters by \RocchioReutersGain~points
-(\RocchioReutersPStat), on 20 Newsgroups by \RocchioNewsGain\
-(\RocchioNewsPStat) and on NACE by \RocchioNaceGain\ (\RocchioNacePStat), in the
-order the alignment changes predicted, and across classes the alignment change
+(Table~\ref{tab:rocchio}): accuracy rose on all three corpora, in the order the
+alignment changes predicted, and across classes the alignment change
 again predicts the share of headroom captured ($\rho = \RocchioRho$,
 \RocchioRhoPStat). The 20 Newsgroups result is the one the account risked most
 on: written definitions gained nothing there because they moved its vectors
@@ -367,9 +365,7 @@ better there.
 update, unchanged, to the written definitions, with its own predictions
 committed (\RocchioDefRegistered) before its accuracy was computed.
 \RocchioDefHeld\ of its \RocchioDefPredictions\ predictions held. The update
-again raised accuracy on Reuters (\RocchioDefReutersGain~points,
-\RocchioDefReutersPStat) and on 20 Newsgroups (\RocchioDefNewsGain,
-\RocchioDefNewsPStat), and across classes the alignment change again predicts
+again raised accuracy on Reuters and on 20 Newsgroups, and across classes the alignment change again predicts
 the share of headroom captured ($\rho = \RocchioDefRho$, \RocchioDefRhoPStat).
 On NACE, however, accuracy changed by \RocchioDefNaceGain~points
 (\RocchioDefNacePStat) although alignment rose, so the direction predicted
@@ -382,10 +378,8 @@ orders classes within a corpus more reliably than it compares corpora.
 on paraphrase-\allowbreak multilingual-\allowbreak mpnet-\allowbreak base-\allowbreak v2,
 with its own predictions committed (\RocchioMpnetRegistered) before its accuracy
 was computed. \RocchioMpnetHeld\ of its \RocchioMpnetPredictions\ predictions held.
-Accuracy rose on Reuters by \RocchioMpnetReutersGain~points
-(\RocchioMpnetReutersPStat), on 20 Newsgroups by \RocchioMpnetNewsGain\
-(\RocchioMpnetNewsPStat; \HolmMpnetNewsStat) and on NACE by \RocchioMpnetNaceGain\
-(\RocchioMpnetNacePStat), and the per-class relation appeared a third time
+Accuracy rose on all three corpora, though the 20 Newsgroups gain does not
+survive correction (\HolmMpnetNewsStat), and the per-class relation appeared a third time
 ($\rho = \RocchioMpnetRho$, \RocchioMpnetRhoPStat). The predicted ordering failed
 again, NACE edging past 20 Newsgroups. Across the three studies the class-level
 prediction held every time and on both encoders; the corpus-level ordering held
@@ -449,8 +443,8 @@ Two questions are asked of any zero-shot result: was the lexical baseline given
 a fair chance, and what would labels buy? Neither analysis was preregistered,
 and both enter the corrected family. German builds words by compounding, so a
 TF-IDF ranker that matches whole words never finds \emph{Boden} inside
-\emph{Bodenbelagsarbeiten}. Over the same sector texts, German Snowball stems
-reach \RefSnowTopOne\ Top-1 and character 3--5-grams within word boundaries
+\emph{Bodenbelagsarbeiten}. Over the same sector texts, German Snowball stems help
+less than character 3--5-grams within word boundaries, which reach
 \RefCharTopOne\ (\RefCharPStat\ against the system; Table~\ref{tab:references}):
 a lexical ranker that sees inside compounds matches the embedding system. It
 still needs the descriptions. The rewrite is worth \RefCharDescGain~points to it
@@ -459,8 +453,8 @@ the text of the class, not the model that reads it.
 
 Labels buy little here. Trained out of fold on the evaluation labels
 themselves, about \RefTrainLabels\ per fold, logistic regression on the same
-embeddings reaches \RefLRTopOne\ (\RefLRPStat) and Naive Bayes on TF-IDF
-\RefNBTopOne. With some sections represented by a handful of documents this is
+embeddings reaches \RefLRTopOne\ (\RefLRPStat), and Naive Bayes on TF-IDF far
+less (Table~\ref{tab:references}). With some sections represented by a handful of documents this is
 a small-data reference, not a ceiling; but a supervised model given most of the
 labels does no better than one written definition per class.
 
@@ -521,7 +515,7 @@ Ambiguous section definitions and genuinely multi-sector companies together
 account for \AmbigMultiShare\ of errors and are not addressable by any change to this system.
 NACE admits two defensible answers for a company that both manufactures and
 installs windows. We read this as a rough ceiling on single-label accuracy for
-the task, and as the strongest argument for reporting top-3.
+the task, and as the strongest argument for reporting Top-3.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Conclusion}
