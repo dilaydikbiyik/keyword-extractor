@@ -473,8 +473,32 @@ that is not significant ($p = \LLMP$), but only \LLMTopThree\ Top-3 against
 \LLMVerifiedTopOne\ on the human-verified documents ($p = \LLMVerifiedP$). The two agree on the top section
 for only \LLMAgreeShare\ of documents, so they fail on different ones. A
 classifier built from a 118M-parameter encoder and one definition per class is
-not outperformed by a model more than fifty times its size; whether larger or
-proprietary models change that is not tested here.
+not outperformed at Top-1 by a model with roughly sixty times as many
+parameters, and it answers about \BenchLLMTimes\ times faster per document
+(Section~\ref{sec:cost}); whether larger or proprietary models change that is
+not tested here.
+
+\subsection{What a document costs}
+\label{sec:cost}
+
+\input{tables/cost}
+
+Accuracy says which system is worth running; cost says whether it can be run.
+Table~\ref{tab:cost} measures both on the same machine and the same documents,
+with the class vectors built once at start-up, as a service would build them.
+One document costs \BenchCharMs~ms in the character n-gram space,
+\BenchMiniLMMs~ms through the MiniLM encoder and \BenchLLMMs~ms through
+\LLMModel. The language model is about \BenchLLMTimes\ times slower per
+document than the encoder whose accuracy it does not beat, holds
+\BenchLLMRam~MB of memory against \BenchMiniLMRam, and occupies
+\BenchLLMDisk~MB on disk against \BenchMiniLMDisk. The lexical rankers need a
+megabyte of committed statistics and no model at all.
+
+The ordering matters for the argument rather than for the record: the claim of
+this paper is about what a description buys, and the description is the cheapest
+part of every system in the table. Latencies are medians over \BenchTimings\
+timings of a warm process taking one document at a time; the batch column is
+what a batch job gets instead.
 
 \subsection{Checked against human-verified labels}
 \label{sec:verified}
@@ -569,6 +593,10 @@ different size, but both are multilingual sentence-transformers trained by the
 same distillation procedure. The label-free test gives the same class-level
 result on both, and the description effect appears, at the same size, in a
 character n-gram space (Section~\ref{sec:references}).
+
+The cost figures in Section~\ref{sec:cost} come from one machine and one
+implementation of each system; they order the systems, they do not fix absolute
+values.
 
 The instruction-tuned baseline is a single open model of roughly 7B
 parameters. Larger or proprietary models may do better; the released code

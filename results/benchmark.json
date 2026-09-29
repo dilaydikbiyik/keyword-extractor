@@ -1,0 +1,94 @@
+{
+  "machine": {
+    "cpu": "Apple M5 Pro",
+    "cpu_count": 18,
+    "platform": "macOS-27.0",
+    "python": "3.9.6"
+  },
+  "protocol": {
+    "documents": 100,
+    "repeats": 3,
+    "warmup": 5,
+    "batch_size": 32,
+    "llm_documents": 30,
+    "seed": 42,
+    "note": "Warm latency at batch 1, median and p95 over all timings; embedding caches bypassed; class vectors built once in cold start, as a service would; each system in its own process."
+  },
+  "systems": [
+    {
+      "key": "tfidf-word",
+      "label": "TF-IDF, words",
+      "device": "cpu",
+      "n_documents": 100,
+      "repeats": 3,
+      "n_timings": 300,
+      "cold_start_seconds": 2.33,
+      "median_ms": 0.63,
+      "p95_ms": 0.73,
+      "docs_per_second_single": 1578.9,
+      "docs_per_second_batch": 1554.2,
+      "peak_rss_mb": 445.4,
+      "model_disk_mb": 0.8
+    },
+    {
+      "key": "tfidf-char",
+      "label": "TF-IDF, character 3-5-grams",
+      "device": "cpu",
+      "n_documents": 100,
+      "repeats": 3,
+      "n_timings": 300,
+      "cold_start_seconds": 0.43,
+      "median_ms": 0.16,
+      "p95_ms": 0.41,
+      "docs_per_second_single": 6135.0,
+      "docs_per_second_batch": 5112.4,
+      "peak_rss_mb": 311.4,
+      "model_disk_mb": 1.2
+    },
+    {
+      "key": "embed-minilm",
+      "label": "MiniLM embeddings (118M)",
+      "device": "cpu",
+      "n_documents": 100,
+      "repeats": 3,
+      "n_timings": 300,
+      "cold_start_seconds": 5.19,
+      "median_ms": 6.68,
+      "p95_ms": 12.81,
+      "docs_per_second_single": 149.7,
+      "docs_per_second_batch": 144.4,
+      "peak_rss_mb": 1034.8,
+      "model_disk_mb": 457.5
+    },
+    {
+      "key": "embed-mpnet",
+      "label": "mpnet embeddings (278M)",
+      "device": "cpu",
+      "n_documents": 100,
+      "repeats": 3,
+      "n_timings": 300,
+      "cold_start_seconds": 6.01,
+      "median_ms": 16.24,
+      "p95_ms": 28.54,
+      "docs_per_second_single": 61.6,
+      "docs_per_second_batch": 59.4,
+      "peak_rss_mb": 1402.1,
+      "model_disk_mb": 1074.2
+    },
+    {
+      "key": "llm-qwen",
+      "label": "Qwen2.5-7B-Instruct, asked directly",
+      "device": "mps/cuda/cpu, whichever is present",
+      "n_documents": 30,
+      "repeats": 1,
+      "n_timings": 30,
+      "cold_start_seconds": 11.2,
+      "median_ms": 610.02,
+      "p95_ms": 889.02,
+      "docs_per_second_single": 1.6,
+      "docs_per_second_batch": null,
+      "peak_rss_mb": 18422.8,
+      "model_disk_mb": 14536.7
+    }
+  ]
+}

@@ -1014,3 +1014,33 @@ class TestModelErrorCoding:
         code_errors.code_with_model(ask=lambda prompt: "?", translate=str)
         report = json.loads(code_errors.MODEL_REPORT.read_text(encoding="utf-8"))
         assert report["off_format"] == 2 and report["agreement"] == 0.0
+
+
+class TestBenchmark:
+    """The cost measurement: the protocol, not the numbers, which are machine-specific."""
+
+    def test_it_times_every_system_the_same_way(self, monkeypatch):
+        from experiments import benchmark
+
+        calls = []
+
+        def build():
+            def classify(text):
+                calls.append(text)
+                return "C"
+            return classify, lambda texts: ["C" for _ in texts]
+
+        monkeypatch.setitem(benchmark.SYSTEMS, "fake",
+                            {"label": "fake", "device": "cpu",
+                             "model": "data/derived/tfidf_corpus_stats.json", "build": build})
+        monkeypatch.setattr(benchmark, "DOCUMENTS", 4)
+        monkeypatch.setattr(benchmark, "REPEATS", 2)
+        monkeypatch.setattr(benchmark, "WARMUP", 1)
+        report = benchmark.measure("fake")
+
+        assert report["n_documents"] == 4 and report["repeats"] == 2
+        assert report["n_timings"] == 8            # documents x repeats, warm-up excluded
+        assert len(calls) == 1 + 8                 # warm-up and timed calls, one document at a time
+        assert report["docs_per_second_batch"] > 0  # the batch path ran too
+        assert report["p95_ms"] >= report["median_ms"] >= 0
+        assert report["peak_rss_mb"] > 0 and report["model_disk_mb"] > 0

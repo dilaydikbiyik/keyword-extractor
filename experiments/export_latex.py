@@ -653,6 +653,77 @@ def references_macros(refs: Dict, ablation: Dict) -> List[str]:
     return lines
 
 
+BENCH_ROWS = {
+    "tfidf-word": ("Tfidf", r"TF-IDF, words", ("baselines", "tfidf-nace")),
+    "tfidf-char": ("Char", r"TF-IDF, char.\ 3--5-grams", ("references", "tfidf-char")),
+    "embed-minilm": ("MiniLM", r"MiniLM (118M)", ("baselines", "full")),
+    "embed-mpnet": ("Mpnet", r"mpnet (278M)", ("ablation", "mpnet")),
+    "llm-qwen": ("LLM", r"\LLMModel", ("llm", "llm")),
+}
+
+
+def bench_accuracy(key: str, baselines: Dict, ablation: Dict, refs: Dict, llm: Optional[Dict]) -> Optional[float]:
+    """Top-1 of the configuration each timed pipeline corresponds to."""
+    source, name = BENCH_ROWS[key][2]
+    if source == "baselines":
+        return next((s["sector"]["top1_accuracy"] for s in baselines["systems"] if s["key"] == name), None)
+    if source == "ablation":
+        return next((s["sector"]["top1_accuracy"] for s in ablation["systems"] if s["key"] == name), None)
+    if source == "references":
+        return next((s["top1_accuracy"] for s in refs["systems"] if s["key"] == name), None)
+    return llm["sector"]["top1_accuracy"] if llm else None
+
+
+def benchmark_table(bench: Dict, baselines: Dict, ablation: Dict, refs: Dict, llm: Optional[Dict]) -> str:
+    """What a document costs in each system, beside what it buys."""
+    rows = []
+    for m in bench["systems"]:
+        if m["key"] not in BENCH_ROWS:
+            continue
+        accuracy = bench_accuracy(m["key"], baselines, ablation, refs, llm)
+        rows.append(" & ".join([
+            BENCH_ROWS[m["key"]][1],
+            f"{m['median_ms']:.1f}", f"{m['p95_ms']:.1f}",
+            "--" if m["docs_per_second_batch"] is None else f"{m['docs_per_second_batch']:.0f}",
+            "--" if accuracy is None else pct(accuracy),
+        ]) + r" \\")
+    return "\n".join([
+        PREAMBLE, r"\begin{table}[t]", r"\centering", r"\footnotesize", r"\setlength{\tabcolsep}{4pt}",
+        r"\begin{tabular}{@{}lrrrr@{}}", r"\toprule",
+        r"System & Median & p95 & Batch & Top-1 \\", r"\midrule",
+        *rows, r"\bottomrule", r"\end{tabular}",
+        r"\caption{What a document costs. Median and p95 are milliseconds for one document at a "
+        r"time, over \BenchTimings\ timings; \emph{Batch} is documents per second when they are "
+        r"handed over together; Top-1 is a percentage, "
+        r"from the table where that configuration was measured. Class vectors are built once at "
+        r"start-up, so the per-document cost does not depend on how they were written. Peak memory "
+        r"is given in the text. Measured on one machine (\BenchMachine), encoders on CPU.}",
+        r"\label{tab:cost}", r"\end{table}", "",
+    ])
+
+
+def benchmark_macros(bench: Dict) -> List[str]:
+    by_key = {m["key"]: m for m in bench["systems"]}
+    lines = [
+        r"\newcommand{\BenchTimings}{%d}" % sum(m["n_timings"] for m in bench["systems"]),
+        r"\newcommand{\BenchMachine}{%s, %d cores}"
+        % (escape(bench["machine"]["cpu"]), bench["machine"]["cpu_count"]),
+    ]
+    for key, (stem, _, _) in BENCH_ROWS.items():
+        m = by_key.get(key)
+        if not m:
+            continue
+        lines += [
+            r"\newcommand{\Bench%sMs}{%.1f}" % (stem, m["median_ms"]),
+            r"\newcommand{\Bench%sRam}{%.0f}" % (stem, m["peak_rss_mb"]),
+            r"\newcommand{\Bench%sDisk}{%.0f}" % (stem, m["model_disk_mb"]),
+        ]
+    if "llm-qwen" in by_key and "embed-minilm" in by_key:
+        ratio = by_key["llm-qwen"]["median_ms"] / by_key["embed-minilm"]["median_ms"]
+        lines.append(r"\newcommand{\BenchLLMTimes}{%d}" % round(ratio))
+    return lines
+
+
 def holm_stat(value: float) -> str:
     return r"$p_{\mathrm{Holm}} < 0.001$" if value < 0.001 else f"$p_{{\\mathrm{{Holm}}}} = {value:.3f}$"
 
@@ -785,6 +856,9 @@ def main() -> int:
     refs = load_optional("references")
     if refs:
         derived += references_macros(refs, ablation)
+    bench = load_optional("benchmark")
+    if bench:
+        derived += benchmark_macros(bench)
     llm = load_optional("llm_baseline")
     if llm and llm.get("complete"):
         derived += llm_macros(llm)
@@ -801,6 +875,7 @@ def main() -> int:
         **({"rocchio.tex": rocchio_table([s[:3] for s in studies])} if studies else {}),
         **({"effects.tex": effects_table(effects)} if effects else {}),
         **({"references.tex": references_table(refs)} if refs else {}),
+        **({"cost.tex": benchmark_table(bench, baselines, ablation, refs, llm)} if bench and refs else {}),
         "predictors.tex": predictors_table(search),
         "macros.tex": macros(baselines, error_report, study, search, reuters, news, derived),
     }

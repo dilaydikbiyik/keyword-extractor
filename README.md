@@ -196,6 +196,15 @@ labels does no better than one written definition per class. Neither analysis
 was preregistered ([`results/references.json`](results/references.json),
 `make references`).
 
+**What it costs.** Accuracy is half the question. Measured on one machine
+(Apple M5 Pro, encoders on CPU), one document costs 0.2 ms in the character
+n-gram space, 6.7 ms through the MiniLM encoder and 610 ms through
+Qwen2.5-7B-Instruct: about 91× the encoder whose accuracy it does not beat, at
+18 GB of memory against 1 GB and 14 GB on disk against 458 MB. `make benchmark`
+regenerates [`results/benchmark.json`](results/benchmark.json) — medians over
+1,230 timings of a warm process, class vectors built once at start-up, each
+system in its own process.
+
 ### Ablation
 
 *p* is uncorrected; removing the description (−8.4 points, p = 0.002) does not
