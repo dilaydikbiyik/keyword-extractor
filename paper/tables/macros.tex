@@ -72,16 +72,16 @@
 \newcommand{\ReproduceMinutes}{6}
 \newcommand{\ReproduceCPU}{Apple M5 Pro}
 \newcommand{\ReproduceCores}{18}
-\newcommand{\HolmAlignStat}{$p_{\mathrm{Holm}} = 0.067$}
-\newcommand{\HolmRocchioRhoStat}{$p_{\mathrm{Holm}} = 0.005$}
-\newcommand{\HolmLLMTopThreeStat}{$p_{\mathrm{Holm}} = 0.088$}
-\newcommand{\HolmTfidfStat}{$p_{\mathrm{Holm}} = 0.774$}
-\newcommand{\HolmVerifiedStat}{$p_{\mathrm{Holm}} = 0.067$}
-\newcommand{\HolmContrastiveStat}{$p_{\mathrm{Holm}} = 0.112$}
-\newcommand{\HolmMpnetNewsStat}{$p_{\mathrm{Holm}} = 0.073$}
-\newcommand{\EffectTests}{46}
-\newcommand{\EffectNominal}{26}
-\newcommand{\EffectHolm}{19}
+\newcommand{\HolmAlignStat}{$p_{\mathrm{Holm}} = 0.073$}
+\newcommand{\HolmRocchioRhoStat}{$p_{\mathrm{Holm}} = 0.006$}
+\newcommand{\HolmLLMTopThreeStat}{$p_{\mathrm{Holm}} = 0.096$}
+\newcommand{\HolmTfidfStat}{$p_{\mathrm{Holm}} = 0.848$}
+\newcommand{\HolmVerifiedStat}{$p_{\mathrm{Holm}} = 0.072$}
+\newcommand{\HolmContrastiveStat}{$p_{\mathrm{Holm}} = 0.122$}
+\newcommand{\HolmMpnetNewsStat}{$p_{\mathrm{Holm}} = 0.079$}
+\newcommand{\EffectTests}{50}
+\newcommand{\EffectNominal}{28}
+\newcommand{\EffectHolm}{21}
 \newcommand{\EffectLostList}{full system vs. TF-IDF $\rightarrow$ nearest NACE section; full system vs. $-$ description in sector vector; full system vs. LLM, Top-3; full system vs. previous taxonomy; 20NG: terse, mpnet + update vs. terse, mpnet; 20NG: contrastive margin vs. best fixed policy; alignment change vs. headroom captured}
 \newcommand{\RocchioK}{25}
 \newcommand{\RocchioHeld}{5}
@@ -146,6 +146,46 @@
 \newcommand{\RocchioMpnetReutersMoved}{74.8\%}
 \newcommand{\MpnetContentEffect}{+13.7}
 \newcommand{\MpnetContentPStat}{$p < 0.001$}
+\newcommand{\LabseContentEffect}{+16.1}
+\newcommand{\LabseContentPStat}{$p < 0.001$}
+\newcommand{\LabseTopOne}{47.2\%}
+\newcommand{\SourceWriter}{Qwen2.5-7B-Instruct}
+\newcommand{\SourceRho}{+0.424}
+\newcommand{\SourceRhoPStat}{$p = 0.090$}
+\newcommand{\SourceHeld}{4}
+\newcommand{\SourcePredictions}{4}
+\newcommand{\SourceControlTopOne}{26.1\%}
+\newcommand{\SourceAssistantTopOne}{52.8\%}
+\newcommand{\SourceAssistantGain}{+26.8}
+\newcommand{\SourceAssistantPStat}{$p < 0.001$}
+\newcommand{\SourceAssistantAlign}{+0.080}
+\newcommand{\SourceWriterTopOne}{31.4\%}
+\newcommand{\SourceWriterGain}{+5.4}
+\newcommand{\SourceWriterPStat}{$p = 0.068$}
+\newcommand{\SourceWriterAlign}{+0.052}
+\newcommand{\SourceAssistantOverWriter}{+21.4}
+\newcommand{\SourceAssistantOverWriterPStat}{$p < 0.001$}
+\newcommand{\SourceWriterShare}{20\%}
+\newcommand{\SweepCells}{60}
+\newcommand{\SweepAgreeing}{59}
+\newcommand{\SweepKList}{5, 10, 25, 50, 100}
+\newcommand{\SweepBetaList}{0.25, 0.5, 1.0, 2.0}
+\newcommand{\SweepKMin}{5}
+\newcommand{\SweepKMax}{100}
+\newcommand{\SweepBetaMin}{0.25}
+\newcommand{\SweepBetaMax}{2.0}
+\newcommand{\SweepNaceMin}{+2.0}
+\newcommand{\SweepNaceMax}{+6.0}
+\newcommand{\SweepNaceAgreeing}{20}
+\newcommand{\SweepNaceCells}{20}
+\newcommand{\SweepNewsMin}{-0.3}
+\newcommand{\SweepNewsMax}{+3.1}
+\newcommand{\SweepNewsAgreeing}{19}
+\newcommand{\SweepNewsCells}{20}
+\newcommand{\SweepReutersMin}{+2.8}
+\newcommand{\SweepReutersMax}{+7.9}
+\newcommand{\SweepReutersAgreeing}{20}
+\newcommand{\SweepReutersCells}{20}
 \newcommand{\RefEmbedDescGain}{+17.7}
 \newcommand{\RefFolds}{5}
 \newcommand{\RefTrainLabels}{239}

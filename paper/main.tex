@@ -104,13 +104,15 @@ Our contributions are:
   \item A negative result with a measured cause: the quantity cannot be
         optimised per class, because the classifier's argmax compares across
         classes on a scale that depends on description style.
-  \item Stronger references. A character n-gram ranker over the same
-        descriptions matches the system and gains as much from the rewrite,
-        and a classifier trained on most of the labels does no better.
-  \item A comparison with an instruction-tuned language model asked for the
-        section directly, which does not beat the system at Top-1 and falls
-        behind it at Top-3, though not significantly once every comparison
-        is corrected together.
+  \item Stronger references and alternatives. A character n-gram ranker over
+        the same descriptions matches the system and gains as much from the
+        rewrite, a classifier trained on most of the labels does no better, and
+        an instruction-tuned model asked for the section directly does not beat
+        the system at Top-1.
+  \item A test of who writes the descriptions: definitions written by a model
+        from a different family than the labeller, from the control text alone,
+        gain in the predicted direction but recover \SourceWriterShare\ of the
+        gain.
 \end{itemize}
 
 % ─────────────────────────────────────────────────────────────────────────────
@@ -145,11 +147,9 @@ to incidental choices such as the order of examples
 sensitivity to \emph{meaning}: \citet{webson-pavlick-2022-prompt} show that
 models can perform as well with irrelevant or actively misleading prompts as
 with sensible ones, which makes the semantic content of a label an open question
-rather than a settled one. Our setting isolates it. There is no prompted
-language model here, no in-context example and no token search---a description
-enters only as an embedding---so a change in the description can only act
-through what it means. We find that it does, that the effect is large, and that
-its size is predictable in advance.
+rather than a settled one. Our setting isolates it: with no prompted model, no
+in-context example and no token search---a description enters only as an
+embedding---a change in the description can act only through what it means.
 
 \paragraph{Keyword extraction.}
 The keyword-extraction literature is adjacent and instructive. KeyBERT
@@ -168,11 +168,10 @@ that are expanded iteratively, and evaluate the keywords against gold lists. The
 pipeline studied here follows that design, but uses it to assign the section
 rather than to extract its vocabulary. The seed
 mechanism is the closest analogue to what we study---a hand-written vocabulary
-supplied to steer an embedding-based decision---and one of our findings is that
-it is redundant once the class descriptions carry the same information. That
-finding concerns the seeds as a signal for classification; it says nothing about
-the quality of the keywords they help extract, which is what
-\citet{meisenbacher-etal-2024-improved} measure.
+supplied to steer an embedding-based decision---and we find it redundant for
+classification once the descriptions carry the same information, which says
+nothing about the keyword quality \citet{meisenbacher-etal-2024-improved}
+measure.
 
 \paragraph{Method of reporting.}
 The prospective tests in Sections~\ref{sec:corpora} and~\ref{sec:rocchio} follow
@@ -187,10 +186,9 @@ estimates, as urged by \citet{dror-etal-2018-hitchhikers}, and label quality is
 reported as chance-corrected agreement following \citet{artstein-poesio-2008-survey}. Every comparison
 reported as a finding is collected in Appendix~\ref{app:effects} with a bootstrap
 interval \citep{efron-1979-bootstrap}, and all \EffectTests\ tests are corrected
-together with the Holm procedure \citep{holm-1979-simple}, fixed as the primary
-analysis before the adjusted values were seen. \EffectNominal\ are significant
-uncorrected and \EffectHolm\ after correction; where the text relies on one of
-the others, it says so.
+together with the Holm procedure \citep{holm-1979-simple}, fixed before the
+adjusted values were seen; where the text relies on a comparison that does not
+survive, it says so.
 
 \section{Method}
 
@@ -291,8 +289,12 @@ Language alone is worth \LanguageEffect~points ($p = \LanguageP$). Content is
 worth \ContentEffect. A crossed design varying document language and description
 language independently agrees: the richer descriptions win in both document
 languages, so the diagonal a matching effect would produce does not appear. The
-effect also survives a change of encoder: on the larger mpnet-base-v2, content
-is worth \MpnetContentEffect~points (\MpnetContentPStat).
+effect also survives a change of encoder, and of encoder family: content is
+worth \MpnetContentEffect~points on the larger mpnet-base-v2
+(\MpnetContentPStat) and \LabseContentEffect\ on LaBSE
+(\LabseContentPStat), which is trained by translation ranking rather than by
+distillation from the same teacher. Neither encoder shows the language effect
+either.
 
 \subsection{What predicts which classes gain}
 
@@ -377,13 +379,18 @@ orders classes within a corpus more reliably than it compares corpora.
 \paragraph{On the larger encoder.} A third study repeated the first, unchanged,
 on paraphrase-\allowbreak multilingual-\allowbreak mpnet-\allowbreak base-\allowbreak v2,
 with its own predictions committed (\RocchioMpnetRegistered) before its accuracy
-was computed. \RocchioMpnetHeld\ of its \RocchioMpnetPredictions\ predictions held.
-Accuracy rose on all three corpora, though the 20 Newsgroups gain does not
-survive correction (\HolmMpnetNewsStat), and the per-class relation appeared a third time
-($\rho = \RocchioMpnetRho$, \RocchioMpnetRhoPStat). The predicted ordering failed
-again, NACE edging past 20 Newsgroups. Across the three studies the class-level
-prediction held every time and on both encoders; the corpus-level ordering held
-once.
+was computed. \RocchioMpnetHeld\ of its \RocchioMpnetPredictions\ predictions held: accuracy
+rose on all three corpora, though the 20 Newsgroups gain does not survive
+correction (\HolmMpnetNewsStat), and the per-class relation appeared a third
+time ($\rho = \RocchioMpnetRho$, \RocchioMpnetRhoPStat), while the predicted
+ordering failed again. Across the three studies, on two encoders, the
+class-level prediction held every time and the corpus-level ordering once.
+The two parameters were never tuned, which leaves open whether the behaviour is
+the method's or that setting's: over a grid of $K \in \{\SweepKList\}$ and
+$\beta \in \{\SweepBetaList\}$, the gain keeps the registered sign in
+\SweepAgreeing\ of \SweepCells\ cells, and the registered setting is the
+conservative one on NACE (grid \SweepNaceMin\ to \SweepNaceMax~points). No
+cell is tested for significance and none enters the corrected family.
 
 \subsection{It cannot be optimised per class}
 
@@ -458,6 +465,28 @@ less (Table~\ref{tab:references}). With some sections represented by a handful o
 a small-data reference, not a ceiling; but a supervised model given most of the
 labels does no better than one written definition per class.
 
+\subsection{Who writes the definitions}
+\label{sec:source}
+
+The definitions that carry the effect were drafted by the assistant that also
+produced the labels, and it had seen the corpora: a bias it holds toward one
+reading of a section would reach the labels and the definitions alike. To
+separate them, \SourceWriter, the open model of Section~\ref{sec:llm} and not
+of the labeller's family, was given the terse German control text alone -- no
+corpus, no documents, no sight of the assistant's definitions -- and asked for a
+NACE-style definition. Predictions were registered from the alignment changes
+before any accuracy was computed, and \SourceHeld\ of \SourcePredictions\
+held: both sets of definitions beat the control, in the predicted order, and
+per class the alignment change again predicts the share of headroom captured
+($\rho = \SourceRho$, \SourceRhoPStat). The direction does not depend on who
+writes; the size does. The independent definitions gain
+\SourceWriterGain~points (\SourceWriterPStat), about \SourceWriterShare\ of
+the assistant's gain, in more than twice as many words per class
+(Appendix~\ref{app:source}). Either the assistant writes better definitions or
+it shares a bias with the labeller, and this experiment separates neither; what
+it rules out is that the effect holds only for text from the labeller's own
+family.
+
 \subsection{An instruction-tuned model asked directly}
 \label{sec:llm}
 
@@ -481,10 +510,8 @@ not tested here.
 \subsection{What a document costs}
 \label{sec:cost}
 
-\input{tables/cost}
-
 Accuracy says which system is worth running; cost says whether it can be run.
-Table~\ref{tab:cost} measures both on the same machine and the same documents,
+Table~\ref{tab:cost}, in Appendix~\ref{app:cost}, measures both on the same machine and the same documents,
 with the class vectors built once at start-up, as a service would build them.
 One document costs \BenchCharMs~ms in the character n-gram space,
 \BenchMiniLMMs~ms through the MiniLM encoder and \BenchLLMMs~ms through
@@ -549,21 +576,18 @@ documents it must attract, and the wording of that description is a modelling
 decision rather than a configuration detail. On a taxonomy whose class names
 never appear in its documents, writing that vocabulary down is worth
 \ContentEffect~points; on one whose class names are already the documents' own
-words, the same work is worth nothing. The alignment change predicts both, and
-predicted a third corpus before it was measured. It cannot, however, be turned
-into a per-class selection rule, and we report the three ways that failed.
-Nor does asking an instruction-tuned model directly do better: it matches the
-system at Top-1 and falls behind it at Top-3. A character n-gram ranker over the
-same descriptions matches the system as well, and gains as much from the
-rewrite: the lever is the text of the class, not the model that reads it.
-Moving the vectors toward
+words, the same work is worth nothing. The alignment change predicts both,
+predicted a third corpus before it was measured, and holds across three encoder
+families and a character n-gram space---but it cannot be turned into a per-class
+selection rule, and we report the three ways that failed. Neither an
+instruction-tuned model asked directly nor a classifier trained on most of the
+labels does better than one definition per class. Moving the vectors toward
 unlabelled documents, with no words at all, raised accuracy in the order the
-account predicted before it was measured. Repeated from the written
-definitions and on a larger encoder, it confirmed the class-level prediction
-each time but the corpus-level ordering in neither: the account orders
-classes, and is weaker at comparing corpora.
+account predicted; repeated twice, it confirmed the class-level prediction each
+time and the corpus-level ordering once. The account orders classes, and is
+weaker at comparing corpora.
 
-% ─────────────────────────────────────────────────────────────────────────────
+% ────────────────────────────────────────────────────────────────────────────
 \section*{Limitations}
 
 The evaluation labels are model-assisted rather than gold: produced by a
@@ -574,6 +598,21 @@ translation, so translation errors enter the check itself. Any figure in this
 paper should be read against that agreement. Section~\ref{sec:verified} repeats
 the main comparisons on the human-verified documents alone; the central one
 holds in direction, but at that size not once corrected for every other test.
+Trained out of fold on these labels a supervised classifier reaches
+\RefLRTopOne\ (Section~\ref{sec:references}), so they carry structure a model
+can learn rather than noise; that is a weaker statement than a gold standard,
+and it says nothing about the translation errors in the check.
+
+The evaluation set is \NEVAL\ documents, and the width of every figure follows
+from that: \OursTopOne\ Top-1 carries a \CILevel\ interval of \OursCI. Of the
+\EffectTests\ comparisons reported as findings, \EffectNominal\ are
+significant uncorrected and \EffectHolm\ after correction over the family, and
+each that loses significance is qualified where it appears
+(Appendix~\ref{app:effects}). A set of this size orders systems that differ by
+tens of points; it cannot resolve differences of a few. It was not enlarged
+after the fact: the predictions of the three preregistered studies were
+committed against this set before any accuracy on it existed, so replacing it
+would change what those studies tested.
 
 Agreement was measured between a human and the labeller, not between two humans.
 The inter-annotator figure reviewers usually ask for would require a second
@@ -587,12 +626,14 @@ by a preregistered test, but it was found by search, is not significant on its
 own once corrected (\HolmAlignStat), and at $\rho = \AlignRho$ it orders
 classes, it does not determine them.
 
-The class vectors, the documents and the alignment measure all come from one
-encoder family. The description effect replicates across two encoders of
-different size, but both are multilingual sentence-transformers trained by the
-same distillation procedure. The label-free test gives the same class-level
-result on both, and the description effect appears, at the same size, in a
-character n-gram space (Section~\ref{sec:references}).
+The class vectors, the documents and the alignment measure come from one
+encoder at a time, and every preregistered study was run on a distilled
+multilingual sentence-transformer. The description effect replicates on a
+second encoder of that kind and on LaBSE, which is trained by translation
+ranking instead, and it appears at a similar size in a character n-gram space
+with no encoder at all (Section~\ref{sec:references}). The label-free test has
+been run on two encoders, both distilled, and gives the same class-level result
+on both; it has not been run on LaBSE.
 
 The cost figures in Section~\ref{sec:cost} come from one machine and one
 implementation of each system; they order the systems, they do not fix absolute
@@ -604,8 +645,11 @@ includes an adapter for a paid API (\texttt{make llm-baseline}) that was not run
 Any such model has to come from a different family than the labeller, or it is
 graded on its own answers.
 
-The label-free update in Section~\ref{sec:rocchio} uses one untuned setting of
-its two parameters. On NACE it gains nothing significant from the terse labels
+The label-free update in Section~\ref{sec:rocchio} is reported at one untuned
+setting of its two parameters, chosen before any result; the grid around it
+shows the sign of the gain is not an artifact of that choice, but a grid is a
+robustness check and not a second preregistered test, and the one corpus where a
+cell changes sign is 20 Newsgroups. On NACE it gains nothing significant from the terse labels
 on either encoder, and loses accuracy from the written definitions, where its
 prediction failed.
 The update needs no labels; measuring alignment, and so testing the account, still does.
@@ -615,7 +659,12 @@ drafted by the AI assistant that also produced the labels, and it had seen the
 corpora. Style is therefore controlled across conditions, but the descriptions
 and the labels share a source: a bias that source has toward particular
 readings of a section would reach both, and would flatter the descriptions it
-wrote.
+wrote. Section~\ref{sec:source} bounds what that can explain rather than
+removing it. Definitions written by a model from a different family, given the
+control text alone, raise accuracy in the predicted direction, so the effect is
+not confined to text from the labeller's family; but they recover only
+\SourceWriterShare\ of the gain, and whether the rest is the assistant's
+better writing or its shared bias is not separated by that experiment.
 
 \section*{Ethics Statement}
 
@@ -676,5 +725,21 @@ family. \EffectNominal\ of the \EffectTests\ are significant uncorrected and
 they appear: \EffectLostList.
 
 \input{tables/effects}
+
+\section{What each system costs}
+\label{app:cost}
+
+\input{tables/cost}
+
+\section{Definitions written by another model}
+\label{app:source}
+
+Table~\ref{tab:source} is the full result of Section~\ref{sec:source}: the
+three class texts, their accuracy, their length, and the alignment change that
+the prediction was registered against. The definitions themselves, the prompt
+that produced them, the unedited replies and the rules that strip the model's
+shared framing are released with the code.
+
+\input{tables/source}
 
 \end{document}

@@ -750,6 +750,33 @@ class TestIndependentDescriptions:
         assert study.method_fingerprint() != before
 
 
+class TestSensitivityGrid:
+    """The grid around the label-free update's one registered setting."""
+
+    def test_the_registered_setting_is_in_the_grid(self):
+        """A grid that did not contain the reported setting could not check it."""
+        from experiments.rocchio_sensitivity import BETAS, NEIGHBOURS
+        from experiments.run_rocchio import BETA, K
+
+        assert K in NEIGHBOURS and BETA in BETAS
+
+    def test_every_cell_is_reported(self):
+        import json
+
+        from experiments.config import RESULTS_DIR
+        from experiments.rocchio_sensitivity import RESULT
+
+        if not RESULT.exists():
+            import pytest
+            pytest.skip("run `make rocchio-sensitivity` first; it needs the raw corpus")
+        sweep = json.loads(RESULT.read_text(encoding="utf-8"))
+        assert RESULT.parent == RESULTS_DIR
+        expected = len(sweep["grid"]["k"]) * len(sweep["grid"]["beta"])
+        for corpus, cells in sweep["corpora"].items():
+            assert len(cells["grid"]) == expected == cells["cells"], corpus
+            assert cells["gain_pp_min"] <= cells["gain_pp_registered"] <= cells["gain_pp_max"]
+
+
 class TestSubmissionAnonymity:
     """A submission that names its author is rejected without review.
 

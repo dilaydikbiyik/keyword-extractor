@@ -862,6 +862,73 @@
         </div>
       </div>
     </article>
+
+    <article class="entry" style="--status: var(--predicted); --status-bg: var(--predicted-bg);">
+      <div class="entry-head">
+        <div class="entry-no">11</div>
+        <div>
+          <span class="chip">Preregistered</span>
+          <p class="claim">&ldquo;The definitions only work because the same assistant wrote the labels.&rdquo;</p>
+        </div>
+      </div>
+      <div class="entry-body">
+        <div class="spacer"></div>
+        <div class="entry-text">
+          <p>
+            The descriptions and the silver labels came from the same assistant, and it had seen the
+            corpora, so a bias it held would reach both. The test: let a different model family write
+            the definitions. Qwen2.5-7B-Instruct was given the terse German section name and nothing
+            else &mdash; no corpus, no documents, no sight of the assistant&rsquo;s text &mdash; and the
+            predictions were committed from the alignment changes before any accuracy was computed.
+          </p>
+          <p>
+            All four held. The direction does not depend on who writes; the size does. The independent
+            definitions reach 31.4% against the control&rsquo;s 26.1%, and lose to the assistant&rsquo;s
+            52.8% by 21.4 points while being twice as long. Either the assistant writes better
+            definitions or it shares a bias with the labeller. This experiment does not separate them,
+            and the paper says so.
+          </p>
+          <div class="evidence">
+            <div><b>4 of 4</b><span>predictions held, registered first</span></div>
+            <div><b>+5.4 pp</b><span>independent definitions over the control (p = 0.068)</span></div>
+            <div><b>20%</b><span>of the assistant&rsquo;s gain recovered</span></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="entry" style="--status: var(--supported); --status-bg: var(--supported-bg);">
+      <div class="entry-head">
+        <div class="entry-no">12</div>
+        <div>
+          <span class="chip">Robustness check</span>
+          <p class="claim">&ldquo;It is one encoder family and one lucky setting.&rdquo;</p>
+        </div>
+      </div>
+      <div class="entry-body">
+        <div class="spacer"></div>
+        <div class="entry-text">
+          <p>
+            Both encoders used so far were distilled from the same teacher. LaBSE is trained by
+            translation ranking instead: content is worth +16.1 points there (p &lt; 0.001), and
+            language again nothing (&minus;0.7, p = 0.86). Three encoder families, plus a character
+            n-gram space with no encoder at all, now show the same effect.
+          </p>
+          <p>
+            The label-free update was reported at one untuned setting, K = 25 and &beta; = 1. Swept
+            over K &isin; {5, 10, 25, 50, 100} and &beta; &isin; {0.25, 0.5, 1, 2}, the gain keeps its
+            sign in 59 of 60 cells, and on NACE the registered setting turns out to be the
+            conservative one. The sweep is a check, not a second registered test: no cell is tested
+            for significance and none enters the corrected family.
+          </p>
+          <div class="evidence">
+            <div><b>+16.1 pp</b><span>content effect on LaBSE (p &lt; 0.001)</span></div>
+            <div><b>59 of 60</b><span>grid cells keep the registered sign</span></div>
+            <div><b>+2.0 to +6.0</b><span>NACE gain across the grid</span></div>
+          </div>
+        </div>
+      </div>
+    </article>
   </section>
 
   <section>

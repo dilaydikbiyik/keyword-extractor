@@ -72,6 +72,10 @@ def family() -> List[Dict]:
     mpnet = load("description_study_paraphrase_multilingual_mpnet_base_v2")
     if mpnet:
         add("Descriptions", "NACE, mpnet encoder: definitions vs. terse German", mpnet["content_effect"], mpnet["n"])
+    labse = load("description_study_LaBSE")
+    if labse:
+        add("Descriptions", "NACE, LaBSE encoder: definitions vs. terse German",
+            labse["content_effect"], labse["n"])
     news = load("replication_20newsgroups")
     add("Descriptions", "20NG: definitions vs. readable names", news["defining_the_class"], news["n"])
     add("Descriptions", "20NG: readable names vs. identifiers", news["spelling_the_label_out"], news["n"])
@@ -94,6 +98,16 @@ def family() -> List[Dict]:
     robustness = load("robustness")
     add("Verified labels", "full system vs. previous taxonomy",
         robustness["labels"]["systems"]["taxonomy-v1"]["vs_full_on_verified"], robustness["labels"]["n_verified"])
+
+    source = load("description_source")
+    if source:
+        writer = source["conditions"]["definitions by an independent model"]
+        # In both tests the control is the first argument, so the sign that makes
+        # a positive number mean "the row's first system won" differs by row.
+        add("Descriptions", "NACE: independent definitions vs. terse German",
+            writer["mcnemar_vs_control"], source["n"], sign=-1)
+        add("Descriptions", "NACE: the assistant's definitions vs. independent definitions",
+            writer["mcnemar_vs_assistant"], source["n"])
 
     references = load("references")
     if references:
@@ -134,6 +148,10 @@ def correlations() -> List[Dict]:
         if result:
             out.append({"group": "Correlation", "label": f"label-free update ({label}), per class",
                         "p": result["per_class"]["p"]})
+    source = load("description_source")
+    if source:
+        out.append({"group": "Correlation", "label": "independent definitions, alignment vs. headroom, "
+                                                     "per class", "p": source["per_class"]["p"]})
     return out
 
 

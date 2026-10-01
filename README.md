@@ -6,8 +6,9 @@
 
 **[Read the research record →](https://dilaydikbiyik.github.io/keyword-extractor/)**
 One page: every claim this project made and what became of it — a retracted
-headline, two of its own hypotheses falsified, and three label-free studies whose
-predictions were committed before they were measured, 12 of 15 of which held.
+headline, two of its own hypotheses falsified, and four preregistered studies
+whose predictions were committed before they were measured, 16 of 19 of which
+held.
 
 Assigning **NACE Rev. 2** economic sections to German company purpose
 statements with no labelled training data, by embedding the taxonomy's own
@@ -51,8 +52,8 @@ produced by `make reproduce` and written to
 | **Ours: taxonomy-guided** | **52.5%** | [46.8, 58.2] | **81.6%** | 0.356 | 0.474 | — |
 | Qwen2.5-7B-Instruct, asked directly | 48.8% | [43.1, 54.5] | 71.9% | 0.359 | 0.430 | 0.416 |
 
-*p* is uncorrected. Corrected with Holm over all 46 comparisons the paper reports
-([`results/effect_sizes.json`](results/effect_sizes.json)), 19 of the 26 nominally
+*p* is uncorrected. Corrected with Holm over all 50 comparisons the paper reports
+([`results/effect_sizes.json`](results/effect_sizes.json)), 21 of the 28 nominally
 significant ones survive; the TF-IDF difference is not among them, nor is the
 language model's Top-3 gap.
 
@@ -184,6 +185,36 @@ appeared a third time (ρ = +0.544); the predicted ordering failed again, NACE
 edging past 20 Newsgroups. Across the three studies, 12 of 15 predictions held:
 the per-class one every time, on both encoders, the corpus ordering once.
 
+**Who writes the descriptions.** The descriptions that carry the main effect
+and the silver labels come from the same assistant, which had seen the corpora,
+so a bias it holds would reach both. A [fourth preregistered
+study](results/description_source_preregistration.json) had the definitions
+written instead by Qwen2.5-7B-Instruct — a different model family from the
+labeller — given the terse German section name and nothing else. All four of its
+predictions held: both sets of definitions beat the control, in the order the
+alignment changes predicted, and per class the alignment change again predicts
+the headroom captured (ρ = +0.424, p = 0.09). The direction does not depend on
+who writes; the size does. The independent definitions reach 31.4% against the
+control's 26.1% (+5.4 points, p = 0.068) and lose to the assistant's 52.8% by
+21.4 points (p < 0.001) while being twice as long. Either the assistant writes
+better definitions or it shares a bias with the labeller — this does not separate
+them, and it is written that way in the paper
+([`results/description_source.json`](results/description_source.json),
+`make description-source`).
+
+**Across encoder families, and around the one setting.** The description effect
+was tested on a third encoder, LaBSE, which is trained by translation ranking
+rather than distilled from the same teacher as the other two: content is worth
++16.1 points there (p < 0.001) and language again nothing (−0.7, p = 0.86). The
+label-free update, reported at one untuned setting (K = 25, β = 1), was swept
+over K ∈ {5, 10, 25, 50, 100} and β ∈ {0.25, 0.5, 1, 2}: the gain keeps the
+registered sign in 59 of 60 cells, and on NACE the registered setting is the
+conservative one (+2.0 to +6.0 points across the grid). The sweep is a
+robustness check, not a second registered test: no cell is tested for
+significance and none enters the corrected family
+([`results/rocchio_sensitivity.json`](results/rocchio_sensitivity.json),
+`make rocchio-sensitivity`).
+
 **Stronger references.** The TF-IDF baseline above matches whole words, which
 German compounding defeats. Over the same sector texts, a character 3–5-gram
 TF-IDF reaches 54.2% Top-1 and 81.6% Top-3, level with the embedding system
@@ -208,7 +239,7 @@ system in its own process.
 ### Ablation
 
 *p* is uncorrected; removing the description (−8.4 points, p = 0.002) does not
-survive correction over the paper's 46 tests.
+survive correction over the paper's 50 tests.
 
 | Variant | Top-1 | Δ Top-1 | F1-macro | p vs. full |
 | --- | --- | --- | --- | --- |

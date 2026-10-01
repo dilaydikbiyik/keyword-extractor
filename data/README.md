@@ -6,6 +6,7 @@ matters for anyone trying to reproduce the reported numbers.
 | Path | In git | What it is |
 | --- | --- | --- |
 | `data/taxonomy/sectors.json` | yes | 21 NACE Rev. 2 sections with hand-written seed keywords and descriptions. Authored for this project. |
+| `data/taxonomy/sectors_qwen.json` | yes | The same 21 sections defined by Qwen2.5-7B-Instruct, from the terse German name alone, for the test of who writes the descriptions. Written by `experiments/write_descriptions.py`; each entry keeps the model's unedited reply beside the definition used. |
 | `data/evaluation/human_labels.json` | yes | The evaluation set: gold NACE section plus reference keywords per document. Authored for this project. |
 | `data/derived/tfidf_corpus_stats.json` | yes | Vocabulary and IDF weights derived from the corpus below. |
 | `data/derived/tfidf_snowball_corpus_stats.json` | yes | The same over German Snowball stems, for `experiments/run_references.py`. |

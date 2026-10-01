@@ -1,0 +1,95 @@
+{
+  "study": "description_source",
+  "preregistration": "description_source_preregistration.json",
+  "registered_at": "2026-10-01T18:05:36+00:00",
+  "writer": "Qwen/Qwen2.5-7B-Instruct",
+  "n": 299,
+  "conditions": {
+    "terse German name": {
+      "top1_accuracy": 0.2608695652173913,
+      "top1_ci95": [
+        0.21070234113712374,
+        0.3110367892976589
+      ],
+      "top3_accuracy": 0.5886287625418061,
+      "mean_words_per_class": 9.952380952380953
+    },
+    "definitions by the assistant": {
+      "top1_accuracy": 0.5284280936454849,
+      "top1_ci95": [
+        0.47157190635451507,
+        0.5852842809364549
+      ],
+      "top3_accuracy": 0.8193979933110368,
+      "mean_words_per_class": 18.61904761904762,
+      "gain_pp": 26.755852842809364,
+      "mcnemar_vs_control": {
+        "a_only_correct": 16,
+        "b_only_correct": 96,
+        "discordant": 112,
+        "p_value": 4.377733803134596e-15
+      }
+    },
+    "definitions by an independent model": {
+      "top1_accuracy": 0.31438127090301005,
+      "top1_ci95": [
+        0.2608695652173913,
+        0.36789297658862874
+      ],
+      "top3_accuracy": 0.5919732441471572,
+      "mean_words_per_class": 50.38095238095238,
+      "gain_pp": 5.351170568561875,
+      "mcnemar_vs_control": {
+        "a_only_correct": 26,
+        "b_only_correct": 42,
+        "discordant": 68,
+        "p_value": 0.06811867428409976
+      },
+      "mcnemar_vs_assistant": {
+        "a_only_correct": 86,
+        "b_only_correct": 22,
+        "discordant": 108,
+        "p_value": 3.9882438658015513e-10
+      }
+    }
+  },
+  "mean_alignment_change": {
+    "definitions by the assistant": 0.07971886641834135,
+    "definitions by an independent model": 0.051630517054382125
+  },
+  "per_class": {
+    "n": 17,
+    "rho": 0.42417575574952293,
+    "p": 0.08971089787523584
+  },
+  "outcomes": [
+    {
+      "id": "direction-definitions by the assistant",
+      "claim": "Against the control, definitions by the assistant raises Top-1 accuracy.",
+      "condition": "definitions by the assistant",
+      "expected_sign": 1,
+      "held": true
+    },
+    {
+      "id": "direction-definitions by an independent model",
+      "claim": "Against the control, definitions by an independent model raises Top-1 accuracy.",
+      "condition": "definitions by an independent model",
+      "expected_sign": 1,
+      "held": true
+    },
+    {
+      "id": "ordering",
+      "claim": "The gains follow the order of the alignment changes: definitions by the assistant > definitions by an independent model.",
+      "order": [
+        "definitions by the assistant",
+        "definitions by an independent model"
+      ],
+      "held": true
+    },
+    {
+      "id": "per-class",
+      "claim": "For the independent definitions, the per-class alignment change correlates positively with the share of available headroom captured (Spearman rho > 0).",
+      "held": true
+    }
+  ]
+}

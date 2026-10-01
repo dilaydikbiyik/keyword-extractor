@@ -609,6 +609,96 @@ REFERENCE_ROWS = {
 }
 
 
+SOURCE_ROWS = (
+    ("terse German name", "Control", r"Terse German name"),
+    ("definitions by the assistant", "Assistant", r"Definitions, the assistant's"),
+    ("definitions by an independent model", "Writer", r"Definitions, independent model"),
+)
+
+
+def description_source_table(source: Dict) -> str:
+    """The description effect when a different family writes the definitions."""
+    rows = []
+    for key, _, label in SOURCE_ROWS:
+        c = source["conditions"][key]
+        change = source["mean_alignment_change"].get(key)
+        rows.append(" & ".join([
+            label, pct(c["top1_accuracy"]), pct(c["top3_accuracy"]),
+            "%.0f" % c["mean_words_per_class"],
+            "--" if change is None else "%+.3f" % change,
+            "--" if "mcnemar_vs_control" not in c else p_cell(c["mcnemar_vs_control"]["p_value"]),
+        ]) + r" \\")
+    return "\n".join([
+        PREAMBLE, r"\begin{table}[t]", r"\centering", r"\footnotesize", r"\setlength{\tabcolsep}{4pt}",
+        r"\begin{tabular}{@{}lrrrrr@{}}", r"\toprule",
+        r"Class text & Top-1 & Top-3 & Words & $\Delta a$ & $p$ \\",
+        r"\midrule", *rows, r"\bottomrule", r"\end{tabular}",
+        r"\caption{Definitions written by a model from a different family than the labeller, on the "
+        r"same \NEVAL\ documents and the same encoder. The independent writer is given the control "
+        r"text and nothing else. Words is the mean length of a class text; $\Delta a$ its mean "
+        r"alignment change against the control, measured before the prediction was registered; $p$ "
+        r"an exact McNemar test against the control, uncorrected. Top-1 and Top-3 are percentages.}",
+        r"\label{tab:source}", r"\end{table}", "",
+    ])
+
+
+def description_source_macros(source: Dict) -> List[str]:
+    lines = [
+        r"\newcommand{\SourceWriter}{%s}" % escape(source["writer"].split("/")[-1]),
+        r"\newcommand{\SourceRho}{%+.3f}" % source["per_class"]["rho"],
+        r"\newcommand{\SourceRhoPStat}{%s}" % p_stat(source["per_class"]["p"]),
+        r"\newcommand{\SourceHeld}{%d}" % sum(1 for o in source["outcomes"] if o["held"]),
+        r"\newcommand{\SourcePredictions}{%d}" % len(source["outcomes"]),
+    ]
+    for key, stem, _ in SOURCE_ROWS:
+        c = source["conditions"][key]
+        lines.append(r"\newcommand{\Source%sTopOne}{%s\%%}" % (stem, pct(c["top1_accuracy"])))
+        if "gain_pp" in c:
+            lines += [
+                r"\newcommand{\Source%sGain}{%+.1f}" % (stem, c["gain_pp"]),
+                r"\newcommand{\Source%sPStat}{%s}" % (stem, p_stat(c["mcnemar_vs_control"]["p_value"])),
+                r"\newcommand{\Source%sAlign}{%+.3f}" % (stem, source["mean_alignment_change"][key]),
+            ]
+    writer = source["conditions"]["definitions by an independent model"]
+    lines += [
+        r"\newcommand{\SourceAssistantOverWriter}{%+.1f}"
+        % (100 * (source["conditions"]["definitions by the assistant"]["top1_accuracy"]
+                  - writer["top1_accuracy"])),
+        r"\newcommand{\SourceAssistantOverWriterPStat}{%s}"
+        % p_stat(writer["mcnemar_vs_assistant"]["p_value"]),
+        r"\newcommand{\SourceWriterShare}{%.0f\%%}"
+        % (100 * writer["gain_pp"]
+           / (100 * (source["conditions"]["definitions by the assistant"]["top1_accuracy"]
+                     - source["conditions"]["terse German name"]["top1_accuracy"]))),
+    ]
+    return lines
+
+
+def sensitivity_macros(sweep: Dict) -> List[str]:
+    """The grid around the one registered setting of the label-free update."""
+    cells = sum(c["cells"] for c in sweep["corpora"].values())
+    agreeing = sum(c["cells_with_the_registered_sign"] for c in sweep["corpora"].values())
+    lines = [
+        r"\newcommand{\SweepCells}{%d}" % cells,
+        r"\newcommand{\SweepAgreeing}{%d}" % agreeing,
+        r"\newcommand{\SweepKList}{%s}" % ", ".join(str(k) for k in sweep["grid"]["k"]),
+        r"\newcommand{\SweepBetaList}{%s}" % ", ".join(str(b) for b in sweep["grid"]["beta"]),
+        r"\newcommand{\SweepKMin}{%d}" % min(sweep["grid"]["k"]),
+        r"\newcommand{\SweepKMax}{%d}" % max(sweep["grid"]["k"]),
+        r"\newcommand{\SweepBetaMin}{%s}" % min(sweep["grid"]["beta"]),
+        r"\newcommand{\SweepBetaMax}{%s}" % max(sweep["grid"]["beta"]),
+    ]
+    for corpus, c in sweep["corpora"].items():
+        stem = {"NACE": "Nace", "Reuters": "Reuters", "20NG": "News"}[corpus]
+        lines += [
+            r"\newcommand{\Sweep%sMin}{%+.1f}" % (stem, c["gain_pp_min"]),
+            r"\newcommand{\Sweep%sMax}{%+.1f}" % (stem, c["gain_pp_max"]),
+            r"\newcommand{\Sweep%sAgreeing}{%d}" % (stem, c["cells_with_the_registered_sign"]),
+            r"\newcommand{\Sweep%sCells}{%d}" % (stem, c["cells"]),
+        ]
+    return lines
+
+
 def references_table(refs: Dict) -> str:
     """Stronger lexical baselines and supervised references, on the same documents."""
     rows = [r"This system (embeddings) & %s & %s & -- \\" % (pct(refs["full_top1_accuracy"]),
@@ -853,6 +943,20 @@ def main() -> int:
             r"\newcommand{\MpnetContentEffect}{%+.1f}" % mpnet_study["content_effect"]["gain_pp"],
             r"\newcommand{\MpnetContentPStat}{%s}" % p_stat(mpnet_study["content_effect"]["p_value"]),
         ]
+    labse_study = load_optional("description_study_LaBSE")
+    if labse_study:
+        derived += [
+            r"\newcommand{\LabseContentEffect}{%+.1f}" % labse_study["content_effect"]["gain_pp"],
+            r"\newcommand{\LabseContentPStat}{%s}" % p_stat(labse_study["content_effect"]["p_value"]),
+            r"\newcommand{\LabseTopOne}{%s\%%}" % pct(
+                labse_study["conditions"]["rewritten as NACE-style definitions"]["top1_accuracy"]),
+        ]
+    source = load_optional("description_source")
+    if source:
+        derived += description_source_macros(source)
+    sweep = load_optional("rocchio_sensitivity")
+    if sweep:
+        derived += sensitivity_macros(sweep)
     refs = load_optional("references")
     if refs:
         derived += references_macros(refs, ablation)
@@ -875,6 +979,7 @@ def main() -> int:
         **({"rocchio.tex": rocchio_table([s[:3] for s in studies])} if studies else {}),
         **({"effects.tex": effects_table(effects)} if effects else {}),
         **({"references.tex": references_table(refs)} if refs else {}),
+        **({"source.tex": description_source_table(source)} if source else {}),
         **({"cost.tex": benchmark_table(bench, baselines, ablation, refs, llm)} if bench and refs else {}),
         "predictors.tex": predictors_table(search),
         "macros.tex": macros(baselines, error_report, study, search, reuters, news, derived),
