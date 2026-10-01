@@ -719,6 +719,37 @@ class TestLLMReplyParsing:
         assert [score for _, score in ranking] == sorted((score for _, score in ranking), reverse=True)
 
 
+class TestIndependentDescriptions:
+    """The definitions written by a model from a different family than the labeller."""
+
+    def test_the_shared_framing_is_removed(self):
+        from experiments.write_descriptions import clean
+
+        reply = ("Der Abschnitt G der Wirtschaftswissenschaftlichen Klassifikation (NACE Rev. 2) "
+                 "umfasst den Groß- und Einzelhandel.")
+        assert clean(reply) == "Umfasst den Groß- und Einzelhandel."
+
+    def test_what_a_section_covers_is_kept(self):
+        from experiments.write_descriptions import clean
+
+        reply = "Umfasst die Herstellung von Waren, einschließlich Maschinenbau."
+        assert clean(reply) == reply
+
+    def test_the_study_refuses_to_run_if_the_definitions_changed(self, monkeypatch, tmp_path):
+        """The fingerprint covers the class texts, so they cannot be swapped after the prediction."""
+        import json
+
+        from experiments import run_description_source as study
+
+        before = study.method_fingerprint()
+        swapped = tmp_path / "sectors_qwen.json"
+        original = json.loads(study.INDEPENDENT.read_text(encoding="utf-8"))
+        original["sectors"]["A"]["description"] = "Etwas anderes."
+        swapped.write_text(json.dumps(original, ensure_ascii=False), encoding="utf-8")
+        monkeypatch.setattr(study, "INDEPENDENT", swapped)
+        assert study.method_fingerprint() != before
+
+
 class TestSubmissionAnonymity:
     """A submission that names its author is rejected without review.
 

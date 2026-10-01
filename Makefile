@@ -5,7 +5,7 @@ PYTHON ?= $(shell \
 	elif command -v python3 >/dev/null 2>&1; then command -v python3; \
 	else echo python; fi)
 
-.PHONY: help install reproduce test lint annotate merge verify verify-new verify-apply second-annotator second-annotator-score llm-baseline llm-baseline-local study rocchio-preregister rocchio rocchio-definitions-preregister rocchio-definitions paper-tables paper submission demo clean rocchio-mpnet-preregister rocchio-mpnet references preprint author-coding author-coding-score model-coding translate-queue benchmark
+.PHONY: help install reproduce test lint annotate merge verify verify-new verify-apply second-annotator second-annotator-score llm-baseline llm-baseline-local study rocchio-preregister rocchio rocchio-definitions-preregister rocchio-definitions paper-tables paper submission demo clean rocchio-mpnet-preregister rocchio-mpnet references preprint independent-descriptions description-source-preregister description-source author-coding author-coding-score model-coding translate-queue benchmark
 
 help:
 	@echo "Using PYTHON = $(PYTHON)"
@@ -28,6 +28,8 @@ help:
 	@echo "  rocchio-preregister  Label-free causal test, step 1: write the prediction"
 	@echo "  rocchio       Step 2: accuracy, checked against the committed prediction"
 	@echo "  rocchio-definitions-preregister / rocchio-definitions  The same, from written definitions"
+	@echo "  description-source-preregister / description-source  Definitions written by a model"
+	@echo "                from a different family than the labeller, tested the same way"
 	@echo "  paper-tables  Regenerate paper/tables/*.tex from results/"
 	@echo "  paper         Build paper/main.pdf (needs tectonic: brew install tectonic)"
 	@echo "  submission    Anonymous review PDF and code archive in dist/, checked"
@@ -160,6 +162,16 @@ rocchio-mpnet-preregister:
 
 rocchio-mpnet:
 	$(PYTHON) -m experiments.run_rocchio --study mpnet
+
+independent-descriptions:
+	$(PYTHON) -m experiments.write_descriptions
+
+description-source-preregister:
+	$(PYTHON) -m experiments.run_description_source --preregister
+	@echo "Commit results/description_source_preregistration.json before the next step."
+
+description-source:
+	$(PYTHON) -m experiments.run_description_source
 
 references:
 	$(PYTHON) -m experiments.run_references

@@ -1,0 +1,82 @@
+{
+  "study": "description_source",
+  "registered_at": "2026-10-01T18:05:36+00:00",
+  "code_revision": "e3aa112",
+  "method_fingerprint": "6c9ba3b967e0d3f29eee7845f2ab9a08c16989be0e78d4bf29aa06a7aaf8f8c4",
+  "seed": 42,
+  "writer": "Qwen/Qwen2.5-7B-Instruct",
+  "classes_measured": 18,
+  "mean_alignment_change": {
+    "definitions by the assistant": 0.07971886641834135,
+    "definitions by an independent model": 0.051630517054382125
+  },
+  "alignment_change_per_class": {
+    "definitions by the assistant": {
+      "A": 0.10380665169136494,
+      "C": 0.026353716847599684,
+      "D": -0.03386135161013892,
+      "E": -0.02052435032974076,
+      "F": 0.2505867308939963,
+      "G": 0.07729587258385873,
+      "H": 0.07776602849853553,
+      "I": 0.056630353024537006,
+      "J": 0.08807039034983244,
+      "K": 0.049626464370613466,
+      "L": 0.08523687991182038,
+      "M": 0.18660810177538978,
+      "N": 0.18378587813034242,
+      "O": 0.048245989199753814,
+      "P": 0.03456830515846354,
+      "Q": 0.1446735520128768,
+      "R": 0.021886721341725646,
+      "S": 0.05418366167931332
+    },
+    "definitions by an independent model": {
+      "A": 0.15961727807136805,
+      "C": 0.00576625004496123,
+      "D": 0.010360180696149746,
+      "E": 0.03074940232836043,
+      "F": 0.18600019840535997,
+      "G": -0.015797789618938185,
+      "H": 0.05600664961765367,
+      "I": 0.08910575608842974,
+      "J": 0.1445588138946431,
+      "K": 0.07809240028698561,
+      "L": 0.01636048882700869,
+      "M": 0.09539934013374984,
+      "N": 0.011094449817750762,
+      "O": -0.033441157303099656,
+      "P": 0.012271356359059848,
+      "Q": 0.09553919428576374,
+      "R": -0.016514812004502222,
+      "S": 0.004181307048173988
+    }
+  },
+  "predictions": [
+    {
+      "id": "direction-definitions by the assistant",
+      "claim": "Against the control, definitions by the assistant raises Top-1 accuracy.",
+      "condition": "definitions by the assistant",
+      "expected_sign": 1
+    },
+    {
+      "id": "direction-definitions by an independent model",
+      "claim": "Against the control, definitions by an independent model raises Top-1 accuracy.",
+      "condition": "definitions by an independent model",
+      "expected_sign": 1
+    },
+    {
+      "id": "ordering",
+      "claim": "The gains follow the order of the alignment changes: definitions by the assistant > definitions by an independent model.",
+      "order": [
+        "definitions by the assistant",
+        "definitions by an independent model"
+      ]
+    },
+    {
+      "id": "per-class",
+      "claim": "For the independent definitions, the per-class alignment change correlates positively with the share of available headroom captured (Spearman rho > 0)."
+    }
+  ],
+  "note": "Written before any accuracy under the independent definitions was computed."
+}

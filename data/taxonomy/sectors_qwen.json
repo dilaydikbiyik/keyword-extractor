@@ -1,0 +1,154 @@
+{
+  "written_by": "Qwen/Qwen2.5-7B-Instruct",
+  "written_at": "2026-10-01T18:03:17+00:00",
+  "device": "mps",
+  "decoding": {
+    "do_sample": false,
+    "max_new_tokens": 200,
+    "seed": 42
+  },
+  "given": "the terse German section name only -- no corpus, no documents, no sight of the assistant's own definitions",
+  "prompt_template": "Du schreibst die Definitionen einer Wirtschaftszweig-Klassifikation (NACE Rev. 2).\n\nAbschnitt {code}: {name}\n\nSchreibe eine Definition dieses Abschnitts in zwei bis drei Sätzen auf Deutsch. Zähle die konkreten Tätigkeiten auf, die zu diesem Abschnitt gehören. Nenne keine Firmennamen, keine anderen Abschnitte und keine Abschnittsbuchstaben. Antworte nur mit der Definition, ohne Einleitung.",
+  "framing_removed": [
+    "\\(\\s*NACE\\s*Rev\\.?\\s*2[^)]*\\)",
+    "\\bder\\s+Wirtschafts\\w*[\\s-]*Kl[aä]sse?i?fikation\\b",
+    "\\b(Der|Dieser|Den|Dem)?\\s*Abschnitt(s|es)?\\s+[A-U]\\b",
+    "\\bNACE\\s*Rev\\.?\\s*2\\b",
+    "^#+\\s*\\w+\\s*",
+    "^(Definition|Antwort)\\s*(des\\s+Abschnitts?)?\\s*[A-U]?\\s*[:.]?\\s*",
+    "^(Der\\s+)?Abschnitt\\s+[A-U]\\b.{0,160}?(?=umfasst|beinhaltet|bezieht|deckt)",
+    "^(Der\\s+)?(Wirtschaftsbereich|Wirtschaftszweig)\\b.{0,160}?(?=umfasst|beinhaltet)",
+    "^[A-U]\\s+der\\s+.{0,160}?(?=umfasst|beinhaltet)",
+    "^(Der\\s+)?Abschnitt\\s+[A-U]\\b[\\s\\\"„“]*",
+    "^(Es|Er|Sie|Dies|Diese[rs]?)\\s*[:,]\\s*",
+    "^[\\s\\\"„“”:,.-]+"
+  ],
+  "sectors": {
+    "A": {
+      "name": "Landwirtschaft, Forstwirtschaft und Fischerei",
+      "description": "Landwirtschaft, Forstwirtschaft und Fischerei umfasst alle Tätigkeiten, die sich mit der Produktion von Lebensmitteln und anderen wirtschaftlich nutzbaren Gütern aus dem Boden, den Wäldern und dem Meer befasst. Dies umfasst die landwirtschaftliche Produktion, die Forstwirtschaft sowie die Fischerei und Aquakultur. Konkrete Tätigkeiten, die zu diesem Abschnitt gehören, sind die Anbau von Getreide, Obst und Gemüse, die Viehzucht, die Holzgewinnung und Verarbeitung, sowie die Fang- und Zuchtaktivitäten im Meer und in Seen.",
+      "nace_code": "A",
+      "unedited_reply": "Definition des Abschnitts A: Landwirtschaft, Forstwirtschaft und Fischerei (NACE Rev. 2)\n\nDer Abschnitt A umfasst alle Tätigkeiten, die sich mit der Produktion von Lebensmitteln und anderen wirtschaftlich nutzbaren Gütern aus dem Boden, den Wäldern und dem Meer befasst. Dies umfasst die landwirtschaftliche Produktion, die Forstwirtschaft sowie die Fischerei und Aquakultur. Konkrete Tätigkeiten, die zu diesem Abschnitt gehören, sind die Anbau von Getreide, Obst und Gemüse, die Viehzucht, die Holzgewinnung und Verarbeitung, sowie die Fang- und Zuchtaktivitäten im Meer und in Seen."
+    },
+    "B": {
+      "name": "Bergbau und Steinbrüche",
+      "description": "Umfasst den Bau und Bruchhandel. Dieser Abschnitt umfasst die Planung, Ausführung und Überwachung von Bauarbeiten sowie den Bruchhandel. Konkrete Tätigkeiten hierzu sind die Errichtung von Gebäuden, Sanierung und Renovierung, Montage von Maschinen und Anlagen, und der Verkauf von Baugutestücken.",
+      "nace_code": "B",
+      "unedited_reply": "Abschnitt B der Wirtschaftswissenschaftlichen Klassifikation (NACE Rev. 2) umfasst den Bau und Bruchhandel. Dieser Abschnitt umfasst die Planung, Ausführung und Überwachung von Bauarbeiten sowie den Bruchhandel. Konkrete Tätigkeiten hierzu sind die Errichtung von Gebäuden, Sanierung und Renovierung, Montage von Maschinen und Anlagen, und der Verkauf von Baugutestücken."
+    },
+    "C": {
+      "name": "Herstellung und Produktion von Waren: Maschinenbau, Automobilbau, Lebensmittelverarbeitung, Textilherstellung, Chemie, Pharmaindustrie, Metallverarbeitung, Holzverarbeitung, Elektronikfertigung. İmalat, üretim.",
+      "description": "Umfasst die Branche der Erzeugung von Waren. Dies umfasst spezifische Industrien wie den Bau von Fahrzeugen, Lebensmittelverarbeitung, Textilherstellung, Chemie, Pharmaindustrie, Metallverarbeitung, Holzverarbeitung und Elektronikproduktion. Konkrete Tätigkeiten in diesem Bereich reichen von der Fertigung von Automobilen und Lebensmitteln über die Herstellung von Textilien und chemischen Produkten bis hin zur Produktion elektronischer Geräte und Bauteile.",
+      "nace_code": "C",
+      "unedited_reply": "Der Abschnitt C der Wirtschaftswissenschaftlichen Klassifikation (NACE Rev. 2) umfasst die Branche der Erzeugung von Waren. Dies umfasst spezifische Industrien wie den Bau von Fahrzeugen, Lebensmittelverarbeitung, Textilherstellung, Chemie, Pharmaindustrie, Metallverarbeitung, Holzverarbeitung und Elektronikproduktion. Konkrete Tätigkeiten in diesem Bereich reichen von der Fertigung von Automobilen und Lebensmitteln über die Herstellung von Textilien und chemischen Produkten bis hin zur Produktion elektronischer Geräte und Bauteile."
+    },
+    "D": {
+      "name": "Elektrizität, Gas, Dampf und Klimatisierung",
+      "description": "Umfasst die Bereiche Elektrizität, Gas, Dampf und Klimatisierung. Dieser Abschnitt umfasst die Produktion und Vertrieb von elektrischem Strom, Gas, Dampf sowie die Bereitstellung von Klimatisierungsdienstleistungen. Konkrete Tätigkeiten, die hier enthalten sind, sind die Erzeugung und Übertragung von elektrischem Strom, die Produktion und Verteilung von Gas, die Herstellung und Vertrieb von Dampf sowie die Installation, Wartung und Betrieb von Klimaanlagen und Heizungsanlagen.",
+      "nace_code": "D",
+      "unedited_reply": "Abschnitt D der Wirtschaftswissenschaftlichen Klassifikation (NACE Rev. 2) umfasst die Bereiche Elektrizität, Gas, Dampf und Klimatisierung. Dieser Abschnitt umfasst die Produktion und Vertrieb von elektrischem Strom, Gas, Dampf sowie die Bereitstellung von Klimatisierungsdienstleistungen. Konkrete Tätigkeiten, die hier enthalten sind, sind die Erzeugung und Übertragung von elektrischem Strom, die Produktion und Verteilung von Gas, die Herstellung und Vertrieb von Dampf sowie die Installation, Wartung und Betrieb von Klimaanlagen und Heizungsanlagen."
+    },
+    "E": {
+      "name": "Wasserversorgung, Kanalisation, Abfallwirtschaft",
+      "description": "Umfasst die Tätigkeiten im Bereich Wasserversorgung, Kanalisation und Abfallwirtschaft. Dies umfasst insbesondere die Bereitstellung von Trinkwasser und Industrie- und Gewerbeabwasser, die Entnahme und Behandlung von Abwasser sowie die Entsorgung und Verwertung von Abfällen.",
+      "nace_code": "E",
+      "unedited_reply": "Der Abschnitt E der Wirtschaftswesen-Klassifikation (NACE Rev. 2) umfasst die Tätigkeiten im Bereich Wasserversorgung, Kanalisation und Abfallwirtschaft. Dies umfasst insbesondere die Bereitstellung von Trinkwasser und Industrie- und Gewerbeabwasser, die Entnahme und Behandlung von Abwasser sowie die Entsorgung und Verwertung von Abfällen."
+    },
+    "F": {
+      "name": "Bauwesen, Hochbau, Tiefbau, Schlüsselfertigbau, Renovierung, Sanierung, Wohnungsbau, Gewerbebau, Infrastrukturbau, Bauplanung, Bauausführung. İnşaat, yapı, bina, tadilat.",
+      "description": "Umfasst die Tätigkeiten im Bau- und Bauservicebereich. Dies umfasst den Bau von Gebäuden und Strukturen, einschließlich der Planung, Ausführung und Renovierung. Konkrete Tätigkeiten sind der Bau von Wohngebäuden, Gewerbegebäuden, Infrastrukturen sowie der Bauplanung und Bauführung.",
+      "nace_code": "F",
+      "unedited_reply": "Der Abschnitt F der Wirtschaftswissenschaftlichen Klassifikation (NACE Rev. 2) umfasst die Tätigkeiten im Bau- und Bauservicebereich. Dies umfasst den Bau von Gebäuden und Strukturen, einschließlich der Planung, Ausführung und Renovierung. Konkrete Tätigkeiten sind der Bau von Wohngebäuden, Gewerbegebäuden, Infrastrukturen sowie der Bauplanung und Bauführung."
+    },
+    "G": {
+      "name": "Groß- und Einzelhandel",
+      "description": "Umfasst den Groß- und Einzelhandel sowie verwandte Dienstleistungen. Dieser Bereich umfasst die Tätigkeiten der Verkaufsstellen aller Art, einschließlich Supermärkte, Einzelhandelsgeschäfte, Autohaushalte, sowie der Onlinevertriebe und der Vermittlung von Verkaufsplatzvermietungen.",
+      "nace_code": "G",
+      "unedited_reply": "Der Abschnitt G der Wirtschaftswerklassifikation NACE Rev. 2 umfasst den Groß- und Einzelhandel sowie verwandte Dienstleistungen. Dieser Bereich umfasst die Tätigkeiten der Verkaufsstellen aller Art, einschließlich Supermärkte, Einzelhandelsgeschäfte, Autohaushalte, sowie der Onlinevertriebe und der Vermittlung von Verkaufsplatzvermietungen."
+    },
+    "H": {
+      "name": "Verkehr und Lagerung",
+      "description": "Umfasst die Aktivitäten im Bereich Verkehr und Lagerung. Dies beinhaltet insbesondere den Transport von Gütern und Personen sowie die Lagerung und Beförderung von Waren. Konkrete Tätigkeiten, die hierzu gehören, sind der Fernverkehr mit Lastwagen, der Schifffahrtsbetrieb, der Fluggüterverkehr, der Güterverkehr per Bahn, der Lagerungs- und Versorgungsdienstleistungen sowie der Logistikdienstleistungsanbieterdienstleistungen.",
+      "nace_code": "H",
+      "unedited_reply": "Der Abschnitt H der Wirtschaftswerklassifikation NACE Rev. 2 umfasst die Aktivitäten im Bereich Verkehr und Lagerung. Dies beinhaltet insbesondere den Transport von Gütern und Personen sowie die Lagerung und Beförderung von Waren. Konkrete Tätigkeiten, die hierzu gehören, sind der Fernverkehr mit Lastwagen, der Schifffahrtsbetrieb, der Fluggüterverkehr, der Güterverkehr per Bahn, der Lagerungs- und Versorgungsdienstleistungen sowie der Logistikdienstleistungsanbieterdienstleistungen."
+    },
+    "I": {
+      "name": "Beherbergung und Verpflegungsdienstleistungen",
+      "description": "Umfasst die Herbergungs- und Verpflegungsleistungen. Dieser Bereich umfasst insbesondere die Betriebe, die sich auf den Aufenthalt und die Versorgung von Gästen konzentrieren, einschließlich Hotels, Pensionen, Restaurants und Cafés. Konkrete Tätigkeiten reichen von der Anlage und Betreuung von Unterkünften bis zur Bereitstellung von Mahlzeiten und Getränken an Orte des Verbrauchs.",
+      "nace_code": "I",
+      "unedited_reply": "Abschnitt I der Wirtschaftswerklassifikation (NACE Rev. 2) umfasst die Herbergungs- und Verpflegungsleistungen. Dieser Bereich umfasst insbesondere die Betriebe, die sich auf den Aufenthalt und die Versorgung von Gästen konzentrieren, einschließlich Hotels, Pensionen, Restaurants und Cafés. Konkrete Tätigkeiten reichen von der Anlage und Betreuung von Unterkünften bis zur Bereitstellung von Mahlzeiten und Getränken an Orte des Verbrauchs."
+    },
+    "J": {
+      "name": "Informationstechnologie, Softwareentwicklung, Webentwicklung, App-Entwicklung, Cloud-Computing, API, Programmierung, Netzwerk, Telekommunikation, Datenverarbeitung. Yazılım geliştirme, mobil uygulama, bulut bilişim, entegrasyon.",
+      "description": "Umfasst Unternehmen, die sich auf die Bereitstellung von Informationstechnologie, Softwareentwicklung, Web- und App-Entwicklung, Cloud-Computing, API-Entwicklung, Programmierung, Netzwerkanalyse und -administration sowie Telekommunikationsdienstleistungen konzentrieren. Diese Unternehmen sind zuständig für die Entwicklung und Verwaltung von digitalen Systemen und Plattformen, die es Unternehmen ermöglichen, ihre Geschäftsprozesse effizienter zu gestalten und neue Märkte zu erschließen. Konkrete Tätigkeiten umfassen die Entwicklung von Softwareanwendungen, die Integration von Systemen, die Betreuung von Cloud-Diensten, die Erstellung von APIs, die Programmierung und das Netzwerkmanagement.",
+      "nace_code": "J",
+      "unedited_reply": "### Definition\n\nDer Abschnitt J der Wirtschaftswissenschaftlichen Klassifikation (NACE Rev. 2) umfasst Unternehmen, die sich auf die Bereitstellung von Informationstechnologie, Softwareentwicklung, Web- und App-Entwicklung, Cloud-Computing, API-Entwicklung, Programmierung, Netzwerkanalyse und -administration sowie Telekommunikationsdienstleistungen konzentrieren. Diese Unternehmen sind zuständig für die Entwicklung und Verwaltung von digitalen Systemen und Plattformen, die es Unternehmen ermöglichen, ihre Geschäftsprozesse effizienter zu gestalten und neue Märkte zu erschließen. Konkrete Tätigkeiten umfassen die Entwicklung von Softwareanwendungen, die Integration von Systemen, die Betreuung von Cloud-Diensten, die Erstellung von APIs, die Programmierung und das Netzwerkmanagement."
+    },
+    "K": {
+      "name": "Finanz- und Versicherungstätigkeiten",
+      "description": "Umfasst die Finanz- und Versicherungstätigkeiten. Dieser Abschnitt enthält Unternehmen, die sich mit der Bereitstellung von Finanzdienstleistungen und Versicherungsprodukten befassen. Konkrete Tätigkeiten, die diesem Abschnitt zugeordnet sind, umfassen Banken, Versicherungen, Anlageberatung, Vermögensverwaltung sowie Leasing- und Finanzierungsdienstleistungen.",
+      "nace_code": "K",
+      "unedited_reply": "Der Abschnitt K der Wirtschaftswissenschaftlichen Klasseifikation (NACE Rev. 2) umfasst die Finanz- und Versicherungstätigkeiten. Dieser Abschnitt enthält Unternehmen, die sich mit der Bereitstellung von Finanzdienstleistungen und Versicherungsprodukten befassen. Konkrete Tätigkeiten, die diesem Abschnitt zugeordnet sind, umfassen Banken, Versicherungen, Anlageberatung, Vermögensverwaltung sowie Leasing- und Finanzierungsdienstleistungen."
+    },
+    "L": {
+      "name": "Immobilientätigkeiten",
+      "description": "Umfasst die Immobilientätigkeiten, die sich auf die Nutzung, Verwaltung und Verkauf von Immobilien beziehen. Dies umfasst spezifische Tätigkeiten wie Immobilienverwaltung, Immobilienkauf und Verkauf, Vermietung von Immobilien sowie den Bau und Renovierungsarbeiten an Immobilien.",
+      "nace_code": "L",
+      "unedited_reply": "Der Abschnitt L der Wirtschaftswerklassifikation NACE Rev. 2 umfasst die Immobilientätigkeiten, die sich auf die Nutzung, Verwaltung und Verkauf von Immobilien beziehen. Dies umfasst spezifische Tätigkeiten wie Immobilienverwaltung, Immobilienkauf und Verkauf, Vermietung von Immobilien sowie den Bau und Renovierungsarbeiten an Immobilien."
+    },
+    "M": {
+      "name": "Unternehmensberatung, Steuerberatung, Rechtsberatung, Wirtschaftsprüfung, Buchhaltung, Ingenieurdienstleistungen, Architektur, Marktforschung. Danışmanlık, muhasebe, hukuk, mühendislik, mimarlık.",
+      "description": "Umfasst Dienstleistungen im Bereich Beratung und Prüfung, einschließlich Wirtschaftsberatung, Steuerberatung, Rechtsberatung, Wirtschaftsprüfung, Qualitätssicherung, Ingenieur- und Architekturberatung sowie Marktforschung. Zu den spezifischen Tätigkeiten gehören die Beratung in wirtschaftlichen, steuerlichen und rechtlichen Angelegenheiten, die Durchführung von Wirtschaftsprüfungen und Qualitätssicherungsmaßnahmen, die Bereitstellung von Ingenieur- und Architekturberatung, sowie die Sammlung und Analyse von Marktinformationen.",
+      "nace_code": "M",
+      "unedited_reply": "Der Abschnitt M der Wirtschaftswerklassifikation (NACE Rev. 2) umfasst Dienstleistungen im Bereich Beratung und Prüfung, einschließlich Wirtschaftsberatung, Steuerberatung, Rechtsberatung, Wirtschaftsprüfung, Qualitätssicherung, Ingenieur- und Architekturberatung sowie Marktforschung. Zu den spezifischen Tätigkeiten gehören die Beratung in wirtschaftlichen, steuerlichen und rechtlichen Angelegenheiten, die Durchführung von Wirtschaftsprüfungen und Qualitätssicherungsmaßnahmen, die Bereitstellung von Ingenieur- und Architekturberatung, sowie die Sammlung und Analyse von Marktinformationen."
+    },
+    "N": {
+      "name": "Verwaltungs- und Unterstützungsdienstleistungen",
+      "description": "Umfasst die Verwaltung- und Unterstützungsdienstleistungen, die sich auf die Planung, Organisation und Durchführung von Dienstleistungen konzentrieren, die nicht direkt in der Produktion oder den Vertriebsprozessen stattfinden. Zu den spezifischen Tätigkeiten, die diesem Abschnitt zugeordnet sind, gehören among others Rechtsdienstleistungen, Buchhaltung und Finanzdienstleistungen, Sicherheitsdienstleistungen, Personalvermittlung, IT-Dienstleistungen sowie Umwelt- und Gesundheitsdienstleistungen.",
+      "nace_code": "N",
+      "unedited_reply": "Definition des Abschnitts N der Wirtschaftswissenschaftlichen Klassifikation (NACE Rev. 2):\n\nDer Abschnitt N umfasst die Verwaltung- und Unterstützungsdienstleistungen, die sich auf die Planung, Organisation und Durchführung von Dienstleistungen konzentrieren, die nicht direkt in der Produktion oder den Vertriebsprozessen stattfinden. Zu den spezifischen Tätigkeiten, die diesem Abschnitt zugeordnet sind, gehören among others Rechtsdienstleistungen, Buchhaltung und Finanzdienstleistungen, Sicherheitsdienstleistungen, Personalvermittlung, IT-Dienstleistungen sowie Umwelt- und Gesundheitsdienstleistungen."
+    },
+    "O": {
+      "name": "Öffentliche Verwaltung und Verteidigung",
+      "description": "Umfasst die Öffentliche Verwaltung und Verteidigung. Er umfasst Tätigkeiten, die von öffentlichen Behörden und militärischen Organisationen ausgeführt werden, einschließlich der Planung, Durchführung und Überwachung von Politiken, der Sicherstellung des Rechtsstaatsprinzips, der Verteidigung des Landes sowie der Bereitstellung von Sicherheitsdiensten.",
+      "nace_code": "O",
+      "unedited_reply": "Der Abschnitt O der Wirtschaftswerklassifikation NACE Rev. 2 umfasst die Öffentliche Verwaltung und Verteidigung. Er umfasst Tätigkeiten, die von öffentlichen Behörden und militärischen Organisationen ausgeführt werden, einschließlich der Planung, Durchführung und Überwachung von Politiken, der Sicherstellung des Rechtsstaatsprinzips, der Verteidigung des Landes sowie der Bereitstellung von Sicherheitsdiensten."
+    },
+    "P": {
+      "name": "Bildung",
+      "description": "Umfasst die Bildungsaktivitäten. Dieser Abschnitt umfasst insbesondere die Erziehung und Ausbildung von Kindern, Jugendlichen und Erwachsenen in verschiedenen Bildungsstufen und Bereichen. Konkrete Tätigkeiten, die diesem Abschnitt zugeordnet sind, sind die Betriebs- und Schulleitung, die Durchführung von Grundschul- und Sekundarstufen, die Ausbildung in Berufsschulen und Fachhochschulen, sowie die Erbringung von Weiterbildungs- und Fortbildungsleistungen für Erwachsene.",
+      "nace_code": "P",
+      "unedited_reply": "Der Abschnitt P der Wirtschaftswissenschaftlichen Klässifikation (NACE Rev. 2) umfasst die Bildungsaktivitäten. Dieser Abschnitt umfasst insbesondere die Erziehung und Ausbildung von Kindern, Jugendlichen und Erwachsenen in verschiedenen Bildungsstufen und Bereichen. Konkrete Tätigkeiten, die diesem Abschnitt zugeordnet sind, sind die Betriebs- und Schulleitung, die Durchführung von Grundschul- und Sekundarstufen, die Ausbildung in Berufsschulen und Fachhochschulen, sowie die Erbringung von Weiterbildungs- und Fortbildungsleistungen für Erwachsene."
+    },
+    "Q": {
+      "name": "Gesundheitswesen, Humanmedizin, Zahnmedizin, Zahnarztpraxis, Zahnklinik, Krankenhaus, Arztpraxis, Pflege, Therapie, Rehabilitation. İnsan sağlığı, diş hekimliği, hastane, klinik, tedavi, hemşirelik.",
+      "description": "Umfasst eine Vielzahl von Dienstleistungen und Einrichtungen, die sich auf die Erhaltung und Verbesserung der Gesundheit und des Wohlbefindens der Bevölkerung konzentrieren. Dieser Bereich umfasst spezifische Tätigkeiten wie die medizinische Versorgung, die Zahnmedizin, die Pflege und die Rehabilitation sowie die Betreuung in Krankenhäusern und Arztpraxen. Konkrete Tätigkeiten, die hier enthalten sind, reichen von der medizinischen Diagnostik und Behandlung über die Zahnhygiene und -behandlungen bis hin zur Pflege und Rehabilitation von Patienten.",
+      "nace_code": "Q",
+      "unedited_reply": "### Definition\n\nDer Wirtschaftsbereich Gesundheitswesen (NACE Rev. 2, Kategorie L) umfasst eine Vielzahl von Dienstleistungen und Einrichtungen, die sich auf die Erhaltung und Verbesserung der Gesundheit und des Wohlbefindens der Bevölkerung konzentrieren. Dieser Bereich umfasst spezifische Tätigkeiten wie die medizinische Versorgung, die Zahnmedizin, die Pflege und die Rehabilitation sowie die Betreuung in Krankenhäusern und Arztpraxen. Konkrete Tätigkeiten, die hier enthalten sind, reichen von der medizinischen Diagnostik und Behandlung über die Zahnhygiene und -behandlungen bis hin zur Pflege und Rehabilitation von Patienten."
+    },
+    "R": {
+      "name": "Kunst, Unterhaltung und Erholung",
+      "description": "Umfasst die Tätigkeiten im Bereich Kunst, Unterhaltung und Reisen. Dieser Abschnitt umfasst spezifische Aktivitäten wie die Organisation von Konzerten und Theateraufführungen, das Betreiben von Museen und Galerien, sowie die Bereitstellung von Urlaubs- und Reisevergleichsdiensten.",
+      "nace_code": "R",
+      "unedited_reply": "Der Abschnitt R der Wirtschaftswerklassifikation NACE Rev. 2 umfasst die Tätigkeiten im Bereich Kunst, Unterhaltung und Reisen. Dieser Abschnitt umfasst spezifische Aktivitäten wie die Organisation von Konzerten und Theateraufführungen, das Betreiben von Museen und Galerien, sowie die Bereitstellung von Urlaubs- und Reisevergleichsdiensten."
+    },
+    "S": {
+      "name": "Sonstige Dienstleistungstätigkeiten",
+      "description": "Umfasst Sonstige Dienstleistungstätigkeiten, die nicht in anderen Abschnitten des Systems untergebracht werden können. Dieser Bereich umfasst eine Vielzahl von Dienstleistungen, wie etwa Rechtsdienstleistungen, Buchhaltung und Steuerberatung, Architektur- und Ingenieurbüros, sowie Bildungs- und Forschungseinrichtungen, die nicht in spezifischere Kategorien eingeordnet werden.",
+      "nace_code": "S",
+      "unedited_reply": "Der Abschnitt S der Wirtschaftswerklassifikation NACE Rev. 2 umfasst Sonstige Dienstleistungstätigkeiten, die nicht in anderen Abschnitten des Systems untergebracht werden können. Dieser Bereich umfasst eine Vielzahl von Dienstleistungen, wie etwa Rechtsdienstleistungen, Buchhaltung und Steuerberatung, Architektur- und Ingenieurbüros, sowie Bildungs- und Forschungseinrichtungen, die nicht in spezifischere Kategorien eingeordnet werden."
+    },
+    "T": {
+      "name": "Tätigkeiten privater Haushalte als Arbeitgeber",
+      "description": "Tätigkeiten privat Haushalt als Arbeitgeber\" umfasst Tätigkeiten, bei denen der Haushalt als Arbeitgeber Dienstleistungen von Familienmitgliedern oder anderen Personen erbringt. Dies beinhaltet insbesondere den Einsatz von Hausangestellten wie Haushälterinnen, Kochen, Gärtnern sowie anderen Personenschutzdiensten.",
+      "nace_code": "T",
+      "unedited_reply": "Der Abschnitt T \"Tätigkeiten privat Haushalt als Arbeitgeber\" der Wirtschaftswesen-Klassifikation (NACE Rev. 2) umfasst Tätigkeiten, bei denen der Haushalt als Arbeitgeber Dienstleistungen von Familienmitgliedern oder anderen Personen erbringt. Dies beinhaltet insbesondere den Einsatz von Hausangestellten wie Haushälterinnen, Kochen, Gärtnern sowie anderen Personenschutzdiensten."
+    },
+    "U": {
+      "name": "Tätigkeiten internationaler Organisationen",
+      "description": "Umfasst Tätigkeiten internationaler Organisationen, die sich hauptsächlich auf die Durchführung von Dienstleistungen und Verwaltungsaufgaben konzentrieren. Zu den genannten Tätigkeiten gehören insbesondere die Betreuung und Verwaltung von internationalem Personal, die Koordination von Projekten und Programmen sowie die Bereitstellung von Beratungs- und Informationsdienstleistungen für andere Organisationen und Institutionen.",
+      "nace_code": "U",
+      "unedited_reply": "Der Abschnitt U der Wirtschaftswerklassifikation NACE Rev. 2 umfasst Tätigkeiten internationaler Organisationen, die sich hauptsächlich auf die Durchführung von Dienstleistungen und Verwaltungsaufgaben konzentrieren. Zu den genannten Tätigkeiten gehören insbesondere die Betreuung und Verwaltung von internationalem Personal, die Koordination von Projekten und Programmen sowie die Bereitstellung von Beratungs- und Informationsdienstleistungen für andere Organisationen und Institutionen."
+    }
+  }
+}
