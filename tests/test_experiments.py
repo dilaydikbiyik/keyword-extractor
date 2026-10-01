@@ -1055,21 +1055,39 @@ class TestModelErrorCoding:
 class TestSubmissionArchive:
     """What the reviewer's copy of the code may contain."""
 
-    def test_no_tracked_file_carries_the_strings_to_remove(self, tmp_path, monkeypatch):
-        """The anonymiser ships in the archive, so it must not name the author."""
+    def _archive(self, tmp_path, monkeypatch, patterns):
+        """The archive as a reviewer would receive it, built with `patterns`."""
         import zipfile
 
         from experiments import submission
 
         monkeypatch.setattr(submission, "DIST", tmp_path)
-        archive = zipfile.ZipFile(submission.build_archive())
+        monkeypatch.setattr(submission, "load_identity", lambda: patterns)
+        return submission, zipfile.ZipFile(submission.build_archive())
+
+    def test_the_identity_file_is_not_in_the_archive(self, tmp_path, monkeypatch):
+        """The anonymiser ships to the reviewer; the strings it removes do not."""
+        from experiments.submission import read_patterns
+
+        patterns = read_patterns(TestSubmissionAnonymity.PATTERNS)
+        _, archive = self._archive(tmp_path, monkeypatch, patterns)
         names = archive.namelist()
         assert "experiments/submission.py" in names
         assert "private/identity.txt" not in names, "the identity file is tracked"
-        _, detect = submission.load_identity()
-        for name in names:
+
+    def test_no_file_in_the_archive_matches_the_live_patterns(self, tmp_path, monkeypatch):
+        """Runs where the identity file is, which is where a submission is built."""
+        import pytest
+
+        from experiments.submission import IDENTITY_FILE, load_identity
+
+        if not IDENTITY_FILE.exists():
+            pytest.skip("no identity file here; `make submission` scans before uploading")
+        detect = load_identity()[1]
+        submission, archive = self._archive(tmp_path, monkeypatch, load_identity())
+        for name in archive.namelist():
             body = archive.read(name).decode("utf-8", errors="ignore")
-            assert submission.find_identity(name + "\\n" + body, detect) == [], name
+            assert submission.find_identity(name + "\n" + body, detect) == [], name
 
 
 class TestBenchmark:

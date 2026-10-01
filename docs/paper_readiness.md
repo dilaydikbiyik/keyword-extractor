@@ -478,7 +478,10 @@ documents flagged high-confidence."*
    refuses to finish if either still names the author. The strings it removes
    are read from `private/identity.txt`, which is untracked on purpose: in a
    committed file they would travel inside the archive being cleaned, and a test
-   checks that no file in the archive matches them.
+   checks that no file in the archive matches them -- on a machine that has the
+   file, which is the machine a submission is built on; elsewhere, including CI,
+   that test skips and the remaining ones still check the anonymiser's own
+   behaviour.
 4. **A fourth dataset**, ideally one where the alignment change is near zero,
    to test the account at the point where it makes its least obvious
    prediction.

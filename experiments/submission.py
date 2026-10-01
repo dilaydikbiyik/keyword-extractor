@@ -37,7 +37,7 @@ BINARY_SUFFIXES = {".gif", ".png", ".jpg", ".jpeg", ".pdf", ".ico", ".zip"}
 # What counts as identifying is the author's own name, address and university, so
 # the patterns live outside version control: written into a tracked file they
 # would travel inside the very archive this script cleans. See the file itself,
-# or data/README.md, for its two sections.
+# or docs/paper_readiness.md, for its two sections.
 IDENTITY_FILE = ROOT / "private" / "identity.txt"
 
 

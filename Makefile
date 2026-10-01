@@ -31,6 +31,7 @@ help:
 	@echo "  paper-tables  Regenerate paper/tables/*.tex from results/"
 	@echo "  paper         Build paper/main.pdf (needs tectonic: brew install tectonic)"
 	@echo "  submission    Anonymous review PDF and code archive in dist/, checked"
+	@echo "                (needs private/identity.txt: the strings to remove, untracked)"
 	@echo "  demo          Re-render the README demo GIF from results/"
 	@echo "  clean         Remove generated results and caches"
 
