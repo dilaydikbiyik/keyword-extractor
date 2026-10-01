@@ -14,7 +14,8 @@ it is worth nothing.
 | Question | Answer |
 | --- | --- |
 | Is it the language? Sixteen descriptions were Turkish against German documents. | **No.** Same content in German: −2.3 pp, p = 0.14. |
-| Is it one encoder? | **No.** mpnet-base-v2: +13.7 pp, p = 1×10⁻⁵. |
+| Is it one encoder? | **No.** mpnet-base-v2: +13.7 pp, p = 1×10⁻⁵; LaBSE, a different family: +16.1 pp, p = 2×10⁻⁵. |
+| Is it the assistant that wrote both the labels and the descriptions? | **Not entirely.** Definitions by a different model family, from the control text alone: +5.4 pp (p = 0.068), about 20% of the assistant's gain. The direction survives the change of author; the size does not. |
 | Is it this corpus? | **Partly — and predictably so.** On 20 Newsgroups, elaboration is worth +0.4 pp (p = 0.73). Those class names appear in 18.2% of their own documents; NACE section names appear in 1.0%. |
 
 The two datasets do not conflict. They differ in one measurable property, and
@@ -113,10 +114,13 @@ better results from:
 | --- | --- | --- |
 | MiniLM-L12-v2 (384-dim) | −2.3 pp, p = 0.14 | **+26.8 pp**, p = 4×10⁻¹⁵ |
 | mpnet-base-v2 (768-dim) | +0.0 pp, p = 1.00 | **+13.7 pp**, p = 1×10⁻⁵ |
+| LaBSE (768-dim, translation ranking) | −0.7 pp, p = 0.86 | **+16.1 pp**, p = 2×10⁻⁵ |
 
-Same direction, same conclusion, different magnitude: the effect is a property
-of what the descriptions say, not of one encoder's idiosyncrasies. `make study`
-runs both.
+Same direction, same conclusion, different magnitude, and the third encoder is
+not a sibling of the first two: LaBSE is trained by translation ranking rather
+than distilled from the same teacher. The effect is a property of what the
+descriptions say, not of one encoder family's idiosyncrasies. `make study` runs
+all three.
 
 **Why this generalises.** "Write class descriptions that enumerate what the
 class covers, not descriptions that name it" applies to any zero-shot
@@ -484,7 +488,9 @@ documents flagged high-confidence."*
    behaviour.
 4. **A fourth dataset**, ideally one where the alignment change is near zero,
    to test the account at the point where it makes its least obvious
-   prediction.
+   prediction. The three here have well-separated alignment changes, which is
+   what makes the ordering visible and equally what keeps the test away from
+   the hard case.
 5. **A criterion that survives the argmax without labels.** Three tried here
    fail, including direct optimisation of the objective. Whether a label-free
    set-level criterion exists is open; it would have to beat a fixed policy

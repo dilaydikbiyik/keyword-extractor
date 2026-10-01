@@ -1,0 +1,83 @@
+{
+  "study": "brown",
+  "registered_at": "2026-10-01T18:40:04+00:00",
+  "code_revision": "e2a4437",
+  "method_fingerprint": "3d134a2c7202248e278073f9005c11fdcfaac194626f5331f64628ad908cb851",
+  "seed": 42,
+  "truncate": 1200,
+  "docs_per_class": 40,
+  "n": 413,
+  "classes": 15,
+  "mean_alignment_change": {
+    "spelling the label out": 0.01648053350647377,
+    "definition": -0.06703667147686224
+  },
+  "alignment_change_per_class": {
+    "spelling the label out": {
+      "adventure": 0.03655570370653849,
+      "belles_lettres": 0.039846374123727935,
+      "editorial": -0.013596288216647545,
+      "fiction": 0.012419029039581808,
+      "government": -0.039931174605822406,
+      "hobbies": 0.030762562409093475,
+      "humor": -0.007323870346167272,
+      "learned": 0.11886010543408426,
+      "lore": 0.015226601291873587,
+      "mystery": 0.06220671344310846,
+      "news": -0.09831120813354649,
+      "religion": -0.06255850615324676,
+      "reviews": 0.035815399057910924,
+      "romance": 0.060237814556909464,
+      "science_fiction": 0.05699874698970864
+    },
+    "definition": {
+      "adventure": -0.12539975525591818,
+      "belles_lettres": 0.08616895457739182,
+      "editorial": -0.08553349706329993,
+      "fiction": -0.167187346464086,
+      "government": -0.12182853125621362,
+      "hobbies": 0.047248984853123455,
+      "humor": -0.03388360272567814,
+      "learned": -0.11809222169298167,
+      "lore": -0.06976253891949663,
+      "mystery": -0.14519354394715062,
+      "news": -0.005758209094385847,
+      "religion": -0.08161292435098877,
+      "reviews": -0.000981424741850534,
+      "romance": -0.1210520080120725,
+      "science_fiction": -0.06268240805932646
+    }
+  },
+  "published_corpora_alignment_change": {
+    "NACE": 0.11389635589644544,
+    "Reuters": 0.02820636938174559,
+    "20NG": -0.0757476127420306
+  },
+  "predictions": [
+    {
+      "id": "direction-spelling the label out",
+      "claim": "On Brown, spelling the label out raises Top-1 accuracy.",
+      "step": "spelling the label out",
+      "expected_sign": 1
+    },
+    {
+      "id": "direction-definition",
+      "claim": "On Brown, definition does not raise Top-1 accuracy.",
+      "step": "definition",
+      "expected_sign": -1
+    },
+    {
+      "id": "smaller-than",
+      "corpora": [
+        "NACE",
+        "Reuters"
+      ],
+      "claim": "Brown's gain from a definition is smaller than the gain of every corpus whose alignment change is larger: NACE, Reuters."
+    },
+    {
+      "id": "per-class",
+      "claim": "Across classes, the alignment change from the definition correlates positively with the share of available headroom captured (rho > 0)."
+    }
+  ],
+  "note": "Written before any accuracy on Brown was computed."
+}

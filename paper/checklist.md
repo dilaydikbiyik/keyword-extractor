@@ -50,7 +50,10 @@ Yes.
   recorded by `run.py` in `results/compute.json`. Section *What a document
   costs* adds the inference cost of each system measured under one protocol --
   cold start, warm latency at batch 1, batch throughput, peak memory and model
-  size -- from `results/benchmark.json`, written by `make benchmark`.
+  size -- from `results/benchmark.json`, written by `make benchmark`. Three
+  encoders are reported (118M, 278M and LaBSE at 472M), and the 7B open model is
+  used both as a baseline and, once, to write the class definitions tested in
+  *Who writes the definitions*.
 - **C2. Hyperparameters?** Partly. There is no hyperparameter search; the few
   fixed settings (thresholds, top-k) are in the released configuration but not
   in the paper.

@@ -55,6 +55,9 @@ def get_preprocessor() -> TextPreprocessor:
 
 
 MPNET_MODEL = "paraphrase-multilingual-mpnet-base-v2"
+# Trained by translation ranking rather than distilled from the same teacher as
+# the two encoders above, so a result that holds on it holds across families.
+LABSE_MODEL = "sentence-transformers/LaBSE"
 TRANSLATION_MODEL = "Helsinki-NLP/opus-mt-de-en"
 
 

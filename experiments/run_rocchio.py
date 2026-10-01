@@ -49,7 +49,7 @@ from experiments.run_description_study import LITERAL_GERMAN
 from experiments.run_replication import DEFINITION as NEWS_DEFINITION, READABLE as NEWS_READABLE, load_newsgroups
 from experiments.run_reuters import DEFINITION as REUTERS_DEFINITION, READABLE as REUTERS_READABLE, load as load_reuters
 from experiments import systems
-from experiments.systems import MPNET_MODEL, get_embedder
+from experiments.systems import LABSE_MODEL, MPNET_MODEL, get_embedder
 
 K = 25
 BETA = 1.0
@@ -59,7 +59,12 @@ DEFINITIONS_PREREGISTRATION = RESULTS_DIR / "rocchio_definitions_preregistration
 DEFINITIONS_RESULT = RESULTS_DIR / "rocchio_definitions.json"
 MPNET_PREREGISTRATION = RESULTS_DIR / "rocchio_mpnet_preregistration.json"
 MPNET_RESULT = RESULTS_DIR / "rocchio_mpnet.json"
-ENCODER_OF = {"mpnet": MPNET_MODEL}
+LABSE_PREREGISTRATION = RESULTS_DIR / "rocchio_labse_preregistration.json"
+LABSE_RESULT = RESULTS_DIR / "rocchio_labse.json"
+# The first three studies all ran on encoders distilled from one teacher. LaBSE
+# is trained by translation ranking instead, so it tests the update on a family
+# the account has never been checked against.
+ENCODER_OF = {"mpnet": MPNET_MODEL, "labse": LABSE_MODEL}
 
 
 def unit_rows(matrix: np.ndarray) -> np.ndarray:
@@ -158,6 +163,8 @@ def study_files(study: str):
         return corpora_definitions, DEFINITIONS_PREREGISTRATION, DEFINITIONS_RESULT
     if study == "mpnet":
         return corpora, MPNET_PREREGISTRATION, MPNET_RESULT
+    if study == "labse":
+        return corpora, LABSE_PREREGISTRATION, LABSE_RESULT
     raise ValueError(f"unknown study {study!r}")
 
 
@@ -328,9 +335,9 @@ def _evaluate(study: str) -> int:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--preregister", action="store_true")
-    parser.add_argument("--study", choices=["terse", "definitions", "mpnet"], default="terse",
+    parser.add_argument("--study", choices=["terse", "definitions", "mpnet", "labse"], default="terse",
                         help="The terse class texts (the first study), the written definitions, "
-                             "or the terse texts again on the mpnet encoder.")
+                             "or the terse texts again on the mpnet or the LaBSE encoder.")
     args = parser.parse_args()
     if not CORPUS_CSV.exists():
         print("The label-free studies need the raw trade register sample in data/raw/ for their "
