@@ -47,7 +47,10 @@ Yes.
 - **C1. Parameters and compute?** Yes. Both encoders are named with their
   parameter counts (118M and 278M) in the *Method* section, which also gives the
   wall-clock time of the complete reproduction and the hardware it ran on,
-  recorded by `run.py` in `results/compute.json`.
+  recorded by `run.py` in `results/compute.json`. Section *What a document
+  costs* adds the inference cost of each system measured under one protocol --
+  cold start, warm latency at batch 1, batch throughput, peak memory and model
+  size -- from `results/benchmark.json`, written by `make benchmark`.
 - **C2. Hyperparameters?** Partly. There is no hyperparameter search; the few
   fixed settings (thresholds, top-k) are in the released configuration but not
   in the paper.

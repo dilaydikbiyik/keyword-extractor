@@ -186,3 +186,6 @@ paper/*.out
 
 # A --limit smoke run of the LLM baseline, never the result
 results/llm_baseline_smoke.json
+
+# The strings the submission anonymiser removes, kept out of the tree it cleans
+private/

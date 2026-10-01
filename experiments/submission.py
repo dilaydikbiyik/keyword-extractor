@@ -10,7 +10,9 @@ replaced). Then it scans both and refuses to finish if anything identifying is
 left: a submission that names its author is rejected without review.
 
 The archive is built from ``git archive``, so history, commit authors and
-untracked files never enter it. Images and other binary media are left out,
+untracked files never enter it -- including ``private/identity.txt``, which is
+where the strings to remove are kept, precisely so that they are not in the
+tree being cleaned. Images and other binary media are left out,
 because a scan cannot read text inside them.
 """
 
@@ -23,40 +25,78 @@ import subprocess
 import sys
 import zipfile
 import zlib
+from functools import lru_cache
 from pathlib import Path
-from typing import List
+from typing import Dict, List, Sequence, Tuple
 
 from experiments.config import ROOT
 
 DIST = ROOT / "dist"
-# Replaced in this order, most specific first: replacing the surname before the
-# username would leave "dilay" + placeholder inside every URL and address.
-IDENTITY = [
-    re.compile(r"dilaydikbiyik(@gmail\.com)?", re.I),
-    re.compile(r"Dilay\s+Dikb[ıi]y[ıi]k", re.I),
-    re.compile(r"Dikb\\i\s*y\\i\s*k", re.I),
-    re.compile(r"Dikb[ıi]y[ıi]k", re.I),
-    re.compile(r"Dilay", re.I),
-    re.compile(r"Kocaeli(\s+(University|Üniversitesi))?", re.I),
-]
-# Detection is deliberately looser than replacement: any fragment of the name
-# that survives, in any case and inside any word, fails the check.
-LEAK = re.compile(r"dilay|dikb[ıi]y|dikb\\i|kocaeli", re.I)
 PLACEHOLDER = "ANONYMOUS"
 BINARY_SUFFIXES = {".gif", ".png", ".jpg", ".jpeg", ".pdf", ".ico", ".zip"}
+# What counts as identifying is the author's own name, address and university, so
+# the patterns live outside version control: written into a tracked file they
+# would travel inside the very archive this script cleans. See the file itself,
+# or data/README.md, for its two sections.
+IDENTITY_FILE = ROOT / "private" / "identity.txt"
 
 
-def anonymize_text(text: str) -> str:
+def read_patterns(text: str) -> Tuple[List[re.Pattern], re.Pattern]:
+    """The patterns of an identity file: ones to replace, and one to detect with.
+
+    Under ``[remove]``, one regex per line, most specific first: replacing a
+    surname before a username would leave the first name beside the placeholder
+    in every URL. Under ``[detect]``, regexes that must not match anywhere in the
+    result; detection is deliberately looser than replacement, so that any
+    fragment surviving inside a word still fails the check.
+    """
+    sections: Dict[str, List[str]] = {"remove": [], "detect": []}
+    current = None
+    for line in text.splitlines():
+        line = line.strip()
+        if not line or line.startswith("#"):
+            continue
+        if line.startswith("[") and line.endswith("]"):
+            current = line[1:-1]
+            if current not in sections:
+                raise SystemExit(f"{IDENTITY_FILE.name}: unknown section [{current}]")
+            continue
+        if current is None:
+            raise SystemExit(f"{IDENTITY_FILE.name}: a pattern before any [section]")
+        sections[current].append(line)
+    for name, patterns in sections.items():
+        if not patterns:
+            raise SystemExit(f"{IDENTITY_FILE.name}: section [{name}] is empty")
+    return ([re.compile(p, re.I) for p in sections["remove"]],
+            re.compile("|".join(f"(?:{p})" for p in sections["detect"]), re.I))
+
+
+@lru_cache(maxsize=1)
+def load_identity() -> Tuple[List[re.Pattern], re.Pattern]:
+    if not IDENTITY_FILE.exists():
+        raise SystemExit(f"Write the patterns to remove in {IDENTITY_FILE.relative_to(ROOT)} "
+                         "(sections [remove] and [detect], one regex per line). "
+                         "Keep it out of version control.")
+    tracked = subprocess.run(["git", "ls-files", "--error-unmatch", str(IDENTITY_FILE.relative_to(ROOT))],
+                             cwd=ROOT, capture_output=True, text=True)
+    if tracked.returncode == 0:
+        raise SystemExit(f"{IDENTITY_FILE.relative_to(ROOT)} is tracked by git, so the archive "
+                         "would carry the strings it removes. Untrack it first.")
+    return read_patterns(IDENTITY_FILE.read_text(encoding="utf-8"))
+
+
+def anonymize_text(text: str, patterns: Sequence[re.Pattern] = None) -> str:
     """Replace every identifying string with a placeholder."""
-    for pattern in IDENTITY:
+    for pattern in load_identity()[0] if patterns is None else patterns:
         text = pattern.sub(PLACEHOLDER, text)
     return text
 
 
-def find_identity(text: str) -> List[str]:
+def find_identity(text: str, detector: re.Pattern = None) -> List[str]:
     """Identifying fragments still present, with context, for the refusal message."""
+    detector = load_identity()[1] if detector is None else detector
     return sorted({text[max(0, m.start() - 20):m.end() + 20].replace("\n", " ")
-                   for m in LEAK.finditer(text)})
+                   for m in detector.finditer(text)})
 
 
 def pdf_text(data: bytes) -> str:

@@ -720,29 +720,65 @@ class TestLLMReplyParsing:
 
 
 class TestSubmissionAnonymity:
-    """A submission that names its author is rejected without review."""
+    """A submission that names its author is rejected without review.
+
+    The real patterns live in an untracked file, so these tests use a stand-in
+    author with the same shape -- a username, a full name, a surname, a first
+    name, a university -- and never the author's own name, which would put in
+    this file exactly what the anonymiser exists to keep out of the archive.
+    """
+
+    PATTERNS = """
+        [remove]
+        adalovelace(@example\\.com)?
+        Ada\\s+Lovelace
+        Lovelace
+        Ada
+        Marmara(\\s+University)?
+
+        [detect]
+        ada
+        lovelace
+        marmara
+    """
+
+    def _patterns(self):
+        from experiments.submission import read_patterns
+
+        return read_patterns(self.PATTERNS)
 
     def test_every_form_of_the_name_is_replaced(self):
         from experiments.submission import anonymize_text, find_identity
 
-        text = ("Dilay Dikbıyık, Dikb\\i y\\i k, dilaydikbiyik@gmail.com, "
-                "github.com/dilaydikbiyik/keyword-extractor, Kocaeli University")
-        cleaned = anonymize_text(text)
-        assert find_identity(cleaned) == []
+        remove, detect = self._patterns()
+        text = ("Ada Lovelace, adalovelace@example.com, "
+                "github.com/adalovelace/keyword-extractor, Marmara University")
+        cleaned = anonymize_text(text, remove)
+        assert find_identity(cleaned, detect) == []
         # No fragment may survive inside a URL or an address.
-        assert "dilay" not in cleaned.lower() and "kocaeli" not in cleaned.lower()
+        assert "ada" not in cleaned.lower() and "marmara" not in cleaned.lower()
         assert "github.com/ANONYMOUS/keyword-extractor" in cleaned
 
     def test_a_surviving_fragment_is_detected(self):
         from experiments.submission import find_identity
 
-        assert find_identity("https://github.com/dilayANONYMOUS/x")
+        assert find_identity("https://github.com/adaANONYMOUS/x", self._patterns()[1])
 
     def test_ordinary_text_is_left_alone(self):
         from experiments.submission import anonymize_text
 
         text = "Zero-shot NACE classification of German trade register texts."
-        assert anonymize_text(text) == text
+        assert anonymize_text(text, self._patterns()[0]) == text
+
+    def test_a_file_without_both_sections_is_refused(self):
+        import pytest
+
+        from experiments.submission import read_patterns
+
+        with pytest.raises(SystemExit):
+            read_patterns("[remove]\nsomething\n")
+        with pytest.raises(SystemExit):
+            read_patterns("a-pattern-before-any-section\n")
 
 
 class TestRocchio:
@@ -1014,6 +1050,26 @@ class TestModelErrorCoding:
         code_errors.code_with_model(ask=lambda prompt: "?", translate=str)
         report = json.loads(code_errors.MODEL_REPORT.read_text(encoding="utf-8"))
         assert report["off_format"] == 2 and report["agreement"] == 0.0
+
+
+class TestSubmissionArchive:
+    """What the reviewer's copy of the code may contain."""
+
+    def test_no_tracked_file_carries_the_strings_to_remove(self, tmp_path, monkeypatch):
+        """The anonymiser ships in the archive, so it must not name the author."""
+        import zipfile
+
+        from experiments import submission
+
+        monkeypatch.setattr(submission, "DIST", tmp_path)
+        archive = zipfile.ZipFile(submission.build_archive())
+        names = archive.namelist()
+        assert "experiments/submission.py" in names
+        assert "private/identity.txt" not in names, "the identity file is tracked"
+        _, detect = submission.load_identity()
+        for name in names:
+            body = archive.read(name).decode("utf-8", errors="ignore")
+            assert submission.find_identity(name + "\\n" + body, detect) == [], name
 
 
 class TestBenchmark:

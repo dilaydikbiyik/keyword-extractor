@@ -475,7 +475,10 @@ documents flagged high-confidence."*
 3. **Close the remaining checklist gaps.** [`../paper/checklist.md`](../paper/checklist.md)
    answers the Responsible NLP checklist and lists what is still open, and
    `make submission` builds the anonymous review PDF and code archive and
-   refuses to finish if either still names the author.
+   refuses to finish if either still names the author. The strings it removes
+   are read from `private/identity.txt`, which is untracked on purpose: in a
+   committed file they would travel inside the archive being cleaned, and a test
+   checks that no file in the archive matches them.
 4. **A fourth dataset**, ideally one where the alignment change is near zero,
    to test the account at the point where it makes its least obvious
    prediction.
