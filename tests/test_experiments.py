@@ -750,6 +750,67 @@ class TestIndependentDescriptions:
         assert study.method_fingerprint() != before
 
 
+class TestArxivCorpus:
+    """Labels this project did not make, descriptions it did not write."""
+
+    TAXONOMY_HTML = """
+          <div class="columns divided">
+            <div class="column is-one-fifth">
+              <h4>cs.CL <span>(Computation and Language)</span></h4>
+            </div>
+            <div class="column"><p>Covers natural language processing. Roughly
+            includes material in ACM Subject Class I.2.7.</p></div>
+          </div>
+          <div class="columns divided">
+            <div class="column is-one-fifth">
+              <h4>math.ST <span>(Statistics Theory)</span></h4>
+            </div>
+            <div class="column"><p>Applied, computational and theoretical statistics.</p></div>
+          </div>
+    """
+
+    def test_the_official_description_is_parsed_and_other_archives_are_left_out(self):
+        from experiments.fetch_arxiv import parse_taxonomy
+
+        parsed = parse_taxonomy(self.TAXONOMY_HTML)
+        assert set(parsed) == {"cs.CL"}, "only the archive under study is kept"
+        assert parsed["cs.CL"]["name"] == "Computation and Language"
+        assert parsed["cs.CL"]["description"].startswith("Covers natural language processing.")
+        # Whitespace from the page's line breaks must not reach the class vector.
+        assert "\n" not in parsed["cs.CL"]["description"]
+        assert "  " not in parsed["cs.CL"]["description"]
+
+    def test_a_cross_listed_paper_cannot_score_either_category(self):
+        """The same single-label restriction the Reuters study uses."""
+        from experiments.fetch_arxiv import single_label
+
+        only = {"primary": "cs.CL", "categories": ["cs.CL", "stat.ML"]}
+        crossed = {"primary": "cs.CL", "categories": ["cs.CL", "cs.LG"]}
+        secondary = {"primary": "stat.ML", "categories": ["cs.CL"]}
+        assert single_label(only, "cs.CL"), "a non-cs cross-list is still single-label here"
+        assert not single_label(crossed, "cs.CL")
+        assert not single_label(secondary, "cs.CL")
+
+    def test_the_fingerprint_covers_the_corpus_and_the_descriptions(self, monkeypatch, tmp_path):
+        import json
+
+        import pytest
+
+        from experiments import run_arxiv
+        from experiments.fetch_arxiv import SAMPLE_IDS, TAXONOMY
+
+        if not (SAMPLE_IDS.exists() and TAXONOMY.exists()):
+            pytest.skip("run `make arxiv-fetch` first")
+        before = run_arxiv.method_fingerprint()
+        edited = tmp_path / "arxiv_categories.json"
+        official = json.loads(TAXONOMY.read_text(encoding="utf-8"))
+        first = sorted(official["categories"])[0]
+        official["categories"][first]["description"] = "Something else."
+        edited.write_text(json.dumps(official, ensure_ascii=False), encoding="utf-8")
+        monkeypatch.setattr(run_arxiv, "TAXONOMY", edited)
+        assert run_arxiv.method_fingerprint() != before
+
+
 class TestFourthCorpus:
     """Brown: the corpus added for the case the account finds hardest."""
 

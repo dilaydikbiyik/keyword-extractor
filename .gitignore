@@ -189,3 +189,6 @@ results/llm_baseline_smoke.json
 
 # The strings the submission anonymiser removes, kept out of the tree it cleans
 private/
+
+# Abstracts fetched from the arXiv API, re-retrievable from the committed id list
+data/cache/arxiv_abstracts.json

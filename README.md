@@ -324,7 +324,8 @@ it. Bare `python …` commands need `source .venv/bin/activate` first.
 
 ```bash
 make reproduce    # systems, ablations and error analysis
-make study        # description studies, other corpora, predictor search, robustness
+make study        # description studies, four corpora, three encoders, predictor search,
+                  # the registered studies, the sensitivity grid, robustness
 ```
 
 `make reproduce` is equivalent to
