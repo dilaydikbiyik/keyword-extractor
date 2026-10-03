@@ -16,6 +16,12 @@ Assigning **NACE Rev. 2** economic sections to German company purpose
 statements with no labelled training data, by embedding the taxonomy's own
 class descriptions and ranking them against the document.
 
+The claim behind it is measured on **11,141 documents across five corpora and
+108 classes** — German trade-register texts (299, hand-checked), 20 Newsgroups
+(2,000), Reuters-21578 (959), Brown (413) and 7,470 arXiv abstracts whose labels
+their own authors assigned — under **62 comparisons corrected together**, with
+every prediction committed to version control before it was measured.
+
 **What this repository is really about:** what a class description buys a
 zero-shot classifier is *alignment with the documents it must attract* — how far
 it moves the class vector toward them — and that can be measured before
@@ -64,6 +70,16 @@ first three suggestions four times out of five, against 46.8% for an oracle
 majority-class floor. This is a tool for proposing a code to a human coder, not
 for assigning one unattended. Almost all of that came from rewriting one line
 per class — see below.
+
+**Giving a language model the descriptions instead does not transfer the
+effect.** The obvious next question is whether the rewritten definitions help a
+prompted model the way they help an encoder. They do not: the same 7B model,
+given the same definitions in place of the bare section names, falls from 48.8%
+to **14.0%** Top-1 (p < 0.001, `make llm-baseline-definitions`). Twenty-one
+definitions make the prompt twenty times longer, the prompt was not tuned, and
+one prompt bounds nothing about prompted models in general — but it does say the
+gain is not available by pasting the descriptions into a prompt
+([`results/llm_baseline_definitions.json`](results/llm_baseline_definitions.json)).
 
 **Two instruction-tuned models asked directly do not do better.** An open 7B
 model (Qwen2.5-7B-Instruct, run locally, the same prompt as the API baseline)

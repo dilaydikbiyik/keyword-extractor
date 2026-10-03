@@ -459,7 +459,11 @@
       must attract</strong> — and how much that is worth can be predicted before the
       classifier is run. On German trade-register texts it is worth
       <strong>+26.8 points</strong>. On newsgroup posts, where the class name is already the
-      documents' own word, it is worth <strong>nothing</strong>.
+      documents' own word, it is worth <strong>nothing</strong>. On 7,470 arXiv abstracts,
+      where arXiv's own descriptions move the class vectors by
+      <strong>0.0013</strong>, they are worth <strong>+0.9</strong> &mdash; and spelling
+      <code>cs.CL</code> out into <em>Computation and Language</em>, which moves them
+      <strong>+0.419</strong>, is worth <strong>+23.9</strong>.
     </p>
     <p class="byline">
       <span>Dilay Dikbıyık</span>
@@ -480,14 +484,19 @@
       <div class="fig-s">80.0% raw agreement</div>
     </div>
     <div class="fig">
-      <span class="fig-n">3</span>
-      <div class="fig-l">Corpora, and four sets of predictions committed before they were measured</div>
-      <div class="fig-s">NACE · Reuters-21578 · 20 Newsgroups</div>
+      <span class="fig-n">7,470</span>
+      <div class="fig-l">arXiv abstracts with author-assigned labels and arXiv's own class descriptions</div>
+      <div class="fig-s">the fifth corpus &mdash; entry 14</div>
     </div>
     <div class="fig">
-      <span class="fig-n">2</span>
-      <div class="fig-l">Of the project's own hypotheses falsified and published</div>
-      <div class="fig-s">Entries 02 and 03 below</div>
+      <span class="fig-n">25 / 32</span>
+      <div class="fig-l">Predictions that held, all of them committed before they were measured</div>
+      <div class="fig-s">seven registered studies, five corpora</div>
+    </div>
+    <div class="fig">
+      <span class="fig-n">4</span>
+      <div class="fig-l">Of the project's own claims falsified and published rather than deleted</div>
+      <div class="fig-s">entries 02, 03, 08 and 13</div>
     </div>
   </div>
 
@@ -496,10 +505,10 @@
     <p class="section-note">
       This project classifies entries in a German <em>Handelsregister</em>. What follows is
       its own register: every substantive claim the work made, in the order it was made,
-      with what became of it. Two entries record hypotheses the project advanced that the evidence
-      destroyed, and two record predictions that partly failed. One records a headline number that was
-      withdrawn. They are here because a result
-      you cannot see being tested is not a result.
+      with what became of it. Four entries record claims the project advanced that its own
+      evidence destroyed &mdash; two hypotheses and two registered predictions &mdash; and one
+      records a headline number that was withdrawn. They are here because a result you cannot
+      see being tested is not a result.
     </p>
 
     <!-- 01 -->
@@ -992,7 +1001,7 @@
             &mdash; and are worth +0.9 (p = 0.061). That near-zero case is the account&rsquo;s least
             obvious prediction and had never been tested. Across the 38 categories with documents the
             per-class relation replicates at <strong>&rho; = +0.749, p = 6&times;10<sup>&minus;8</sup></strong>,
-            and this time it survives correction over all 56 tests &mdash; the claim that was found by
+            and this time it survives correction over all 62 tests &mdash; the claim that was found by
             search on NACE, on labels and text that are nobody&rsquo;s work here.
           </p>
           <div class="evidence">
@@ -1129,9 +1138,19 @@
             <td>86.0%</td><td class="dim">—</td><td class="dim">—</td>
           </tr>
           <tr>
+            <td>Character 3&ndash;5-gram TF-IDF, same descriptions</td>
+            <td>54.2%</td><td class="dim">[48.6, 59.9]</td>
+            <td>81.6%</td><td class="dim">&mdash;</td><td class="dim">&mdash;</td>
+          </tr>
+          <tr>
             <td>Qwen2.5-7B-Instruct, asked directly <span class="dim">(open LLM)</span></td>
             <td>48.8%</td><td class="dim">[43.1, 54.5]</td>
             <td>71.9%</td><td>0.359</td><td>0.430</td>
+          </tr>
+          <tr>
+            <td>Phi-3-mini-4k-instruct, asked directly <span class="dim">(second family)</span></td>
+            <td class="dim">25.4%</td><td class="dim">[20.4, 30.4]</td>
+            <td class="dim">65.2%</td><td class="dim">0.174</td><td class="dim">&mdash;</td>
           </tr>
         </tbody>
       </table>
@@ -1139,9 +1158,12 @@
     <p class="caption">
       The translation row is reported because it is the one intervention that moved the score
       upward (+3.7 pp) without reaching significance (<em>p</em> = 0.20). It is a lead, not a
-      result, and it is listed as one. The last row asks an open 7B instruction-tuned model
-      for the section directly: no better at Top-1 (<em>p</em> = 0.42), and behind
-      at Top-3 (<em>p</em> = 0.004 uncorrected, not significant after correction), from a model more than fifty times the encoder's size.
+      result, and it is listed as one. The last two rows ask open instruction-tuned models for
+      the section directly: the 7B one is no better at Top-1 (<em>p</em> = 0.42) and behind at
+      Top-3 (<em>p</em> = 0.004 uncorrected, not significant after correction), from a model
+      more than fifty times the encoder's size; the 3.8B one from a second family is far
+      behind both &mdash; and only answers at all in float32, which is a fact about the harness
+      as much as the model, and is recorded as one.
     </p>
 
     <div class="cols" style="margin-top: 44px;">

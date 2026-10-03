@@ -355,33 +355,30 @@ corpus mean predicts a corpus's gain (Appendix~\ref{app:brown}).
 \subsection{Gold labels, somebody else's descriptions, and a change of zero}
 \label{sec:arxiv}
 
-\input{tables/arxiv}
-
 Three objections apply to everything above: \NEVAL\ documents, labels a model
 produced, and descriptions written for the study by the assistant that wrote
 them. One corpus answers all three and tests the case the account finds hardest.
 We take \ArxivN\ arXiv abstracts in the \ArxivClasses\ Computer Science
-categories, labelled by the primary category each paper's own authors chose at
-submission and kept only where the paper carries no second Computer Science
+categories (Table~\ref{tab:arxiv}, Appendix~\ref{app:brown}), labelled by the
+primary category each paper's own authors chose at submission and kept only where the paper carries no second Computer Science
 category, as in the Reuters study. The third class text is arXiv's published
 description of the category, quoted verbatim---written for its submitters, and
 uneven by nature: some enumerate a field, others give only an ACM subject
 class.
 
 Both predictions were registered from the alignment changes before accuracy was
-computed, and \ArxivHeld\ of \ArxivPredictions\ held. Spelling
-\texttt{cs.CL} out into \emph{Computation and Language} moves the class vectors
-\ArxivSpellAlign\ and is worth \ArxivSpellGain~points
-(\ArxivSpellPStat): from \ArxivIdentifierTopOne\ to \ArxivReadableTopOne. The
+computed, and \ArxivHeld\ of \ArxivPredictions\ held. Spelling \texttt{cs.CL}
+out into \emph{Computation and Language} moves the class vectors
+\ArxivSpellAlign\ and is worth \ArxivSpellGain~points (\ArxivSpellPStat); the
 official description moves them \ArxivDescAlign---zero, for practical
 purposes---and is worth \ArxivDescGain\ (\ArxivDescPStat,
 \HolmArxivDescStat). This is the near-zero case the account had never been
-tested on: it predicts almost nothing, and almost nothing is what happens. Across
-the \ArxivRhoN\ categories that have documents, the alignment change and the
-share of headroom captured correlate at $\rho = \ArxivRho$
-(\ArxivRhoPStat, \HolmArxivRhoStat)---the class-level relation, found by search
-on NACE and not significant there once corrected, replicated prospectively on
-labels we did not make and text we did not write.
+tested on: it predicts almost nothing, and almost nothing happens. Across the
+\ArxivRhoN\ categories with documents, the alignment change and the share of
+headroom captured correlate at $\rho = \ArxivRho$ (\ArxivRhoPStat,
+\HolmArxivRhoStat)---the class-level relation, found by search on NACE and not
+significant there once corrected, replicated prospectively on labels we did not
+make and text we did not write.
 
 \subsection{Moving the vector without words}
 \label{sec:rocchio}
@@ -431,18 +428,17 @@ time ($\rho = \RocchioMpnetRho$, \RocchioMpnetRhoPStat), while the predicted
 ordering failed again.
 
 \paragraph{On another encoder family.} Both encoders above are distilled from
-one teacher. A fourth study repeated the first on LaBSE, which is trained by
-translation ranking, again with its predictions committed first
-(\RocchioLabseRegistered); \RocchioLabseHeld\ of \RocchioLabsePredictions\
-held. The update gained \RocchioLabseNewsGain~points on 20 Newsgroups
-(\RocchioLabseNewsPStat) and \RocchioLabseNaceGain\ on NACE
-(\RocchioLabseNacePStat), but \emph{cost} \RocchioLabseReutersGain\ on Reuters
-(\RocchioLabseReutersPStat, \HolmLabseReutersStat), the first corpus where
-moving the vectors toward their documents made the classifier worse. The
-class-level relation held a fourth time ($\rho = \RocchioLabseRho$,
-\RocchioLabseRhoPStat, \HolmLabseRhoStat). Across the four studies, on three
-encoders from two training regimes, the class-level prediction held every time
-and the corpus-level ordering once.
+one teacher. A fourth study repeated the first on LaBSE, trained by translation
+ranking, its predictions committed first (\RocchioLabseRegistered);
+\RocchioLabseHeld\ of \RocchioLabsePredictions\ held. It gained
+\RocchioLabseNewsGain~points on 20 Newsgroups (\RocchioLabseNewsPStat) and
+\RocchioLabseNaceGain\ on NACE, but \emph{cost} \RocchioLabseReutersGain\ on
+Reuters (\RocchioLabseReutersPStat, \HolmLabseReutersStat)---the first corpus
+where moving the vectors toward their documents made the classifier worse---and
+the class-level relation held a fourth time ($\rho = \RocchioLabseRho$,
+\RocchioLabseRhoPStat). Across the four studies, on three encoders from two
+training regimes, the class-level prediction held every time and the
+corpus-level ordering once.
 The two parameters were never tuned, which leaves open whether the behaviour is
 the method's or that setting's: over a grid of $K \in \{\SweepKList\}$ and
 $\beta \in \{\SweepBetaList\}$, the gain keeps the registered sign in
@@ -559,10 +555,15 @@ that is not significant ($p = \LLMP$), but only \LLMTopThree\ Top-3 against
 for only \LLMAgreeShare\ of documents, so they fail on different ones. A second open model from a third
 family, \LLMTwoModel\ (\LLMTwoParams), reaches \LLMTwoTopOne\ Top-1 and
 \LLMTwoTopThree\ Top-3 (\LLMTwoPStat, \LLMTwoTopThreePStat), well below both.
-It answers in the requested format on every document, but only in float32: in
-half precision on this machine it returns empty strings, so what a model of this
-size can do and what a harness lets it do are not the same measurement, and the
-precision is recorded with the result. A classifier built from a 118M-parameter
+Nor does the effect transfer by prompting: given the definitions the encoder
+ranks instead of the section names, the 7B model falls to \LLMDefTopOne\
+(\LLMDefPStat). That prompt is an order of magnitude longer and was not tuned,
+so it bounds nothing about prompted models---only that the gain is not had by
+pasting the descriptions into one.
+It answers in format on every document, but only in float32: in half precision
+on this machine it returns empty strings, so what a model can do and what a
+harness lets it do are different measurements, and the precision is recorded
+with the result. A classifier built from a 118M-parameter
 encoder and one definition per class is therefore not outperformed at Top-1 by
 either open model, one of them roughly sixty times its size, and it answers
 about \BenchLLMTimes\ times faster per document (Section~\ref{sec:cost});
@@ -830,6 +831,8 @@ they appear: \EffectLostList.
 \input{tables/corpora}
 
 \input{tables/brown}
+
+\input{tables/arxiv}
 
 Brown documents run to some two thousand words and the encoder truncates, so
 each document enters as its first \BrownTruncate\ characters: fixed before the

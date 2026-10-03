@@ -467,11 +467,12 @@ documents flagged high-confidence."*
 
 ## 11. What remains
 
-1. **Run the LLM baseline.** An instruction-tuned model asked to name a section
-   directly is the comparison a 2026 reviewer will expect. `make llm-baseline`
-   runs it; it needs `OPENAI_API_KEY` and is billed to that account. It must
-   not be a Claude model: Claude produced the labels, so it would be graded on
-   its own answers.
+1. ~~**Run the LLM baseline.**~~ **Done, twice.** Two open models from two
+   families, neither the labeller's: Qwen2.5-7B-Instruct at 48.8% Top-1 and
+   Phi-3-mini-4k-instruct at 25.4%, against the system's 52.5%
+   (`make llm-baseline-local`, `make llm-baseline-second`). A paid API adapter
+   is released and unrun; whatever runs through it must not be a Claude model,
+   which produced the labels and would be graded on its own answers.
 2. **A second annotator who reads German.** Agreement so far is
    human-versus-model, and the human worked from translations.
    `make second-annotator` has written the blind German-only sample;
@@ -487,21 +488,26 @@ documents flagged high-confidence."*
    file, which is the machine a submission is built on; elsewhere, including CI,
    that test skips and the remaining ones still check the anonymiser's own
    behaviour.
-4. **A fifth dataset, with an alignment change near zero.** The fourth, Brown,
-   was added for the hard case and falsified the corpus-level prediction
-   registered for it: alignment change −0.067, gain +4.8 points (p = 0.038,
-   not surviving correction). Its change is still not near zero, so the case
-   where the account has to predict *nothing* remains untested; what is now
-   known is that the corpus mean does not reliably predict a corpus's gain,
-   which the paper states rather than claiming otherwise.
+4. ~~**A dataset with an alignment change near zero.**~~ **Done, and it held.**
+   Brown, added for the hard case, falsified the corpus-level prediction
+   registered for it (−0.067 alignment change, +4.8 points, p = 0.038, not
+   after correction), so the corpus mean is no longer claimed to predict a
+   corpus's gain. The near-zero case itself came with the fifth corpus: 7,470
+   arXiv abstracts, author-assigned labels, arXiv's own category descriptions.
+   Those move the class vectors +0.0013 and are worth +0.9 points (p = 0.061),
+   while spelling the identifier out moves them +0.419 and is worth +23.9. The
+   per-class relation replicates there at ρ = +0.749 (p = 6×10⁻⁸) and survives
+   correction over all 62 tests. What remains is a corpus large enough and
+   independent enough to re-test the German task itself, which is a data
+   problem rather than an experiment.
 5. **A criterion that survives the argmax without labels.** Three tried here
    fail, including direct optimisation of the objective. Whether a label-free
    set-level criterion exists is open; it would have to beat a fixed policy
    without the development data that makes the search overfit. Moving the
    vectors, rather than choosing among descriptions, is a different question
-   and has been answered: in three preregistered studies the class-level
-   prediction held every time and the corpus ordering once (paper, *Moving
-   the vector without words*).
+   and has been answered: in four preregistered studies, on three encoders from
+   two training regimes, the class-level prediction held every time and the
+   corpus ordering once (paper, *Moving the vector without words*).
 6. **Decide the keyword question.** The set carries section labels only, so
    Precision@K is unmeasurable, and the keyword half of the pipeline has now
    failed to show an effect in every configuration tested. Writing a

@@ -408,7 +408,8 @@ class LocalLLMRanker:
 
     needs_corpus = False
 
-    def __init__(self, model: str = LOCAL_LLM, device: str = None, dtype: str = None):
+    def __init__(self, model: str = LOCAL_LLM, device: str = None, dtype: str = None,
+                 menu: str = "names"):
         """`device` and `dtype` override the defaults, which are half precision on
         an accelerator and float32 on the CPU. Not every architecture survives
         those defaults: Phi-3 returns empty strings in float16 on Metal and
@@ -421,9 +422,21 @@ class LocalLLMRanker:
         self.model_name = model
         self.taxonomy = load_taxonomy()
         self.codes = sorted(self.taxonomy)
-        self._menu = "\n".join(
-            f"{c}: {self.taxonomy[c].get('name', c)}" for c in self.codes
-        )
+        # "names" lists the section names, which is what both published LLM
+        # baselines were given. "definitions" adds the same class descriptions the
+        # embedding system ranks, so the description effect can be asked of a
+        # prompted model as well as of an encoder.
+        self.menu_style = menu
+        if menu == "definitions":
+            self._menu = "\n".join(
+                f"{c}: {self.taxonomy[c].get('name', c)}. "
+                f"{self.taxonomy[c].get('description', '')}".strip()
+                for c in self.codes
+            )
+        else:
+            self._menu = "\n".join(
+                f"{c}: {self.taxonomy[c].get('name', c)}" for c in self.codes
+            )
         if device:
             self.device = device
         elif torch.backends.mps.is_available():

@@ -34,14 +34,15 @@ from experiments.metrics import bootstrap_ci, evaluate_sector_predictions, mcnem
 from experiments.systems import LOCAL_LLM, LocalLLMRanker
 
 
-def result_path(model: str, complete: bool) -> "Path":
-    """One file per model: a second family must not overwrite the paper's baseline."""
+def result_path(model: str, complete: bool, menu: str = "names") -> "Path":
+    """One file per model and prompt: a variant must not overwrite the baseline."""
     if not complete:
         return RESULTS_DIR / "llm_baseline_smoke.json"
+    suffix = "" if menu == "names" else f"_{menu}"
     if model == LOCAL_LLM:
-        return RESULTS_DIR / "llm_baseline.json"
+        return RESULTS_DIR / f"llm_baseline{suffix}.json"
     slug = model.split("/")[-1].replace(".", "").replace("-", "_").lower()
-    return RESULTS_DIR / f"llm_baseline_{slug}.json"
+    return RESULTS_DIR / f"llm_baseline_{slug}{suffix}.json"
 
 
 def model_revision(model: str) -> Optional[str]:
@@ -87,6 +88,10 @@ def main() -> int:
                         help="Force cpu/mps/cuda. Some architectures only answer in float32.")
     parser.add_argument("--dtype", default=None,
                         help="Force float32/float16/bfloat16, recorded with the result.")
+    parser.add_argument("--menu", default="names", choices=["names", "definitions"],
+                        help="What the prompt lists: the section names, as both published "
+                             "baselines were given, or the same descriptions the embedding "
+                             "system ranks. The variant writes its own result file.")
     parser.add_argument("--limit", type=int, default=None,
                         help="Only the first N documents; writes llm_baseline_smoke.json.")
     parser.add_argument("--rescore", action="store_true",
@@ -114,7 +119,7 @@ def main() -> int:
     import torch
     import transformers
 
-    ranker = LocalLLMRanker(args.model, device=args.device, dtype=args.dtype)
+    ranker = LocalLLMRanker(args.model, device=args.device, dtype=args.dtype, menu=args.menu)
     print(f"{args.model} on {ranker.device} in {ranker.dtype_name}: {len(samples)} documents")
     started = time.perf_counter()
     ranked = []
@@ -129,6 +134,7 @@ def main() -> int:
         "revision": model_revision(args.model),
         "device": ranker.device,
         "dtype": ranker.dtype_name,
+        "menu": ranker.menu_style,
         "decoding": "greedy, at most 16 new tokens",
         "prompt": "experiments.systems.llm_prompt, the same as the API baseline",
         "complete": args.limit is None,
@@ -140,7 +146,7 @@ def main() -> int:
         "predictions": [{"id": s.id, "true": s.true_sector, "predicted": r[0], "top3": r[:3]}
                         for s, r in zip(samples, ranked)],
     }
-    out = result_path(args.model, payload["complete"])
+    out = result_path(args.model, payload["complete"], args.menu)
     out.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
 
     sector = payload["sector"]

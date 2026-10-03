@@ -497,6 +497,15 @@ def llm_macros(llm: Dict) -> List[str]:
     ]
 
 
+def llm_definitions_macros(llm: Dict) -> List[str]:
+    """The same model given the definitions the encoder ranks, not the section names."""
+    return [
+        r"\newcommand{\LLMDefTopOne}{%s\%%}" % pct(llm["sector"]["top1_accuracy"]),
+        r"\newcommand{\LLMDefTopThree}{%s\%%}" % pct(llm["sector"]["top3_accuracy"]),
+        r"\newcommand{\LLMDefPStat}{%s}" % p_stat(llm["mcnemar_vs_full"]["p_value"]),
+    ]
+
+
 def second_llm_macros(llm: Dict) -> List[str]:
     """A second open model, from a family that is neither the labeller's nor the first's."""
     sector = llm["sector"]
@@ -1124,6 +1133,9 @@ def main() -> int:
     second = load_optional("llm_baseline_phi_3_mini_4k_instruct")
     if second and second.get("complete"):
         derived += second_llm_macros(second)
+    with_definitions = load_optional("llm_baseline_definitions")
+    if with_definitions and with_definitions.get("complete"):
+        derived += llm_definitions_macros(with_definitions)
     else:
         llm = None
 
