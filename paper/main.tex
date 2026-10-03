@@ -556,12 +556,17 @@ It reaches \LLMTopOne\ Top-1 against \OursTopOne\ for the system, a difference
 that is not significant ($p = \LLMP$), but only \LLMTopThree\ Top-3 against
 \OursTopThree\ ($p = \LLMTopThreeP$; \HolmLLMTopThreeStat), and
 \LLMVerifiedTopOne\ on the human-verified documents ($p = \LLMVerifiedP$). The two agree on the top section
-for only \LLMAgreeShare\ of documents, so they fail on different ones. A
-classifier built from a 118M-parameter encoder and one definition per class is
-not outperformed at Top-1 by a model with roughly sixty times as many
-parameters, and it answers about \BenchLLMTimes\ times faster per document
-(Section~\ref{sec:cost}); whether larger or proprietary models change that is
-not tested here.
+for only \LLMAgreeShare\ of documents, so they fail on different ones. A second open model from a third
+family, \LLMTwoModel\ (\LLMTwoParams), reaches \LLMTwoTopOne\ Top-1 and
+\LLMTwoTopThree\ Top-3 (\LLMTwoPStat, \LLMTwoTopThreePStat), well below both.
+It answers in the requested format on every document, but only in float32: in
+half precision on this machine it returns empty strings, so what a model of this
+size can do and what a harness lets it do are not the same measurement, and the
+precision is recorded with the result. A classifier built from a 118M-parameter
+encoder and one definition per class is therefore not outperformed at Top-1 by
+either open model, one of them roughly sixty times its size, and it answers
+about \BenchLLMTimes\ times faster per document (Section~\ref{sec:cost});
+whether larger or proprietary models change that is not tested here.
 
 \subsection{What a document costs}
 \label{sec:cost}
@@ -683,10 +688,11 @@ Either way we do not claim the corpus mean predicts a corpus's gain. The
 near-zero case is no longer untested: on arXiv a change of \ArxivDescAlign\
 came with a gain of \ArxivDescGain\ (Section~\ref{sec:arxiv}), which is the
 account's least obvious prediction and the one corpus where it was checked
-against labels nobody in this project produced. The class-level correlation holds within each corpus and was reproduced
-by a preregistered test, but it was found by search, is not significant on its
-own once corrected (\HolmAlignStat), and at $\rho = \AlignRho$ it orders
-classes, it does not determine them.
+against labels nobody in this project produced. The class-level correlation holds within each corpus. On NACE, where it was
+found by search, it does not survive correction on its own
+(\HolmAlignStat); its prospective replications do, most clearly on arXiv
+($\rho = \ArxivRho$, \HolmArxivRhoStat). Even there it orders classes rather
+than determining them.
 
 The class vectors, the documents and the alignment measure come from one
 encoder at a time, and every preregistered study was run on a distilled
@@ -703,11 +709,14 @@ The cost figures in Section~\ref{sec:cost} come from one machine and one
 implementation of each system; they order the systems, they do not fix absolute
 values.
 
-The instruction-tuned baseline is a single open model of roughly 7B
-parameters. Larger or proprietary models may do better; the released code
-includes an adapter for a paid API (\texttt{make llm-baseline}) that was not run.
-Any such model has to come from a different family than the labeller, or it is
-graded on its own answers.
+The instruction-tuned baselines are two open models, of roughly 7B and
+\LLMTwoParams\ parameters, from families that are neither each other's nor the
+labeller's. Larger or proprietary models may do better; the released code
+includes an adapter for a paid API (\texttt{make llm-baseline}) that was not
+run. Any such model has to come from a different family than the labeller, or it
+is graded on its own answers. Both were run through one prompt and one decoding
+setting, and the smaller one shows how much that harness can matter: in half
+precision it answered nothing at all.
 
 The label-free update in Section~\ref{sec:rocchio} is reported at one untuned
 setting of its two parameters, chosen before any result; the grid around it

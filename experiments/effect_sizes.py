@@ -105,6 +105,13 @@ def family() -> List[Dict]:
         add("LLM", "full system vs. LLM, Top-1", llm["mcnemar_vs_full"], llm["sector"]["n"])
         add("LLM", "full system vs. LLM, Top-3", llm["mcnemar_top3_vs_full"], llm["sector"]["n"])
         add("LLM", "full system vs. LLM, verified labels", llm["verified"]["mcnemar_vs_full"], llm["verified"]["n"])
+    second = load("llm_baseline_phi_3_mini_4k_instruct")
+    if second:
+        add("LLM", "full system vs. second open model, Top-1",
+            second["mcnemar_vs_full"], second["sector"]["n"])
+        add("LLM", "full system vs. second open model, Top-3",
+            second["mcnemar_top3_vs_full"], second["sector"]["n"])
+
     robustness = load("robustness")
     add("Verified labels", "full system vs. previous taxonomy",
         robustness["labels"]["systems"]["taxonomy-v1"]["vs_full_on_verified"], robustness["labels"]["n_verified"])

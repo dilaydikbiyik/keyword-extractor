@@ -34,6 +34,16 @@ from experiments.metrics import bootstrap_ci, evaluate_sector_predictions, mcnem
 from experiments.systems import LOCAL_LLM, LocalLLMRanker
 
 
+def result_path(model: str, complete: bool) -> "Path":
+    """One file per model: a second family must not overwrite the paper's baseline."""
+    if not complete:
+        return RESULTS_DIR / "llm_baseline_smoke.json"
+    if model == LOCAL_LLM:
+        return RESULTS_DIR / "llm_baseline.json"
+    slug = model.split("/")[-1].replace(".", "").replace("-", "_").lower()
+    return RESULTS_DIR / f"llm_baseline_{slug}.json"
+
+
 def model_revision(model: str) -> Optional[str]:
     """The exact snapshot of the weights that answered, read from the local cache."""
     try:
@@ -73,6 +83,10 @@ def summarise(samples, ranked: List[List[str]], full: Dict) -> Dict:
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--model", default=LOCAL_LLM)
+    parser.add_argument("--device", default=None,
+                        help="Force cpu/mps/cuda. Some architectures only answer in float32.")
+    parser.add_argument("--dtype", default=None,
+                        help="Force float32/float16/bfloat16, recorded with the result.")
     parser.add_argument("--limit", type=int, default=None,
                         help="Only the first N documents; writes llm_baseline_smoke.json.")
     parser.add_argument("--rescore", action="store_true",
@@ -100,8 +114,8 @@ def main() -> int:
     import torch
     import transformers
 
-    ranker = LocalLLMRanker(args.model)
-    print(f"{args.model} on {ranker.device}: {len(samples)} documents")
+    ranker = LocalLLMRanker(args.model, device=args.device, dtype=args.dtype)
+    print(f"{args.model} on {ranker.device} in {ranker.dtype_name}: {len(samples)} documents")
     started = time.perf_counter()
     ranked = []
     for i, sample in enumerate(samples, 1):
@@ -114,6 +128,7 @@ def main() -> int:
         "model": args.model,
         "revision": model_revision(args.model),
         "device": ranker.device,
+        "dtype": ranker.dtype_name,
         "decoding": "greedy, at most 16 new tokens",
         "prompt": "experiments.systems.llm_prompt, the same as the API baseline",
         "complete": args.limit is None,
@@ -125,7 +140,7 @@ def main() -> int:
         "predictions": [{"id": s.id, "true": s.true_sector, "predicted": r[0], "top3": r[:3]}
                         for s, r in zip(samples, ranked)],
     }
-    out = RESULTS_DIR / ("llm_baseline.json" if payload["complete"] else "llm_baseline_smoke.json")
+    out = result_path(args.model, payload["complete"])
     out.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
 
     sector = payload["sector"]

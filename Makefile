@@ -5,7 +5,7 @@ PYTHON ?= $(shell \
 	elif command -v python3 >/dev/null 2>&1; then command -v python3; \
 	else echo python; fi)
 
-.PHONY: help install reproduce test lint annotate merge verify verify-new verify-apply second-annotator second-annotator-score llm-baseline llm-baseline-local study rocchio-preregister rocchio rocchio-definitions-preregister rocchio-definitions paper-tables paper submission demo clean rocchio-mpnet-preregister rocchio-mpnet rocchio-labse-preregister rocchio-labse references preprint independent-descriptions description-source-preregister description-source rocchio-sensitivity brown-preregister brown arxiv-fetch arxiv-preregister arxiv author-coding author-coding-score model-coding translate-queue benchmark
+.PHONY: help install reproduce test lint annotate merge verify verify-new verify-apply second-annotator second-annotator-score llm-baseline llm-baseline-local llm-baseline-second study rocchio-preregister rocchio rocchio-definitions-preregister rocchio-definitions paper-tables paper submission demo clean rocchio-mpnet-preregister rocchio-mpnet rocchio-labse-preregister rocchio-labse references preprint independent-descriptions description-source-preregister description-source rocchio-sensitivity brown-preregister brown arxiv-fetch arxiv-preregister arxiv author-coding author-coding-score model-coding translate-queue benchmark
 
 help:
 	@echo "Using PYTHON = $(PYTHON)"
@@ -24,6 +24,7 @@ help:
 	@echo "  second-annotator-score  Human-versus-human agreement once it is filled in"
 	@echo "  llm-baseline  Run the paid LLM zero-shot baseline (needs OPENAI_API_KEY)"
 	@echo "  llm-baseline-local  Same prompt, open model run locally (downloads 15.2 GB once)"
+	@echo "  llm-baseline-second A second open model, another family (downloads 7.6 GB once)"
 	@echo "  study         Class-description studies: language, content, replication"
 	@echo "  rocchio-preregister  Label-free causal test, step 1: write the prediction"
 	@echo "  rocchio       Step 2: accuracy, checked against the committed prediction"
@@ -100,6 +101,13 @@ llm-baseline:
 # `reproduce` so that reproducing the paper never needs the download.
 llm-baseline-local:
 	$(PYTHON) -m experiments.run_llm_baseline
+
+# A second open model, from a family that is neither the first's nor the
+# labeller's. It answers only in float32: in half precision on Metal it returns
+# empty strings, which the first run of it measured instead of the model.
+llm-baseline-second:
+	$(PYTHON) -m experiments.run_llm_baseline --model microsoft/Phi-3-mini-4k-instruct \
+		--device cpu --dtype float32
 
 study:
 	$(PYTHON) -m experiments.run_description_study

@@ -54,8 +54,8 @@ produced by `make reproduce` and written to
 | **Ours: taxonomy-guided** | **52.5%** | [46.8, 58.2] | **81.6%** | 0.356 | 0.474 | — |
 | Qwen2.5-7B-Instruct, asked directly | 48.8% | [43.1, 54.5] | 71.9% | 0.359 | 0.430 | 0.416 |
 
-*p* is uncorrected. Corrected with Holm over all 60 comparisons the paper reports
-([`results/effect_sizes.json`](results/effect_sizes.json)), 24 of the 35 nominally
+*p* is uncorrected. Corrected with Holm over all 62 comparisons the paper reports
+([`results/effect_sizes.json`](results/effect_sizes.json)), 26 of the 37 nominally
 significant ones survive; the TF-IDF difference is not among them, nor is the
 language model's Top-3 gap.
 
@@ -65,11 +65,19 @@ majority-class floor. This is a tool for proposing a code to a human coder, not
 for assigning one unattended. Almost all of that came from rewriting one line
 per class — see below.
 
-**An instruction-tuned model asked directly does not do better.** An open 7B
+**Two instruction-tuned models asked directly do not do better.** An open 7B
 model (Qwen2.5-7B-Instruct, run locally, the same prompt as the API baseline)
 is no better at Top-1 (p = 0.416) and behind at Top-3: 71.9% against 81.6%
-(p = 0.004 uncorrected, not significant after correction). The two agree on the top section for only a third of
-the documents.
+(p = 0.004 uncorrected, not significant after correction). The two agree on the
+top section for only a third of the documents. A second open model from a third
+family, Phi-3-mini-4k-instruct (3.8B), reaches 25.4% Top-1 and 65.2% Top-3
+(both p < 0.001 against the system) — but only in float32: in half precision on
+this machine it returns **empty strings**, and in bfloat16 degenerate ones, so
+its first run scored 0.7% with 209 of 299 replies off-format. That number
+measured the harness, not the model; the precision is now a flag, recorded with
+the result, and the fixed run answers in format on every document
+([`results/llm_baseline_phi_3_mini_4k_instruct.json`](results/llm_baseline_phi_3_mini_4k_instruct.json),
+`make llm-baseline-second`).
 
 ### The finding
 
@@ -290,7 +298,7 @@ system in its own process.
 ### Ablation
 
 *p* is uncorrected; removing the description (−8.4 points, p = 0.002) does not
-survive correction over the paper's 60 tests.
+survive correction over the paper's 62 tests.
 
 | Variant | Top-1 | Δ Top-1 | F1-macro | p vs. full |
 | --- | --- | --- | --- | --- |

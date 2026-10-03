@@ -1,8 +1,8 @@
 {
   "alpha": 0.05,
-  "n_tests": 60,
-  "nominally_significant": 35,
-  "significant_after_holm": 24,
+  "n_tests": 62,
+  "nominally_significant": 37,
+  "significant_after_holm": 26,
   "lost_to_correction": [
     "Brown: definitions vs. readable names",
     "full system vs. TF-IDF \u2192 nearest NACE section",
@@ -30,7 +30,7 @@
         20.735785953177256,
         32.78428093645473
       ],
-      "p_holm": 2.451530929755374e-13
+      "p_holm": 2.539085605818066e-13
     },
     {
       "group": "Descriptions",
@@ -105,7 +105,7 @@
         8.0,
         12.1
       ],
-      "p_holm": 4.3333007666656045e-20
+      "p_holm": 4.4853464076012396e-20
     },
     {
       "group": "Descriptions",
@@ -135,7 +135,7 @@
         14.911366006256518,
         22.10636079249218
       ],
-      "p_holm": 6.148162367182801e-21
+      "p_holm": 6.360167966051174e-21
     },
     {
       "group": "Descriptions",
@@ -300,7 +300,7 @@
         12.040133779264215,
         23.745819397993312
       ],
-      "p_holm": 1.4892738872554424e-06
+      "p_holm": 1.518475336025157e-06
     },
     {
       "group": "Ablation",
@@ -393,6 +393,36 @@
       "p_holm": 1.0
     },
     {
+      "group": "LLM",
+      "label": "full system vs. second open model, Top-1",
+      "n": 299,
+      "sign": 1,
+      "a_only": 112,
+      "b_only": 31,
+      "p": 5.83538118989512e-12,
+      "gain_pp": 27.090301003344482,
+      "ci95": [
+        20.066889632107024,
+        34.11371237458194
+      ],
+      "p_holm": 3.267813466341267e-10
+    },
+    {
+      "group": "LLM",
+      "label": "full system vs. second open model, Top-3",
+      "n": 299,
+      "sign": 1,
+      "a_only": 80,
+      "b_only": 31,
+      "p": 3.681632925244418e-06,
+      "gain_pp": 16.387959866220736,
+      "ci95": [
+        9.698996655518394,
+        23.076923076923077
+      ],
+      "p_holm": 0.00018040001333697648
+    },
+    {
       "group": "Verified labels",
       "label": "full system vs. previous taxonomy",
       "n": 50,
@@ -435,7 +465,7 @@
         15.050167224080267,
         27.759197324414714
       ],
-      "p_holm": 2.1137692488748223e-08
+      "p_holm": 2.1536516875328378e-08
     },
     {
       "group": "Reference",
@@ -495,7 +525,7 @@
         17.05685618729097,
         31.103678929765888
       ],
-      "p_holm": 2.301657248009134e-08
+      "p_holm": 2.345919887393925e-08
     },
     {
       "group": "Reference",
@@ -525,7 +555,7 @@
         11.37123745819398,
         23.411371237458194
       ],
-      "p_holm": 4.6255303161778e-06
+      "p_holm": 4.71992889405898e-06
     },
     {
       "group": "Label-free update",
@@ -570,7 +600,7 @@
         5.005213764337852,
         8.86339937434828
       ],
-      "p_holm": 1.166068226382584e-10
+      "p_holm": 1.2084707073419505e-10
     },
     {
       "group": "Label-free update",
@@ -615,7 +645,7 @@
         4.483837330552659,
         8.342022940563087
       ],
-      "p_holm": 5.200079556927342e-09
+      "p_holm": 5.296377326500071e-09
     },
     {
       "group": "Label-free update",
@@ -690,7 +720,7 @@
         7.85,
         10.95
       ],
-      "p_holm": 5.564660093002006e-30
+      "p_holm": 5.7532926385274976e-30
     },
     {
       "group": "Label-free update",
@@ -795,7 +825,7 @@
       "group": "Correlation",
       "label": "arXiv, alignment vs. headroom, per class",
       "p": 6.15720033629076e-08,
-      "p_holm": 3.07860016814538e-06
+      "p_holm": 3.1401721715082875e-06
     }
   ]
 }

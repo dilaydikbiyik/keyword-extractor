@@ -497,6 +497,21 @@ def llm_macros(llm: Dict) -> List[str]:
     ]
 
 
+def second_llm_macros(llm: Dict) -> List[str]:
+    """A second open model, from a family that is neither the labeller's nor the first's."""
+    sector = llm["sector"]
+    return [
+        r"\newcommand{\LLMTwoModel}{%s}" % escape(llm["model"].split("/")[-1]),
+        r"\newcommand{\LLMTwoParams}{%s}" % escape(llm.get("parameters", "3.8B")),
+        r"\newcommand{\LLMTwoTopOne}{%s\%%}" % pct(sector["top1_accuracy"]),
+        r"\newcommand{\LLMTwoTopThree}{%s\%%}" % pct(sector["top3_accuracy"]),
+        r"\newcommand{\LLMTwoPStat}{%s}" % p_stat(llm["mcnemar_vs_full"]["p_value"]),
+        r"\newcommand{\LLMTwoTopThreePStat}{%s}" % p_stat(llm["mcnemar_top3_vs_full"]["p_value"]),
+        r"\newcommand{\LLMTwoOffFormat}{%d}" % llm["off_format_replies"],
+        r"\newcommand{\LLMTwoMinutes}{%d}" % max(1, round(llm["wall_clock_seconds"] / 60)),
+    ]
+
+
 ROCCHIO_MACRO_NAME = {"NACE": "Nace", "20NG": "News", "Reuters": "Reuters"}
 ROCCHIO_LABEL = {"NACE": "NACE", "20NG": "20NG", "Reuters": "Reuters"}
 
@@ -1085,6 +1100,9 @@ def main() -> int:
     llm = load_optional("llm_baseline")
     if llm and llm.get("complete"):
         derived += llm_macros(llm)
+    second = load_optional("llm_baseline_phi_3_mini_4k_instruct")
+    if second and second.get("complete"):
+        derived += second_llm_macros(second)
     else:
         llm = None
 
