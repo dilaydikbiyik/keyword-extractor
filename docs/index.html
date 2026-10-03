@@ -1001,7 +1001,7 @@
             &mdash; and are worth +0.9 (p = 0.061). That near-zero case is the account&rsquo;s least
             obvious prediction and had never been tested. Across the 38 categories with documents the
             per-class relation replicates at <strong>&rho; = +0.749, p = 6&times;10<sup>&minus;8</sup></strong>,
-            and this time it survives correction over all 66 tests &mdash; the claim that was found by
+            and this time it survives correction over all 70 tests &mdash; the claim that was found by
             search on NACE, on labels and text that are nobody&rsquo;s work here.
           </p>
           <div class="evidence">
@@ -1086,6 +1086,49 @@
         </div>
       </div>
     </article>
+    <article class="entry" style="--status: var(--supported); --status-bg: var(--supported-bg);">
+      <div class="entry-head">
+        <div class="entry-no">17</div>
+        <div>
+          <span class="chip">Tested, not preregistered</span>
+          <p class="claim">&ldquo;Interesting, but there is nothing anyone can actually do with it.&rdquo;</p>
+        </div>
+      </div>
+      <div class="entry-body">
+        <div class="spacer"></div>
+        <div class="entry-text">
+          <p>
+            Four questions a person rewriting a taxonomy would ask, each answered by measurement
+            rather than by advice. <strong>How much writing?</strong> Twenty words per class carries
+            the whole gain on both German sets; past that the curve is flat, and the first ten words
+            are worth more than the next thirty. <strong>What if the writing is wrong?</strong>
+            Shuffling the word order in a quarter of the definitions costs
+            <strong>4.7 points</strong>; doing it to half of them costs 20.4, and giving every class
+            the same plausible boilerplate costs 20.7 &mdash; close to writing nothing at all.
+            Swapping definitions <em>between the two classes most easily confused</em> costs
+            <strong>12.7</strong>, three times the random-quarter figure: a wrong description is
+            expensive only where it lands next to its neighbour.
+          </p>
+          <p>
+            <strong>Does it depend on how fine the taxonomy is?</strong> The same 2,000 newsgroup
+            documents at 20 classes and at 6 groups behave the same way: spelling the label out is
+            worth +10.0 and +13.4 points, defining it further +0.4 and +1.3.
+            <strong>And when it is still wrong?</strong> The decision already computes a margin
+            between its top two classes; abstaining below it, with nothing trained, buys
+            <strong>65.3%</strong> on half the documents and 76.0% on a quarter, against 52.5% on all
+            of them. None of these four was preregistered &mdash; they are curves over a factor the
+            registered studies had already established, and they are reported outside the corrected
+            family for that reason. <a href="https://github.com/dilaydikbiyik/keyword-extractor/blob/main/docs/recipe.md">The recipe</a>
+            collects them with what they do not license.
+          </p>
+          <div class="evidence">
+            <div><b>20 words</b><span>per class carries the gain; more does not</span></div>
+            <div><b>&minus;12.7 pp</b><span>a wrong description, placed next to its neighbour</span></div>
+            <div><b>65.3%</b><span>Top-1 at half coverage, nothing trained</span></div>
+          </div>
+        </div>
+      </div>
+    </article>
   </section>
 
   <section>
@@ -1163,7 +1206,7 @@
       Gains are measured against the closest terse control in each corpus: for NACE, the
       literal German rendering of the original terse descriptions; for Reuters, 20 Newsgroups
       and Brown, the readable class name. Brown&rsquo;s gain does not survive correction over
-      the paper&rsquo;s 53 tests, so the failure it records is nominal &mdash; but the
+      the paper&rsquo;s 70 tests, so the failure it records is nominal &mdash; but the
       prediction was that accuracy would not rise at all.
     </p>
   </section>

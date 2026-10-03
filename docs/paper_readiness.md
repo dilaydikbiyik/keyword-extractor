@@ -516,7 +516,15 @@ documents flagged high-confidence."*
    corpora and 103 classes; the estimate tracks the labelled quantity at
    ρ = +0.818. Whether it also predicts the gain was registered before it was
    tested. `TODO.md` carries the rest of the gap analysis.
-7. **A criterion that survives the argmax without labels.** Three tried here
+7. ~~**The practical questions: budget, risk, depth, abstention.**~~ **Done.**
+   Twenty words per class carries ninety per cent of the gain; a wrong
+   description costs 12.7 points when it lands between confusable classes
+   against 4.7 at random; the effect is the same at two levels of one taxonomy;
+   and abstaining below the decision's own margin buys 65.3% Top-1 at half
+   coverage. `docs/recipe.md` collects all of it, and the derivation behind the
+   quantity — plus the simulation that confirms where it must fail — is in the
+   paper.
+8. **A criterion that survives the argmax without labels.** Three tried here
    fail, including direct optimisation of the objective. Whether a label-free
    set-level criterion exists is open; it would have to beat a fixed policy
    without the development data that makes the search overfit. Moving the
@@ -524,15 +532,15 @@ documents flagged high-confidence."*
    and has been answered: in four preregistered studies, on three encoders from
    two training regimes, the class-level prediction held every time and the
    corpus ordering once (paper, *Moving the vector without words*).
-8. **Decide the keyword question.** The set carries section labels only, so
+9. **Decide the keyword question.** The set carries section labels only, so
    Precision@K is unmeasurable, and the keyword half of the pipeline has now
    failed to show an effect in every configuration tested. Writing a
    section-classification paper is the honest and tighter option; the
    contribution sentence never mentioned keywords.
-9. **Consider dropping the seed lists and two dead stages.** Guided extraction and the six-stage filter
+10. **Consider dropping the seed lists and two dead stages.** Guided extraction and the six-stage filter
    have no evidence behind them across three configurations. Either find a
    metric where they help, or cut them and say why.
-10. ~~**Write.**~~ **Done.** `paper/main.tex` is a complete draft — abstract,
+11. ~~**Write.**~~ **Done.** `paper/main.tex` is a complete draft — abstract,
    five contributions, method, four experiments, error analysis, limitations,
    an ethics statement and a statement on AI use. `make paper-tables`
    regenerates its tables, its figure and its macros from `results/`, a test

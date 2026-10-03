@@ -79,11 +79,14 @@ coverage, 58.9% at 75%, 65.3% at 50% and 76.0% at 25%. Reaching 80% means handin
 back all but 23% of the documents, which is the honest shape of the trade-off on
 a task whose labels agree with a human 80% of the time. `make abstention`.
 
-### A8. Breadth: another language, another taxonomy — *not started, needs data*
+### A8. Breadth: another language, another taxonomy — *open, and the only one that needs data*
 German and English; NACE, Reuters, 20NG, Brown, arXiv. A second language with
 gold labels (NACE is published in 24) or another gold-labelled taxonomy
-(EuroVoc, DDC) would test whether the account is about taxonomies or about
-German.
+(EuroVoc, DDC, MASSIVE) would test whether the account is about taxonomies or
+about German. Every other gap on this list was closed with the corpora already
+here; this one cannot be, because it needs labelled documents in a language
+nobody has labelled for us. It also needs a new dependency to fetch them, which
+is a decision for after the submission rather than before it.
 **Afterwards:** the claim is about zero-shot classification, not about one task.
 
 ---
@@ -96,9 +99,12 @@ German.
 - [x] Two open LLM baselines from two families, with the harness defect that the
       first run of the second one measured instead of the model.
 - [x] The research page republished with the current record (14 entries).
-- [ ] Update the two stale published pages: "Alignment, Not Wording" and the
-      Turkish defence notebook.
-- [ ] A2 and A5 above, which need no compute and would land before the deadline.
+- [x] The two stale pages brought up to date, and a decision recorded about
+      them: the GitHub Pages research record is the only one meant to be
+      public; the readiness review and the defence notebook are working
+      documents and should stay private and unlinked.
+- [x] A2 and A5, plus A3, A4, A6 and A7 — every gap that did not need new
+      labels or a new dependency is closed.
 
 ## C. Yours, and nobody else can do them
 
