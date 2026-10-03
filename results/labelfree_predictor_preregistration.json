@@ -1,0 +1,169 @@
+{
+  "study": "labelfree_predictor",
+  "registered_at": "2026-10-03T15:41:29+00:00",
+  "code_revision": "cac41dd",
+  "method_fingerprint": "fb7e4bb49b90d2ccd44981d13bacf1060241fe42e68e002362e175122c178343",
+  "seed": 42,
+  "corpora": {
+    "NACE": {
+      "documents": 299,
+      "classes": 18
+    },
+    "20NG": {
+      "documents": 2000,
+      "classes": 20
+    },
+    "Reuters": {
+      "documents": 959,
+      "classes": 12
+    },
+    "Brown": {
+      "documents": 413,
+      "classes": 15
+    },
+    "arXiv": {
+      "documents": 7470,
+      "classes": 38
+    }
+  },
+  "classes_pooled": 103,
+  "estimate_vs_truth": {
+    "rho": 0.8177195448754558,
+    "p": 5.721597075530843e-26,
+    "sign_agreement": 0.7281553398058253
+  },
+  "estimated_change_per_class": {
+    "NACE": {
+      "A": 0.08450646552326058,
+      "C": 0.007582331869347647,
+      "D": -0.025108646862484596,
+      "E": -0.013805053656401167,
+      "F": 0.1014487018491006,
+      "G": -0.04733680059643308,
+      "H": 0.029791020811161806,
+      "I": -0.013647907622803102,
+      "J": -0.002148411372575487,
+      "K": 0.0036813783091644847,
+      "L": 0.0506133876111845,
+      "M": 0.011453550500273968,
+      "N": -0.03243284502637467,
+      "O": 0.07787191235584734,
+      "P": 0.01112000664072077,
+      "Q": -0.00962474455149609,
+      "R": 0.011175898549683927,
+      "S": -0.18231333959265006
+    },
+    "20NG": {
+      "alt.atheism": -0.05961111192077795,
+      "comp.graphics": -0.07181287743005416,
+      "comp.os.ms-windows.misc": -0.012648797884135199,
+      "comp.sys.ibm.pc.hardware": -0.06191392935758444,
+      "comp.sys.mac.hardware": -0.050891312012308565,
+      "comp.windows.x": 0.025202865879311087,
+      "misc.forsale": -0.21514731164146728,
+      "rec.autos": -0.19008502710124964,
+      "rec.motorcycles": -0.05647563238156095,
+      "rec.sport.baseball": -0.17120428313707542,
+      "rec.sport.hockey": -0.08093651589601336,
+      "sci.crypt": -0.06700709898230595,
+      "sci.electronics": -0.17840487971084723,
+      "sci.med": -0.10620142426064505,
+      "sci.space": -0.17976990899901923,
+      "soc.religion.christian": -0.10761131334796536,
+      "talk.politics.guns": -0.1917649453471303,
+      "talk.politics.mideast": -0.10736363157802586,
+      "talk.politics.misc": -0.18836746307293117,
+      "talk.religion.misc": -0.1258623930002689
+    },
+    "Reuters": {
+      "acq": -0.1959758321281958,
+      "coffee": 0.1388333092766113,
+      "crude": 0.012453027047376053,
+      "earn": -0.06851165427794426,
+      "grain": -0.0968450842661639,
+      "interest": -0.06092534589532239,
+      "money-fx": 0.05862567550730613,
+      "money-supply": 0.0028633422049967328,
+      "oilseed": -0.011105264570009266,
+      "ship": -0.03456220219079309,
+      "sugar": 0.07063920494702991,
+      "trade": 0.018187634249520523
+    },
+    "Brown": {
+      "adventure": -0.18646839613928534,
+      "belles_lettres": -0.22805991513868107,
+      "editorial": -0.12439944869948183,
+      "fiction": -0.19908420450657482,
+      "government": -0.21122774164186747,
+      "hobbies": -0.0450991308989932,
+      "humor": -0.11062801108769899,
+      "learned": -0.12494539996771659,
+      "lore": -0.3032435797267614,
+      "mystery": -0.17169951198104821,
+      "news": 0.006020838964591546,
+      "religion": -0.15015588892368048,
+      "reviews": -0.03575859787381841,
+      "romance": -0.108474433240618,
+      "science_fiction": -0.04232314078903843
+    },
+    "arXiv": {
+      "cs.AI": -0.047235403021319455,
+      "cs.AR": -0.07624207489864676,
+      "cs.CC": -0.043071385865130374,
+      "cs.CE": -0.03653382683986495,
+      "cs.CG": -0.10610554175598952,
+      "cs.CL": -0.023659014286773417,
+      "cs.CR": -0.1181240733771568,
+      "cs.CV": -0.03871593021683317,
+      "cs.CY": -0.07132486373732738,
+      "cs.DB": -0.0056527224353863925,
+      "cs.DC": -0.0007825251766855335,
+      "cs.DL": -0.025546982131235074,
+      "cs.DM": -0.07363309813715224,
+      "cs.DS": -0.06778829994064217,
+      "cs.ET": -0.013964768335221756,
+      "cs.FL": -0.012035405081652573,
+      "cs.GL": -0.006693384995052565,
+      "cs.GR": -0.0494213844637541,
+      "cs.GT": -0.1247386250515562,
+      "cs.HC": -0.023276886740887792,
+      "cs.IR": -0.04265496667345592,
+      "cs.IT": -0.1221313682792321,
+      "cs.LG": -0.10109527403993179,
+      "cs.LO": -0.023814262212852544,
+      "cs.MA": 0.013373421218322634,
+      "cs.MM": -0.11830170454597266,
+      "cs.MS": -0.1293074762826817,
+      "cs.NE": -0.0330259267453028,
+      "cs.NI": -0.049131411194307306,
+      "cs.OH": -0.23033365195693922,
+      "cs.OS": -0.24301579456368672,
+      "cs.PF": 0.08761258444775932,
+      "cs.PL": -0.03244586624262291,
+      "cs.RO": -0.052304389046698874,
+      "cs.SC": -0.07339886845725896,
+      "cs.SD": 0.059078428343896316,
+      "cs.SE": 0.002406748058995989,
+      "cs.SI": -0.024447002438176768
+    }
+  },
+  "predictions": [
+    {
+      "id": "predicts-headroom",
+      "claim": "Pooled across the five corpora, the label-free estimate of the alignment change correlates positively with the share of available headroom each class captured (Spearman rho > 0)."
+    },
+    {
+      "id": "significant",
+      "claim": "That correlation is significant at 0.05 uncorrected."
+    },
+    {
+      "id": "sign-rule",
+      "claim": "The sign of the estimate decides whether a class gained from elaboration more often than chance (above 50% of classes)."
+    },
+    {
+      "id": "weaker-than-labelled",
+      "claim": "It is weaker than the labelled quantity: the labelled change correlates with headroom at least as strongly as the estimate does."
+    }
+  ],
+  "note": "Written before any accuracy or headroom under the elaborated descriptions was computed in this study."
+}

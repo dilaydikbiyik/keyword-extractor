@@ -5,7 +5,7 @@ PYTHON ?= $(shell \
 	elif command -v python3 >/dev/null 2>&1; then command -v python3; \
 	else echo python; fi)
 
-.PHONY: help install reproduce test lint annotate merge verify verify-new verify-apply second-annotator second-annotator-score llm-baseline llm-baseline-local llm-baseline-second llm-baseline-definitions study rocchio-preregister rocchio rocchio-definitions-preregister rocchio-definitions paper-tables paper submission demo clean rocchio-mpnet-preregister rocchio-mpnet rocchio-labse-preregister rocchio-labse references preprint independent-descriptions description-source-preregister description-source rocchio-sensitivity brown-preregister brown arxiv-fetch arxiv-preregister arxiv author-coding author-coding-score model-coding translate-queue benchmark benchmark-second-device
+.PHONY: help install reproduce test lint annotate merge verify verify-new verify-apply second-annotator second-annotator-score llm-baseline llm-baseline-local llm-baseline-second llm-baseline-definitions study rocchio-preregister rocchio rocchio-definitions-preregister rocchio-definitions paper-tables paper submission demo clean rocchio-mpnet-preregister rocchio-mpnet rocchio-labse-preregister rocchio-labse references preprint independent-descriptions description-source-preregister description-source rocchio-sensitivity brown-preregister brown arxiv-fetch arxiv-preregister arxiv labelfree-preregister labelfree author-coding author-coding-score model-coding translate-queue benchmark benchmark-second-device
 
 help:
 	@echo "Using PYTHON = $(PYTHON)"
@@ -34,6 +34,8 @@ help:
 	@echo "                from a different family than the labeller, tested the same way"
 	@echo "  rocchio-sensitivity  The same update over a grid of K and beta, as a check"
 	@echo "  brown-preregister / brown  A fourth corpus, predicted before it was tested"
+	@echo "  labelfree-preregister / labelfree  The same quantity estimated with no labels,"
+	@echo "                over all five corpora, predicted before it was tested"
 	@echo "  arxiv-fetch / arxiv-preregister / arxiv  Thousands of abstracts, author-assigned"
 	@echo "                labels and arXiv's own category descriptions"
 	@echo "  paper-tables  Regenerate paper/tables/*.tex from results/"
@@ -195,6 +197,13 @@ rocchio-labse-preregister:
 
 rocchio-labse:
 	$(PYTHON) -m experiments.run_rocchio --study labse
+
+labelfree-preregister:
+	$(PYTHON) -m experiments.run_labelfree_predictor --preregister
+	@echo "Commit results/labelfree_predictor_preregistration.json before the next step."
+
+labelfree:
+	$(PYTHON) -m experiments.run_labelfree_predictor
 
 arxiv-fetch:
 	$(PYTHON) -m experiments.fetch_arxiv --taxonomy

@@ -500,7 +500,15 @@ documents flagged high-confidence."*
    correction over all 62 tests. What remains is a corpus large enough and
    independent enough to re-test the German task itself, which is a data
    problem rather than an experiment.
-5. **A criterion that survives the argmax without labels.** Three tried here
+5. **The quantity itself, estimated without labels.** Measuring the alignment
+   change needs the documents' labels, which a practitioner deciding whether to
+   rewrite a taxonomy does not have. `make labelfree-preregister` / `make
+   labelfree` pseudo-assigns the documents with the terse class vectors and
+   takes each pseudo-class's centroid, which uses no label, over all five
+   corpora and 103 classes; the estimate tracks the labelled quantity at
+   ρ = +0.818. Whether it also predicts the gain was registered before it was
+   tested. `TODO.md` carries the rest of the gap analysis.
+6. **A criterion that survives the argmax without labels.** Three tried here
    fail, including direct optimisation of the objective. Whether a label-free
    set-level criterion exists is open; it would have to beat a fixed policy
    without the development data that makes the search overfit. Moving the
