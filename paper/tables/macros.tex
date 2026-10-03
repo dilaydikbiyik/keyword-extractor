@@ -72,24 +72,26 @@
 \newcommand{\ReproduceMinutes}{6}
 \newcommand{\ReproduceCPU}{Apple M5 Pro}
 \newcommand{\ReproduceCores}{18}
-\newcommand{\HolmAlignStat}{$p_{\mathrm{Holm}} = 0.092$}
+\newcommand{\HolmAlignStat}{$p_{\mathrm{Holm}} = 0.094$}
 \newcommand{\HolmRocchioRhoStat}{$p_{\mathrm{Holm}} = 0.007$}
-\newcommand{\HolmLLMTopThreeStat}{$p_{\mathrm{Holm}} = 0.123$}
+\newcommand{\HolmLLMTopThreeStat}{$p_{\mathrm{Holm}} = 0.126$}
 \newcommand{\HolmTfidfStat}{$p_{\mathrm{Holm}} = 1.000$}
-\newcommand{\HolmVerifiedStat}{$p_{\mathrm{Holm}} = 0.090$}
-\newcommand{\HolmContrastiveStat}{$p_{\mathrm{Holm}} = 0.157$}
-\newcommand{\HolmMpnetNewsStat}{$p_{\mathrm{Holm}} = 0.101$}
+\newcommand{\HolmVerifiedStat}{$p_{\mathrm{Holm}} = 0.093$}
+\newcommand{\HolmContrastiveStat}{$p_{\mathrm{Holm}} = 0.162$}
+\newcommand{\HolmMpnetNewsStat}{$p_{\mathrm{Holm}} = 0.104$}
 \newcommand{\HolmBrownDefStat}{$p_{\mathrm{Holm}} = 1.000$}
 \newcommand{\HolmBrownRhoStat}{$p_{\mathrm{Holm}} = 1.000$}
 \newcommand{\HolmArxivRhoStat}{$p_{\mathrm{Holm}} < 0.001$}
 \newcommand{\HolmArxivDescStat}{$p_{\mathrm{Holm}} = 1.000$}
 \newcommand{\HolmEstimateRhoStat}{$p_{\mathrm{Holm}} < 0.001$}
-\newcommand{\HolmLabseReutersStat}{$p_{\mathrm{Holm}} = 0.726$}
-\newcommand{\HolmLabseRhoStat}{$p_{\mathrm{Holm}} = 0.836$}
-\newcommand{\EffectTests}{63}
-\newcommand{\EffectNominal}{38}
-\newcommand{\EffectHolm}{27}
-\newcommand{\EffectLostList}{Brown: definitions vs. readable names; full system vs. TF-IDF $\rightarrow$ nearest NACE section; full system vs. $-$ description in sector vector; full system vs. LLM, Top-3; full system vs. previous taxonomy; 20NG: terse, mpnet + update vs. terse, mpnet; Reuters: terse, LaBSE + update vs. terse, LaBSE; 20NG: contrastive margin vs. best fixed policy; alignment change vs. headroom captured; label-free update (terse, LaBSE), per class; Brown, alignment vs. headroom, per class}
+\newcommand{\HolmExtendedContentStat}{$p_{\mathrm{Holm}} < 0.001$}
+\newcommand{\HolmExtendedRhoStat}{$p_{\mathrm{Holm}} = 0.011$}
+\newcommand{\HolmLabseReutersStat}{$p_{\mathrm{Holm}} = 0.750$}
+\newcommand{\HolmLabseRhoStat}{$p_{\mathrm{Holm}} = 0.865$}
+\newcommand{\EffectTests}{66}
+\newcommand{\EffectNominal}{41}
+\newcommand{\EffectHolm}{29}
+\newcommand{\EffectLostList}{Brown: definitions vs. readable names; second German set: terse German vs. terse original; full system vs. TF-IDF $\rightarrow$ nearest NACE section; full system vs. $-$ description in sector vector; full system vs. LLM, Top-3; full system vs. previous taxonomy; 20NG: terse, mpnet + update vs. terse, mpnet; Reuters: terse, LaBSE + update vs. terse, LaBSE; 20NG: contrastive margin vs. best fixed policy; alignment change vs. headroom captured; label-free update (terse, LaBSE), per class; Brown, alignment vs. headroom, per class}
 \newcommand{\RocchioK}{25}
 \newcommand{\RocchioHeld}{5}
 \newcommand{\RocchioPredictions}{5}
@@ -240,6 +242,19 @@
 \newcommand{\EstimateWeakest}{NACE}
 \newcommand{\EstimateWeakestRho}{+0.201}
 \newcommand{\EstimateWeakestLabelled}{+0.759}
+\newcommand{\ExtendedN}{1{,}200}
+\newcommand{\ExtendedTerseTopOne}{42.6\%}
+\newcommand{\ExtendedDefTopOne}{60.3\%}
+\newcommand{\ExtendedContentGain}{+17.8}
+\newcommand{\ExtendedContentPStat}{$p < 0.001$}
+\newcommand{\ExtendedLanguageGain}{-1.8}
+\newcommand{\ExtendedLanguagePStat}{$p = 0.038$}
+\newcommand{\ExtendedRho}{+0.760}
+\newcommand{\ExtendedRhoPStat}{$p < 0.001$}
+\newcommand{\ExtendedHeld}{4}
+\newcommand{\ExtendedPredictions}{4}
+\newcommand{\ExtendedAgreement}{42\%}
+\newcommand{\ExtendedKappa}{0.364}
 \newcommand{\SweepCells}{60}
 \newcommand{\SweepAgreeing}{59}
 \newcommand{\SweepKList}{5, 10, 25, 50, 100}

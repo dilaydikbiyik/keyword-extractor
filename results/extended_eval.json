@@ -1,0 +1,87 @@
+{
+  "study": "extended_eval",
+  "preregistration": "extended_eval_preregistration.json",
+  "registered_at": "2026-10-03T19:35:36+00:00",
+  "n": 1200,
+  "first_set_n": 299,
+  "labeller_agreement": {
+    "n": 1199,
+    "raw": 0.4170141784820684,
+    "cohen_kappa": 0.3639556583290139
+  },
+  "conditions": {
+    "original (terse, mostly Turkish)": {
+      "top1_accuracy": 0.44333333333333336,
+      "top1_ci95": [
+        0.415,
+        0.4716666666666667
+      ],
+      "top3_accuracy": 0.7058333333333333,
+      "f1_macro": 0.3491600153456649
+    },
+    "same content, rendered in German": {
+      "top1_accuracy": 0.42583333333333334,
+      "top1_ci95": [
+        0.3975,
+        0.45416666666666666
+      ],
+      "top3_accuracy": 0.6833333333333333,
+      "f1_macro": 0.37821487819091804
+    },
+    "rewritten as NACE-style definitions": {
+      "top1_accuracy": 0.6033333333333334,
+      "top1_ci95": [
+        0.575,
+        0.6308333333333334
+      ],
+      "top3_accuracy": 0.8658333333333333,
+      "f1_macro": 0.4652530477887867
+    }
+  },
+  "language_effect": {
+    "a_only_correct": 36,
+    "b_only_correct": 57,
+    "discordant": 93,
+    "p_value": 0.03751423180190034,
+    "gain_pp": -1.7500000000000016
+  },
+  "content_effect": {
+    "a_only_correct": 282,
+    "b_only_correct": 69,
+    "discordant": 351,
+    "p_value": 1.0977527721584625e-31,
+    "gain_pp": 17.750000000000004
+  },
+  "published": {
+    "content_effect_pp": 26.8,
+    "language_effect_pp": -2.3,
+    "tolerance_pp": 10.0
+  },
+  "per_class": {
+    "n": 18,
+    "rho": 0.7600843557889541,
+    "p": 0.00025159634151299885
+  },
+  "outcomes": [
+    {
+      "id": "content-positive",
+      "claim": "On the extended set, rewriting the terse German control into definitions raises Top-1 accuracy.",
+      "held": true
+    },
+    {
+      "id": "content-magnitude",
+      "claim": "That gain is within 10 points of the published +26.8.",
+      "held": true
+    },
+    {
+      "id": "language-null",
+      "claim": "Rendering the same terse content in German does not raise Top-1 accuracy by more than two points, as on the first set.",
+      "held": true
+    },
+    {
+      "id": "per-class",
+      "claim": "Across classes, the alignment change of the rewrite correlates positively with the share of available headroom captured.",
+      "held": true
+    }
+  ]
+}

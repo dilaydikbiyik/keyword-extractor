@@ -3,11 +3,12 @@
 What is done, what is open, and what is deliberately not being done. Updated as
 work lands; every claim here points at the file that settles it.
 
-**Where the project stands.** Five corpora, 11,141 documents, 108 classes. Eight
-preregistered studies, 36 predictions committed to version control before they
-were measured, 29 held and the seven failures published. 63 comparisons
-corrected together with Holm (38 nominal, 27 surviving). 193 tests in CI, paper
-body at the 8-page limit, submission artefacts built and checked anonymous.
+**Where the project stands.** Six evaluation sets, 12,341 documents, 108
+classes. Nine preregistered studies, 40 predictions committed to version control
+before they were measured, 33 held and the seven failures published. 66
+comparisons corrected together with Holm (41 nominal, 29 surviving). 193 tests
+in CI, paper body at the 8-page limit, submission artefacts built and checked
+anonymous.
 
 ---
 
@@ -125,10 +126,13 @@ German.
 
 ## D. Deliberately not doing, and why
 
-- **Replacing the 299-document evaluation set to make it bigger.** Every
-      preregistered prediction was committed against that exact set; swapping it
-      would destroy the evidence that the predictions came first. The scale
-      question is answered by adding corpora, which is what arXiv did.
+- **Replacing the 299-document evaluation set.** Every preregistered prediction
+      was committed against that exact set; swapping its documents would destroy
+      the evidence that the predictions came first. *Adding* sets is a different
+      thing and has been done twice: 7,470 arXiv abstracts with gold labels, and
+      a second German set of 1,200 documents with its own registered
+      predictions. What stays true is that only 50 documents anywhere in this
+      project carry a human-verified label.
 - **Chasing 90%+ Top-1.** The labels themselves agree with a human on 80% of a
       blind sample (κ = 0.772), and 48% of coded errors are documents with more
       than one defensible answer, which puts the single-label ceiling near 77%.

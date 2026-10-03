@@ -488,7 +488,14 @@ documents flagged high-confidence."*
    file, which is the machine a submission is built on; elsewhere, including CI,
    that test skips and the remaining ones still check the anonymiser's own
    behaviour.
-4. ~~**A dataset with an alignment change near zero.**~~ **Done, and it held.**
+4. ~~**A larger German evaluation set.**~~ **Done, and its predictions held.**
+   1,200 further documents drawn after the first set was fixed, labelled by the
+   same procedure, with a second labeller from another model family on all of
+   them (agreement 41.7%, κ = 0.364). Four predictions registered from the
+   published figures all held: content +17.8 points (published: +26.8),
+   language −1.8, per-class ρ = +0.760. No human has checked those labels, which
+   is why the hand-checked 299 are still reported separately.
+5. ~~**A dataset with an alignment change near zero.**~~ **Done, and it held.**
    Brown, added for the hard case, falsified the corpus-level prediction
    registered for it (−0.067 alignment change, +4.8 points, p = 0.038, not
    after correction), so the corpus mean is no longer claimed to predict a
@@ -500,7 +507,8 @@ documents flagged high-confidence."*
    correction over all 62 tests. What remains is a corpus large enough and
    independent enough to re-test the German task itself, which is a data
    problem rather than an experiment.
-5. **The quantity itself, estimated without labels.** Measuring the alignment
+6. ~~**The quantity itself, estimated without labels.**~~ **Done, and it held.**
+   Measuring the alignment
    change needs the documents' labels, which a practitioner deciding whether to
    rewrite a taxonomy does not have. `make labelfree-preregister` / `make
    labelfree` pseudo-assigns the documents with the terse class vectors and
@@ -508,7 +516,7 @@ documents flagged high-confidence."*
    corpora and 103 classes; the estimate tracks the labelled quantity at
    ρ = +0.818. Whether it also predicts the gain was registered before it was
    tested. `TODO.md` carries the rest of the gap analysis.
-6. **A criterion that survives the argmax without labels.** Three tried here
+7. **A criterion that survives the argmax without labels.** Three tried here
    fail, including direct optimisation of the objective. Whether a label-free
    set-level criterion exists is open; it would have to beat a fixed policy
    without the development data that makes the search overfit. Moving the
@@ -516,15 +524,15 @@ documents flagged high-confidence."*
    and has been answered: in four preregistered studies, on three encoders from
    two training regimes, the class-level prediction held every time and the
    corpus ordering once (paper, *Moving the vector without words*).
-6. **Decide the keyword question.** The set carries section labels only, so
+8. **Decide the keyword question.** The set carries section labels only, so
    Precision@K is unmeasurable, and the keyword half of the pipeline has now
    failed to show an effect in every configuration tested. Writing a
    section-classification paper is the honest and tighter option; the
    contribution sentence never mentioned keywords.
-7. **Consider dropping the seed lists and two dead stages.** Guided extraction and the six-stage filter
+9. **Consider dropping the seed lists and two dead stages.** Guided extraction and the six-stage filter
    have no evidence behind them across three configurations. Either find a
    metric where they help, or cut them and say why.
-8. ~~**Write.**~~ **Done.** `paper/main.tex` is a complete draft — abstract,
+10. ~~**Write.**~~ **Done.** `paper/main.tex` is a complete draft — abstract,
    five contributions, method, four experiments, error analysis, limitations,
    an ethics statement and a statement on AI use. `make paper-tables`
    regenerates its tables, its figure and its macros from `results/`, a test

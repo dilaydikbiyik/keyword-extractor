@@ -6,8 +6,8 @@
 
 **[Read the research record →](https://dilaydikbiyik.github.io/keyword-extractor/)**
 One page: every claim this project made and what became of it — a retracted
-headline, two of its own hypotheses falsified, and eight preregistered studies
-whose predictions were committed before they were measured, 29 of 36 of which
+headline, two of its own hypotheses falsified, and nine preregistered studies
+whose predictions were committed before they were measured, 33 of 40 of which
 held — including a corpus that contradicted one of this project's own claims,
 and 7,470 arXiv abstracts where the labels and the class descriptions are
 nobody's work but arXiv's.
@@ -16,10 +16,11 @@ Assigning **NACE Rev. 2** economic sections to German company purpose
 statements with no labelled training data, by embedding the taxonomy's own
 class descriptions and ranking them against the document.
 
-The claim behind it is measured on **11,141 documents across five corpora and
-108 classes** — German trade-register texts (299, hand-checked), 20 Newsgroups
-(2,000), Reuters-21578 (959), Brown (413) and 7,470 arXiv abstracts whose labels
-their own authors assigned — under **62 comparisons corrected together**, with
+The claim behind it is measured on **12,341 documents across six evaluation sets
+and 108 classes** — German trade-register texts (299 hand-checked, plus a
+second set of 1,200 drawn afterwards), 20 Newsgroups (2,000), Reuters-21578
+(959), Brown (413) and 7,470 arXiv abstracts whose labels their own authors
+assigned — under **62 comparisons corrected together**, with
 every prediction committed to version control before it was measured.
 
 **What this repository is really about:** what a class description buys a
@@ -60,8 +61,8 @@ produced by `make reproduce` and written to
 | **Ours: taxonomy-guided** | **52.5%** | [46.8, 58.2] | **81.6%** | 0.356 | 0.474 | — |
 | Qwen2.5-7B-Instruct, asked directly | 48.8% | [43.1, 54.5] | 71.9% | 0.359 | 0.430 | 0.416 |
 
-*p* is uncorrected. Corrected with Holm over all 63 comparisons the paper reports
-([`results/effect_sizes.json`](results/effect_sizes.json)), 27 of the 38 nominally
+*p* is uncorrected. Corrected with Holm over all 66 comparisons the paper reports
+([`results/effect_sizes.json`](results/effect_sizes.json)), 29 of the 41 nominally
 significant ones survive; the TF-IDF difference is not among them, nor is the
 language model's Top-3 gap.
 
@@ -216,6 +217,23 @@ toward their own documents made the classifier worse. Across the four studies,
 15 of 20 predictions held: the per-class one every time, on three encoders,
 the corpus ordering once.
 
+**A second German set, four times the size, predicted before it was tested.**
+The 299-document set cannot be *changed* — every registered prediction was
+committed against exactly those documents — but it can be joined by another one,
+which is what research does. 1,200 further documents were drawn from the same
+corpus after it was fixed, with none of its documents, and labelled by the same
+procedure; a second labeller from another model family labelled all 1,200 too,
+and the two agree on 41.7% of them (κ = 0.364), far below the 80% the human
+check reached on the first set. Four predictions were [registered from the
+published figures](results/extended_eval_preregistration.json) before any
+accuracy on the new documents existed, and all four held: content is worth
+**+17.8 points** there (p < 0.001, surviving Holm) against the published +26.8,
+language **−1.8** (null again), and the per-class relation reaches **ρ = +0.760**
+(p = 0.0003). No human has checked those labels, so the set is reported beside
+the hand-checked one rather than instead of it
+([`results/extended_eval.json`](results/extended_eval.json), `make extended-set`
+→ `make extended-preregister` → `make extended-eval`).
+
 **The quantity, estimated without a single label.** Measuring the alignment
 change needs the documents' labels — which is exactly what somebody deciding
 whether to rewrite a taxonomy does not have, so the finding explained without
@@ -336,7 +354,7 @@ system in its own process.
 ### Ablation
 
 *p* is uncorrected; removing the description (−8.4 points, p = 0.002) does not
-survive correction over the paper's 63 tests.
+survive correction over the paper's 66 tests.
 
 | Variant | Top-1 | Δ Top-1 | F1-macro | p vs. full |
 | --- | --- | --- | --- | --- |

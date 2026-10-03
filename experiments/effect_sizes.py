@@ -86,6 +86,12 @@ def family() -> List[Dict]:
     if brown:
         add("Descriptions", "Brown: definitions vs. readable names", brown["defining_the_class"], brown["n"])
         add("Descriptions", "Brown: readable names vs. identifiers", brown["spelling_the_label_out"], brown["n"])
+    extended = load("extended_eval")
+    if extended:
+        add("Descriptions", "second German set: definitions vs. terse German",
+            extended["content_effect"], extended["n"])
+        add("Descriptions", "second German set: terse German vs. terse original",
+            extended["language_effect"], extended["n"])
     arxiv = load("arxiv")
     if arxiv:
         add("Descriptions", "arXiv: official descriptions vs. readable names",
@@ -177,6 +183,11 @@ def correlations() -> List[Dict]:
     if arxiv:
         out.append({"group": "Correlation", "label": "arXiv, alignment vs. headroom, per class",
                     "p": arxiv["per_class"]["p"]})
+    extended = load("extended_eval")
+    if extended:
+        out.append({"group": "Correlation",
+                    "label": "second German set, alignment vs. headroom, per class",
+                    "p": extended["per_class"]["p"]})
     labelfree = load("labelfree_predictor")
     if labelfree:
         out.append({"group": "Correlation",

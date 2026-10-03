@@ -286,6 +286,7 @@ NACE evaluation set and reported on a held-out half that was not examined.
 \section{Experiments}
 
 \subsection{Language or content?}
+\label{sec:descriptions}
 
 The rewritten descriptions changed two things at once: language, since sixteen
 of twenty-one were originally in Turkish while every document is German, and
@@ -297,7 +298,15 @@ untouched.
 
 Language alone is worth \LanguageEffect~points ($p = \LanguageP$). Content is
 worth \ContentEffect\ (Table~\ref{tab:descriptions},
-Appendix~\ref{app:supporting}). A crossed design varying document language and description
+Appendix~\ref{app:supporting}). Both replicate on a second German set of
+\ExtendedN\ documents, drawn after this one was fixed and labelled the same
+way, with \ExtendedHeld\ of \ExtendedPredictions\ predictions registered from
+the figures above holding: content is worth \ExtendedContentGain~points
+(\ExtendedContentPStat, \HolmExtendedContentStat), language
+\ExtendedLanguageGain, and the per-class relation reaches
+$\rho = \ExtendedRho$ (\HolmExtendedRhoStat). Two labellers of unequal quality
+agree on \ExtendedAgreement\ of it ($\kappa = \ExtendedKappa$) and no human
+checked it, so it is reported beside the hand-checked set, not instead of it. A crossed design varying document language and description
 language independently agrees: the richer descriptions win in both document
 languages, so the diagonal a matching effect would produce does not appear. The
 effect also survives a change of encoder, and of encoder family: content is
@@ -512,10 +521,8 @@ variant that raises accuracy, by \TranslateGain~points
 
 \subsection{Against baselines}
 
-\input{tables/baselines}
-
-Table~\ref{tab:baselines} places the system against lexical and embedding
-baselines. Top-3 accuracy of \OursTopThree\ is the operating point we would
+Table~\ref{tab:baselines}, in Appendix~\ref{app:supporting}, places the system
+against lexical and embedding baselines. Top-3 accuracy of \OursTopThree\ is the operating point we would
 argue for: the task admits genuine ambiguity, and a tool that proposes three
 codes to a human coder is the realistic deployment. The lexical baseline there
 matches whole words; Section~\ref{sec:references} gives it a fairer form.
@@ -696,10 +703,14 @@ from that: \OursTopOne\ Top-1 carries a \CILevel\ interval of \OursCI. Of the
 significant uncorrected and \EffectHolm\ after correction over the family, and
 each that loses significance is qualified where it appears
 (Appendix~\ref{app:effects}). A set of this size orders systems that differ by
-tens of points; it cannot resolve differences of a few. It was not enlarged
-after the fact: the predictions of every study registered against it were
-committed before any accuracy on it existed, so replacing it would change what
-those studies tested.
+tens of points; it cannot resolve differences of a few. It was not
+\emph{changed} after the fact---the predictions of every study registered
+against it were committed before any accuracy on it existed, so replacing its
+documents would change what those studies tested---but it has been joined by a second set of
+\ExtendedN\ documents carrying its own registered predictions
+(Section~\ref{sec:descriptions}), whose intervals are tighter and whose labels
+nobody has checked by hand. It widens the evidence; it does not replace the part
+of it a person verified.
 
 Agreement was measured between a human and the labeller, not between two humans.
 The inter-annotator figure reviewers usually ask for would require a second
@@ -832,6 +843,8 @@ experiment outputs.
 
 \section{Supporting tables and figure}
 \label{app:supporting}
+
+\input{tables/baselines}
 
 \input{tables/descriptions}
 

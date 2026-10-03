@@ -945,6 +945,28 @@ def benchmark_macros(bench: Dict) -> List[str]:
     return lines
 
 
+def extended_macros(study: Dict) -> List[str]:
+    """A second German set, four times the size, with its own registered predictions."""
+    names = list(study["conditions"])
+    return [
+        r"\newcommand{\ExtendedN}{%s}" % f"{study['n']:,}".replace(",", r"{,}"),
+        r"\newcommand{\ExtendedTerseTopOne}{%s\%%}"
+        % pct(study["conditions"][names[1]]["top1_accuracy"]),
+        r"\newcommand{\ExtendedDefTopOne}{%s\%%}"
+        % pct(study["conditions"][names[2]]["top1_accuracy"]),
+        r"\newcommand{\ExtendedContentGain}{%+.1f}" % study["content_effect"]["gain_pp"],
+        r"\newcommand{\ExtendedContentPStat}{%s}" % p_stat(study["content_effect"]["p_value"]),
+        r"\newcommand{\ExtendedLanguageGain}{%+.1f}" % study["language_effect"]["gain_pp"],
+        r"\newcommand{\ExtendedLanguagePStat}{%s}" % p_stat(study["language_effect"]["p_value"]),
+        r"\newcommand{\ExtendedRho}{%+.3f}" % study["per_class"]["rho"],
+        r"\newcommand{\ExtendedRhoPStat}{%s}" % p_stat(study["per_class"]["p"]),
+        r"\newcommand{\ExtendedHeld}{%d}" % sum(1 for o in study["outcomes"] if o["held"]),
+        r"\newcommand{\ExtendedPredictions}{%d}" % len(study["outcomes"]),
+        r"\newcommand{\ExtendedAgreement}{%s}" % share(study["labeller_agreement"]["raw"]),
+        r"\newcommand{\ExtendedKappa}{%.3f}" % study["labeller_agreement"]["cohen_kappa"],
+    ]
+
+
 def labelfree_macros(study: Dict) -> List[str]:
     """The quantity estimated without labels, over every corpus at once."""
     pooled = study["pooled"]
@@ -1004,6 +1026,8 @@ HOLM_CLAIMS = {
     "HolmArxivRhoStat": ("Correlation", "arXiv, alignment"),
     "HolmArxivDescStat": ("Descriptions", "arXiv: official descriptions"),
     "HolmEstimateRhoStat": ("Correlation", "label-free estimate vs. headroom"),
+    "HolmExtendedContentStat": ("Descriptions", "second German set: definitions"),
+    "HolmExtendedRhoStat": ("Correlation", "second German set, alignment"),
     "HolmLabseReutersStat": ("Label-free update", "Reuters: terse, LaBSE"),
     "HolmLabseRhoStat": ("Correlation", "label-free update (terse, LaBSE)"),
 }
@@ -1143,6 +1167,9 @@ def main() -> int:
     labelfree = load_optional("labelfree_predictor")
     if labelfree:
         derived += labelfree_macros(labelfree)
+    extended = load_optional("extended_eval")
+    if extended:
+        derived += extended_macros(extended)
     sweep = load_optional("rocchio_sensitivity")
     if sweep:
         derived += sensitivity_macros(sweep)
