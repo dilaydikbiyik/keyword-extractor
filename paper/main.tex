@@ -59,7 +59,7 @@ worth \ArxivSpellGain~points and one that moves them \ArxivDescAlign\ is worth
 over \ArxivRhoN\ categories. It cannot be optimised per class: three selection
 criteria, including direct optimisation of development accuracy, fail to
 generalise. Moving class vectors toward unlabelled documents confirms the
-class-level relation in three preregistered studies on two encoders, while the
+class-level relation in four preregistered studies on three encoders, while the
 corpus-level ordering holds only once; and a character n-gram ranker over the
 same descriptions matches the embedding system and gains as much from them.
 \end{abstract}
@@ -104,11 +104,11 @@ Our contributions are:
         author-assigned labels and arXiv's own class descriptions, a class text
         worth \ArxivSpellGain~points and one worth \ArxivDescGain, each as its
         alignment change implied.
-  \item Three preregistered, label-free interventions on the class vectors,
+  \item Four preregistered, label-free interventions on the class vectors,
         moving each toward its nearest unlabelled documents. The first raises
         accuracy in the order the alignment change predicts, including on the
-        corpus where written definitions did not help. Across all three, on
-        two encoders, the class-level prediction holds every time and the
+        corpus where written definitions did not help. Across all four, on three
+        encoders, the class-level prediction holds every time and the
         corpus-level ordering once, which we report as the account's limit.
   \item A negative result with a measured cause: the quantity cannot be
         optimised per class, because the classifier's argmax compares across
@@ -394,9 +394,8 @@ source, with the evaluation documents removed and both settings fixed in
 advance. Before any accuracy was computed we measured the alignment change in
 each corpus, derived \RocchioPredictions\ predictions from it, and committed them
 (\RocchioRegistered) with a fingerprint of the method that the accuracy step
-checks before it runs.
-
-\input{tables/rocchio}
+checks before it runs. Table~\ref{tab:rocchio}, in
+Appendix~\ref{app:labelfree}, reports all four studies.
 
 \RocchioHeld\ of the \RocchioPredictions\ predictions held
 (Table~\ref{tab:rocchio}): accuracy rose on all three corpora, in the order the
@@ -429,8 +428,21 @@ was computed. \RocchioMpnetHeld\ of its \RocchioMpnetPredictions\ predictions he
 rose on all three corpora, though the 20 Newsgroups gain does not survive
 correction (\HolmMpnetNewsStat), and the per-class relation appeared a third
 time ($\rho = \RocchioMpnetRho$, \RocchioMpnetRhoPStat), while the predicted
-ordering failed again. Across the three studies, on two encoders, the
-class-level prediction held every time and the corpus-level ordering once.
+ordering failed again.
+
+\paragraph{On another encoder family.} Both encoders above are distilled from
+one teacher. A fourth study repeated the first on LaBSE, which is trained by
+translation ranking, again with its predictions committed first
+(\RocchioLabseRegistered); \RocchioLabseHeld\ of \RocchioLabsePredictions\
+held. The update gained \RocchioLabseNewsGain~points on 20 Newsgroups
+(\RocchioLabseNewsPStat) and \RocchioLabseNaceGain\ on NACE
+(\RocchioLabseNacePStat), but \emph{cost} \RocchioLabseReutersGain\ on Reuters
+(\RocchioLabseReutersPStat, \HolmLabseReutersStat), the first corpus where
+moving the vectors toward their documents made the classifier worse. The
+class-level relation held a fourth time ($\rho = \RocchioLabseRho$,
+\RocchioLabseRhoPStat, \HolmLabseRhoStat). Across the four studies, on three
+encoders from two training regimes, the class-level prediction held every time
+and the corpus-level ordering once.
 The two parameters were never tuned, which leaves open whether the behaviour is
 the method's or that setting's: over a grid of $K \in \{\SweepKList\}$ and
 $\beta \in \{\SweepBetaList\}$, the gain keeps the registered sign in
@@ -651,9 +663,9 @@ significant uncorrected and \EffectHolm\ after correction over the family, and
 each that loses significance is qualified where it appears
 (Appendix~\ref{app:effects}). A set of this size orders systems that differ by
 tens of points; it cannot resolve differences of a few. It was not enlarged
-after the fact: the predictions of the three preregistered studies were
-committed against this set before any accuracy on it existed, so replacing it
-would change what those studies tested.
+after the fact: the predictions of every study registered against it were
+committed before any accuracy on it existed, so replacing it would change what
+those studies tested.
 
 Agreement was measured between a human and the labeller, not between two humans.
 The inter-annotator figure reviewers usually ask for would require a second
@@ -682,8 +694,10 @@ multilingual sentence-transformer. The description effect replicates on a
 second encoder of that kind and on LaBSE, which is trained by translation
 ranking instead, and it appears at a similar size in a character n-gram space
 with no encoder at all (Section~\ref{sec:references}). The label-free test has
-been run on two encoders, both distilled, and gives the same class-level result
-on both; it has not been run on LaBSE.
+been run on three encoders and gives the same class-level result on each,
+including on LaBSE, where it nonetheless cost \RocchioLabseReutersGain~points on
+Reuters---the one corpus-and-encoder pair where moving the vectors toward their
+documents hurt.
 
 The cost figures in Section~\ref{sec:cost} come from one machine and one
 implementation of each system; they order the systems, they do not fix absolute
@@ -764,6 +778,11 @@ experiment outputs.
 \bibliography{references}
 
 \appendix
+
+\section{The label-free studies in full}
+\label{app:labelfree}
+
+\input{tables/rocchio}
 
 \section{Supporting tables and figure}
 \label{app:supporting}

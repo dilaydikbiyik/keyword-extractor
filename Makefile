@@ -5,7 +5,7 @@ PYTHON ?= $(shell \
 	elif command -v python3 >/dev/null 2>&1; then command -v python3; \
 	else echo python; fi)
 
-.PHONY: help install reproduce test lint annotate merge verify verify-new verify-apply second-annotator second-annotator-score llm-baseline llm-baseline-local study rocchio-preregister rocchio rocchio-definitions-preregister rocchio-definitions paper-tables paper submission demo clean rocchio-mpnet-preregister rocchio-mpnet references preprint independent-descriptions description-source-preregister description-source rocchio-sensitivity brown-preregister brown arxiv-fetch arxiv-preregister arxiv author-coding author-coding-score model-coding translate-queue benchmark
+.PHONY: help install reproduce test lint annotate merge verify verify-new verify-apply second-annotator second-annotator-score llm-baseline llm-baseline-local study rocchio-preregister rocchio rocchio-definitions-preregister rocchio-definitions paper-tables paper submission demo clean rocchio-mpnet-preregister rocchio-mpnet rocchio-labse-preregister rocchio-labse references preprint independent-descriptions description-source-preregister description-source rocchio-sensitivity brown-preregister brown arxiv-fetch arxiv-preregister arxiv author-coding author-coding-score model-coding translate-queue benchmark
 
 help:
 	@echo "Using PYTHON = $(PYTHON)"
@@ -116,6 +116,7 @@ study:
 	$(PYTHON) -m experiments.run_rocchio
 	$(PYTHON) -m experiments.run_rocchio --study definitions
 	$(PYTHON) -m experiments.run_rocchio --study mpnet
+	$(PYTHON) -m experiments.run_rocchio --study labse
 	$(PYTHON) -m experiments.run_references
 	$(PYTHON) -m experiments.run_description_source
 	$(PYTHON) -m experiments.run_brown
@@ -171,6 +172,13 @@ rocchio-mpnet-preregister:
 
 rocchio-mpnet:
 	$(PYTHON) -m experiments.run_rocchio --study mpnet
+
+rocchio-labse-preregister:
+	$(PYTHON) -m experiments.run_rocchio --study labse --preregister
+	@echo "Commit results/rocchio_labse_preregistration.json before the next step."
+
+rocchio-labse:
+	$(PYTHON) -m experiments.run_rocchio --study labse
 
 arxiv-fetch:
 	$(PYTHON) -m experiments.fetch_arxiv --taxonomy

@@ -819,7 +819,10 @@
           <p>
             Four held. Accuracy rose on all three corpora, and the per-class correlation appeared a
             third time. The ordering failed again, NACE edging past 20 Newsgroups by 0.3 points.
-            Across the three studies, 12 of 15 predictions held: the per-class one every time, on both
+            A fourth study repeated the first on LaBSE, an encoder from a different training
+            regime: +9.4 points on 20 Newsgroups, +0.7 on NACE, and &minus;3.0 on Reuters &mdash; the
+            first corpus where moving the vectors toward their own documents made the classifier
+            worse. Across the four studies, 15 of 20 predictions held: the per-class one every time, on three
             encoders; the corpus ordering once.
           </p>
           <div class="evidence">

@@ -750,6 +750,26 @@ class TestIndependentDescriptions:
         assert study.method_fingerprint() != before
 
 
+class TestLabelFreeStudies:
+    """Four registered studies, each with its own files and fingerprint."""
+
+    def test_each_study_reads_and_writes_its_own_files(self):
+        from experiments.run_rocchio import study_files
+
+        seen = set()
+        for study in ("terse", "definitions", "mpnet", "labse"):
+            _, preregistration, result = study_files(study)
+            assert preregistration not in seen and result not in seen, study
+            seen |= {preregistration, result}
+
+    def test_the_encoder_is_part_of_the_fingerprint(self):
+        """A study on another encoder cannot inherit the first study's prediction."""
+        from experiments.run_rocchio import method_fingerprint
+
+        prints = {s: method_fingerprint(s) for s in ("terse", "mpnet", "labse")}
+        assert len(set(prints.values())) == 3, prints
+
+
 class TestArxivCorpus:
     """Labels this project did not make, descriptions it did not write."""
 

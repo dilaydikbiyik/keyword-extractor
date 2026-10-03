@@ -54,7 +54,7 @@ def load(name: str) -> Optional[Dict]:
 
 
 ROCCHIO_STUDIES = (("rocchio", "terse"), ("rocchio_definitions", "definitions"),
-                   ("rocchio_mpnet", "terse, mpnet"))
+                   ("rocchio_mpnet", "terse, mpnet"), ("rocchio_labse", "terse, LaBSE"))
 
 
 def family() -> List[Dict]:

@@ -6,8 +6,8 @@
 
 **[Read the research record →](https://dilaydikbiyik.github.io/keyword-extractor/)**
 One page: every claim this project made and what became of it — a retracted
-headline, two of its own hypotheses falsified, and six preregistered studies
-whose predictions were committed before they were measured, 22 of 27 of which
+headline, two of its own hypotheses falsified, and seven preregistered studies
+whose predictions were committed before they were measured, 25 of 32 of which
 held — including a corpus that contradicted one of this project's own claims,
 and 7,470 arXiv abstracts where the labels and the class descriptions are
 nobody's work but arXiv's.
@@ -54,8 +54,8 @@ produced by `make reproduce` and written to
 | **Ours: taxonomy-guided** | **52.5%** | [46.8, 58.2] | **81.6%** | 0.356 | 0.474 | — |
 | Qwen2.5-7B-Instruct, asked directly | 48.8% | [43.1, 54.5] | 71.9% | 0.359 | 0.430 | 0.416 |
 
-*p* is uncorrected. Corrected with Holm over all 56 comparisons the paper reports
-([`results/effect_sizes.json`](results/effect_sizes.json)), 23 of the 32 nominally
+*p* is uncorrected. Corrected with Holm over all 60 comparisons the paper reports
+([`results/effect_sizes.json`](results/effect_sizes.json)), 24 of the 35 nominally
 significant ones survive; the TF-IDF difference is not among them, nor is the
 language model's Top-3 gap.
 
@@ -184,8 +184,13 @@ on the larger mpnet encoder, and four of its five predictions held. Top-1 rose o
 Reuters (+4.0 points, p < 0.001), 20 Newsgroups (+1.7, p = 0.003, not significant
 after correction) and NACE (+2.0, not significant), and the per-class correlation
 appeared a third time (ρ = +0.544); the predicted ordering failed again, NACE
-edging past 20 Newsgroups. Across the three studies, 12 of 15 predictions held:
-the per-class one every time, on both encoders, the corpus ordering once.
+edging past 20 Newsgroups. A [fourth study](results/rocchio_labse_preregistration.json)
+repeated the first on LaBSE, a different encoder family: +9.4 points on 20
+Newsgroups (p < 0.001) and +0.7 on NACE (p = 0.89), but **−3.0 on Reuters**
+(p = 0.024, not after correction) — the first corpus where moving the vectors
+toward their own documents made the classifier worse. Across the four studies,
+15 of 20 predictions held: the per-class one every time, on three encoders,
+the corpus ordering once.
 
 **Gold labels, somebody else's descriptions, and a change of zero.** Three
 objections apply to everything above: 299 documents, labels a model produced,
@@ -285,7 +290,7 @@ system in its own process.
 ### Ablation
 
 *p* is uncorrected; removing the description (−8.4 points, p = 0.002) does not
-survive correction over the paper's 56 tests.
+survive correction over the paper's 60 tests.
 
 | Variant | Top-1 | Δ Top-1 | F1-macro | p vs. full |
 | --- | --- | --- | --- | --- |

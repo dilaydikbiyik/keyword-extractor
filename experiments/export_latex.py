@@ -514,7 +514,11 @@ ROCCHIO_STUDIES = [
     ("From terse labels", "rocchio_preregistration", "rocchio", "Rocchio"),
     ("From written definitions", "rocchio_definitions_preregistration", "rocchio_definitions", "RocchioDef"),
     ("From terse labels, mpnet encoder", "rocchio_mpnet_preregistration", "rocchio_mpnet", "RocchioMpnet"),
+    ("From terse labels, LaBSE encoder", "rocchio_labse_preregistration", "rocchio_labse", "RocchioLabse"),
 ]
+
+
+COUNT_WORD = {1: "one", 2: "two", 3: "three", 4: "four", 5: "five", 6: "six"}
 
 
 def rocchio_table(studies: List[Tuple[str, Dict, Dict]]) -> str:
@@ -539,7 +543,8 @@ def rocchio_table(studies: List[Tuple[str, Dict, Dict]]) -> str:
         r"Corpus & $\Delta$align. & Before & Moved & Gain & $p$ & Held \\", r"\midrule",
         *rows, r"\bottomrule", r"\end{tabular}",
         r"\caption{Class vectors moved toward their $k{=}\RocchioK$ nearest unlabelled documents, "
-        r"with no label and no new text, in three preregistered studies. Each alignment change was "
+        r"with no label and no new text, in %s preregistered studies. Each alignment change was "
+        % COUNT_WORD.get(len(studies), len(studies)) +
         r"measured and its predictions committed before any accuracy was computed; \emph{Held} says "
         r"whether the predicted direction was right. 20NG is 20 Newsgroups; Reuters is "
         r"Reuters-21578. Before, Moved and Gain are percentages and percentage points.}",
@@ -932,6 +937,8 @@ HOLM_CLAIMS = {
     "HolmBrownRhoStat": ("Correlation", "Brown, alignment"),
     "HolmArxivRhoStat": ("Correlation", "arXiv, alignment"),
     "HolmArxivDescStat": ("Descriptions", "arXiv: official descriptions"),
+    "HolmLabseReutersStat": ("Label-free update", "Reuters: terse, LaBSE"),
+    "HolmLabseRhoStat": ("Correlation", "label-free update (terse, LaBSE)"),
 }
 
 

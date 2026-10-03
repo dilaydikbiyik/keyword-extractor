@@ -72,21 +72,23 @@
 \newcommand{\ReproduceMinutes}{6}
 \newcommand{\ReproduceCPU}{Apple M5 Pro}
 \newcommand{\ReproduceCores}{18}
-\newcommand{\HolmAlignStat}{$p_{\mathrm{Holm}} = 0.084$}
-\newcommand{\HolmRocchioRhoStat}{$p_{\mathrm{Holm}} = 0.006$}
-\newcommand{\HolmLLMTopThreeStat}{$p_{\mathrm{Holm}} = 0.111$}
-\newcommand{\HolmTfidfStat}{$p_{\mathrm{Holm}} = 0.996$}
-\newcommand{\HolmVerifiedStat}{$p_{\mathrm{Holm}} = 0.082$}
-\newcommand{\HolmContrastiveStat}{$p_{\mathrm{Holm}} = 0.142$}
-\newcommand{\HolmMpnetNewsStat}{$p_{\mathrm{Holm}} = 0.091$}
-\newcommand{\HolmBrownDefStat}{$p_{\mathrm{Holm}} = 0.996$}
-\newcommand{\HolmBrownRhoStat}{$p_{\mathrm{Holm}} = 0.996$}
+\newcommand{\HolmAlignStat}{$p_{\mathrm{Holm}} = 0.092$}
+\newcommand{\HolmRocchioRhoStat}{$p_{\mathrm{Holm}} = 0.007$}
+\newcommand{\HolmLLMTopThreeStat}{$p_{\mathrm{Holm}} = 0.123$}
+\newcommand{\HolmTfidfStat}{$p_{\mathrm{Holm}} = 1.000$}
+\newcommand{\HolmVerifiedStat}{$p_{\mathrm{Holm}} = 0.090$}
+\newcommand{\HolmContrastiveStat}{$p_{\mathrm{Holm}} = 0.157$}
+\newcommand{\HolmMpnetNewsStat}{$p_{\mathrm{Holm}} = 0.101$}
+\newcommand{\HolmBrownDefStat}{$p_{\mathrm{Holm}} = 1.000$}
+\newcommand{\HolmBrownRhoStat}{$p_{\mathrm{Holm}} = 1.000$}
 \newcommand{\HolmArxivRhoStat}{$p_{\mathrm{Holm}} < 0.001$}
 \newcommand{\HolmArxivDescStat}{$p_{\mathrm{Holm}} = 1.000$}
-\newcommand{\EffectTests}{56}
-\newcommand{\EffectNominal}{32}
-\newcommand{\EffectHolm}{23}
-\newcommand{\EffectLostList}{Brown: definitions vs. readable names; full system vs. TF-IDF $\rightarrow$ nearest NACE section; full system vs. $-$ description in sector vector; full system vs. LLM, Top-3; full system vs. previous taxonomy; 20NG: terse, mpnet + update vs. terse, mpnet; 20NG: contrastive margin vs. best fixed policy; alignment change vs. headroom captured; Brown, alignment vs. headroom, per class}
+\newcommand{\HolmLabseReutersStat}{$p_{\mathrm{Holm}} = 0.726$}
+\newcommand{\HolmLabseRhoStat}{$p_{\mathrm{Holm}} = 0.836$}
+\newcommand{\EffectTests}{60}
+\newcommand{\EffectNominal}{35}
+\newcommand{\EffectHolm}{24}
+\newcommand{\EffectLostList}{Brown: definitions vs. readable names; full system vs. TF-IDF $\rightarrow$ nearest NACE section; full system vs. $-$ description in sector vector; full system vs. LLM, Top-3; full system vs. previous taxonomy; 20NG: terse, mpnet + update vs. terse, mpnet; Reuters: terse, LaBSE + update vs. terse, LaBSE; 20NG: contrastive margin vs. best fixed policy; alignment change vs. headroom captured; label-free update (terse, LaBSE), per class; Brown, alignment vs. headroom, per class}
 \newcommand{\RocchioK}{25}
 \newcommand{\RocchioHeld}{5}
 \newcommand{\RocchioPredictions}{5}
@@ -148,6 +150,26 @@
 \newcommand{\RocchioMpnetReutersPStat}{$p < 0.001$}
 \newcommand{\RocchioMpnetReutersTerse}{70.8\%}
 \newcommand{\RocchioMpnetReutersMoved}{74.8\%}
+\newcommand{\RocchioLabseHeld}{3}
+\newcommand{\RocchioLabsePredictions}{5}
+\newcommand{\RocchioLabseRho}{+0.309}
+\newcommand{\RocchioLabseRhoPStat}{$p = 0.029$}
+\newcommand{\RocchioLabseRegistered}{2026-10-03}
+\newcommand{\RocchioLabseNaceAlign}{+0.156}
+\newcommand{\RocchioLabseNaceGain}{+0.7}
+\newcommand{\RocchioLabseNacePStat}{$p = 0.885$}
+\newcommand{\RocchioLabseNaceTerse}{31.1\%}
+\newcommand{\RocchioLabseNaceMoved}{31.8\%}
+\newcommand{\RocchioLabseNewsAlign}{+0.342}
+\newcommand{\RocchioLabseNewsGain}{+9.4}
+\newcommand{\RocchioLabseNewsPStat}{$p < 0.001$}
+\newcommand{\RocchioLabseNewsTerse}{32.7\%}
+\newcommand{\RocchioLabseNewsMoved}{42.1\%}
+\newcommand{\RocchioLabseReutersAlign}{+0.360}
+\newcommand{\RocchioLabseReutersGain}{-3.0}
+\newcommand{\RocchioLabseReutersPStat}{$p = 0.024$}
+\newcommand{\RocchioLabseReutersTerse}{53.3\%}
+\newcommand{\RocchioLabseReutersMoved}{50.3\%}
 \newcommand{\MpnetContentEffect}{+13.7}
 \newcommand{\MpnetContentPStat}{$p < 0.001$}
 \newcommand{\LabseContentEffect}{+16.1}
