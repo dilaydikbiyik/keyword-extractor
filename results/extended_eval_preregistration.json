@@ -1,0 +1,37 @@
+{
+  "study": "extended_eval",
+  "registered_at": "2026-10-03T19:35:36+00:00",
+  "code_revision": "bf10258",
+  "method_fingerprint": "e04ac3e814e6542af486347228fc1d202e90b772b96b59267fd2abdbb57ef1fd",
+  "seed": 42,
+  "n": 1200,
+  "labeller_agreement": {
+    "n": 1199,
+    "raw": 0.4170141784820684,
+    "cohen_kappa": 0.3639556583290139
+  },
+  "published": {
+    "content_effect_pp": 26.8,
+    "language_effect_pp": -2.3,
+    "tolerance_pp": 10.0
+  },
+  "predictions": [
+    {
+      "id": "content-positive",
+      "claim": "On the extended set, rewriting the terse German control into definitions raises Top-1 accuracy."
+    },
+    {
+      "id": "content-magnitude",
+      "claim": "That gain is within 10 points of the published +26.8."
+    },
+    {
+      "id": "language-null",
+      "claim": "Rendering the same terse content in German does not raise Top-1 accuracy by more than two points, as on the first set."
+    },
+    {
+      "id": "per-class",
+      "claim": "Across classes, the alignment change of the rewrite correlates positively with the share of available headroom captured."
+    }
+  ],
+  "note": "Written before any accuracy on the extended documents was computed. The first evaluation set is untouched; this is a second set, not a replacement."
+}

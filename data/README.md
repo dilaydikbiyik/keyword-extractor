@@ -9,6 +9,8 @@ matters for anyone trying to reproduce the reported numbers.
 | `data/taxonomy/sectors_qwen.json` | yes | The same 21 sections defined by Qwen2.5-7B-Instruct, from the terse German name alone, for the test of who writes the descriptions. Written by `experiments/write_descriptions.py`; each entry keeps the model's unedited reply beside the definition used. |
 | `data/taxonomy/arxiv_categories.json` | yes | arXiv's own names and descriptions for the 40 Computer Science categories, quoted verbatim from its public taxonomy page. Written by arXiv, not by this project. |
 | `data/external/arxiv_sample.json` | yes | The identifiers and categories of the arXiv abstracts used as the fifth corpus. The abstracts are not redistributed; `make arxiv-fetch` retrieves them from these identifiers into the ignored cache. |
+| `data/evaluation/extended_labels.json` | yes | A second German evaluation set, 1,200 documents drawn from the corpus after the first set was fixed, with none of its documents. Two independent labellers applied the same guideline — an assistant, as before, and an open 7B model from another family — and their agreement is recorded in the file. |
+| `data/evaluation/extended_queue.json` | yes | The documents of that set before labelling, as drawn. |
 | `data/evaluation/human_labels.json` | yes | The evaluation set: gold NACE section plus reference keywords per document. Authored for this project. |
 | `data/derived/tfidf_corpus_stats.json` | yes | Vocabulary and IDF weights derived from the corpus below. |
 | `data/derived/tfidf_snowball_corpus_stats.json` | yes | The same over German Snowball stems, for `experiments/run_references.py`. |
