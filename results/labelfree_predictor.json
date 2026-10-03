@@ -1,0 +1,103 @@
+{
+  "study": "labelfree_predictor",
+  "preregistration": "labelfree_predictor_preregistration.json",
+  "registered_at": "2026-10-03T15:41:29+00:00",
+  "corpora": {
+    "NACE": {
+      "classes": 17,
+      "estimate_vs_headroom": {
+        "rho": 0.20100802724627725,
+        "p": 0.4391696363980364
+      },
+      "labelled_vs_headroom": {
+        "rho": 0.7593636584859363,
+        "p": 0.00040677652599143955
+      }
+    },
+    "20NG": {
+      "classes": 20,
+      "estimate_vs_headroom": {
+        "rho": 0.6421052631578947,
+        "p": 0.002269879567318682
+      },
+      "labelled_vs_headroom": {
+        "rho": 0.6721804511278194,
+        "p": 0.0011684302903722918
+      }
+    },
+    "Reuters": {
+      "classes": 12,
+      "estimate_vs_headroom": {
+        "rho": 0.8251748251748254,
+        "p": 0.0009513628555555001
+      },
+      "labelled_vs_headroom": {
+        "rho": 0.8041958041958043,
+        "p": 0.0016147689860699299
+      }
+    },
+    "Brown": {
+      "classes": 15,
+      "estimate_vs_headroom": {
+        "rho": 0.48214285714285704,
+        "p": 0.06874953772064366
+      },
+      "labelled_vs_headroom": {
+        "rho": 0.5392857142857141,
+        "p": 0.038021656263558
+      }
+    },
+    "arXiv": {
+      "classes": 38,
+      "estimate_vs_headroom": {
+        "rho": 0.7003337538523215,
+        "p": 9.848606169460597e-07
+      },
+      "labelled_vs_headroom": {
+        "rho": 0.7494665437710235,
+        "p": 6.15720033629076e-08
+      }
+    }
+  },
+  "classes_pooled": 102,
+  "documents_pooled": 11141,
+  "estimate_vs_truth": {
+    "rho": 0.8177195448754558,
+    "p": 5.721597075530843e-26,
+    "sign_agreement": 0.7281553398058253
+  },
+  "pooled": {
+    "estimate_vs_headroom": {
+      "rho": 0.5644801248211863,
+      "p": 6.44804398204525e-10
+    },
+    "labelled_vs_headroom": {
+      "rho": 0.6699945518808025,
+      "p": 1.3536598149663906e-14
+    },
+    "sign_rule_accuracy": 0.5784313725490197,
+    "classes_that_gained": 56
+  },
+  "outcomes": [
+    {
+      "id": "predicts-headroom",
+      "claim": "Pooled across the five corpora, the label-free estimate of the alignment change correlates positively with the share of available headroom each class captured (Spearman rho > 0).",
+      "held": true
+    },
+    {
+      "id": "significant",
+      "claim": "That correlation is significant at 0.05 uncorrected.",
+      "held": true
+    },
+    {
+      "id": "sign-rule",
+      "claim": "The sign of the estimate decides whether a class gained from elaboration more often than chance (above 50% of classes).",
+      "held": true
+    },
+    {
+      "id": "weaker-than-labelled",
+      "claim": "It is weaker than the labelled quantity: the labelled change correlates with headroom at least as strongly as the estimate does.",
+      "held": true
+    }
+  ]
+}

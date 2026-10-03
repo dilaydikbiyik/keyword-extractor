@@ -1,8 +1,8 @@
 {
   "alpha": 0.05,
-  "n_tests": 62,
-  "nominally_significant": 37,
-  "significant_after_holm": 26,
+  "n_tests": 63,
+  "nominally_significant": 38,
+  "significant_after_holm": 27,
   "lost_to_correction": [
     "Brown: definitions vs. readable names",
     "full system vs. TF-IDF \u2192 nearest NACE section",
@@ -30,7 +30,7 @@
         20.735785953177256,
         32.78428093645473
       ],
-      "p_holm": 2.539085605818066e-13
+      "p_holm": 2.582862943849412e-13
     },
     {
       "group": "Descriptions",
@@ -105,7 +105,7 @@
         8.0,
         12.1
       ],
-      "p_holm": 4.4853464076012396e-20
+      "p_holm": 4.561369228069058e-20
     },
     {
       "group": "Descriptions",
@@ -135,7 +135,7 @@
         14.911366006256518,
         22.10636079249218
       ],
-      "p_holm": 6.360167966051174e-21
+      "p_holm": 6.4661707654853605e-21
     },
     {
       "group": "Descriptions",
@@ -405,7 +405,7 @@
         20.066889632107024,
         34.11371237458194
       ],
-      "p_holm": 3.267813466341267e-10
+      "p_holm": 3.3261672782402183e-10
     },
     {
       "group": "LLM",
@@ -465,7 +465,7 @@
         15.050167224080267,
         27.759197324414714
       ],
-      "p_holm": 2.1536516875328378e-08
+      "p_holm": 2.1935341261908533e-08
     },
     {
       "group": "Reference",
@@ -525,7 +525,7 @@
         17.05685618729097,
         31.103678929765888
       ],
-      "p_holm": 2.345919887393925e-08
+      "p_holm": 2.390182526778716e-08
     },
     {
       "group": "Reference",
@@ -600,7 +600,7 @@
         5.005213764337852,
         8.86339937434828
       ],
-      "p_holm": 1.2084707073419505e-10
+      "p_holm": 1.229671947821634e-10
     },
     {
       "group": "Label-free update",
@@ -645,7 +645,7 @@
         4.483837330552659,
         8.342022940563087
       ],
-      "p_holm": 5.296377326500071e-09
+      "p_holm": 5.392675096072799e-09
     },
     {
       "group": "Label-free update",
@@ -720,7 +720,7 @@
         7.85,
         10.95
       ],
-      "p_holm": 5.7532926385274976e-30
+      "p_holm": 5.8476089112902435e-30
     },
     {
       "group": "Label-free update",
@@ -826,6 +826,12 @@
       "label": "arXiv, alignment vs. headroom, per class",
       "p": 6.15720033629076e-08,
       "p_holm": 3.1401721715082875e-06
+    },
+    {
+      "group": "Correlation",
+      "label": "label-free estimate vs. headroom, per class, five corpora",
+      "p": 6.44804398204525e-10,
+      "p_holm": 3.417463310483983e-08
     }
   ]
 }

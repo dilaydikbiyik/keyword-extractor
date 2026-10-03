@@ -6,8 +6,8 @@
 
 **[Read the research record →](https://dilaydikbiyik.github.io/keyword-extractor/)**
 One page: every claim this project made and what became of it — a retracted
-headline, two of its own hypotheses falsified, and seven preregistered studies
-whose predictions were committed before they were measured, 25 of 32 of which
+headline, two of its own hypotheses falsified, and eight preregistered studies
+whose predictions were committed before they were measured, 29 of 36 of which
 held — including a corpus that contradicted one of this project's own claims,
 and 7,470 arXiv abstracts where the labels and the class descriptions are
 nobody's work but arXiv's.
@@ -60,8 +60,8 @@ produced by `make reproduce` and written to
 | **Ours: taxonomy-guided** | **52.5%** | [46.8, 58.2] | **81.6%** | 0.356 | 0.474 | — |
 | Qwen2.5-7B-Instruct, asked directly | 48.8% | [43.1, 54.5] | 71.9% | 0.359 | 0.430 | 0.416 |
 
-*p* is uncorrected. Corrected with Holm over all 62 comparisons the paper reports
-([`results/effect_sizes.json`](results/effect_sizes.json)), 26 of the 37 nominally
+*p* is uncorrected. Corrected with Holm over all 63 comparisons the paper reports
+([`results/effect_sizes.json`](results/effect_sizes.json)), 27 of the 38 nominally
 significant ones survive; the TF-IDF difference is not among them, nor is the
 language model's Top-3 gap.
 
@@ -216,6 +216,25 @@ toward their own documents made the classifier worse. Across the four studies,
 15 of 20 predictions held: the per-class one every time, on three encoders,
 the corpus ordering once.
 
+**The quantity, estimated without a single label.** Measuring the alignment
+change needs the documents' labels — which is exactly what somebody deciding
+whether to rewrite a taxonomy does not have, so the finding explained without
+advising. The estimate that removes the labels is what the classifier already
+computes: pseudo-assign each document to its argmax class under the terse
+vectors, then take the centroid of that pseudo-class. Over all five corpora,
+11,141 documents and 102 classes it tracks the labelled quantity at
+**ρ = +0.818**, and all four [registered
+predictions](results/labelfree_predictor_preregistration.json) held: it predicts
+the share of headroom captured at **ρ = +0.564 (p = 6×10⁻¹⁰**, surviving Holm),
+its sign alone calls the direction for 58% of classes, and it is **weaker** than
+the labelled quantity (ρ = +0.670) — the prediction we registered because
+omitting it would have been flattering. It is weakest where the pseudo-assignment
+is least accurate: on NACE, +0.201 against +0.759. So the advice is modest and
+testable: where the terse classifier is already somewhat right, an unlabelled
+sample tells you whether rewriting will pay
+([`results/labelfree_predictor.json`](results/labelfree_predictor.json),
+`make labelfree`).
+
 **Gold labels, somebody else's descriptions, and a change of zero.** Three
 objections apply to everything above: 299 documents, labels a model produced,
 and descriptions written for the study by the assistant that wrote the labels.
@@ -317,7 +336,7 @@ system in its own process.
 ### Ablation
 
 *p* is uncorrected; removing the description (−8.4 points, p = 0.002) does not
-survive correction over the paper's 62 tests.
+survive correction over the paper's 63 tests.
 
 | Variant | Top-1 | Δ Top-1 | F1-macro | p vs. full |
 | --- | --- | --- | --- | --- |

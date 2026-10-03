@@ -3,10 +3,10 @@
 What is done, what is open, and what is deliberately not being done. Updated as
 work lands; every claim here points at the file that settles it.
 
-**Where the project stands.** Five corpora, 11,141 documents, 108 classes. Seven
-preregistered studies, 32 predictions committed to version control before they
-were measured, 25 held and the seven failures published. 62 comparisons
-corrected together with Holm (37 nominal, 26 surviving). 193 tests in CI, paper
+**Where the project stands.** Five corpora, 11,141 documents, 108 classes. Eight
+preregistered studies, 36 predictions committed to version control before they
+were measured, 29 held and the seven failures published. 63 comparisons
+corrected together with Holm (38 nominal, 27 surviving). 193 tests in CI, paper
 body at the 8-page limit, submission artefacts built and checked anonymous.
 
 ---
@@ -16,15 +16,17 @@ body at the 8-page limit, submission artefacts built and checked anonymous.
 Each item says what a reader could do afterwards that they cannot do now. That
 is the test for whether it belongs in a paper rather than in a backlog.
 
-### A1. The quantity, estimated without labels — *in progress*
-The alignment change explains which classes gain, but measuring it needs the
-labels of the documents. A practitioner deciding whether to rewrite a taxonomy
-has documents and no labels, so the finding currently explains without advising.
-`experiments/run_labelfree_predictor.py` pseudo-assigns the documents with the
-terse class vectors and takes the centroid of each pseudo-class, which uses no
-label at all, then asks whether that estimate still predicts which classes gain.
-Registered before the accuracy step, as the other studies were.
-**Afterwards:** "will rewriting pay?" becomes answerable before annotation.
+### ~~A1. The quantity, estimated without labels~~ — **done, and it held**
+All four registered predictions held. The estimate, which uses no label
+anywhere, tracks the labelled quantity at ρ = +0.818 over 102 classes and
+predicts the share of headroom captured at ρ = +0.564 (p = 6e-10, surviving
+Holm) against +0.670 for the labelled version. It degrades where the
+pseudo-assignment is poorest — on NACE, +0.201 against +0.759 — so the advice it
+licenses is: where the terse classifier is already somewhat right, an unlabelled
+sample tells you whether rewriting will pay. `make labelfree`,
+`results/labelfree_predictor.json`, paper §*The quantity, without labels*.
+**Still open from it:** a threshold rule with a measured false-positive rate,
+i.e. "how large must the estimate be before rewriting is worth the effort".
 
 ### A2. Why alignment is the right quantity — *not started, no compute needed*
 The account is empirical: a correlation that replicates. It is not derived. Under

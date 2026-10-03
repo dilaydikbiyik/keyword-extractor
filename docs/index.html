@@ -489,9 +489,9 @@
       <div class="fig-s">the fifth corpus &mdash; entry 14</div>
     </div>
     <div class="fig">
-      <span class="fig-n">25 / 32</span>
+      <span class="fig-n">29 / 36</span>
       <div class="fig-l">Predictions that held, all of them committed before they were measured</div>
-      <div class="fig-s">seven registered studies, five corpora</div>
+      <div class="fig-s">eight registered studies, five corpora</div>
     </div>
     <div class="fig">
       <span class="fig-n">4</span>
@@ -1001,13 +1001,50 @@
             &mdash; and are worth +0.9 (p = 0.061). That near-zero case is the account&rsquo;s least
             obvious prediction and had never been tested. Across the 38 categories with documents the
             per-class relation replicates at <strong>&rho; = +0.749, p = 6&times;10<sup>&minus;8</sup></strong>,
-            and this time it survives correction over all 62 tests &mdash; the claim that was found by
+            and this time it survives correction over all 63 tests &mdash; the claim that was found by
             search on NACE, on labels and text that are nobody&rsquo;s work here.
           </p>
           <div class="evidence">
             <div><b>7,470 / 40</b><span>abstracts and categories, author-assigned labels</span></div>
             <div><b>+0.419 &rarr; +23.9 pp</b><span>and +0.0013 &rarr; +0.9 pp</span></div>
             <div><b>&rho; = +0.749</b><span>p = 6&times;10<sup>&minus;8</sup>, survives Holm</span></div>
+          </div>
+        </div>
+      </div>
+    </article>
+    <article class="entry" style="--status: var(--predicted); --status-bg: var(--predicted-bg);">
+      <div class="entry-head">
+        <div class="entry-no">15</div>
+        <div>
+          <span class="chip">Preregistered</span>
+          <p class="claim">&ldquo;The quantity needs labels, so the finding cannot be acted on.&rdquo;</p>
+        </div>
+      </div>
+      <div class="entry-body">
+        <div class="spacer"></div>
+        <div class="entry-text">
+          <p>
+            Measuring the alignment change needs the documents&rsquo; labels &mdash; exactly what
+            somebody deciding whether to rewrite a taxonomy does not have. So the account explained
+            without advising. The estimate that removes the labels is the one the classifier already
+            computes: pseudo-assign every document to its argmax class under the terse vectors, then
+            take the centroid of that pseudo-class. No label appears anywhere in it.
+          </p>
+          <p>
+            Over all five corpora, 11,141 documents and 102 classes, the estimate tracks the
+            labelled quantity at <strong>&rho; = +0.818</strong>. All four registered predictions
+            held: it predicts the share of headroom captured at <strong>&rho; = +0.564</strong>
+            (p = 6&times;10<sup>&minus;10</sup>, surviving correction), its sign alone calls the
+            direction for 58% of classes, and it is <em>weaker</em> than the labelled quantity
+            (&rho; = +0.670) &mdash; a prediction registered because leaving it out would have
+            flattered the result. It is weakest where the pseudo-assignment is least accurate: on
+            NACE, +0.201 against +0.759. The advice it supports is correspondingly modest, and that
+            is the point.
+          </p>
+          <div class="evidence">
+            <div><b>4 of 4</b><span>predictions held</span></div>
+            <div><b>&rho; = +0.564</b><span>no labels, 102 classes, five corpora</span></div>
+            <div><b>vs +0.670</b><span>the labelled quantity, same classes</span></div>
           </div>
         </div>
       </div>

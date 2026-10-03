@@ -945,6 +945,30 @@ def benchmark_macros(bench: Dict) -> List[str]:
     return lines
 
 
+def labelfree_macros(study: Dict) -> List[str]:
+    """The quantity estimated without labels, over every corpus at once."""
+    pooled = study["pooled"]
+    weakest = min(study["corpora"].items(), key=lambda kv: kv[1]["estimate_vs_headroom"]["rho"])
+    return [
+        r"\newcommand{\EstimateCorpora}{%d}" % len(study["corpora"]),
+        r"\newcommand{\EstimateClasses}{%d}" % study["classes_pooled"],
+        r"\newcommand{\EstimateDocuments}{%s}"
+        % f"{study['documents_pooled']:,}".replace(",", r"{,}"),
+        r"\newcommand{\EstimateVsTruthRho}{%+.3f}" % study["estimate_vs_truth"]["rho"],
+        r"\newcommand{\EstimateVsTruthPStat}{%s}" % p_stat(study["estimate_vs_truth"]["p"]),
+        r"\newcommand{\EstimateSignAgreement}{%s}" % share(study["estimate_vs_truth"]["sign_agreement"]),
+        r"\newcommand{\EstimateRho}{%+.3f}" % pooled["estimate_vs_headroom"]["rho"],
+        r"\newcommand{\EstimateRhoPStat}{%s}" % p_stat(pooled["estimate_vs_headroom"]["p"]),
+        r"\newcommand{\LabelledRho}{%+.3f}" % pooled["labelled_vs_headroom"]["rho"],
+        r"\newcommand{\EstimateSignRule}{%s}" % share(pooled["sign_rule_accuracy"]),
+        r"\newcommand{\EstimateHeld}{%d}" % sum(1 for o in study["outcomes"] if o["held"]),
+        r"\newcommand{\EstimatePredictions}{%d}" % len(study["outcomes"]),
+        r"\newcommand{\EstimateWeakest}{%s}" % escape(weakest[0]),
+        r"\newcommand{\EstimateWeakestRho}{%+.3f}" % weakest[1]["estimate_vs_headroom"]["rho"],
+        r"\newcommand{\EstimateWeakestLabelled}{%+.3f}" % weakest[1]["labelled_vs_headroom"]["rho"],
+    ]
+
+
 def second_device_macros(cpu: Dict, other: Dict) -> List[str]:
     """The same protocol on the machine's other device, to test the ordering."""
     first = {m["key"]: m for m in cpu["systems"]}
@@ -979,6 +1003,7 @@ HOLM_CLAIMS = {
     "HolmBrownRhoStat": ("Correlation", "Brown, alignment"),
     "HolmArxivRhoStat": ("Correlation", "arXiv, alignment"),
     "HolmArxivDescStat": ("Descriptions", "arXiv: official descriptions"),
+    "HolmEstimateRhoStat": ("Correlation", "label-free estimate vs. headroom"),
     "HolmLabseReutersStat": ("Label-free update", "Reuters: terse, LaBSE"),
     "HolmLabseRhoStat": ("Correlation", "label-free update (terse, LaBSE)"),
 }
@@ -1115,6 +1140,9 @@ def main() -> int:
     arxiv = load_optional("arxiv")
     if arxiv:
         derived += arxiv_macros(arxiv)
+    labelfree = load_optional("labelfree_predictor")
+    if labelfree:
+        derived += labelfree_macros(labelfree)
     sweep = load_optional("rocchio_sensitivity")
     if sweep:
         derived += sensitivity_macros(sweep)

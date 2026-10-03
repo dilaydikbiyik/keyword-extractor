@@ -177,6 +177,11 @@ def correlations() -> List[Dict]:
     if arxiv:
         out.append({"group": "Correlation", "label": "arXiv, alignment vs. headroom, per class",
                     "p": arxiv["per_class"]["p"]})
+    labelfree = load("labelfree_predictor")
+    if labelfree:
+        out.append({"group": "Correlation",
+                    "label": "label-free estimate vs. headroom, per class, five corpora",
+                    "p": labelfree["pooled"]["estimate_vs_headroom"]["p"]})
     return out
 
 

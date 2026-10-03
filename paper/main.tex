@@ -56,7 +56,10 @@ author-assigned labels and arXiv's own category descriptions, both registered
 predictions hold: a class text that moves the vectors \ArxivSpellAlign\ is
 worth \ArxivSpellGain~points and one that moves them \ArxivDescAlign\ is worth
 \ArxivDescGain, and the class-level relation replicates at $\rho = \ArxivRho$
-over \ArxivRhoN\ categories. It cannot be optimised per class: three selection
+over \ArxivRhoN\ categories. Estimated with no labels at all, from the
+classifier's own argmax, the quantity still predicts which classes gain
+($\rho = \EstimateRho$ over \EstimateClasses\ classes), so the account can be
+applied before any annotation is paid for. It cannot be optimised per class: three selection
 criteria, including direct optimisation of development accuracy, fail to
 generalise. Moving class vectors toward unlabelled documents confirms the
 class-level relation in four preregistered studies on three encoders, while the
@@ -292,10 +295,9 @@ renders the original labels literally in German---same wording, same terseness, 
 machine-translation noise, and the five sections already in German carried over
 untouched.
 
-\input{tables/descriptions}
-
 Language alone is worth \LanguageEffect~points ($p = \LanguageP$). Content is
-worth \ContentEffect. A crossed design varying document language and description
+worth \ContentEffect\ (Table~\ref{tab:descriptions},
+Appendix~\ref{app:supporting}). A crossed design varying document language and description
 language independently agrees: the richer descriptions win in both document
 languages, so the diagonal a matching effect would produce does not appear. The
 effect also survives a change of encoder, and of encoder family: content is
@@ -379,6 +381,31 @@ headroom captured correlate at $\rho = \ArxivRho$ (\ArxivRhoPStat,
 \HolmArxivRhoStat)---the class-level relation, found by search on NACE and not
 significant there once corrected, replicated prospectively on labels we did not
 make and text we did not write.
+
+\subsection{The quantity, without labels}
+\label{sec:estimate}
+
+Measuring $\Delta a$ needs the documents' labels, which is what somebody
+deciding whether to rewrite a taxonomy does not have: the account explains
+without advising. The estimate that removes the labels is what the classifier
+already computes---pseudo-assign each document to its argmax class under the
+terse vectors and take the centroid of that pseudo-class,
+$\hat{a}(c) = \cos(v_c, \overline{\{f(d) : \arg\max_{c'} \cos(f(d), v_{c'}) = c\}})$,
+in which no label appears.
+
+Over \EstimateCorpora\ corpora, \EstimateDocuments\ documents and
+\EstimateClasses\ classes, $\Delta\hat{a}$ tracks $\Delta a$ at $\rho =
+\EstimateVsTruthRho$ (\EstimateVsTruthPStat), agreeing in sign for
+\EstimateSignAgreement\ of classes. Four predictions were registered before
+the test and \EstimateHeld\ held: it predicts the share of headroom captured
+at $\rho = \EstimateRho$ (\EstimateRhoPStat, \HolmEstimateRhoStat), its sign
+alone calls the direction for \EstimateSignRule\ of classes, and it is weaker
+than the labelled quantity, which reaches $\rho = \LabelledRho$ on the same
+classes. It is weakest where pseudo-assignment is least accurate: on
+\EstimateWeakest\ it manages $\EstimateWeakestRho$ against
+$\EstimateWeakestLabelled$. The advice is correspondingly modest---where the
+terse classifier is already somewhat right, an unlabelled sample says whether
+rewriting will pay.
 
 \subsection{Moving the vector without words}
 \label{sec:rocchio}
@@ -496,7 +523,7 @@ matches whole words; Section~\ref{sec:references} gives it a fairer form.
 \subsection{Stronger references}
 \label{sec:references}
 
-\input{tables/references}
+
 
 Two questions are asked of any zero-shot result: was the lexical baseline given
 a fair chance, and what would labels buy? Neither analysis was preregistered,
@@ -504,7 +531,8 @@ and both enter the corrected family. German builds words by compounding, so a
 TF-IDF ranker that matches whole words never finds \emph{Boden} inside
 \emph{Bodenbelagsarbeiten}. Over the same sector texts, German Snowball stems help
 less than character 3--5-grams within word boundaries, which reach
-\RefCharTopOne\ (\RefCharPStat\ against the system; Table~\ref{tab:references}):
+\RefCharTopOne\ (\RefCharPStat\ against the system; Table~\ref{tab:references},
+Appendix~\ref{app:supporting}):
 a lexical ranker that sees inside compounds matches the embedding system. It
 still needs the descriptions. The rewrite is worth \RefCharDescGain~points to it
 (\RefCharDescPStat), against \RefEmbedDescGain\ to the embeddings. The lever is
@@ -686,6 +714,10 @@ negative alignment change with a positive gain (\BrownDefGain~points,
 \BrownDefPStat), which does not survive correction (\HolmBrownDefStat) and so
 is a nominal failure of a registered prediction rather than a strong refutation.
 Either way we do not claim the corpus mean predicts a corpus's gain. The
+label-free estimate of Section~\ref{sec:estimate} inherits that limit and adds
+one: it is a function of the terse classifier's own mistakes, so it degrades
+exactly where that classifier is weakest, and on NACE it retains barely a
+quarter of the labelled quantity's correlation. The
 near-zero case is no longer untested: on arXiv a change of \ArxivDescAlign\
 came with a gain of \ArxivDescGain\ (Section~\ref{sec:arxiv}), which is the
 account's least obvious prediction and the one corpus where it was checked
@@ -800,6 +832,10 @@ experiment outputs.
 
 \section{Supporting tables and figure}
 \label{app:supporting}
+
+\input{tables/descriptions}
+
+\input{tables/references}
 
 \input{tables/predictors}
 
