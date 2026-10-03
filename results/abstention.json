@@ -1,0 +1,67 @@
+{
+  "system": "full",
+  "n": 299,
+  "rule": "abstain when the margin between the top two sections falls below a threshold; the margin is already computed by the decision, so nothing is trained",
+  "coverage_curve": [
+    {
+      "coverage": 1.0,
+      "n_kept": 299,
+      "margin_threshold": 0.00010301892692810011,
+      "top1_on_kept": 0.5250836120401338,
+      "top3_on_kept": 0.8160535117056856
+    },
+    {
+      "coverage": 0.8996655518394648,
+      "n_kept": 269,
+      "margin_threshold": 0.008079256190468453,
+      "top1_on_kept": 0.5539033457249071,
+      "top3_on_kept": 0.8215613382899628
+    },
+    {
+      "coverage": 0.7491638795986622,
+      "n_kept": 224,
+      "margin_threshold": 0.02027172626593171,
+      "top1_on_kept": 0.5892857142857143,
+      "top3_on_kept": 0.8303571428571429
+    },
+    {
+      "coverage": 0.5016722408026756,
+      "n_kept": 150,
+      "margin_threshold": 0.04040809254908029,
+      "top1_on_kept": 0.6533333333333333,
+      "top3_on_kept": 0.8466666666666667
+    },
+    {
+      "coverage": 0.2508361204013378,
+      "n_kept": 75,
+      "margin_threshold": 0.08196317466175557,
+      "top1_on_kept": 0.76,
+      "top3_on_kept": 0.92
+    }
+  ],
+  "coverage_at_target_accuracy": [
+    {
+      "target": 0.7,
+      "coverage": 0.35785953177257523,
+      "n_kept": 107,
+      "margin_threshold": 0.06320983404160813,
+      "top1_on_kept": 0.7009345794392523
+    },
+    {
+      "target": 0.8,
+      "coverage": 0.22742474916387959,
+      "n_kept": 68,
+      "margin_threshold": 0.08910446436446118,
+      "top1_on_kept": 0.8088235294117647
+    },
+    {
+      "target": 0.9,
+      "coverage": 0.07357859531772576,
+      "n_kept": 22,
+      "margin_threshold": 0.13734140375395698,
+      "top1_on_kept": 0.9090909090909091
+    }
+  ],
+  "baseline_top1": 0.5250836120401338,
+  "baseline_top3": 0.8160535117056856
+}

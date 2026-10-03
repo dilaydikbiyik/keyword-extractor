@@ -750,6 +750,73 @@ class TestIndependentDescriptions:
         assert study.method_fingerprint() != before
 
 
+class TestPracticalStudies:
+    """The four studies behind the advice, and the simulation behind the mechanism."""
+
+    def test_the_budget_curve_contains_the_name_only_floor_and_the_full_text(self):
+        from experiments.run_dose_response import BUDGETS
+
+        assert BUDGETS[0] == 0 and BUDGETS[-1] is None, BUDGETS
+
+    def test_truncating_keeps_the_class_name(self):
+        """The name is the floor every budget is measured against, so it always stays."""
+        from experiments.run_dose_response import class_text
+
+        assert class_text("Education", "Schools and training.", 0) == "Education"
+        assert class_text("Education", "Schools and training.", 1) == "Education. Schools"
+        assert class_text("Education", "Schools and training.", None) == \
+            "Education. Schools and training."
+
+    def test_permuting_descriptions_moves_every_affected_class(self):
+        import numpy as np
+
+        from experiments.run_description_noise import permute
+
+        codes = list("ABCDEFGH")
+        texts = {c: f"text {c}" for c in codes}
+        out = permute(codes, texts, 0.5, np.random.default_rng(0))
+        moved = [c for c in codes if out[c] != texts[c]]
+        assert len(moved) == 4, moved
+        assert all(out[c] in texts.values() for c in codes), "a description was invented"
+
+    def test_abstention_trades_coverage_for_accuracy(self):
+        import json
+
+        import pytest
+
+        from experiments.run_abstention import RESULT
+
+        if not RESULT.exists():
+            pytest.skip("run `make abstention` first")
+        curve = json.loads(RESULT.read_text(encoding="utf-8"))["coverage_curve"]
+        assert curve[0]["coverage"] == 1.0
+        accuracies = [p["top1_on_kept"] for p in curve]
+        assert accuracies == sorted(accuracies), "accuracy should rise as coverage falls"
+
+    def test_the_hierarchy_grouping_covers_every_class_once(self):
+        from experiments.run_hierarchy import GROUP_DEFINITION, GROUP_OF, GROUP_READABLE
+        from experiments.run_replication import READABLE
+
+        assert set(GROUP_OF) == set(READABLE), "every fine class needs a group"
+        assert set(GROUP_OF.values()) == set(GROUP_READABLE) == set(GROUP_DEFINITION)
+
+    def test_the_simulation_moves_one_prototype_at_its_own_cost(self):
+        """The margin argument says the loss lands on the nearest neighbour."""
+        import json
+
+        import pytest
+
+        from experiments.run_synthetic import RESULT
+
+        if not RESULT.exists():
+            pytest.skip("run `make synthetic` first")
+        payload = json.loads(RESULT.read_text(encoding="utf-8"))
+        for level in payload["separations"]:
+            single = level["one_prototype_at_a_time"]
+            assert single["own_recall_change"] > 0, level["separation"]
+            assert single["loss_concentrated_on_neighbour"], level["separation"]
+
+
 class TestCostOnASecondDevice:
     """The cost claim is about the ordering, so the ordering is what is tested."""
 

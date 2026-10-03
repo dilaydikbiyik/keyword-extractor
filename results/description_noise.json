@@ -1,0 +1,65 @@
+{
+  "seed": 42,
+  "swapped_pairs": [
+    [
+      "S",
+      "N"
+    ],
+    [
+      "Q",
+      "T"
+    ],
+    [
+      "C",
+      "F"
+    ]
+  ],
+  "generic_text": "Unternehmen dieses Abschnitts erbringen Leistungen im Rahmen ihres Gesellschaftszwecks und betreiben alle damit zusammenhängenden Geschäfte, soweit dafür keine besondere Genehmigung erforderlich ist.",
+  "note": "A sensitivity analysis of the paper's advice. Not registered; no part of the corrected family.",
+  "sets": {
+    "first set (hand-checked)": {
+      "n": 299,
+      "top1_accuracy": {
+        "as written": 0.5284280936454849,
+        "permuted, 10% of classes": 0.5016722408026756,
+        "permuted, 25% of classes": 0.4816053511705686,
+        "permuted, 50% of classes": 0.32441471571906355,
+        "permuted, 100% of classes": 0.04013377926421405,
+        "nearest-neighbour swapped, 25%": 0.4013377926421405,
+        "generic, every class the same": 0.3210702341137124,
+        "name only": 0.29431438127090304
+      },
+      "cost_pp": {
+        "permuted, 10% of classes": -2.6755852842809347,
+        "permuted, 25% of classes": -4.682274247491636,
+        "permuted, 50% of classes": -20.40133779264214,
+        "permuted, 100% of classes": -48.82943143812709,
+        "nearest-neighbour swapped, 25%": -12.709030100334445,
+        "generic, every class the same": -20.735785953177256,
+        "name only": -23.41137123745819
+      }
+    },
+    "second set (silver)": {
+      "n": 1200,
+      "top1_accuracy": {
+        "as written": 0.6033333333333334,
+        "permuted, 10% of classes": 0.5933333333333334,
+        "permuted, 25% of classes": 0.5683333333333334,
+        "permuted, 50% of classes": 0.3416666666666667,
+        "permuted, 100% of classes": 0.02666666666666667,
+        "nearest-neighbour swapped, 25%": 0.4525,
+        "generic, every class the same": 0.425,
+        "name only": 0.41
+      },
+      "cost_pp": {
+        "permuted, 10% of classes": -1.0000000000000009,
+        "permuted, 25% of classes": -3.500000000000003,
+        "permuted, 50% of classes": -26.16666666666667,
+        "permuted, 100% of classes": -57.66666666666668,
+        "nearest-neighbour swapped, 25%": -15.083333333333337,
+        "generic, every class the same": -17.83333333333334,
+        "name only": -19.333333333333343
+      }
+    }
+  }
+}

@@ -967,6 +967,75 @@ def extended_macros(study: Dict) -> List[str]:
     ]
 
 
+def practice_macros(dose: Dict, noise: Dict, abstain: Dict, hierarchy: Dict,
+                    synthetic: Dict) -> List[str]:
+    """The four practical studies and the simulation behind the mechanism."""
+    lines: List[str] = []
+    if dose:
+        curve = dose["sets"]["first set (hand-checked)"]["curve"]
+        best = max(curve, key=lambda r: r["top1_accuracy"])
+        by_budget = {r["budget_words"]: r for r in curve}
+        lines += [
+            r"\newcommand{\DoseNameOnly}{%s\%%}" % pct(by_budget[0]["top1_accuracy"]),
+            r"\newcommand{\DoseBestWords}{%d}" % best["budget_words"],
+            r"\newcommand{\DoseBestTopOne}{%s\%%}" % pct(best["top1_accuracy"]),
+            r"\newcommand{\DoseFullTopOne}{%s\%%}" % pct(by_budget[None]["top1_accuracy"])
+            if None in by_budget else
+            r"\newcommand{\DoseFullTopOne}{%s\%%}" % pct(curve[-1]["top1_accuracy"]),
+            r"\newcommand{\DoseNinetyWords}{%d}"
+            % dose["sets"]["first set (hand-checked)"]["words_for_90pc_of_gain"],
+            r"\newcommand{\DoseMedianWords}{%.0f}" % dose["definition_length_words"]["median"],
+        ]
+    if noise:
+        cost = noise["sets"]["first set (hand-checked)"]["cost_pp"]
+        lines += [
+            r"\newcommand{\NoiseRandomQuarter}{%+.1f}" % cost["permuted, 25% of classes"],
+            r"\newcommand{\NoiseNeighbourQuarter}{%+.1f}"
+            % cost["nearest-neighbour swapped, 25%"],
+            r"\newcommand{\NoiseGeneric}{%+.1f}" % cost["generic, every class the same"],
+            r"\newcommand{\NoiseFloor}{%+.1f}" % cost["name only"],
+        ]
+    if abstain:
+        points = {round(p["coverage"], 2): p for p in abstain["coverage_curve"]}
+        target = next((t for t in abstain["coverage_at_target_accuracy"]
+                       if abs(t["target"] - 0.8) < 1e-9), None)
+        lines += [
+            r"\newcommand{\AbstainHalfTopOne}{%s\%%}" % pct(points[0.5]["top1_on_kept"]),
+            r"\newcommand{\AbstainThreeQuarterTopOne}{%s\%%}" % pct(points[0.75]["top1_on_kept"]),
+        ]
+        if target:
+            lines += [
+                r"\newcommand{\AbstainEightyCoverage}{%s}" % share(target["coverage"]),
+                r"\newcommand{\AbstainEightyTopOne}{%s\%%}" % pct(target["top1_on_kept"]),
+            ]
+    if hierarchy:
+        levels = hierarchy["levels"]
+        fine = next(v for k, v in levels.items() if k.startswith("fine"))
+        coarse = next(v for k, v in levels.items() if k.startswith("coarse"))
+        lines += [
+            r"\newcommand{\HierFineClasses}{%d}" % fine["classes"],
+            r"\newcommand{\HierCoarseClasses}{%d}" % coarse["classes"],
+            r"\newcommand{\HierFineSpell}{%+.1f}" % fine["spelling_the_label_out"]["gain_pp"],
+            r"\newcommand{\HierFineDefine}{%+.1f}" % fine["defining_the_class"]["gain_pp"],
+            r"\newcommand{\HierCoarseSpell}{%+.1f}" % coarse["spelling_the_label_out"]["gain_pp"],
+            r"\newcommand{\HierCoarseDefine}{%+.1f}" % coarse["defining_the_class"]["gain_pp"],
+        ]
+    if synthetic:
+        widest = synthetic["separations"][0]["one_prototype_at_a_time"]
+        lines += [
+            r"\newcommand{\SynthClasses}{%d}" % synthetic["classes"],
+            r"\newcommand{\SynthSeparations}{%d}" % len(synthetic["separations"]),
+            r"\newcommand{\SynthMonotone}{%d}"
+            % sum(1 for r in synthetic["separations"] if r["monotone_in_step"]),
+            r"\newcommand{\SynthOwnGain}{%+.3f}" % widest["own_recall_change"],
+            r"\newcommand{\SynthNeighbourLoss}{%+.3f}" % widest["nearest_neighbour_change"],
+            r"\newcommand{\SynthOtherChange}{%+.3f}" % widest["other_classes_change"],
+            r"\newcommand{\SynthNarrowOwnGain}{%+.3f}"
+            % synthetic["separations"][-1]["one_prototype_at_a_time"]["own_recall_change"],
+        ]
+    return lines
+
+
 def labelfree_macros(study: Dict) -> List[str]:
     """The quantity estimated without labels, over every corpus at once."""
     pooled = study["pooled"]
@@ -1170,6 +1239,9 @@ def main() -> int:
     extended = load_optional("extended_eval")
     if extended:
         derived += extended_macros(extended)
+    derived += practice_macros(load_optional("dose_response"), load_optional("description_noise"),
+                               load_optional("abstention"), load_optional("hierarchy"),
+                               load_optional("synthetic"))
     sweep = load_optional("rocchio_sensitivity")
     if sweep:
         derived += sensitivity_macros(sweep)

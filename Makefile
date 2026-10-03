@@ -5,7 +5,7 @@ PYTHON ?= $(shell \
 	elif command -v python3 >/dev/null 2>&1; then command -v python3; \
 	else echo python; fi)
 
-.PHONY: help install reproduce test lint annotate merge verify verify-new verify-apply second-annotator second-annotator-score llm-baseline llm-baseline-local llm-baseline-second llm-baseline-definitions study rocchio-preregister rocchio rocchio-definitions-preregister rocchio-definitions paper-tables paper submission demo clean rocchio-mpnet-preregister rocchio-mpnet rocchio-labse-preregister rocchio-labse references preprint independent-descriptions description-source-preregister description-source rocchio-sensitivity brown-preregister brown arxiv-fetch arxiv-preregister arxiv labelfree-preregister labelfree extended-set extended-model-labels extended-merge extended-preregister extended-eval author-coding author-coding-score model-coding translate-queue benchmark benchmark-second-device
+.PHONY: help install reproduce test lint annotate merge verify verify-new verify-apply second-annotator second-annotator-score llm-baseline llm-baseline-local llm-baseline-second llm-baseline-definitions study rocchio-preregister rocchio rocchio-definitions-preregister rocchio-definitions paper-tables paper submission demo clean rocchio-mpnet-preregister rocchio-mpnet rocchio-labse-preregister rocchio-labse references preprint independent-descriptions description-source-preregister description-source rocchio-sensitivity abstention dose-response description-noise hierarchy synthetic brown-preregister brown arxiv-fetch arxiv-preregister arxiv labelfree-preregister labelfree extended-set extended-model-labels extended-merge extended-preregister extended-eval author-coding author-coding-score model-coding translate-queue benchmark benchmark-second-device
 
 help:
 	@echo "Using PYTHON = $(PYTHON)"
@@ -33,6 +33,9 @@ help:
 	@echo "  description-source-preregister / description-source  Definitions written by a model"
 	@echo "                from a different family than the labeller, tested the same way"
 	@echo "  rocchio-sensitivity  The same update over a grid of K and beta, as a check"
+	@echo "  abstention / dose-response / description-noise / hierarchy / synthetic"
+	@echo "                How much writing pays, what a wrong description costs, when to"
+	@echo "                decline, whether depth matters, and why alignment is the quantity"
 	@echo "  brown-preregister / brown  A fourth corpus, predicted before it was tested"
 	@echo "  extended-set / extended-preregister / extended-eval  A second German set, four"
 	@echo "                times the size, with two labellers and its own registered predictions"
@@ -142,6 +145,11 @@ study:
 	$(PYTHON) -m experiments.run_brown
 	$(PYTHON) -m experiments.run_arxiv
 	$(PYTHON) -m experiments.rocchio_sensitivity
+	$(PYTHON) -m experiments.run_dose_response
+	$(PYTHON) -m experiments.run_description_noise
+	$(PYTHON) -m experiments.run_hierarchy
+	$(PYTHON) -m experiments.run_synthetic
+	$(PYTHON) -m experiments.run_abstention
 	$(PYTHON) -m experiments.effect_sizes
 
 rocchio-preregister:
@@ -242,6 +250,21 @@ brown-preregister:
 
 brown:
 	$(PYTHON) -m experiments.run_brown
+
+abstention:
+	$(PYTHON) -m experiments.run_abstention
+
+dose-response:
+	$(PYTHON) -m experiments.run_dose_response
+
+description-noise:
+	$(PYTHON) -m experiments.run_description_noise
+
+hierarchy:
+	$(PYTHON) -m experiments.run_hierarchy
+
+synthetic:
+	$(PYTHON) -m experiments.run_synthetic
 
 rocchio-sensitivity:
 	$(PYTHON) -m experiments.rocchio_sensitivity

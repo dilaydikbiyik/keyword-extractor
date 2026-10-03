@@ -61,8 +61,8 @@ produced by `make reproduce` and written to
 | **Ours: taxonomy-guided** | **52.5%** | [46.8, 58.2] | **81.6%** | 0.356 | 0.474 | — |
 | Qwen2.5-7B-Instruct, asked directly | 48.8% | [43.1, 54.5] | 71.9% | 0.359 | 0.430 | 0.416 |
 
-*p* is uncorrected. Corrected with Holm over all 66 comparisons the paper reports
-([`results/effect_sizes.json`](results/effect_sizes.json)), 29 of the 41 nominally
+*p* is uncorrected. Corrected with Holm over all 70 comparisons the paper reports
+([`results/effect_sizes.json`](results/effect_sizes.json)), 31 of the 43 nominally
 significant ones survive; the TF-IDF difference is not among them, nor is the
 language model's Top-3 gap.
 
@@ -217,6 +217,46 @@ toward their own documents made the classifier worse. Across the four studies,
 15 of 20 predictions held: the per-class one every time, on three encoders,
 the corpus ordering once.
 
+**The advice, with a budget and a price.** Four questions a practitioner asks,
+each answered by a measurement rather than by exhortation — and collected, with
+every line pointing at the result behind it, in
+[`docs/recipe.md`](docs/recipe.md).
+
+*How much writing?* Truncating every definition to its first *k* words gives the
+same curve on both German sets: name only 29.4%, +5 words 34.8%, +10 47.5%,
+**+20 55.5%**, +40 52.8%, full 52.8%. Ninety per cent of the gain arrives by
+twenty words and past that the curve turns slightly down
+([`results/dose_response.json`](results/dose_response.json)).
+
+*What does a wrong description cost?* Giving a quarter of the classes another
+class's definition costs 4.7 points at random but **12.7 between the classes
+already most similar**; a generic text of the same length lands within three
+points of the name-only floor (−20.7 against −23.4), so length is not the active
+ingredient ([`results/description_noise.json`](results/description_noise.json)).
+
+*Does depth matter?* At two levels of one taxonomy — 20 classes and the 6 groups
+they form — the identifier→name step pays at both (+10.0, +13.4) and the
+name→definition step at neither (+0.4, +1.3). The quantity is the distance
+between class text and document vocabulary, not the number of classes
+([`results/hierarchy.json`](results/hierarchy.json)).
+
+*When should it decline?* Abstaining below a margin raises Top-1 to 58.9% at 75%
+coverage and 65.3% at 50%; reaching 80% means handing back all but 23% of the
+documents ([`results/abstention.json`](results/abstention.json)).
+
+**Why alignment, derived rather than observed.** The decision is an argmax over
+cosines, so what moves a document is the margin between its own class and the
+nearest competitor. Moving a class vector toward its own centroid raises the
+first term for all of that class's documents and lowers the second for its
+neighbours' — so the account must hold per class and must weaken as classes
+crowd together. A simulation of 21 Gaussian classes confirms both halves:
+accuracy is monotone in the distance moved at every separation tested, and
+moving one vector onto its own centroid gains that class **+0.550** of recall
+while costing its nearest neighbour **−0.012** and everyone else **+0.001**. As
+the classes crowd together the same move gains only +0.025 — the predicted
+failure, and the reason corpus means do not aggregate
+([`results/synthetic.json`](results/synthetic.json)).
+
 **A second German set, four times the size, predicted before it was tested.**
 The 299-document set cannot be *changed* — every registered prediction was
 committed against exactly those documents — but it can be joined by another one,
@@ -354,7 +394,7 @@ system in its own process.
 ### Ablation
 
 *p* is uncorrected; removing the description (−8.4 points, p = 0.002) does not
-survive correction over the paper's 66 tests.
+survive correction over the paper's 70 tests.
 
 | Variant | Top-1 | Δ Top-1 | F1-macro | p vs. full |
 | --- | --- | --- | --- | --- |

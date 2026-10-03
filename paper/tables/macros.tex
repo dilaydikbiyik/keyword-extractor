@@ -72,13 +72,13 @@
 \newcommand{\ReproduceMinutes}{6}
 \newcommand{\ReproduceCPU}{Apple M5 Pro}
 \newcommand{\ReproduceCores}{18}
-\newcommand{\HolmAlignStat}{$p_{\mathrm{Holm}} = 0.094$}
+\newcommand{\HolmAlignStat}{$p_{\mathrm{Holm}} = 0.100$}
 \newcommand{\HolmRocchioRhoStat}{$p_{\mathrm{Holm}} = 0.007$}
-\newcommand{\HolmLLMTopThreeStat}{$p_{\mathrm{Holm}} = 0.126$}
+\newcommand{\HolmLLMTopThreeStat}{$p_{\mathrm{Holm}} = 0.134$}
 \newcommand{\HolmTfidfStat}{$p_{\mathrm{Holm}} = 1.000$}
-\newcommand{\HolmVerifiedStat}{$p_{\mathrm{Holm}} = 0.093$}
-\newcommand{\HolmContrastiveStat}{$p_{\mathrm{Holm}} = 0.162$}
-\newcommand{\HolmMpnetNewsStat}{$p_{\mathrm{Holm}} = 0.104$}
+\newcommand{\HolmVerifiedStat}{$p_{\mathrm{Holm}} = 0.098$}
+\newcommand{\HolmContrastiveStat}{$p_{\mathrm{Holm}} = 0.173$}
+\newcommand{\HolmMpnetNewsStat}{$p_{\mathrm{Holm}} = 0.110$}
 \newcommand{\HolmBrownDefStat}{$p_{\mathrm{Holm}} = 1.000$}
 \newcommand{\HolmBrownRhoStat}{$p_{\mathrm{Holm}} = 1.000$}
 \newcommand{\HolmArxivRhoStat}{$p_{\mathrm{Holm}} < 0.001$}
@@ -86,11 +86,11 @@
 \newcommand{\HolmEstimateRhoStat}{$p_{\mathrm{Holm}} < 0.001$}
 \newcommand{\HolmExtendedContentStat}{$p_{\mathrm{Holm}} < 0.001$}
 \newcommand{\HolmExtendedRhoStat}{$p_{\mathrm{Holm}} = 0.011$}
-\newcommand{\HolmLabseReutersStat}{$p_{\mathrm{Holm}} = 0.750$}
-\newcommand{\HolmLabseRhoStat}{$p_{\mathrm{Holm}} = 0.865$}
-\newcommand{\EffectTests}{66}
-\newcommand{\EffectNominal}{41}
-\newcommand{\EffectHolm}{29}
+\newcommand{\HolmLabseReutersStat}{$p_{\mathrm{Holm}} = 0.799$}
+\newcommand{\HolmLabseRhoStat}{$p_{\mathrm{Holm}} = 0.922$}
+\newcommand{\EffectTests}{70}
+\newcommand{\EffectNominal}{43}
+\newcommand{\EffectHolm}{31}
 \newcommand{\EffectLostList}{Brown: definitions vs. readable names; second German set: terse German vs. terse original; full system vs. TF-IDF $\rightarrow$ nearest NACE section; full system vs. $-$ description in sector vector; full system vs. LLM, Top-3; full system vs. previous taxonomy; 20NG: terse, mpnet + update vs. terse, mpnet; Reuters: terse, LaBSE + update vs. terse, LaBSE; 20NG: contrastive margin vs. best fixed policy; alignment change vs. headroom captured; label-free update (terse, LaBSE), per class; Brown, alignment vs. headroom, per class}
 \newcommand{\RocchioK}{25}
 \newcommand{\RocchioHeld}{5}
@@ -255,6 +255,33 @@
 \newcommand{\ExtendedPredictions}{4}
 \newcommand{\ExtendedAgreement}{42\%}
 \newcommand{\ExtendedKappa}{0.364}
+\newcommand{\DoseNameOnly}{29.4\%}
+\newcommand{\DoseBestWords}{20}
+\newcommand{\DoseBestTopOne}{55.5\%}
+\newcommand{\DoseFullTopOne}{52.8\%}
+\newcommand{\DoseNinetyWords}{20}
+\newcommand{\DoseMedianWords}{14}
+\newcommand{\NoiseRandomQuarter}{-4.7}
+\newcommand{\NoiseNeighbourQuarter}{-12.7}
+\newcommand{\NoiseGeneric}{-20.7}
+\newcommand{\NoiseFloor}{-23.4}
+\newcommand{\AbstainHalfTopOne}{65.3\%}
+\newcommand{\AbstainThreeQuarterTopOne}{58.9\%}
+\newcommand{\AbstainEightyCoverage}{23\%}
+\newcommand{\AbstainEightyTopOne}{80.9\%}
+\newcommand{\HierFineClasses}{20}
+\newcommand{\HierCoarseClasses}{6}
+\newcommand{\HierFineSpell}{+10.0}
+\newcommand{\HierFineDefine}{+0.4}
+\newcommand{\HierCoarseSpell}{+13.4}
+\newcommand{\HierCoarseDefine}{+1.3}
+\newcommand{\SynthClasses}{21}
+\newcommand{\SynthSeparations}{4}
+\newcommand{\SynthMonotone}{4}
+\newcommand{\SynthOwnGain}{+0.550}
+\newcommand{\SynthNeighbourLoss}{-0.012}
+\newcommand{\SynthOtherChange}{+0.001}
+\newcommand{\SynthNarrowOwnGain}{+0.025}
 \newcommand{\SweepCells}{60}
 \newcommand{\SweepAgreeing}{59}
 \newcommand{\SweepKList}{5, 10, 25, 50, 100}

@@ -1,0 +1,74 @@
+{
+  "corpus": "20 Newsgroups, test split",
+  "grouping": {
+    "comp.graphics": "comp",
+    "comp.os.ms-windows.misc": "comp",
+    "comp.sys.ibm.pc.hardware": "comp",
+    "comp.sys.mac.hardware": "comp",
+    "comp.windows.x": "comp",
+    "rec.autos": "rec",
+    "rec.motorcycles": "rec",
+    "rec.sport.baseball": "rec",
+    "rec.sport.hockey": "rec",
+    "sci.crypt": "sci",
+    "sci.electronics": "sci",
+    "sci.med": "sci",
+    "sci.space": "sci",
+    "talk.politics.guns": "politics",
+    "talk.politics.mideast": "politics",
+    "talk.politics.misc": "politics",
+    "alt.atheism": "religion",
+    "soc.religion.christian": "religion",
+    "talk.religion.misc": "religion",
+    "misc.forsale": "forsale"
+  },
+  "note": "The same documents at two levels of one taxonomy. Not registered and no part of the corrected family.",
+  "levels": {
+    "fine (20 classes)": {
+      "classes": 20,
+      "n": 2000,
+      "top1_accuracy": {
+        "raw class identifier": 0.418,
+        "readable class name": 0.5185,
+        "definition of what the class covers": 0.522
+      },
+      "spelling_the_label_out": {
+        "a_only_correct": 325,
+        "b_only_correct": 124,
+        "discordant": 449,
+        "p_value": 7.602282046781762e-22,
+        "gain_pp": 10.049999999999997
+      },
+      "defining_the_class": {
+        "a_only_correct": 159,
+        "b_only_correct": 152,
+        "discordant": 311,
+        "p_value": 0.7337452638803144,
+        "gain_pp": 0.35000000000000586
+      }
+    },
+    "coarse (6 groups)": {
+      "classes": 6,
+      "n": 2000,
+      "top1_accuracy": {
+        "raw class identifier": 0.4845,
+        "readable class name": 0.6185,
+        "definition of what the class covers": 0.6315
+      },
+      "spelling_the_label_out": {
+        "a_only_correct": 394,
+        "b_only_correct": 126,
+        "discordant": 520,
+        "p_value": 3.90397312485842e-33,
+        "gain_pp": 13.400000000000006
+      },
+      "defining_the_class": {
+        "a_only_correct": 237,
+        "b_only_correct": 211,
+        "discordant": 448,
+        "p_value": 0.23751324760534132,
+        "gain_pp": 1.29999999999999
+      }
+    }
+  }
+}

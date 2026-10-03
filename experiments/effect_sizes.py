@@ -86,6 +86,14 @@ def family() -> List[Dict]:
     if brown:
         add("Descriptions", "Brown: definitions vs. readable names", brown["defining_the_class"], brown["n"])
         add("Descriptions", "Brown: readable names vs. identifiers", brown["spelling_the_label_out"], brown["n"])
+    hierarchy = load("hierarchy")
+    if hierarchy:
+        for level, report in hierarchy["levels"].items():
+            short = "20NG fine" if level.startswith("fine") else "20NG coarse"
+            add("Descriptions", f"{short}: definitions vs. readable names",
+                report["defining_the_class"], report["n"])
+            add("Descriptions", f"{short}: readable names vs. identifiers",
+                report["spelling_the_label_out"], report["n"])
     extended = load("extended_eval")
     if extended:
         add("Descriptions", "second German set: definitions vs. terse German",

@@ -175,15 +175,13 @@ candidate out of the document. Purely statistical methods such as YAKE
 \citep{campos-etal-2020-yake} remain competitive on short documents.
 Closest to our setting, \citet{meisenbacher-etal-2024-improved} extract
 class-specific keywords from the same register under the same 21-section scheme
-(WZ~2008, the German edition of NACE Rev.~2), guiding KeyBERT with seed keywords
-that are expanded iteratively, and evaluate the keywords against gold lists. The
-pipeline studied here follows that design, but uses it to assign the section
-rather than to extract its vocabulary. The seed
-mechanism is the closest analogue to what we study---a hand-written vocabulary
-supplied to steer an embedding-based decision---and we find it redundant for
+(WZ~2008, the German edition of NACE Rev.~2), guiding KeyBERT with iteratively
+expanded seed keywords. The pipeline studied here follows that design but
+assigns the section rather than extracting its vocabulary, and its seed
+mechanism---a hand-written vocabulary steering an embedding-based
+decision---is the closest analogue to what we study. We find it redundant for
 classification once the descriptions carry the same information, which says
-nothing about the keyword quality \citet{meisenbacher-etal-2024-improved}
-measure.
+nothing about the keyword quality they measure.
 
 \paragraph{Method of reporting.}
 The prospective tests in Sections~\ref{sec:corpora} and~\ref{sec:rocchio} follow
@@ -317,6 +315,7 @@ distillation from the same teacher. Neither encoder shows the language effect
 either.
 
 \subsection{What predicts which classes gain}
+\label{sec:predictors}
 
 Table~\ref{tab:predictors}, in Appendix~\ref{app:supporting}, relates the per-class gain to five candidate
 predictors over \NCLASSES\ classes. The target is the share of \emph{available}
@@ -334,6 +333,23 @@ on its own (\HolmAlignStat); Section~\ref{sec:rocchio} therefore tests it
 prospectively. Neither the lexical overlap between a class name and its
 documents nor the confusability of the class vector predicts anything. Words
 added correlates \emph{negatively}: the recipe is not to write more.
+
+\paragraph{Why this quantity.} The classifier takes
+$\arg\max_c \cos(f(d), v_c)$, so what decides a document is the margin between
+its own class and the best competitor,
+$m(d) = \cos(f(d), v_{c(d)}) - \max_{c' \neq c(d)} \cos(f(d), v_{c'})$. Writing
+$f(d) = \mu_{c(d)} + \varepsilon_d$ for the centroid of the document's class and
+a residual, moving $v_c$ toward $\mu_c$ raises the first term for every document
+of $c$ at once---which is what $a(c)$ measures---and lowers the second for the
+documents of whichever classes lie nearest to $c$. The account therefore has to
+hold per class, and to weaken as classes crowd together. A simulation of
+\SynthClasses\ Gaussian classes confirms both halves (Appendix~\ref{app:practice}):
+accuracy is monotone in how far the vectors are moved at all
+\SynthSeparations\ separations tested, and moving one vector onto its own
+centroid gains that class \SynthOwnGain\ of recall while costing its nearest
+neighbour \SynthNeighbourLoss\ and everyone else \SynthOtherChange. As the
+classes crowd together the same move gains only \SynthNarrowOwnGain, which is
+the predicted failure and the reason corpus means do not aggregate.
 
 \subsection{Three corpora, one predicted in advance}
 \label{sec:corpora}
@@ -441,40 +457,23 @@ On NACE the gain is small and not significant; a few nearest neighbours do not
 recover the vocabulary its sections lack, and written definitions remain far
 better there.
 
-\paragraph{From the written definitions.} A second study applied the same
-update, unchanged, to the written definitions, with its own predictions
-committed (\RocchioDefRegistered) before its accuracy was computed.
-\RocchioDefHeld\ of its \RocchioDefPredictions\ predictions held. The update
-again raised accuracy on Reuters and on 20 Newsgroups, and across classes the alignment change again predicts
-the share of headroom captured ($\rho = \RocchioDefRho$, \RocchioDefRhoPStat).
-On NACE, however, accuracy changed by \RocchioDefNaceGain~points
-(\RocchioDefNacePStat) although alignment rose, so the direction predicted
-for NACE failed, and with it the predicted ordering. We did not anticipate
-this. The class-level relation held in both studies; the corpus mean of the
-alignment change, in the second, did not predict the corpus's gain. The account
-orders classes within a corpus more reliably than it compares corpora.
-
-\paragraph{On the larger encoder.} A third study repeated the first, unchanged,
-on paraphrase-\allowbreak multilingual-\allowbreak mpnet-\allowbreak base-\allowbreak v2,
-with its own predictions committed (\RocchioMpnetRegistered) before its accuracy
-was computed. \RocchioMpnetHeld\ of its \RocchioMpnetPredictions\ predictions held: accuracy
-rose on all three corpora, though the 20 Newsgroups gain does not survive
-correction (\HolmMpnetNewsStat), and the per-class relation appeared a third
-time ($\rho = \RocchioMpnetRho$, \RocchioMpnetRhoPStat), while the predicted
-ordering failed again.
-
-\paragraph{On another encoder family.} Both encoders above are distilled from
-one teacher. A fourth study repeated the first on LaBSE, trained by translation
-ranking, its predictions committed first (\RocchioLabseRegistered);
-\RocchioLabseHeld\ of \RocchioLabsePredictions\ held. It gained
-\RocchioLabseNewsGain~points on 20 Newsgroups (\RocchioLabseNewsPStat) and
-\RocchioLabseNaceGain\ on NACE, but \emph{cost} \RocchioLabseReutersGain\ on
-Reuters (\RocchioLabseReutersPStat, \HolmLabseReutersStat)---the first corpus
-where moving the vectors toward their documents made the classifier worse---and
-the class-level relation held a fourth time ($\rho = \RocchioLabseRho$,
-\RocchioLabseRhoPStat). Across the four studies, on three encoders from two
-training regimes, the class-level prediction held every time and the
-corpus-level ordering once.
+\paragraph{Three more, and what they cost the account.} The same update,
+unchanged, was applied three more times with its own predictions committed each
+time: from the written definitions (\RocchioDefRegistered), on the larger mpnet
+encoder (\RocchioMpnetRegistered), and on LaBSE
+(\RocchioLabseRegistered), which is trained by translation ranking rather than
+distilled. They held \RocchioDefHeld, \RocchioMpnetHeld\ and
+\RocchioLabseHeld\ of five predictions. The class-level relation appeared every
+time ($\rho = \RocchioDefRho$, \RocchioMpnetRho, \RocchioLabseRho), and the
+corpus-level ordering failed in all three. The individual failures are
+informative: starting from definitions, NACE \emph{lost}
+\RocchioDefNaceGain~points (\RocchioDefNacePStat) although its alignment rose,
+and on LaBSE Reuters lost \RocchioLabseReutersGain\
+(\RocchioLabseReutersPStat, \HolmLabseReutersStat)---the first case where
+moving vectors toward their own documents made a classifier worse. We did not
+predict either. Across the four studies, on three encoders from two training
+regimes, the class-level prediction held every time and the corpus-level
+ordering once.
 The two parameters were never tuned, which leaves open whether the behaviour is
 the method's or that setting's: over a grid of $K \in \{\SweepKList\}$ and
 $\beta \in \{\SweepBetaList\}$, the gain keeps the registered sign in
@@ -551,6 +550,20 @@ embeddings reaches \RefLRTopOne\ (\RefLRPStat), and Naive Bayes on TF-IDF far
 less (Table~\ref{tab:references}). With some sections represented by a handful of documents this is
 a small-data reference, not a ceiling; but a supervised model given most of the
 labels does no better than one written definition per class.
+
+\subsection{What the advice costs}
+\label{sec:practice}
+
+Four questions a practitioner asks are answered in
+Appendix~\ref{app:practice}, and three numbers summarise them. Truncating every
+definition to its first $k$ words peaks at \DoseBestWords\ words
+(\DoseBestTopOne\ against \DoseNameOnly\ for the name alone) and longer texts
+do not help. A generic text of the same length as the definitions lands within
+three points of that floor (\NoiseGeneric\ against \NoiseFloor), so length is
+not the active ingredient; and giving a quarter of the classes another class's
+definition costs \NoiseRandomQuarter~points at random but
+\NoiseNeighbourQuarter\ between the classes already most similar. Abstaining on
+a small margin raises Top-1 to \AbstainHalfTopOne\ at half coverage.
 
 \subsection{Who writes the definitions}
 \label{sec:source}
@@ -873,6 +886,27 @@ they appear: \EffectLostList.
 \label{app:cost}
 
 \input{tables/cost}
+
+\section{The advice, and the mechanism behind it}
+\label{app:practice}
+
+Four practical studies and one simulation, none of them registered and none part
+of the corrected family: each varies a factor the paper has already established.
+\emph{Dose} truncates every definition to its first $k$ words, on both German
+sets, and finds the same curve: the gain is \DoseNinetyWords\ words deep and
+then flat. \emph{Noise} corrupts the definitions mechanically---a share of
+classes given another's text, the same at the most similar pairs, and one generic
+text for all---and finds that a mistake between confusable classes costs about
+three times a random one. \emph{Hierarchy} runs the three conditions at two
+levels of 20 Newsgroups, which needs no new labels, and finds the effect is about
+the distance between class text and document vocabulary rather than the number of
+classes. \emph{Abstention} reads the saved margins of the system the paper
+reports and prices the coverage it would have to hand back. The
+\emph{simulation} states what the margin argument of
+Section~\ref{sec:predictors} predicts on data whose truth is known, including
+where the account should fail. Numbers for all five are in
+\texttt{results/}, and \texttt{docs/recipe.md} collects the advice with each
+line pointing at the result that carries it.
 
 \section{Across corpora}
 \label{app:brown}

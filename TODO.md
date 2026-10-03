@@ -5,9 +5,11 @@ work lands; every claim here points at the file that settles it.
 
 **Where the project stands.** Six evaluation sets, 12,341 documents, 108
 classes. Nine preregistered studies, 40 predictions committed to version control
-before they were measured, 33 held and the seven failures published. 66
-comparisons corrected together with Holm (41 nominal, 29 surviving). 193 tests
-in CI, paper body at the 8-page limit, submission artefacts built and checked
+before they were measured, 33 held and the seven failures published. 70
+comparisons corrected together with Holm (43 nominal, 31 surviving). The advice
+the work supports is collected in `docs/recipe.md`, with a measured budget, a
+measured price for getting it wrong, and an abstention curve. 199 tests in CI,
+paper body at the 8-page limit, submission artefacts built and checked
 anonymous.
 
 ---
@@ -29,57 +31,53 @@ sample tells you whether rewriting will pay. `make labelfree`,
 **Still open from it:** a threshold rule with a measured false-positive rate,
 i.e. "how large must the estimate be before rewriting is worth the effort".
 
-### A2. Why alignment is the right quantity — *not started, no compute needed*
-The account is empirical: a correlation that replicates. It is not derived. Under
-nearest-prototype argmax the decision for a document depends on the margin
-between its similarity to its own class vector and to the nearest competitor, so
-moving a vector toward its class centroid raises that margin for its own
-documents and lowers it for its neighbours' — which is exactly the shape of what
-we observe, including why the per-class version holds while the corpus mean does
-not. A short derivation plus a synthetic check (Gaussian clusters, prototypes
-moved by hand) would show *when the account must fail*: classes that overlap, and
-corpora where moving one prototype steals documents from another.
-**Afterwards:** the paper explains rather than reports, and the failure modes are
-predicted instead of discovered.
+### ~~A2. Why alignment is the right quantity~~ — **done**
+The derivation is in the paper: the decision is an argmax over cosines, so what
+moves a document is the margin between its own class and the nearest competitor;
+moving a class vector toward its centroid raises the first term for all of that
+class's documents and lowers the second for its neighbours'. The simulation
+confirms both halves — accuracy monotone in the distance moved at all four
+separations, and moving one vector onto its own centroid gains that class +0.550
+of recall while costing its nearest neighbour −0.012 and everyone else +0.001,
+falling to +0.025 as the classes crowd together. `make synthetic`,
+`results/synthetic.json`.
+**Still open:** the derivation is informal. A bound rather than an argument —
+expected margin change as a function of Δa and the neighbour distances — would
+be stronger, and is a theory exercise rather than a measurement.
 
-### A3. How much writing is enough — *not started, ~1 hour of compute*
-Class texts here run from 1 word (`cs.CL`) to 50 (the independent model's
-definitions), and the gains do not scale with length. Truncating each definition
-to k words for k = 5, 10, 20, 40 and measuring the curve answers the question
-every practitioner actually asks: how much description writing pays, and where it
-stops paying.
-**Afterwards:** a budget, not an exhortation.
+### ~~A3. How much writing is enough~~ — **done**
+Twenty words, on both German sets: name only 29.4%, +10 words 47.5%, **+20
+55.5%**, +40 52.8%. Ninety per cent of the gain arrives by twenty words and the
+curve then turns slightly down, which matches the negative correlation between
+words added and per-class gain. `make dose-response`.
 
-### A4. What a wrong description costs — *not started, ~1 hour of compute*
-Everything measured so far compares terse against good. Nobody has measured what
-a *bad* description does: activities from a neighbouring class, plausible but
-wrong vocabulary, a definition that describes the class's exclusions. Injecting
-each kind at a known rate and measuring the degradation separates "descriptions
-matter" from "any longer text helps".
-**Afterwards:** a reader knows the risk of the advice, not only its upside.
+### ~~A4. What a wrong description costs~~ — **done**
+A quarter of the classes given another class's definition costs 4.7 points at
+random and 12.7 when the swap happens between the classes already most similar;
+a generic text of the same length as the definitions lands within three points of
+the name-only floor. So length is not the active ingredient, and the pairs worth
+checking are the ones that already look alike. `make description-noise`.
 
-### A5. A written recipe — *not started, no compute*
-The evidence supports a short, concrete guide: enumerate the activities in the
-documents' own vocabulary; do not translate terse labels; do not paste the
-definitions into a prompt (that loses 35 points, `results/llm_baseline_definitions.json`);
-check the estimate from A1 before paying for annotation. `docs/recipe.md`, every
-line pointing at the result that supports it.
-**Afterwards:** the work is usable by someone who will never read the paper.
+### ~~A5. A written recipe~~ — **done**
+`docs/recipe.md`: seven sections, every claim pointing at the result that
+carries it, including the three things it explicitly does not tell you (depth
+beyond one hierarchy level, prompted models, and languages other than German and
+English).
 
-### A6. Hierarchy — *not started, needs label work*
-Every taxonomy tested here is flat, and NACE is not: sections divide into
-divisions, groups and classes. Whether the effect compounds down a hierarchy, or
-whether deeper levels are dominated by lexical overlap, is both open and
-practically important — official coding happens at four digits, not at the
-section.
-**Afterwards:** the result applies to the task statistical offices actually run.
+### A6. Hierarchy — *partly done; the real test still needs labels*
+20 Newsgroups has two levels for free, and they behave the same way: the
+identifier→name step pays at 20 classes (+10.0) and at the 6 groups they form
+(+13.4), and the name→definition step at neither (+0.4, +1.3). So the quantity is
+the distance between class text and document vocabulary rather than the number of
+classes. `make hierarchy`.
+**Still open:** NACE four digits down, which needs labels at that depth — the one
+part of this that no amount of compute substitutes for.
 
-### A7. Abstention — *not started, ~2 hours*
-48% of the coded errors are documents where NACE admits more than one defensible
-answer. A system meant to propose candidates to a human coder should be able to
-say "ask a human", and the precision/coverage trade-off of an abstention rule is
-measurable on the existing predictions without new models.
-**Afterwards:** the deployment story has a number attached.
+### ~~A7. Abstention~~ — **done**
+The margin the decision already computes prices it: Top-1 is 55.4% at 90%
+coverage, 58.9% at 75%, 65.3% at 50% and 76.0% at 25%. Reaching 80% means handing
+back all but 23% of the documents, which is the honest shape of the trade-off on
+a task whose labels agree with a human 80% of the time. `make abstention`.
 
 ### A8. Breadth: another language, another taxonomy — *not started, needs data*
 German and English; NACE, Reuters, 20NG, Brown, arXiv. A second language with

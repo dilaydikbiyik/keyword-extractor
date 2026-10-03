@@ -1,0 +1,214 @@
+{
+  "classes": 21,
+  "dimension": 64,
+  "documents_per_class": 200,
+  "seed": 42,
+  "argument": "the decision is an argmax over cosines, so what moves a document is the margin between its own class vector and the nearest competitor; moving a class vector toward its own centroid raises the first term for all of its documents and lowers the second for its neighbours' -- hence a per-class relation that must weaken as classes overlap",
+  "separations": [
+    {
+      "separation": 3.0,
+      "one_prototype_at_a_time": {
+        "own_recall_change": 0.5497619047619047,
+        "nearest_neighbour_change": -0.011904761904761908,
+        "other_classes_change": 0.0011904761904761893,
+        "overall_accuracy_change": 0.02668934240362814,
+        "loss_concentrated_on_neighbour": true
+      },
+      "monotone_in_step": true,
+      "accuracy_gain_pp": 55.809523809523796,
+      "per_class_rho_at_full_step": 0.3051948051948052,
+      "curve": [
+        {
+          "step": 0.0,
+          "mean_alignment_change": 0.0,
+          "accuracy": 0.2764285714285714,
+          "per_class_rho": NaN
+        },
+        {
+          "step": 0.1,
+          "mean_alignment_change": 0.03928460805080688,
+          "accuracy": 0.3145238095238095,
+          "per_class_rho": -0.0038961038961038965
+        },
+        {
+          "step": 0.2,
+          "mean_alignment_change": 0.08485896238203765,
+          "accuracy": 0.35738095238095247,
+          "per_class_rho": 0.04675324675324675
+        },
+        {
+          "step": 0.4,
+          "mean_alignment_change": 0.1989313262719502,
+          "accuracy": 0.4695238095238094,
+          "per_class_rho": -0.20519480519480518
+        },
+        {
+          "step": 0.7,
+          "mean_alignment_change": 0.4242740058307125,
+          "accuracy": 0.709047619047619,
+          "per_class_rho": 0.25527770102456826
+        },
+        {
+          "step": 1.0,
+          "mean_alignment_change": 0.5660496554375369,
+          "accuracy": 0.8345238095238094,
+          "per_class_rho": 0.3051948051948052
+        }
+      ]
+    },
+    {
+      "separation": 1.5,
+      "one_prototype_at_a_time": {
+        "own_recall_change": 0.2228571428571429,
+        "nearest_neighbour_change": -0.004285714285714286,
+        "other_classes_change": -7.518796992481085e-05,
+        "overall_accuracy_change": 0.010340136054421743,
+        "loss_concentrated_on_neighbour": true
+      },
+      "monotone_in_step": true,
+      "accuracy_gain_pp": 21.976190476190467,
+      "per_class_rho_at_full_step": 0.6506493506493506,
+      "curve": [
+        {
+          "step": 0.0,
+          "mean_alignment_change": 0.0,
+          "accuracy": 0.1466666666666667,
+          "per_class_rho": NaN
+        },
+        {
+          "step": 0.1,
+          "mean_alignment_change": 0.0346440480176902,
+          "accuracy": 0.15904761904761905,
+          "per_class_rho": 0.30984087376264385
+        },
+        {
+          "step": 0.2,
+          "mean_alignment_change": 0.07458653963378778,
+          "accuracy": 0.17142857142857143,
+          "per_class_rho": 0.1539961338734489
+        },
+        {
+          "step": 0.4,
+          "mean_alignment_change": 0.1736098915800937,
+          "accuracy": 0.20904761904761907,
+          "per_class_rho": 0.04155844155844156
+        },
+        {
+          "step": 0.7,
+          "mean_alignment_change": 0.3677664648396465,
+          "accuracy": 0.2919047619047619,
+          "per_class_rho": 0.5597402597402598
+        },
+        {
+          "step": 1.0,
+          "mean_alignment_change": 0.4923032558609399,
+          "accuracy": 0.3664285714285714,
+          "per_class_rho": 0.6506493506493506
+        }
+      ]
+    },
+    {
+      "separation": 0.75,
+      "one_prototype_at_a_time": {
+        "own_recall_change": 0.07476190476190477,
+        "nearest_neighbour_change": -0.00357142857142857,
+        "other_classes_change": -8.771929824561334e-05,
+        "overall_accuracy_change": 0.0033106575963718805,
+        "loss_concentrated_on_neighbour": true
+      },
+      "monotone_in_step": true,
+      "accuracy_gain_pp": 7.19047619047619,
+      "per_class_rho_at_full_step": 0.21168831168831168,
+      "curve": [
+        {
+          "step": 0.0,
+          "mean_alignment_change": 0.0,
+          "accuracy": 0.0880952380952381,
+          "per_class_rho": NaN
+        },
+        {
+          "step": 0.1,
+          "mean_alignment_change": 0.03167408029676078,
+          "accuracy": 0.0919047619047619,
+          "per_class_rho": -0.006514692541617535
+        },
+        {
+          "step": 0.2,
+          "mean_alignment_change": 0.06838029648108297,
+          "accuracy": 0.09714285714285717,
+          "per_class_rho": -0.03120938919661797
+        },
+        {
+          "step": 0.4,
+          "mean_alignment_change": 0.16016435296582335,
+          "accuracy": 0.1092857142857143,
+          "per_class_rho": -0.2768932092773127
+        },
+        {
+          "step": 0.7,
+          "mean_alignment_change": 0.3425099591198461,
+          "accuracy": 0.13238095238095238,
+          "per_class_rho": 0.37532467532467534
+        },
+        {
+          "step": 1.0,
+          "mean_alignment_change": 0.4632464645746861,
+          "accuracy": 0.16,
+          "per_class_rho": 0.21168831168831168
+        }
+      ]
+    },
+    {
+      "separation": 0.4,
+      "one_prototype_at_a_time": {
+        "own_recall_change": 0.02523809523809524,
+        "nearest_neighbour_change": -0.0004761904761904766,
+        "other_classes_change": 0.00020050125313283225,
+        "overall_accuracy_change": 0.0013605442176870739,
+        "loss_concentrated_on_neighbour": true
+      },
+      "monotone_in_step": true,
+      "accuracy_gain_pp": 2.3095238095238098,
+      "per_class_rho_at_full_step": 0.36623376623376624,
+      "curve": [
+        {
+          "step": 0.0,
+          "mean_alignment_change": 0.0,
+          "accuracy": 0.07023809523809524,
+          "per_class_rho": NaN
+        },
+        {
+          "step": 0.1,
+          "mean_alignment_change": 0.0192956553990596,
+          "accuracy": 0.07285714285714286,
+          "per_class_rho": -0.07148121414430059
+        },
+        {
+          "step": 0.2,
+          "mean_alignment_change": 0.04147870457939473,
+          "accuracy": 0.07666666666666667,
+          "per_class_rho": 0.1290330868918777
+        },
+        {
+          "step": 0.4,
+          "mean_alignment_change": 0.0961869845392595,
+          "accuracy": 0.08166666666666667,
+          "per_class_rho": 0.5274440031347314
+        },
+        {
+          "step": 0.7,
+          "mean_alignment_change": 0.20230347516812253,
+          "accuracy": 0.08666666666666667,
+          "per_class_rho": 0.5077922077922078
+        },
+        {
+          "step": 1.0,
+          "mean_alignment_change": 0.2682977873645778,
+          "accuracy": 0.09333333333333334,
+          "per_class_rho": 0.36623376623376624
+        }
+      ]
+    }
+  ],
+  "note": "A simulation, not a measurement of any corpus; it states what the account predicts and where it predicts its own failure."
+}
