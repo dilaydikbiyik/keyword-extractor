@@ -5,7 +5,7 @@ PYTHON ?= $(shell \
 	elif command -v python3 >/dev/null 2>&1; then command -v python3; \
 	else echo python; fi)
 
-.PHONY: help install reproduce test lint annotate merge verify verify-new verify-apply second-annotator second-annotator-score llm-baseline llm-baseline-local llm-baseline-second study rocchio-preregister rocchio rocchio-definitions-preregister rocchio-definitions paper-tables paper submission demo clean rocchio-mpnet-preregister rocchio-mpnet rocchio-labse-preregister rocchio-labse references preprint independent-descriptions description-source-preregister description-source rocchio-sensitivity brown-preregister brown arxiv-fetch arxiv-preregister arxiv author-coding author-coding-score model-coding translate-queue benchmark
+.PHONY: help install reproduce test lint annotate merge verify verify-new verify-apply second-annotator second-annotator-score llm-baseline llm-baseline-local llm-baseline-second study rocchio-preregister rocchio rocchio-definitions-preregister rocchio-definitions paper-tables paper submission demo clean rocchio-mpnet-preregister rocchio-mpnet rocchio-labse-preregister rocchio-labse references preprint independent-descriptions description-source-preregister description-source rocchio-sensitivity brown-preregister brown arxiv-fetch arxiv-preregister arxiv author-coding author-coding-score model-coding translate-queue benchmark benchmark-second-device
 
 help:
 	@echo "Using PYTHON = $(PYTHON)"
@@ -40,6 +40,7 @@ help:
 	@echo "  submission    Anonymous review PDF and code archive in dist/, checked"
 	@echo "                (needs private/identity.txt: the strings to remove, untracked)"
 	@echo "  demo          Re-render the README demo GIF from results/"
+	@echo "  benchmark-second-device  The same cost protocol with the encoders on the GPU"
 	@echo "  clean         Remove generated results and caches"
 
 install:
@@ -232,6 +233,9 @@ author-coding-score:
 model-coding:
 	$(PYTHON) -m experiments.code_errors --model
 	$(PYTHON) -m experiments.export_latex
+
+benchmark-second-device:
+	$(PYTHON) -m experiments.benchmark --device mps --skip-llm
 
 benchmark:
 	$(PYTHON) -m experiments.benchmark

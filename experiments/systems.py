@@ -35,8 +35,9 @@ from experiments.data import load_taxonomy  # noqa: E402
 # ─────────────────────────────────────────────────────────────────────────────
 
 @lru_cache(maxsize=4)
-def get_embedder(model_name: str = EMBEDDING_MODEL) -> EmbeddingService:
-    return EmbeddingService(model_name=model_name)
+def get_embedder(model_name: str = EMBEDDING_MODEL, device: str = "cpu") -> EmbeddingService:
+    """The default is the CPU, which every machine has and every result here used."""
+    return EmbeddingService(model_name=model_name, device=device)
 
 
 @lru_cache(maxsize=4)

@@ -115,10 +115,10 @@ def char_system():
     return classify, lambda texts: [classify(t) for t in texts]
 
 
-def embedding_system(model_name: str):
+def embedding_system(model_name: str, device: str = "cpu"):
     from experiments.systems import get_embedder
 
-    embedder = get_embedder(model_name)
+    embedder = get_embedder(model_name, device)
     taxonomy = load_taxonomy()
     codes = sorted(taxonomy)
     texts = [f"{taxonomy[c].get('name', '')}. {taxonomy[c].get('description', '')}" for c in codes]
@@ -161,17 +161,19 @@ SYSTEMS: Dict[str, Dict] = {
                    "build": char_system},
     "embed-minilm": {"label": "MiniLM embeddings (118M)", "device": "cpu",
                      "model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
-                     "build": lambda: embedding_system("paraphrase-multilingual-MiniLM-L12-v2")},
+                     "build": lambda device="cpu": embedding_system(
+                         "paraphrase-multilingual-MiniLM-L12-v2", device)},
     "embed-mpnet": {"label": "mpnet embeddings (278M)", "device": "cpu",
                     "model": "sentence-transformers/paraphrase-multilingual-mpnet-base-v2",
-                    "build": lambda: embedding_system("paraphrase-multilingual-mpnet-base-v2")},
+                    "build": lambda device="cpu": embedding_system(
+                        "paraphrase-multilingual-mpnet-base-v2", device)},
     "llm-qwen": {"label": "Qwen2.5-7B-Instruct, asked directly", "device": "mps/cuda/cpu, whichever is present",
                  "model": "Qwen/Qwen2.5-7B-Instruct",
                  "build": llm_system},
 }
 
 
-def measure(key: str) -> Dict:
+def measure(key: str, device: str = "cpu") -> Dict:
     """Cold start, warm per-document latency, batch throughput and peak memory."""
     spec = SYSTEMS[key]
     samples = load_labeled_samples()
@@ -180,7 +182,12 @@ def measure(key: str) -> Dict:
     texts = [s.purpose for s in samples][:n_docs]
 
     start = time.perf_counter()
-    classify, classify_batch = spec["build"]()
+    try:
+        classify, classify_batch = spec["build"](device)
+    except TypeError:
+        # The lexical and LLM systems take no device: the first runs on the CPU
+        # by construction, the second chooses its own.
+        classify, classify_batch = spec["build"]()
     cold_start = time.perf_counter() - start
 
     for text in texts[:WARMUP]:
@@ -202,7 +209,8 @@ def measure(key: str) -> Dict:
 
     per_document.sort()
     return {
-        "key": key, "label": spec["label"], "device": spec["device"],
+        "key": key, "label": spec["label"],
+        "device": device if "embed" in key else spec["device"],
         "n_documents": len(texts), "repeats": repeats, "n_timings": len(per_document),
         "cold_start_seconds": round(cold_start, 2),
         "median_ms": round(statistics.median(per_document), 2),
@@ -214,9 +222,10 @@ def measure(key: str) -> Dict:
     }
 
 
-def run_in_subprocess(key: str) -> Dict:
+def run_in_subprocess(key: str, device: str = "cpu") -> Dict:
     """Each system in its own process, so peak memory is its own."""
-    out = subprocess.run([sys.executable, "-m", "experiments.benchmark", "--system", key, "--raw"],
+    out = subprocess.run([sys.executable, "-m", "experiments.benchmark", "--system", key,
+                          "--device", device, "--raw"],
                          cwd=ROOT, capture_output=True, text=True)
     if out.returncode != 0:
         raise SystemExit(f"{key} failed:\n{out.stderr[-2000:]}")
@@ -228,12 +237,15 @@ def main() -> int:
     parser.add_argument("--system", choices=list(SYSTEMS), help="Measure one system.")
     parser.add_argument("--raw", action="store_true", help="Print the measurement as JSON and stop.")
     parser.add_argument("--skip-llm", action="store_true", help="Leave the 7B model out (it needs 14 GB on disk).")
+    parser.add_argument("--device", default="cpu", choices=["cpu", "mps", "cuda"],
+                        help="Where the encoders run. The paper's table is the cpu run; another "
+                             "device is written beside it, to show whether the ordering moves.")
     args = parser.parse_args()
     set_seed()
     ensure_dirs()
 
     if args.system:
-        report = measure(args.system)
+        report = measure(args.system, args.device)
         if args.raw:
             print(json.dumps(report))
         return 0
@@ -242,7 +254,7 @@ def main() -> int:
     measurements = []
     for key in keys:
         print(f"  {key} ...", flush=True)
-        measurements.append(run_in_subprocess(key))
+        measurements.append(run_in_subprocess(key, args.device))
     payload = {
         "machine": {"cpu": cpu_name(), "cpu_count": os.cpu_count(),
                     "platform": platform.platform(terse=True), "python": platform.python_version()},
@@ -251,13 +263,15 @@ def main() -> int:
                      "note": "Warm latency at batch 1, median and p95 over all timings; embedding caches "
                              "bypassed; class vectors built once in cold start, as a service would; each "
                              "system in its own process."},
+        "encoder_device": args.device,
         "systems": measurements,
     }
-    RESULT.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+    result = RESULT if args.device == "cpu" else RESULT.with_name(f"benchmark_{args.device}.json")
+    result.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
     for m in measurements:
         print(f"  {m['label']:42s} {m['median_ms']:8.2f} ms  p95 {m['p95_ms']:8.2f}  "
               f"{str(m['docs_per_second_batch'] or '-'):>7s} docs/s batch  {m['peak_rss_mb']:7.1f} MB")
-    print(f"Wrote {RESULT.relative_to(ROOT)}")
+    print(f"Wrote {result.relative_to(ROOT)}")
     return 0
 
 

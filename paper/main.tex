@@ -707,7 +707,11 @@ documents hurt.
 
 The cost figures in Section~\ref{sec:cost} come from one machine and one
 implementation of each system; they order the systems, they do not fix absolute
-values.
+values. Repeating the protocol on the same machine's GPU moves them---the
+118M encoder goes from \BenchMiniLMMs\ to \BenchOtherMiniLMMs~ms per document,
+the 278M one from \BenchMpnetMs\ to \BenchOtherMpnetMs---and leaves the
+ordering of the \BenchOtherSystems\ systems \BenchOrderingHolds. A second
+machine would be a better test than a second device on this one.
 
 The instruction-tuned baselines are two open models, of roughly 7B and
 \LLMTwoParams\ parameters, from families that are neither each other's nor the

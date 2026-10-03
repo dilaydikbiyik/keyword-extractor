@@ -750,6 +750,40 @@ class TestIndependentDescriptions:
         assert study.method_fingerprint() != before
 
 
+class TestCostOnASecondDevice:
+    """The cost claim is about the ordering, so the ordering is what is tested."""
+
+    def test_the_ordering_agrees_across_devices(self):
+        import json
+
+        import pytest
+
+        from experiments.benchmark import RESULT
+
+        other = RESULT.with_name("benchmark_mps.json")
+        if not (RESULT.exists() and other.exists()):
+            pytest.skip("run `make benchmark` and `make benchmark-second-device` first")
+        first = {m["key"]: m["median_ms"] for m in json.loads(RESULT.read_text())["systems"]}
+        second = {m["key"]: m["median_ms"] for m in json.loads(other.read_text())["systems"]}
+        shared = [k for k in second if k in first]
+        assert len(shared) >= 3
+        assert sorted(shared, key=first.get) == sorted(shared, key=second.get)
+
+    def test_the_device_is_recorded_with_each_measurement(self):
+        import json
+
+        import pytest
+
+        from experiments.benchmark import RESULT
+
+        other = RESULT.with_name("benchmark_mps.json")
+        if not other.exists():
+            pytest.skip("run `make benchmark-second-device` first")
+        payload = json.loads(other.read_text())
+        assert payload["encoder_device"] == "mps"
+        assert all(m["device"] == "mps" for m in payload["systems"] if "embed" in m["key"])
+
+
 class TestLabelFreeStudies:
     """Four registered studies, each with its own files and fingerprint."""
 

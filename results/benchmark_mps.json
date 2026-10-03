@@ -1,0 +1,80 @@
+{
+  "machine": {
+    "cpu": "Apple M5 Pro",
+    "cpu_count": 18,
+    "platform": "macOS-27.0",
+    "python": "3.9.6"
+  },
+  "protocol": {
+    "documents": 100,
+    "repeats": 3,
+    "warmup": 5,
+    "batch_size": 32,
+    "llm_documents": 30,
+    "seed": 42,
+    "note": "Warm latency at batch 1, median and p95 over all timings; embedding caches bypassed; class vectors built once in cold start, as a service would; each system in its own process."
+  },
+  "encoder_device": "mps",
+  "systems": [
+    {
+      "key": "tfidf-word",
+      "label": "TF-IDF, words",
+      "device": "cpu",
+      "n_documents": 100,
+      "repeats": 3,
+      "n_timings": 300,
+      "cold_start_seconds": 1.9,
+      "median_ms": 0.68,
+      "p95_ms": 0.98,
+      "docs_per_second_single": 1460.3,
+      "docs_per_second_batch": 1292.6,
+      "peak_rss_mb": 447.3,
+      "model_disk_mb": 0.8
+    },
+    {
+      "key": "tfidf-char",
+      "label": "TF-IDF, character 3-5-grams",
+      "device": "cpu",
+      "n_documents": 100,
+      "repeats": 3,
+      "n_timings": 300,
+      "cold_start_seconds": 0.45,
+      "median_ms": 0.16,
+      "p95_ms": 0.42,
+      "docs_per_second_single": 6248.4,
+      "docs_per_second_batch": 5301.4,
+      "peak_rss_mb": 310.6,
+      "model_disk_mb": 1.2
+    },
+    {
+      "key": "embed-minilm",
+      "label": "MiniLM embeddings (118M)",
+      "device": "mps",
+      "n_documents": 100,
+      "repeats": 3,
+      "n_timings": 300,
+      "cold_start_seconds": 5.56,
+      "median_ms": 9.9,
+      "p95_ms": 40.19,
+      "docs_per_second_single": 101.0,
+      "docs_per_second_batch": 109.8,
+      "peak_rss_mb": 1675.9,
+      "model_disk_mb": 457.5
+    },
+    {
+      "key": "embed-mpnet",
+      "label": "mpnet embeddings (278M)",
+      "device": "mps",
+      "n_documents": 100,
+      "repeats": 3,
+      "n_timings": 300,
+      "cold_start_seconds": 7.13,
+      "median_ms": 14.41,
+      "p95_ms": 66.78,
+      "docs_per_second_single": 69.4,
+      "docs_per_second_batch": 77.2,
+      "peak_rss_mb": 1889.7,
+      "model_disk_mb": 1074.2
+    }
+  ]
+}

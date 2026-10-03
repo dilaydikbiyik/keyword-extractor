@@ -936,6 +936,24 @@ def benchmark_macros(bench: Dict) -> List[str]:
     return lines
 
 
+def second_device_macros(cpu: Dict, other: Dict) -> List[str]:
+    """The same protocol on the machine's other device, to test the ordering."""
+    first = {m["key"]: m for m in cpu["systems"]}
+    second = {m["key"]: m for m in other["systems"]}
+    shared = [k for k in second if k in first]
+    order = sorted(shared, key=lambda k: first[k]["median_ms"])
+    same = order == sorted(shared, key=lambda k: second[k]["median_ms"])
+    lines = [
+        r"\newcommand{\BenchOtherDevice}{%s}" % escape(other["encoder_device"]),
+        r"\newcommand{\BenchOtherSystems}{%d}" % len(shared),
+        r"\newcommand{\BenchOrderingHolds}{%s}" % ("unchanged" if same else "different"),
+    ]
+    for key, (stem, _, _) in BENCH_ROWS.items():
+        if key in second:
+            lines.append(r"\newcommand{\BenchOther%sMs}{%.1f}" % (stem, second[key]["median_ms"]))
+    return lines
+
+
 def holm_stat(value: float) -> str:
     return r"$p_{\mathrm{Holm}} < 0.001$" if value < 0.001 else f"$p_{{\\mathrm{{Holm}}}} = {value:.3f}$"
 
@@ -1097,6 +1115,9 @@ def main() -> int:
     bench = load_optional("benchmark")
     if bench:
         derived += benchmark_macros(bench)
+        other = load_optional("benchmark_mps") or load_optional("benchmark_cuda")
+        if other:
+            derived += second_device_macros(bench, other)
     llm = load_optional("llm_baseline")
     if llm and llm.get("complete"):
         derived += llm_macros(llm)

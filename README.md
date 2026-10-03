@@ -287,7 +287,10 @@ was preregistered ([`results/references.json`](results/references.json),
 `make references`).
 
 **What it costs.** Accuracy is half the question. Measured on one machine
-(Apple M5 Pro, encoders on CPU), one document costs 0.2 ms in the character
+(Apple M5 Pro, encoders on CPU — repeating it with the encoders on the GPU
+moves every figure but leaves the ordering of the four systems unchanged,
+[`results/benchmark_mps.json`](results/benchmark_mps.json)), one document costs
+0.2 ms in the character
 n-gram space, 6.7 ms through the MiniLM encoder and 610 ms through
 Qwen2.5-7B-Instruct: about 91× the encoder whose accuracy it does not beat, at
 18 GB of memory against 1 GB and 14 GB on disk against 458 MB. `make benchmark`
