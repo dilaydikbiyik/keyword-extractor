@@ -50,7 +50,8 @@ language of the documents is worth \LanguageEffect~points ($p =
 class vector toward the centroid of the documents it must attract
 ($\rho = \AlignRho$ over \NCLASSES\ classes)---and show the
 account is monotone across three corpora, one of which we predict before
-measuring. It cannot, however, be optimised per class: three selection
+measuring---and breaks on a fourth, registered in advance, where the alignment
+change is negative and the gain is not. It cannot be optimised per class: three selection
 criteria, including direct optimisation of development accuracy, fail to
 generalise. Moving class vectors toward unlabelled documents confirms the
 class-level relation in three preregistered studies on two encoders, while the
@@ -323,11 +324,9 @@ added correlates \emph{negatively}: the recipe is not to write more.
 
 If $\Delta a$ is the mechanism it should also account for differences
 \emph{between} corpora, and it should predict rather than explain.
-Table~\ref{tab:corpora} reports all three. For Reuters, the alignment change was
+Table~\ref{tab:corpora}, in Appendix~\ref{app:brown}, reports all three. For Reuters, the alignment change was
 computed and the prediction printed before accuracy was examined; the code that
 enforces that ordering is released with the paper.
-
-\input{tables/corpora}
 
 Elaboration is worth \ReutersGain~points on Reuters ($p < 0.001$) and
 \NewsGain\ on 20 Newsgroups ($p = \NewsP$). The 20 Newsgroups definitions moved
@@ -336,6 +335,17 @@ about baseball sit further from real usenet posts than the word ``Baseball''
 does. Spelling a bare Reuters category code out into a readable name is worth a
 further \ReutersCodeGain~points, the same identifier-to-name jump 20 Newsgroups
 shows, and for the same reason.
+
+\paragraph{A fourth corpus, and a failure.} Those three changes are well
+separated, which keeps the test away from the case the account finds hardest: a
+corpus whose change is small, where it must predict a small gain. Brown is that
+case, its classes being genres. Its change is \BrownAlign, so the registered
+prediction was no gain, and smaller than NACE's and Reuters' whatever happened.
+\BrownHeld\ of \BrownPredictions\ held: accuracy rose \BrownDefGain~points
+(\BrownDefPStat, \HolmBrownDefStat), a hair above Reuters, so both
+corpus-level predictions failed, while the class-level one held a fourth time
+($\rho = \BrownRho$, \BrownRhoPStat, \HolmBrownRhoStat). We do not claim the
+corpus mean predicts a corpus's gain (Appendix~\ref{app:brown}).
 
 \subsection{Moving the vector without words}
 \label{sec:rocchio}
@@ -576,16 +586,14 @@ documents it must attract, and the wording of that description is a modelling
 decision rather than a configuration detail. On a taxonomy whose class names
 never appear in its documents, writing that vocabulary down is worth
 \ContentEffect~points; on one whose class names are already the documents' own
-words, the same work is worth nothing. The alignment change predicts both,
-predicted a third corpus before it was measured, and holds across three encoder
-families and a character n-gram space---but it cannot be turned into a per-class
-selection rule, and we report the three ways that failed. Neither an
-instruction-tuned model asked directly nor a classifier trained on most of the
-labels does better than one definition per class. Moving the vectors toward
-unlabelled documents, with no words at all, raised accuracy in the order the
-account predicted; repeated twice, it confirmed the class-level prediction each
-time and the corpus-level ordering once. The account orders classes, and is
-weaker at comparing corpora.
+words, the same work is worth nothing. Which way a corpus goes is predictable
+from the alignment change at the level of classes---in every corpus here, and in
+every label-free study---but not from its corpus mean, which a fourth corpus
+registered in advance contradicted. Neither can the quantity be optimised per
+class, and neither an instruction-tuned model asked directly nor a classifier
+trained on most of the labels does better than one definition per class. The
+account orders classes; it is weaker at comparing corpora, and we report it that
+way.
 
 % ────────────────────────────────────────────────────────────────────────────
 \section*{Limitations}
@@ -618,10 +626,15 @@ Agreement was measured between a human and the labeller, not between two humans.
 The inter-annotator figure reviewers usually ask for would require a second
 annotator who reads German; the released code prepares the blind sample for one.
 
-The alignment account rests on three corpora. Their alignment changes are well
-separated ($\NaceAlignGain$, $\ReutersAlignGain$, $\NewsAlignGain$), which is what makes the ordering
-visible, and equally what makes it a weak test of the account's behaviour near
-zero. The class-level correlation holds within each corpus and was reproduced
+The alignment account rests on four corpora. The alignment changes of the first
+three are well separated ($\NaceAlignGain$, $\ReutersAlignGain$,
+$\NewsAlignGain$), which is what makes the ordering visible and equally what
+keeps the test away from the account's behaviour near zero. Brown was added for
+that case and falsified the corpus-level prediction registered for it: a
+negative alignment change with a positive gain (\BrownDefGain~points,
+\BrownDefPStat), which does not survive correction (\HolmBrownDefStat) and so
+is a nominal failure of a registered prediction rather than a strong refutation.
+Either way we do not claim the corpus mean predicts a corpus's gain. The class-level correlation holds within each corpus and was reproduced
 by a preregistered test, but it was found by search, is not significant on its
 own once corrected (\HolmAlignStat), and at $\rho = \AlignRho$ it orders
 classes, it does not determine them.
@@ -730,6 +743,21 @@ they appear: \EffectLostList.
 \label{app:cost}
 
 \input{tables/cost}
+
+\section{Across corpora}
+\label{app:brown}
+
+\input{tables/corpora}
+
+\input{tables/brown}
+
+Brown documents run to some two thousand words and the encoder truncates, so
+each document enters as its first \BrownTruncate\ characters: fixed before the
+prediction was registered, covered by its method fingerprint, and identical
+across conditions. Spelling the identifier out is worth
+\BrownSpellGain~points (\BrownSpellPStat), the same small jump the other
+corpora show. The genre categories, their readable names and their definitions
+are in the released code.
 
 \section{Definitions written by another model}
 \label{app:source}

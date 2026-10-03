@@ -5,7 +5,7 @@ PYTHON ?= $(shell \
 	elif command -v python3 >/dev/null 2>&1; then command -v python3; \
 	else echo python; fi)
 
-.PHONY: help install reproduce test lint annotate merge verify verify-new verify-apply second-annotator second-annotator-score llm-baseline llm-baseline-local study rocchio-preregister rocchio rocchio-definitions-preregister rocchio-definitions paper-tables paper submission demo clean rocchio-mpnet-preregister rocchio-mpnet references preprint independent-descriptions description-source-preregister description-source rocchio-sensitivity author-coding author-coding-score model-coding translate-queue benchmark
+.PHONY: help install reproduce test lint annotate merge verify verify-new verify-apply second-annotator second-annotator-score llm-baseline llm-baseline-local study rocchio-preregister rocchio rocchio-definitions-preregister rocchio-definitions paper-tables paper submission demo clean rocchio-mpnet-preregister rocchio-mpnet references preprint independent-descriptions description-source-preregister description-source rocchio-sensitivity brown-preregister brown author-coding author-coding-score model-coding translate-queue benchmark
 
 help:
 	@echo "Using PYTHON = $(PYTHON)"
@@ -31,6 +31,7 @@ help:
 	@echo "  description-source-preregister / description-source  Definitions written by a model"
 	@echo "                from a different family than the labeller, tested the same way"
 	@echo "  rocchio-sensitivity  The same update over a grid of K and beta, as a check"
+	@echo "  brown-preregister / brown  A fourth corpus, predicted before it was tested"
 	@echo "  paper-tables  Regenerate paper/tables/*.tex from results/"
 	@echo "  paper         Build paper/main.pdf (needs tectonic: brew install tectonic)"
 	@echo "  submission    Anonymous review PDF and code archive in dist/, checked"
@@ -115,6 +116,7 @@ study:
 	$(PYTHON) -m experiments.run_rocchio --study mpnet
 	$(PYTHON) -m experiments.run_references
 	$(PYTHON) -m experiments.run_description_source
+	$(PYTHON) -m experiments.run_brown
 	$(PYTHON) -m experiments.rocchio_sensitivity
 	$(PYTHON) -m experiments.effect_sizes
 
@@ -166,6 +168,13 @@ rocchio-mpnet-preregister:
 
 rocchio-mpnet:
 	$(PYTHON) -m experiments.run_rocchio --study mpnet
+
+brown-preregister:
+	$(PYTHON) -m experiments.run_brown --preregister
+	@echo "Commit results/brown_preregistration.json before the next step."
+
+brown:
+	$(PYTHON) -m experiments.run_brown
 
 rocchio-sensitivity:
 	$(PYTHON) -m experiments.rocchio_sensitivity

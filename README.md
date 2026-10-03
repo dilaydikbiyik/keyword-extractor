@@ -6,9 +6,10 @@
 
 **[Read the research record →](https://dilaydikbiyik.github.io/keyword-extractor/)**
 One page: every claim this project made and what became of it — a retracted
-headline, two of its own hypotheses falsified, and four preregistered studies
-whose predictions were committed before they were measured, 16 of 19 of which
-held.
+headline, two of its own hypotheses falsified, and five preregistered studies
+whose predictions were committed before they were measured, 18 of 23 of which
+held — including a fourth corpus that contradicted one of this project's own
+claims.
 
 Assigning **NACE Rev. 2** economic sections to German company purpose
 statements with no labelled training data, by embedding the taxonomy's own
@@ -52,8 +53,8 @@ produced by `make reproduce` and written to
 | **Ours: taxonomy-guided** | **52.5%** | [46.8, 58.2] | **81.6%** | 0.356 | 0.474 | — |
 | Qwen2.5-7B-Instruct, asked directly | 48.8% | [43.1, 54.5] | 71.9% | 0.359 | 0.430 | 0.416 |
 
-*p* is uncorrected. Corrected with Holm over all 50 comparisons the paper reports
-([`results/effect_sizes.json`](results/effect_sizes.json)), 21 of the 28 nominally
+*p* is uncorrected. Corrected with Holm over all 53 comparisons the paper reports
+([`results/effect_sizes.json`](results/effect_sizes.json)), 21 of the 30 nominally
 significant ones survive; the TF-IDF difference is not among them, nor is the
 language model's Top-3 gap.
 
@@ -185,6 +186,23 @@ appeared a third time (ρ = +0.544); the predicted ordering failed again, NACE
 edging past 20 Newsgroups. Across the three studies, 12 of 15 predictions held:
 the per-class one every time, on both encoders, the corpus ordering once.
 
+**A fourth corpus, and a prediction of ours that failed.** The three corpora
+above have well-separated alignment changes, which keeps the account away from
+the case it finds hardest: a corpus where the change is small, so it has to
+predict a small gain. Brown is that case — its classes are genres, not topics.
+Its alignment change for the definition step is −0.067, between 20 Newsgroups
+(−0.076) and Reuters (+0.028), so the [registered
+prediction](results/brown_preregistration.json) was that definitions would
+*not* raise accuracy there, and that any change would be smaller than the NACE
+and Reuters gains. Two of the four predictions failed. Accuracy rose from 17.7%
+to 22.5% (+4.8 points, p = 0.038, which does not survive correction), a hair
+above Reuters' +4.8. The class-level prediction held a fourth time (ρ = +0.539,
+p = 0.038). The corpus mean of the alignment change does not reliably predict a
+corpus's gain, and the paper no longer claims it does
+([`results/brown.json`](results/brown.json), `make brown`). 413 documents, 15
+genres, each truncated to its first 1200 characters — fixed before the
+prediction and covered by its method fingerprint.
+
 **Who writes the descriptions.** The descriptions that carry the main effect
 and the silver labels come from the same assistant, which had seen the corpora,
 so a bias it holds would reach both. A [fourth preregistered
@@ -239,7 +257,7 @@ system in its own process.
 ### Ablation
 
 *p* is uncorrected; removing the description (−8.4 points, p = 0.002) does not
-survive correction over the paper's 50 tests.
+survive correction over the paper's 53 tests.
 
 | Variant | Top-1 | Δ Top-1 | F1-macro | p vs. full |
 | --- | --- | --- | --- | --- |

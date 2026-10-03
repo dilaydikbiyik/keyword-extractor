@@ -929,16 +929,52 @@
         </div>
       </div>
     </article>
+    <article class="entry" style="--status: var(--falsified); --status-bg: var(--falsified-bg);">
+      <div class="entry-head">
+        <div class="entry-no">13</div>
+        <div>
+          <span class="chip">Preregistered &mdash; and it failed</span>
+          <p class="claim">&ldquo;A corpus whose alignment change is negative will not gain from definitions.&rdquo;</p>
+        </div>
+      </div>
+      <div class="entry-body">
+        <div class="spacer"></div>
+        <div class="entry-text">
+          <p>
+            The three corpora so far had well-separated alignment changes, which kept the account away
+            from its hardest case. Brown is that case: its classes are genres, not topics, so a
+            definition names what the documents discuss without naming what makes one belong. Its
+            alignment change for the definition step is &minus;0.067. The prediction, registered
+            before any accuracy was computed, was no gain.
+          </p>
+          <p>
+            Accuracy rose from 17.7% to 22.5% &mdash; +4.8 points (p = 0.038, and it does not survive
+            correction), a hair above Reuters. Two of the four predictions failed. The class-level
+            relation held a fourth time (&rho; = +0.539). So the corpus mean of the alignment change
+            does not reliably predict a corpus&rsquo;s gain, and the paper no longer says it does.
+            This is what preregistration is for: the prediction was on the record before the number
+            existed, so the failure could not be quietly rewritten into a success.
+          </p>
+          <div class="evidence">
+            <div><b>2 of 4</b><span>predictions held</span></div>
+            <div><b>&minus;0.067 &rarr; +4.8 pp</b><span>negative alignment change, positive gain</span></div>
+            <div><b>&rho; = +0.539</b><span>the class-level relation, a fourth time</span></div>
+          </div>
+        </div>
+      </div>
+    </article>
   </section>
 
   <section>
-    <h2>The rule, across three corpora</h2>
+    <h2>The rule, across four corpora</h2>
     <p class="section-note">
-      Each corpus sits where its alignment change puts it. The relationship is monotone, and
-      Reuters was placed on this axis before its accuracy was known. Three points cannot carry
-      a correlation on their own — the statistical claim is the per-class one in entry 04,
-      <em>ρ</em> = +0.513 over 32 classes. This panel shows that the per-class rule also
-      survives aggregation.
+      Each corpus sits where its alignment change puts it. Reuters was placed on this axis
+      before its accuracy was known, and the first three points were monotone &mdash; then Brown
+      was added for the hard case and broke it: it sits where 20 Newsgroups sits on this axis and
+      gains ten times as much. Four points were never going to carry a correlation anyway; the
+      statistical claim is the per-class one in entry 04, <em>&rho;</em> = +0.513 over 32
+      classes, which held again on Brown. What this panel shows now is the limit of the
+      corpus-level reading, which is why entry 13 is marked a failure.
     </p>
 
     <div class="chart-card">
@@ -948,7 +984,7 @@
         its documents. Vertical: what that elaboration is worth in Top-1 accuracy.
       </p>
 
-      <svg viewBox="0 0 680 372" role="img" aria-label="Scatter plot of alignment change against accuracy gain for three corpora. 20 Newsgroups at minus 0.076 alignment change gains 0.4 points. Reuters at plus 0.028 gains 4.8 points. NACE at plus 0.114 gains 26.8 points.">
+      <svg viewBox="0 0 680 372" role="img" aria-label="Scatter plot of alignment change against accuracy gain for four corpora. 20 Newsgroups at minus 0.076 alignment change gains 0.4 points. Brown at minus 0.067 gains 4.8 points, departing from the trend. Reuters at plus 0.028 gains 4.8 points. NACE at plus 0.114 gains 26.8 points.">
         <!-- horizontal grid -->
         <line class="grid-line" x1="70" y1="300" x2="640" y2="300"></line>
         <line class="grid-line" x1="70" y1="207.1" x2="640" y2="207.1"></line>
@@ -975,13 +1011,19 @@
         <text class="tick" x="548.3" y="320" text-anchor="middle">+0.10</text>
         <text class="axlabel" x="355" y="348" text-anchor="middle">Change in alignment between class vector and its documents</text>
 
-        <!-- trend through the three corpora -->
+        <!-- trend through the first three corpora, which Brown departs from -->
         <path d="M 127.4 296.3 L 376.1 255.4 L 581.7 51.1" fill="none" stroke="var(--rule-strong)" stroke-width="1.5" stroke-dasharray="5 4"></path>
 
         <!-- 20NG -->
         <circle cx="127.4" cy="296.3" r="6" fill="var(--surface)" stroke="var(--ink-2)" stroke-width="2"></circle>
         <text class="pt-label" x="127.4" y="258" text-anchor="middle">20 Newsgroups</text>
         <text class="pt-sub" x="127.4" y="273" text-anchor="middle">−0.076 → +0.4 pp</text>
+
+        <!-- Brown: registered as "no gain", and it gained -->
+        <line x1="148.8" y1="255.0" x2="148.8" y2="296.3" stroke="var(--falsified)" stroke-width="1" stroke-dasharray="3 3"></line>
+        <circle cx="148.8" cy="255.0" r="6.5" fill="var(--falsified)" stroke="var(--surface)" stroke-width="2"></circle>
+        <text class="pt-label" x="165" y="236">Brown</text>
+        <text class="pt-sub" x="165" y="250">−0.067 → +4.8 pp · predicted no gain</text>
 
         <!-- Reuters -->
         <circle cx="376.1" cy="255.4" r="6.5" fill="var(--predicted)" stroke="var(--surface)" stroke-width="2"></circle>
@@ -996,8 +1038,10 @@
     </div>
     <p class="caption">
       Gains are measured against the closest terse control in each corpus: for NACE, the
-      literal German rendering of the original terse descriptions; for Reuters and 20
-      Newsgroups, the readable class name.
+      literal German rendering of the original terse descriptions; for Reuters, 20 Newsgroups
+      and Brown, the readable class name. Brown&rsquo;s gain does not survive correction over
+      the paper&rsquo;s 53 tests, so the failure it records is nominal &mdash; but the
+      prediction was that accuracy would not rise at all.
     </p>
   </section>
 

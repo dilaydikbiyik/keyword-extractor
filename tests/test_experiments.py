@@ -750,6 +750,40 @@ class TestIndependentDescriptions:
         assert study.method_fingerprint() != before
 
 
+class TestFourthCorpus:
+    """Brown: the corpus added for the case the account finds hardest."""
+
+    def test_every_class_has_a_readable_name_and_a_definition(self):
+        from experiments.run_brown import DEFINITION, READABLE
+
+        assert set(READABLE) == set(DEFINITION)
+        assert all(len(d.split()) >= 10 for d in DEFINITION.values())
+        # A definition that only repeats the readable name is not a definition.
+        assert all(DEFINITION[c] != READABLE[c] for c in READABLE)
+
+    def test_the_fingerprint_covers_the_class_texts(self, monkeypatch):
+        """They cannot be rewritten after the prediction was registered."""
+        from experiments import run_brown
+
+        before = run_brown.method_fingerprint()
+        monkeypatch.setitem(run_brown.DEFINITION, "humor", "Something else entirely.")
+        assert run_brown.method_fingerprint() != before
+
+    def test_the_registered_prediction_is_scored_both_ways(self):
+        """A registered study has to be able to record its own failure."""
+        import json
+
+        import pytest
+
+        from experiments.run_brown import RESULT
+
+        if not RESULT.exists():
+            pytest.skip("run `make brown` first")
+        outcomes = json.loads(RESULT.read_text(encoding="utf-8"))["outcomes"]
+        assert outcomes and all("held" in o for o in outcomes)
+        assert not all(o["held"] for o in outcomes), "this study's corpus-level predictions failed"
+
+
 class TestSensitivityGrid:
     """The grid around the label-free update's one registered setting."""
 

@@ -1,16 +1,18 @@
 {
   "alpha": 0.05,
-  "n_tests": 50,
-  "nominally_significant": 28,
+  "n_tests": 53,
+  "nominally_significant": 30,
   "significant_after_holm": 21,
   "lost_to_correction": [
+    "Brown: definitions vs. readable names",
     "full system vs. TF-IDF \u2192 nearest NACE section",
     "full system vs. \u2212 description in sector vector",
     "full system vs. LLM, Top-3",
     "full system vs. previous taxonomy",
     "20NG: terse, mpnet + update vs. terse, mpnet",
     "20NG: contrastive margin vs. best fixed policy",
-    "alignment change vs. headroom captured"
+    "alignment change vs. headroom captured",
+    "Brown, alignment vs. headroom, per class"
   ],
   "tests": [
     {
@@ -26,7 +28,7 @@
         20.735785953177256,
         32.78428093645473
       ],
-      "p_holm": 2.101312225504606e-13
+      "p_holm": 2.2326442395986438e-13
     },
     {
       "group": "Descriptions",
@@ -56,7 +58,7 @@
         8.02675585284281,
         19.39799331103679
       ],
-      "p_holm": 0.0003924793723560197
+      "p_holm": 0.0004219153252827212
     },
     {
       "group": "Descriptions",
@@ -71,7 +73,7 @@
         9.03010033444816,
         23.076923076923077
       ],
-      "p_holm": 0.0007586246175934014
+      "p_holm": 0.0008169803574082785
     },
     {
       "group": "Descriptions",
@@ -101,7 +103,7 @@
         8.0,
         12.1
       ],
-      "p_holm": 3.7251182029230635e-20
+      "p_holm": 3.953186664326516e-20
     },
     {
       "group": "Descriptions",
@@ -116,7 +118,7 @@
         2.18978102189781,
         7.507820646506778
       ],
-      "p_holm": 0.01663703721341519
+      "p_holm": 0.01819675945217286
     },
     {
       "group": "Descriptions",
@@ -131,7 +133,37 @@
         14.911366006256518,
         22.10636079249218
       ],
-      "p_holm": 5.3001399717093116e-21
+      "p_holm": 5.61814837001187e-21
+    },
+    {
+      "group": "Descriptions",
+      "label": "Brown: definitions vs. readable names",
+      "n": 413,
+      "sign": 1,
+      "a_only": 52,
+      "b_only": 32,
+      "p": 0.03752953363441315,
+      "gain_pp": 4.842615012106537,
+      "ci95": [
+        0.48426150121065376,
+        9.200968523002421
+      ],
+      "p_holm": 0.9588142056931463
+    },
+    {
+      "group": "Descriptions",
+      "label": "Brown: readable names vs. identifiers",
+      "n": 413,
+      "sign": 1,
+      "a_only": 29,
+      "b_only": 21,
+      "p": 0.3222363203575469,
+      "gain_pp": 1.937046004842615,
+      "ci95": [
+        -1.4527845036319613,
+        5.326876513317191
+      ],
+      "p_holm": 1.0
     },
     {
       "group": "System",
@@ -146,7 +178,7 @@
         1.0033444816053512,
         15.050167224080267
       ],
-      "p_holm": 0.8481817973439372
+      "p_holm": 0.9588142056931463
     },
     {
       "group": "System",
@@ -191,7 +223,7 @@
         3.3444816053511706,
         13.377926421404682
       ],
-      "p_holm": 0.05417492989828228
+      "p_holm": 0.059779232991208034
     },
     {
       "group": "Ablation",
@@ -236,7 +268,7 @@
         12.040133779264215,
         23.745819397993312
       ],
-      "p_holm": 1.255662297097726e-06
+      "p_holm": 1.3432666434068697e-06
     },
     {
       "group": "Ablation",
@@ -251,7 +283,7 @@
         5.016722408026756,
         16.387959866220736
       ],
-      "p_holm": 0.01663703721341519
+      "p_holm": 0.01819675945217286
     },
     {
       "group": "Ablation",
@@ -266,7 +298,7 @@
         5.016722408026756,
         15.719063545150501
       ],
-      "p_holm": 0.01262556394190275
+      "p_holm": 0.013739584289717699
     },
     {
       "group": "Ablation",
@@ -311,7 +343,7 @@
         3.3444816053511706,
         16.05351170568562
       ],
-      "p_holm": 0.09582180962188899
+      "p_holm": 0.10732042677651567
     },
     {
       "group": "LLM",
@@ -341,7 +373,7 @@
         12.0,
         44.0
       ],
-      "p_holm": 0.07215118408203125
+      "p_holm": 0.07988166809082031
     },
     {
       "group": "Descriptions",
@@ -371,7 +403,7 @@
         15.050167224080267,
         27.759197324414714
       ],
-      "p_holm": 1.794709739610698e-08
+      "p_holm": 1.9143570555847446e-08
     },
     {
       "group": "Reference",
@@ -416,7 +448,7 @@
         8.695652173913043,
         22.74247491638796
       ],
-      "p_holm": 0.00117571584477314
+      "p_holm": 0.0012710441565115028
     },
     {
       "group": "Reference",
@@ -431,7 +463,7 @@
         17.05685618729097,
         31.103678929765888
       ],
-      "p_holm": 1.9475561329308057e-08
+      "p_holm": 2.0803440510851787e-08
     },
     {
       "group": "Reference",
@@ -461,7 +493,7 @@
         11.37123745819398,
         23.411371237458194
       ],
-      "p_holm": 3.964740271009543e-06
+      "p_holm": 4.247936004653082e-06
     },
     {
       "group": "Label-free update",
@@ -491,7 +523,7 @@
         1.45,
         3.65
       ],
-      "p_holm": 0.00028592024991477843
+      "p_holm": 0.00030684124381098174
     },
     {
       "group": "Label-free update",
@@ -506,7 +538,7 @@
         5.005213764337852,
         8.86339937434828
       ],
-      "p_holm": 9.964583025451171e-11
+      "p_holm": 1.0600620239841671e-10
     },
     {
       "group": "Label-free update",
@@ -536,7 +568,7 @@
         1.05,
         3.45
       ],
-      "p_holm": 0.01476246807597223
+      "p_holm": 0.016104510628333343
     },
     {
       "group": "Label-free update",
@@ -551,7 +583,7 @@
         4.483837330552659,
         8.342022940563087
       ],
-      "p_holm": 4.429697400345514e-09
+      "p_holm": 4.718590709063699e-09
     },
     {
       "group": "Label-free update",
@@ -581,7 +613,7 @@
         0.65,
         2.9
       ],
-      "p_holm": 0.07928251201736511
+      "p_holm": 0.08843049417321493
     },
     {
       "group": "Label-free update",
@@ -596,7 +628,7 @@
         2.18978102189781,
         5.735140771637122
       ],
-      "p_holm": 0.0007586246175934014
+      "p_holm": 0.0008169803574082785
     },
     {
       "group": "Selection rule",
@@ -631,7 +663,7 @@
       "label": "20NG: contrastive margin vs. best fixed policy",
       "gain_pp": -3.6250000000000004,
       "p": 0.005077381119448144,
-      "p_holm": 0.12185714686675544
+      "p_holm": 0.13708929022509989
     },
     {
       "group": "Selection rule",
@@ -644,31 +676,37 @@
       "group": "Correlation",
       "label": "alignment change vs. headroom captured",
       "p": 0.0026956919937634414,
-      "p_holm": 0.07278368383161292
+      "p_holm": 0.08087075981290325
     },
     {
       "group": "Correlation",
       "label": "label-free update (terse), per class",
       "p": 0.0001577372132819086,
-      "p_holm": 0.005520802464866801
+      "p_holm": 0.005994014104712527
     },
     {
       "group": "Correlation",
       "label": "label-free update (definitions), per class",
       "p": 0.0011800465066095585,
-      "p_holm": 0.03540139519828676
+      "p_holm": 0.03894153471811543
     },
     {
       "group": "Correlation",
       "label": "label-free update (terse, mpnet), per class",
       "p": 5.413140480699619e-05,
-      "p_holm": 0.001948730573051863
+      "p_holm": 0.0021111247874728515
     },
     {
       "group": "Correlation",
       "label": "independent definitions, alignment vs. headroom, per class",
       "p": 0.08971089787523584,
       "p_holm": 1.0
+    },
+    {
+      "group": "Correlation",
+      "label": "Brown, alignment vs. headroom, per class",
+      "p": 0.038021656263558,
+      "p_holm": 0.9588142056931463
     }
   ]
 }

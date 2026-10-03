@@ -674,6 +674,55 @@ def description_source_macros(source: Dict) -> List[str]:
     return lines
 
 
+def brown_table(brown: Dict) -> str:
+    """The fourth corpus, whose registered corpus-level prediction failed."""
+    rows = []
+    for key, label in (("raw class identifier", r"Raw identifier (\texttt{belles\_lettres})"),
+                       ("readable class name", r"Readable name (Belles lettres)"),
+                       ("definition of what the class covers", r"Definition of the category")):
+        c = brown["conditions"][key]
+        lo, hi = c["top1_ci95"]
+        rows.append(" & ".join([label, pct(c["top1_accuracy"]), "[%s, %s]" % (pct(lo), pct(hi)),
+                                pct(c["top3_accuracy"]), num(c["f1_macro"]),
+                                "%.0f" % c["mean_words_per_class"]]) + r" \\")
+    return "\n".join([
+        PREAMBLE, r"\begin{table}[t]", r"\centering", r"\footnotesize", r"\setlength{\tabcolsep}{4pt}",
+        r"\begin{tabular}{@{}lrrrrr@{}}", r"\toprule",
+        r"Class text & Top-1 & 95\% CI & Top-3 & F1-macro & Words \\", r"\midrule",
+        *rows, r"\bottomrule", r"\end{tabular}",
+        r"\caption{The fourth corpus: \BrownN\ Brown documents in \BrownClasses\ genre categories, "
+        r"each truncated to its first \BrownTruncate\ characters. The three conditions are those of "
+        r"20 Newsgroups. Top-1, Top-3 and the interval are percentages; Words is the mean length of a "
+        r"class text. The definition step was registered as a prediction that accuracy would not rise, "
+        r"because the alignment change is \BrownAlign; it rose \BrownDefGain~points "
+        r"(\BrownDefPStat, \HolmBrownDefStat).}",
+        r"\label{tab:brown}", r"\end{table}", "",
+    ])
+
+
+def brown_macros(brown: Dict) -> List[str]:
+    return [
+        r"\newcommand{\BrownN}{%d}" % brown["n"],
+        r"\newcommand{\BrownClasses}{%d}" % brown["classes"],
+        r"\newcommand{\BrownTruncate}{%d}" % brown["truncate"],
+        r"\newcommand{\BrownIdentifierTopOne}{%s\%%}" % pct(
+            brown["conditions"]["raw class identifier"]["top1_accuracy"]),
+        r"\newcommand{\BrownReadableTopOne}{%s\%%}" % pct(
+            brown["conditions"]["readable class name"]["top1_accuracy"]),
+        r"\newcommand{\BrownDefinitionTopOne}{%s\%%}" % pct(
+            brown["conditions"]["definition of what the class covers"]["top1_accuracy"]),
+        r"\newcommand{\BrownDefGain}{%+.1f}" % brown["defining_the_class"]["gain_pp"],
+        r"\newcommand{\BrownDefPStat}{%s}" % p_stat(brown["defining_the_class"]["p_value"]),
+        r"\newcommand{\BrownSpellGain}{%+.1f}" % brown["spelling_the_label_out"]["gain_pp"],
+        r"\newcommand{\BrownSpellPStat}{%s}" % p_stat(brown["spelling_the_label_out"]["p_value"]),
+        r"\newcommand{\BrownAlign}{%+.3f}" % brown["mean_alignment_change"]["definition"],
+        r"\newcommand{\BrownRho}{%+.3f}" % brown["per_class"]["rho"],
+        r"\newcommand{\BrownRhoPStat}{%s}" % p_stat(brown["per_class"]["p"]),
+        r"\newcommand{\BrownHeld}{%d}" % sum(1 for o in brown["outcomes"] if o["held"]),
+        r"\newcommand{\BrownPredictions}{%d}" % len(brown["outcomes"]),
+    ]
+
+
 def sensitivity_macros(sweep: Dict) -> List[str]:
     """The grid around the one registered setting of the label-free update."""
     cells = sum(c["cells"] for c in sweep["corpora"].values())
@@ -826,6 +875,8 @@ HOLM_CLAIMS = {
     "HolmVerifiedStat": ("Verified labels", "full system vs. previous taxonomy"),
     "HolmContrastiveStat": ("Selection rule", "20NG: contrastive margin"),
     "HolmMpnetNewsStat": ("Label-free update", "20NG: terse, mpnet"),
+    "HolmBrownDefStat": ("Descriptions", "Brown: definitions"),
+    "HolmBrownRhoStat": ("Correlation", "Brown, alignment"),
 }
 
 
@@ -954,6 +1005,9 @@ def main() -> int:
     source = load_optional("description_source")
     if source:
         derived += description_source_macros(source)
+    brown = load_optional("brown")
+    if brown:
+        derived += brown_macros(brown)
     sweep = load_optional("rocchio_sensitivity")
     if sweep:
         derived += sensitivity_macros(sweep)
@@ -980,6 +1034,7 @@ def main() -> int:
         **({"effects.tex": effects_table(effects)} if effects else {}),
         **({"references.tex": references_table(refs)} if refs else {}),
         **({"source.tex": description_source_table(source)} if source else {}),
+        **({"brown.tex": brown_table(brown)} if brown else {}),
         **({"cost.tex": benchmark_table(bench, baselines, ablation, refs, llm)} if bench and refs else {}),
         "predictors.tex": predictors_table(search),
         "macros.tex": macros(baselines, error_report, study, search, reuters, news, derived),

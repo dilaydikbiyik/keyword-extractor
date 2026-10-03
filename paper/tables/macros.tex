@@ -72,17 +72,19 @@
 \newcommand{\ReproduceMinutes}{6}
 \newcommand{\ReproduceCPU}{Apple M5 Pro}
 \newcommand{\ReproduceCores}{18}
-\newcommand{\HolmAlignStat}{$p_{\mathrm{Holm}} = 0.073$}
+\newcommand{\HolmAlignStat}{$p_{\mathrm{Holm}} = 0.081$}
 \newcommand{\HolmRocchioRhoStat}{$p_{\mathrm{Holm}} = 0.006$}
-\newcommand{\HolmLLMTopThreeStat}{$p_{\mathrm{Holm}} = 0.096$}
-\newcommand{\HolmTfidfStat}{$p_{\mathrm{Holm}} = 0.848$}
-\newcommand{\HolmVerifiedStat}{$p_{\mathrm{Holm}} = 0.072$}
-\newcommand{\HolmContrastiveStat}{$p_{\mathrm{Holm}} = 0.122$}
-\newcommand{\HolmMpnetNewsStat}{$p_{\mathrm{Holm}} = 0.079$}
-\newcommand{\EffectTests}{50}
-\newcommand{\EffectNominal}{28}
+\newcommand{\HolmLLMTopThreeStat}{$p_{\mathrm{Holm}} = 0.107$}
+\newcommand{\HolmTfidfStat}{$p_{\mathrm{Holm}} = 0.959$}
+\newcommand{\HolmVerifiedStat}{$p_{\mathrm{Holm}} = 0.080$}
+\newcommand{\HolmContrastiveStat}{$p_{\mathrm{Holm}} = 0.137$}
+\newcommand{\HolmMpnetNewsStat}{$p_{\mathrm{Holm}} = 0.088$}
+\newcommand{\HolmBrownDefStat}{$p_{\mathrm{Holm}} = 0.959$}
+\newcommand{\HolmBrownRhoStat}{$p_{\mathrm{Holm}} = 0.959$}
+\newcommand{\EffectTests}{53}
+\newcommand{\EffectNominal}{30}
 \newcommand{\EffectHolm}{21}
-\newcommand{\EffectLostList}{full system vs. TF-IDF $\rightarrow$ nearest NACE section; full system vs. $-$ description in sector vector; full system vs. LLM, Top-3; full system vs. previous taxonomy; 20NG: terse, mpnet + update vs. terse, mpnet; 20NG: contrastive margin vs. best fixed policy; alignment change vs. headroom captured}
+\newcommand{\EffectLostList}{Brown: definitions vs. readable names; full system vs. TF-IDF $\rightarrow$ nearest NACE section; full system vs. $-$ description in sector vector; full system vs. LLM, Top-3; full system vs. previous taxonomy; 20NG: terse, mpnet + update vs. terse, mpnet; 20NG: contrastive margin vs. best fixed policy; alignment change vs. headroom captured; Brown, alignment vs. headroom, per class}
 \newcommand{\RocchioK}{25}
 \newcommand{\RocchioHeld}{5}
 \newcommand{\RocchioPredictions}{5}
@@ -166,6 +168,21 @@
 \newcommand{\SourceAssistantOverWriter}{+21.4}
 \newcommand{\SourceAssistantOverWriterPStat}{$p < 0.001$}
 \newcommand{\SourceWriterShare}{20\%}
+\newcommand{\BrownN}{413}
+\newcommand{\BrownClasses}{15}
+\newcommand{\BrownTruncate}{1200}
+\newcommand{\BrownIdentifierTopOne}{15.7\%}
+\newcommand{\BrownReadableTopOne}{17.7\%}
+\newcommand{\BrownDefinitionTopOne}{22.5\%}
+\newcommand{\BrownDefGain}{+4.8}
+\newcommand{\BrownDefPStat}{$p = 0.038$}
+\newcommand{\BrownSpellGain}{+1.9}
+\newcommand{\BrownSpellPStat}{$p = 0.322$}
+\newcommand{\BrownAlign}{-0.067}
+\newcommand{\BrownRho}{+0.539}
+\newcommand{\BrownRhoPStat}{$p = 0.038$}
+\newcommand{\BrownHeld}{2}
+\newcommand{\BrownPredictions}{4}
 \newcommand{\SweepCells}{60}
 \newcommand{\SweepAgreeing}{59}
 \newcommand{\SweepKList}{5, 10, 25, 50, 100}

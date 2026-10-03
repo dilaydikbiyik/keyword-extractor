@@ -82,6 +82,10 @@ def family() -> List[Dict]:
     reuters = load("reuters")
     add("Descriptions", "Reuters: definitions vs. readable names", reuters["defining_the_class"], reuters["n"])
     add("Descriptions", "Reuters: readable names vs. codes", reuters["spelling_the_label_out"], reuters["n"])
+    brown = load("brown")
+    if brown:
+        add("Descriptions", "Brown: definitions vs. readable names", brown["defining_the_class"], brown["n"])
+        add("Descriptions", "Brown: readable names vs. identifiers", brown["spelling_the_label_out"], brown["n"])
 
     for s in load("baselines")["systems"]:
         if s["key"] in {"tfidf-nace", "embed-zeroshot"}:
@@ -152,6 +156,10 @@ def correlations() -> List[Dict]:
     if source:
         out.append({"group": "Correlation", "label": "independent definitions, alignment vs. headroom, "
                                                      "per class", "p": source["per_class"]["p"]})
+    brown = load("brown")
+    if brown:
+        out.append({"group": "Correlation", "label": "Brown, alignment vs. headroom, per class",
+                    "p": brown["per_class"]["p"]})
     return out
 
 

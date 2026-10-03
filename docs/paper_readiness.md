@@ -17,6 +17,7 @@ it is worth nothing.
 | Is it one encoder? | **No.** mpnet-base-v2: +13.7 pp, p = 1×10⁻⁵; LaBSE, a different family: +16.1 pp, p = 2×10⁻⁵. |
 | Is it the assistant that wrote both the labels and the descriptions? | **Not entirely.** Definitions by a different model family, from the control text alone: +5.4 pp (p = 0.068), about 20% of the assistant's gain. The direction survives the change of author; the size does not. |
 | Is it this corpus? | **Partly — and predictably so.** On 20 Newsgroups, elaboration is worth +0.4 pp (p = 0.73). Those class names appear in 18.2% of their own documents; NACE section names appear in 1.0%. |
+| Does the corpus-level version of the account hold? | **No, and it was registered before it failed.** Brown's alignment change is −0.067, so no gain was predicted; accuracy rose +4.8 pp (p = 0.038, not after correction). The class-level relation held there as well (ρ = +0.539). |
 
 The two datasets do not conflict. They differ in one measurable property, and
 that property predicts which way the result goes.
@@ -486,11 +487,13 @@ documents flagged high-confidence."*
    file, which is the machine a submission is built on; elsewhere, including CI,
    that test skips and the remaining ones still check the anonymiser's own
    behaviour.
-4. **A fourth dataset**, ideally one where the alignment change is near zero,
-   to test the account at the point where it makes its least obvious
-   prediction. The three here have well-separated alignment changes, which is
-   what makes the ordering visible and equally what keeps the test away from
-   the hard case.
+4. **A fifth dataset, with an alignment change near zero.** The fourth, Brown,
+   was added for the hard case and falsified the corpus-level prediction
+   registered for it: alignment change −0.067, gain +4.8 points (p = 0.038,
+   not surviving correction). Its change is still not near zero, so the case
+   where the account has to predict *nothing* remains untested; what is now
+   known is that the corpus mean does not reliably predict a corpus's gain,
+   which the paper states rather than claiming otherwise.
 5. **A criterion that survives the argmax without labels.** Three tried here
    fail, including direct optimisation of the objective. Whether a label-free
    set-level criterion exists is open; it would have to beat a fixed policy

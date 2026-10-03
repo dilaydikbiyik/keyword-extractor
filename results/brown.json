@@ -1,0 +1,93 @@
+{
+  "study": "brown",
+  "preregistration": "brown_preregistration.json",
+  "registered_at": "2026-10-01T18:40:04+00:00",
+  "n": 413,
+  "classes": 15,
+  "truncate": 1200,
+  "conditions": {
+    "raw class identifier": {
+      "top1_accuracy": 0.15738498789346247,
+      "top1_ci95": [
+        0.1234866828087167,
+        0.1937046004842615
+      ],
+      "top3_accuracy": 0.36077481840193704,
+      "f1_macro": 0.1454121569611369,
+      "mean_words_per_class": 1.0
+    },
+    "readable class name": {
+      "top1_accuracy": 0.17675544794188863,
+      "top1_ci95": [
+        0.14043583535108958,
+        0.21307506053268765
+      ],
+      "top3_accuracy": 0.41404358353510895,
+      "f1_macro": 0.16060126651312698,
+      "mean_words_per_class": 2.2666666666666666
+    },
+    "definition of what the class covers": {
+      "top1_accuracy": 0.22518159806295399,
+      "top1_ci95": [
+        0.1864406779661017,
+        0.26634382566585957
+      ],
+      "top3_accuracy": 0.4648910411622276,
+      "f1_macro": 0.23107232529414365,
+      "mean_words_per_class": 21.2
+    }
+  },
+  "spelling_the_label_out": {
+    "a_only_correct": 29,
+    "b_only_correct": 21,
+    "discordant": 50,
+    "p_value": 0.3222363203575469,
+    "gain_pp": 1.9370460048426157
+  },
+  "defining_the_class": {
+    "a_only_correct": 52,
+    "b_only_correct": 32,
+    "discordant": 84,
+    "p_value": 0.03752953363441315,
+    "gain_pp": 4.842615012106536
+  },
+  "mean_alignment_change": {
+    "spelling the label out": 0.01648053350647377,
+    "definition": -0.06703667147686224
+  },
+  "per_class": {
+    "n": 15,
+    "rho": 0.5392857142857141,
+    "p": 0.038021656263558
+  },
+  "outcomes": [
+    {
+      "id": "direction-spelling the label out",
+      "claim": "On Brown, spelling the label out raises Top-1 accuracy.",
+      "step": "spelling the label out",
+      "expected_sign": 1,
+      "held": true
+    },
+    {
+      "id": "direction-definition",
+      "claim": "On Brown, definition does not raise Top-1 accuracy.",
+      "step": "definition",
+      "expected_sign": -1,
+      "held": false
+    },
+    {
+      "id": "smaller-than",
+      "corpora": [
+        "NACE",
+        "Reuters"
+      ],
+      "claim": "Brown's gain from a definition is smaller than the gain of every corpus whose alignment change is larger: NACE, Reuters.",
+      "held": false
+    },
+    {
+      "id": "per-class",
+      "claim": "Across classes, the alignment change from the definition correlates positively with the share of available headroom captured (rho > 0).",
+      "held": true
+    }
+  ]
+}
