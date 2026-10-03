@@ -1392,3 +1392,135 @@ class TestBenchmark:
         assert report["docs_per_second_batch"] > 0  # the batch path ran too
         assert report["p95_ms"] >= report["median_ms"] >= 0
         assert report["peak_rss_mb"] > 0 and report["model_disk_mb"] > 0
+
+
+class TestDiagnostic:
+    """The tool a stranger points at their own taxonomy.
+
+    Its job is to be right or to say it cannot tell, never to be confidently
+    wrong: a guide whose verdict is silently garbage is worse than no guide.
+    """
+
+    def test_reads_the_three_shapes_people_store(self, tmp_path):
+        import json
+
+        from experiments import diagnose
+
+        flat = tmp_path / "flat.json"
+        flat.write_text(json.dumps({"Retail trade": "shops and market stalls",
+                                    "Construction": "building work"}), encoding="utf-8")
+        assert diagnose.load_taxonomy(flat)["Retail trade"]["name"] == "Retail trade"
+
+        nested = tmp_path / "nested.json"
+        nested.write_text(json.dumps({"sectors": {
+            "G": {"name": "Retail trade", "description": "shops and market stalls"},
+            "F": {"name": "Construction", "description": "building work"}}}), encoding="utf-8")
+        loaded = diagnose.load_taxonomy(nested)
+        assert loaded["G"]["name"] == "Retail trade"
+        assert loaded["G"]["text"].startswith("Retail trade. shops")
+
+    def test_name_is_kept_apart_from_the_description(self, tmp_path):
+        """Counting the description's words inflated the overlap and flipped the
+        verdict on this project's own taxonomy. The split is the fix, so it is
+        the thing to hold still."""
+        import json
+
+        from experiments import diagnose
+
+        path = tmp_path / "t.json"
+        path.write_text(json.dumps({"A": {"name": "Agriculture",
+                                          "description": "growing crops and keeping animals"},
+                                    "B": {"name": "Mining", "description": "extraction"}}),
+                        encoding="utf-8")
+        loaded = diagnose.load_taxonomy(path)
+        assert loaded["A"]["name"] == "Agriculture"
+        assert "crops" in loaded["A"]["text"] and "crops" not in loaded["A"]["name"]
+
+    def test_refuses_a_pool_of_one_and_a_taxonomy_of_one(self, tmp_path):
+        import json
+
+        from experiments import diagnose
+
+        single = tmp_path / "one.json"
+        single.write_text(json.dumps({"A": "only class"}), encoding="utf-8")
+        with pytest.raises(SystemExit):
+            diagnose.load_taxonomy(single)
+
+        pool = tmp_path / "pool.txt"
+        pool.write_text("one document only\n", encoding="utf-8")
+        with pytest.raises(SystemExit):
+            diagnose.load_documents(pool, None)
+
+    def test_csv_pool_names_its_columns_when_the_column_is_wrong(self, tmp_path):
+        from experiments import diagnose
+
+        pool = tmp_path / "pool.csv"
+        pool.write_text("purpose,other\nfirst,x\nsecond,y\n", encoding="utf-8")
+        assert diagnose.load_documents(pool, "purpose") == ["first", "second"]
+        with pytest.raises(SystemExit, match="purpose"):
+            diagnose.load_documents(pool, "nope")
+
+    def test_verdict_has_three_outcomes_not_two(self):
+        """The measured error only licenses three answers: in the paying regime,
+        out of it, or inside the band where this estimate has been wrong."""
+        from experiments import diagnose
+
+        bias = {"undecided_upper": 0.08}
+        assert "regime where elaboration paid" in diagnose.verdict(0.01, bias)
+        assert "undecided" in diagnose.verdict(0.06, bias)
+        assert "mostly did not" in diagnose.verdict(0.40, bias)
+
+    def test_calibration_comes_from_the_results_and_not_from_the_source(self):
+        """Every figure the tool quotes is read from the study that produced it.
+        A number typed into the tool could drift from the evidence; these cannot."""
+        from experiments import diagnose
+        from experiments.config import ROOT
+
+        cal = diagnose.calibration()
+        assert cal["regime"]["source"].endswith("gap_analysis.json")
+        assert cal["estimate"]["classes"] >= 100
+        assert cal["budget"]["words_for_90pc"] > 0
+        assert cal["risk"]["neighbour_quarter_pp"] < cal["risk"]["random_quarter_pp"] < 0
+        source = (ROOT / "experiments" / "diagnose.py").read_text(encoding="utf-8")
+        for number in ("0.818", "0.564", "12.7", "8.1", "+26.8"):
+            assert number not in source, f"{number} is typed into the tool, not read"
+
+    def test_the_label_free_regime_check_knows_where_it_failed(self):
+        import json
+
+        from experiments import diagnose
+        from experiments.config import RESULTS_DIR
+
+        bias = diagnose.regime_bias(json.loads(
+            (RESULTS_DIR / "overlap_estimate.json").read_text(encoding="utf-8")))
+        assert bias["rho"] > 0.5
+        assert 0 < bias["per_class_agreement"] <= 1
+        # It failed on one corpus, and the tool must carry that rather than
+        # rounding it away: the band it defines is what keeps the advice honest.
+        assert bias["corpora_disagreeing"], "a clean sweep here would be suspicious"
+        assert bias["undecided_upper"] > diagnose.REGIME_THRESHOLD
+        assert bias["worst_inflation"] > 1
+
+    @pytest.mark.slow
+    def test_opaque_codes_refuse_rather_than_claim_the_paying_regime(self, tmp_path):
+        """A taxonomy of bare codes has no name words to count, which scores zero
+        overlap, which reads as "rewriting pays" -- the wrong answer, arrived at
+        silently. It has to decline instead."""
+        from experiments import diagnose
+        from experiments.config import EMBEDDING_MODEL
+
+        taxonomy = {c: {"name": c, "description": d} for c, d in
+                    (("A", "Handel mit Waren"), ("B", "Bau von Gebäuden"))}
+        report = diagnose.diagnose(
+            {k: {"name": v["name"], "text": f"{v['name']}. {v['description']}"}
+             for k, v in taxonomy.items()},
+            ["Betrieb eines Einzelhandels", "Errichtung von Wohngebäuden",
+             "Handel mit Textilien"],
+            EMBEDDING_MODEL)
+        assert report["regime"]["mean_name_overlap"] is None
+        assert "not computable" in report["regime"]["verdict"]
+        assert set(report["regime"]["classes_without_usable_name"]) == {"A", "B"}
+        # The rest of the report still has to work: the regime check is one
+        # section, not a precondition for the others.
+        assert report["classes"] and "rewrite_first" in report
+        assert diagnose.render(report)

@@ -10,6 +10,42 @@ and the document goes to the nearest class. No labelled training data.
 
 ---
 
+## The procedure, on your taxonomy rather than ours
+
+None of what follows needs a label, so none of it needs to wait for an
+annotation budget. Point the diagnostic at your own class list and a pile of
+documents nobody has labelled:
+
+```bash
+python -m experiments.diagnose --taxonomy classes.json --documents pool.txt
+```
+
+`classes.json` maps each class to its name and description — `{"G": {"name":
+"Retail trade", "description": "..."}}`, or just `{"Retail trade": "..."}` — and
+the pool is one document per line, a JSON list, or a CSV column. The report says
+which regime the taxonomy is in, which classes sit furthest from the documents
+they already attract, which ones a careless rewrite would damage most, and what
+abstaining would cost in coverage. Every figure it quotes is read out of
+`results/` at run time, from the study that established it, with that study
+named beside it.
+
+Then write the descriptions for the classes it put first, and check the rewrite
+before paying for anything:
+
+```bash
+python -m experiments.diagnose --taxonomy classes.json --documents pool.txt \
+    --rewritten classes_v2.json
+```
+
+That second run reports, per class, whether the rewrite moved the class vector
+toward the documents or away from it — the quantity that predicts the gain,
+estimated without labels. Classes that moved away are the ones to look at again.
+
+The rest of this file is what each number in that report means and how far it
+can be trusted.
+
+---
+
 ## 1. Write what the class covers, not what it is called
 
 Rewriting a taxonomy's own terse labels into definitions that enumerate concrete
@@ -37,6 +73,27 @@ computes — and take the centroid of each pseudo-class. Over five corpora and 1
 classes that estimate tracks the labelled quantity at **ρ = +0.818** and still
 predicts which classes gain at **ρ = +0.564**
 ([`results/labelfree_predictor.json`](../results/labelfree_predictor.json)).
+
+The cheaper check comes first, though, and it is a word count rather than an
+embedding: how often a class's name appears in the documents that class
+attracts. Classes whose names are absent from their documents gained **+8.1
+points** on average from elaboration; classes whose names are present gained
+**+1.4** ([`results/gap_analysis.json`](../results/gap_analysis.json)). It
+separates the two regimes and does not rank inside either (ρ = −0.16, p = 0.37),
+which is all it is used for.
+
+That check also needs labels in its published form — knowing which documents are
+a class's own is the labelling nobody has done — so the diagnostic substitutes
+the documents the terse vectors assign. **The substitution was measured rather
+than assumed**: over 103 classes it tracks the labelled overlap at **ρ = +0.915**,
+gives the same per-class verdict **88%** of the time, and puts **four of five**
+corpora in the right regime
+([`results/overlap_estimate.json`](../results/overlap_estimate.json)). Every
+failure ran the same way — without labels the overlap reads up to **4.4×** high
+in the low-overlap regime, because pseudo-assignment hands a class documents that
+are not its own. So an estimate just above the threshold is not evidence against
+rewriting; it is undecided, and the one corpus the check got wrong (Brown) sat in
+exactly that band.
 
 It is weaker where the terse classifier is itself poor: on the German task it
 retains **+0.201** against the labelled version's **+0.759**. So the rule is:
@@ -131,4 +188,16 @@ is a tool for a human coder rather than an unattended one.
   the labeller gain in the same direction but recover only about a fifth of the
   gain ([`results/description_source.json`](../results/description_source.json)).
   Whether the rest is better writing or a shared bias is not separated.
-- **Languages.** German and English only.
+- **Languages.** Three description languages and two document languages:
+  sixteen of the twenty-one original NACE descriptions were in Turkish, the
+  control rendered them in German, and the crossed design added English on both
+  sides. No contrast among them approached the content effect, which is the
+  scope of the claim and no wider — nothing here speaks to a language outside
+  those three or to a script the encoder was not trained on.
+- **The diagnostic's own limits.** It ranks; it does not forecast. The sign of
+  the label-free estimate called the direction for only 58% of classes, so it
+  says which classes gain more and not whether a given one gains at all. It
+  cannot tell you the accuracy you will reach, because that needs labels and it
+  reads none. And it rests on the pseudo-assignment being better than chance: on
+  a taxonomy whose classes the encoder cannot separate at all, the input to
+  every number above is noise, and the report will look exactly as confident.
