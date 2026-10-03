@@ -967,6 +967,39 @@ def extended_macros(study: Dict) -> List[str]:
     ]
 
 
+def overlap_macros(bias: Dict, gap: Dict) -> List[str]:
+    """What the regime check costs when it has no labels to group documents by.
+
+    The decision it feeds is one comparison against a threshold, so the figures
+    that matter are how often that comparison survives the substitution and, in
+    the cases it does not, which way it fails.
+    """
+    pooled = bias["pooled"]
+    low = [c for c in bias["per_corpus"].values()
+           if c["labelled_mean_overlap"] < bias["threshold"]]
+    failing = bias["taxonomy_verdict"]["disagreeing_names"]
+    return [
+        r"\newcommand{\OverlapRho}{%+.3f}" % pooled["rho"],
+        r"\newcommand{\OverlapClasses}{%d}" % pooled["classes"],
+        r"\newcommand{\OverlapAgreement}{%s\%%}" % pct(pooled["per_class_verdict_agreement"]),
+        r"\newcommand{\OverlapCorpora}{%d}" % bias["taxonomy_verdict"]["corpora"],
+        r"\newcommand{\OverlapCorporaAgreeing}{%d}" % bias["taxonomy_verdict"]["agreeing"],
+        r"\newcommand{\OverlapFailing}{%s}" % (", ".join(failing) or "none"),
+        r"\newcommand{\OverlapWorstInflation}{%.1f}"
+        % max(c["inflation_factor"] for c in low),
+        r"\newcommand{\OverlapUndecidedUpper}{%.2f}"
+        % max(c["estimated_mean_overlap"] for c in low),
+        r"\newcommand{\OverlapThreshold}{%.2f}" % bias["threshold"],
+    ] + ([
+        # The two regimes the lexical gap separates, which is the first thing the
+        # diagnostic reports and the cheapest thing a practitioner can check.
+        r"\newcommand{\GapBelowGain}{%+.1f}"
+        % (100 * gap["binned_by_overlap"]["below_5_percent"]["mean_gain"]),
+        r"\newcommand{\GapAboveGain}{%+.1f}"
+        % (100 * gap["binned_by_overlap"]["at_or_above_5_percent"]["mean_gain"]),
+    ] if gap else [])
+
+
 def practice_macros(dose: Dict, noise: Dict, abstain: Dict, hierarchy: Dict,
                     synthetic: Dict) -> List[str]:
     """The four practical studies and the simulation behind the mechanism."""
@@ -1242,6 +1275,9 @@ def main() -> int:
     derived += practice_macros(load_optional("dose_response"), load_optional("description_noise"),
                                load_optional("abstention"), load_optional("hierarchy"),
                                load_optional("synthetic"))
+    bias = load_optional("overlap_estimate")
+    if bias:
+        derived += overlap_macros(bias, load_optional("gap_analysis"))
     sweep = load_optional("rocchio_sensitivity")
     if sweep:
         derived += sensitivity_macros(sweep)

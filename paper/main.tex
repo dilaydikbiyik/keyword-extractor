@@ -46,25 +46,38 @@ over German trade register texts, from category labels into definitions that
 enumerate concrete activities, and gain \ContentEffect~points of Top-1 accuracy.
 A control shows the gain is not linguistic: rendering the same content in the
 language of the documents is worth \LanguageEffect~points ($p =
-\LanguageP$). We identify what does explain it---how far the rewrite moves each
+\LanguageP$). The control spans three description languages---Turkish, in
+which sixteen of the twenty-one originals were written, German and
+English---and a crossed design varying document and description language
+independently; no contrast among them approaches the content effect. Both
+effects replicate on a second German set four times the size, drawn and
+labelled after the first was fixed, with \ExtendedHeld\ of
+\ExtendedPredictions\ predictions registered beforehand holding: content is
+worth \ExtendedContentGain~points over \ExtendedN\ documents, language
+\ExtendedLanguageGain. We identify what does explain it---how far the rewrite moves each
 class vector toward the centroid of the documents it must attract
 ($\rho = \AlignRho$ over \NCLASSES\ classes)---and show the
 account is monotone across three corpora, one of which we predict before
 measuring---and breaks on a fourth, registered in advance, where the alignment
 change is negative and the gain is not. On \ArxivN\ arXiv abstracts with
 author-assigned labels and arXiv's own category descriptions, both registered
-predictions hold: a class text that moves the vectors \ArxivSpellAlign\ is
-worth \ArxivSpellGain~points and one that moves them \ArxivDescAlign\ is worth
-\ArxivDescGain, and the class-level relation replicates at $\rho = \ArxivRho$
-over \ArxivRhoN\ categories. Estimated with no labels at all, from the
+predictions hold---the class text that moves the vectors \ArxivSpellAlign\ is
+worth \ArxivSpellGain~points, the one that moves them \ArxivDescAlign\ is
+worth \ArxivDescGain---and the relation replicates at $\rho = \ArxivRho$ over
+\ArxivRhoN\ categories. Estimated with no labels at all, from the
 classifier's own argmax, the quantity still predicts which classes gain
 ($\rho = \EstimateRho$ over \EstimateClasses\ classes), so the account can be
 applied before any annotation is paid for. It cannot be optimised per class: three selection
 criteria, including direct optimisation of development accuracy, fail to
 generalise. Moving class vectors toward unlabelled documents confirms the
-class-level relation in four preregistered studies on three encoders, while the
-corpus-level ordering holds only once; and a character n-gram ranker over the
-same descriptions matches the embedding system and gains as much from them.
+relation in four preregistered studies on three encoders, while the
+corpus-level ordering holds only once, and a character n-gram ranker gains as
+much from the same descriptions. The account is also actionable, and we ship it
+as a diagnostic that reads an unlabelled pool: \DoseNinetyWords\ words per
+class carry ninety per cent of the gain, a wrong description costs
+\NoiseNeighbourQuarter~points where it lands between confusable classes
+against \NoiseRandomQuarter\ at random, and abstaining below the decision's
+own margin reaches \AbstainHalfTopOne\ at half coverage.
 \end{abstract}
 
 % ─────────────────────────────────────────────────────────────────────────────
@@ -134,15 +147,14 @@ Our contributions are:
 Assigning documents to classes with no labelled examples, using only what the
 class name means, was introduced as \emph{dataless} classification
 \citep{chang-etal-2008-importance} and extended to hierarchies
-\citep{song-roth-2014-dataless}; both represent class and document in a shared
-semantic space and take the nearest class. Contemporary practice replaces that
-space with a pretrained encoder \citep{devlin-etal-2019-bert}, most often a
-sentence encoder trained with a contrastive sentence-level objective
-\citep{reimers-gurevych-2019-sentence}, and multilingual settings use either a
-jointly pretrained encoder \citep{conneau-etal-2020-unsupervised} or one
-distilled into new languages \citep{reimers-gurevych-2020-making}. An
-influential alternative recasts the decision as entailment between the document
-and a hypothesis built from the class \citep{yin-etal-2019-benchmarking}. What
+\citep{song-roth-2014-dataless}, both placing class and document in a shared
+space and taking the nearest class. Practice now replaces that space with a
+pretrained encoder \citep{devlin-etal-2019-bert}, usually a sentence encoder
+trained contrastively \citep{reimers-gurevych-2019-sentence}, multilingually
+either jointly pretrained \citep{conneau-etal-2020-unsupervised} or distilled
+into new languages \citep{reimers-gurevych-2020-making}; an influential
+alternative recasts the decision as entailment between the document and a
+hypothesis built from the class \citep{yin-etal-2019-benchmarking}. What
 these share is that the class is represented by text someone wrote, and that the
 text itself is treated as given: the reported comparisons vary the encoder, the
 scoring function or the calibration, not the description.
@@ -164,24 +176,19 @@ in-context example and no token search---a description enters only as an
 embedding---a change in the description can act only through what it means.
 
 \paragraph{Keyword extraction.}
-The keyword-extraction literature is adjacent and instructive. KeyBERT
-\citep{grootendorst-2020-keybert} scores candidate phrases by embedding
-similarity to the document and admits a set of seed keywords intended to steer
-extraction toward a domain; PatternRank \citep{schopf-etal-2022-patternrank}
-constrains candidates by part of speech, PromptRank
-\citep{kong-etal-2023-promptrank} scores them with a prompted language model,
-and MDERank \citep{zhang-etal-2022-mderank} ranks by the effect of masking a
-candidate out of the document. Purely statistical methods such as YAKE
-\citep{campos-etal-2020-yake} remain competitive on short documents.
-Closest to our setting, \citet{meisenbacher-etal-2024-improved} extract
-class-specific keywords from the same register under the same 21-section scheme
-(WZ~2008, the German edition of NACE Rev.~2), guiding KeyBERT with iteratively
-expanded seed keywords. The pipeline studied here follows that design but
-assigns the section rather than extracting its vocabulary, and its seed
-mechanism---a hand-written vocabulary steering an embedding-based
-decision---is the closest analogue to what we study. We find it redundant for
-classification once the descriptions carry the same information, which says
-nothing about the keyword quality they measure.
+The adjacent literature scores candidate phrases by embedding similarity
+\citep{grootendorst-2020-keybert}, constrains them by part of speech
+\citep{schopf-etal-2022-patternrank}, scores them with a prompted model
+\citep{kong-etal-2023-promptrank} or by the effect of masking them out
+\citep{zhang-etal-2022-mderank}, while statistical methods remain competitive on
+short documents \citep{campos-etal-2020-yake}. Closest to our setting,
+\citet{meisenbacher-etal-2024-improved} extract class-specific keywords from the
+same register under the same 21-section scheme (WZ~2008, the German edition of
+NACE Rev.~2), guiding KeyBERT with iteratively expanded seed keywords. Their
+seed mechanism---a hand-written vocabulary steering an embedding decision---is
+the closest analogue to what we study; we find it redundant for classification
+once the descriptions carry the same information, which says nothing about the
+keyword quality they measure.
 
 \paragraph{Method of reporting.}
 The prospective tests in Sections~\ref{sec:corpora} and~\ref{sec:rocchio} follow
@@ -306,7 +313,10 @@ $\rho = \ExtendedRho$ (\HolmExtendedRhoStat). Two labellers of unequal quality
 agree on \ExtendedAgreement\ of it ($\kappa = \ExtendedKappa$) and no human
 checked it, so it is reported beside the hand-checked set, not instead of it. A crossed design varying document language and description
 language independently agrees: the richer descriptions win in both document
-languages, so the diagonal a matching effect would produce does not appear. The
+languages, so the diagonal a matching effect would produce does not appear.
+Across the two sets the null therefore covers three description
+languages---Turkish, German and English---against German and English
+documents, which is the scope we claim for it and no wider. The
 effect also survives a change of encoder, and of encoder family: content is
 worth \MpnetContentEffect~points on the larger mpnet-base-v2
 (\MpnetContentPStat) and \LabseContentEffect\ on LaBSE
@@ -504,19 +514,13 @@ The practical consequence is that description style should be uniform across
 classes. A set of individually better descriptions can classify worse than a set
 of consistently written ones.
 
-\subsection{The seed keyword lists are redundant}
-
-With language-matched, informative descriptions in place, removing the
-hand-written seed keyword lists entirely changes accuracy by
-$\SeedRemoval$~points ($p = \SeedRemovalP$; Table~\ref{tab:ablation},
-Appendix~\ref{app:supporting}); they help by \SeedDevHelp~points on
-the development half and hurt by \SeedTestHurt\ on the held-out one, neither
-significant, so the defensible claim is that they add nothing reliable rather
-than that they harm. Seed-guided keyword extraction and a six-stage filter show
-no effect in any configuration we tested, and translating each document into
-English with OPUS-MT \citep{tiedemann-thottingal-2020-opus} first is the one
-variant that raises accuracy, by \TranslateGain~points
-($p = \TranslateP$)---a lead rather than a result.
+\paragraph{The hand-written parts are redundant.}
+Once the descriptions carry the content, removing the seed keyword lists
+entirely changes accuracy by $\SeedRemoval$~points
+($p = \SeedRemovalP$); seed-guided extraction and a six-stage filter show no
+effect in any configuration we tested, and translating the documents into
+English first is the one untested lead
+(\TranslateGain~points, $p = \TranslateP$; Table~\ref{tab:ablation}, Appendix~\ref{app:supporting}).
 
 \subsection{Against baselines}
 
@@ -564,6 +568,24 @@ not the active ingredient; and giving a quarter of the classes another class's
 definition costs \NoiseRandomQuarter~points at random but
 \NoiseNeighbourQuarter\ between the classes already most similar. Abstaining on
 a small margin raises Top-1 to \AbstainHalfTopOne\ at half coverage.
+
+\paragraph{The advice without labels.}
+Each of those answers was measured against gold labels, which the person
+holding an unlabelled pile does not have, so we ship the account as a
+diagnostic that reads such a pile and reports the estimate of
+Section~\ref{sec:estimate} per class, the nearest competing class, and the
+coverage a margin would retain. Its cheapest check is the regime: classes whose
+names do not occur in their documents gained \GapBelowGain~points against
+\GapAboveGain\ for the rest. Grouping documents by class needs labels, so the
+tool substitutes the argmax assignment and we measured the substitution rather
+than assuming it: over \OverlapClasses\ classes it tracks the labelled overlap
+at $\rho = \OverlapRho$, agrees per class \OverlapAgreement\ of the time, and
+places \OverlapCorporaAgreeing\ of \OverlapCorpora\ corpora in the right
+regime. Every failure ran one way---without labels the overlap reads up to
+\OverlapWorstInflation$\times$ high where the decision is taken---so an
+estimate between \OverlapThreshold\ and \OverlapUndecidedUpper\ is undecided
+rather than negative, and \OverlapFailing, the corpus it misplaces, sits in
+that band.
 
 \subsection{Who writes the definitions}
 \label{sec:source}
@@ -617,25 +639,14 @@ either open model, one of them roughly sixty times its size, and it answers
 about \BenchLLMTimes\ times faster per document (Section~\ref{sec:cost});
 whether larger or proprietary models change that is not tested here.
 
-\subsection{What a document costs}
+\paragraph{What a document costs.}
 \label{sec:cost}
-
-Accuracy says which system is worth running; cost says whether it can be run.
-Table~\ref{tab:cost}, in Appendix~\ref{app:cost}, measures both on the same machine and the same documents,
-with the class vectors built once at start-up, as a service would build them.
 One document costs \BenchCharMs~ms in the character n-gram space,
 \BenchMiniLMMs~ms through the MiniLM encoder and \BenchLLMMs~ms through
-\LLMModel. The language model is about \BenchLLMTimes\ times slower per
-document than the encoder whose accuracy it does not beat, holds
-\BenchLLMRam~MB of memory against \BenchMiniLMRam, and occupies
-\BenchLLMDisk~MB on disk against \BenchMiniLMDisk. The lexical rankers need a
-megabyte of committed statistics and no model at all.
-
-The ordering matters for the argument rather than for the record: the claim of
-this paper is about what a description buys, and the description is the cheapest
-part of every system in the table. Latencies are medians over \BenchTimings\
-timings of a warm process taking one document at a time; the batch column is
-what a batch job gets instead.
+\LLMModel, which is about \BenchLLMTimes\ times slower than the encoder whose
+accuracy it does not beat (Appendix~\ref{app:cost}). The ordering matters for
+the argument rather than for the record: the description is the cheapest part of
+every system in the table.
 
 \subsection{Checked against human-verified labels}
 \label{sec:verified}
@@ -657,22 +668,20 @@ same way but are not significant at this size.
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Error Analysis}
 
-Fifty errors from the development half were coded one by one against a written
-codebook, by the AI assistant named in the statement on AI use\ifdefined\ErrorCodingKappa,
-and independently by the author, blind to that coding and working from English
-translations; the two codings agree on \ErrorCodingAgree\ of \ErrorCodingN\ errors
-($\kappa = \ErrorCodingKappa$)\else; the author did not code them independently\fi.
-
-Seed leakage is the largest category at \SeedLeakShare\ (Table~\ref{tab:errors},
-Appendix~\ref{app:supporting}), and the failures are lexical rather than
-semantic: \emph{Bodenbelagsarbeiten} (floor covering, Construction) is drawn to
-Mining because \emph{Boden} appears in that section's vocabulary. This converges
-with the ablation from the other direction and is the second reason to drop the
-seed lists. Ambiguous section definitions and genuinely multi-sector companies
-account for a further \AmbigMultiShare, and no change to this system addresses
-them: NACE admits two defensible answers for a company that both manufactures
-and installs windows. We read that as a rough ceiling on single-label accuracy
-here, and as the strongest argument for reporting Top-3.
+Fifty errors from the development half were coded against a written codebook by
+the AI assistant named in the statement on AI use\ifdefined\ErrorCodingKappa\
+and, independently and blind to that coding, by the author from English
+translations, agreeing on \ErrorCodingAgree\ of \ErrorCodingN\
+($\kappa = \ErrorCodingKappa$)\else; the author did not code them
+independently\fi. Seed leakage is the largest category at \SeedLeakShare\
+(Table~\ref{tab:errors}, Appendix~\ref{app:supporting}), and the failures are
+lexical rather than semantic: \emph{Bodenbelagsarbeiten} (floor covering,
+Construction) is drawn to Mining because \emph{Boden} belongs to that section's
+vocabulary. Ambiguous definitions and genuinely multi-sector companies account
+for a further \AmbigMultiShare, which no change to this system addresses---NACE
+admits two defensible answers for a company that both manufactures and installs
+windows---so we read it as a rough ceiling on single-label accuracy here, and as
+the strongest argument for reporting Top-3.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Conclusion}

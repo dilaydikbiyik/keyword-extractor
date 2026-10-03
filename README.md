@@ -217,6 +217,34 @@ toward their own documents made the classifier worse. Across the four studies,
 15 of 20 predictions held: the per-class one every time, on three encoders,
 the corpus ordering once.
 
+**Run the advice on your own taxonomy.** Everything below was measured against
+gold labels, which is exactly what somebody deciding whether to rewrite a
+taxonomy does not have. So it ships as a tool that reads an unlabelled pile
+instead:
+
+```bash
+python -m experiments.diagnose --taxonomy classes.json --documents pool.txt
+```
+
+It reports which of the two regimes the taxonomy is in, which classes sit
+furthest from the documents they already attract, which ones a careless rewrite
+would damage most, and what abstaining would cost in coverage — quoting each
+figure from the study that established it, named beside it. Add `--rewritten
+classes_v2.json` and it reports, per class, whether the rewrite moved the class
+vector toward its documents or away, which is the quantity that predicts the
+gain, estimated without a label.
+
+The regime check it leads with needs labels in its published form, so the tool
+substitutes the argmax assignment and **the substitution was measured rather
+than assumed**: over 103 classes it tracks the labelled overlap at ρ = +0.915,
+gives the same per-class verdict 88% of the time, and places four of five
+corpora in the right regime
+([`results/overlap_estimate.json`](results/overlap_estimate.json)). Every
+failure ran one way — without labels the overlap reads up to 4.4× high in the
+regime where the decision is taken — so an estimate between 0.05 and 0.08 is
+undecided rather than negative, and Brown, the one corpus it misplaces, sits in
+that band.
+
 **The advice, with a budget and a price.** Four questions a practitioner asks,
 each answered by a measurement rather than by exhortation — and collected, with
 every line pointing at the result behind it, in
@@ -592,10 +620,11 @@ make test          # or: pytest tests/ -q
 make lint
 ```
 
-106 tests: 72 covering the pipeline, 34 covering the experiment harness.  One of
+207 tests: 117 covering the experiment harness, 90 covering the pipeline. One of
 them asserts that the harness's "full system" predicts the same section as the
 shipped `SectorClassifier`, so the ablation table measures the real pipeline
-rather than a lookalike.
+rather than a lookalike. Another reads every figure the diagnostic quotes out of
+`results/` and fails if any of them is typed into its source instead.
 
 ## Configuration
 

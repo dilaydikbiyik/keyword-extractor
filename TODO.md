@@ -101,10 +101,24 @@ is a decision for after the submission rather than before it.
 - [x] The research page republished with the current record (14 entries).
 - [x] The two stale pages brought up to date, and a decision recorded about
       them: the GitHub Pages research record is the only one meant to be
-      public; the readiness review and the defence notebook are working
-      documents and should stay private and unlinked.
+      public. The readiness review was deleted on 4 October 2026 once every
+      gap it listed had closed — `docs/paper_readiness.md` carries the same
+      material, versioned. The Turkish defence notebook stays, private and
+      unlinked; it is interview preparation and not part of the record.
 - [x] A2 and A5, plus A3, A4, A6 and A7 — every gap that did not need new
       labels or a new dependency is closed.
+- [x] The findings turned into something a stranger can run on their own
+      taxonomy: `experiments/diagnose.py`, with every figure it quotes read out
+      of `results/` at run time rather than typed into it, and
+      `run_overlap_estimate` measuring what its regime check costs when it has
+      no labels to group by. The guide in `docs/recipe.md` now opens with the
+      procedure instead of ending with the findings.
+- [x] Body page count rechecked against the right boundary. The earlier "eight
+      pages" was measured to `\appendix`, which falls after the bibliography;
+      measured to the start of Limitations, which is what ARR counts, the body
+      ran to nine. Related Work, the error analysis, the retired-pipeline
+      ablation and the cost subsection were compressed; it now ends on page
+      eight with every citation intact.
 
 ## C. Yours, and nobody else can do them
 

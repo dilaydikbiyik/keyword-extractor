@@ -1121,6 +1121,22 @@
             family for that reason. <a href="https://github.com/dilaydikbiyik/keyword-extractor/blob/main/docs/recipe.md">The recipe</a>
             collects them with what they do not license.
           </p>
+          <p>
+            All four were measured against gold labels, which is what somebody deciding whether to
+            rewrite a taxonomy does not have &mdash; so they ship as a tool that reads an unlabelled
+            pile instead. It reports which of the two regimes a taxonomy is in, which classes sit
+            furthest from the documents they already attract, which ones a careless rewrite would
+            damage most, and what abstaining would cost in coverage; given a rewrite it reports, per
+            class, whether the class vector moved toward its documents or away. It quotes every
+            calibration figure from the study that produced it, and a test fails if one is typed into
+            its source instead. The regime check it leads with needs labels in its published form, so
+            the substitution was itself measured rather than assumed: <strong>&rho; = +0.915</strong>
+            over 103 classes, the same verdict 88% of the time, four of five corpora placed in the
+            right regime. Every failure ran one way &mdash; without labels the overlap reads up to
+            4.4&times; high exactly where the decision is taken &mdash; so an estimate just above the
+            threshold is undecided rather than negative. Brown, the one corpus it misplaces, sits in
+            that band, and is the same corpus that broke the corpus-level reading in entry 13.
+          </p>
           <div class="evidence">
             <div><b>20 words</b><span>per class carries the gain; more does not</span></div>
             <div><b>&minus;12.7 pp</b><span>a wrong description, placed next to its neighbour</span></div>

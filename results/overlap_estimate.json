@@ -1,0 +1,854 @@
+{
+  "threshold": 0.05,
+  "note": "The price of computing the regime check without labels. Not preregistered and no part of the corrected family.",
+  "revision": "4dfc1f8",
+  "per_corpus": {
+    "NACE": {
+      "classes_compared": 18,
+      "labelled_mean_overlap": 0.006902356902356902,
+      "estimated_mean_overlap": 0.03003277284323036,
+      "inflation_factor": 4.351089528994838,
+      "rho": 0.6123243386372382,
+      "p": 0.0069088003059132605,
+      "per_class_verdict_agreement": 0.8333333333333334,
+      "taxonomy_verdict_labelled": true,
+      "taxonomy_verdict_estimated": true,
+      "taxonomy_verdict_agrees": true,
+      "classes": [
+        {
+          "class": "A",
+          "n_own": 2,
+          "n_pseudo": 5,
+          "labelled_overlap": 0.0,
+          "estimated_overlap": 0.0
+        },
+        {
+          "class": "B",
+          "n_own": 0,
+          "n_pseudo": 9,
+          "labelled_overlap": null,
+          "estimated_overlap": 0.0
+        },
+        {
+          "class": "C",
+          "n_own": 20,
+          "n_pseudo": 42,
+          "labelled_overlap": 0.0,
+          "estimated_overlap": 0.0
+        },
+        {
+          "class": "D",
+          "n_own": 1,
+          "n_pseudo": 6,
+          "labelled_overlap": 0.0,
+          "estimated_overlap": 0.0
+        },
+        {
+          "class": "E",
+          "n_own": 3,
+          "n_pseudo": 9,
+          "labelled_overlap": 0.0,
+          "estimated_overlap": 0.0
+        },
+        {
+          "class": "F",
+          "n_own": 34,
+          "n_pseudo": 5,
+          "labelled_overlap": 0.0,
+          "estimated_overlap": 0.0
+        },
+        {
+          "class": "G",
+          "n_own": 41,
+          "n_pseudo": 72,
+          "labelled_overlap": 0.0,
+          "estimated_overlap": 0.0
+        },
+        {
+          "class": "H",
+          "n_own": 8,
+          "n_pseudo": 11,
+          "labelled_overlap": 0.0,
+          "estimated_overlap": 0.0
+        },
+        {
+          "class": "I",
+          "n_own": 11,
+          "n_pseudo": 10,
+          "labelled_overlap": 0.09090909090909091,
+          "estimated_overlap": 0.1
+        },
+        {
+          "class": "J",
+          "n_own": 30,
+          "n_pseudo": 17,
+          "labelled_overlap": 0.03333333333333333,
+          "estimated_overlap": 0.058823529411764705
+        },
+        {
+          "class": "K",
+          "n_own": 19,
+          "n_pseudo": 8,
+          "labelled_overlap": 0.0,
+          "estimated_overlap": 0.0
+        },
+        {
+          "class": "L",
+          "n_own": 17,
+          "n_pseudo": 19,
+          "labelled_overlap": 0.0,
+          "estimated_overlap": 0.0
+        },
+        {
+          "class": "M",
+          "n_own": 65,
+          "n_pseudo": 7,
+          "labelled_overlap": 0.0,
+          "estimated_overlap": 0.0
+        },
+        {
+          "class": "N",
+          "n_own": 19,
+          "n_pseudo": 13,
+          "labelled_overlap": 0.0,
+          "estimated_overlap": 0.3076923076923077
+        },
+        {
+          "class": "O",
+          "n_own": 1,
+          "n_pseudo": 3,
+          "labelled_overlap": 0.0,
+          "estimated_overlap": 0.0
+        },
+        {
+          "class": "P",
+          "n_own": 7,
+          "n_pseudo": 5,
+          "labelled_overlap": 0.0,
+          "estimated_overlap": 0.0
+        },
+        {
+          "class": "Q",
+          "n_own": 14,
+          "n_pseudo": 2,
+          "labelled_overlap": 0.0,
+          "estimated_overlap": 0.0
+        },
+        {
+          "class": "R",
+          "n_own": 4,
+          "n_pseudo": 11,
+          "labelled_overlap": 0.0,
+          "estimated_overlap": 0.0
+        },
+        {
+          "class": "S",
+          "n_own": 3,
+          "n_pseudo": 27,
+          "labelled_overlap": 0.0,
+          "estimated_overlap": 0.07407407407407407
+        },
+        {
+          "class": "T",
+          "n_own": 0,
+          "n_pseudo": 11,
+          "labelled_overlap": null,
+          "estimated_overlap": 0.0
+        },
+        {
+          "class": "U",
+          "n_own": 0,
+          "n_pseudo": 7,
+          "labelled_overlap": null,
+          "estimated_overlap": 0.0
+        }
+      ]
+    },
+    "20NG": {
+      "classes_compared": 20,
+      "labelled_mean_overlap": 0.188,
+      "estimated_mean_overlap": 0.18455905929612754,
+      "inflation_factor": 0.981697123915572,
+      "rho": 0.8421860508843378,
+      "p": 3.2037038484148677e-06,
+      "per_class_verdict_agreement": 0.85,
+      "taxonomy_verdict_labelled": false,
+      "taxonomy_verdict_estimated": false,
+      "taxonomy_verdict_agrees": true,
+      "classes": [
+        {
+          "class": "alt.atheism",
+          "n_own": 100,
+          "n_pseudo": 89,
+          "labelled_overlap": 0.11,
+          "estimated_overlap": 0.14606741573033707
+        },
+        {
+          "class": "comp.graphics",
+          "n_own": 100,
+          "n_pseudo": 126,
+          "labelled_overlap": 0.37,
+          "estimated_overlap": 0.23015873015873015
+        },
+        {
+          "class": "comp.os.ms-windows.misc",
+          "n_own": 100,
+          "n_pseudo": 58,
+          "labelled_overlap": 0.63,
+          "estimated_overlap": 0.6379310344827587
+        },
+        {
+          "class": "comp.sys.ibm.pc.hardware",
+          "n_own": 100,
+          "n_pseudo": 139,
+          "labelled_overlap": 0.04,
+          "estimated_overlap": 0.05755395683453238
+        },
+        {
+          "class": "comp.sys.mac.hardware",
+          "n_own": 100,
+          "n_pseudo": 76,
+          "labelled_overlap": 0.24,
+          "estimated_overlap": 0.34210526315789475
+        },
+        {
+          "class": "comp.windows.x",
+          "n_own": 100,
+          "n_pseudo": 80,
+          "labelled_overlap": 0.34,
+          "estimated_overlap": 0.3875
+        },
+        {
+          "class": "misc.forsale",
+          "n_own": 100,
+          "n_pseudo": 66,
+          "labelled_overlap": 0.39,
+          "estimated_overlap": 0.19696969696969696
+        },
+        {
+          "class": "rec.autos",
+          "n_own": 100,
+          "n_pseudo": 120,
+          "labelled_overlap": 0.01,
+          "estimated_overlap": 0.008333333333333333
+        },
+        {
+          "class": "rec.motorcycles",
+          "n_own": 100,
+          "n_pseudo": 42,
+          "labelled_overlap": 0.02,
+          "estimated_overlap": 0.07142857142857142
+        },
+        {
+          "class": "rec.sport.baseball",
+          "n_own": 100,
+          "n_pseudo": 116,
+          "labelled_overlap": 0.27,
+          "estimated_overlap": 0.2413793103448276
+        },
+        {
+          "class": "rec.sport.hockey",
+          "n_own": 100,
+          "n_pseudo": 53,
+          "labelled_overlap": 0.23,
+          "estimated_overlap": 0.2830188679245283
+        },
+        {
+          "class": "sci.crypt",
+          "n_own": 100,
+          "n_pseudo": 137,
+          "labelled_overlap": 0.08,
+          "estimated_overlap": 0.043795620437956206
+        },
+        {
+          "class": "sci.electronics",
+          "n_own": 100,
+          "n_pseudo": 145,
+          "labelled_overlap": 0.09,
+          "estimated_overlap": 0.06206896551724138
+        },
+        {
+          "class": "sci.med",
+          "n_own": 100,
+          "n_pseudo": 91,
+          "labelled_overlap": 0.12,
+          "estimated_overlap": 0.13186813186813187
+        },
+        {
+          "class": "sci.space",
+          "n_own": 100,
+          "n_pseudo": 108,
+          "labelled_overlap": 0.32,
+          "estimated_overlap": 0.25925925925925924
+        },
+        {
+          "class": "soc.religion.christian",
+          "n_own": 100,
+          "n_pseudo": 147,
+          "labelled_overlap": 0.22,
+          "estimated_overlap": 0.16326530612244897
+        },
+        {
+          "class": "talk.politics.guns",
+          "n_own": 100,
+          "n_pseudo": 165,
+          "labelled_overlap": 0.04,
+          "estimated_overlap": 0.030303030303030304
+        },
+        {
+          "class": "talk.politics.mideast",
+          "n_own": 100,
+          "n_pseudo": 100,
+          "labelled_overlap": 0.1,
+          "estimated_overlap": 0.09
+        },
+        {
+          "class": "talk.politics.misc",
+          "n_own": 100,
+          "n_pseudo": 95,
+          "labelled_overlap": 0.04,
+          "estimated_overlap": 0.031578947368421054
+        },
+        {
+          "class": "talk.religion.misc",
+          "n_own": 100,
+          "n_pseudo": 47,
+          "labelled_overlap": 0.1,
+          "estimated_overlap": 0.2765957446808511
+        }
+      ]
+    },
+    "Reuters": {
+      "classes_compared": 12,
+      "labelled_mean_overlap": 0.5365901898734177,
+      "estimated_mean_overlap": 0.516205712355494,
+      "inflation_factor": 0.9620110879724946,
+      "rho": 0.9071817764981585,
+      "p": 4.634685136516278e-05,
+      "per_class_verdict_agreement": 0.9166666666666666,
+      "taxonomy_verdict_labelled": false,
+      "taxonomy_verdict_estimated": false,
+      "taxonomy_verdict_agrees": true,
+      "classes": [
+        {
+          "class": "acq",
+          "n_own": 80,
+          "n_pseudo": 111,
+          "labelled_overlap": 0.05,
+          "estimated_overlap": 0.036036036036036036
+        },
+        {
+          "class": "coffee",
+          "n_own": 80,
+          "n_pseudo": 71,
+          "labelled_overlap": 1.0,
+          "estimated_overlap": 0.9859154929577465
+        },
+        {
+          "class": "crude",
+          "n_own": 80,
+          "n_pseudo": 100,
+          "labelled_overlap": 0.475,
+          "estimated_overlap": 0.36
+        },
+        {
+          "class": "earn",
+          "n_own": 80,
+          "n_pseudo": 43,
+          "labelled_overlap": 0.125,
+          "estimated_overlap": 0.20930232558139536
+        },
+        {
+          "class": "grain",
+          "n_own": 80,
+          "n_pseudo": 122,
+          "labelled_overlap": 0.65,
+          "estimated_overlap": 0.5737704918032787
+        },
+        {
+          "class": "interest",
+          "n_own": 80,
+          "n_pseudo": 141,
+          "labelled_overlap": 0.525,
+          "estimated_overlap": 0.3262411347517731
+        },
+        {
+          "class": "money-fx",
+          "n_own": 80,
+          "n_pseudo": 52,
+          "labelled_overlap": 0.475,
+          "estimated_overlap": 0.6538461538461539
+        },
+        {
+          "class": "money-supply",
+          "n_own": 80,
+          "n_pseudo": 97,
+          "labelled_overlap": 0.625,
+          "estimated_overlap": 0.6597938144329897
+        },
+        {
+          "class": "oilseed",
+          "n_own": 79,
+          "n_pseudo": 17,
+          "labelled_overlap": 0.12658227848101267,
+          "estimated_overlap": 0.17647058823529413
+        },
+        {
+          "class": "ship",
+          "n_own": 80,
+          "n_pseudo": 61,
+          "labelled_overlap": 0.425,
+          "estimated_overlap": 0.4098360655737705
+        },
+        {
+          "class": "sugar",
+          "n_own": 80,
+          "n_pseudo": 67,
+          "labelled_overlap": 0.9875,
+          "estimated_overlap": 0.9850746268656716
+        },
+        {
+          "class": "trade",
+          "n_own": 80,
+          "n_pseudo": 77,
+          "labelled_overlap": 0.975,
+          "estimated_overlap": 0.8181818181818182
+        }
+      ]
+    },
+    "Brown": {
+      "classes_compared": 15,
+      "labelled_mean_overlap": 0.03167029774872912,
+      "estimated_mean_overlap": 0.07753759255520203,
+      "inflation_factor": 2.4482748211078467,
+      "rho": 0.3486139715971208,
+      "p": 0.20285748497887768,
+      "per_class_verdict_agreement": 0.6666666666666666,
+      "taxonomy_verdict_labelled": true,
+      "taxonomy_verdict_estimated": false,
+      "taxonomy_verdict_agrees": false,
+      "classes": [
+        {
+          "class": "adventure",
+          "n_own": 29,
+          "n_pseudo": 19,
+          "labelled_overlap": 0.0,
+          "estimated_overlap": 0.05263157894736842
+        },
+        {
+          "class": "belles_lettres",
+          "n_own": 40,
+          "n_pseudo": 17,
+          "labelled_overlap": 0.0,
+          "estimated_overlap": 0.0
+        },
+        {
+          "class": "editorial",
+          "n_own": 27,
+          "n_pseudo": 11,
+          "labelled_overlap": 0.07407407407407407,
+          "estimated_overlap": 0.09090909090909091
+        },
+        {
+          "class": "fiction",
+          "n_own": 29,
+          "n_pseudo": 35,
+          "labelled_overlap": 0.0,
+          "estimated_overlap": 0.2
+        },
+        {
+          "class": "government",
+          "n_own": 30,
+          "n_pseudo": 44,
+          "labelled_overlap": 0.16666666666666666,
+          "estimated_overlap": 0.25
+        },
+        {
+          "class": "hobbies",
+          "n_own": 36,
+          "n_pseudo": 17,
+          "labelled_overlap": 0.0,
+          "estimated_overlap": 0.0
+        },
+        {
+          "class": "humor",
+          "n_own": 9,
+          "n_pseudo": 27,
+          "labelled_overlap": 0.0,
+          "estimated_overlap": 0.0
+        },
+        {
+          "class": "learned",
+          "n_own": 40,
+          "n_pseudo": 33,
+          "labelled_overlap": 0.025,
+          "estimated_overlap": 0.0
+        },
+        {
+          "class": "lore",
+          "n_own": 40,
+          "n_pseudo": 37,
+          "labelled_overlap": 0.025,
+          "estimated_overlap": 0.02702702702702703
+        },
+        {
+          "class": "mystery",
+          "n_own": 24,
+          "n_pseudo": 67,
+          "labelled_overlap": 0.041666666666666664,
+          "estimated_overlap": 0.05970149253731343
+        },
+        {
+          "class": "news",
+          "n_own": 40,
+          "n_pseudo": 4,
+          "labelled_overlap": 0.025,
+          "estimated_overlap": 0.0
+        },
+        {
+          "class": "religion",
+          "n_own": 17,
+          "n_pseudo": 34,
+          "labelled_overlap": 0.11764705882352941,
+          "estimated_overlap": 0.17647058823529413
+        },
+        {
+          "class": "reviews",
+          "n_own": 17,
+          "n_pseudo": 22,
+          "labelled_overlap": 0.0,
+          "estimated_overlap": 0.045454545454545456
+        },
+        {
+          "class": "romance",
+          "n_own": 29,
+          "n_pseudo": 23,
+          "labelled_overlap": 0.0,
+          "estimated_overlap": 0.08695652173913043
+        },
+        {
+          "class": "science_fiction",
+          "n_own": 6,
+          "n_pseudo": 23,
+          "labelled_overlap": 0.0,
+          "estimated_overlap": 0.17391304347826086
+        }
+      ]
+    },
+    "arXiv": {
+      "classes_compared": 38,
+      "labelled_mean_overlap": 0.36103383458646626,
+      "estimated_mean_overlap": 0.4231701082691294,
+      "inflation_factor": 1.1721065111635174,
+      "rho": 0.846932664552111,
+      "p": 2.0536648154295197e-11,
+      "per_class_verdict_agreement": 1.0,
+      "taxonomy_verdict_labelled": false,
+      "taxonomy_verdict_estimated": false,
+      "taxonomy_verdict_agrees": true,
+      "classes": [
+        {
+          "class": "cs.AI",
+          "n_own": 200,
+          "n_pseudo": 119,
+          "labelled_overlap": 0.09,
+          "estimated_overlap": 0.226890756302521
+        },
+        {
+          "class": "cs.AR",
+          "n_own": 200,
+          "n_pseudo": 269,
+          "labelled_overlap": 0.395,
+          "estimated_overlap": 0.4423791821561338
+        },
+        {
+          "class": "cs.CC",
+          "n_own": 200,
+          "n_pseudo": 381,
+          "labelled_overlap": 0.475,
+          "estimated_overlap": 0.5065616797900262
+        },
+        {
+          "class": "cs.CE",
+          "n_own": 200,
+          "n_pseudo": 62,
+          "labelled_overlap": 0.205,
+          "estimated_overlap": 0.3870967741935484
+        },
+        {
+          "class": "cs.CG",
+          "n_own": 200,
+          "n_pseudo": 502,
+          "labelled_overlap": 0.125,
+          "estimated_overlap": 0.1454183266932271
+        },
+        {
+          "class": "cs.CL",
+          "n_own": 200,
+          "n_pseudo": 234,
+          "labelled_overlap": 0.395,
+          "estimated_overlap": 0.3888888888888889
+        },
+        {
+          "class": "cs.CR",
+          "n_own": 200,
+          "n_pseudo": 177,
+          "labelled_overlap": 0.415,
+          "estimated_overlap": 0.4632768361581921
+        },
+        {
+          "class": "cs.CV",
+          "n_own": 200,
+          "n_pseudo": 115,
+          "labelled_overlap": 0.365,
+          "estimated_overlap": 0.41739130434782606
+        },
+        {
+          "class": "cs.CY",
+          "n_own": 200,
+          "n_pseudo": 103,
+          "labelled_overlap": 0.11,
+          "estimated_overlap": 0.17475728155339806
+        },
+        {
+          "class": "cs.DB",
+          "n_own": 200,
+          "n_pseudo": 111,
+          "labelled_overlap": 0.26,
+          "estimated_overlap": 0.2882882882882883
+        },
+        {
+          "class": "cs.DC",
+          "n_own": 200,
+          "n_pseudo": 340,
+          "labelled_overlap": 0.665,
+          "estimated_overlap": 0.45
+        },
+        {
+          "class": "cs.DL",
+          "n_own": 200,
+          "n_pseudo": 102,
+          "labelled_overlap": 0.3,
+          "estimated_overlap": 0.47058823529411764
+        },
+        {
+          "class": "cs.DM",
+          "n_own": 200,
+          "n_pseudo": 248,
+          "labelled_overlap": 0.05,
+          "estimated_overlap": 0.09274193548387097
+        },
+        {
+          "class": "cs.DS",
+          "n_own": 200,
+          "n_pseudo": 355,
+          "labelled_overlap": 0.555,
+          "estimated_overlap": 0.6535211267605634
+        },
+        {
+          "class": "cs.ET",
+          "n_own": 200,
+          "n_pseudo": 88,
+          "labelled_overlap": 0.115,
+          "estimated_overlap": 0.18181818181818182
+        },
+        {
+          "class": "cs.FL",
+          "n_own": 200,
+          "n_pseudo": 279,
+          "labelled_overlap": 0.67,
+          "estimated_overlap": 0.6021505376344086
+        },
+        {
+          "class": "cs.GL",
+          "n_own": 70,
+          "n_pseudo": 53,
+          "labelled_overlap": 0.11428571428571428,
+          "estimated_overlap": 0.1320754716981132
+        },
+        {
+          "class": "cs.GR",
+          "n_own": 200,
+          "n_pseudo": 63,
+          "labelled_overlap": 0.13,
+          "estimated_overlap": 0.12698412698412698
+        },
+        {
+          "class": "cs.GT",
+          "n_own": 200,
+          "n_pseudo": 132,
+          "labelled_overlap": 0.475,
+          "estimated_overlap": 0.6439393939393939
+        },
+        {
+          "class": "cs.HC",
+          "n_own": 200,
+          "n_pseudo": 111,
+          "labelled_overlap": 0.38,
+          "estimated_overlap": 0.4954954954954955
+        },
+        {
+          "class": "cs.IR",
+          "n_own": 200,
+          "n_pseudo": 74,
+          "labelled_overlap": 0.565,
+          "estimated_overlap": 0.7297297297297297
+        },
+        {
+          "class": "cs.IT",
+          "n_own": 200,
+          "n_pseudo": 307,
+          "labelled_overlap": 0.365,
+          "estimated_overlap": 0.5211726384364821
+        },
+        {
+          "class": "cs.LG",
+          "n_own": 200,
+          "n_pseudo": 129,
+          "labelled_overlap": 0.465,
+          "estimated_overlap": 0.6356589147286822
+        },
+        {
+          "class": "cs.LO",
+          "n_own": 200,
+          "n_pseudo": 309,
+          "labelled_overlap": 0.595,
+          "estimated_overlap": 0.6440129449838188
+        },
+        {
+          "class": "cs.MA",
+          "n_own": 200,
+          "n_pseudo": 103,
+          "labelled_overlap": 0.35,
+          "estimated_overlap": 0.5048543689320388
+        },
+        {
+          "class": "cs.MM",
+          "n_own": 200,
+          "n_pseudo": 86,
+          "labelled_overlap": 0.205,
+          "estimated_overlap": 0.3023255813953488
+        },
+        {
+          "class": "cs.MS",
+          "n_own": 200,
+          "n_pseudo": 122,
+          "labelled_overlap": 0.34,
+          "estimated_overlap": 0.3524590163934426
+        },
+        {
+          "class": "cs.NA",
+          "n_own": 0,
+          "n_pseudo": 343,
+          "labelled_overlap": null,
+          "estimated_overlap": 0.34402332361516036
+        },
+        {
+          "class": "cs.NE",
+          "n_own": 200,
+          "n_pseudo": 485,
+          "labelled_overlap": 0.555,
+          "estimated_overlap": 0.2721649484536082
+        },
+        {
+          "class": "cs.NI",
+          "n_own": 200,
+          "n_pseudo": 376,
+          "labelled_overlap": 0.36,
+          "estimated_overlap": 0.32978723404255317
+        },
+        {
+          "class": "cs.OH",
+          "n_own": 200,
+          "n_pseudo": 265,
+          "labelled_overlap": 0.075,
+          "estimated_overlap": 0.3433962264150943
+        },
+        {
+          "class": "cs.OS",
+          "n_own": 200,
+          "n_pseudo": 24,
+          "labelled_overlap": 0.65,
+          "estimated_overlap": 0.9583333333333334
+        },
+        {
+          "class": "cs.PF",
+          "n_own": 200,
+          "n_pseudo": 39,
+          "labelled_overlap": 0.49,
+          "estimated_overlap": 0.5641025641025641
+        },
+        {
+          "class": "cs.PL",
+          "n_own": 200,
+          "n_pseudo": 81,
+          "labelled_overlap": 0.525,
+          "estimated_overlap": 0.49382716049382713
+        },
+        {
+          "class": "cs.RO",
+          "n_own": 200,
+          "n_pseudo": 159,
+          "labelled_overlap": 0.06,
+          "estimated_overlap": 0.0880503144654088
+        },
+        {
+          "class": "cs.SC",
+          "n_own": 200,
+          "n_pseudo": 134,
+          "labelled_overlap": 0.265,
+          "estimated_overlap": 0.2462686567164179
+        },
+        {
+          "class": "cs.SD",
+          "n_own": 200,
+          "n_pseudo": 144,
+          "labelled_overlap": 0.18,
+          "estimated_overlap": 0.2222222222222222
+        },
+        {
+          "class": "cs.SE",
+          "n_own": 200,
+          "n_pseudo": 119,
+          "labelled_overlap": 0.55,
+          "estimated_overlap": 0.7563025210084033
+        },
+        {
+          "class": "cs.SI",
+          "n_own": 200,
+          "n_pseudo": 235,
+          "labelled_overlap": 0.835,
+          "estimated_overlap": 0.825531914893617
+        },
+        {
+          "class": "cs.SY",
+          "n_own": 0,
+          "n_pseudo": 92,
+          "labelled_overlap": null,
+          "estimated_overlap": 0.7282608695652174
+        }
+      ]
+    }
+  },
+  "pooled": {
+    "classes": 103,
+    "rho": 0.9154697019116039,
+    "p": 1.012226580604645e-41,
+    "labelled_mean": 0.23803558139068046,
+    "estimated_mean": 0.26863852085360745,
+    "per_class_verdict_agreement": 0.883495145631068
+  },
+  "taxonomy_verdict": {
+    "corpora": 5,
+    "agreeing": 4,
+    "agreeing_names": [
+      "20NG",
+      "NACE",
+      "Reuters",
+      "arXiv"
+    ],
+    "disagreeing_names": [
+      "Brown"
+    ]
+  }
+}
