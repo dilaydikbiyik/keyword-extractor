@@ -51,7 +51,12 @@ class vector toward the centroid of the documents it must attract
 ($\rho = \AlignRho$ over \NCLASSES\ classes)---and show the
 account is monotone across three corpora, one of which we predict before
 measuring---and breaks on a fourth, registered in advance, where the alignment
-change is negative and the gain is not. It cannot be optimised per class: three selection
+change is negative and the gain is not. On \ArxivN\ arXiv abstracts with
+author-assigned labels and arXiv's own category descriptions, both registered
+predictions hold: a class text that moves the vectors \ArxivSpellAlign\ is
+worth \ArxivSpellGain~points and one that moves them \ArxivDescAlign\ is worth
+\ArxivDescGain, and the class-level relation replicates at $\rho = \ArxivRho$
+over \ArxivRhoN\ categories. It cannot be optimised per class: three selection
 criteria, including direct optimisation of development accuracy, fail to
 generalise. Moving class vectors toward unlabelled documents confirms the
 class-level relation in three preregistered studies on two encoders, while the
@@ -72,12 +77,11 @@ and document are embedded by a sentence encoder, and the document is assigned to
 the nearest class.
 
 The class descriptions in such a pipeline are usually inherited rather than
-designed. They come from the taxonomy's own published labels, from an internal
-glossary, or from whoever set the system up. Their wording is treated as a
-detail of configuration rather than as a modelling decision, and we are not
-aware of a study that measures how much it costs to get wrong. This paper
-argues it is the largest single lever in the pipeline, and identifies the
-quantity that governs it.
+designed: from the taxonomy's own published labels, an internal glossary, or
+whoever set the system up. Their wording is treated as a configuration detail
+rather than a modelling decision, and we are not aware of a study that measures
+how much it costs to get wrong. This paper argues it is the largest single lever
+in the pipeline, and identifies the quantity that governs it.
 
 Our contributions are:
 \begin{itemize}
@@ -94,10 +98,12 @@ Our contributions are:
         ($\rho = \AlignRho$), the only candidate of five that holds within
         each corpus separately. Because it was found by search, we rest it on
         the preregistered test below rather than on its own $p$-value.
-  \item A prospective confirmation on a third corpus, the alignment change
-        computed and the prediction stated before accuracy was examined---and a
-        fourth, registered the same way, where the corpus-level prediction
-        failed while the class-level one held.
+  \item Prospective tests on three further corpora, each registered before its
+        accuracy was computed: a confirmation on Reuters, a failure of the
+        corpus-level prediction on Brown, and on \ArxivN\ arXiv abstracts with
+        author-assigned labels and arXiv's own class descriptions, a class text
+        worth \ArxivSpellGain~points and one worth \ArxivDescGain, each as its
+        alignment change implied.
   \item Three preregistered, label-free interventions on the class vectors,
         moving each toward its nearest unlabelled documents. The first raises
         accuracy in the order the alignment change predicts, including on the
@@ -301,17 +307,14 @@ either.
 
 \subsection{What predicts which classes gain}
 
-Table~\ref{tab:predictors} relates the per-class gain to five candidate
+Table~\ref{tab:predictors}, in Appendix~\ref{app:supporting}, relates the per-class gain to five candidate
 predictors over \NCLASSES\ classes. The target is the share of \emph{available}
 headroom a class captured rather than raw gain, since a class already near
 ceiling cannot gain much and raw gain largely measures where a class started.
 
-\input{tables/predictors}
-
-\input{tables/alignment_figure}
-
 Only $\Delta a(c)$ correlates with the gain, and it is the only candidate that
-holds within each corpus separately (Figure~\ref{fig:alignment}). Resampling the classes gives a
+holds within each corpus separately (Figure~\ref{fig:alignment},
+Appendix~\ref{app:supporting}). Resampling the classes gives a
 \CILevel\ interval of $[\AlignRhoLo, \AlignRhoHi]$ for $\rho$, a permutation test
 gives $p = \AlignPermP$, and leaving out any one class keeps $\rho$ between
 $\AlignLooMin$ and $\AlignLooMax$. It was, however, the best of five candidates,
@@ -348,6 +351,37 @@ prediction was no gain, and smaller than NACE's and Reuters' whatever happened.
 corpus-level predictions failed, while the class-level one held a fourth time
 ($\rho = \BrownRho$, \BrownRhoPStat, \HolmBrownRhoStat). We do not claim the
 corpus mean predicts a corpus's gain (Appendix~\ref{app:brown}).
+
+\subsection{Gold labels, somebody else's descriptions, and a change of zero}
+\label{sec:arxiv}
+
+\input{tables/arxiv}
+
+Three objections apply to everything above: \NEVAL\ documents, labels a model
+produced, and descriptions written for the study by the assistant that wrote
+them. One corpus answers all three and tests the case the account finds hardest.
+We take \ArxivN\ arXiv abstracts in the \ArxivClasses\ Computer Science
+categories, labelled by the primary category each paper's own authors chose at
+submission and kept only where the paper carries no second Computer Science
+category, as in the Reuters study. The third class text is arXiv's published
+description of the category, quoted verbatim---written for its submitters, and
+uneven by nature: some enumerate a field, others give only an ACM subject
+class.
+
+Both predictions were registered from the alignment changes before accuracy was
+computed, and \ArxivHeld\ of \ArxivPredictions\ held. Spelling
+\texttt{cs.CL} out into \emph{Computation and Language} moves the class vectors
+\ArxivSpellAlign\ and is worth \ArxivSpellGain~points
+(\ArxivSpellPStat): from \ArxivIdentifierTopOne\ to \ArxivReadableTopOne. The
+official description moves them \ArxivDescAlign---zero, for practical
+purposes---and is worth \ArxivDescGain\ (\ArxivDescPStat,
+\HolmArxivDescStat). This is the near-zero case the account had never been
+tested on: it predicts almost nothing, and almost nothing is what happens. Across
+the \ArxivRhoN\ categories that have documents, the alignment change and the
+share of headroom captured correlate at $\rho = \ArxivRho$
+(\ArxivRhoPStat, \HolmArxivRhoStat)---the class-level relation, found by search
+on NACE and not significant there once corrected, replicated prospectively on
+labels we did not make and text we did not write.
 
 \subsection{Moving the vector without words}
 \label{sec:rocchio}
@@ -429,19 +463,17 @@ of consistently written ones.
 
 \subsection{The seed keyword lists are redundant}
 
-\input{tables/ablation}
-
 With language-matched, informative descriptions in place, removing the
-hand-written seed keyword lists entirely changes accuracy by $\SeedRemoval$~points
-($p = \SeedRemovalP$). They help by \SeedDevHelp~points on the development half and
-hurt by \SeedTestHurt\ on the held-out half,
-neither significant, so the defensible claim is that they add nothing reliable
-rather than that they are harmful. Two further pipeline stages---seed-guided
-keyword extraction and a six-stage keyword filter---show no effect in any
-configuration we tested. Translating each document into English with OPUS-MT
-\citep{tiedemann-thottingal-2020-opus} before classifying is the one variant that
-raises accuracy, by \TranslateGain~points, and it does not reach significance
-($p = \TranslateP$); we report it as a lead rather than a result.
+hand-written seed keyword lists entirely changes accuracy by
+$\SeedRemoval$~points ($p = \SeedRemovalP$; Table~\ref{tab:ablation},
+Appendix~\ref{app:supporting}); they help by \SeedDevHelp~points on
+the development half and hurt by \SeedTestHurt\ on the held-out one, neither
+significant, so the defensible claim is that they add nothing reliable rather
+than that they harm. Seed-guided keyword extraction and a six-stage filter show
+no effect in any configuration we tested, and translating each document into
+English with OPUS-MT \citep{tiedemann-thottingal-2020-opus} first is the one
+variant that raises accuracy, by \TranslateGain~points
+($p = \TranslateP$)---a lead rather than a result.
 
 \subsection{Against baselines}
 
@@ -565,37 +597,34 @@ and independently by the author, blind to that coding and working from English
 translations; the two codings agree on \ErrorCodingAgree\ of \ErrorCodingN\ errors
 ($\kappa = \ErrorCodingKappa$)\else; the author did not code them independently\fi.
 
-\input{tables/errors}
-
-Seed leakage is the largest category at \SeedLeakShare, and the failures are lexical
-rather than semantic: \emph{Bodenbelagsarbeiten} (floor covering, Construction)
-is drawn to Mining because \emph{Boden} appears in that section's vocabulary;
-\emph{Gebäudereinigung} leaves Administrative services for Construction on
-\emph{Gebäude}. This converges with the ablation from the other direction and is
-the second reason to drop the seed lists.
-
-Ambiguous section definitions and genuinely multi-sector companies together
-account for \AmbigMultiShare\ of errors and are not addressable by any change to this system.
-NACE admits two defensible answers for a company that both manufactures and
-installs windows. We read this as a rough ceiling on single-label accuracy for
-the task, and as the strongest argument for reporting Top-3.
+Seed leakage is the largest category at \SeedLeakShare\ (Table~\ref{tab:errors},
+Appendix~\ref{app:supporting}), and the failures are lexical rather than
+semantic: \emph{Bodenbelagsarbeiten} (floor covering, Construction) is drawn to
+Mining because \emph{Boden} appears in that section's vocabulary. This converges
+with the ablation from the other direction and is the second reason to drop the
+seed lists. Ambiguous section definitions and genuinely multi-sector companies
+account for a further \AmbigMultiShare, and no change to this system addresses
+them: NACE admits two defensible answers for a company that both manufactures
+and installs windows. We read that as a rough ceiling on single-label accuracy
+here, and as the strongest argument for reporting Top-3.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Conclusion}
 
 What a class description buys a zero-shot classifier is alignment with the
-documents it must attract, and the wording of that description is a modelling
-decision rather than a configuration detail. On a taxonomy whose class names
-never appear in its documents, writing that vocabulary down is worth
-\ContentEffect~points; on one whose class names are already the documents' own
-words, the same work is worth nothing. Which way a corpus goes is predictable
-from the alignment change at the level of classes---in every corpus here, and in
-every label-free study---but not from its corpus mean, which a fourth corpus
-registered in advance contradicted. Neither can the quantity be optimised per
-class, and neither an instruction-tuned model asked directly nor a classifier
-trained on most of the labels does better than one definition per class. The
-account orders classes; it is weaker at comparing corpora, and we report it that
-way.
+documents it must attract, and its wording is a modelling decision rather than a
+configuration detail. Where class names never appear in their documents, writing
+that vocabulary down is worth \ContentEffect~points; where they are already the
+documents' own words, the same work is worth nothing; and on arXiv, where the
+official descriptions move the class vectors \ArxivDescAlign, they are worth
+\ArxivDescGain. Which way a corpus goes is predictable from the alignment change
+at the level of classes---in every corpus here, in every label-free study, and
+most strongly where the labels and the descriptions are not ours
+($\rho = \ArxivRho$)---but not from its corpus mean, which a fourth corpus
+registered in advance contradicted. The quantity cannot be optimised per class
+either, and neither an instruction-tuned model asked directly nor a classifier
+trained on most of the labels beats one definition per class. The account orders
+classes; it is weaker at comparing corpora, and we report it that way.
 
 % ────────────────────────────────────────────────────────────────────────────
 \section*{Limitations}
@@ -605,7 +634,9 @@ language model applying a written guideline, validated by the author on
 \VerifyN\ documents at $\kappa = \VerifyKappa$, with \VerifyN\ of \NEVAL\ carrying human-verified
 labels. The author does not read German and judged each document from a machine
 translation, so translation errors enter the check itself. Any figure in this
-paper should be read against that agreement. Section~\ref{sec:verified} repeats
+paper should be read against that agreement, except those of
+Section~\ref{sec:arxiv}, whose labels are author-assigned and whose class texts
+are arXiv's. Section~\ref{sec:verified} repeats
 the main comparisons on the human-verified documents alone; the central one
 holds in direction, but at that size not once corrected for every other test.
 Trained out of fold on these labels a supervised classifier reaches
@@ -628,7 +659,7 @@ Agreement was measured between a human and the labeller, not between two humans.
 The inter-annotator figure reviewers usually ask for would require a second
 annotator who reads German; the released code prepares the blind sample for one.
 
-The alignment account rests on four corpora. The alignment changes of the first
+The alignment account rests on five corpora. The alignment changes of the first
 three are well separated ($\NaceAlignGain$, $\ReutersAlignGain$,
 $\NewsAlignGain$), which is what makes the ordering visible and equally what
 keeps the test away from the account's behaviour near zero. Brown was added for
@@ -636,7 +667,11 @@ that case and falsified the corpus-level prediction registered for it: a
 negative alignment change with a positive gain (\BrownDefGain~points,
 \BrownDefPStat), which does not survive correction (\HolmBrownDefStat) and so
 is a nominal failure of a registered prediction rather than a strong refutation.
-Either way we do not claim the corpus mean predicts a corpus's gain. The class-level correlation holds within each corpus and was reproduced
+Either way we do not claim the corpus mean predicts a corpus's gain. The
+near-zero case is no longer untested: on arXiv a change of \ArxivDescAlign\
+came with a gain of \ArxivDescGain\ (Section~\ref{sec:arxiv}), which is the
+account's least obvious prediction and the one corpus where it was checked
+against labels nobody in this project produced. The class-level correlation holds within each corpus and was reproduced
 by a preregistered test, but it was found by search, is not significant on its
 own once corrected (\HolmAlignStat), and at $\rho = \AlignRho$ it orders
 classes, it does not determine them.
@@ -729,6 +764,17 @@ experiment outputs.
 \bibliography{references}
 
 \appendix
+
+\section{Supporting tables and figure}
+\label{app:supporting}
+
+\input{tables/predictors}
+
+\input{tables/alignment_figure}
+
+\input{tables/ablation}
+
+\input{tables/errors}
 
 \section{Every comparison, corrected together}
 \label{app:effects}

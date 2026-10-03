@@ -72,18 +72,20 @@
 \newcommand{\ReproduceMinutes}{6}
 \newcommand{\ReproduceCPU}{Apple M5 Pro}
 \newcommand{\ReproduceCores}{18}
-\newcommand{\HolmAlignStat}{$p_{\mathrm{Holm}} = 0.081$}
+\newcommand{\HolmAlignStat}{$p_{\mathrm{Holm}} = 0.084$}
 \newcommand{\HolmRocchioRhoStat}{$p_{\mathrm{Holm}} = 0.006$}
-\newcommand{\HolmLLMTopThreeStat}{$p_{\mathrm{Holm}} = 0.107$}
-\newcommand{\HolmTfidfStat}{$p_{\mathrm{Holm}} = 0.959$}
-\newcommand{\HolmVerifiedStat}{$p_{\mathrm{Holm}} = 0.080$}
-\newcommand{\HolmContrastiveStat}{$p_{\mathrm{Holm}} = 0.137$}
-\newcommand{\HolmMpnetNewsStat}{$p_{\mathrm{Holm}} = 0.088$}
-\newcommand{\HolmBrownDefStat}{$p_{\mathrm{Holm}} = 0.959$}
-\newcommand{\HolmBrownRhoStat}{$p_{\mathrm{Holm}} = 0.959$}
-\newcommand{\EffectTests}{53}
-\newcommand{\EffectNominal}{30}
-\newcommand{\EffectHolm}{21}
+\newcommand{\HolmLLMTopThreeStat}{$p_{\mathrm{Holm}} = 0.111$}
+\newcommand{\HolmTfidfStat}{$p_{\mathrm{Holm}} = 0.996$}
+\newcommand{\HolmVerifiedStat}{$p_{\mathrm{Holm}} = 0.082$}
+\newcommand{\HolmContrastiveStat}{$p_{\mathrm{Holm}} = 0.142$}
+\newcommand{\HolmMpnetNewsStat}{$p_{\mathrm{Holm}} = 0.091$}
+\newcommand{\HolmBrownDefStat}{$p_{\mathrm{Holm}} = 0.996$}
+\newcommand{\HolmBrownRhoStat}{$p_{\mathrm{Holm}} = 0.996$}
+\newcommand{\HolmArxivRhoStat}{$p_{\mathrm{Holm}} < 0.001$}
+\newcommand{\HolmArxivDescStat}{$p_{\mathrm{Holm}} = 1.000$}
+\newcommand{\EffectTests}{56}
+\newcommand{\EffectNominal}{32}
+\newcommand{\EffectHolm}{23}
 \newcommand{\EffectLostList}{Brown: definitions vs. readable names; full system vs. TF-IDF $\rightarrow$ nearest NACE section; full system vs. $-$ description in sector vector; full system vs. LLM, Top-3; full system vs. previous taxonomy; 20NG: terse, mpnet + update vs. terse, mpnet; 20NG: contrastive margin vs. best fixed policy; alignment change vs. headroom captured; Brown, alignment vs. headroom, per class}
 \newcommand{\RocchioK}{25}
 \newcommand{\RocchioHeld}{5}
@@ -183,6 +185,23 @@
 \newcommand{\BrownRhoPStat}{$p = 0.038$}
 \newcommand{\BrownHeld}{2}
 \newcommand{\BrownPredictions}{4}
+\newcommand{\ArxivN}{7{,}470}
+\newcommand{\ArxivClasses}{40}
+\newcommand{\ArxivClassesWithDocuments}{38}
+\newcommand{\ArxivIdentifierTopOne}{5.9\%}
+\newcommand{\ArxivReadableTopOne}{29.8\%}
+\newcommand{\ArxivDescriptionTopOne}{30.7\%}
+\newcommand{\ArxivSpellGain}{+23.9}
+\newcommand{\ArxivSpellPStat}{$p < 0.001$}
+\newcommand{\ArxivSpellAlign}{+0.419}
+\newcommand{\ArxivDescGain}{+0.9}
+\newcommand{\ArxivDescPStat}{$p = 0.061$}
+\newcommand{\ArxivDescAlign}{+0.0013}
+\newcommand{\ArxivRho}{+0.749}
+\newcommand{\ArxivRhoPStat}{$p < 0.001$}
+\newcommand{\ArxivRhoN}{38}
+\newcommand{\ArxivHeld}{4}
+\newcommand{\ArxivPredictions}{4}
 \newcommand{\SweepCells}{60}
 \newcommand{\SweepAgreeing}{59}
 \newcommand{\SweepKList}{5, 10, 25, 50, 100}

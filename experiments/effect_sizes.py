@@ -86,6 +86,12 @@ def family() -> List[Dict]:
     if brown:
         add("Descriptions", "Brown: definitions vs. readable names", brown["defining_the_class"], brown["n"])
         add("Descriptions", "Brown: readable names vs. identifiers", brown["spelling_the_label_out"], brown["n"])
+    arxiv = load("arxiv")
+    if arxiv:
+        add("Descriptions", "arXiv: official descriptions vs. readable names",
+            arxiv["defining_the_class"], arxiv["n"])
+        add("Descriptions", "arXiv: readable names vs. identifiers",
+            arxiv["spelling_the_label_out"], arxiv["n"])
 
     for s in load("baselines")["systems"]:
         if s["key"] in {"tfidf-nace", "embed-zeroshot"}:
@@ -160,6 +166,10 @@ def correlations() -> List[Dict]:
     if brown:
         out.append({"group": "Correlation", "label": "Brown, alignment vs. headroom, per class",
                     "p": brown["per_class"]["p"]})
+    arxiv = load("arxiv")
+    if arxiv:
+        out.append({"group": "Correlation", "label": "arXiv, alignment vs. headroom, per class",
+                    "p": arxiv["per_class"]["p"]})
     return out
 
 

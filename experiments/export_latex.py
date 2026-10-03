@@ -674,6 +674,59 @@ def description_source_macros(source: Dict) -> List[str]:
     return lines
 
 
+def arxiv_table(arxiv: Dict) -> str:
+    """The corpus with author-assigned labels and arXiv's own class descriptions."""
+    rows = []
+    for key, label in (("raw class identifier", r"Identifier (\texttt{cs.CL})"),
+                       ("readable class name", r"Readable name (Computation and Language)"),
+                       ("arXiv's own description", r"arXiv's own description")):
+        c = arxiv["conditions"][key]
+        lo, hi = c["top1_ci95"]
+        rows.append(" & ".join([label, pct(c["top1_accuracy"]), "[%s, %s]" % (pct(lo), pct(hi)),
+                                pct(c["top3_accuracy"]), num(c["f1_macro"]),
+                                "%.0f" % c["mean_words_per_class"]]) + r" \\")
+    return "\n".join([
+        PREAMBLE, r"\begin{table}[t]", r"\centering", r"\footnotesize", r"\setlength{\tabcolsep}{4pt}",
+        r"\begin{tabular}{@{}lrrrrr@{}}", r"\toprule",
+        r"Class text & Top-1 & 95\% CI & Top-3 & F1-macro & Words \\", r"\midrule",
+        *rows, r"\bottomrule", r"\end{tabular}",
+        r"\caption{\ArxivN\ arXiv abstracts in \ArxivClasses\ Computer Science categories. The "
+        r"label is the primary category the paper's own authors chose; the third condition is "
+        r"arXiv's published description of the category, quoted verbatim. Spelling the identifier "
+        r"out moves the class vectors \ArxivSpellAlign\ and is worth \ArxivSpellGain~points; the "
+        r"official description moves them \ArxivDescAlign, which is zero for practical purposes, "
+        r"and is worth \ArxivDescGain\ (\ArxivDescPStat, \HolmArxivDescStat). Top-1, Top-3 and "
+        r"the interval are percentages; Words is the mean length of a class text.}",
+        r"\label{tab:arxiv}", r"\end{table}", "",
+    ])
+
+
+def arxiv_macros(arxiv: Dict) -> List[str]:
+    return [
+        r"\newcommand{\ArxivN}{%s}" % f"{arxiv['n']:,}".replace(",", r"{,}"),
+        r"\newcommand{\ArxivClasses}{%d}" % arxiv["classes"],
+        r"\newcommand{\ArxivClassesWithDocuments}{%d}"
+        % arxiv.get("classes_with_documents", arxiv["per_class"]["n"]),
+        r"\newcommand{\ArxivIdentifierTopOne}{%s\%%}" % pct(
+            arxiv["conditions"]["raw class identifier"]["top1_accuracy"]),
+        r"\newcommand{\ArxivReadableTopOne}{%s\%%}" % pct(
+            arxiv["conditions"]["readable class name"]["top1_accuracy"]),
+        r"\newcommand{\ArxivDescriptionTopOne}{%s\%%}" % pct(
+            arxiv["conditions"]["arXiv's own description"]["top1_accuracy"]),
+        r"\newcommand{\ArxivSpellGain}{%+.1f}" % arxiv["spelling_the_label_out"]["gain_pp"],
+        r"\newcommand{\ArxivSpellPStat}{%s}" % p_stat(arxiv["spelling_the_label_out"]["p_value"]),
+        r"\newcommand{\ArxivSpellAlign}{%+.3f}" % arxiv["mean_alignment_change"]["spelling the label out"],
+        r"\newcommand{\ArxivDescGain}{%+.1f}" % arxiv["defining_the_class"]["gain_pp"],
+        r"\newcommand{\ArxivDescPStat}{%s}" % p_stat(arxiv["defining_the_class"]["p_value"]),
+        r"\newcommand{\ArxivDescAlign}{%+.4f}" % arxiv["mean_alignment_change"]["the official description"],
+        r"\newcommand{\ArxivRho}{%+.3f}" % arxiv["per_class"]["rho"],
+        r"\newcommand{\ArxivRhoPStat}{%s}" % p_stat(arxiv["per_class"]["p"]),
+        r"\newcommand{\ArxivRhoN}{%d}" % arxiv["per_class"]["n"],
+        r"\newcommand{\ArxivHeld}{%d}" % sum(1 for o in arxiv["outcomes"] if o["held"]),
+        r"\newcommand{\ArxivPredictions}{%d}" % len(arxiv["outcomes"]),
+    ]
+
+
 def brown_table(brown: Dict) -> str:
     """The fourth corpus, whose registered corpus-level prediction failed."""
     rows = []
@@ -877,6 +930,8 @@ HOLM_CLAIMS = {
     "HolmMpnetNewsStat": ("Label-free update", "20NG: terse, mpnet"),
     "HolmBrownDefStat": ("Descriptions", "Brown: definitions"),
     "HolmBrownRhoStat": ("Correlation", "Brown, alignment"),
+    "HolmArxivRhoStat": ("Correlation", "arXiv, alignment"),
+    "HolmArxivDescStat": ("Descriptions", "arXiv: official descriptions"),
 }
 
 
@@ -1008,6 +1063,9 @@ def main() -> int:
     brown = load_optional("brown")
     if brown:
         derived += brown_macros(brown)
+    arxiv = load_optional("arxiv")
+    if arxiv:
+        derived += arxiv_macros(arxiv)
     sweep = load_optional("rocchio_sensitivity")
     if sweep:
         derived += sensitivity_macros(sweep)
@@ -1035,6 +1093,7 @@ def main() -> int:
         **({"references.tex": references_table(refs)} if refs else {}),
         **({"source.tex": description_source_table(source)} if source else {}),
         **({"brown.tex": brown_table(brown)} if brown else {}),
+        **({"arxiv.tex": arxiv_table(arxiv)} if arxiv else {}),
         **({"cost.tex": benchmark_table(bench, baselines, ablation, refs, llm)} if bench and refs else {}),
         "predictors.tex": predictors_table(search),
         "macros.tex": macros(baselines, error_report, study, search, reuters, news, derived),

@@ -1,0 +1,90 @@
+{
+  "study": "arxiv",
+  "preregistration": "arxiv_preregistration.json",
+  "registered_at": "2026-10-03T09:53:35+00:00",
+  "n": 7470,
+  "classes": 40,
+  "labels": "the primary arXiv category chosen by each paper's authors",
+  "class_text": "arXiv's published category descriptions, quoted verbatim",
+  "conditions": {
+    "raw class identifier": {
+      "top1_accuracy": 0.05876840696117804,
+      "top1_ci95": [
+        0.0536813922356091,
+        0.0643908969210174
+      ],
+      "top3_accuracy": 0.12115127175368139,
+      "f1_macro": 0.03436779615579093,
+      "mean_words_per_class": 1.0
+    },
+    "readable class name": {
+      "top1_accuracy": 0.29772423025435074,
+      "top1_ci95": [
+        0.28728246318607764,
+        0.30816599732262384
+      ],
+      "top3_accuracy": 0.5002677376171352,
+      "f1_macro": 0.28112018055947485,
+      "mean_words_per_class": 2.6
+    },
+    "arXiv's own description": {
+      "top1_accuracy": 0.30655957161981257,
+      "top1_ci95": [
+        0.2962516733601071,
+        0.3171352074966533
+      ],
+      "top3_accuracy": 0.5053547523427041,
+      "f1_macro": 0.27602608432407255,
+      "mean_words_per_class": 38.3
+    }
+  },
+  "spelling_the_label_out": {
+    "a_only_correct": 2092,
+    "b_only_correct": 307,
+    "discordant": 2399,
+    "p_value": 0.0,
+    "gain_pp": 23.895582329317268
+  },
+  "defining_the_class": {
+    "a_only_correct": 637,
+    "b_only_correct": 571,
+    "discordant": 1208,
+    "p_value": 0.06141618077078727,
+    "gain_pp": 0.8835341365461824
+  },
+  "mean_alignment_change": {
+    "spelling the label out": 0.41941662596291557,
+    "the official description": 0.0012719393253138006
+  },
+  "per_class": {
+    "n": 38,
+    "rho": 0.7494665437710235,
+    "p": 6.15720033629076e-08
+  },
+  "outcomes": [
+    {
+      "id": "direction-spelling the label out",
+      "step": "spelling the label out",
+      "expected_sign": 1,
+      "claim": "On arXiv, spelling the label out raises Top-1 accuracy.",
+      "held": true
+    },
+    {
+      "id": "direction-the official description",
+      "step": "the official description",
+      "expected_sign": 1,
+      "claim": "On arXiv, the official description raises Top-1 accuracy.",
+      "held": true
+    },
+    {
+      "id": "per-class",
+      "claim": "Across the categories, the alignment change from the official description correlates positively with the share of available headroom captured (Spearman rho > 0).",
+      "held": true
+    },
+    {
+      "id": "per-class-significant",
+      "claim": "With this many categories that correlation is significant at 0.05 uncorrected, which the three-corpus version of the test could not show.",
+      "held": true
+    }
+  ]
+}

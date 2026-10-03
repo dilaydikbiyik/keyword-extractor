@@ -6,10 +6,11 @@
 
 **[Read the research record →](https://dilaydikbiyik.github.io/keyword-extractor/)**
 One page: every claim this project made and what became of it — a retracted
-headline, two of its own hypotheses falsified, and five preregistered studies
-whose predictions were committed before they were measured, 18 of 23 of which
-held — including a fourth corpus that contradicted one of this project's own
-claims.
+headline, two of its own hypotheses falsified, and six preregistered studies
+whose predictions were committed before they were measured, 22 of 27 of which
+held — including a corpus that contradicted one of this project's own claims,
+and 7,470 arXiv abstracts where the labels and the class descriptions are
+nobody's work but arXiv's.
 
 Assigning **NACE Rev. 2** economic sections to German company purpose
 statements with no labelled training data, by embedding the taxonomy's own
@@ -53,8 +54,8 @@ produced by `make reproduce` and written to
 | **Ours: taxonomy-guided** | **52.5%** | [46.8, 58.2] | **81.6%** | 0.356 | 0.474 | — |
 | Qwen2.5-7B-Instruct, asked directly | 48.8% | [43.1, 54.5] | 71.9% | 0.359 | 0.430 | 0.416 |
 
-*p* is uncorrected. Corrected with Holm over all 53 comparisons the paper reports
-([`results/effect_sizes.json`](results/effect_sizes.json)), 21 of the 30 nominally
+*p* is uncorrected. Corrected with Holm over all 56 comparisons the paper reports
+([`results/effect_sizes.json`](results/effect_sizes.json)), 23 of the 32 nominally
 significant ones survive; the TF-IDF difference is not among them, nor is the
 language model's Top-3 gap.
 
@@ -186,6 +187,33 @@ appeared a third time (ρ = +0.544); the predicted ordering failed again, NACE
 edging past 20 Newsgroups. Across the three studies, 12 of 15 predictions held:
 the per-class one every time, on both encoders, the corpus ordering once.
 
+**Gold labels, somebody else's descriptions, and a change of zero.** Three
+objections apply to everything above: 299 documents, labels a model produced,
+and descriptions written for the study by the assistant that wrote the labels.
+One corpus answers all three. 7,470 arXiv abstracts in the 40 Computer Science
+categories, labelled by the primary category each paper's **own authors** chose
+at submission (kept only where the paper carries no second cs category), with
+arXiv's **own** published category descriptions quoted verbatim as the
+elaborated condition. Both predictions were [registered
+first](results/arxiv_preregistration.json) from the alignment changes, and all
+four held:
+
+| Class text | Δ alignment | Top-1 | gain |
+| --- | --- | --- | --- |
+| `cs.CL` | — | 5.9% | — |
+| Computation and Language | +0.419 | 29.8% | **+23.9 pp** (p < 0.001) |
+| arXiv's own description | +0.0013 | 30.7% | +0.9 pp (p = 0.061) |
+
+A class text that moves the vectors a lot is worth a lot; one that moves them
+**0.0013** is worth nothing. That near-zero case is the account's least obvious
+prediction and had never been tested. Across the 38 categories with documents,
+the alignment change and the share of headroom captured correlate at
+**ρ = +0.749 (p = 6×10⁻⁸)** — the class-level relation, found by search on NACE
+and not significant there after correction, replicated prospectively on labels
+this project did not make and text it did not write, and this time it survives
+correction ([`results/arxiv.json`](results/arxiv.json), `make arxiv-fetch
+arxiv`).
+
 **A fourth corpus, and a prediction of ours that failed.** The three corpora
 above have well-separated alignment changes, which keeps the account away from
 the case it finds hardest: a corpus where the change is small, so it has to
@@ -257,7 +285,7 @@ system in its own process.
 ### Ablation
 
 *p* is uncorrected; removing the description (−8.4 points, p = 0.002) does not
-survive correction over the paper's 53 tests.
+survive correction over the paper's 56 tests.
 
 | Variant | Top-1 | Δ Top-1 | F1-macro | p vs. full |
 | --- | --- | --- | --- | --- |

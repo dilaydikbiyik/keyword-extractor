@@ -197,11 +197,12 @@ def main() -> int:
     describing["gain_pp"] = 100 * (results[keys[2]]["top1_accuracy"]
                                    - results[keys[1]]["top1_accuracy"])
 
+    present = [n for n in names if n in set(labels)]
     recall = {name: {n: float(np.mean([h for h, g in zip(correct[name], labels) if g == n]))
-                     for n in names} for name in correct}
+                     for n in present} for name in correct}
     pooled = [(registered["alignment_change_per_class"]["the official description"][n],
                (recall[keys[2]][n] - recall[keys[1]][n]) / (1 - recall[keys[1]][n]))
-              for n in names if recall[keys[1]][n] < 0.999]
+              for n in present if recall[keys[1]][n] < 0.999]
     rho, p_rho = spearmanr([a for a, _ in pooled], [s for _, s in pooled])
 
     gains = {"spelling the label out": spelling["gain_pp"],
@@ -231,7 +232,7 @@ def main() -> int:
         "study": "arxiv",
         "preregistration": PREREGISTRATION.name,
         "registered_at": registered["registered_at"],
-        "n": len(texts), "classes": len(names),
+        "n": len(texts), "classes": len(names), "classes_with_documents": len(present),
         "labels": registered["labels"], "class_text": registered["class_text"],
         "conditions": results,
         "spelling_the_label_out": spelling,
