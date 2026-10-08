@@ -113,6 +113,17 @@ is a decision for after the submission rather than before it.
       `run_overlap_estimate` measuring what its regime check costs when it has
       no labels to group by. The guide in `docs/recipe.md` now opens with the
       procedure instead of ending with the findings.
+- [x] The description effect tested on a modern encoder, after a review
+      objected that the three in the paper are an older generation. `bge-m3`
+      replicates the content effect at +17.7 points and the language contrast
+      stays negative there too. Both new tests joined the hypothesis family and
+      the whole family was corrected again, 72 tests with 32 surviving — the
+      point is that they were corrected together, not that the old results
+      happened to survive.
+      *Still open:* this replicates the **effect**, not the mechanism. The
+      per-class Δa-against-gain correlation was not computed on `bge-m3`, so
+      the encoder-independence of the quantity itself rests on the three
+      encoders already reported.
 - [x] The label-free estimate tested as a decision rule, not only as a
       correlation, after a review pointed out that the paper promised the first
       and measured the second. Rewriting only the classes it ranks highest

@@ -131,6 +131,7 @@ study:
 	$(PYTHON) -m experiments.run_description_study
 	$(PYTHON) -m experiments.run_description_study --encoder paraphrase-multilingual-mpnet-base-v2
 	$(PYTHON) -m experiments.run_description_study --encoder sentence-transformers/LaBSE
+	$(PYTHON) -m experiments.run_description_study --encoder BAAI/bge-m3
 	$(PYTHON) -m experiments.run_language_match --no-seeds
 	$(PYTHON) -m experiments.run_replication
 	$(PYTHON) -m experiments.run_reuters

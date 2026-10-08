@@ -315,12 +315,14 @@ languages, so the diagonal a matching effect would produce does not appear.
 Across the two sets the null therefore covers three description
 languages---Turkish, German and English---against German and English
 documents, which is the scope we claim for it and no wider. The
-effect also survives a change of encoder, and of encoder family: content is
-worth \MpnetContentEffect~points on the larger mpnet-base-v2
-(\MpnetContentPStat) and \LabseContentEffect\ on LaBSE
-(\LabseContentPStat), which is trained by translation ranking rather than by
-distillation from the same teacher. Neither encoder shows the language effect
-either.
+effect survives a change of encoder, of family and of generation: content is
+worth \MpnetContentEffect~points on mpnet-base-v2 (\MpnetContentPStat),
+\LabseContentEffect\ on LaBSE (\LabseContentPStat), trained by translation
+ranking rather than distillation, and \BgeContentEffect\ on \BgeModel\
+(\BgeContentPStat), a recent encoder five times the size of ours that still
+reaches only \BgeTopOne\ against \OursTopOne. None of the three shows a
+positive language contrast; on \BgeModel\ it is
+\BgeLanguageEffect~points (\BgeLanguagePStat, lost to the correction).
 
 \subsection{What predicts which classes gain}
 \label{sec:predictors}

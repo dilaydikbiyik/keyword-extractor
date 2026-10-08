@@ -106,6 +106,12 @@ def family() -> List[Dict]:
             arxiv["defining_the_class"], arxiv["n"])
         add("Descriptions", "arXiv: readable names vs. identifiers",
             arxiv["spelling_the_label_out"], arxiv["n"])
+    bge = load("description_study_bge_m3")
+    if bge:
+        add("Descriptions", "NACE, bge-m3 encoder: definitions vs. terse German",
+            bge["content_effect"], bge["n"])
+        add("Descriptions", "NACE, bge-m3 encoder: terse German vs. terse original",
+            bge["language_effect"], bge["n"], sign=-1)
 
     for s in load("baselines")["systems"]:
         if s["key"] in {"tfidf-nace", "embed-zeroshot"}:

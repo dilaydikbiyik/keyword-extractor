@@ -1368,6 +1368,17 @@ def main() -> int:
         derived += llm_definitions_macros(with_definitions)
     else:
         llm = None
+    bge_study = load_optional("description_study_bge_m3")
+    if bge_study:
+        derived += [
+            r"\newcommand{\BgeModel}{%s}" % bge_study["encoder"].split("/")[-1],
+            r"\newcommand{\BgeContentEffect}{%+.1f}" % bge_study["content_effect"]["gain_pp"],
+            r"\newcommand{\BgeContentPStat}{%s}" % p_stat(bge_study["content_effect"]["p_value"]),
+            r"\newcommand{\BgeLanguageEffect}{%+.1f}" % bge_study["language_effect"]["gain_pp"],
+            r"\newcommand{\BgeLanguagePStat}{%s}" % p_stat(bge_study["language_effect"]["p_value"]),
+            r"\newcommand{\BgeTopOne}{%s\%%}" % pct(
+                bge_study["conditions"]["rewritten as NACE-style definitions"]["top1_accuracy"]),
+        ]
 
     written = {
         "baselines.tex": baseline_table(baselines["systems"], llm),

@@ -209,7 +209,18 @@ on the larger mpnet encoder, and four of its five predictions held. Top-1 rose o
 Reuters (+4.0 points, p < 0.001), 20 Newsgroups (+1.7, p = 0.003, not significant
 after correction) and NACE (+2.0, not significant), and the per-class correlation
 appeared a third time (ρ = +0.544); the predicted ordering failed again, NACE
-edging past 20 Newsgroups. A [fourth study](results/rocchio_labse_preregistration.json)
+edging past 20 Newsgroups. **It is not an artefact of an old encoder.** The content effect replicates on
+`BAAI/bge-m3`, a recent multilingual encoder about five times the size of the
+one used throughout: **+17.7 points** (p = 5×10⁻⁷, surviving correction), while
+rendering the same content in the documents' language is **−4.7** — negative
+again, and lost to the correction
+([`results/description_study_bge_m3.json`](results/description_study_bge_m3.json)).
+Size did not decide this comparison: with definitions `bge-m3` reaches 49.8%
+against 52.5% for the 118M-parameter encoder. Two models are not a trend, and
+`bge-m3` was not built to win this benchmark — the point is only that the value
+of writing the descriptions does not disappear as the encoder grows.
+
+A [fourth study](results/rocchio_labse_preregistration.json)
 repeated the first on LaBSE, a different encoder family: +9.4 points on 20
 Newsgroups (p < 0.001) and +0.7 on NACE (p = 0.89), but **−3.0 on Reuters**
 (p = 0.024, not after correction) — the first corpus where moving the vectors
