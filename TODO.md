@@ -140,7 +140,10 @@ is a decision for after the submission rather than before it.
 - [ ] **Submit to ARR by 12 October**, then **register as a reviewer by 14
       October** — a submission whose authors are not registered can be desk
       rejected.
-- [ ] **Read the paper end to end.** Every sentence has to be defensible by you;
+- [ ] **Read the paper end to end**, and look at the pages as well as the words.
+      Three appendix tables were printing over each other until you noticed it in
+      the PDF; a test now catches that class of defect, but only the kinds it was
+      taught. Every sentence has to be defensible by you;
       the defence notebook exists for this.
 - [ ] **Optional, valuable:** code 50 errors blind (the coding tool is in your
       Downloads), and find a German reader for the 50-document blind sample

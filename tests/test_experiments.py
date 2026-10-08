@@ -1524,3 +1524,70 @@ class TestDiagnostic:
         # section, not a precondition for the others.
         assert report["classes"] and "rewrite_first" in report
         assert diagnose.render(report)
+
+
+class TestPaperLayout:
+    """The built PDF, checked for the defects a human notices and a log does not.
+
+    LaTeX reports an overfull box as a warning and carries on, so a table wider
+    than its column silently prints over whatever sits beside it. That happened:
+    three appendix tables ran past the column edge and one landed on top of
+    another table's caption. These read the finished page instead.
+    """
+
+    @staticmethod
+    def _pages():
+        pytest.importorskip("pdfminer", reason="pdfminer.six is not installed")
+        from pdfminer.high_level import extract_pages
+
+        from experiments.config import ROOT as ROOT_DIR
+
+        pdf = ROOT_DIR / "dist" / "review.pdf"
+        if not pdf.exists():
+            pytest.skip("dist/review.pdf is not built; run `make submission`")
+        return list(extract_pages(str(pdf)))
+
+    # The text area of the ACL two-column layout, in points. Review mode prints
+    # line numbers in the margin beyond it, which are not overflow.
+    TEXT_RIGHT = 528
+    MARGIN_NUMBERS = 545
+
+    def _blocks(self, page):
+        from pdfminer.layout import LTTextContainer
+
+        return [el for el in page
+                if isinstance(el, LTTextContainer) and el.get_text().strip()
+                and el.x0 <= self.MARGIN_NUMBERS]
+
+    def test_nothing_is_printed_past_the_text_area(self):
+        over = [(pno, el.x1, el.get_text().strip()[:40])
+                for pno, page in enumerate(self._pages(), 1)
+                for el in self._blocks(page) if el.x1 > self.TEXT_RIGHT]
+        assert not over, "printed past the right edge of the text area: " + str(over[:4])
+
+    def test_no_table_lands_on_another_float(self):
+        """A caption and a table body that overlap are two floats on top of each
+        other, which is what a too-wide table does to its neighbour."""
+        clashes = []
+        for pno, page in enumerate(self._pages(), 1):
+            blocks = self._blocks(page)
+            for i, a in enumerate(blocks):
+                for b in blocks[i + 1:]:
+                    ta, tb = a.get_text().strip(), b.get_text().strip()
+                    if not (ta.startswith("Table") or tb.startswith("Table")):
+                        continue
+                    if not (a.x1 <= b.x0 or b.x1 <= a.x0
+                            or a.y1 <= b.y0 or b.y1 <= a.y0):
+                        clashes.append((pno, ta[:30], tb[:30]))
+        assert not clashes, "a table overlaps another float: " + str(clashes[:3])
+
+    def test_the_countable_body_still_ends_by_page_eight(self):
+        """ARR counts everything up to the Limitations section, which is
+        unnumbered and excluded along with ethics, references and appendices."""
+        pages = self._pages()
+        limitations = next(
+            (pno for pno, page in enumerate(pages, 1)
+             for el in self._blocks(page) if el.get_text().strip().startswith("Limitations")),
+            None)
+        assert limitations is not None, "no Limitations heading found in the PDF"
+        assert limitations <= 8, f"the body runs to page {limitations}; the limit is 8"

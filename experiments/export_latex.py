@@ -658,7 +658,7 @@ def description_source_table(source: Dict) -> str:
             "--" if "mcnemar_vs_control" not in c else p_cell(c["mcnemar_vs_control"]["p_value"]),
         ]) + r" \\")
     return "\n".join([
-        PREAMBLE, r"\begin{table}[t]", r"\centering", r"\footnotesize", r"\setlength{\tabcolsep}{4pt}",
+        PREAMBLE, r"\begin{table*}[t]", r"\centering", r"\footnotesize", r"\setlength{\tabcolsep}{4pt}",
         r"\begin{tabular}{@{}lrrrrr@{}}", r"\toprule",
         r"Class text & Top-1 & Top-3 & Words & $\Delta a$ & $p$ \\",
         r"\midrule", *rows, r"\bottomrule", r"\end{tabular}",
@@ -667,7 +667,7 @@ def description_source_table(source: Dict) -> str:
         r"text and nothing else. Words is the mean length of a class text; $\Delta a$ its mean "
         r"alignment change against the control, measured before the prediction was registered; $p$ "
         r"an exact McNemar test against the control, uncorrected. Top-1 and Top-3 are percentages.}",
-        r"\label{tab:source}", r"\end{table}", "",
+        r"\label{tab:source}", r"\end{table*}", "",
     ])
 
 
@@ -715,7 +715,7 @@ def arxiv_table(arxiv: Dict) -> str:
                                 pct(c["top3_accuracy"]), num(c["f1_macro"]),
                                 "%.0f" % c["mean_words_per_class"]]) + r" \\")
     return "\n".join([
-        PREAMBLE, r"\begin{table}[t]", r"\centering", r"\footnotesize", r"\setlength{\tabcolsep}{4pt}",
+        PREAMBLE, r"\begin{table*}[t]", r"\centering", r"\footnotesize", r"\setlength{\tabcolsep}{4pt}",
         r"\begin{tabular}{@{}lrrrrr@{}}", r"\toprule",
         r"Class text & Top-1 & 95\% CI & Top-3 & F1-macro & Words \\", r"\midrule",
         *rows, r"\bottomrule", r"\end{tabular}",
@@ -726,7 +726,7 @@ def arxiv_table(arxiv: Dict) -> str:
         r"official description moves them \ArxivDescAlign, which is zero for practical purposes, "
         r"and is worth \ArxivDescGain\ (\ArxivDescPStat, \HolmArxivDescStat). Top-1, Top-3 and "
         r"the interval are percentages; Words is the mean length of a class text.}",
-        r"\label{tab:arxiv}", r"\end{table}", "",
+        r"\label{tab:arxiv}", r"\end{table*}", "",
     ])
 
 
@@ -768,7 +768,7 @@ def brown_table(brown: Dict) -> str:
                                 pct(c["top3_accuracy"]), num(c["f1_macro"]),
                                 "%.0f" % c["mean_words_per_class"]]) + r" \\")
     return "\n".join([
-        PREAMBLE, r"\begin{table}[t]", r"\centering", r"\footnotesize", r"\setlength{\tabcolsep}{4pt}",
+        PREAMBLE, r"\begin{table*}[t]", r"\centering", r"\footnotesize", r"\setlength{\tabcolsep}{4pt}",
         r"\begin{tabular}{@{}lrrrrr@{}}", r"\toprule",
         r"Class text & Top-1 & 95\% CI & Top-3 & F1-macro & Words \\", r"\midrule",
         *rows, r"\bottomrule", r"\end{tabular}",
@@ -778,7 +778,7 @@ def brown_table(brown: Dict) -> str:
         r"class text. The definition step was registered as a prediction that accuracy would not rise, "
         r"because the alignment change is \BrownAlign; it rose \BrownDefGain~points "
         r"(\BrownDefPStat, \HolmBrownDefStat).}",
-        r"\label{tab:brown}", r"\end{table}", "",
+        r"\label{tab:brown}", r"\end{table*}", "",
     ])
 
 
