@@ -465,6 +465,22 @@ documents flagged high-confidence."*
 
 ---
 
+## 10b. What the pre-submission checks did and did not show
+
+Four mechanical checks were run before freezing, and it is worth being precise
+about their reach. The conditional in the error-analysis paragraph compiles the
+branch that says the author did not code the errors independently, which is
+true. Regenerating every table reproduces the committed files byte for byte, so
+no number in the paper was typed by hand. All nine preregistrations were added
+to the history before the results they predict. A clean clone reproduces the
+tables and builds the paper, so nothing untracked is required.
+
+None of that is evidence that the work is correct. Reproducibility is not
+validity: the first three show the computation repeats and the fourth that it
+repeats elsewhere. The preregistration claim rests on what the registration
+files say — each states its predictions and a fingerprint of the method — as
+much as on when they were committed.
+
 ## 11. What remains
 
 1. ~~**Run the LLM baseline.**~~ **Done, twice.** Two open models from two

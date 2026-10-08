@@ -5,7 +5,7 @@ PYTHON ?= $(shell \
 	elif command -v python3 >/dev/null 2>&1; then command -v python3; \
 	else echo python; fi)
 
-.PHONY: help install reproduce test lint annotate merge verify verify-new verify-apply second-annotator second-annotator-score llm-baseline llm-baseline-local llm-baseline-second llm-baseline-definitions study rocchio-preregister rocchio rocchio-definitions-preregister rocchio-definitions paper-tables paper submission demo clean rocchio-mpnet-preregister rocchio-mpnet rocchio-labse-preregister rocchio-labse references preprint independent-descriptions description-source-preregister description-source rocchio-sensitivity abstention dose-response description-noise hierarchy synthetic brown-preregister brown arxiv-fetch arxiv-preregister arxiv labelfree-preregister labelfree extended-set extended-model-labels extended-merge extended-preregister extended-eval author-coding author-coding-score model-coding translate-queue benchmark benchmark-second-device overlap-estimate rewrite-priority diagnose
+.PHONY: help install reproduce test lint annotate merge verify verify-new verify-apply second-annotator second-annotator-score llm-baseline llm-baseline-local llm-baseline-second llm-baseline-definitions study rocchio-preregister rocchio rocchio-definitions-preregister rocchio-definitions paper-tables paper submission demo clean rocchio-mpnet-preregister rocchio-mpnet rocchio-labse-preregister rocchio-labse references preprint independent-descriptions description-source-preregister description-source rocchio-sensitivity abstention dose-response description-noise hierarchy synthetic brown-preregister brown arxiv-fetch arxiv-preregister arxiv labelfree-preregister labelfree extended-set extended-model-labels extended-merge extended-preregister extended-eval author-coding author-coding-score model-coding translate-queue benchmark benchmark-second-device overlap-estimate rewrite-priority diagnose submission-record
 
 help:
 	@echo "Using PYTHON = $(PYTHON)"
@@ -37,6 +37,7 @@ help:
 	@echo "  overlap-estimate  price of the regime check when it has no labels"
 	@echo "  rewrite-priority  what ranking classes by the estimate actually buys"
 	@echo "  diagnose          run the advice on your own taxonomy and unlabelled pool"
+	@echo "  submission-record pin the commit and digests of what was submitted"
 	@echo "                How much writing pays, what a wrong description costs, when to"
 	@echo "                decline, whether depth matters, and why alignment is the quantity"
 	@echo "  brown-preregister / brown  A fourth corpus, predicted before it was tested"
@@ -277,6 +278,14 @@ overlap-estimate:
 
 rewrite-priority:
 	$(PYTHON) -m experiments.run_rewrite_priority
+
+# Run this after `make submission`, on the day, with the venue named.
+submission-record:
+	$(PYTHON) tools/submission_record.py --venue "$(VENUE)" \
+		$(if $(TAG),--tag $(TAG),) > docs/submission_v1.md
+	@echo "Wrote docs/submission_v1.md. Verify after tagging:"
+	@echo "  $(PYTHON) tools/submission_record.py --verify docs/submission_v1.md"
+
 
 # The advice, on somebody else's taxonomy. TAXONOMY and POOL are theirs;
 # REWRITTEN is optional and turns the run into a check of a rewrite.

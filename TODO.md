@@ -156,6 +156,26 @@ is a decision for after the submission rather than before it.
       44.5% and the character n-gram one 54.2% — different systems, often
       conflated; and lead with six evaluation sets and 12,341 documents rather
       than with 299.
+- [ ] **Pin the submitted version.** The order matters, because the tag has to
+      mark the commit the uploaded files were built from, not the later commit
+      that stores the record:
+
+      1. `make submission` — build the PDF and archive from the current commit
+      2. Upload that exact PDF; do not rebuild it afterwards
+      3. `make submission-record VENUE="ARR October 2026" TAG=v1-arr-october-2026`
+      4. `git tag -a v1-arr-october-2026 -m "Submitted to ARR, October 2026"`
+         — at this commit, which is the one the record names
+      5. Commit `docs/submission_v1.md` on top; this does not invalidate it,
+         because the record says which commit it describes
+      6. `python tools/submission_record.py --verify docs/submission_v1.md`
+      7. `git push && git push --tags`
+
+      Step 6 fails if the PDF was rebuilt after step 3, or if the tag points
+      anywhere but the commit named in the record. Keep the OpenReview
+      submission confirmation too: it is the one timestamp neither the record
+      nor the tag can forge. Everything after it is
+      post-submission work and gets its own preregistrations; nothing is
+      written back into the ones already in `results/`.
 - [ ] **Submit to ARR by 12 October**, then **register as a reviewer by 14
       October** — a submission whose authors are not registered can be desk
       rejected.

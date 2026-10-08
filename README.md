@@ -12,6 +12,19 @@ held — including a corpus that contradicted one of this project's own claims,
 and 7,470 arXiv abstracts where the labels and the class descriptions are
 nobody's work but arXiv's.
 
+**Key finding.** Rewriting a taxonomy's class descriptions from labels into
+definitions is worth up to +26.8 points of Top-1 accuracy, and how far the
+rewrite moves each class vector toward the documents it must attract predicts
+which classes gain. That quantity can be estimated without any labels — but our
+own simulation says the estimate is not good enough to prioritise with, and the
+tool released here was changed to say so.
+
+| The diagnostic claims | The diagnostic does not claim |
+|---|---|
+| Whether rewriting this taxonomy pays **at all** — the regime check agreed with the labelled one on four of five corpora | That it can tell you **which class to rewrite first**: ranking by it captures 15% of the available gain against 11% for a random order |
+| How far a rewrite you have already drafted moved each class vector | The accuracy you will reach — that needs labels, and it reads none |
+| Where a wrong description is most expensive — next to a confusable neighbour, worth −12.7 points against −4.7 at random | Anything at all when the encoder cannot separate your classes, where its own input is noise |
+
 Assigning **NACE Rev. 2** economic sections to German company purpose
 statements with no labelled training data, by embedding the taxonomy's own
 class descriptions and ranking them against the document.
@@ -623,6 +636,17 @@ results/                Generated: every number cited anywhere
 tests/                  Unit, end-to-end, architecture and reporting tests
 run.py                  make reproduce
 ```
+
+## Submitting, and what the record fixes
+
+`make submission-record VENUE="ARR October 2026"` writes `docs/submission_v1.md`:
+the commit, the SHA-256 of the PDF actually uploaded and of the code archive
+beside it, and the date. It fixes what *the submitted version* refers to, so
+that work done afterwards can be reported as what it is. It establishes nothing
+about whether the work is right — reproducing the tables shows the computation
+repeats, not that the design is sound, and the preregistration claim rests on
+the content of `results/*_preregistration.json` as much as on their place in the
+history.
 
 ## Documentation
 

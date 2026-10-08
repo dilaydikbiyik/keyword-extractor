@@ -123,9 +123,9 @@ told in advance without labels. In detail:
         corpus where written definitions did not help. Across all four, on three
         encoders, the class-level prediction holds every time and the
         corpus-level ordering once, which we report as the account's limit.
-  \item A negative result with a measured cause: the quantity cannot be
-        optimised per class, because the classifier's argmax compares across
-        classes on a scale that depends on description style.
+  \item A negative result with a measured cause: three per-class selection
+        rules fail to beat a fixed policy, because the classifier's argmax
+        compares classes on a scale that depends on description style.
   \item Stronger references and alternatives. A character n-gram ranker over
         the same descriptions matches the system and gains as much from the
         rewrite, a classifier trained on most of the labels does no better, and
@@ -387,7 +387,8 @@ prediction was no gain, and smaller than NACE's and Reuters' whatever happened.
 (\BrownDefPStat, \HolmBrownDefStat), a hair above Reuters, so both
 corpus-level predictions failed, while the class-level one held a fourth time
 ($\rho = \BrownRho$, \BrownRhoPStat, \HolmBrownRhoStat). We do not claim the
-corpus mean predicts a corpus's gain (Appendix~\ref{app:brown}).
+corpus mean predicts a corpus's gain (Table~\ref{tab:brown},
+Appendix~\ref{app:brown}).
 
 \subsection{Gold labels, somebody else's descriptions, and a change of zero}
 \label{sec:arxiv}
@@ -646,7 +647,7 @@ nothing about prompted models in general, only that these two did not beat a
 One document costs \BenchCharMs~ms in the character n-gram space,
 \BenchMiniLMMs~ms through the MiniLM encoder and \BenchLLMMs~ms through
 \LLMModel, which is about \BenchLLMTimes\ times slower than the encoder whose
-accuracy it does not beat (Appendix~\ref{app:cost}). The ordering matters for
+accuracy it does not beat (Table~\ref{tab:cost}). The ordering matters for
 the argument rather than for the record: the description is the cheapest part of
 every system in the table.
 
@@ -811,7 +812,13 @@ removing it. Definitions written by a model from a different family, given the
 control text alone, raise accuracy in the predicted direction, so the effect is
 not confined to text from the labeller's family; but they recover only
 \SourceWriterShare\ of the gain, and whether the rest is the assistant's
-better writing or its shared bias is not separated by that experiment.
+better writing or its shared bias is not separated by that experiment. A
+human-authored condition would separate it, and this study does not have one:
+assembling expert descriptions of comparable control across the taxonomies
+evaluated here was out of scope. The arXiv results stand in for it only
+partly---there the class texts and the labels are both the publisher's and the
+authors' rather than ours, so the shared-source objection does not apply, but
+the taxonomy and the documents are different ones.
 
 \section*{Ethics Statement}
 
