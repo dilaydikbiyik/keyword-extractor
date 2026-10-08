@@ -39,45 +39,35 @@
 
 % ─────────────────────────────────────────────────────────────────────────────
 \begin{abstract}
-Zero-shot classification against a taxonomy usually embeds a short
-description of each class and ranks the descriptions against the document.
-How much the wording of those descriptions matters is rarely measured. We rewrite the class descriptions of a NACE Rev.~2 taxonomy
-over German trade register texts, from category labels into definitions that
-enumerate concrete activities, and gain \ContentEffect~points of Top-1 accuracy.
-A control shows the gain is not linguistic: rendering the same content in the
-language of the documents is worth \LanguageEffect~points ($p =
-\LanguageP$). The control spans three description languages---Turkish, in
-which sixteen of the twenty-one originals were written, German and
-English---and a crossed design varying document and description language
-independently; no contrast among them approaches the content effect. Both
-effects replicate on a second German set four times the size, drawn and
-labelled after the first was fixed, with \ExtendedHeld\ of
-\ExtendedPredictions\ predictions registered beforehand holding: content is
-worth \ExtendedContentGain~points over \ExtendedN\ documents, language
-\ExtendedLanguageGain. We identify what does explain it---how far the rewrite moves each
-class vector toward the centroid of the documents it must attract
-($\rho = \AlignRho$ over \NCLASSES\ classes)---and show the
-account is monotone across three corpora, one of which we predict before
-measuring---and breaks on a fourth, registered in advance, where the alignment
-change is negative and the gain is not. On \ArxivN\ arXiv abstracts with
-author-assigned labels and arXiv's own category descriptions, both registered
-predictions hold---the class text that moves the vectors \ArxivSpellAlign\ is
-worth \ArxivSpellGain~points, the one that moves them \ArxivDescAlign\ is
-worth \ArxivDescGain---and the relation replicates at $\rho = \ArxivRho$ over
-\ArxivRhoN\ categories. Estimated with no labels at all, from the
-classifier's own argmax, the quantity still predicts which classes gain
-($\rho = \EstimateRho$ over \EstimateClasses\ classes), so the account can be
-applied before any annotation is paid for. It cannot be optimised per class: three selection
-criteria, including direct optimisation of development accuracy, fail to
-generalise. Moving class vectors toward unlabelled documents confirms the
-relation in four preregistered studies on three encoders, while the
-corpus-level ordering holds only once, and a character n-gram ranker gains as
-much from the same descriptions. The account is also actionable, and we ship it
-as a diagnostic that reads an unlabelled pool: \DoseNinetyWords\ words per
-class carry ninety per cent of the gain, a wrong description costs
-\NoiseNeighbourQuarter~points where it lands between confusable classes
-against \NoiseRandomQuarter\ at random, and abstaining below the decision's
-own margin reaches \AbstainHalfTopOne\ at half coverage.
+Zero-shot classification against a taxonomy embeds a short description of each
+class and ranks those descriptions against the document; how much their wording
+matters is rarely measured. Rewriting the class descriptions of a NACE Rev.~2
+taxonomy over German trade register texts, from category labels into definitions
+that enumerate concrete activities, gains \ContentEffect~points of Top-1
+accuracy, while rendering the same content in the language of the documents is
+worth \LanguageEffect\ ($p = \LanguageP$)---a null that holds across three
+description languages and a design crossing document language with description
+language.
+
+Our contribution is the quantity that explains this and says where it will
+recur: how far a rewrite moves each class vector toward the centroid of the
+documents it must attract ($\rho = \AlignRho$ over \NCLASSES\ classes). It
+survives losing the labels. Estimated from the classifier's own argmax, with no
+annotation anywhere in it, it still predicts which classes gain
+($\rho = \EstimateRho$ over \EstimateClasses\ classes), so a practitioner can
+tell whether rewriting a taxonomy will pay before buying a single label; we
+release it as a diagnostic that reads an unlabelled pool.
+
+The account is tested on six evaluation sets over five taxonomies, among them
+\ArxivN\ arXiv abstracts whose labels their authors assigned and whose class
+texts arXiv publishes---neither of them ours---where both registered predictions
+hold and the relation replicates at $\rho = \ArxivRho$. Across
+\RegisteredStudies\ preregistered studies, whose predictions and method
+fingerprints were committed to version control before any accuracy existed,
+\RegisteredHeld\ of \RegisteredPredictions\ held. The \RegisteredFailed\ that
+did not are reported, including a corpus registered in advance where the
+alignment change is negative and the gain is not, and a corpus-level ordering
+that holds only once.
 \end{abstract}
 
 % ─────────────────────────────────────────────────────────────────────────────
@@ -99,7 +89,9 @@ rather than a modelling decision, and we are not aware of a study that measures
 how much it costs to get wrong. This paper argues it is the largest single lever
 in the pipeline, and identifies the quantity that governs it.
 
-Our contributions are:
+What we contribute is not a model but a measurement and the quantity behind
+it: what a class description buys, why it buys it, and how to tell in advance,
+without labels, whether rewriting one will pay. In detail:
 \begin{itemize}
   \item Rewriting class descriptions from category labels into definitions that
         enumerate concrete activities gains \ContentEffect~points of Top-1
@@ -116,8 +108,9 @@ Our contributions are:
         the preregistered test below rather than on its own $p$-value.
   \item Prospective tests on three further corpora, each registered before its
         accuracy was computed: a confirmation on Reuters, a failure of the
-        corpus-level prediction on Brown, and on \ArxivN\ arXiv abstracts with
-        author-assigned labels and arXiv's own class descriptions, a class text
+        corpus-level prediction on Brown, and on \ArxivN\ arXiv abstracts whose
+        labels their authors assigned and whose class descriptions arXiv
+        publishes---neither our labelling nor our writing---a class text
         worth \ArxivSpellGain~points and one worth \ArxivDescGain, each as its
         alignment change implied.
   \item Four preregistered, label-free interventions on the class vectors,
@@ -293,6 +286,8 @@ NACE evaluation set and reported on a held-out half that was not examined.
 \subsection{Language or content?}
 \label{sec:descriptions}
 
+\input{tables/descriptions}
+
 The rewritten descriptions changed two things at once: language, since sixteen
 of twenty-one were originally in Turkish while every document is German, and
 content, since terse category labels became definitions enumerating concrete
@@ -302,8 +297,7 @@ machine-translation noise, and the five sections already in German carried over
 untouched.
 
 Language alone is worth \LanguageEffect~points ($p = \LanguageP$). Content is
-worth \ContentEffect\ (Table~\ref{tab:descriptions},
-Appendix~\ref{app:supporting}). Both replicate on a second German set of
+worth \ContentEffect\ (Table~\ref{tab:descriptions}). Both replicate on a second German set of
 \ExtendedN\ documents, drawn after this one was fixed and labelled the same
 way, with \ExtendedHeld\ of \ExtendedPredictions\ predictions registered from
 the figures above holding: content is worth \ExtendedContentGain~points
@@ -858,17 +852,16 @@ experiment outputs.
 
 \appendix
 
-\section{The label-free studies in full}
+\section{The Label-Free Studies in Full}
 \label{app:labelfree}
 
 \input{tables/rocchio}
 
-\section{Supporting tables and figure}
+\section{Supporting Tables and Figure}
 \label{app:supporting}
 
 \input{tables/baselines}
 
-\input{tables/descriptions}
 
 \input{tables/references}
 
@@ -880,7 +873,7 @@ experiment outputs.
 
 \input{tables/errors}
 
-\section{Every comparison, corrected together}
+\section{Every Comparison, Corrected Together}
 \label{app:effects}
 
 Table~\ref{tab:effects} lists every comparison the paper reports as a finding,
@@ -891,12 +884,12 @@ they appear: \EffectLostList.
 
 \input{tables/effects}
 
-\section{What each system costs}
+\section{What Each System Costs}
 \label{app:cost}
 
 \input{tables/cost}
 
-\section{The advice, and the mechanism behind it}
+\section{The Advice, and the Mechanism Behind It}
 \label{app:practice}
 
 Four practical studies and one simulation, none of them registered and none part
@@ -917,7 +910,7 @@ where the account should fail. Numbers for all five are in
 \texttt{results/}, and \texttt{docs/recipe.md} collects the advice with each
 line pointing at the result that carries it.
 
-\section{Across corpora}
+\section{Across Corpora}
 \label{app:brown}
 
 \input{tables/corpora}
@@ -934,7 +927,7 @@ across conditions. Spelling the identifier out is worth
 corpora show. The genre categories, their readable names and their definitions
 are in the released code.
 
-\section{Definitions written by another model}
+\section{Definitions Written by Another Model}
 \label{app:source}
 
 Table~\ref{tab:source} is the full result of Section~\ref{sec:source}: the

@@ -534,7 +534,16 @@ documents flagged high-confidence."*
    assumed (`results/overlap_estimate.json`): ρ = +0.915 over 103 classes, the
    same verdict 88% of the time, four of five corpora in the right regime, and
    every failure in the direction of under-recommending a rewrite.
-9. **A criterion that survives the argmax without labels.** Three tried here
+9. ~~**Written for the venue it is going to.**~~ **Done.** Checked against the
+   ARR author guidelines rather than from memory: the mandatory Limitations
+   section is present and unnumbered, the body ends on page eight with
+   Limitations, Ethics, references and appendices outside that count, Related
+   Work is in the body (placing it only in an appendix is a desk rejection),
+   the preamble matches the ACL template exactly, and the archive carries no
+   identifying string. The abstract was cut from 407 words to 289 and now
+   leads with the contribution; the central comparison moved from the
+   appendix into the body so the main text argues its own case.
+10. **A criterion that survives the argmax without labels.** Three tried here
    fail, including direct optimisation of the objective. Whether a label-free
    set-level criterion exists is open; it would have to beat a fixed policy
    without the development data that makes the search overfit. Moving the
@@ -542,15 +551,15 @@ documents flagged high-confidence."*
    and has been answered: in four preregistered studies, on three encoders from
    two training regimes, the class-level prediction held every time and the
    corpus ordering once (paper, *Moving the vector without words*).
-10. **Decide the keyword question.** The set carries section labels only, so
+11. **Decide the keyword question.** The set carries section labels only, so
    Precision@K is unmeasurable, and the keyword half of the pipeline has now
    failed to show an effect in every configuration tested. Writing a
    section-classification paper is the honest and tighter option; the
    contribution sentence never mentioned keywords.
-11. **Consider dropping the seed lists and two dead stages.** Guided extraction and the six-stage filter
+12. **Consider dropping the seed lists and two dead stages.** Guided extraction and the six-stage filter
    have no evidence behind them across three configurations. Either find a
    metric where they help, or cut them and say why.
-12. ~~**Write.**~~ **Done.** `paper/main.tex` is a complete draft — abstract,
+13. ~~**Write.**~~ **Done.** `paper/main.tex` is a complete draft — abstract,
    five contributions, method, four experiments, error analysis, limitations,
    an ethics statement and a statement on AI use. `make paper-tables`
    regenerates its tables, its figure and its macros from `results/`, a test

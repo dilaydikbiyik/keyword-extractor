@@ -967,6 +967,39 @@ def extended_macros(study: Dict) -> List[str]:
     ]
 
 
+NUMBER_WORDS = {1: "one", 2: "two", 3: "three", 4: "four", 5: "five", 6: "six",
+                7: "seven", 8: "eight", 9: "nine", 10: "ten", 11: "eleven",
+                12: "twelve"}
+
+
+def registered_macros() -> List[str]:
+    """The whole preregistered record, counted from the files rather than recalled.
+
+    Every study that registered predictions wrote them to
+    ``*_preregistration.json`` before the outcome existed, and its result file
+    records which held. Counting them here means the abstract cannot drift from
+    the record as studies are added.
+    """
+    studies, predictions, held = 0, 0, 0
+    for path in sorted(RESULTS_DIR.glob("*_preregistration.json")):
+        result = RESULTS_DIR / path.name.replace("_preregistration", "")
+        if not result.exists():
+            continue
+        outcomes = json.loads(result.read_text(encoding="utf-8")).get("outcomes", [])
+        if not outcomes:
+            continue
+        studies += 1
+        predictions += len(outcomes)
+        held += sum(1 for o in outcomes if o.get("held") is True)
+    return [
+        r"\newcommand{\RegisteredStudies}{%s}" % NUMBER_WORDS.get(studies, str(studies)),
+        r"\newcommand{\RegisteredPredictions}{%d}" % predictions,
+        r"\newcommand{\RegisteredHeld}{%d}" % held,
+        r"\newcommand{\RegisteredFailed}{%s}"
+        % NUMBER_WORDS.get(predictions - held, str(predictions - held)),
+    ]
+
+
 def overlap_macros(bias: Dict, gap: Dict) -> List[str]:
     """What the regime check costs when it has no labels to group documents by.
 
@@ -1275,6 +1308,7 @@ def main() -> int:
     derived += practice_macros(load_optional("dose_response"), load_optional("description_noise"),
                                load_optional("abstention"), load_optional("hierarchy"),
                                load_optional("synthetic"))
+    derived += registered_macros()
     bias = load_optional("overlap_estimate")
     if bias:
         derived += overlap_macros(bias, load_optional("gap_analysis"))

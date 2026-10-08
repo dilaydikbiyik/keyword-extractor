@@ -124,9 +124,19 @@ is a decision for after the submission rather than before it.
 
 - [ ] **OpenReview account**, institutional address as primary. Approval can take
       up to two weeks, so this is the long-lead item.
-- [ ] **CV numbers**: 193 tests under CI; the word TF-IDF baseline is 44.5% and
-      the character n-gram one 54.2% — they are different systems. Lead with
-      five corpora and 11,141 documents rather than with 299.
+- [x] **CV numbers** — done 8 October: the industry CV now reads 207 tests, nine
+      preregistered studies, 33 of 40 predictions held, six evaluation sets and
+      12,341 documents, and every project carries a repository link that was
+      checked unauthenticated. The research variant still carries the old
+      figures and a venue that has not been decided.
+- [ ] **The research CV still carries the old figures**, and a target venue that
+      has not been decided. It says three preregistered studies, 12 of 15, 46
+      comparisons and 106 tests; the true numbers are nine, 33 of 40, 70 and 207.
+      Its *Research* blurb also names ACL SRW as the target, which is not the
+      decision. Two reminders when you update it: the word TF-IDF baseline is
+      44.5% and the character n-gram one 54.2% — different systems, often
+      conflated; and lead with six evaluation sets and 12,341 documents rather
+      than with 299.
 - [ ] **Submit to ARR by 12 October**, then **register as a reviewer by 14
       October** — a submission whose authors are not registered can be desk
       rejected.
