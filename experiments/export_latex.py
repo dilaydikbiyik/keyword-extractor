@@ -972,6 +972,36 @@ NUMBER_WORDS = {1: "one", 2: "two", 3: "three", 4: "four", 5: "five", 6: "six",
                 12: "twelve"}
 
 
+def priority_macros(priority: Dict) -> List[str]:
+    """What a partial rewrite captures, which is the decision the paper advises on.
+
+    A correlation says the quantity tracks the gain; it does not say that
+    ranking by it is worth anything. These are the shares of the full rewrite's
+    gain captured by rewriting the best tenth and the best third of classes
+    under each ranking, against a random order over the same classes.
+    """
+    def at(ranking: str, fraction: float) -> float:
+        row = next(r for r in priority["pooled"][ranking]
+                   if abs(r["fraction_rewritten"] - fraction) < 1e-9)
+        return 100 * row["captured_share"]
+
+    return [
+        r"\newcommand{\PriorityCorpora}{%s}" % ", ".join(priority["corpora_ranked"]),
+        r"\newcommand{\PriorityExcluded}{%s}" % ", ".join(priority["corpora_excluded"]),
+        r"\newcommand{\PriorityMinGain}{%.0f}" % priority["min_gain_pp"],
+        r"\newcommand{\PriorityShuffles}{%d}" % priority["shuffles"],
+        r"\newcommand{\LabelledTenth}{%.0f\%%}" % at("labelled change", 0.1),
+        r"\newcommand{\LabelledThird}{%.0f\%%}" % at("labelled change", 0.3),
+        r"\newcommand{\LabelledHalf}{%.0f\%%}" % at("labelled change", 0.5),
+        r"\newcommand{\EstimateTenth}{%.0f\%%}" % at("label-free change", 0.1),
+        r"\newcommand{\EstimateThird}{%.0f\%%}" % at("label-free change", 0.3),
+        r"\newcommand{\LevelTenth}{%.0f\%%}" % at("label-free level", 0.1),
+        r"\newcommand{\LevelThird}{%.0f\%%}" % at("label-free level", 0.3),
+        r"\newcommand{\RandomTenth}{%.0f\%%}" % at("random", 0.1),
+        r"\newcommand{\RandomThird}{%.0f\%%}" % at("random", 0.3),
+    ]
+
+
 def registered_macros() -> List[str]:
     """The whole preregistered record, counted from the files rather than recalled.
 
@@ -1309,6 +1339,9 @@ def main() -> int:
                                load_optional("abstention"), load_optional("hierarchy"),
                                load_optional("synthetic"))
     derived += registered_macros()
+    priority = load_optional("rewrite_priority")
+    if priority:
+        derived += priority_macros(priority)
     bias = load_optional("overlap_estimate")
     if bias:
         derived += overlap_macros(bias, load_optional("gap_analysis"))

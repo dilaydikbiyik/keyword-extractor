@@ -1583,11 +1583,80 @@ class TestPaperLayout:
 
     def test_the_countable_body_still_ends_by_page_eight(self):
         """ARR counts everything up to the Limitations section, which is
-        unnumbered and excluded along with ethics, references and appendices."""
+        unnumbered and excluded along with ethics, references and appendices.
+
+        A body filling eight pages exactly puts the Limitations heading at the
+        top of page nine, which is still eight pages of content. What is not
+        allowed is body text on page nine above that heading.
+        """
         pages = self._pages()
-        limitations = next(
-            (pno for pno, page in enumerate(pages, 1)
-             for el in self._blocks(page) if el.get_text().strip().startswith("Limitations")),
-            None)
-        assert limitations is not None, "no Limitations heading found in the PDF"
-        assert limitations <= 8, f"the body runs to page {limitations}; the limit is 8"
+        page_of, first_on_nine = None, None
+        for pno, page in enumerate(pages, 1):
+            for el in sorted(self._blocks(page), key=lambda e: -e.y1):
+                text = el.get_text().strip()
+                if pno == 9 and first_on_nine is None:
+                    first_on_nine = text
+                if text.startswith("Limitations"):
+                    page_of = page_of or pno
+        assert page_of is not None, "no Limitations heading found in the PDF"
+        if page_of <= 8:
+            return
+        assert page_of == 9 and first_on_nine.startswith("Limitations"), (
+            f"body text runs onto page {page_of} above the Limitations heading: "
+            f"{first_on_nine!r}")
+
+
+class TestRewritePriority:
+    """Whether ranking classes by the estimate is worth anything.
+
+    The paper reported the label-free estimate as a correlation, which says the
+    quantity tracks the gain and says nothing about whether ordering classes by
+    it helps. The simulation says it mostly does not, and these hold that
+    finding still: an honest negative is as easy to lose to a later edit as a
+    positive one.
+    """
+
+    @staticmethod
+    def _result():
+        import json
+
+        from experiments.config import RESULTS_DIR
+
+        path = RESULTS_DIR / "rewrite_priority.json"
+        if not path.exists():
+            pytest.skip("run `make rewrite-priority` first")
+        return json.loads(path.read_text(encoding="utf-8"))
+
+    def test_only_corpora_with_a_gain_to_distribute_are_ranked(self):
+        """A share of a gain that is not there is not a share of anything: the
+        corpora whose full rewrite moves accuracy by almost nothing produced
+        captured shares in the hundreds of percent before this was imposed."""
+        report = self._result()
+        for name in report["corpora_ranked"]:
+            assert report["per_corpus"][name]["full_gain_pp"] >= report["min_gain_pp"]
+        for name in report["corpora_excluded"]:
+            assert report["per_corpus"][name]["full_gain_pp"] < report["min_gain_pp"]
+        assert report["corpora_ranked"], "no corpus had a gain worth ranking"
+
+    def test_rewriting_every_class_captures_all_of_the_gain(self):
+        """The denominator is the gain the ranking can reach, so the curve has
+        to end at one. It ended at 0.94 and -0.32 while it did not."""
+        report = self._result()
+        for corpus in report["per_corpus"].values():
+            for ranking, curve in corpus["curves"].items():
+                if ranking == "random":
+                    continue
+                last = curve[-1]
+                assert last["fraction_rewritten"] == 1.0
+                assert abs(last["captured_share"] - 1.0) < 1e-6, (ranking, last)
+
+    def test_the_labelled_quantity_prioritises_and_the_estimate_does_not(self):
+        """The finding, kept where an edit would have to notice it."""
+        report = self._result()
+        tenth = {k: v[0]["captured_share"] for k, v in report["pooled"].items()}
+        assert tenth["labelled change"] > 2 * tenth["random"], (
+            "with labels the quantity should order classes far better than chance")
+        assert tenth["label-free change"] < 2 * tenth["random"], (
+            "the estimate beating chance at the top would be a new result, not this one")
+        assert tenth["label-free level"] < 2 * tenth["random"], (
+            "the level ranking beating chance at the top would be a new result")

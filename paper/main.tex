@@ -54,9 +54,11 @@ recur: how far a rewrite moves each class vector toward the centroid of the
 documents it must attract ($\rho = \AlignRho$ over \NCLASSES\ classes). It
 survives losing the labels. Estimated from the classifier's own argmax, with no
 annotation anywhere in it, it still predicts which classes gain
-($\rho = \EstimateRho$ over \EstimateClasses\ classes), so a practitioner can
-tell whether rewriting a taxonomy will pay before buying a single label; we
-release it as a diagnostic that reads an unlabelled pool.
+($\rho = \EstimateRho$ over \EstimateClasses\ classes), before any annotation
+is paid for. What it does not yet do is choose: ranking classes by it to decide
+which to rewrite captures little more of the available gain than a random
+order, while the labelled quantity captures \LabelledTenth\ of it from a tenth
+of the classes.
 
 The account is tested on six evaluation sets over five taxonomies, among them
 \ArxivN\ arXiv abstracts whose labels their authors assigned and whose class
@@ -85,13 +87,15 @@ the nearest class.
 The class descriptions in such a pipeline are usually inherited rather than
 designed: from the taxonomy's own published labels, an internal glossary, or
 whoever set the system up. Their wording is treated as a configuration detail
-rather than a modelling decision, and we are not aware of a study that measures
-how much it costs to get wrong. This paper argues it is the largest single lever
-in the pipeline, and identifies the quantity that governs it.
+rather than a modelling decision: comparisons in this setting vary the encoder,
+the scoring function or the calibration and hold the description fixed. We
+measure it instead, and identify the quantity that predicts what it is worth. It
+is a large lever and a cheap one---worth more than swapping the encoder costs
+(Table~\ref{tab:ablation})---on the one family of classifiers studied here.
 
 What we contribute is not a model but a measurement and the quantity behind
-it: what a class description buys, why it buys it, and how to tell in advance,
-without labels, whether rewriting one will pay. In detail:
+it: what a class description buys, why it buys it, and how far that can be
+told in advance without labels. In detail:
 \begin{itemize}
   \item Rewriting class descriptions from category labels into definitions that
         enumerate concrete activities gains \ContentEffect~points of Top-1
@@ -432,9 +436,21 @@ alone calls the direction for \EstimateSignRule\ of classes, and it is weaker
 than the labelled quantity, which reaches $\rho = \LabelledRho$ on the same
 classes. It is weakest where pseudo-assignment is least accurate: on
 \EstimateWeakest\ it manages $\EstimateWeakestRho$ against
-$\EstimateWeakestLabelled$. The advice is correspondingly modest---where the
-terse classifier is already somewhat right, an unlabelled sample says whether
-rewriting will pay.
+$\EstimateWeakestLabelled$.
+
+\paragraph{A correlation is not a decision.}
+Rewriting costs effort per class, so we test the order to work in: class
+vectors take the elaborated description for the best $k$ classes under a
+ranking and the terse one for the rest, and the classifier is run on
+\PriorityCorpora, the corpora gaining at least \PriorityMinGain~points from a
+full rewrite. Ranked by the labelled quantity, the best tenth of classes
+captures \LabelledTenth\ of what rewriting everything buys and the best third
+\LabelledThird---with labels, $\Delta a$ prioritises and does not only explain.
+Ranked by the label-free estimate it captures \EstimateTenth\ and
+\EstimateThird, against \RandomTenth\ and \RandomThird\ for a random order.
+The estimate finds where the gain is in aggregate; it does not pick which
+classes to rewrite first, and we report that rather than ship advice the
+measurement does not support.
 
 \subsection{Moving the vector without words}
 \label{sec:rocchio}
@@ -485,7 +501,7 @@ $\beta \in \{\SweepBetaList\}$, the gain keeps the registered sign in
 conservative one on NACE (grid \SweepNaceMin\ to \SweepNaceMax~points). No
 cell is tested for significance and none enters the corrected family.
 
-\subsection{It cannot be optimised per class}
+\subsection{Three per-class selection rules fail}
 
 If $\Delta a$ were locally causal, choosing each class's description by it should
 beat a fixed policy. It does not. Three criteria of increasing strength---
@@ -564,22 +580,20 @@ definition costs \NoiseRandomQuarter~points at random but
 a small margin raises Top-1 to \AbstainHalfTopOne\ at half coverage.
 
 \paragraph{The advice without labels.}
-Each of those answers was measured against gold labels, which the person
-holding an unlabelled pile does not have, so we ship the account as a
-diagnostic that reads such a pile and reports the estimate of
-Section~\ref{sec:estimate} per class, the nearest competing class, and the
-coverage a margin would retain. Its cheapest check is the regime: classes whose
-names do not occur in their documents gained \GapBelowGain~points against
-\GapAboveGain\ for the rest. Grouping documents by class needs labels, so the
-tool substitutes the argmax assignment and we measured the substitution rather
-than assuming it: over \OverlapClasses\ classes it tracks the labelled overlap
-at $\rho = \OverlapRho$, agrees per class \OverlapAgreement\ of the time, and
-places \OverlapCorporaAgreeing\ of \OverlapCorpora\ corpora in the right
-regime. Every failure ran one way---without labels the overlap reads up to
-\OverlapWorstInflation$\times$ high where the decision is taken---so an
-estimate between \OverlapThreshold\ and \OverlapUndecidedUpper\ is undecided
-rather than negative, and \OverlapFailing, the corpus it misplaces, sits in
-that band.
+Each answer above was measured against gold labels, which the person holding an
+unlabelled pile does not have. The one question that pile can answer cheaply is
+the regime: classes whose names do not occur in their documents gained
+\GapBelowGain~points against \GapAboveGain\ for the rest. Grouping documents
+by class needs labels, so our released diagnostic substitutes the argmax
+assignment, and we measured the substitution rather than assuming it: over
+\OverlapClasses\ classes it tracks the labelled overlap at
+$\rho = \OverlapRho$ and places \OverlapCorporaAgreeing\ of
+\OverlapCorpora\ corpora in the right regime. Every failure ran one
+way---without labels the overlap reads up to \OverlapWorstInflation$\times$
+high where the decision is taken---so an estimate between \OverlapThreshold\
+and \OverlapUndecidedUpper\ is undecided rather than negative. Which classes
+to rewrite first is a question the same pile does not answer
+(Section~\ref{sec:estimate}).
 
 \subsection{Who writes the definitions}
 \label{sec:source}
@@ -606,32 +620,24 @@ family.
 \subsection{An instruction-tuned model asked directly}
 \label{sec:llm}
 
-The obvious alternative to embedding class descriptions is to ask a language
-model for the section. We gave \LLMModel, an open instruction-tuned model of
-roughly 7B parameters from a different family than the labeller, the section
-names and the document, and asked for the three most likely sections with
-greedy decoding; the prompt is released with the code. It ran locally in about
-\LLMMinutes~minutes, and \LLMOffFormat\ of its replies left the requested format.
-It reaches \LLMTopOne\ Top-1 against \OursTopOne\ for the system, a difference
-that is not significant ($p = \LLMP$), but only \LLMTopThree\ Top-3 against
-\OursTopThree\ ($p = \LLMTopThreeP$; \HolmLLMTopThreeStat), and
-\LLMVerifiedTopOne\ on the human-verified documents ($p = \LLMVerifiedP$). The two agree on the top section
-for only \LLMAgreeShare\ of documents, so they fail on different ones. A second open model from a third
-family, \LLMTwoModel\ (\LLMTwoParams), reaches \LLMTwoTopOne\ Top-1 and
-\LLMTwoTopThree\ Top-3 (\LLMTwoPStat, \LLMTwoTopThreePStat), well below both.
-Nor does the effect transfer by prompting: given the definitions the encoder
-ranks instead of the section names, the 7B model falls to \LLMDefTopOne\
-(\LLMDefPStat). That prompt is an order of magnitude longer and was not tuned,
-so it bounds nothing about prompted models---only that the gain is not had by
-pasting the descriptions into one.
-It answers in format on every document, but only in float32: in half precision
-on this machine it returns empty strings, so what a model can do and what a
-harness lets it do are different measurements, and the precision is recorded
-with the result. A classifier built from a 118M-parameter
-encoder and one definition per class is therefore not outperformed at Top-1 by
-either open model, one of them roughly sixty times its size, and it answers
-about \BenchLLMTimes\ times faster per document (Section~\ref{sec:cost});
-whether larger or proprietary models change that is not tested here.
+The obvious alternative is to ask a language model for the section. We gave
+\LLMModel, an open instruction-tuned model of roughly 7B parameters from a
+different family than the labeller, the section names and the document, and
+asked for the three most likely sections with greedy decoding; the prompt is
+released with the code. It reaches \LLMTopOne\ Top-1 against \OursTopOne\ for
+the system, a difference that is not significant ($p = \LLMP$), but only
+\LLMTopThree\ Top-3 against \OursTopThree\ ($p = \LLMTopThreeP$;
+\HolmLLMTopThreeStat), and the two agree on the top section for only
+\LLMAgreeShare\ of documents. A second open model from a third family,
+\LLMTwoModel\ (\LLMTwoParams), reaches \LLMTwoTopOne\ Top-1, well below both,
+and answered at all only in float32: in half precision on this machine it
+returns empty strings, so what a model can do and what a harness lets it do are
+different measurements. Nor does the effect transfer by prompting: given the
+definitions instead of the section names the 7B model falls to \LLMDefTopOne\
+(\LLMDefPStat). Two models, one prompt each, untuned and greedy: this bounds
+nothing about prompted models in general, only that these two did not beat a
+118M-parameter encoder with one definition per class, which also answers about
+\BenchLLMTimes\ times faster (Appendix~\ref{app:cost}).
 
 \paragraph{What a document costs.}
 \label{sec:cost}
@@ -684,16 +690,15 @@ What a class description buys a zero-shot classifier is alignment with the
 documents it must attract, and its wording is a modelling decision rather than a
 configuration detail. Where class names never appear in their documents, writing
 that vocabulary down is worth \ContentEffect~points; where they are already the
-documents' own words, the same work is worth nothing; and on arXiv, where the
-official descriptions move the class vectors \ArxivDescAlign, they are worth
-\ArxivDescGain. Which way a corpus goes is predictable from the alignment change
-at the level of classes---in every corpus here, in every label-free study, and
-most strongly where the labels and the descriptions are not ours
-($\rho = \ArxivRho$)---but not from its corpus mean, which a fourth corpus
-registered in advance contradicted. The quantity cannot be optimised per class
-either, and neither an instruction-tuned model asked directly nor a classifier
-trained on most of the labels beats one definition per class. The account orders
-classes; it is weaker at comparing corpora, and we report it that way.
+documents' own words it is worth nothing. Which way a corpus goes is predictable
+from the alignment change at the level of classes---most strongly where neither
+the labels nor the descriptions are ours ($\rho = \ArxivRho$)---but not from
+its corpus mean, which a fourth corpus registered in advance contradicted.
+Neither an instruction-tuned model asked directly nor a classifier trained on
+most of the labels beats one definition per class. With labels the quantity
+prioritises as well as explains; without them it explains only. It orders
+classes, is weaker at comparing corpora, and weaker still at choosing between
+them.
 
 % ────────────────────────────────────────────────────────────────────────────
 \section*{Limitations}

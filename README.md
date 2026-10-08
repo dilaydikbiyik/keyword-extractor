@@ -234,6 +234,14 @@ classes_v2.json` and it reports, per class, whether the rewrite moved the class
 vector toward its documents or away, which is the quantity that predicts the
 gain, estimated without a label.
 
+One thing it will not do is tell you which class to start with. We simulated
+that: ranking classes by the label-free estimate and rewriting only the best
+tenth captured **15%** of what rewriting everything buys, against **11%** for a
+random order — while the same quantity measured *with* labels captures **50%**
+([`results/rewrite_priority.json`](results/rewrite_priority.json)). The ordering
+is real; the label-free estimate is too noisy to recover it, and the tool now
+says so where it offers one.
+
 The regime check it leads with needs labels in its published form, so the tool
 substitutes the argmax assignment and **the substitution was measured rather
 than assumed**: over 103 classes it tracks the labelled overlap at ρ = +0.915,

@@ -113,6 +113,13 @@ is a decision for after the submission rather than before it.
       `run_overlap_estimate` measuring what its regime check costs when it has
       no labels to group by. The guide in `docs/recipe.md` now opens with the
       procedure instead of ending with the findings.
+- [x] The label-free estimate tested as a decision rule, not only as a
+      correlation, after a review pointed out that the paper promised the first
+      and measured the second. Rewriting only the classes it ranks highest
+      captures about what a random order captures; with labels the same
+      quantity captures half the gain from a tenth of the classes. The paper,
+      the guide and the diagnostic all now say this, and three tests hold the
+      negative in place.
 - [x] Body page count rechecked against the right boundary. The earlier "eight
       pages" was measured to `\appendix`, which falls after the bibliography;
       measured to the start of Limitations, which is what ARR counts, the body

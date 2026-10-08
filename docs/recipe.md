@@ -29,8 +29,16 @@ abstaining would cost in coverage. Every figure it quotes is read out of
 `results/` at run time, from the study that established it, with that study
 named beside it.
 
-Then write the descriptions for the classes it put first, and check the rewrite
-before paying for anything:
+The report puts some classes first. **Treat that order as a place to look, not
+as a decision**: we simulated it, and ranking classes by the label-free estimate
+and rewriting only the best tenth captured about as much of the available gain
+as a random order would
+([`results/rewrite_priority.json`](../results/rewrite_priority.json)). The same
+quantity measured *with* labels captures half the gain from a tenth of the
+classes, so the ordering exists — the label-free estimate is just too noisy to
+recover it. Rewrite broadly, or pick by what you know about your own taxonomy.
+
+Then write the descriptions and check the rewrite before paying for anything:
 
 ```bash
 python -m experiments.diagnose --taxonomy classes.json --documents pool.txt \
@@ -194,10 +202,15 @@ is a tool for a human coder rather than an unattended one.
   sides. No contrast among them approached the content effect, which is the
   scope of the claim and no wider — nothing here speaks to a language outside
   those three or to a script the encoder was not trained on.
-- **The diagnostic's own limits.** It ranks; it does not forecast. The sign of
-  the label-free estimate called the direction for only 58% of classes, so it
-  says which classes gain more and not whether a given one gains at all. It
-  cannot tell you the accuracy you will reach, because that needs labels and it
-  reads none. And it rests on the pseudo-assignment being better than chance: on
+- **The diagnostic's own limits.** It does not forecast, and it does not
+  prioritise. The sign of the label-free estimate calls the direction for only
+  58% of classes, and ranking by it is worth little at the top of the list: the
+  best tenth of classes under that ranking captured 15% of the full rewrite's
+  gain against 11% for a random order, and under the alignment level the
+  diagnostic reports, 10% against 11%. With labels the same quantity captures
+  50%. What the unlabelled pile answers well is the regime question — whether
+  rewriting pays *at all* — not which class to start with. It also cannot tell
+  you the accuracy you will reach, because that needs labels and it reads
+  none. And it rests on the pseudo-assignment being better than chance: on
   a taxonomy whose classes the encoder cannot separate at all, the input to
   every number above is noise, and the report will look exactly as confident.

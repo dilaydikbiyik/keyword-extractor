@@ -5,7 +5,7 @@ PYTHON ?= $(shell \
 	elif command -v python3 >/dev/null 2>&1; then command -v python3; \
 	else echo python; fi)
 
-.PHONY: help install reproduce test lint annotate merge verify verify-new verify-apply second-annotator second-annotator-score llm-baseline llm-baseline-local llm-baseline-second llm-baseline-definitions study rocchio-preregister rocchio rocchio-definitions-preregister rocchio-definitions paper-tables paper submission demo clean rocchio-mpnet-preregister rocchio-mpnet rocchio-labse-preregister rocchio-labse references preprint independent-descriptions description-source-preregister description-source rocchio-sensitivity abstention dose-response description-noise hierarchy synthetic brown-preregister brown arxiv-fetch arxiv-preregister arxiv labelfree-preregister labelfree extended-set extended-model-labels extended-merge extended-preregister extended-eval author-coding author-coding-score model-coding translate-queue benchmark benchmark-second-device overlap-estimate diagnose
+.PHONY: help install reproduce test lint annotate merge verify verify-new verify-apply second-annotator second-annotator-score llm-baseline llm-baseline-local llm-baseline-second llm-baseline-definitions study rocchio-preregister rocchio rocchio-definitions-preregister rocchio-definitions paper-tables paper submission demo clean rocchio-mpnet-preregister rocchio-mpnet rocchio-labse-preregister rocchio-labse references preprint independent-descriptions description-source-preregister description-source rocchio-sensitivity abstention dose-response description-noise hierarchy synthetic brown-preregister brown arxiv-fetch arxiv-preregister arxiv labelfree-preregister labelfree extended-set extended-model-labels extended-merge extended-preregister extended-eval author-coding author-coding-score model-coding translate-queue benchmark benchmark-second-device overlap-estimate rewrite-priority diagnose
 
 help:
 	@echo "Using PYTHON = $(PYTHON)"
@@ -35,6 +35,7 @@ help:
 	@echo "  rocchio-sensitivity  The same update over a grid of K and beta, as a check"
 	@echo "  abstention / dose-response / description-noise / hierarchy / synthetic"
 	@echo "  overlap-estimate  price of the regime check when it has no labels"
+	@echo "  rewrite-priority  what ranking classes by the estimate actually buys"
 	@echo "  diagnose          run the advice on your own taxonomy and unlabelled pool"
 	@echo "                How much writing pays, what a wrong description costs, when to"
 	@echo "                decline, whether depth matters, and why alignment is the quantity"
@@ -153,6 +154,7 @@ study:
 	$(PYTHON) -m experiments.run_synthetic
 	$(PYTHON) -m experiments.run_abstention
 	$(PYTHON) -m experiments.run_overlap_estimate
+	$(PYTHON) -m experiments.run_rewrite_priority
 	$(PYTHON) -m experiments.effect_sizes
 
 rocchio-preregister:
@@ -271,6 +273,9 @@ synthetic:
 
 overlap-estimate:
 	$(PYTHON) -m experiments.run_overlap_estimate
+
+rewrite-priority:
+	$(PYTHON) -m experiments.run_rewrite_priority
 
 # The advice, on somebody else's taxonomy. TAXONOMY and POOL are theirs;
 # REWRITTEN is optional and turns the run into a check of a rewrite.

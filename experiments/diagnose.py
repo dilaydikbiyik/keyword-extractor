@@ -217,6 +217,33 @@ def verdict(overlap: float, bias: Dict) -> str:
     return "above the threshold: the regime where elaboration mostly did not pay"
 
 
+def priority_calibration(priority: Dict) -> Dict:
+    """What ranking by this actually buys, which is not what the correlation says.
+
+    The order below was simulated rather than argued: rewrite the best tenth of
+    classes under a ranking, run the classifier, and see what share of the full
+    rewrite's gain that captures. Against a random order over the same classes,
+    the label-free rankings are worth little at the top of the list, and this
+    report has to say so where it offers one.
+    """
+    def at(ranking: str, fraction: float) -> float:
+        row = next(r for r in priority["pooled"][ranking]
+                   if abs(r["fraction_rewritten"] - fraction) < 1e-9)
+        return 100 * row["captured_share"]
+
+    return {
+        "corpora": priority["corpora_ranked"],
+        "labelled_tenth": at("labelled change", 0.1),
+        "labelled_third": at("labelled change", 0.3),
+        "level_tenth": at("label-free level", 0.1),
+        "level_third": at("label-free level", 0.3),
+        "estimate_tenth": at("label-free change", 0.1),
+        "random_tenth": at("random", 0.1),
+        "random_third": at("random", 0.3),
+        "source": "results/rewrite_priority.json",
+    }
+
+
 def calibration() -> Dict:
     """What the project's own results say about how far to trust each number."""
 
@@ -228,7 +255,7 @@ def calibration() -> Dict:
 
     gap, labelfree = read("gap_analysis.json"), read("labelfree_predictor.json")
     dose, noise = read("dose_response.json"), read("description_noise.json")
-    bias = read("overlap_estimate.json")
+    bias, priority = read("overlap_estimate.json"), read("rewrite_priority.json")
     binned = gap["binned_by_overlap"]
     pooled = labelfree["pooled"]
     # The corpus where the estimate did worst, found rather than remembered: the
@@ -273,6 +300,7 @@ def calibration() -> Dict:
             "generic_pp": costs["generic, every class the same"],
             "source": "results/description_noise.json",
         },
+        "priority": priority_calibration(priority),
         "abstention": {"source": "results/abstention.json",
                        "curve": read("abstention.json")["coverage_curve"]},
     }
@@ -435,21 +463,28 @@ def render(report: Dict) -> str:
           "and the clearest thing to fix first:")
         w("    " + ", ".join(report["classes_attracting_nothing"]))
     w("")
-    w("WHICH CLASSES FIRST — lowest alignment with what they already attract")
-    w("  " + ", ".join(report["rewrite_first"]) or "  (none scored)")
-    est = cal["estimate"]
+    w("WHICH CLASSES FIRST — and how little this ordering is worth")
+    w("  " + (", ".join(report["rewrite_first"]) or "(none scored)"))
+    pri, est = cal["priority"], cal["estimate"]
+    w("  Read that line sceptically. Ranking classes this way and rewriting only the")
+    w(f"  best tenth captured {pri['level_tenth']:.0f}% of what rewriting everything buys, against "
+      f"{pri['random_tenth']:.0f}% for a")
+    w(f"  random order; at a third it was {pri['level_third']:.0f}% against {pri['random_third']:.0f}%. "
+      f"Ranking by the change a")
+    w(f"  draft rewrite produces did no better at the top ({pri['estimate_tenth']:.0f}%). The same "
+      f"quantity")
+    w(f"  measured WITH labels captures {pri['labelled_tenth']:.0f}% from a tenth and "
+      f"{pri['labelled_third']:.0f}% from a third, so the")
+    w(f"  ordering is real and it is the estimate that loses it — {pri['source']},")
+    w(f"  simulated on {', '.join(pri['corpora'])}.")
+    w("  Use this list to decide where to look, not to decide what to skip.")
     if est.get("headroom_rho") is not None:
-        w(f"  how far to trust this: the label-free estimate tracked the labelled "
-          f"quantity at rho = {est['vs_labelled_rho']:+.3f} and predicted the share of "
-          f"headroom captured at rho = {est['headroom_rho']:+.3f} over {est['classes']} "
-          f"classes in {est['corpora']} corpora, against "
-          f"{est['labelled_headroom_rho']:+.3f} with labels")
-        w(f"  it was weakest where the pseudo-assignment is least accurate: "
-          f"rho = {est['weakest_rho']:+.3f} on {est['weakest_corpus']} — so read this as a "
-          f"ranking, not a forecast ({est['source']})")
-        w(f"  and the sign alone called the direction for only "
-          f"{100 * est['sign_rule_accuracy']:.0f}% of classes: it says which classes gain "
-          f"more, not whether a given one gains at all")
+        w(f"  The estimate does track the labelled quantity in aggregate "
+          f"(rho = {est['vs_labelled_rho']:+.3f}, and {est['headroom_rho']:+.3f} against captured "
+          f"headroom over")
+        w(f"  {est['classes']} classes), and its sign calls the direction for "
+          f"{100 * est['sign_rule_accuracy']:.0f}% of classes. Aggregate tracking")
+        w("  and a usable order are not the same thing, which is what the simulation above shows.")
     w("")
     w("WRITE THESE CAREFULLY — closest to another class, so a wrong description costs most")
     w("  " + ", ".join(report["write_carefully"]))
