@@ -66,7 +66,7 @@ It is the content that pays, not the language: rendering the same terse labels
 in the documents' own language is worth **−2.3 points** and **−1.8** on the two
 sets. A crossed design over document language and description language agrees.
 
-## 2. Check whether it will pay, before you write anything
+## 2. Check whether rewriting pays at all, before you write anything
 
 What a description buys is **alignment**: how far it moves the class vector
 toward the centroid of the documents that class has to attract. Where the class

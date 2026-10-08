@@ -6,7 +6,7 @@ work lands; every claim here points at the file that settles it.
 **Where the project stands.** Six evaluation sets, 12,341 documents, 108
 classes. Nine preregistered studies, 40 predictions committed to version control
 before they were measured, 33 held and the seven failures published. 70
-comparisons corrected together with Holm (43 nominal, 31 surviving). The advice
+comparisons corrected together with Holm (45 nominal, 32 surviving). The advice
 the work supports is collected in `docs/recipe.md`, with a measured budget, a
 measured price for getting it wrong, and an abstention curve. 199 tests in CI,
 paper body at the 8-page limit, submission artefacts built and checked
@@ -26,7 +26,8 @@ predicts the share of headroom captured at ρ = +0.564 (p = 6e-10, surviving
 Holm) against +0.670 for the labelled version. It degrades where the
 pseudo-assignment is poorest — on NACE, +0.201 against +0.759 — so the advice it
 licenses is: where the terse classifier is already somewhat right, an unlabelled
-sample tells you whether rewriting will pay. `make labelfree`,
+sample tells you whether rewriting pays at all. It does not license an order to
+work in; see the rewrite-priority simulation. `make labelfree`,
 `results/labelfree_predictor.json`, paper §*The quantity, without labels*.
 **Still open from it:** a threshold rule with a measured false-positive rate,
 i.e. "how large must the estimate be before rewriting is worth the effort".

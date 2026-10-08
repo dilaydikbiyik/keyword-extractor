@@ -526,8 +526,9 @@ documents flagged high-confidence."*
    paper.
 8. ~~**The advice as a tool rather than a finding.**~~ **Done.**
    `experiments/diagnose.py` reads a taxonomy and an unlabelled pool and reports
-   the regime, the classes to rewrite first, the ones a careless rewrite would
-   damage most, and the coverage a margin would retain; `--rewritten` checks a
+   the regime, a ranking of classes it now reports as barely better than
+   chance, the ones a careless rewrite would damage most, and the coverage a
+   margin would retain; `--rewritten` checks a
    rewrite before a label is bought. It quotes every calibration figure from the
    result file that produced it, and a test fails if any of them is typed into
    the source. The regime check's label-free substitution was measured, not

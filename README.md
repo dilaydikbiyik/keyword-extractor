@@ -61,8 +61,8 @@ produced by `make reproduce` and written to
 | **Ours: taxonomy-guided** | **52.5%** | [46.8, 58.2] | **81.6%** | 0.356 | 0.474 | — |
 | Qwen2.5-7B-Instruct, asked directly | 48.8% | [43.1, 54.5] | 71.9% | 0.359 | 0.430 | 0.416 |
 
-*p* is uncorrected. Corrected with Holm over all 70 comparisons the paper reports
-([`results/effect_sizes.json`](results/effect_sizes.json)), 31 of the 43 nominally
+*p* is uncorrected. Corrected with Holm over all 72 comparisons the paper reports
+([`results/effect_sizes.json`](results/effect_sizes.json)), 32 of the 45 nominally
 significant ones survive; the TF-IDF difference is not among them, nor is the
 language model's Top-3 gap.
 
@@ -336,7 +336,8 @@ the labelled quantity (ρ = +0.670) — the prediction we registered because
 omitting it would have been flattering. It is weakest where the pseudo-assignment
 is least accurate: on NACE, +0.201 against +0.759. So the advice is modest and
 testable: where the terse classifier is already somewhat right, an unlabelled
-sample tells you whether rewriting will pay
+sample tells you whether rewriting the taxonomy pays **at all** — not which
+class to start with, which we simulated and it cannot do
 ([`results/labelfree_predictor.json`](results/labelfree_predictor.json),
 `make labelfree`).
 
@@ -441,7 +442,7 @@ system in its own process.
 ### Ablation
 
 *p* is uncorrected; removing the description (−8.4 points, p = 0.002) does not
-survive correction over the paper's 70 tests.
+survive correction over the paper's 72 tests.
 
 | Variant | Top-1 | Δ Top-1 | F1-macro | p vs. full |
 | --- | --- | --- | --- | --- |
@@ -508,7 +509,7 @@ it. Bare `python …` commands need `source .venv/bin/activate` first.
 
 ```bash
 make reproduce    # systems, ablations and error analysis
-make study        # description studies, six evaluation sets, three encoders, the nine
+make study        # description studies, six evaluation sets, four encoders, the nine
                   # registered studies, the practical curves (budget, noise, depth,
                   # abstention), the simulation, the sensitivity grid, robustness
 ```

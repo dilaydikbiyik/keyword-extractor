@@ -749,9 +749,12 @@ negative alignment change with a positive gain (\BrownDefGain~points,
 is a nominal failure of a registered prediction rather than a strong refutation.
 Either way we do not claim the corpus mean predicts a corpus's gain. The
 label-free estimate of Section~\ref{sec:estimate} inherits that limit and adds
-one: it is a function of the terse classifier's own mistakes, so it degrades
-exactly where that classifier is weakest, and on NACE it retains barely a
-quarter of the labelled quantity's correlation. The
+two: it is a function of the terse classifier's own mistakes, so it degrades
+exactly where that classifier is weakest, retaining barely a quarter of the
+labelled quantity's correlation on NACE; and ranking classes by it is worth
+little, capturing \EstimateTenth\ of the available gain from the best tenth
+against \RandomTenth\ at random. A practitioner can use it to ask whether
+rewriting pays at all, not to decide where to begin. The
 near-zero case is no longer untested: on arXiv a change of \ArxivDescAlign\
 came with a gain of \ArxivDescGain\ (Section~\ref{sec:arxiv}), which is the
 account's least obvious prediction and the one corpus where it was checked
