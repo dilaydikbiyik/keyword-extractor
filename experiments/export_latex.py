@@ -1368,6 +1368,24 @@ def main() -> int:
         derived += llm_definitions_macros(with_definitions)
     else:
         llm = None
+    held_out = load_optional("description_study_test")
+    development = load_optional("description_study_dev")
+    if held_out and development:
+        derived += [
+            r"\newcommand{\HeldOutN}{%d}" % held_out["n"],
+            r"\newcommand{\HeldOutContentEffect}{%+.1f}"
+            % held_out["content_effect"]["gain_pp"],
+            r"\newcommand{\HeldOutContentPStat}{%s}"
+            % p_stat(held_out["content_effect"]["p_value"]),
+            r"\newcommand{\HeldOutLanguageEffect}{%+.1f}"
+            % held_out["language_effect"]["gain_pp"],
+            r"\newcommand{\HeldOutLanguagePStat}{%s}"
+            % p_stat(held_out["language_effect"]["p_value"]),
+            r"\newcommand{\DevN}{%d}" % development["n"],
+            r"\newcommand{\DevContentEffect}{%+.1f}"
+            % development["content_effect"]["gain_pp"],
+        ]
+
     bge_study = load_optional("description_study_bge_m3")
     if bge_study:
         derived += [

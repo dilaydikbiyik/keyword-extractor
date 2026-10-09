@@ -1,0 +1,56 @@
+{
+  "half": "test",
+  "command": "python -m experiments.run_description_study --half test",
+  "revision": "6702532",
+  "encoder": "paraphrase-multilingual-MiniLM-L12-v2",
+  "n": 147,
+  "sector_vector": "description only — seed keywords excluded to isolate the factor",
+  "conditions": {
+    "original (16 of 21 in Turkish, terse)": {
+      "top1_accuracy": 0.29931972789115646,
+      "top1_ci95": [
+        0.22448979591836735,
+        0.3741496598639456
+      ],
+      "top3_accuracy": 0.6258503401360545,
+      "f1_macro": 0.2677719235842485,
+      "mean_words_per_class": 10.428571428571429
+    },
+    "same content, rendered in German": {
+      "top1_accuracy": 0.2789115646258503,
+      "top1_ci95": [
+        0.2108843537414966,
+        0.35374149659863946
+      ],
+      "top3_accuracy": 0.5850340136054422,
+      "f1_macro": 0.2607025548653847,
+      "mean_words_per_class": 9.952380952380953
+    },
+    "rewritten as NACE-style definitions": {
+      "top1_accuracy": 0.5510204081632653,
+      "top1_ci95": [
+        0.46938775510204084,
+        0.6326530612244898
+      ],
+      "top3_accuracy": 0.8503401360544217,
+      "f1_macro": 0.42000640459522537,
+      "mean_words_per_class": 18.61904761904762
+    }
+  },
+  "language_effect": {
+    "a_only_correct": 3,
+    "b_only_correct": 6,
+    "discordant": 9,
+    "p_value": 0.5078125,
+    "gain_pp": -2.0408163265306145
+  },
+  "content_effect": {
+    "a_only_correct": 47,
+    "b_only_correct": 7,
+    "discordant": 54,
+    "p_value": 2.291864209524874e-08,
+    "gain_pp": 27.210884353741495
+  },
+  "conclusion": "Translating the descriptions into the language of the corpus, with their content held constant, does not help. Rewriting them from category labels into definitions that enumerate concrete activities does. The gain attributed to language was a confound.",
+  "table_markdown": "| Class descriptions | Top-1 | 95% CI | Top-3 | F1-macro | words/class |\n| --- | --- | --- | --- | --- | --- |\n| original (16 of 21 in Turkish, terse) | 29.9% | [22.4%, 37.4%] | 62.6% | 0.268 | 10 |\n| same content, rendered in German | 27.9% | [21.1%, 35.4%] | 58.5% | 0.261 | 10 |\n| rewritten as NACE-style definitions | 55.1% | [46.9%, 63.3%] | 85.0% | 0.420 | 19 |"
+}

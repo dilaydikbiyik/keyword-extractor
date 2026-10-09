@@ -44,7 +44,8 @@ class and ranks those descriptions against the document; how much their wording
 matters is rarely measured. Rewriting the class descriptions of a NACE Rev.~2
 taxonomy over German trade register texts, from category labels into definitions
 that enumerate concrete activities, gains \ContentEffect~points of Top-1
-accuracy, while rendering the same content in the language of the documents is
+accuracy---\HeldOutContentEffect\ on the half of the set never examined while
+they were written---while rendering the same content in the documents' language is
 worth \LanguageEffect\ ($p = \LanguageP$)---a null that holds across three
 description languages and a design crossing document language with description
 language.
@@ -99,8 +100,9 @@ told in advance without labels. In detail:
 \begin{itemize}
   \item Rewriting class descriptions from category labels into definitions that
         enumerate concrete activities gains \ContentEffect~points of Top-1
-        accuracy on NACE section assignment, validated on a held-out half of the
-        evaluation set that was never inspected during the rewrite.
+        accuracy on NACE section assignment over the whole evaluation set, and
+        \HeldOutContentEffect\ on the half never inspected while the
+        descriptions were written.
   \item A control separating content from language. Sixteen of twenty-one
         descriptions were in a language none of the documents were written in,
         which is an attractive explanation and the wrong one: the same content
@@ -280,9 +282,14 @@ categories, readable topic names, and opaque codes such as \texttt{money-fx}
 respectively.
 
 \paragraph{Held-out protocol.}
-The description rewrite was motivated by reading errors, which is a form of
-fitting. It was therefore developed on a stratified development half of the
-NACE evaluation set and reported on a held-out half that was not examined.
+The rewrite was motivated by reading errors, which is a form of fitting, so it
+was developed on a stratified half of the NACE set and the other was not
+examined. Table~\ref{tab:descriptions} reports all \NEVAL\ documents, the
+developed half included; on the \HeldOutN\ that were not, content is worth
+\HeldOutContentEffect~points (\HeldOutContentPStat) against
+\DevContentEffect\ where it was written, and language
+\HeldOutLanguageEffect. The gain is not an artefact of fitting: it is larger
+where nothing was fitted.
 
 % ─────────────────────────────────────────────────────────────────────────────
 \section{Experiments}
@@ -690,18 +697,14 @@ the strongest argument for reporting Top-3.
 \section{Conclusion}
 
 What a class description buys a zero-shot classifier is alignment with the
-documents it must attract, and its wording is a modelling decision rather than a
-configuration detail. Where class names never appear in their documents, writing
-that vocabulary down is worth \ContentEffect~points; where they are already the
-documents' own words it is worth nothing. Which way a corpus goes is predictable
-from the alignment change at the level of classes---most strongly where neither
-the labels nor the descriptions are ours ($\rho = \ArxivRho$)---but not from
-its corpus mean, which a fourth corpus registered in advance contradicted.
-Neither an instruction-tuned model asked directly nor a classifier trained on
-most of the labels beats one definition per class. With labels the quantity
-prioritises as well as explains; without them it explains only. It orders
-classes, is weaker at comparing corpora, and weaker still at choosing between
-them.
+documents it must attract. Where class names never appear in their documents,
+writing that vocabulary down is worth \ContentEffect~points; where they are
+already the documents' own words it is worth nothing. Which way a corpus goes
+is predictable from the alignment change at the level of classes---most
+strongly where neither the labels nor the descriptions are ours
+($\rho = \ArxivRho$)---but not from its corpus mean, which a fourth corpus
+registered in advance contradicted. With labels the quantity prioritises as
+well as explains; without them it explains only.
 
 % ────────────────────────────────────────────────────────────────────────────
 \section*{Limitations}

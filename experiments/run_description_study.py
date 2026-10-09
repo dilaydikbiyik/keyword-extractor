@@ -59,6 +59,14 @@ LITERAL_GERMAN = {
 }
 
 
+def _revision() -> str:
+    """The commit this run was made at. Imported late: run_rocchio imports from
+    this module, so importing it back at module level is a cycle."""
+    from experiments.run_rocchio import git_revision
+
+    return git_revision()
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--half", choices=["dev", "test", "all"], default="all")
@@ -131,8 +139,13 @@ def main() -> int:
         results[names[2]]["top1_accuracy"] - results[names[1]]["top1_accuracy"]
     ) * 100
 
-    # A replication on another encoder must not overwrite the primary result.
+    # A replication must not overwrite the primary result, and neither must a
+    # run on one half of the evaluation set: --half test used to write over
+    # results/description_study.json, silently replacing the headline figure
+    # with one computed on 147 documents.
     suffix = "" if not args.encoder else "_" + args.encoder.split("/")[-1].replace("-", "_")
+    if args.half != "all":
+        suffix += f"_{args.half}"
     rows = ["| Class descriptions | Top-1 | 95% CI | Top-3 | F1-macro | words/class |",
             "| --- | --- | --- | --- | --- | --- |"]
     for name in names:
@@ -147,6 +160,12 @@ def main() -> int:
 
     payload = {
         "half": args.half,
+        # Which run produced this file, so a number in the paper can be
+        # traced to the command and the commit that made it.
+        "command": " ".join(["python -m experiments.run_description_study"]
+                            + (["--half", args.half] if args.half != "all" else [])
+                            + (["--encoder", args.encoder] if args.encoder else [])),
+        "revision": _revision(),
         "encoder": args.encoder or "paraphrase-multilingual-MiniLM-L12-v2",
         "n": len(samples),
         "sector_vector": "description only — seed keywords excluded to isolate the factor",
