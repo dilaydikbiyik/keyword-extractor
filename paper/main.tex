@@ -840,11 +840,15 @@ annotation guideline and all experiment code are released as well.
 Top-1 accuracy is far below what unattended assignment of economic codes would
 need. The system is meant to propose candidates to a human coder; used to
 assign codes automatically, for example in official statistics, it would
-propagate its errors silently. Both encoders are distributed under the Apache
-licence. Reuters-21578 is distributed for research purposes only, by agreement
-of Reuters Ltd. and Carnegie Group, and is used here for research alone.
-20 Newsgroups is used as distributed through scikit-learn, whose distribution
-states no licence.
+propagate its errors silently. Of the models used here, the three sentence
+encoders of Section~\ref{sec:descriptions} and \LLMModel\ are distributed
+under the Apache licence, and \BgeModel\ and \LLMTwoModel\ under the MIT
+licence. Reuters-21578 is distributed for research
+purposes only, by agreement of Reuters Ltd. and Carnegie Group, and is used
+here for research alone. 20 Newsgroups is used as distributed through
+scikit-learn, whose distribution states no licence. Brown is used through NLTK,
+and the arXiv abstracts are the authors' own, retrieved through arXiv's public
+interface and released as identifiers rather than as text.
 
 \section*{Use of AI Assistants}
 
