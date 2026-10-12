@@ -1565,6 +1565,39 @@ class TestPaperLayout:
                 for el in self._blocks(page) if el.x1 > self.TEXT_RIGHT]
         assert not over, "printed past the right edge of the text area: " + str(over[:4])
 
+    def test_nothing_falls_off_the_page(self):
+        """A float taller than the page does not break: LaTeX sets it as one box
+        and lets the remainder run off the bottom, where it is invisible rather
+        than merely cramped. Fifty-three rows of the effects table were printed
+        below the page edge, past every check this suite had, because they all
+        looked at horizontal overflow and at floats colliding with each other.
+        """
+        pages = self._pages()          # guards pdfminer and the built PDF
+        pytest.importorskip("pypdf", reason="pypdf is not installed")
+        from pdfminer.layout import LTCurve, LTFigure, LTLine, LTRect
+        from pypdf import PdfReader
+
+        from experiments.config import ROOT as ROOT_DIR
+
+        boxes = PdfReader(str(ROOT_DIR / "dist" / "review.pdf")).pages
+        off = []
+        for pno, page in enumerate(pages, 1):
+            height = float(boxes[pno - 1].mediabox.height)
+            width = float(boxes[pno - 1].mediabox.width)
+            for el in self._blocks(page):
+                for line in el:
+                    text = line.get_text().strip()
+                    if text and (line.y0 < 0 or line.y1 > height):
+                        off.append((pno, round(line.y0, 1), text[:40]))
+            # Rules, boxes and figures leave the page as readily as text does,
+            # and a table whose body overflows takes its rules with it.
+            for el in page:
+                if isinstance(el, (LTLine, LTRect, LTCurve, LTFigure)):
+                    if (el.y0 < -0.5 or el.y1 > height + 0.5
+                            or el.x0 < -0.5 or el.x1 > width + 0.5):
+                        off.append((pno, round(el.y0, 1), type(el).__name__))
+        assert not off, f"{len(off)} objects printed outside the page: {off[:3]}"
+
     def test_no_table_lands_on_another_float(self):
         """A caption and a table body that overlap are two floats on top of each
         other, which is what a too-wide table does to its neighbour."""

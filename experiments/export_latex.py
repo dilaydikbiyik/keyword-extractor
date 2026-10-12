@@ -599,13 +599,19 @@ def rocchio_macros(registered: Dict, result: Dict, prefix: str = "Rocchio") -> L
 
 
 def effects_table(effects: Dict) -> str:
-    """Appendix: every headline comparison with its interval and its Holm-adjusted p."""
-    rows, group = [], None
+    """Appendix: every headline comparison with its interval and its Holm-adjusted p.
+
+    Split across two floats on purpose. At that many tests this is far
+    taller than a page, and a single table* does not break: LaTeX sets it as one
+    box and lets the overflow run off the bottom, where 53 rows of it were
+    invisible in the built PDF rather than merely cramped. The split is taken at
+    a group boundary near the middle so that no family of tests is divided.
+    """
+    blocks, group = [], None
     for t in effects["tests"]:
         if t["group"] != group:
             group = t["group"]
-            rows.append(r"\midrule" if rows else "")
-            rows.append(r"\multicolumn{5}{@{}l}{\emph{%s}} \\" % escape(group))
+            blocks.append([r"\multicolumn{5}{@{}l}{\emph{%s}} \\" % escape(group)])
         if "ci95" in t:
             gain = f"${t['gain_pp']:+.1f}$ [${t['ci95'][0]:+.1f}$, ${t['ci95'][1]:+.1f}$]"
             n = str(t["n"])
@@ -613,20 +619,46 @@ def effects_table(effects: Dict) -> str:
             gain, n = f"${t['gain_pp']:+.1f}$", "--"
         else:
             gain, n = "--", "--"
-        rows.append(" & ".join([escape(t["label"]), n, gain, p_cell(t["p"]), p_cell(t["p_holm"])]) + r" \\")
-    return "\n".join([
-        PREAMBLE, r"\begin{table*}[t]", r"\centering", r"\footnotesize", r"\setlength{\tabcolsep}{5pt}",
-        r"\begin{tabular}{@{}lrlrr@{}}", r"\toprule",
-        r"Comparison & $n$ & Diff.\ (pp) [95\% CI] & $p$ & Holm $p$ \\",
-        *[r for r in rows if r], r"\bottomrule", r"\end{tabular}",
-        r"\caption{Every comparison the paper reports as a finding. Differences are in Top-1 "
-        r"percentage points (Top-3 where stated), oriented as named; intervals are percentile "
-        r"bootstrap over documents, drawn from the discordant counts (the selection-rule results "
-        r"keep no counts, so they have none); $p$ is the exact McNemar "
-        r"test (Spearman for the correlations), and Holm $p$ corrects over all \EffectTests\ tests. "
-        r"LLM is the instruction-tuned language model of Section~\ref{sec:llm}.}",
-        r"\label{tab:effects}", r"\end{table*}", "",
-    ])
+        blocks[-1].append(
+            " & ".join([escape(t["label"]), n, gain, p_cell(t["p"]), p_cell(t["p_holm"])]) + r" \\")
+
+    # Split at the group boundary nearest the halfway row.
+    total = sum(len(b) for b in blocks)
+    cut, seen = len(blocks), 0
+    for i, b in enumerate(blocks):
+        if seen >= total / 2:
+            cut = i
+            break
+        seen += len(b)
+    parts = [blocks[:cut], blocks[cut:]]
+
+    head = [r"\begin{tabular}{@{}lrlrr@{}}", r"\toprule",
+            r"Comparison & $n$ & Diff.\ (pp) [95\% CI] & $p$ & Holm $p$ \\"]
+    captions = [
+        (r"\caption{Every comparison the paper reports as a finding, first part. "
+         r"Differences are in Top-1 percentage points (Top-3 where stated), oriented as "
+         r"named; intervals are percentile bootstrap over documents, drawn from the "
+         r"discordant counts (the selection-rule results keep no counts, so they have "
+         r"none); $p$ is the exact McNemar test (Spearman for the correlations), and "
+         r"Holm $p$ corrects over all \EffectTests\ tests together, across both parts. "
+         r"LLM is the instruction-tuned language model of Section~\ref{sec:llm}. "
+         r"Continued in Table~\ref{tab:effects-two}.}",
+         r"\label{tab:effects}"),
+        (r"\caption{Every comparison the paper reports as a finding, continued from "
+         r"Table~\ref{tab:effects}. Columns and corrections are as described there.}",
+         r"\label{tab:effects-two}"),
+    ]
+    out = [PREAMBLE]
+    for part, (caption, label) in zip(parts, captions):
+        rows = []
+        for i, block in enumerate(part):
+            if i:
+                rows.append(r"\midrule")
+            rows += block
+        out += [r"\begin{table*}[t]", r"\centering", r"\footnotesize",
+                r"\setlength{\tabcolsep}{5pt}", *head, *rows,
+                r"\bottomrule", r"\end{tabular}", caption, label, r"\end{table*}", ""]
+    return "\n".join(out)
 
 
 REFERENCE_ROWS = {
