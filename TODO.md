@@ -5,12 +5,13 @@ work lands; every claim here points at the file that settles it.
 
 **Where the project stands.** Six evaluation sets, 12,341 documents, 108
 classes. Nine preregistered studies, 40 predictions committed to version control
-before they were measured, 33 held and the seven failures published. 70
+before they were measured, 33 held and the seven failures published. 72
 comparisons corrected together with Holm (45 nominal, 32 surviving). The advice
 the work supports is collected in `docs/recipe.md`, with a measured budget, a
-measured price for getting it wrong, and an abstention curve. 199 tests in CI,
-paper body at the 8-page limit, submission artefacts built and checked
-anonymous.
+measured price for getting it wrong, and an abstention curve. 214 tests in CI,
+paper body at the 8-page limit. Submitted to ARR on 12 October 2026 as
+submission 6377; the version that was uploaded is pinned at tag
+`v1-arr-october-2026` and described in `docs/submission_v1.md`.
 
 ---
 
@@ -141,22 +142,25 @@ is a decision for after the submission rather than before it.
 
 ## C. Yours, and nobody else can do them
 
-- [ ] **OpenReview account**, institutional address as primary. Approval can take
-      up to two weeks, so this is the long-lead item.
+- [x] **OpenReview account** — approved, and the submission went in under it.
+      The profile itself is still thin; OpenReview asks for it to be complete
+      within a week of submitting, so by about 20 October.
 - [x] **CV numbers** — done 8 October: the industry CV now reads 207 tests, nine
       preregistered studies, 33 of 40 predictions held, six evaluation sets and
       12,341 documents, and every project carries a repository link that was
       checked unauthenticated. The research variant still carries the old
-      figures and a venue that has not been decided.
+      figures and a venue that has not been decided. The 207 has since drifted
+      too: the suite is at 214. Not worth a reprint on its own — fold it in the
+      next time the CV is edited for another reason.
 - [ ] **The research CV still carries the old figures**, and a target venue that
       has not been decided. It says three preregistered studies, 12 of 15, 46
-      comparisons and 106 tests; the true numbers are nine, 33 of 40, 70 and 207.
+      comparisons and 106 tests; the true numbers are nine, 33 of 40, 72 and 214.
       Its *Research* blurb also names ACL SRW as the target, which is not the
       decision. Two reminders when you update it: the word TF-IDF baseline is
       44.5% and the character n-gram one 54.2% — different systems, often
       conflated; and lead with six evaluation sets and 12,341 documents rather
       than with 299.
-- [ ] **Pin the submitted version.** The order matters, because the tag has to
+- [x] **Pin the submitted version** — done 12 October. The order matters, because the tag has to
       mark the commit the uploaded files were built from, not the later commit
       that stores the record:
 
@@ -171,14 +175,28 @@ is a decision for after the submission rather than before it.
       7. `git push && git push --tags`
 
       Step 6 fails if the PDF was rebuilt after step 3, or if the tag points
-      anywhere but the commit named in the record. Keep the OpenReview
-      submission confirmation too: it is the one timestamp neither the record
-      nor the tag can forge. Everything after it is
-      post-submission work and gets its own preregistrations; nothing is
-      written back into the ones already in `results/`.
-- [ ] **Submit to ARR by 12 October**, then **register as a reviewer by 14
-      October** — a submission whose authors are not registered can be desk
-      rejected.
+      anywhere but the commit named in the record. It ran clean: the remote tag
+      dereferences to `f179d0d`, which is the commit the record names and the
+      one the uploaded PDF was built from. Keep the OpenReview submission
+      confirmation too: it is the one timestamp neither the record nor the tag
+      can forge. Everything after it is post-submission work and gets its own
+      preregistrations; nothing is written back into the ones already in
+      `results/`.
+- [x] **Submitted to ARR**, 12 October 2026, submission 6377.
+- [ ] **Register as a reviewer by 14 October** — a submission whose authors are
+      not registered can be desk rejected.
+- [ ] **Name a service contributor by 15 October, 14:59 TR.** ARR requires one
+      per submission and a bachelor's student cannot serve as their own, so this
+      is a request to your supervisor and the only item here with a hard
+      external dependency.
+- [ ] **arXiv preprint.** The source package builds and is ready
+      (`main.tex` with `\usepackage[preprint]{acl}`, `main.bbl`, `acl.sty`,
+      `acl_natbib.bst`, `references.bib` and the fifteen table files; 18 pages,
+      no unresolved citations). It is blocked on one thing only: cs.CL requires
+      an **endorsement** for a first-time submitter, requested 12 October.
+      Primary category `cs.CL`, cross-list `cs.LG`, licence CC BY 4.0 to match
+      OpenReview. Nothing about the evidence depends on this — the ARR
+      submission and the tag are the timestamp; arXiv adds reach, not record.
 - [ ] **Read the paper end to end**, and look at the pages as well as the words.
       Three appendix tables were printing over each other until you noticed it in
       the PDF; a test now catches that class of defect, but only the kinds it was
@@ -222,8 +240,17 @@ is a decision for after the submission rather than before it.
 
 | | |
 | --- | --- |
-| ARR submission | **12 October 2026** |
+| ARR submission | 12 October 2026 — **done**, submission 6377 |
 | Reviewer registration, mandatory | **14 October 2026** |
-| Reviews back | 16 November 2026 |
+| Service contributor named | **15 October 2026, 14:59 TR** |
+| OpenReview profile complete | ~20 October 2026 |
+| Reviews due | 16 November 2026 |
 | Author response | 24–30 November 2026 |
-| Commit to NAACL 2027 | 23 December 2026 |
+| Meta-reviews released | 17 December 2026 |
+| Cycle ends | 20 December 2026 |
+| Commit to NAACL 2027 or COLING 2027 | 23 December 2026 |
+
+Checked against <https://aclrollingreview.org/dates> on 12 October 2026. Note
+that 16 November is when reviewers owe their reviews, not a promise that you see
+them that day; the date you can act on is 24 November, when the response period
+opens.

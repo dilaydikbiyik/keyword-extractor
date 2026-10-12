@@ -33,7 +33,7 @@ The claim behind it is measured on **12,341 documents across six evaluation sets
 and 108 classes** — German trade-register texts (299 hand-checked, plus a
 second set of 1,200 drawn afterwards), 20 Newsgroups (2,000), Reuters-21578
 (959), Brown (413) and 7,470 arXiv abstracts whose labels their own authors
-assigned — under **62 comparisons corrected together**, with
+assigned — under **72 comparisons corrected together**, with
 every prediction committed to version control before it was measured.
 
 **What this repository is really about:** what a class description buys a
@@ -664,7 +664,7 @@ make test          # or: pytest tests/ -q
 make lint
 ```
 
-207 tests: 117 covering the experiment harness, 90 covering the pipeline. One of
+214 tests: 124 covering the experiment harness, 90 covering the pipeline. One of
 them asserts that the harness's "full system" predicts the same section as the
 shipped `SectorClassifier`, so the ablation table measures the real pipeline
 rather than a lookalike. Another reads every figure the diagnostic quotes out of
